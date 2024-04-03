@@ -33,12 +33,12 @@
     Protected Sub SetState(state As String, handler As BaseGameState(Of TModel))
         _states(state) = handler
     End Sub
-    Public Property Size As (Integer, Integer) Implements IGameController.Size
+    Public Property Size As (Width As Integer, Height As Integer) Implements IGameController.Size
         Get
             Return Settings.WindowSize
         End Get
-        Set(value As (Integer, Integer))
-            If value.Item1 <> Settings.WindowSize.Item1 OrElse value.Item2 <> Settings.WindowSize.Item2 Then
+        Set(value As (Width As Integer, Height As Integer))
+            If value.Width <> Settings.WindowSize.Width OrElse value.Height <> Settings.WindowSize.Height Then
                 Settings.WindowSize = value
                 _sizeHook(Settings.WindowSize, Settings.FullScreen)
             End If

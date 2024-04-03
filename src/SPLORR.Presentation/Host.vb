@@ -8,7 +8,7 @@ Imports SPLORR.UI
 Public Class Host
     Inherits Game
     Private ReadOnly _controller As IGameController
-    Private ReadOnly _viewSize As (Integer, Integer)
+    Private ReadOnly _viewSize As (Width As Integer, Height As Integer)
     Private ReadOnly _graphics As GraphicsDeviceManager
     Private ReadOnly _hueTable As IReadOnlyDictionary(Of Integer, Color)
     Private _texture As Texture2D
@@ -60,17 +60,18 @@ Public Class Host
         MediaPlayer.Volume = volume
     End Sub
 
-    Private Sub OnWindowSizeChange(newSize As (Integer, Integer), fullScreen As Boolean)
-        _graphics.PreferredBackBufferWidth = newSize.Item1
-        _graphics.PreferredBackBufferHeight = newSize.Item2
+    Private Sub OnWindowSizeChange(newSize As (Width As Integer, Height As Integer), fullScreen As Boolean)
+        _graphics.PreferredBackBufferWidth = newSize.Width
+        _graphics.PreferredBackBufferHeight = newSize.Height
         _graphics.IsFullScreen = fullScreen
         _graphics.ApplyChanges()
     End Sub
     Const Pitch = 0.0F
     Const Pan = 0.0F
     Private Sub OnSfx(sfx As String)
-        If sfx IsNot Nothing AndAlso _sfxSoundEffects.ContainsKey(sfx) Then
-            _sfxSoundEffects(sfx).Play(_controller.SfxVolume, Pitch, Pan)
+        Dim value As SoundEffect = Nothing
+        If sfx IsNot Nothing AndAlso _sfxSoundEffects.TryGetValue(sfx, value) Then
+            value.Play(_controller.SfxVolume, Pitch, Pan)
         End If
     End Sub
     Private Sub OnMux(mux As String)
@@ -82,7 +83,7 @@ Public Class Host
     End Sub
     Protected Overrides Sub LoadContent()
         _spriteBatch = New SpriteBatch(GraphicsDevice)
-        _texture = New Texture2D(GraphicsDevice, _viewSize.Item1, _viewSize.Item2)
+        _texture = New Texture2D(GraphicsDevice, _viewSize.Width, _viewSize.Height)
         _displayBuffer = New DisplayBuffer(_texture, _hueTable)
     End Sub
     Protected Overrides Sub Update(gameTime As GameTime)
@@ -128,7 +129,7 @@ Public Class Host
     Protected Overrides Sub Draw(gameTime As GameTime)
         _graphics.GraphicsDevice.Clear(Color.Black)
         _spriteBatch.Begin(samplerState:=SamplerState.PointClamp)
-        _spriteBatch.Draw(_texture, New Rectangle(0, 0, _controller.Size.Item1, _controller.Size.Item2), Nothing, Color.White)
+        _spriteBatch.Draw(_texture, New Rectangle(0, 0, _controller.Size.Width, _controller.Size.Height), Nothing, Color.White)
         _spriteBatch.End()
         MyBase.Draw(gameTime)
     End Sub

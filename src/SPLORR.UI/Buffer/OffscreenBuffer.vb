@@ -1,17 +1,17 @@
 ﻿Public Class OffscreenBuffer
     Inherits BasePixelSink
     Implements IPixelSource
-    Private ReadOnly _size As (Integer, Integer)
+    Private ReadOnly _size As (Width As Integer, Height As Integer)
     Private ReadOnly _buffer As Integer()
-    Sub New(size As (Integer, Integer))
+    Sub New(size As (Width As Integer, Height As Integer))
         _size = size
-        ReDim _buffer(_size.Item1 * _size.Item2 - 1)
+        ReDim _buffer(_size.Width * _size.Height - 1)
     End Sub
     Public Overrides Sub SetPixel(x As Integer, y As Integer, hue As Integer)
-        _buffer(x + y * _size.Item1) = hue
+        _buffer(x + y * _size.Width) = hue
     End Sub
     Public Function GetPixel(x As Integer, y As Integer) As Integer Implements IPixelSource.GetPixel
-        Return _buffer(x + y * _size.Item1)
+        Return _buffer(x + y * _size.Width)
     End Function
     Const Zero = 0
     Public Shared Function Create(transform As Func(Of Char, Integer), ParamArray lines As String()) As OffscreenBuffer

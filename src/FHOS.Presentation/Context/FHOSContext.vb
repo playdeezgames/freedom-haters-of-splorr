@@ -65,7 +65,7 @@ Public Class FHOSContext
         End With
     End Sub
 
-    Private ReadOnly aboutLines As IDictionary(Of Integer, (String, Integer)) =
+    Private ReadOnly aboutLines As IDictionary(Of Integer, (Text As String, Hue As Integer)) =
         New Dictionary(Of Integer, (String, Integer)) From
         {
             {0, ("About Freedom Haters of SPLORR!!", 11)},
@@ -76,7 +76,11 @@ Public Class FHOSContext
     Public Overrides Sub ShowAboutContent(displayBuffer As IPixelSink, font As Font)
         With font
             For Each aboutLine In aboutLines
-                .WriteText(displayBuffer, (0, font.Height * aboutLine.Key), aboutLine.Value.Item1, aboutLine.Value.Item2)
+                .WriteText(
+                    displayBuffer,
+                    (0, font.Height * aboutLine.Key),
+                    aboutLine.Value.Text,
+                    aboutLine.Value.Hue)
             Next
         End With
     End Sub

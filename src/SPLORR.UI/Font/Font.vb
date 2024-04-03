@@ -12,14 +12,14 @@
             _glyphs(glyph) = New GlyphBuffer(fontData, glyph)
         Next
     End Sub
-    Public Sub WriteText(sink As IPixelSink, position As (Integer, Integer), text As String, hue As Integer)
+    Public Sub WriteText(sink As IPixelSink, position As (X As Integer, Y As Integer), text As String, hue As Integer)
         If text Is Nothing Then
             Return
         End If
         For Each character In text
             Dim buffer = _glyphs(character)
             buffer.CopyTo(sink, position, hue)
-            position = (position.Item1 + buffer.Width, position.Item2)
+            position = (position.X + buffer.Width, position.Y)
         Next
     End Sub
     Const Zero = 0

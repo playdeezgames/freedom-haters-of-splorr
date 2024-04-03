@@ -1,11 +1,13 @@
-﻿Friend Class LoadState(Of TModel)
+﻿Imports System.ComponentModel
+
+Friend Class LoadState(Of TModel)
     Inherits BasePickerState(Of TModel, Integer)
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of TModel))
         MyBase.New(parent, setState, context, "Load Game", context.ControlsText("Select", "Cancel"), BoilerplateState.MainMenu)
     End Sub
 
-    Protected Overrides Sub OnActivateMenuItem(value As (String, Integer))
-        Dim slotIndex = value.Item2
+    Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As Integer))
+        Dim slotIndex = value.Item
         If slotIndex > 0 AndAlso Context.DoesSlotExist(slotIndex) Then
             Context.LoadGame(slotIndex)
             SetState(BoilerplateState.Neutral)

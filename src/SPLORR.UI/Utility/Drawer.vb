@@ -5,11 +5,11 @@
     Private sink As IPixelSink
     Sub New(
            sink As IPixelSink,
-           Optional position As (Integer, Integer) = Nothing,
+           Optional position As (X As Integer, Y As Integer) = Nothing,
            Optional hue As Integer = 0)
         Me.sink = sink
-        X = position.Item1
-        Y = position.Item2
+        X = position.X
+        Y = position.Y
         Me.Hue = hue
     End Sub
     Const Zero = 0

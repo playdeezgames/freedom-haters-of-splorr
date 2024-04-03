@@ -34,7 +34,7 @@
             Parent.SfxVolume = value
         End Set
     End Property
-    Public Property Size As (Integer, Integer) Implements IGameController.Size
+    Public Property Size As (Width As Integer, Height As Integer) Implements IGameController.Size
         Get
             Return Parent.Size
         End Get

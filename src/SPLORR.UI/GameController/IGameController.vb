@@ -9,7 +9,7 @@
     Sub PlaySfx(sfx As String)
     Sub PlayMux(mux As String)
     Property SfxVolume As Single
-    Property Size As (Integer, Integer)
+    Property Size As (Width As Integer, Height As Integer)
     Property FullScreen As Boolean
     Property MuxVolume As Single
     Sub SetMuxVolumeHook(hook As Action(Of Single))

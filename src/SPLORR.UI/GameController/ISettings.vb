@@ -1,5 +1,5 @@
 ﻿Public Interface ISettings
-    Property WindowSize As (width As Integer, height As Integer)
+    Property WindowSize As (Width As Integer, Height As Integer)
     Property FullScreen As Boolean
     Property SfxVolume As Single
     Property MuxVolume As Single

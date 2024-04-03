@@ -7,8 +7,8 @@
         MyBase.New(parent, setState, context, "Options", context.ControlsText("Select", "Cancel"), Nothing)
     End Sub
 
-    Protected Overrides Sub OnActivateMenuItem(value As (String, String))
-        Select Case value.Item2
+    Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
+        Select Case value.Item
             Case ToggleFullScreenText
                 Parent.FullScreen = Not Parent.FullScreen
                 SaveConfig()

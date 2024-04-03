@@ -1,6 +1,6 @@
 ﻿Public MustInherit Class BasePickerState(Of TModel, TItem)
     Inherits BaseGameState(Of TModel)
-    Private _menuItems As New List(Of (String, TItem))
+    Private _menuItems As New List(Of (Text As String, Item As TItem))
     Protected MenuItemIndex As Integer
     Private ReadOnly _statusBarText As String
     Protected Property HeaderText As String
@@ -29,17 +29,17 @@
                 MenuItemIndex = (MenuItemIndex + 1) Mod _menuItems.Count
         End Select
     End Sub
-    Protected MustOverride Sub OnActivateMenuItem(value As (String, TItem))
+    Protected MustOverride Sub OnActivateMenuItem(value As (Text As String, Item As TItem))
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(BoilerplateHue.Black)
         Dim font = Context.Font(UIFont)
         displayBuffer.Fill((0, Context.ViewSize.Height \ 2 - font.Height \ 2), (Context.ViewSize.Width, font.Height), BoilerplateHue.Blue)
-        Dim y = Context.ViewSize.Item2 \ 2 - font.Height \ 2 - MenuItemIndex * font.Height
+        Dim y = Context.ViewSize.Height \ 2 - font.Height \ 2 - MenuItemIndex * font.Height
         Dim index = 0
         For Each menuItem In _menuItems
-            Dim x = Context.ViewSize.Width \ 2 - font.TextWidth(menuItem.Item1) \ 2
+            Dim x = Context.ViewSize.Width \ 2 - font.TextWidth(menuItem.Text) \ 2
             Dim h = If(index = MenuItemIndex, BoilerplateHue.Black, BoilerplateHue.Blue)
-            font.WriteText(displayBuffer, (x, y), menuItem.Item1, h)
+            font.WriteText(displayBuffer, (x, y), menuItem.Text, h)
             index += 1
             y += font.Height
         Next
@@ -50,5 +50,5 @@
         MenuItemIndex = 0
         _menuItems = InitializeMenuItems()
     End Sub
-    Protected MustOverride Function InitializeMenuItems() As List(Of (String, TItem))
+    Protected MustOverride Function InitializeMenuItems() As List(Of (Text As String, Item As TItem))
 End Class
