@@ -19,6 +19,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SPLORR.UI", "SPLORR.UI\SPLO
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SPLORR.Presentation", "SPLORR.Presentation\SPLORR.Presentation.vbproj", "{B2F0AE18-F9CF-42C6-A856-A2E7AFDD65C3}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FontMaker", "FontMaker\FontMaker.vbproj", "{26FC346E-3D67-47EC-895B-835F44C27E54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{B2F0AE18-F9CF-42C6-A856-A2E7AFDD65C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2F0AE18-F9CF-42C6-A856-A2E7AFDD65C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2F0AE18-F9CF-42C6-A856-A2E7AFDD65C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26FC346E-3D67-47EC-895B-835F44C27E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26FC346E-3D67-47EC-895B-835F44C27E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26FC346E-3D67-47EC-895B-835F44C27E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26FC346E-3D67-47EC-895B-835F44C27E54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
