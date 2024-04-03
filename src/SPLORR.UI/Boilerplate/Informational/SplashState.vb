@@ -7,7 +7,7 @@
 
     Public Overrides Sub HandleCommand(cmd As String)
         Select Case cmd
-            Case Command.A
+            Case Command.A, Command.Start
                 SetState(BoilerplateState.MainMenu)
         End Select
     End Sub
