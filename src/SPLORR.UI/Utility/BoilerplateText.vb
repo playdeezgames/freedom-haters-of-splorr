@@ -1,0 +1,18 @@
+﻿Friend Module BoilerplateText
+    Friend Const AbandonGameText = "Abandon Game"
+    Friend Const AboutText = "About..."
+    Friend Const ContinueGameText = "Continue Game"
+    Friend Const EmbarkText = "Embark!"
+    Friend Const LoadText = "Load..."
+    Friend Const NoText = "No"
+    Friend Const OptionsText = "Options..."
+    Friend Const QuitText = "Quit"
+    Friend Const SaveGameText = "Save..."
+    Friend Const ScumLoadText = "Scum Load"
+    Friend Const ScumSaveText = "Scum Save"
+    Friend Const SetSfxVolumeText = "Sfx Volume..."
+    Friend Const SetMuxVolumeText = "Mux Volume..."
+    Friend Const SetWindowSizeText = "Window Size..."
+    Friend Const ToggleFullScreenText = "Toggle Full Screen"
+    Friend Const YesText = "Yes"
+End Module

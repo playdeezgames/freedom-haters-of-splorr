@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>FHOS.Presentation</RootNamespace>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FHOS.Model\FHOS.Model.vbproj" />
+    <ProjectReference Include="..\SPLORR.UI\SPLORR.UI.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="States\" />
+  </ItemGroup>
+
+</Project>
