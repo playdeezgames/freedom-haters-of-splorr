@@ -1,8 +1,8 @@
 ﻿Public Module Grimoire
-    Public Const DefaultScreenWidth = ViewWidth * 3
-    Public Const DefaultScreenHeight = ViewHeight * 3
-    Public Const ViewHeight = 216
-    Public Const ViewWidth = 384
+    Public Const DefaultScreenWidth = ViewWidth * 4
+    Public Const DefaultScreenHeight = ViewHeight * 4
+    Public Const ViewHeight = 180
+    Public Const ViewWidth = 320
     Public Const GameTitle = "Freedom Haters of SPLORR!!"
     Public Const GameSubtitle = "Liberty is for the Anarchists"
 
