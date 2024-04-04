@@ -11,12 +11,16 @@ Public MustInherit Class UIContext(Of TModel)
             Return (ViewSize.Width \ 2, ViewSize.Height \ 2)
         End Get
     End Property
-    Sub New(game As TModel, fontFilenames As IReadOnlyDictionary(Of String, String), viewSize As (Width As Integer, Height As Integer))
+
+    Public ReadOnly Property UIPalette As IUIPalette Implements IUIContext(Of TModel).UIPalette
+
+    Sub New(game As TModel, fontFilenames As IReadOnlyDictionary(Of String, String), viewSize As (Width As Integer, Height As Integer), palette As IUIPalette)
         Me.Model = game
         Me.ViewSize = viewSize
         For Each entry In fontFilenames
             fonts(entry.Key) = New Font(JsonSerializer.Deserialize(Of FontData)(File.ReadAllText(entry.Value)))
         Next
+        Me.UIPalette = palette
     End Sub
     Public Sub ShowStatusBar(displayBuffer As IPixelSink, font As Font, text As String, foreground As Integer, background As Integer) Implements IUIContext(Of TModel).ShowStatusBar
         displayBuffer.Fill((0, ViewSize.Height - font.Height), (ViewSize.Width, font.Height), background)

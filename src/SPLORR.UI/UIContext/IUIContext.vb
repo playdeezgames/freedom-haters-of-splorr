@@ -13,4 +13,5 @@
     Sub LoadGame(slot As Integer)
     Sub SaveGame(slot As Integer)
     Function DoesSlotExist(slot As Integer) As Boolean
+    ReadOnly Property UIPalette As IUIPalette
 End Interface

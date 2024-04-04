@@ -31,20 +31,20 @@
     End Sub
     Protected MustOverride Sub OnActivateMenuItem(value As (Text As String, Item As TItem))
     Public Overrides Sub Render(displayBuffer As IPixelSink)
-        displayBuffer.Fill(BoilerplateHue.Black)
+        displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFont)
         displayBuffer.Fill((0, Context.ViewSize.Height \ 2 - font.Height \ 2), (Context.ViewSize.Width, font.Height), BoilerplateHue.Blue)
         Dim y = Context.ViewSize.Height \ 2 - font.Height \ 2 - MenuItemIndex * font.Height
         Dim index = 0
         For Each menuItem In _menuItems
             Dim x = Context.ViewSize.Width \ 2 - font.TextWidth(menuItem.Text) \ 2
-            Dim h = If(index = MenuItemIndex, BoilerplateHue.Black, BoilerplateHue.Blue)
+            Dim h = If(index = MenuItemIndex, Context.UIPalette.Background, BoilerplateHue.Blue)
             font.WriteText(displayBuffer, (x, y), menuItem.Text, h)
             index += 1
             y += font.Height
         Next
-        Context.ShowHeader(displayBuffer, font, HeaderText, BoilerplateHue.Orange, BoilerplateHue.Black)
-        Context.ShowStatusBar(displayBuffer, font, _statusBarText, BoilerplateHue.Black, BoilerplateHue.LightGray)
+        Context.ShowHeader(displayBuffer, font, HeaderText, BoilerplateHue.Orange, Context.UIPalette.Background)
+        Context.ShowStatusBar(displayBuffer, font, _statusBarText, Context.UIPalette.Background, BoilerplateHue.LightGray)
     End Sub
     Public Overrides Sub OnStart()
         MenuItemIndex = 0
