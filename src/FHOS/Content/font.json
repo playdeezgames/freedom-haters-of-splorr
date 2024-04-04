@@ -1,3 +1,4 @@
 {
-  "UIFont": "Content/Fonts/Coco.json"
+  "UIFont": "Content/Fonts/Coco.json",
+  "Sprites": "Context/Fonts/Sprites.json"
 }
