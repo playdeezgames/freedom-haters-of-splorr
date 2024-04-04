@@ -11,7 +11,7 @@ Public MustInherit Class UIContext(Of TModel)
             Return (ViewSize.Width \ 2, ViewSize.Height \ 2)
         End Get
     End Property
-    Sub New(game As TModel, fontFilenames As IReadOnlyDictionary(Of String, String), viewSize As (Integer, Integer))
+    Sub New(game As TModel, fontFilenames As IReadOnlyDictionary(Of String, String), viewSize As (Width As Integer, Height As Integer))
         Me.Model = game
         Me.ViewSize = viewSize
         For Each entry In fontFilenames

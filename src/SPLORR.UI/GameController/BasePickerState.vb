@@ -21,11 +21,11 @@
         Select Case cmd
             Case Command.B
                 SetState(_cancelGameState)
-            Case Command.A
+            Case Command.A, Command.Start
                 OnActivateMenuItem(_menuItems(MenuItemIndex))
             Case Command.Up
                 MenuItemIndex = (MenuItemIndex + _menuItems.Count - 1) Mod _menuItems.Count
-            Case Command.Down
+            Case Command.Down, Command.Select
                 MenuItemIndex = (MenuItemIndex + 1) Mod _menuItems.Count
         End Select
     End Sub
