@@ -1,7 +1,7 @@
 ﻿Friend Class GameMenuState(Of TModel)
     Inherits BasePickerState(Of TModel, String)
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of TModel))
-        MyBase.New(parent, setState, context, "Game Menu", context.ControlsText("Select", "Cancel"), BoilerplateState.Neutral)
+        MyBase.New(parent, setState, context, "Game Menu", context.ControlsText("Choose", "Cancel"), BoilerplateState.Neutral)
     End Sub
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
         Select Case value.Item

@@ -2,15 +2,14 @@
     ReadOnly Property Columns As Long
     ReadOnly Property Rows As Long
     Private ReadOnly _cells As New List(Of MazeCell(Of TDirection))
-    Const Zero = 0
     Sub New(columns As Long, rows As Long, directions As IReadOnlyDictionary(Of TDirection, MazeDirection(Of TDirection)))
         Me.Columns = columns
         Me.Rows = rows
         While _cells.Count < columns * rows
             _cells.Add(New MazeCell(Of TDirection))
         End While
-        For column = Zero To columns - 1
-            For row = Zero To rows - 1
+        For column = 0 To columns - 1
+            For row = 0 To rows - 1
                 Dim cell = GetCell(column, row)
                 For Each direction In directions
                     If Not cell.HasNeighbor(direction.Key) Then
@@ -36,7 +35,7 @@
     End Sub
     Sub Generate()
         Reset()
-        Dim cell = GetCell(RNG.FromRange(Zero, CInt(Columns) - 1), RNG.FromRange(Zero, CInt(Rows) - 1))
+        Dim cell = GetCell(RNG.FromRange(0, CInt(Columns) - 1), RNG.FromRange(0, CInt(Rows) - 1))
         Dim inside As New List(Of MazeCell(Of TDirection)) From {cell}
         Dim frontier = cell.Neighbors
         While frontier.Any
@@ -51,7 +50,7 @@
         End While
     End Sub
     Function GetCell(column As Long, row As Long) As MazeCell(Of TDirection)
-        If column >= Zero AndAlso row >= Zero AndAlso column < Columns AndAlso row < Rows Then
+        If column >= 0 AndAlso row >= 0 AndAlso column < Columns AndAlso row < Rows Then
             Return _cells(CInt(column + row * Columns))
         End If
         Return Nothing

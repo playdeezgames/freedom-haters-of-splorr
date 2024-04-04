@@ -21,6 +21,11 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SPLORR.Presentation", "SPLO
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FontMaker", "FontMaker\FontMaker.vbproj", "{26FC346E-3D67-47EC-895B-835F44C27E54}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_STUFF", "_STUFF", "{CA752FDE-1B1E-48AE-99B1-BE67A4C4F7FC}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

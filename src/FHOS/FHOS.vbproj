@@ -18,6 +18,10 @@
   <ItemGroup>
     <None Remove="aboot.txt" />
     <None Remove="Content\Audio\Mux\CombatTheme.ogg" />
+    <None Remove="Content\Audio\Mux\FHOS_Major_Fast.ogg" />
+    <None Remove="Content\Audio\Mux\FHOS_Major_Slow.ogg" />
+    <None Remove="Content\Audio\Mux\FHOS_Minor_Fast.ogg" />
+    <None Remove="Content\Audio\Mux\FHOS_Minor_Slow.ogg" />
     <None Remove="Content\Audio\Mux\MainTheme.ogg" />
     <None Remove="Content\Audio\Sfx\Craft.wav" />
     <None Remove="Content\Audio\Sfx\Eat.wav" />
@@ -49,10 +53,16 @@
     <Content Include="aboot.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Audio\Mux\CombatTheme.ogg">
+    <Content Include="Content\Audio\Mux\FHOS_Major_Fast.ogg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Audio\Mux\MainTheme.ogg">
+    <Content Include="Content\Audio\Mux\FHOS_Major_Slow.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Audio\Mux\FHOS_Minor_Fast.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Audio\Mux\FHOS_Minor_Slow.ogg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Audio\Sfx\Craft.wav">

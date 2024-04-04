@@ -1,6 +1,6 @@
 {
-  "MainTheme": "Content/Audio/Mux/MainTheme.ogg",
-  "CombatTheme": "Content/Audio/Mux/CombatTheme.ogg",
-  "VictoryTheme": "Content/Audio/Mux/CombatTheme.ogg",
-  "DeathTheme": "Content/Audio/Mux/MainTheme.ogg"
+  "MainTheme": "Content/Audio/Mux/FHOS_Minor_Slow.ogg",
+  "CombatTheme": "Content/Audio/Mux/FHOS_Major_Fast.ogg",
+  "VictoryTheme": "Content/Audio/Mux/FHOS_Minor_Fast.ogg",
+  "DeathTheme": "Content/Audio/Mux/FHOS_Major_Slow.ogg"
 }

@@ -4,7 +4,7 @@
                   parent As IGameController,
                   setState As Action(Of String, Boolean),
                   context As IUIContext(Of TModel))
-        MyBase.New(parent, setState, context, "Options", context.ControlsText("Select", "Cancel"), Nothing)
+        MyBase.New(parent, setState, context, "Options", context.ControlsText("Choose", "Cancel"), Nothing)
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
