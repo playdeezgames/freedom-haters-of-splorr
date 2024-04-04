@@ -38,6 +38,7 @@
     <None Remove="Content\Audio\Sfx\Yoink.wav" />
     <None Remove="Content\Config\keys.json" />
     <None Remove="Content\font.json" />
+    <None Remove="Content\Fonts\Coco.json" />
     <None Remove="Content\Fonts\CyFont3x5.json" />
     <None Remove="Content\Fonts\CyFont4x6.json" />
     <None Remove="Content\Fonts\CyFont5x7.json" />
@@ -108,6 +109,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\font.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\Coco.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Fonts\CyFont3x5.json">

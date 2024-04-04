@@ -22,15 +22,15 @@ Public Class FHOSContext
     Private ReadOnly DeltasAndColor As IReadOnlyList(Of (deltaX As Integer, deltaY As Integer, hue As Integer)) =
         New List(Of (Integer, Integer, Integer)) From
         {
-            (-1, -1, 13),
-            (0, -1, 13),
-            (1, -1, 13),
-            (-1, 0, 13),
-            (1, 0, 13),
-            (-1, 1, 13),
-            (0, 1, 13),
-            (1, 1, 13),
-            (0, 0, 6)
+            (-1, -1, 6),
+            (0, -1, 6),
+            (1, -1, 6),
+            (-1, 0, 6),
+            (1, 0, 6),
+            (-1, 1, 6),
+            (0, 1, 6),
+            (1, 1, 6),
+            (0, 0, 13)
         }
     Private Sub ShowTitle(displayBuffer As IPixelSink, font As Font)
         Dim text = GameTitle
@@ -49,7 +49,7 @@ Public Class FHOSContext
     Public Overrides Sub ShowSplashContent(displayBuffer As IPixelSink, font As Font)
         ShowTitle(displayBuffer, font)
         ShowSubtitle(displayBuffer, font)
-        ShowStatusBar(displayBuffer, font, ControlsText(ContinueText, Nothing), 0, 7)
+        ShowStatusBar(displayBuffer, font, ControlsText(ContinueText, Nothing), UIPalette.Background, UIPalette.Footer)
     End Sub
 
     Private Sub ShowSubtitle(displayBuffer As IPixelSink, font As Font)
@@ -61,16 +61,16 @@ Public Class FHOSContext
                     displayBuffer,
                     (x, y),
                     text,
-                    8)
+                    4)
         End With
     End Sub
 
     Private ReadOnly aboutLines As IDictionary(Of Integer, (Text As String, Hue As Integer)) =
         New Dictionary(Of Integer, (String, Integer)) From
         {
-            {0, ("About Freedom Haters of SPLORR!!", 11)},
-            {8, ("A Production of TheGrumpyGameDev", 15)},
-            {12, ("See 'aboot.txt'", 15)}
+            {0, ("About Freedom Haters of SPLORR!!", 6)},
+            {8, ("A Production of TheGrumpyGameDev", 0)},
+            {12, ("See 'aboot.txt'", 0)}
         }
 
     Public Overrides Sub ShowAboutContent(displayBuffer As IPixelSink, font As Font)
@@ -83,6 +83,7 @@ Public Class FHOSContext
                     aboutLine.Value.Hue)
             Next
         End With
+        ShowStatusBar(displayBuffer, font, ControlsText(Nothing, "Close"), UIPalette.Background, UIPalette.Footer)
     End Sub
 
     Public Overrides Sub AbandonGame()

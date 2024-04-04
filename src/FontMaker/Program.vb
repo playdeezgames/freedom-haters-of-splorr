@@ -11,6 +11,12 @@ Module Program
             12,
             "..\..\..\..\FHOS\Content\Fonts\Sprites.json",
             0)
+        MakeFont(
+            "coco.png",
+            8,
+            12,
+            "..\..\..\..\FHOS\Content\Fonts\Coco.json",
+            32)
     End Sub
     Private Sub MakeFont(
                         inputFilename As String,
