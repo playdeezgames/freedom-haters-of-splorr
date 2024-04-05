@@ -7,6 +7,15 @@ Public Class World
         MyBase.New(worldData)
     End Sub
 
+    Public ReadOnly Property Avatar As ICharacter Implements IWorld.Avatar
+        Get
+            If WorldData.AvatarId.HasValue Then
+                Return New Character(WorldData, WorldData.AvatarId.Value)
+            End If
+            Return Nothing
+        End Get
+    End Property
+
     Public Sub SetAvatar(character As ICharacter) Implements IWorld.SetAvatar
         WorldData.AvatarId = character.Id
     End Sub
@@ -19,7 +28,7 @@ Public Class World
                 .Rows = rows,
                 .Cells = Enumerable.
                     Range(0, columns * rows).
-                    Select(Function(x) CreateCell(terrainType, mapId).Id).ToList
+                    Select(Function(x) CreateCell(terrainType, mapId, x Mod rows, x \ rows).Id).ToList
             })
         Return New Map(WorldData, mapId)
     End Function
@@ -29,17 +38,23 @@ Public Class World
         WorldData.Characters.Add(New CharacterData With
                                  {
                                     .CharacterType = characterType,
+                                    .Facing = 0,
                                     .CellId = cell.Id
                                  })
-        Return New Character(WorldData, characterId)
+        Dim character = New Character(WorldData, characterId)
+        cell.Character = character
+        Return character
     End Function
 
-    Public Function CreateCell(terrainType As String, mapId As Integer) As ICell Implements IWorld.CreateCell
+    Public Function CreateCell(terrainType As String, mapId As Integer, column As Integer, row As Integer) As ICell Implements IWorld.CreateCell
         Dim cellId = WorldData.Cells.Count
         WorldData.Cells.Add(New CellData With
                             {
                                 .TerrainType = terrainType,
-                                .MapId = mapId
+                                .MapId = mapId,
+                                .Column = column,
+                                .Row = row,
+                                .CharacterId = Nothing
                             })
         Return New Cell(WorldData, cellId)
     End Function

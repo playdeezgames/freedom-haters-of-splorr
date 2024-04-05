@@ -8,7 +8,6 @@
             Return Context.Model
         End Get
     End Property
-    Protected Const Zero = 0
     Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of TModel))
         Me.Parent = parent
         Me.SetCurrentState = setState

@@ -10,11 +10,14 @@ Friend Class Map
 
     Public ReadOnly Property World As IWorld Implements IMap.World
         Get
-            Throw New NotImplementedException()
+            Return New World(WorldData)
         End Get
     End Property
 
     Public Function GetCell(column As Integer, row As Integer) As ICell Implements IMap.GetCell
-        Throw New NotImplementedException()
+        If column < 0 OrElse row < 0 OrElse column >= MapData.Columns OrElse row >= MapData.Rows Then
+            Return Nothing
+        End If
+        Return New Cell(WorldData, MapData.Cells(column + row * MapData.Columns))
     End Function
 End Class

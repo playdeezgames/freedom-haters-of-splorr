@@ -4,8 +4,6 @@ Imports SPLORR.Game
 Friend Module WorldInitializer
     Const StarMapColumns = 63
     Const StarMapRows = 63
-    Const CharacterTypePlayer = "Player"
-    Const TerrainTypeVoid = "Void"
 
     Sub Initialize(world As IWorld)
         Dim starMap = InitializeStarMap(world)
