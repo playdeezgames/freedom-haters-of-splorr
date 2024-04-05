@@ -15,6 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FHOS.Persistence\FHOS.Persistence.vbproj" />
     <ProjectReference Include="..\SPLORR.Game\SPLORR.Game.vbproj" />
   </ItemGroup>
