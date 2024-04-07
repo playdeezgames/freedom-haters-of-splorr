@@ -1,3 +1,3 @@
-﻿Public Module CharacterTypes
-    Public Const Player = "Player"
+﻿Friend Module CharacterTypes
+    Friend Const Player = "Player"
 End Module

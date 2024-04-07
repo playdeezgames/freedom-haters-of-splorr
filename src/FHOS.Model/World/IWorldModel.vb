@@ -3,4 +3,5 @@ Public Interface IWorldModel
     Sub Load(filename As String)
     Sub Abandon()
     Sub Embark()
+    ReadOnly Property Board As IBoardModel
 End Interface

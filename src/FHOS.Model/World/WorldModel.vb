@@ -5,7 +5,6 @@ Imports FHOS.Persistence
 
 Public Class WorldModel
     Implements IWorldModel
-    Const BoardRadius = 6
 
     Private worldData As WorldData = Nothing
 
@@ -22,6 +21,12 @@ Public Class WorldModel
     Private ReadOnly Property World As IWorld
         Get
             Return New World(worldData)
+        End Get
+    End Property
+
+    Public ReadOnly Property Board As IBoardModel Implements IWorldModel.Board
+        Get
+            Return New BoardModel(World)
         End Get
     End Property
 
