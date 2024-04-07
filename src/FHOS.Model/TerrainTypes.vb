@@ -1,3 +1,3 @@
 ﻿Public Module TerrainTypes
-    Public Const TerrainTypeVoid = "Void"
+    Public Const Void = "Void"
 End Module

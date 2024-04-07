@@ -9,24 +9,6 @@ Public Class WorldModel
 
     Private worldData As WorldData = Nothing
 
-    Public ReadOnly Property Board As IReadOnlyDictionary(Of Integer, IReadOnlyDictionary(Of Integer, (TerrainType As String, Character As (CharacterType As String, Facing As Integer)))) Implements IWorldModel.Board
-        Get
-            Return Enumerable.
-                Range(-BoardRadius, BoardRadius * 2 + 1).
-                ToDictionary(
-                    Function(x As Integer) x,
-                    Function(boardColumn As Integer) As IReadOnlyDictionary(Of Integer, (TerrainType As String, Character As (CharacterType As String, Facing As Integer)))
-                        Return Enumerable.
-                            Range(-BoardRadius, BoardRadius * 2 + 1).
-                            ToDictionary(
-                                Function(y As Integer) y,
-                                Function(boardRow As Integer) As (TerrainType As String, Character As (CharacterType As String, Facing As Integer))
-                                    Return GetBoardCell(boardColumn, boardRow)
-                                End Function)
-                    End Function)
-        End Get
-    End Property
-
     Private Function GetBoardCell(boardColumn As Integer, boardRow As Integer) As (TerrainType As String, Character As (CharacterType As String, Facing As Integer))
         Dim avatar As ICharacter = World.Avatar
         Dim avatarCell As ICell = avatar.Cell

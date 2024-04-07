@@ -1,3 +1,3 @@
 ﻿Public Module CharacterTypes
-    Public Const CharacterTypePlayer = "Player"
+    Public Const Player = "Player"
 End Module
