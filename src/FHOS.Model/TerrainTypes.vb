@@ -1,3 +1,3 @@
-﻿Friend Module TerrainTypes
-    Friend Const Void = "Void"
+﻿Public Module TerrainTypes
+    Public Const Void = "Void"
 End Module

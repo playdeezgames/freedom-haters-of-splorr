@@ -9,5 +9,4 @@
     Friend Const ConfigFileName = "config.json"
     Friend Const ContinueText = "Continue"
     Friend Const UIFontName = "UIFont"
-    Friend Const SpriteFontName = "Sprites"
 End Module

@@ -4,4 +4,5 @@ Public Interface IWorldModel
     Sub Abandon()
     Sub Embark()
     ReadOnly Property Board As IBoardModel
+    ReadOnly Property Avatar As IAvatarModel
 End Interface

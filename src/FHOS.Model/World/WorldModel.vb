@@ -30,6 +30,12 @@ Public Class WorldModel
         End Get
     End Property
 
+    Public ReadOnly Property Avatar As IAvatarModel Implements IWorldModel.Avatar
+        Get
+            Return New AvatarModel(World)
+        End Get
+    End Property
+
     Public Sub Save(filename As String) Implements IWorldModel.Save
         File.WriteAllText(filename, JsonSerializer.Serialize(worldData))
     End Sub
