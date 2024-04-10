@@ -6,17 +6,11 @@ Imports SPLORR.UI
 Module Program
     Sub Main(args As String())
         MakeFont(
-            "source.png",
-            12,
-            12,
-            "..\..\..\..\FHOS\Content\Fonts\Sprites.json",
-            0)
-        MakeFont(
             "coco.png",
             8,
             12,
             "..\..\..\..\FHOS\Content\Fonts\Coco.json",
-            32)
+            0)
     End Sub
     Private Sub MakeFont(
                         inputFilename As String,

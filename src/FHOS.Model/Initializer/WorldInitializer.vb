@@ -17,7 +17,7 @@ Friend Module WorldInitializer
     End Function
 
     Private Function InitializeStarMap(world As IWorld) As IMap
-        Dim starMap = world.CreateMap(StarMapColumns, StarMapRows, Void)
+        Dim starMap = world.CreateMap(StarMapColumns, StarMapRows, TerrainTypes.Void)
         Return starMap
     End Function
 End Module

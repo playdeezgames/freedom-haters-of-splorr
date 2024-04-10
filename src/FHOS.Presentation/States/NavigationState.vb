@@ -3,8 +3,8 @@ Imports SPLORR.UI
 
 Friend Class NavigationState
     Inherits BaseGameState(Of IWorldModel)
-    Private Const ViewColumns = 15
-    Private Const ViewRows = 13
+    Private Const ViewColumns = 19
+    Private Const ViewRows = 15
 
     Public Sub New(
                   parent As IGameController,
@@ -31,12 +31,6 @@ Friend Class NavigationState
             (0, 0),
             (cellWidth, cellHeight))
         RenderStatistics(displayBuffer, uiFont, (ViewColumns * cellWidth, 0))
-        Context.ShowStatusBar(
-            displayBuffer,
-            Context.Font(UIFontName),
-            Context.ControlsText("Actions", "Menu"),
-            Context.UIPalette.Background,
-            Context.UIPalette.Footer)
     End Sub
 
     Private Sub RenderStatistics(displayBuffer As IPixelSink, uiFont As Font, position As (X As Integer, Y As Integer))
@@ -72,11 +66,12 @@ Friend Class NavigationState
                           boardPosition As (X As Integer, Y As Integer),
                           plotPosition As (X As Integer, Y As Integer),
                           cellSize As (Width As Integer, Height As Integer))
-        Dim boardCell = Context.Model.Board.GetCell(boardPosition)
-        If Not boardCell.Exists Then
+        Dim cellModel = Context.Model.Board.GetCell(boardPosition)
+        If Not cellModel.Exists Then
             Return
         End If
         displayBuffer.Fill(plotPosition, cellSize, 0)
-        uiFont.WriteText(displayBuffer, plotPosition, ".", 8)
+        Dim terrainModel = cellModel.Terrain
+        uiFont.WriteText(displayBuffer, plotPosition, terrainModel.Glyph, terrainModel.Hue)
     End Sub
 End Class
