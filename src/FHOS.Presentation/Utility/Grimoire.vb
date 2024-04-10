@@ -4,7 +4,7 @@
     Public Const ViewHeight = 180
     Public Const ViewWidth = 320
     Public Const GameTitle = "Freedom Haters of SPLORR!!"
-    Public Const GameSubtitle = "Liberty is for the Anarchists"
+    Public Const GameSubtitle = "Liberty is for Anarchists"
 
     Friend Const ConfigFileName = "config.json"
     Friend Const ContinueText = "Continue"
