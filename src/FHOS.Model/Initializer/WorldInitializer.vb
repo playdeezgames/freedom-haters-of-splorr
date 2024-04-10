@@ -27,8 +27,9 @@ Friend Module WorldInitializer
             Dim column = RNG.FromRange(0, StarMapColumns - 1)
             Dim row = RNG.FromRange(0, StarMapRows - 1)
             If stars.All(Function(star) (column - star.Column) * (column - star.Column) + (row - star.Row) * (row - star.Row) >= MinimumDistance) Then
+                Dim starType = StarTypes.GenerateStarType()
                 stars.Add((column, row))
-                starMap.GetCell(column, row).TerrainType = TerrainTypes.Star
+                starMap.GetCell(column, row).TerrainType = StarTypes.Descriptors(starType).TerrainType
                 tries = 0
             Else
                 tries += 1

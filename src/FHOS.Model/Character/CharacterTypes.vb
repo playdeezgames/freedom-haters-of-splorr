@@ -1,8 +1,8 @@
 ﻿Friend Module CharacterTypes
     Friend Const Player = "Player"
-    Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, CharacterDescriptor) =
-        New Dictionary(Of String, CharacterDescriptor) From
+    Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, CharacterTypeDescriptor) =
+        New Dictionary(Of String, CharacterTypeDescriptor) From
         {
-            {Player, New CharacterDescriptor(ChrW(128), Orange)}
+            {Player, New CharacterTypeDescriptor(ChrW(128), Hue.Orange)}
         }
 End Module

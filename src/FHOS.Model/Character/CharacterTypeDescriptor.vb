@@ -1,4 +1,4 @@
-﻿Friend Class CharacterDescriptor
+﻿Friend Class CharacterTypeDescriptor
     ReadOnly Property Glyph As Char
     ReadOnly Property Hue As Integer
     Sub New(glyph As Char, hue As Integer)
