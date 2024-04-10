@@ -21,35 +21,49 @@ Public Class World
     End Sub
 
     Public Function CreateMap(columns As Integer, rows As Integer, terrainType As String) As IMap Implements IWorld.CreateMap
-        Dim mapId = WorldData.Maps.Count
+        Dim mapId As Integer
         Dim mapData = New MapData With
             {
                 .Columns = columns,
                 .Rows = rows,
-                .Cells = Enumerable.
+                .Cells = Nothing
+            }
+        If WorldData.RecycledMaps.Any Then
+            mapId = WorldData.RecycledMaps.First
+            WorldData.RecycledMaps.Remove(mapId)
+            WorldData.Maps(mapId) = mapData
+        Else
+            mapId = WorldData.Maps.Count
+            WorldData.Maps.Add(mapData)
+        End If
+        mapData.Cells = Enumerable.
                     Range(0, columns * rows).
                     Select(Function(x) CreateCell(terrainType, mapId, x Mod rows, x \ rows).Id).ToList
-            }
-        WorldData.Maps.Add(mapData)
         Return New Map(WorldData, mapId)
     End Function
 
     Public Function CreateCharacter(characterType As String, cell As ICell) As ICharacter Implements IWorld.CreateCharacter
-        Dim characterId = WorldData.Characters.Count
         Dim characterData = New CharacterData With
                                  {
                                     .CharacterType = characterType,
                                     .Facing = 0,
                                     .CellId = cell.Id
                                  }
-        WorldData.Characters.Add(characterData)
+        Dim characterId As Integer
+        If WorldData.RecycledCharacters.Any Then
+            characterId = WorldData.RecycledCharacters.First
+            WorldData.RecycledCharacters.Remove(characterId)
+            WorldData.Characters(characterId) = characterData
+        Else
+            characterId = WorldData.Characters.Count
+            WorldData.Characters.Add(characterData)
+        End If
         Dim character = New Character(WorldData, characterId)
         cell.Character = character
         Return character
     End Function
 
     Public Function CreateCell(terrainType As String, mapId As Integer, column As Integer, row As Integer) As ICell Implements IWorld.CreateCell
-        Dim cellId = WorldData.Cells.Count
         Dim cellData = New CellData With
                             {
                                 .TerrainType = terrainType,
@@ -58,7 +72,15 @@ Public Class World
                                 .Row = row,
                                 .CharacterId = Nothing
                             }
-        WorldData.Cells.Add(cellData)
+        Dim cellId As Integer
+        If WorldData.RecycledCells.Any Then
+            cellId = WorldData.RecycledCells.First
+            WorldData.RecycledCells.Remove(cellId)
+            WorldData.Cells(cellId) = cellData
+        Else
+            cellId = WorldData.Cells.Count
+            WorldData.Cells.Add(cellData)
+        End If
         Return New Cell(WorldData, cellId)
     End Function
 End Class
