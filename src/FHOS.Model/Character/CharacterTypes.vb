@@ -3,6 +3,6 @@
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, CharacterDescriptor) =
         New Dictionary(Of String, CharacterDescriptor) From
         {
-            {Player, New CharacterDescriptor("@"c, 15)}
+            {Player, New CharacterDescriptor(ChrW(128), Orange)}
         }
 End Module

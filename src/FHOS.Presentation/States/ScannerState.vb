@@ -38,6 +38,10 @@ Friend Class ScannerState
             uiFont,
             (0, 0),
             (cellWidth, cellHeight))
-        uiFont.WriteText(displayBuffer, (cellWidth * target.X, cellHeight * target.Y), ChrW(16), 4)
+        uiFont.WriteText(
+            displayBuffer,
+            (cellWidth * target.X, cellHeight * target.Y),
+            ChrW(16),
+            4)
     End Sub
 End Class
