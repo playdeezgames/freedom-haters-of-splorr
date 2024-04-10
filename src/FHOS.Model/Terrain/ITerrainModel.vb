@@ -1,4 +1,5 @@
 ﻿Public Interface ITerrainModel
     ReadOnly Property Glyph As Char
-    ReadOnly Property Hue As Integer
+    ReadOnly Property Foreground As Integer
+    ReadOnly Property Background As Integer
 End Interface

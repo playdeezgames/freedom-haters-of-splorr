@@ -52,8 +52,7 @@ Friend Class NavigationState
                     displayBuffer,
                     spriteFont,
                     (deltaX, deltaY),
-                    (x, y),
-                    cellSize)
+                    (x, y))
                 y += cellSize.Height
             Next
             x += cellSize.Width
@@ -64,14 +63,19 @@ Friend Class NavigationState
                           displayBuffer As IPixelSink,
                           uiFont As Font,
                           boardPosition As (X As Integer, Y As Integer),
-                          plotPosition As (X As Integer, Y As Integer),
-                          cellSize As (Width As Integer, Height As Integer))
+                          plotPosition As (X As Integer, Y As Integer))
         Dim cellModel = Context.Model.Board.GetCell(boardPosition)
         If Not cellModel.Exists Then
             Return
         End If
-        displayBuffer.Fill(plotPosition, cellSize, 0)
+
         Dim terrainModel = cellModel.Terrain
-        uiFont.WriteText(displayBuffer, plotPosition, terrainModel.Glyph, terrainModel.Hue)
+        uiFont.WriteText(displayBuffer, plotPosition, ChrW(15), terrainModel.Background)
+        uiFont.WriteText(displayBuffer, plotPosition, terrainModel.Glyph, terrainModel.Foreground)
+
+        Dim characterModel = cellModel.Character
+        If characterModel IsNot Nothing Then
+            uiFont.WriteText(displayBuffer, plotPosition, characterModel.Glyph, characterModel.Hue)
+        End If
     End Sub
 End Class

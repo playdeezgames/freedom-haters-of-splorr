@@ -3,6 +3,6 @@
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, TerrainDescriptor) =
         New Dictionary(Of String, TerrainDescriptor) From
         {
-            {Void, New TerrainDescriptor()}
+            {Void, New TerrainDescriptor("."c, 8, 0)}
         }
 End Module
