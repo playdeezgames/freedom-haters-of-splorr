@@ -24,4 +24,15 @@
             Return world.Avatar.Facing
         End Get
     End Property
+
+    Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
+        Dim cell = world.Avatar.Cell
+        Dim nextColumn = cell.Column + delta.X
+        Dim nextRow = cell.Row + delta.Y
+        Dim map = cell.Map
+        Dim nextCell = map.GetCell(nextColumn, nextRow)
+        If nextCell IsNot Nothing Then
+            world.Avatar.Cell = nextCell
+        End If
+    End Sub
 End Class
