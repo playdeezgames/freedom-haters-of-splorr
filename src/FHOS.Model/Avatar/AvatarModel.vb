@@ -25,6 +25,30 @@
         End Get
     End Property
 
+    Public ReadOnly Property Oxygen As Integer Implements IAvatarModel.Oxygen
+        Get
+            Return world.Avatar.Oxygen
+        End Get
+    End Property
+
+    Public ReadOnly Property MaximumOxygen As Integer Implements IAvatarModel.MaximumOxygen
+        Get
+            Return world.Avatar.MaximumOxygen
+        End Get
+    End Property
+
+    Public ReadOnly Property OxygenHue As Integer Implements IAvatarModel.OxygenHue
+        Get
+            If Oxygen <= MaximumOxygen \ 3 Then
+                Return Hue.Red
+            End If
+            If Oxygen <= MaximumOxygen * 2 \ 3 Then
+                Return Hue.Yellow
+            End If
+            Return Hue.Green
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         Dim cell = world.Avatar.Cell
         Dim nextColumn = cell.Column + delta.X

@@ -15,10 +15,13 @@ Friend Module WorldInitializer
 
     Private Function InitializeCharacter(map As IMap) As ICharacter
         Dim characterCell As ICell
+        Dim descriptor = CharacterTypes.Descriptors(Player)
         Do
             characterCell = map.GetCell(RNG.FromRange(0, StarMapColumns - 1), RNG.FromRange(0, StarMapRows - 1))
-        Loop Until CharacterTypes.Descriptors(Player).CanSpawn(characterCell)
+        Loop Until descriptor.CanSpawn(characterCell)
         Dim character = map.World.CreateCharacter(Player, characterCell)
+        character.MaximumOxygen = descriptor.MaximumOxygen
+        character.Oxygen = descriptor.MaximumOxygen
         Return character
     End Function
 

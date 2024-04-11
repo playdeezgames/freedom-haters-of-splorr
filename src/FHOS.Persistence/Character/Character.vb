@@ -30,4 +30,22 @@
             Return CharacterData.CharacterType
         End Get
     End Property
+
+    Public Property MaximumOxygen As Integer Implements ICharacter.MaximumOxygen
+        Get
+            Return Math.Max(0, CharacterData.MaximumOxygen)
+        End Get
+        Set(value As Integer)
+            CharacterData.MaximumOxygen = Math.Max(0, value)
+        End Set
+    End Property
+
+    Public Property Oxygen As Integer Implements ICharacter.Oxygen
+        Get
+            Return Math.Clamp(CharacterData.Oxygen, 0, MaximumOxygen)
+        End Get
+        Set(value As Integer)
+            CharacterData.Oxygen = Math.Clamp(value, 0, MaximumOxygen)
+        End Set
+    End Property
 End Class

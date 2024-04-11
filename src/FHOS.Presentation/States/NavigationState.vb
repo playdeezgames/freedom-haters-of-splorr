@@ -42,6 +42,13 @@ Friend Class NavigationState
     End Sub
 
     Private Sub RenderStatistics(displayBuffer As IPixelSink, uiFont As Font, position As (X As Integer, Y As Integer))
-        uiFont.WriteText(displayBuffer, (position.X, position.Y + uiFont.Height * 0), $"{Context.Model.Avatar.MapName} ({Context.Model.Avatar.X},{Context.Model.Avatar.Y})", 0)
+
+        uiFont.WriteText(displayBuffer, position, $"{Context.Model.Avatar.MapName} ({Context.Model.Avatar.X},{Context.Model.Avatar.Y})", Black)
+        position = NextLine(position, uiFont)
+        uiFont.WriteText(displayBuffer, position, $"O2: {Context.Model.Avatar.Oxygen}/{Context.Model.Avatar.MaximumOxygen}", Context.Model.Avatar.OxygenHue)
     End Sub
+
+    Private Function NextLine(position As (X As Integer, Y As Integer), uiFont As Font) As (X As Integer, Y As Integer)
+        Return (position.X, position.Y + uiFont.Height)
+    End Function
 End Class

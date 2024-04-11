@@ -1,4 +1,5 @@
 ﻿Public Class MapData
+    Inherits EntityData
     Property Name As String
     Property Columns As Integer
     Property Rows As Integer

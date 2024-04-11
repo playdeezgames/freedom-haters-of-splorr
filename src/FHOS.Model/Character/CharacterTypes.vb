@@ -8,6 +8,7 @@
                 New CharacterTypeDescriptor(
                     ChrW(128),
                     Hue.LightGray,
+                    100,
                     Function(x) x.TerrainType = TerrainTypes.Void)}
         }
 End Module

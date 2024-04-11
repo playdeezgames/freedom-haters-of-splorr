@@ -48,7 +48,7 @@ Friend Class ScannerState
             (cellWidth * target.X, cellHeight * target.Y),
             ChrW(16),
             4)
-        RenderDetails(displayBuffer, uiFont, (ViewColumns * cellWidth, 0), cellHeight)
+        RenderDetails(displayBuffer, uiFont, (ViewColumns * cellWidth, 0))
     End Sub
 
     Private ReadOnly Property TargetCell As ICellModel
@@ -57,21 +57,21 @@ Friend Class ScannerState
         End Get
     End Property
 
-    Private Sub RenderDetails(displayBuffer As IPixelSink, uiFont As Font, position As (X As Integer, Y As Integer), cellHeight As Integer)
+    Private Sub RenderDetails(displayBuffer As IPixelSink, uiFont As Font, position As (X As Integer, Y As Integer))
         If Not TargetCell.Exists Then
             Return
         End If
         uiFont.WriteText(displayBuffer, position, TargetCell.Terrain.Name, Black)
-        position = NextLine(position, cellHeight)
+        position = NextLine(position, uiFont)
         Dim starSystem = TargetCell.StarSystem
         If starSystem IsNot Nothing Then
             uiFont.WriteText(displayBuffer, position, starSystem.Name, Black)
-            position = NextLine(position, cellHeight)
+            position = NextLine(position, uiFont)
         End If
     End Sub
 
-    Private Function NextLine(position As (X As Integer, Y As Integer), cellHeight As Integer) As (X As Integer, Y As Integer)
-        Return (position.X, position.Y + cellHeight)
+    Private Function NextLine(position As (X As Integer, Y As Integer), uiFont As Font) As (X As Integer, Y As Integer)
+        Return (position.X, position.Y + uiFont.Height)
     End Function
 
     Public Overrides Sub OnStart()

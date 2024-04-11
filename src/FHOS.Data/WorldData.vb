@@ -1,4 +1,5 @@
 Public Class WorldData
+    Inherits EntityData
     Property AvatarId As Integer?
     Property Maps As New List(Of MapData)
     Property RecycledMaps As New HashSet(Of Integer)
