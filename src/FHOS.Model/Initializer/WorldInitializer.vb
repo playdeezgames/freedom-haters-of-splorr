@@ -1,5 +1,4 @@
-﻿Imports System.Data
-Imports FHOS.Persistence
+﻿Imports FHOS.Persistence
 Imports SPLORR.Game
 
 Friend Module WorldInitializer
@@ -9,8 +8,7 @@ Friend Module WorldInitializer
 
     Sub Initialize(world As IWorld)
         Dim starMap = InitializeStarMap(world)
-        Dim character = InitializeCharacter(starMap)
-        world.SetAvatar(character)
+        world.Avatar = InitializeCharacter(starMap)
     End Sub
 
     Private Function InitializeCharacter(map As IMap) As ICharacter
