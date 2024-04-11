@@ -14,7 +14,7 @@
 
     Public ReadOnly Property Map As IMap Implements ICell.Map
         Get
-            Return New Map(WorldData, CellData.MapId)
+            Return New Map(WorldData, CellData.Statistics(StatisticTypes.MapId))
         End Get
     End Property
 

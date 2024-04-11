@@ -67,10 +67,13 @@ Public Class World
         Dim cellData = New CellData With
                             {
                                 .TerrainType = terrainType,
-                                .MapId = mapId,
                                 .Column = column,
                                 .Row = row,
-                                .CharacterId = Nothing
+                                .CharacterId = Nothing,
+                                .Statistics = New Dictionary(Of String, Integer) From
+                                {
+                                    {StatisticTypes.MapId, mapId}
+                                }
                             }
         Dim cellId As Integer
         If WorldData.RecycledCells.Any Then
