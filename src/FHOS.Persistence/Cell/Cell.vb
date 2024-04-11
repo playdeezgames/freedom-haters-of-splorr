@@ -20,7 +20,7 @@
 
     Public ReadOnly Property Column As Integer Implements ICell.Column
         Get
-            Return CellData.Column
+            Return CellData.Statistics(StatisticTypes.Column)
         End Get
     End Property
 
