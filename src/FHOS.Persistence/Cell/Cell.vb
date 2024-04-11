@@ -26,7 +26,7 @@
 
     Public ReadOnly Property Row As Integer Implements ICell.Row
         Get
-            Return CellData.Row
+            Return CellData.Statistics(StatisticTypes.Row)
         End Get
     End Property
 

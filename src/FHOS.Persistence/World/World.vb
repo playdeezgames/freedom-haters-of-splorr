@@ -67,12 +67,12 @@ Public Class World
         Dim cellData = New CellData With
                             {
                                 .TerrainType = terrainType,
-                                .Row = row,
                                 .CharacterId = Nothing,
                                 .Statistics = New Dictionary(Of String, Integer) From
                                 {
                                     {StatisticTypes.MapId, mapId},
-                                    {StatisticTypes.Column, column}
+                                    {StatisticTypes.Column, column},
+                                    {StatisticTypes.Row, row}
                                 }
                             }
         Dim cellId As Integer
