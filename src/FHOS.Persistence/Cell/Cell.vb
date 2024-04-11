@@ -58,16 +58,17 @@
 
     Public Property StarSystem As IStarSystem Implements ICell.StarSystem
         Get
-            If CellData.StarSystemId.HasValue Then
-                Return New StarSystem(WorldData, CellData.StarSystemId.Value)
+            Dim starSystemId As Integer
+            If CellData.Statistics.TryGetValue(StatisticTypes.StarSystemId, starSystemId) Then
+                Return New StarSystem(WorldData, starSystemId)
             End If
             Return Nothing
         End Get
         Set(value As IStarSystem)
             If value IsNot Nothing Then
-                CellData.StarSystemId = value.Id
+                CellData.Statistics(StatisticTypes.StarSystemId) = value.Id
             Else
-                CellData.StarSystemId = Nothing
+                CellData.Statistics.Remove(StatisticTypes.StarSystemId)
             End If
         End Set
     End Property
