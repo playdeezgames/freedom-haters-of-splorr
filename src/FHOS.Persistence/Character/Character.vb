@@ -33,10 +33,10 @@
 
     Public Property MaximumOxygen As Integer Implements ICharacter.MaximumOxygen
         Get
-            Return Math.Max(0, CharacterData.MaximumOxygen)
+            Return Math.Max(0, CharacterData.Statistics(StatisticTypes.MaximumOxygen))
         End Get
         Set(value As Integer)
-            CharacterData.MaximumOxygen = Math.Max(0, value)
+            CharacterData.Statistics(StatisticTypes.MaximumOxygen) = Math.Max(0, value)
         End Set
     End Property
 
