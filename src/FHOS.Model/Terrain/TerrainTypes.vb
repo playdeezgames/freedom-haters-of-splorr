@@ -8,11 +8,11 @@
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, TerrainTypeDescriptor) =
         New Dictionary(Of String, TerrainTypeDescriptor) From
         {
-            {Void, New TerrainTypeDescriptor(ChrW(0), Black, Black)},
-            {BlueStar, New TerrainTypeDescriptor("*"c, Hue.Blue, Black)},
-            {BlueWhiteStar, New TerrainTypeDescriptor("*"c, Hue.LightBlue, Black)},
-            {YellowStar, New TerrainTypeDescriptor("*"c, Hue.Yellow, Black)},
-            {OrangeStar, New TerrainTypeDescriptor("*"c, Hue.Orange, Black)},
-            {RedStar, New TerrainTypeDescriptor("*"c, Hue.Red, Black)}
+            {Void, New TerrainTypeDescriptor("Empty Space", ChrW(0), Black, Black)},
+            {BlueStar, New TerrainTypeDescriptor("Blue Star", "*"c, Hue.Blue, Black)},
+            {BlueWhiteStar, New TerrainTypeDescriptor("Blue-White Star", "*"c, Hue.LightBlue, Black)},
+            {YellowStar, New TerrainTypeDescriptor("Yellow Star", "*"c, Hue.Yellow, Black)},
+            {OrangeStar, New TerrainTypeDescriptor("Orange Star", "*"c, Hue.Orange, Black)},
+            {RedStar, New TerrainTypeDescriptor("Red Star", "*"c, Hue.Red, Black)}
         }
 End Module

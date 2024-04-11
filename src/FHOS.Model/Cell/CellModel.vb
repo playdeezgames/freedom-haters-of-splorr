@@ -29,7 +29,17 @@
             If cellCharacter Is Nothing Then
                 Return Nothing
             End If
-            Return New CharacterModel(cell.Character)
+            Return New CharacterModel(cellCharacter)
+        End Get
+    End Property
+
+    Public ReadOnly Property StarSystem As IStarSystemModel Implements ICellModel.StarSystem
+        Get
+            Dim cellStarSystem = cell?.StarSystem
+            If cellStarSystem Is Nothing Then
+                Return Nothing
+            End If
+            Return New StarSystemModel(cellStarSystem)
         End Get
     End Property
 End Class

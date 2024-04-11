@@ -49,7 +49,7 @@ Friend Module WorldInitializer
         Do
             starSystemName = GenerateStarSystemName()
         Loop Until Not starSystemNames.Contains(starSystemName)
-
+        starSystemNames.Add(starSystemName)
         Return starSystemName
     End Function
 

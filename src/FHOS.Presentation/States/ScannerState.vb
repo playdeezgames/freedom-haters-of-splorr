@@ -25,7 +25,12 @@ Friend Class ScannerState
     End Sub
 
     Private Sub MoveTarget(deltaX As Integer, deltaY As Integer)
-        target = (target.X + deltaX, target.Y + deltaY)
+        Dim oldX = target.X
+        Dim oldY = target.Y
+        target = (Math.Clamp(target.X + deltaX, 0, ViewColumns - 1), Math.Clamp(target.Y + deltaY, 0, ViewRows - 1))
+        If Not TargetCell.Exists Then
+            target = (oldX, oldY)
+        End If
     End Sub
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
@@ -43,5 +48,34 @@ Friend Class ScannerState
             (cellWidth * target.X, cellHeight * target.Y),
             ChrW(16),
             4)
+        RenderDetails(displayBuffer, uiFont, (ViewColumns * cellWidth, 0), cellHeight)
+    End Sub
+
+    Private ReadOnly Property TargetCell As ICellModel
+        Get
+            Return Context.Model.Board.GetCell((target.X - ViewColumns \ 2, target.Y - ViewRows \ 2))
+        End Get
+    End Property
+
+    Private Sub RenderDetails(displayBuffer As IPixelSink, uiFont As Font, position As (X As Integer, Y As Integer), cellHeight As Integer)
+        If Not TargetCell.Exists Then
+            Return
+        End If
+        uiFont.WriteText(displayBuffer, position, TargetCell.Terrain.Name, Black)
+        position = NextLine(position, cellHeight)
+        Dim starSystem = TargetCell.StarSystem
+        If starSystem IsNot Nothing Then
+            uiFont.WriteText(displayBuffer, position, starSystem.Name, Black)
+            position = NextLine(position, cellHeight)
+        End If
+    End Sub
+
+    Private Function NextLine(position As (X As Integer, Y As Integer), cellHeight As Integer) As (X As Integer, Y As Integer)
+        Return (position.X, position.Y + cellHeight)
+    End Function
+
+    Public Overrides Sub OnStart()
+        MyBase.OnStart()
+        target = (ViewColumns \ 2, ViewRows \ 2)
     End Sub
 End Class

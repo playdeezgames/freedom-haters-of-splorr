@@ -11,4 +11,10 @@
             Return StarSystemId
         End Get
     End Property
+
+    Public ReadOnly Property Name As String Implements IStarSystem.Name
+        Get
+            Return StarSystemData.Name
+        End Get
+    End Property
 End Class

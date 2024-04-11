@@ -24,4 +24,10 @@
             Return TerrainTypes.Descriptors(cell.TerrainType).Background
         End Get
     End Property
+
+    Public ReadOnly Property Name As String Implements ITerrainModel.Name
+        Get
+            Return TerrainTypes.Descriptors(cell.TerrainType).Name
+        End Get
+    End Property
 End Class
