@@ -28,7 +28,6 @@ Public Class World
         Dim mapId As Integer
         Dim mapData = New MapData With
             {
-                .Name = mapName,
                 .Cells = Nothing,
                 .Statistics = New Dictionary(Of String, Integer) From
                 {
@@ -37,7 +36,8 @@ Public Class World
                 },
                 .Metadatas = New Dictionary(Of String, String) From
                 {
-                    {MetadataTypes.MapType, mapType}
+                    {MetadataTypes.MapType, mapType},
+                    {MetadataTypes.Name, mapName}
                 }
             }
         If WorldData.RecycledMaps.Any Then
@@ -57,10 +57,13 @@ Public Class World
     Public Function CreateCharacter(characterType As String, cell As ICell) As ICharacter Implements IWorld.CreateCharacter
         Dim characterData = New CharacterData With
                                  {
-                                    .CharacterType = characterType,
                                     .Statistics = New Dictionary(Of String, Integer) From
                                     {
                                         {StatisticTypes.CellId, cell.Id}
+                                    },
+                                    .Metadatas = New Dictionary(Of String, String) From
+                                    {
+                                        {MetadataTypes.CharacterType, characterType}
                                     }
                                  }
         Dim characterId As Integer

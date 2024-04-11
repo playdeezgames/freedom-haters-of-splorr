@@ -16,7 +16,7 @@ Friend Class Map
 
     Public ReadOnly Property Name As String Implements IMap.Name
         Get
-            Return MapData.Name
+            Return MapData.Metadatas(MetadataTypes.Name)
         End Get
     End Property
 
