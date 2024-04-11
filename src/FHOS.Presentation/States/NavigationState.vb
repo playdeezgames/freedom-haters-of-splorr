@@ -39,6 +39,7 @@ Friend Class NavigationState
             (0, 0),
             (cellWidth, cellHeight))
         RenderStatistics(displayBuffer, uiFont, (ViewColumns * cellWidth, 0))
+        Context.ShowStatusBar(displayBuffer, uiFont, Context.ControlsText("", ""), Black, DarkGray)
     End Sub
 
     Private Sub RenderStatistics(displayBuffer As IPixelSink, uiFont As Font, position As (X As Integer, Y As Integer))

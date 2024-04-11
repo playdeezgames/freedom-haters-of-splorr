@@ -37,13 +37,13 @@ Public MustInherit Class UIContext(Of TModel)
     Public Function ControlsText(aButtonText As String, bButtonText As String) As String Implements IUIContext(Of TModel).ControlsText
         Dim result As String = ""
         If Not String.IsNullOrEmpty(aButtonText) Then
-            result = $"Space/(A) - {aButtonText}"
+            result = $"<A> {aButtonText}"
         End If
         If Not String.IsNullOrEmpty(bButtonText) Then
             If Not String.IsNullOrEmpty(result) Then
                 result &= " | "
             End If
-            result &= $"Esc/(B) - {bButtonText}"
+            result &= $"<B> {bButtonText}"
         End If
         Return result
     End Function

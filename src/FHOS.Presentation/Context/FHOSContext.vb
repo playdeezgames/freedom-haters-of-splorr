@@ -69,8 +69,8 @@ Public Class FHOSContext
         New Dictionary(Of Integer, (String, Integer)) From
         {
             {0, ("About Freedom Haters of SPLORR!!", 6)},
-            {8, ("A Production of TheGrumpyGameDev", 0)},
-            {12, ("See 'aboot.txt'", 0)}
+            {2, ("A Production of TheGrumpyGameDev", 0)},
+            {4, ("See 'aboot.txt'", 0)}
         }
 
     Public Overrides Sub ShowAboutContent(displayBuffer As IPixelSink, font As Font)
