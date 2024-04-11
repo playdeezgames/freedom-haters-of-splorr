@@ -8,7 +8,7 @@ Module Program
         MakeFont(
             "..\..\..\..\..\sources\inputs\coco.png",
             8,
-            12,
+            8,
             "..\..\..\..\FHOS\Content\Fonts\Coco.json",
             0)
     End Sub

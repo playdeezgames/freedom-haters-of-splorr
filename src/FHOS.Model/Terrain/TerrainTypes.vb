@@ -9,10 +9,10 @@
         New Dictionary(Of String, TerrainTypeDescriptor) From
         {
             {Void, New TerrainTypeDescriptor("Empty Space", ChrW(0), Black, Black)},
-            {BlueStar, New TerrainTypeDescriptor("Blue Star", "*"c, Hue.Blue, Black)},
-            {BlueWhiteStar, New TerrainTypeDescriptor("Blue-White Star", "*"c, Hue.LightBlue, Black)},
-            {YellowStar, New TerrainTypeDescriptor("Yellow Star", "*"c, Hue.Yellow, Black)},
-            {OrangeStar, New TerrainTypeDescriptor("Orange Star", "*"c, Hue.Orange, Black)},
-            {RedStar, New TerrainTypeDescriptor("Red Star", "*"c, Hue.Red, Black)}
+            {BlueStar, New TerrainTypeDescriptor("Blue Star", ChrW(129), Hue.Blue, Black)},
+            {BlueWhiteStar, New TerrainTypeDescriptor("Blue-White Star", ChrW(129), Hue.LightBlue, Black)},
+            {YellowStar, New TerrainTypeDescriptor("Yellow Star", ChrW(129), Hue.Yellow, Black)},
+            {OrangeStar, New TerrainTypeDescriptor("Orange Star", ChrW(129), Hue.Orange, Black)},
+            {RedStar, New TerrainTypeDescriptor("Red Star", ChrW(129), Hue.Red, Black)}
         }
 End Module

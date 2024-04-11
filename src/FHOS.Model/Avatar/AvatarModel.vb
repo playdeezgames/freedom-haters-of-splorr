@@ -25,27 +25,21 @@
         End Get
     End Property
 
-    Public ReadOnly Property Oxygen As Integer Implements IAvatarModel.Oxygen
-        Get
-            Return world.Avatar.Oxygen
-        End Get
-    End Property
-
-    Public ReadOnly Property MaximumOxygen As Integer Implements IAvatarModel.MaximumOxygen
-        Get
-            Return world.Avatar.MaximumOxygen
-        End Get
-    End Property
-
     Public ReadOnly Property OxygenHue As Integer Implements IAvatarModel.OxygenHue
         Get
-            If Oxygen <= MaximumOxygen \ 3 Then
+            If OxygenPercent <= 33 Then
                 Return Hue.Red
             End If
-            If Oxygen <= MaximumOxygen * 2 \ 3 Then
+            If OxygenPercent <= 66 Then
                 Return Hue.Yellow
             End If
             Return Hue.Green
+        End Get
+    End Property
+
+    Public ReadOnly Property OxygenPercent As Integer Implements IAvatarModel.OxygenPercent
+        Get
+            Return world.Avatar.Oxygen * 100 \ world.Avatar.MaximumOxygen
         End Get
     End Property
 

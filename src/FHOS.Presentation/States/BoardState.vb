@@ -3,8 +3,8 @@ Imports SPLORR.UI
 
 Friend MustInherit Class BoardState
     Inherits BaseGameState(Of IWorldModel)
-    Protected Const ViewColumns = 19
-    Protected Const ViewRows = 15
+    Protected Const ViewColumns = 21
+    Protected Const ViewRows = 21
     Public Sub New(
                   parent As IGameController,
                   setState As Action(Of String, Boolean),
