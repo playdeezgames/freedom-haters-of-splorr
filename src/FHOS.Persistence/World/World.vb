@@ -67,7 +67,6 @@ Public Class World
         Dim cellData = New CellData With
                             {
                                 .TerrainType = terrainType,
-                                .CharacterId = Nothing,
                                 .Statistics = New Dictionary(Of String, Integer) From
                                 {
                                     {StatisticTypes.MapId, mapId},

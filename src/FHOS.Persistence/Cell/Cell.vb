@@ -41,17 +41,18 @@
 
     Public Property Character As ICharacter Implements ICell.Character
         Get
-            If CellData.CharacterId.HasValue Then
-                Return New Character(WorldData, CellData.CharacterId.Value)
+            Dim characterId As Integer
+            If CellData.Statistics.TryGetValue(StatisticTypes.CharacterId, characterId) Then
+                Return New Character(WorldData, characterId)
             End If
             Return Nothing
         End Get
         Set(value As ICharacter)
             If value Is Nothing Then
-                CellData.CharacterId = Nothing
+                CellData.Statistics.Remove(StatisticTypes.CharacterId)
                 Return
             End If
-            CellData.CharacterId = value.Id
+            CellData.Statistics(StatisticTypes.CharacterId) = value.Id
         End Set
     End Property
 
