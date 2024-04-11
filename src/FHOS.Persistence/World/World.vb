@@ -25,11 +25,11 @@ Public Class World
         Dim mapData = New MapData With
             {
                 .Name = mapName,
-                .Rows = rows,
                 .Cells = Nothing,
                 .Statistics = New Dictionary(Of String, Integer) From
                 {
-                    {StatisticTypes.Columns, columns}
+                    {StatisticTypes.Columns, columns},
+                    {StatisticTypes.Rows, rows}
                 }
             }
         If WorldData.RecycledMaps.Any Then
