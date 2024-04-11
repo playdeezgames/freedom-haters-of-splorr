@@ -110,8 +110,11 @@ Public Class World
         Dim starSystemId As Integer
         Dim starSystemData = New StarSystemData With
             {
-                .Name = starSystemName,
-                .StarType = starType
+                .Metadatas = New Dictionary(Of String, String) From
+                {
+                    {MetadataTypes.Name, starSystemName},
+                    {MetadataTypes.StarType, starType}
+                }
             }
         If WorldData.RecycledStarSystems.Any Then
             starSystemId = WorldData.RecycledStarSystems.First

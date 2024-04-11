@@ -14,7 +14,7 @@
 
     Public ReadOnly Property Name As String Implements IStarSystem.Name
         Get
-            Return StarSystemData.Name
+            Return StarSystemData.Metadatas(MetadataTypes.Name)
         End Get
     End Property
 End Class
