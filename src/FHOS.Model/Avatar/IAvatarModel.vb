@@ -3,4 +3,5 @@
     ReadOnly Property Y As Integer
     ReadOnly Property Facing As Integer
     Sub Move(delta As (X As Integer, Y As Integer))
+    ReadOnly Property MapName As String
 End Interface

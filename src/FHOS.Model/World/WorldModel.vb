@@ -8,16 +8,6 @@ Public Class WorldModel
 
     Private worldData As WorldData = Nothing
 
-    Private Function GetBoardCell(boardColumn As Integer, boardRow As Integer) As (TerrainType As String, Character As (CharacterType As String, Facing As Integer))
-        Dim avatar As ICharacter = World.Avatar
-        Dim avatarCell As ICell = avatar.Cell
-        Dim map As IMap = avatarCell.Map
-        Dim mapColumn = boardColumn + avatarCell.Column
-        Dim mapRow = boardRow + avatarCell.Row
-        Dim cell = map.GetCell(mapColumn, mapRow)
-        Return (cell?.TerrainType, (cell?.Character?.CharacterType, If(cell?.Character?.Facing, 0)))
-    End Function
-
     Private ReadOnly Property World As IWorld
         Get
             Return New World(worldData)

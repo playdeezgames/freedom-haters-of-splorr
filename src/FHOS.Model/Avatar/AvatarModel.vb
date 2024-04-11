@@ -25,6 +25,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property MapName As String Implements IAvatarModel.MapName
+        Get
+            Return world.Avatar.Cell.Map.Name
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         Dim cell = world.Avatar.Cell
         Dim nextColumn = cell.Column + delta.X

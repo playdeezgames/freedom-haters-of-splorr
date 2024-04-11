@@ -20,10 +20,11 @@ Public Class World
         WorldData.AvatarId = character.Id
     End Sub
 
-    Public Function CreateMap(columns As Integer, rows As Integer, terrainType As String) As IMap Implements IWorld.CreateMap
+    Public Function CreateMap(mapName As String, columns As Integer, rows As Integer, terrainType As String) As IMap Implements IWorld.CreateMap
         Dim mapId As Integer
         Dim mapData = New MapData With
             {
+                .Name = mapName,
                 .Columns = columns,
                 .Rows = rows,
                 .Cells = Nothing

@@ -6,7 +6,7 @@ Imports SPLORR.UI
 Module Program
     Sub Main(args As String())
         MakeFont(
-            "coco.png",
+            "..\..\..\..\..\sources\inputs\coco.png",
             8,
             12,
             "..\..\..\..\FHOS\Content\Fonts\Coco.json",

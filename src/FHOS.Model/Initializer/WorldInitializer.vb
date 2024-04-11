@@ -5,6 +5,7 @@ Imports SPLORR.Game
 Friend Module WorldInitializer
     Const StarMapColumns = 63
     Const StarMapRows = 63
+    Const StarMapName = "Star Map"
 
     Sub Initialize(world As IWorld)
         Dim starMap = InitializeStarMap(world)
@@ -18,18 +19,21 @@ Friend Module WorldInitializer
     End Function
 
     Private Function InitializeStarMap(world As IWorld) As IMap
-        Dim starMap = world.CreateMap(StarMapColumns, StarMapRows, TerrainTypes.Void)
+        Dim starMap = world.CreateMap(StarMapName, StarMapColumns, StarMapRows, TerrainTypes.Void)
         Dim stars As New List(Of (Column As Integer, Row As Integer))
         Dim tries As Integer = 0
         Const MaximumTries = 5000
-        Const MinimumDistance = 10
+        Const MinimumDistance = 15
         While tries < MaximumTries
             Dim column = RNG.FromRange(0, StarMapColumns - 1)
             Dim row = RNG.FromRange(0, StarMapRows - 1)
             If stars.All(Function(star) (column - star.Column) * (column - star.Column) + (row - star.Row) * (row - star.Row) >= MinimumDistance) Then
                 Dim starType = StarTypes.GenerateStarType()
                 stars.Add((column, row))
+                'TODO: generate system
+                'TODO: generate system map
                 starMap.GetCell(column, row).TerrainType = StarTypes.Descriptors(starType).TerrainType
+                'TODO: associate cell with system
                 tries = 0
             Else
                 tries += 1

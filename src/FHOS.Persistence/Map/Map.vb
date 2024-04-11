@@ -14,6 +14,12 @@ Friend Class Map
         End Get
     End Property
 
+    Public ReadOnly Property Name As String Implements IMap.Name
+        Get
+            Return MapData.Name
+        End Get
+    End Property
+
     Public Function GetCell(column As Integer, row As Integer) As ICell Implements IMap.GetCell
         If column < 0 OrElse row < 0 OrElse column >= MapData.Columns OrElse row >= MapData.Rows Then
             Return Nothing
