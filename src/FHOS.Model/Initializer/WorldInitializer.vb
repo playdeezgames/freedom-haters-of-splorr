@@ -21,6 +21,7 @@ Friend Module WorldInitializer
     Private Function InitializeStarMap(world As IWorld) As IMap
         Dim starMap = world.CreateMap(StarMapName, StarMapColumns, StarMapRows, TerrainTypes.Void)
         Dim stars As New List(Of (Column As Integer, Row As Integer))
+        Dim starSystemNames As New HashSet(Of String)
         Dim tries As Integer = 0
         Const MaximumTries = 5000
         Const MinimumDistance = 15
@@ -30,15 +31,81 @@ Friend Module WorldInitializer
             If stars.All(Function(star) (column - star.Column) * (column - star.Column) + (row - star.Row) * (row - star.Row) >= MinimumDistance) Then
                 Dim starType = StarTypes.GenerateStarType()
                 stars.Add((column, row))
-                'TODO: generate system
+                Dim cell = starMap.GetCell(column, row)
+                cell.TerrainType = StarTypes.Descriptors(starType).TerrainType
+                Dim starSystemName As String = GenerateUnusedStarSystemName(starSystemNames)
+                cell.StarSystem = world.CreateStarSystem(starSystemName, starType)
                 'TODO: generate system map
-                starMap.GetCell(column, row).TerrainType = StarTypes.Descriptors(starType).TerrainType
-                'TODO: associate cell with system
                 tries = 0
             Else
                 tries += 1
             End If
         End While
         Return starMap
+    End Function
+
+    Private Function GenerateUnusedStarSystemName(starSystemNames As HashSet(Of String)) As String
+        Dim starSystemName As String
+        Do
+            starSystemName = GenerateStarSystemName()
+        Loop Until Not starSystemNames.Contains(starSystemName)
+
+        Return starSystemName
+    End Function
+
+    ReadOnly ConstellationNames As IReadOnlyList(Of String) = New List(Of String) From
+        {
+            "Thuspo",
+            "Reylon",
+            "Shyrana",
+            "Larak",
+            "Ywan",
+            "Meleka",
+            "Ardana",
+            "Krala",
+            "Kerdix",
+            "Derna",
+            "Zoora",
+            "Treyok",
+            "Neror",
+            "Bejis",
+            "Vulerai",
+            "Tsanrua",
+            "Grot",
+            "Jhama",
+            "Peshto",
+            "Antwerp"
+        }
+
+    ReadOnly GreekLetterNames As IReadOnlyList(Of String) = New List(Of String) From
+        {
+            "Alpha",
+            "Beta",
+            "Gamma",
+            "Delta",
+            "Epsilon",
+            "Zeta",
+            "Eta",
+            "Theta",
+            "Kappa",
+            "Lambda",
+            "Mu",
+            "Nu",
+            "Xi",
+            "Chi",
+            "Omicron",
+            "Pi",
+            "Rho",
+            "Sigma",
+            "Tau",
+            "Upsilon",
+            "Phi",
+            "Psi",
+            "Omega"
+        }
+
+
+    Private Function GenerateStarSystemName() As String
+        Return $"{RNG.FromEnumerable(ConstellationNames)} {RNG.FromEnumerable(GreekLetterNames)}"
     End Function
 End Module

@@ -6,4 +6,6 @@ Public Class WorldData
     Property RecycledCharacters As New HashSet(Of Integer)
     Property Cells As New List(Of CellData)
     Property RecycledCells As New HashSet(Of Integer)
+    Property StarSystems As New List(Of StarSystemData)
+    Property RecycledStarSystems As New HashSet(Of Integer)
 End Class

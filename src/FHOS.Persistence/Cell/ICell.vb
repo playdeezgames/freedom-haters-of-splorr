@@ -5,4 +5,5 @@
     ReadOnly Property Row As Integer
     Property TerrainType As String
     Property Character As ICharacter
+    Property StarSystem As IStarSystem
 End Interface

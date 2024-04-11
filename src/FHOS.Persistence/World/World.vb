@@ -84,4 +84,22 @@ Public Class World
         End If
         Return New Cell(WorldData, cellId)
     End Function
+
+    Public Function CreateStarSystem(starSystemName As String, starType As String) As IStarSystem Implements IWorld.CreateStarSystem
+        Dim starSystemId As Integer
+        Dim starSystemData = New StarSystemData With
+            {
+                .Name = starSystemName,
+                .StarType = starType
+            }
+        If WorldData.RecycledStarSystems.Any Then
+            starSystemId = WorldData.RecycledStarSystems.First
+            WorldData.RecycledStarSystems.Remove(starSystemId)
+            WorldData.StarSystems(starSystemId) = starSystemData
+        Else
+            starSystemId = WorldData.StarSystems.Count
+            WorldData.StarSystems.Add(starSystemData)
+        End If
+        Return New StarSystem(WorldData, starSystemId)
+    End Function
 End Class

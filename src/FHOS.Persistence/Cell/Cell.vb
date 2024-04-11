@@ -54,4 +54,20 @@
             CellData.CharacterId = value.Id
         End Set
     End Property
+
+    Public Property StarSystem As IStarSystem Implements ICell.StarSystem
+        Get
+            If CellData.StarSystemId.HasValue Then
+                Return New StarSystem(WorldData, CellData.StarSystemId.Value)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IStarSystem)
+            If value IsNot Nothing Then
+                CellData.StarSystemId = value.Id
+            Else
+                CellData.StarSystemId = Nothing
+            End If
+        End Set
+    End Property
 End Class
