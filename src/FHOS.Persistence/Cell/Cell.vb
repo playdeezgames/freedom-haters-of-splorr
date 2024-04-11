@@ -32,10 +32,10 @@
 
     Public Property TerrainType As String Implements ICell.TerrainType
         Get
-            Return CellData.TerrainType
+            Return CellData.Metadatas(MetadataTypes.TerrainType)
         End Get
         Set(value As String)
-            CellData.TerrainType = value
+            CellData.Metadatas(MetadataTypes.TerrainType) = value
         End Set
     End Property
 

@@ -24,7 +24,7 @@ Friend Module WorldInitializer
     End Function
 
     Private Function InitializeStarMap(world As IWorld) As IMap
-        Dim starMap = world.CreateMap(StarMapName, StarMapColumns, StarMapRows, TerrainTypes.Void)
+        Dim starMap = world.CreateMap(MapTypes.Stellar, StarMapName, StarMapColumns, StarMapRows, TerrainTypes.Void)
         Dim stars As New List(Of (Column As Integer, Row As Integer))
         Dim starSystemNames As New HashSet(Of String)
         Dim tries As Integer = 0
@@ -79,7 +79,13 @@ Friend Module WorldInitializer
             "Grot",
             "Jhama",
             "Peshto",
-            "Antwerp"
+            "Antwerp",
+            "Kai",
+            "Polatarnia",
+            "Mlideen",
+            "Shuitan",
+            "Ralatlan",
+            "Liefzol"
         }
 
     ReadOnly GreekLetterNames As IReadOnlyList(Of String) = New List(Of String) From
@@ -92,12 +98,12 @@ Friend Module WorldInitializer
             "Zeta",
             "Eta",
             "Theta",
+            "Iota",
             "Kappa",
             "Lambda",
             "Mu",
             "Nu",
             "Xi",
-            "Chi",
             "Omicron",
             "Pi",
             "Rho",
@@ -105,6 +111,7 @@ Friend Module WorldInitializer
             "Tau",
             "Upsilon",
             "Phi",
+            "Chi",
             "Psi",
             "Omega"
         }

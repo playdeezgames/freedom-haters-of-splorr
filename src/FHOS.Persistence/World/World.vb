@@ -24,7 +24,7 @@ Public Class World
         End Set
     End Property
 
-    Public Function CreateMap(mapName As String, columns As Integer, rows As Integer, terrainType As String) As IMap Implements IWorld.CreateMap
+    Public Function CreateMap(mapType As String, mapName As String, columns As Integer, rows As Integer, terrainType As String) As IMap Implements IWorld.CreateMap
         Dim mapId As Integer
         Dim mapData = New MapData With
             {
@@ -34,6 +34,10 @@ Public Class World
                 {
                     {StatisticTypes.Columns, columns},
                     {StatisticTypes.Rows, rows}
+                },
+                .Metadatas = New Dictionary(Of String, String) From
+                {
+                    {MetadataTypes.MapType, mapType}
                 }
             }
         If WorldData.RecycledMaps.Any Then
@@ -76,12 +80,15 @@ Public Class World
     Public Function CreateCell(terrainType As String, mapId As Integer, column As Integer, row As Integer) As ICell Implements IWorld.CreateCell
         Dim cellData = New CellData With
                             {
-                                .TerrainType = terrainType,
                                 .Statistics = New Dictionary(Of String, Integer) From
                                 {
                                     {StatisticTypes.MapId, mapId},
                                     {StatisticTypes.Column, column},
                                     {StatisticTypes.Row, row}
+                                },
+                                .Metadatas = New Dictionary(Of String, String) From
+                                {
+                                    {MetadataTypes.TerrainType, terrainType}
                                 }
                             }
         Dim cellId As Integer
