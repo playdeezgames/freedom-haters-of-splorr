@@ -47,7 +47,6 @@ Public Class World
         Dim characterData = New CharacterData With
                                  {
                                     .CharacterType = characterType,
-                                    .Facing = 0,
                                     .CellId = cell.Id
                                  }
         Dim characterId As Integer

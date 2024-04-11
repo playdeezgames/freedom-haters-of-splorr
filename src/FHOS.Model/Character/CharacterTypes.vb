@@ -3,6 +3,11 @@
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, CharacterTypeDescriptor) =
         New Dictionary(Of String, CharacterTypeDescriptor) From
         {
-            {Player, New CharacterTypeDescriptor(ChrW(128), Hue.Orange)}
+            {
+                Player,
+                New CharacterTypeDescriptor(
+                    ChrW(128),
+                    Hue.LightGray,
+                    Function(x) x.TerrainType = TerrainTypes.Void)}
         }
 End Module

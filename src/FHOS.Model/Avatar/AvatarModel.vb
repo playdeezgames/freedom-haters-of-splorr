@@ -19,12 +19,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property Facing As Integer Implements IAvatarModel.Facing
-        Get
-            Return world.Avatar.Facing
-        End Get
-    End Property
-
     Public ReadOnly Property MapName As String Implements IAvatarModel.MapName
         Get
             Return world.Avatar.Cell.Map.Name

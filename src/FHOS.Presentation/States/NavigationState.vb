@@ -42,9 +42,6 @@ Friend Class NavigationState
     End Sub
 
     Private Sub RenderStatistics(displayBuffer As IPixelSink, uiFont As Font, position As (X As Integer, Y As Integer))
-        uiFont.WriteText(displayBuffer, (position.X, position.Y + uiFont.Height * 0), $"Map: {Context.Model.Avatar.MapName}", 0)
-        uiFont.WriteText(displayBuffer, (position.X, position.Y + uiFont.Height * 1), $"X: {Context.Model.Avatar.X}", 0)
-        uiFont.WriteText(displayBuffer, (position.X, position.Y + uiFont.Height * 2), $"Y: {Context.Model.Avatar.Y}", 0)
-        uiFont.WriteText(displayBuffer, (position.X, position.Y + uiFont.Height * 3), $"D: {Context.Model.Avatar.Facing}", 0)
+        uiFont.WriteText(displayBuffer, (position.X, position.Y + uiFont.Height * 0), $"{Context.Model.Avatar.MapName} ({Context.Model.Avatar.X},{Context.Model.Avatar.Y})", 0)
     End Sub
 End Class

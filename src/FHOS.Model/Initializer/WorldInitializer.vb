@@ -14,7 +14,11 @@ Friend Module WorldInitializer
     End Sub
 
     Private Function InitializeCharacter(map As IMap) As ICharacter
-        Dim character = map.World.CreateCharacter(Player, map.GetCell(RNG.FromRange(0, StarMapColumns - 1), RNG.FromRange(0, StarMapRows - 1)))
+        Dim characterCell As ICell
+        Do
+            characterCell = map.GetCell(RNG.FromRange(0, StarMapColumns - 1), RNG.FromRange(0, StarMapRows - 1))
+        Loop Until CharacterTypes.Descriptors(Player).CanSpawn(characterCell)
+        Dim character = map.World.CreateCharacter(Player, characterCell)
         Return character
     End Function
 
