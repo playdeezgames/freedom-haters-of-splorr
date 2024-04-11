@@ -47,7 +47,10 @@ Public Class World
         Dim characterData = New CharacterData With
                                  {
                                     .CharacterType = characterType,
-                                    .CellId = cell.Id
+                                    .Statistics = New Dictionary(Of String, Integer) From
+                                    {
+                                        {StatisticTypes.CellId, cell.Id}
+                                    }
                                  }
         Dim characterId As Integer
         If WorldData.RecycledCharacters.Any Then

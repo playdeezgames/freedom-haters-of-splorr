@@ -14,12 +14,12 @@
 
     Public Property Cell As ICell Implements ICharacter.Cell
         Get
-            Return New Cell(WorldData, CharacterData.CellId)
+            Return New Cell(WorldData, CharacterData.Statistics(StatisticTypes.CellId))
         End Get
         Set(value As ICell)
-            If value.Id <> CharacterData.CellId Then
+            If value.Id <> CharacterData.Statistics(StatisticTypes.CellId) Then
                 Cell.Character = Nothing
-                CharacterData.CellId = value.Id
+                CharacterData.Statistics(StatisticTypes.CellId) = value.Id
                 value.Character = Me
             End If
         End Set
@@ -42,10 +42,10 @@
 
     Public Property Oxygen As Integer Implements ICharacter.Oxygen
         Get
-            Return Math.Clamp(CharacterData.Oxygen, 0, MaximumOxygen)
+            Return Math.Clamp(CharacterData.Statistics(StatisticTypes.Oxygen), 0, MaximumOxygen)
         End Get
         Set(value As Integer)
-            CharacterData.Oxygen = Math.Clamp(value, 0, MaximumOxygen)
+            CharacterData.Statistics(StatisticTypes.Oxygen) = Math.Clamp(value, 0, MaximumOxygen)
         End Set
     End Property
 End Class
