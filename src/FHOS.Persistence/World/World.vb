@@ -9,15 +9,20 @@ Public Class World
 
     Public ReadOnly Property Avatar As ICharacter Implements IWorld.Avatar
         Get
-            If WorldData.AvatarId.HasValue Then
-                Return New Character(WorldData, WorldData.AvatarId.Value)
+            Dim avatarId As Integer
+            If WorldData.Statistics.TryGetValue(StatisticTypes.AvatarId, avatarId) Then
+                Return New Character(WorldData, avatarId)
             End If
             Return Nothing
         End Get
     End Property
 
     Public Sub SetAvatar(character As ICharacter) Implements IWorld.SetAvatar
-        WorldData.AvatarId = character.Id
+        If character IsNot Nothing Then
+            WorldData.Statistics(StatisticTypes.AvatarId) = character.Id
+        Else
+            WorldData.Statistics.Remove(StatisticTypes.AvatarId)
+        End If
     End Sub
 
     Public Function CreateMap(mapName As String, columns As Integer, rows As Integer, terrainType As String) As IMap Implements IWorld.CreateMap
