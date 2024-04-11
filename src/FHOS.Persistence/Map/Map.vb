@@ -21,9 +21,9 @@ Friend Class Map
     End Property
 
     Public Function GetCell(column As Integer, row As Integer) As ICell Implements IMap.GetCell
-        If column < 0 OrElse row < 0 OrElse column >= MapData.Columns OrElse row >= MapData.Rows Then
+        If column < 0 OrElse row < 0 OrElse column >= MapData.Statistics(StatisticTypes.Columns) OrElse row >= MapData.Rows Then
             Return Nothing
         End If
-        Return New Cell(WorldData, MapData.Cells(column + row * MapData.Columns))
+        Return New Cell(WorldData, MapData.Cells(column + row * MapData.Statistics(StatisticTypes.Columns)))
     End Function
 End Class

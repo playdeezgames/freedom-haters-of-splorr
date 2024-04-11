@@ -25,9 +25,12 @@ Public Class World
         Dim mapData = New MapData With
             {
                 .Name = mapName,
-                .Columns = columns,
                 .Rows = rows,
-                .Cells = Nothing
+                .Cells = Nothing,
+                .Statistics = New Dictionary(Of String, Integer) From
+                {
+                    {StatisticTypes.Columns, columns}
+                }
             }
         If WorldData.RecycledMaps.Any Then
             mapId = WorldData.RecycledMaps.First
