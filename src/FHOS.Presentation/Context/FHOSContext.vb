@@ -16,7 +16,7 @@ Public Class FHOSContext
 
     Public Overrides ReadOnly Property AvailableWindowSizes As IEnumerable(Of (Integer, Integer))
         Get
-            Return multipliers.Select(Function(multiplier) (ViewWidth * multiplier, ViewHeight * multiplier))
+            Return multipliers.Select(Function(multiplier) (ViewSize.Width * multiplier, ViewSize.Height * multiplier))
         End Get
     End Property
     Private ReadOnly DeltasAndColor As IReadOnlyList(Of (deltaX As Integer, deltaY As Integer, hue As Integer)) =
@@ -34,8 +34,8 @@ Public Class FHOSContext
         }
     Private Sub ShowTitle(displayBuffer As IPixelSink, font As Font)
         Dim text = GameTitle
-        Dim x = ViewWidth \ 2 - font.TextWidth(text) \ 2
-        Dim y = ViewHeight \ 2 - font.Height * 3 \ 2
+        Dim x = ViewCenter.X - font.TextWidth(text) \ 2
+        Dim y = ViewCenter.Y - font.HalfHeight * 3
         With font
             For Each deltaAndColor In DeltasAndColor
                 .WriteText(
@@ -54,8 +54,8 @@ Public Class FHOSContext
 
     Private Sub ShowSubtitle(displayBuffer As IPixelSink, font As Font)
         Dim text = GameSubtitle
-        Dim x = ViewWidth \ 2 - font.TextWidth(text) \ 2
-        Dim y = ViewHeight \ 2 + font.Height * 3 \ 2
+        Dim x = ViewSize.Width - font.TextWidth(text) \ 2
+        Dim y = ViewSize.Height + font.Height * 3 \ 2
         With font
             .WriteText(
                     displayBuffer,

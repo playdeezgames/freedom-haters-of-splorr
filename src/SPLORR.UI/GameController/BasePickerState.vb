@@ -33,11 +33,11 @@
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFont)
-        displayBuffer.Fill((0, Context.ViewSize.Height \ 2 - font.Height \ 2), (Context.ViewSize.Width, font.Height), Context.UIPalette.MenuItem)
-        Dim y = Context.ViewSize.Height \ 2 - font.Height \ 2 - MenuItemIndex * font.Height
+        displayBuffer.Fill((0, Context.ViewCenter.Y - font.HalfHeight), (Context.ViewSize.Width, font.Height), Context.UIPalette.MenuItem)
+        Dim y = Context.ViewCenter.Y - font.HalfHeight - MenuItemIndex * font.Height
         Dim index = 0
         For Each menuItem In _menuItems
-            Dim x = Context.ViewSize.Width \ 2 - font.TextWidth(menuItem.Text) \ 2
+            Dim x = Context.ViewCenter.X - font.TextWidth(menuItem.Text) \ 2
             Dim h = If(index = MenuItemIndex, Context.UIPalette.Background, Context.UIPalette.MenuItem)
             font.WriteText(displayBuffer, (x, y), menuItem.Text, h)
             index += 1

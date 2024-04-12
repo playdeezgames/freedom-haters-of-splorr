@@ -13,7 +13,7 @@
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFont)
         Dim text = "Game Saved."
-        font.WriteText(displayBuffer, (Context.ViewSize.Width \ 2 - font.TextWidth(text) \ 2, Context.ViewSize.Height \ 2 - font.HalfHeight), text, Context.UIPalette.MenuItem)
+        font.WriteText(displayBuffer, (Context.ViewCenter.X - font.TextWidth(text) \ 2, Context.ViewCenter.Y - font.HalfHeight), text, Context.UIPalette.MenuItem)
         Context.ShowStatusBar(displayBuffer, font, Context.ControlsText("Continue", Nothing), Context.UIPalette.Background, Context.UIPalette.Footer)
     End Sub
 End Class
