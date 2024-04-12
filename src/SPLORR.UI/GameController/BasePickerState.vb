@@ -37,7 +37,7 @@
         Dim y = Context.ViewCenter.Y - font.HalfHeight - MenuItemIndex * font.Height
         Dim index = 0
         For Each menuItem In _menuItems
-            Dim x = Context.ViewCenter.X - font.TextWidth(menuItem.Text) \ 2
+            Dim x = Context.ViewCenter.X - font.HalfTextWidth(menuItem.Text)
             Dim h = If(index = MenuItemIndex, Context.UIPalette.Background, Context.UIPalette.MenuItem)
             font.WriteText(displayBuffer, (x, y), menuItem.Text, h)
             index += 1

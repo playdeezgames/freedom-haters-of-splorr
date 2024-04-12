@@ -34,7 +34,7 @@ Public Class FHOSContext
         }
     Private Sub ShowTitle(displayBuffer As IPixelSink, font As Font)
         Dim text = GameTitle
-        Dim x = ViewCenter.X - font.TextWidth(text) \ 2
+        Dim x = ViewCenter.X - font.HalfTextWidth(text)
         Dim y = ViewCenter.Y - font.HalfHeight * 3
         With font
             For Each deltaAndColor In DeltasAndColor
@@ -54,8 +54,8 @@ Public Class FHOSContext
 
     Private Sub ShowSubtitle(displayBuffer As IPixelSink, font As Font)
         Dim text = GameSubtitle
-        Dim x = ViewSize.Width - font.TextWidth(text) \ 2
-        Dim y = ViewSize.Height + font.Height * 3 \ 2
+        Dim x = ViewSize.Width - font.HalfTextWidth(text)
+        Dim y = ViewSize.Height + font.HalfHeight * 3
         With font
             .WriteText(
                     displayBuffer,
