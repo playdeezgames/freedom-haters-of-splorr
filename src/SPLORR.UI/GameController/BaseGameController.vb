@@ -102,6 +102,7 @@
         SetState(BoilerplateState.ScumSave, New ScumSaveState(Of TModel)(Me, AddressOf SetCurrentState, context))
         SetState(BoilerplateState.ScumLoadMainMenu, New ScumLoadState(Of TModel)(Me, AddressOf SetCurrentState, context, BoilerplateState.MainMenu))
         SetState(BoilerplateState.ScumLoadGameMenu, New ScumLoadState(Of TModel)(Me, AddressOf SetCurrentState, context, BoilerplateState.GameMenu))
+        SetState(BoilerplateState.SaveConfirmation, New SaveConfirmationState(Of TModel)(Me, AddressOf SetCurrentState, context))
     End Sub
     Private OnSfx As Action(Of String)
     Private OnMux As Action(Of String)

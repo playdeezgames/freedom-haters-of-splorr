@@ -9,6 +9,7 @@
     Public Const Neutral = "Neutral"
     Public Const Options = "Options"
     Public Const Save = "Save"
+    Public Const SaveConfirmation = "SaveConfirmation"
     Public Const ScumSave = "ScumSave"
     Public Const ScumLoadGameMenu = "ScumLoadGameMenu"
     Public Const ScumLoadMainMenu = "ScumLoadMainMenu"
