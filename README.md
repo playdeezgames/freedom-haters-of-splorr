@@ -6,6 +6,18 @@ https://pernyblom.github.io/abundant-music/index.html
 
 2939081800
 
+# Names for the "Freedom Loving" Government whom we serve
+
+1. Liberal Predomninancy
+1. Conglomerated Hegemony
+1. Predominant Sovereignty
+1. Dong Matriarchy
+
+# Names for the "Freedom Hating" Anarchists
+
+1. "Vag" Confederation <--obviously don't choose this
+1. 
+
 # THE RULES
 
 1. Love Freedom!
@@ -20,4 +32,4 @@ https://pernyblom.github.io/abundant-music/index.html
 1. Floss!!
 1. Take yer Protein Pills
 1. Put yer Helmet On
-1. 
+1. Coffee v. Tea: Coffee obviously

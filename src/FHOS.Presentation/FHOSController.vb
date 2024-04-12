@@ -14,6 +14,8 @@ Public Class FHOSController
         SetState(GameState.MoveLeft, New MoveState(Me, AddressOf SetCurrentState, context, (-1, 0)))
         SetState(GameState.MoveRight, New MoveState(Me, AddressOf SetCurrentState, context, (1, 0)))
         SetState(GameState.Scanner, New ScannerState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.ChangeGalacticAge, New ChangeGalacticAgeState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.ChangeGalacticDensity, New ChangeGalacticDensityState(Me, AddressOf SetCurrentState, context))
         SetCurrentState(BoilerplateState.Splash, True)
     End Sub
 End Class

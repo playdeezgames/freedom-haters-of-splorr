@@ -16,6 +16,10 @@ Friend Class EmbarkState
             Case GoText
                 Context.Model.Embark()
                 SetState(BoilerplateState.Neutral)
+            Case AgeText
+                SetState(GameState.ChangeGalacticAge)
+            Case DensityText
+                SetState(GameState.ChangeGalacticDensity)
         End Select
     End Sub
 

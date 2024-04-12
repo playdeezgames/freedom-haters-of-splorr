@@ -7,6 +7,8 @@ Public Class WorldModel
     Implements IWorldModel
 
     Private worldData As WorldData = Nothing
+    Private _galacticAge As String = GalacticAges.Average
+    Private _galacticDensity As String = GalacticDensities.Average
 
     Private ReadOnly Property World As IWorld
         Get
@@ -28,13 +30,25 @@ Public Class WorldModel
 
     Public ReadOnly Property GalacticDensityName As String Implements IWorldModel.GalacticDensityName
         Get
-            Return "Average"
+            Return GalacticDensities.Descriptors(_galacticDensity).DisplayName
         End Get
     End Property
 
     Public ReadOnly Property GalacticAgeName As String Implements IWorldModel.GalacticAgeName
         Get
-            Return "Average"
+            Return GalacticAges.Descriptors(_galacticAge).DisplayName
+        End Get
+    End Property
+
+    Public ReadOnly Property GalacticDensityOptions As IEnumerable(Of (Text As String, Item As String)) Implements IWorldModel.GalacticDensityOptions
+        Get
+            Return GalacticDensities.Descriptors.OrderBy(Function(x) x.Value.Ordinal).Select(Function(x) (x.Value.DisplayName, x.Key))
+        End Get
+    End Property
+
+    Public ReadOnly Property GalacticAgeOptions As IEnumerable(Of (Text As String, Item As String)) Implements IWorldModel.GalacticAgeOptions
+        Get
+            Return GalacticAges.Descriptors.OrderBy(Function(x) x.Value.Ordinal).Select(Function(x) (x.Value.DisplayName, x.Key))
         End Get
     End Property
 
@@ -52,6 +66,14 @@ Public Class WorldModel
 
     Public Sub Embark() Implements IWorldModel.Embark
         worldData = New WorldData()
-        WorldInitializer.Initialize(World)
+        WorldInitializer.Initialize(World, _galacticAge, _galacticDensity)
+    End Sub
+
+    Public Sub SetGalacticAge(age As String) Implements IWorldModel.SetGalacticAge
+        _galacticAge = age
+    End Sub
+
+    Public Sub SetGalacticDensity(density As String) Implements IWorldModel.SetGalacticDensity
+        _galacticDensity = density
     End Sub
 End Class

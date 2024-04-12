@@ -6,8 +6,8 @@ Friend Module WorldInitializer
     Const StarMapRows = 63
     Const StarMapName = "Star Map"
 
-    Sub Initialize(world As IWorld)
-        Dim starMap = InitializeStarMap(world)
+    Sub Initialize(world As IWorld, galacticAge As String, galacticDensity As String)
+        Dim starMap = InitializeStarMap(world, galacticAge, galacticDensity)
         world.Avatar = InitializeCharacter(starMap)
     End Sub
 
@@ -23,18 +23,18 @@ Friend Module WorldInitializer
         Return character
     End Function
 
-    Private Function InitializeStarMap(world As IWorld) As IMap
+    Private Function InitializeStarMap(world As IWorld, galacticAge As String, galacticDensity As String) As IMap
         Dim starMap = world.CreateMap(MapTypes.Stellar, StarMapName, StarMapColumns, StarMapRows, TerrainTypes.Void)
         Dim stars As New List(Of (Column As Integer, Row As Integer))
         Dim starSystemNames As New HashSet(Of String)
         Dim tries As Integer = 0
         Const MaximumTries = 5000
-        Const MinimumDistance = 15
+        Dim MinimumDistance = GalacticDensities.Descriptors(galacticDensity).MinimumDistance
         While tries < MaximumTries
             Dim column = RNG.FromRange(0, StarMapColumns - 1)
             Dim row = RNG.FromRange(0, StarMapRows - 1)
-            If stars.All(Function(star) (column - star.Column) * (column - star.Column) + (row - star.Row) * (row - star.Row) >= MinimumDistance) Then
-                Dim starType = StarTypes.GenerateStarType()
+            If stars.All(Function(star) (column - star.Column) * (column - star.Column) + (row - star.Row) * (row - star.Row) >= MinimumDistance * MinimumDistance) Then
+                Dim starType = GalacticAges.Descriptors(galacticAge).GenerateStarType()
                 stars.Add((column, row))
                 Dim cell = starMap.GetCell(column, row)
                 cell.TerrainType = StarTypes.Descriptors(starType).TerrainType

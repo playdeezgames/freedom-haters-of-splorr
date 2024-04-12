@@ -5,4 +5,6 @@
     Friend Const MoveLeft = "MoveLeft"
     Friend Const MoveRight = "MoveRight"
     Friend Const Scanner = "Scanner"
+    Friend Const ChangeGalacticAge = "ChangeGalacticAge"
+    Friend Const ChangeGalacticDensity = "ChangeGalacticDensity"
 End Module
