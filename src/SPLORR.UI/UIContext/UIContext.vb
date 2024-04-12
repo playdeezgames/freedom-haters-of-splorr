@@ -24,7 +24,7 @@ Public MustInherit Class UIContext(Of TModel)
     End Sub
     Public Sub ShowStatusBar(displayBuffer As IPixelSink, font As Font, text As String, foreground As Integer, background As Integer) Implements IUIContext(Of TModel).ShowStatusBar
         displayBuffer.Fill((0, ViewSize.Height - font.Height), (ViewSize.Width, font.Height), background)
-        font.WriteText(displayBuffer, (ViewCenter.X - font.HalfTextWidth(text), ViewSize.Height - font.Height), text, foreground)
+        font.WriteLeftText(displayBuffer, (ViewCenter.X - font.HalfTextWidth(text), ViewSize.Height - font.Height), text, foreground)
     End Sub
     Public Function Font(gameFont As String) As Font Implements IUIContext(Of TModel).Font
         Return fonts(gameFont)
@@ -32,7 +32,7 @@ Public MustInherit Class UIContext(Of TModel)
     Public MustOverride Sub ShowSplashContent(displayBuffer As IPixelSink, font As Font) Implements IUIContext(Of TModel).ShowSplashContent
     Public Sub ShowHeader(displayBuffer As IPixelSink, font As Font, text As String, foreground As Integer, background As Integer) Implements IUIContext(Of TModel).ShowHeader
         displayBuffer.Fill((0, 0), (ViewSize.Width, font.Height), background)
-        font.WriteText(displayBuffer, (ViewCenter.X - font.HalfTextWidth(text), 0), text, foreground)
+        font.WriteLeftText(displayBuffer, (ViewCenter.X - font.HalfTextWidth(text), 0), text, foreground)
     End Sub
     Public Function ControlsText(aButtonText As String, bButtonText As String) As String Implements IUIContext(Of TModel).ControlsText
         Dim result As String = ""

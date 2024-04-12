@@ -39,7 +39,7 @@
         For Each menuItem In _menuItems
             Dim x = Context.ViewCenter.X - font.HalfTextWidth(menuItem.Text)
             Dim h = If(index = MenuItemIndex, Context.UIPalette.Background, Context.UIPalette.MenuItem)
-            font.WriteText(displayBuffer, (x, y), menuItem.Text, h)
+            font.WriteLeftText(displayBuffer, (x, y), menuItem.Text, h)
             index += 1
             y += font.Height
         Next

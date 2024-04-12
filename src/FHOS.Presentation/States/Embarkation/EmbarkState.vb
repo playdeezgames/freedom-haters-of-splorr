@@ -35,7 +35,7 @@ Friend Class EmbarkState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         MyBase.Render(displayBuffer)
         Dim uiFont = Context.Font(UIFontName)
-        uiFont.WriteText(displayBuffer, (0, uiFont.Height), $"Galactic Age: {Context.Model.GalacticAgeName}", Black)
-        uiFont.WriteText(displayBuffer, (0, uiFont.Height * 2), $"Galactic Density: {Context.Model.GalacticDensityName}", Black)
+        uiFont.WriteLeftText(displayBuffer, (0, uiFont.Height), $"Galactic Age: {Context.Model.GalacticAgeName}", Black)
+        uiFont.WriteLeftText(displayBuffer, (0, uiFont.Height * 2), $"Galactic Density: {Context.Model.GalacticDensityName}", Black)
     End Sub
 End Class

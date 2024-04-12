@@ -38,7 +38,7 @@ Public Class FHOSContext
         Dim y = ViewCenter.Y - font.HalfHeight * 3
         With font
             For Each deltaAndColor In DeltasAndColor
-                .WriteText(
+                .WriteLeftText(
                     displayBuffer,
                     (x + deltaAndColor.deltaX, y + deltaAndColor.deltaY),
                     text,
@@ -54,10 +54,10 @@ Public Class FHOSContext
 
     Private Sub ShowSubtitle(displayBuffer As IPixelSink, font As Font)
         Dim text = GameSubtitle
-        Dim x = ViewSize.Width - font.HalfTextWidth(text)
-        Dim y = ViewSize.Height + font.HalfHeight * 3
+        Dim x = ViewCenter.X - font.HalfTextWidth(text)
+        Dim y = ViewCenter.Y + font.HalfHeight * 3
         With font
-            .WriteText(
+            .WriteLeftText(
                     displayBuffer,
                     (x, y),
                     text,
@@ -76,7 +76,7 @@ Public Class FHOSContext
     Public Overrides Sub ShowAboutContent(displayBuffer As IPixelSink, font As Font)
         With font
             For Each aboutLine In aboutLines
-                .WriteText(
+                .WriteLeftText(
                     displayBuffer,
                     (0, font.Height * aboutLine.Key),
                     aboutLine.Value.Text,

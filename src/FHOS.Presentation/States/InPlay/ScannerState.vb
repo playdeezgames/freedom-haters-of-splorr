@@ -43,10 +43,10 @@ Friend Class ScannerState
             uiFont,
             (0, 0),
             (cellWidth, cellHeight))
-        uiFont.WriteText(
+        uiFont.WriteLeftText(
             displayBuffer,
             (cellWidth * target.X, cellHeight * target.Y),
-            ChrW(16),
+            ChrW(255),
             4)
         RenderDetails(displayBuffer, uiFont, (ViewColumns * cellWidth, 0))
     End Sub
@@ -61,11 +61,11 @@ Friend Class ScannerState
         If Not TargetCell.Exists Then
             Return
         End If
-        uiFont.WriteText(displayBuffer, position, TargetCell.Terrain.Name, Black)
+        uiFont.WriteLeftText(displayBuffer, position, TargetCell.Terrain.Name, Black)
         position = NextLine(position, uiFont)
         Dim starSystem = TargetCell.StarSystem
         If starSystem IsNot Nothing Then
-            uiFont.WriteText(displayBuffer, position, starSystem.Name, Black)
+            uiFont.WriteLeftText(displayBuffer, position, starSystem.Name, Black)
             position = NextLine(position, uiFont)
         End If
     End Sub

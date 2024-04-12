@@ -12,23 +12,27 @@
             _glyphs(glyph) = New GlyphBuffer(fontData, glyph)
         Next
     End Sub
-    Public Sub WriteText(sink As IPixelSink, position As (X As Integer, Y As Integer), text As String, hue As Integer)
+    Public Sub WriteLeftText(sink As IPixelSink, position As (X As Integer, Y As Integer), text As String, hue As Integer)
         If text Is Nothing Then
             Return
         End If
+        WriteText(sink, position, text, hue)
+    End Sub
+    Private Sub WriteText(sink As IPixelSink, position As (X As Integer, Y As Integer), text As String, hue As Integer)
         For Each character In text
             Dim buffer = _glyphs(character)
             buffer.CopyTo(sink, position, hue)
             position = (position.X + buffer.Width, position.Y)
         Next
     End Sub
-    Const Zero = 0
+    Public Sub WriteCenteredText(sink As IPixelSink, position As (X As Integer, Y As Integer), text As String, hue As Integer)
+        If text Is Nothing Then
+            Return
+        End If
+        WriteText(sink, (position.X - HalfTextWidth(text), position.Y), text, hue)
+    End Sub
     Public Function TextWidth(text As String) As Integer
-        Dim result = Zero
-        For Each character In text
-            result += _glyphs(character).Width
-        Next
-        Return result
+        Return text.Select(Function(character) _glyphs(character).Width).Sum
     End Function
     Public Function HalfTextWidth(text As String) As Integer
         Return TextWidth(text) \ 2
