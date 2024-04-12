@@ -1,7 +1,16 @@
 ﻿Friend Class MainMenuState(Of TModel)
     Inherits BasePickerState(Of TModel, String)
-    Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of TModel))
-        MyBase.New(parent, setState, context, "Main Menu", context.ControlsText("Choose", "Quit"), BoilerplateState.ConfirmQuit)
+    Public Sub New(
+                  parent As IGameController,
+                  setState As Action(Of String, Boolean),
+                  context As IUIContext(Of TModel))
+        MyBase.New(
+            parent,
+            setState,
+            context,
+            "Main Menu",
+            context.ControlsText(aButton:="Choose", bButton:="Quit"),
+            BoilerplateState.ConfirmQuit)
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))

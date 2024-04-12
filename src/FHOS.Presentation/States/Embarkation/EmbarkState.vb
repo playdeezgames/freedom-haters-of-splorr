@@ -7,8 +7,17 @@ Friend Class EmbarkState
     Private Const DensityText = "density"
     Private Const GoText = "go"
 
-    Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IWorldModel))
-        MyBase.New(parent, setState, context, "Embarkation Options...", context.ControlsText("Choose", "Cancel"), BoilerplateState.MainMenu)
+    Public Sub New(
+                  parent As IGameController,
+                  setState As Action(Of String, Boolean),
+                  context As IUIContext(Of IWorldModel))
+        MyBase.New(
+            parent,
+            setState,
+            context,
+            "Embarkation Options...",
+            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            BoilerplateState.MainMenu)
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
@@ -35,7 +44,7 @@ Friend Class EmbarkState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         MyBase.Render(displayBuffer)
         Dim uiFont = Context.Font(UIFontName)
-        uiFont.WriteLeftText(displayBuffer, (0, uiFont.Height), $"Galactic Age: {Context.Model.GalacticAgeName}", Black)
-        uiFont.WriteLeftText(displayBuffer, (0, uiFont.Height * 2), $"Galactic Density: {Context.Model.GalacticDensityName}", Black)
+        uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height), $"Galactic Age: {Context.Model.GalacticAgeName}", Black)
+        uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height * 2), $"Galactic Density: {Context.Model.GalacticDensityName}", Black)
     End Sub
 End Class

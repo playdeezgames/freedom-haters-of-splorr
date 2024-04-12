@@ -2,8 +2,17 @@
 
 Friend Class LoadState(Of TModel)
     Inherits BasePickerState(Of TModel, Integer)
-    Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of TModel))
-        MyBase.New(parent, setState, context, "Load Game", context.ControlsText("Choose", "Cancel"), BoilerplateState.MainMenu)
+    Public Sub New(
+                  parent As IGameController,
+                  setState As Action(Of String, Boolean),
+                  context As IUIContext(Of TModel))
+        MyBase.New(
+            parent,
+            setState,
+            context,
+            "Load Game",
+            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            BoilerplateState.MainMenu)
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As Integer))

@@ -2,8 +2,17 @@
 
 Friend Class MuxVolumeState(Of TModel)
     Inherits BasePickerState(Of TModel, Single)
-    Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of TModel))
-        MyBase.New(parent, setState, context, "<placeholder>", context.ControlsText("Choose", "Cancel"), BoilerplateState.Options)
+    Public Sub New(
+                  parent As IGameController,
+                  setState As Action(Of String, Boolean),
+                  context As IUIContext(Of TModel))
+        MyBase.New(
+            parent,
+            setState,
+            context,
+            "<placeholder>",
+            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            BoilerplateState.Options)
     End Sub
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As Single))
         MuxVolume = value.Item

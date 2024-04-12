@@ -10,7 +10,7 @@
     Sub ShowHeader(displayBuffer As IPixelSink, font As Font, text As String, foreground As Integer, background As Integer)
     Sub ShowSplashContent(displayBuffer As IPixelSink, font As Font)
     Sub ShowAboutContent(displayBuffer As IPixelSink, font As Font)
-    Function ControlsText(aButtonText As String, bButtonText As String) As String
+    Function ControlsText(Optional aButton As String = Nothing, Optional bButton As String = Nothing, Optional selectButton As String = Nothing, Optional startButton As String = Nothing) As String
     Sub AbandonGame()
     'save game stuff
     Sub LoadGame(slot As Integer)

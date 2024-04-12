@@ -1,7 +1,16 @@
 ﻿Friend Class SaveState(Of TModel)
     Inherits BasePickerState(Of TModel, Integer)
-    Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of TModel))
-        MyBase.New(parent, setState, context, "Save Game", context.ControlsText("Choose", "Cancel"), BoilerplateState.GameMenu)
+    Public Sub New(
+                  parent As IGameController,
+                  setState As Action(Of String, Boolean),
+                  context As IUIContext(Of TModel))
+        MyBase.New(
+            parent,
+            setState,
+            context,
+            "Save Game",
+            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            BoilerplateState.GameMenu)
     End Sub
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As Integer))
         Dim slotIndex = value.Item

@@ -24,7 +24,7 @@ Public MustInherit Class UIContext(Of TModel)
     End Sub
     Public Sub ShowStatusBar(displayBuffer As IPixelSink, font As Font, text As String, foreground As Integer, background As Integer) Implements IUIContext(Of TModel).ShowStatusBar
         displayBuffer.Fill((0, ViewSize.Height - font.Height), (ViewSize.Width, font.Height), background)
-        font.WriteLeftText(displayBuffer, (ViewCenter.X - font.HalfTextWidth(text), ViewSize.Height - font.Height), text, foreground)
+        font.WriteCenteredText(displayBuffer, (ViewCenter.X, ViewSize.Height - font.Height), text, foreground)
     End Sub
     Public Function Font(gameFont As String) As Font Implements IUIContext(Of TModel).Font
         Return fonts(gameFont)
@@ -32,20 +32,27 @@ Public MustInherit Class UIContext(Of TModel)
     Public MustOverride Sub ShowSplashContent(displayBuffer As IPixelSink, font As Font) Implements IUIContext(Of TModel).ShowSplashContent
     Public Sub ShowHeader(displayBuffer As IPixelSink, font As Font, text As String, foreground As Integer, background As Integer) Implements IUIContext(Of TModel).ShowHeader
         displayBuffer.Fill((0, 0), (ViewSize.Width, font.Height), background)
-        font.WriteLeftText(displayBuffer, (ViewCenter.X - font.HalfTextWidth(text), 0), text, foreground)
+        font.WriteCenteredText(displayBuffer, (ViewCenter.X, 0), text, foreground)
     End Sub
-    Public Function ControlsText(aButtonText As String, bButtonText As String) As String Implements IUIContext(Of TModel).ControlsText
-        Dim result As String = ""
-        If Not String.IsNullOrEmpty(aButtonText) Then
-            result = $"<A> {aButtonText}"
+    Public Function ControlsText(
+                                Optional aButton As String = Nothing,
+                                Optional bButton As String = Nothing,
+                                Optional selectButton As String = Nothing,
+                                Optional startButton As String = Nothing) As String Implements IUIContext(Of TModel).ControlsText
+        Dim items As New List(Of String)
+        If aButton IsNot Nothing Then
+            items.Add($"[SPC] {aButton}")
         End If
-        If Not String.IsNullOrEmpty(bButtonText) Then
-            If Not String.IsNullOrEmpty(result) Then
-                result &= " | "
-            End If
-            result &= $"<B> {bButtonText}"
+        If bButton IsNot Nothing Then
+            items.Add($"[ESC] {bButton}")
         End If
-        Return result
+        If selectButton IsNot Nothing Then
+            items.Add($"[TAB] {selectButton}")
+        End If
+        If startButton IsNot Nothing Then
+            items.Add($"[ENT] {startButton}")
+        End If
+        Return String.Join(" | ", items.ToArray)
     End Function
     Public MustOverride Sub ShowAboutContent(displayBuffer As IPixelSink, font As Font) Implements IUIContext(Of TModel).ShowAboutContent
     Public MustOverride Sub AbandonGame() Implements IUIContext(Of TModel).AbandonGame

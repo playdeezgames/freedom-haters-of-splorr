@@ -49,7 +49,7 @@ Public Class FHOSContext
     Public Overrides Sub ShowSplashContent(displayBuffer As IPixelSink, font As Font)
         ShowTitle(displayBuffer, font)
         ShowSubtitle(displayBuffer, font)
-        ShowStatusBar(displayBuffer, font, ControlsText(ContinueText, Nothing), UIPalette.Background, UIPalette.Footer)
+        ShowStatusBar(displayBuffer, font, ControlsText(aButton:=ContinueText), UIPalette.Background, UIPalette.Footer)
     End Sub
 
     Private Sub ShowSubtitle(displayBuffer As IPixelSink, font As Font)
@@ -83,7 +83,7 @@ Public Class FHOSContext
                     aboutLine.Value.Hue)
             Next
         End With
-        ShowStatusBar(displayBuffer, font, ControlsText(Nothing, "Close"), UIPalette.Background, UIPalette.Footer)
+        ShowStatusBar(displayBuffer, font, ControlsText(bButton:="Close"), UIPalette.Background, UIPalette.Footer)
     End Sub
 
     Public Overrides Sub AbandonGame()
