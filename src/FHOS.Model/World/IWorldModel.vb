@@ -5,4 +5,6 @@ Public Interface IWorldModel
     Sub Embark()
     ReadOnly Property Board As IBoardModel
     ReadOnly Property Avatar As IAvatarModel
+    ReadOnly Property GalacticDensityName As String
+    ReadOnly Property GalacticAgeName As String
 End Interface

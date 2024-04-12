@@ -2,23 +2,36 @@
 Imports SPLORR.UI
 
 Friend Class EmbarkState
-    Inherits BaseGameState(Of IWorldModel)
+    Inherits BasePickerState(Of IWorldModel, String)
+    Private Const AgeText = "age"
+    Private Const DensityText = "density"
+    Private Const GoText = "go"
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IWorldModel))
-        MyBase.New(parent, setState, context)
+        MyBase.New(parent, setState, context, "Embarkation Options...", context.ControlsText("Choose", "Cancel"), BoilerplateState.MainMenu)
     End Sub
 
-    Public Overrides Sub HandleCommand(cmd As String)
-        Throw New NotImplementedException()
+    Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
+        Select Case value.Item
+            Case GoText
+                Context.Model.Embark()
+                SetState(BoilerplateState.Neutral)
+        End Select
     End Sub
+
+    Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
+        Return New List(Of (Text As String, Item As String)) From
+            {
+                ("Go!", GoText),
+                ($"Change Galactic Age...", AgeText),
+                ($"Change Galactic Density...", DensityText)
+            }
+    End Function
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
-        Throw New NotImplementedException()
-    End Sub
-
-    Public Overrides Sub OnStart()
-        MyBase.OnStart()
-        Context.Model.Embark()
-        SetState(BoilerplateState.Neutral)
+        MyBase.Render(displayBuffer)
+        Dim uiFont = Context.Font(UIFontName)
+        uiFont.WriteText(displayBuffer, (0, uiFont.Height), $"Galactic Age: {Context.Model.GalacticAgeName}", Black)
+        uiFont.WriteText(displayBuffer, (0, uiFont.Height * 2), $"Galactic Density: {Context.Model.GalacticDensityName}", Black)
     End Sub
 End Class

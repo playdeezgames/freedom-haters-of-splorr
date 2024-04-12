@@ -26,6 +26,18 @@ Public Class WorldModel
         End Get
     End Property
 
+    Public ReadOnly Property GalacticDensityName As String Implements IWorldModel.GalacticDensityName
+        Get
+            Return "Average"
+        End Get
+    End Property
+
+    Public ReadOnly Property GalacticAgeName As String Implements IWorldModel.GalacticAgeName
+        Get
+            Return "Average"
+        End Get
+    End Property
+
     Public Sub Save(filename As String) Implements IWorldModel.Save
         File.WriteAllText(filename, JsonSerializer.Serialize(worldData))
     End Sub
