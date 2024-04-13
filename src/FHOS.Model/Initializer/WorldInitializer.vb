@@ -5,6 +5,8 @@ Friend Module WorldInitializer
     Const StarMapColumns = 63
     Const StarMapRows = 63
     Const StarMapName = "Star Map"
+    Const SystemMapColumns = 31
+    Const SystemMapRows = 31
 
     Sub Initialize(world As IWorld, galacticAge As String, galacticDensity As String)
         Dim starMap = InitializeStarMap(world, galacticAge, galacticDensity)
@@ -40,7 +42,7 @@ Friend Module WorldInitializer
                 cell.TerrainType = StarTypes.Descriptors(starType).TerrainType
                 Dim starSystemName As String = GenerateUnusedStarSystemName(starSystemNames)
                 cell.StarSystem = world.CreateStarSystem(starSystemName, starType)
-                'TODO: generate system map
+                InitializeStarSystem(cell.StarSystem)
                 tries = 0
             Else
                 tries += 1
@@ -48,6 +50,18 @@ Friend Module WorldInitializer
         End While
         Return starMap
     End Function
+
+    Private Sub InitializeStarSystem(starSystem As IStarSystem)
+        starSystem.Map = starSystem.World.CreateMap(
+            MapTypes.System,
+            $"{starSystem.Name} System",
+            SystemMapColumns,
+            SystemMapRows,
+            TerrainTypes.Void)
+        'mark system edge
+        'create teleporter
+        'place teleport along system edge
+    End Sub
 
     Private Function GenerateUnusedStarSystemName(starSystemNames As HashSet(Of String)) As String
         Dim starSystemName As String
