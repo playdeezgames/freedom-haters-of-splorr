@@ -39,14 +39,28 @@ Friend Class NavigationState
             (0, 0),
             (cellWidth, cellHeight))
         RenderStatistics(displayBuffer, uiFont, (ViewColumns * cellWidth, 0))
-        Context.ShowStatusBar(displayBuffer, uiFont, Context.ControlsText(selectButton:="Scanner"), Black, DarkGray)
+        Context.ShowStatusBar(
+            displayBuffer,
+            uiFont,
+            Context.ControlsText(
+                aButton:=If(Context.Model.Avatar.HasActions, "Actions", Nothing),
+                selectButton:="Scanner"),
+            Black,
+            DarkGray)
     End Sub
 
     Private Sub RenderStatistics(displayBuffer As IPixelSink, uiFont As Font, position As (X As Integer, Y As Integer))
+        With Context.Model.Avatar
+            uiFont.WriteLeftText(displayBuffer, position, $"{ .MapName} ({ .X},{ .Y})", Black)
+            position = NextLine(position, uiFont)
+            uiFont.WriteLeftText(displayBuffer, position, $"O2: { .OxygenPercent}%", .OxygenHue)
+            position = NextLine(position, uiFont)
+            If .StarSystem IsNot Nothing Then
+                uiFont.WriteLeftText(displayBuffer, position, .StarSystem.Name, Black)
+                position = NextLine(position, uiFont)
+            End If
+        End With
 
-        uiFont.WriteLeftText(displayBuffer, position, $"{Context.Model.Avatar.MapName} ({Context.Model.Avatar.X},{Context.Model.Avatar.Y})", Black)
-        position = NextLine(position, uiFont)
-        uiFont.WriteLeftText(displayBuffer, position, $"O2: {Context.Model.Avatar.OxygenPercent}%", Context.Model.Avatar.OxygenHue)
     End Sub
 
     Private Function NextLine(position As (X As Integer, Y As Integer), uiFont As Font) As (X As Integer, Y As Integer)

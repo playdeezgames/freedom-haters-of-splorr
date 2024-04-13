@@ -25,8 +25,10 @@ Friend Class MoveState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.SetFacing(facing)
-        Context.Model.Avatar.Move(Persistence.Facing.Deltas(facing))
+        With Context.Model.Avatar
+            .SetFacing(facing)
+            .Move(Persistence.Facing.Deltas(facing))
+        End With
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

@@ -42,4 +42,10 @@
             Return New StarSystemModel(cellStarSystem)
         End Get
     End Property
+
+    Public ReadOnly Property HasDetails As Boolean Implements ICellModel.HasDetails
+        Get
+            Return StarSystem IsNot Nothing OrElse Character IsNot Nothing
+        End Get
+    End Property
 End Class

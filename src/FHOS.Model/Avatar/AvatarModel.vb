@@ -45,6 +45,21 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property HasActions As Boolean Implements IAvatarModel.HasActions
+        Get
+            Return avatar.Cell.StarSystem IsNot Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property StarSystem As IStarSystemModel Implements IAvatarModel.StarSystem
+        Get
+            If avatar.Cell.StarSystem Is Nothing Then
+                Return Nothing
+            End If
+            Return New StarSystemModel(avatar.Cell.StarSystem)
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         Dim cell = avatar.Cell
         Dim nextColumn = cell.Column + delta.X

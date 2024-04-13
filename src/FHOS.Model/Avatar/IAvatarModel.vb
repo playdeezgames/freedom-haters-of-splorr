@@ -6,4 +6,6 @@
     ReadOnly Property MapName As String
     ReadOnly Property OxygenPercent As Integer
     ReadOnly Property OxygenHue As Integer
+    ReadOnly Property HasActions As Boolean
+    ReadOnly Property StarSystem As IStarSystemModel
 End Interface

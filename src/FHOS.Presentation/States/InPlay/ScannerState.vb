@@ -11,7 +11,7 @@ Friend Class ScannerState
 
     Public Overrides Sub HandleCommand(cmd As String)
         Select Case cmd
-            Case Command.Select
+            Case Command.Select, Command.B
                 SetState(GameState.Navigation)
             Case Command.Up
                 MoveTarget(0, -1)
@@ -27,7 +27,7 @@ Friend Class ScannerState
     Private Sub MoveTarget(deltaX As Integer, deltaY As Integer)
         Dim oldX = target.X
         Dim oldY = target.Y
-        target = (Math.Clamp(target.X + deltaX, 0, ViewColumns - 1), Math.Clamp(target.Y + deltaY, 0, ViewRows - 1))
+        target = (Math.Clamp(target.X + deltaX, -ViewColumns \ 2, ViewColumns \ 2), Math.Clamp(target.Y + deltaY, -ViewRows \ 2, ViewRows \ 2))
         If Not TargetCell.Exists Then
             target = (oldX, oldY)
         End If
@@ -45,16 +45,26 @@ Friend Class ScannerState
             (cellWidth, cellHeight))
         uiFont.WriteLeftText(
             displayBuffer,
-            (cellWidth * target.X, cellHeight * target.Y),
+            (cellWidth * (target.X + ViewColumns \ 2), cellHeight * (target.Y + ViewRows \ 2)),
             ChrW(255),
             4)
-        RenderDetails(displayBuffer, uiFont, (ViewColumns * cellWidth, 0))
-        Context.ShowStatusBar(displayBuffer, uiFont, Context.ControlsText(selectButton:="Navigation"), Black, DarkGray)
+        RenderDetails(
+            displayBuffer,
+            uiFont,
+            (ViewColumns * cellWidth, 0))
+        Context.ShowStatusBar(
+            displayBuffer,
+            uiFont,
+            Context.ControlsText(
+                aButton:=If(TargetCell.HasDetails, "Details", Nothing),
+                selectButton:="Navigation"),
+            Black,
+            DarkGray)
     End Sub
 
     Private ReadOnly Property TargetCell As ICellModel
         Get
-            Return Context.Model.Board.GetCell((target.X - ViewColumns \ 2, target.Y - ViewRows \ 2))
+            Return Context.Model.Board.GetCell(target)
         End Get
     End Property
 
@@ -77,6 +87,6 @@ Friend Class ScannerState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        target = (ViewColumns \ 2, ViewRows \ 2)
+        target = (0, 0)
     End Sub
 End Class
