@@ -49,6 +49,7 @@ Friend Class ScannerState
             ChrW(255),
             4)
         RenderDetails(displayBuffer, uiFont, (ViewColumns * cellWidth, 0))
+        Context.ShowStatusBar(displayBuffer, uiFont, Context.ControlsText(selectButton:="Navigation"), Black, DarkGray)
     End Sub
 
     Private ReadOnly Property TargetCell As ICellModel
