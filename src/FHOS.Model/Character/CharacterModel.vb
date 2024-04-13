@@ -9,7 +9,7 @@
 
     Public ReadOnly Property Glyph As Char Implements ICharacterModel.Glyph
         Get
-            Return CharacterTypes.Descriptors(character.CharacterType).Glyph
+            Return CharacterTypes.Descriptors(character.CharacterType).Glyphs(character.Facing)
         End Get
     End Property
 

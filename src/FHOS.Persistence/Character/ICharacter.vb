@@ -4,4 +4,5 @@
     ReadOnly Property CharacterType As String
     Property MaximumOxygen As Integer
     Property Oxygen As Integer
+    Property Facing As Integer
 End Interface

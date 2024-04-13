@@ -1,6 +1,8 @@
 # freedom-haters-of-splorr
 Freedom Haters of SPLORR!!
 
+"Freedom Haters of SPLORR!!" Dystopian Futuristic Sci-Fi Roguelike. #LoveFreedom #LiveFreeOrDie #FlossingForFreedom
+
 ## Music
 https://pernyblom.github.io/abundant-music/index.html
 

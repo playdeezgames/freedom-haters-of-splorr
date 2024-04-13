@@ -1,27 +1,29 @@
-﻿Friend Class AvatarModel
+﻿Imports FHOS.Persistence
+
+Friend Class AvatarModel
     Implements IAvatarModel
 
-    Private ReadOnly world As Persistence.IWorld
+    Private ReadOnly avatar As ICharacter
 
-    Public Sub New(world As Persistence.IWorld)
-        Me.world = world
+    Public Sub New(avatar As ICharacter)
+        Me.avatar = avatar
     End Sub
 
     Public ReadOnly Property X As Integer Implements IAvatarModel.X
         Get
-            Return world.Avatar.Cell.Column
+            Return avatar.Cell.Column
         End Get
     End Property
 
     Public ReadOnly Property Y As Integer Implements IAvatarModel.Y
         Get
-            Return world.Avatar.Cell.Row
+            Return avatar.Cell.Row
         End Get
     End Property
 
     Public ReadOnly Property MapName As String Implements IAvatarModel.MapName
         Get
-            Return world.Avatar.Cell.Map.Name
+            Return avatar.Cell.Map.Name
         End Get
     End Property
 
@@ -39,18 +41,22 @@
 
     Public ReadOnly Property OxygenPercent As Integer Implements IAvatarModel.OxygenPercent
         Get
-            Return world.Avatar.Oxygen * 100 \ world.Avatar.MaximumOxygen
+            Return avatar.Oxygen * 100 \ avatar.MaximumOxygen
         End Get
     End Property
 
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
-        Dim cell = world.Avatar.Cell
+        Dim cell = avatar.Cell
         Dim nextColumn = cell.Column + delta.X
         Dim nextRow = cell.Row + delta.Y
         Dim map = cell.Map
         Dim nextCell = map.GetCell(nextColumn, nextRow)
         If nextCell IsNot Nothing Then
-            world.Avatar.Cell = nextCell
+            avatar.Cell = nextCell
         End If
+    End Sub
+
+    Public Sub SetFacing(facing As Integer) Implements IAvatarModel.SetFacing
+        avatar.Facing = facing
     End Sub
 End Class

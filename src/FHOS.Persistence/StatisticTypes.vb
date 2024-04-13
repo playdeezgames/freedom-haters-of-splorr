@@ -4,6 +4,7 @@
     Friend Const CharacterId = "CharacterId"
     Friend Const Column = "Column"
     Friend Const Columns = "Columns"
+    Friend Const Facing = "Facing"
     Friend Const MapId = "MapId"
     Friend Const MaximumOxygen = "MaximumOxygen"
     Friend Const Oxygen = "Oxygen"

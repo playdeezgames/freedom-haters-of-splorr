@@ -59,7 +59,8 @@ Public Class World
                                  {
                                     .Statistics = New Dictionary(Of String, Integer) From
                                     {
-                                        {StatisticTypes.CellId, cell.Id}
+                                        {StatisticTypes.CellId, cell.Id},
+                                        {StatisticTypes.Facing, 1}
                                     },
                                     .Metadatas = New Dictionary(Of String, String) From
                                     {

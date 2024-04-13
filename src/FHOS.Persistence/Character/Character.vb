@@ -48,4 +48,13 @@
             CharacterData.Statistics(StatisticTypes.Oxygen) = Math.Clamp(value, 0, MaximumOxygen)
         End Set
     End Property
+
+    Public Property Facing As Integer Implements ICharacter.Facing
+        Get
+            Return CharacterData.Statistics(StatisticTypes.Facing)
+        End Get
+        Set(value As Integer)
+            CharacterData.Statistics(StatisticTypes.Facing) = value
+        End Set
+    End Property
 End Class

@@ -6,7 +6,7 @@
             {
                 Player,
                 New CharacterTypeDescriptor(
-                    ChrW(128),
+                    {ChrW(128), ChrW(129), ChrW(130), ChrW(131)},
                     Hue.LightGray,
                     100,
                     Function(x) x.TerrainType = TerrainTypes.Void)}
