@@ -24,6 +24,8 @@
                 SetState(BoilerplateState.SfxVolume)
             Case SetMuxVolumeText
                 SetState(BoilerplateState.MuxVolume)
+            Case ControlsText
+                SetState(BoilerplateState.ControlsMenu)
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -33,6 +35,7 @@
             {
                 (ToggleFullScreenText, ToggleFullScreenText),
                 (SetWindowSizeText, SetWindowSizeText),
+                (ControlsText, ControlsText),
                 (SetSfxVolumeText, SetSfxVolumeText),
                 (SetMuxVolumeText, SetMuxVolumeText)
             }

@@ -17,4 +17,5 @@
     Public Const SfxVolume = "SfxVolume"
     Public Const MuxVolume = "MuxVolume"
     Public Const WindowSize = "WindowSize"
+    Public Const ControlsMenu = "ControlsMenu"
 End Module

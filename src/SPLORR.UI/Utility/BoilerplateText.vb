@@ -15,4 +15,8 @@
     Friend Const SetWindowSizeText = "Window Size..."
     Friend Const ToggleFullScreenText = "Toggle Full Screen"
     Friend Const YesText = "Yes"
+    Friend Const ControlsText = "Controls..."
+    Friend Const CancelText = "Cancel"
+    Friend Const RestoreDefaultsText = "Restore Defaults"
+    Friend Const SaveAndExitText = "Save and Exit"
 End Module
