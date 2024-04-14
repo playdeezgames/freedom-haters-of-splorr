@@ -5,8 +5,16 @@ Imports SPLORR.UI
 Public Class FHOSContext
     Inherits UIContext(Of IWorldModel)
 
-    Public Sub New(fontFilenames As IReadOnlyDictionary(Of String, String), viewSize As (Integer, Integer))
-        MyBase.New(New WorldModel, fontFilenames, viewSize, New FHOSUIPalette)
+    Public Sub New(
+                  fontFilenames As IReadOnlyDictionary(Of String, String),
+                  viewSize As (Integer, Integer),
+                  keyBindings As IKeyBindings)
+        MyBase.New(
+            New WorldModel,
+            fontFilenames,
+            viewSize,
+            New FHOSUIPalette,
+            keyBindings)
     End Sub
     Private ReadOnly multipliers As IReadOnlyList(Of Integer) =
         New List(Of Integer) From

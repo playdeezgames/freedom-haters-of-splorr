@@ -4,23 +4,25 @@ Imports FHOS.Presentation
 Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Input
 Imports SPLORR.Presentation
+Imports SPLORR.UI
 Module Program
     Sub Main(args As String())
+        Dim context = New FHOSContext(LoadFonts(), (ViewWidth, ViewHeight), New FHOSKeyBindings(KeysFilename))
         Using host As New Host(
             $"{GameTitle}: {GameSubtitle}",
             New FHOSController(
                 New FHOSSettings(),
-                New FHOSContext(LoadFonts(), (ViewWidth, ViewHeight))),
+                context),
             (ViewWidth, ViewHeight),
             LoadHues(),
-            LoadCommands(),
+            LoadCommands(context.KeyBindings),
             LoadSfx(),
             LoadMux)
             host.Run()
         End Using
     End Sub
-    Private Function LoadCommands() As IReadOnlyDictionary(Of String, Func(Of KeyboardState, GamePadState, Boolean))
-        Dim keysTable = JsonSerializer.Deserialize(Of Dictionary(Of Keys, String))(File.ReadAllText(KeysFilename))
+    Private Function LoadCommands(keyBindings As IKeyBindings) As IReadOnlyDictionary(Of String, Func(Of KeyboardState, GamePadState, Boolean))
+        Dim keysTable = keyBindings.KeysTable.ToDictionary(Function(x) [Enum].Parse(Of Keys)(x.Key), Function(x) x.Value)
         Dim keysForCommands = keysTable.
             GroupBy(Function(x) x.Value).
             ToDictionary(
