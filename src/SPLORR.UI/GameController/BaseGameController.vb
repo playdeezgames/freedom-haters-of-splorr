@@ -103,7 +103,9 @@
         SetState(BoilerplateState.ScumLoadMainMenu, New ScumLoadState(Of TModel)(Me, AddressOf SetCurrentState, context, BoilerplateState.MainMenu))
         SetState(BoilerplateState.ScumLoadGameMenu, New ScumLoadState(Of TModel)(Me, AddressOf SetCurrentState, context, BoilerplateState.GameMenu))
         SetState(BoilerplateState.SaveConfirmation, New SaveConfirmationState(Of TModel)(Me, AddressOf SetCurrentState, context))
-        SetState(BoilerplateState.ControlsMenu, New ControlsMenuState(Of TModel)(Me, AddressOf SetCurrentState, context))
+        SetState(BoilerplateState.KeyBindings, New KeyBindingsState(Of TModel)(Me, AddressOf SetCurrentState, context))
+        SetState(BoilerplateState.AddKeyBinding, New AddKeyBindingState(Of TModel)(Me, AddressOf SetCurrentState, context))
+        SetState(BoilerplateState.AddBoundCommand, New AddBoundCommandState(Of TModel)(Me, AddressOf SetCurrentState, context))
     End Sub
     Private OnSfx As Action(Of String)
     Private OnMux As Action(Of String)

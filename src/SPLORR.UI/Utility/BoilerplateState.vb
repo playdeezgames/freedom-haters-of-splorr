@@ -17,5 +17,7 @@
     Public Const SfxVolume = "SfxVolume"
     Public Const MuxVolume = "MuxVolume"
     Public Const WindowSize = "WindowSize"
-    Public Const ControlsMenu = "ControlsMenu"
+    Public Const KeyBindings = "KeyBindings"
+    Public Const AddKeyBinding = "AddKeyBindingMenu"
+    Public Const AddBoundCommand = "AddBoundCommand"
 End Module

@@ -1,5 +1,6 @@
-﻿Friend Class ControlsMenuState(Of TModel)
+﻿Friend Class AddKeyBindingState(Of TModel)
     Inherits BasePickerState(Of TModel, String)
+    Friend Shared Property SelectedKey As String
 
     Public Sub New(
                   parent As IGameController,
@@ -9,25 +10,27 @@
             parent,
             setState,
             context,
-            "Key Bindings",
+            "Add Key Binding...",
             context.ControlsText(aButton:="Choose", bButton:="Cancel"),
-            BoilerplateState.Options)
+            BoilerplateState.KeyBindings)
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
         Select Case value.Item
-            Case CancelText
-                SetState(BoilerplateState.Options)
+            Case GoBackText
+                SetState(BoilerplateState.KeyBindings)
+            Case Else
+                SelectedKey = value.Item
+                SetState(BoilerplateState.AddBoundCommand)
         End Select
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
         Dim result As New List(Of (Text As String, Item As String)) From
             {
-                (CancelText, CancelText),
-                (SaveAndExitText, SaveAndExitText),
-                (RestoreDefaultsText, RestoreDefaultsText)
+                (GoBackText, GoBackText)
             }
+        result.AddRange(Context.KeyBindings.UnboundKeys)
         Return result
     End Function
 End Class

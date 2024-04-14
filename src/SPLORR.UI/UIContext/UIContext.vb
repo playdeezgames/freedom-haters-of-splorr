@@ -49,16 +49,16 @@ Public MustInherit Class UIContext(Of TModel)
                                 Optional startButton As String = Nothing) As String Implements IUIContext(Of TModel).ControlsText
         Dim items As New List(Of String)
         If aButton IsNot Nothing Then
-            items.Add($"[SPC] {aButton}")
+            items.Add($"[A] {aButton}")
         End If
         If bButton IsNot Nothing Then
-            items.Add($"[ESC] {bButton}")
+            items.Add($"[B] {bButton}")
         End If
         If selectButton IsNot Nothing Then
-            items.Add($"[TAB] {selectButton}")
+            items.Add($"[Select] {selectButton}")
         End If
         If startButton IsNot Nothing Then
-            items.Add($"[ENT] {startButton}")
+            items.Add($"[Start] {startButton}")
         End If
         Return String.Join(" | ", items.ToArray)
     End Function

@@ -1,9 +1,9 @@
 {
   "Space": "A",
-  "Enter": "Start",
   "Escape": "B",
-  "Tab": "Select",
   "NumPad0": "B",
+  "Tab": "Select",
+  "Enter": "Start",
   "Up": "Up",
   "W": "Up",
   "Z": "Up",
