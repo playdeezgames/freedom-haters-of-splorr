@@ -70,4 +70,16 @@ Friend Class FHOSKeyBindings
             Save()
         End Try
     End Sub
+
+    Public Sub Unbind(key As String) Implements IKeyBindings.Unbind
+        _keysTable.Remove(key)
+    End Sub
+
+    Public Function CanUnbind(key As String) As Boolean Implements IKeyBindings.CanUnbind
+        If Not _keysTable.ContainsKey(key) Then
+            Return False
+        End If
+        Dim boundCommand = _keysTable(key)
+        Return _keysTable.Values.Where(Function(x) x = boundCommand).Count > 1
+    End Function
 End Class

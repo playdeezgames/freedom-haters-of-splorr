@@ -106,6 +106,8 @@
         SetState(BoilerplateState.KeyBindings, New KeyBindingsState(Of TModel)(Me, AddressOf SetCurrentState, context))
         SetState(BoilerplateState.AddKeyBinding, New AddKeyBindingState(Of TModel)(Me, AddressOf SetCurrentState, context))
         SetState(BoilerplateState.AddBoundCommand, New AddBoundCommandState(Of TModel)(Me, AddressOf SetCurrentState, context))
+        SetState(BoilerplateState.ConfirmDeleteKeyBinding, New ConfirmDeleteKeyBindingState(Of TModel)(Me, AddressOf SetCurrentState, context))
+        SetState(BoilerplateState.CannotUnbindKeyBinding, New CannotUnbindKeyBindingState(Of TModel)(Me, AddressOf SetCurrentState, context))
     End Sub
     Private OnSfx As Action(Of String)
     Private OnMux As Action(Of String)

@@ -3,4 +3,5 @@
     ReadOnly Property MenuItem As Integer
     ReadOnly Property Header As Integer
     ReadOnly Property Footer As Integer
+    ReadOnly Property [Error] As Integer
 End Interface

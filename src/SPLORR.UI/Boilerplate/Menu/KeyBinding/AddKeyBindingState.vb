@@ -1,6 +1,5 @@
 ﻿Friend Class AddKeyBindingState(Of TModel)
     Inherits BasePickerState(Of TModel, String)
-    Friend Shared Property SelectedKey As String
 
     Public Sub New(
                   parent As IGameController,
@@ -20,7 +19,7 @@
             Case GoBackText
                 SetState(BoilerplateState.KeyBindings)
             Case Else
-                SelectedKey = value.Item
+                KeyBindingsState(Of TModel).SelectedKey = value.Item
                 SetState(BoilerplateState.AddBoundCommand)
         End Select
     End Sub

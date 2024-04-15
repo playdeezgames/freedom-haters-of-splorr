@@ -26,4 +26,10 @@ Friend Class FHOSUIPalette
             Return 8
         End Get
     End Property
+
+    Public ReadOnly Property [Error] As Integer Implements IUIPalette.Error
+        Get
+            Return 4
+        End Get
+    End Property
 End Class

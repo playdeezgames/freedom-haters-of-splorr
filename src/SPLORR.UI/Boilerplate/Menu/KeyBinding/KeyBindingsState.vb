@@ -1,5 +1,6 @@
 ﻿Friend Class KeyBindingsState(Of TModel)
     Inherits BasePickerState(Of TModel, String)
+    Friend Shared Property SelectedKey As String
 
     Public Sub New(
                   parent As IGameController,
@@ -28,7 +29,8 @@
             Case AddText
                 SetState(BoilerplateState.AddKeyBinding)
             Case Else
-                'TODO: give a message indicating that the keybinding can be removed or ask for confirmation that the key binding be removed
+                SelectedKey = value.Item
+                SetState(BoilerplateState.ConfirmDeleteKeyBinding)
         End Select
     End Sub
 

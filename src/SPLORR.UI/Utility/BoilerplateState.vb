@@ -20,4 +20,6 @@
     Public Const KeyBindings = "KeyBindings"
     Public Const AddKeyBinding = "AddKeyBindingMenu"
     Public Const AddBoundCommand = "AddBoundCommand"
+    Public Const ConfirmDeleteKeyBinding = "DeleteKeyBinding"
+    Public Const CannotUnbindKeyBinding = "CannotUnbindKeyBinding"
 End Module

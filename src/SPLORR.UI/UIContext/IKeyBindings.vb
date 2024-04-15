@@ -5,4 +5,6 @@
     Sub RestoreDefaults()
     Sub Bind(key As String, command As String)
     Sub Reload()
+    Sub Unbind(key As String)
+    Function CanUnbind(key As String) As Boolean
 End Interface
