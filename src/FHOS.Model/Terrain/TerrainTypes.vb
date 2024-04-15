@@ -1,5 +1,13 @@
 ﻿Friend Module TerrainTypes
     Friend Const Void = "Void"
+    Friend Const VoidNorthArrow = "VoidNorthArrow"
+    Friend Const VoidNorthEastArrow = "VoidNorthEastArrow"
+    Friend Const VoidEastArrow = "VoidEastArrow"
+    Friend Const VoidSouthEastArrow = "VoidSouthEastArrow"
+    Friend Const VoidSouthArrow = "VoidSouthArrow"
+    Friend Const VoidSouthWestArrow = "VoidSouthWestArrow"
+    Friend Const VoidWestArrow = "VoidWestArrow"
+    Friend Const VoidNorthWestArrow = "VoidNorthWestArrow"
     Friend Const BlueStar = "BlueStar"
     Friend Const BlueWhiteStar = "BlueWhiteStar"
     Friend Const YellowStar = "YellowStar"
@@ -8,7 +16,15 @@
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, TerrainTypeDescriptor) =
         New Dictionary(Of String, TerrainTypeDescriptor) From
         {
-            {Void, New TerrainTypeDescriptor("Empty Space", ChrW(0), Black, Black)},
+            {Void, New TerrainTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black)},
+            {VoidNorthArrow, New TerrainTypeDescriptor("Empty Space", ChrW(8), DarkGray, Black)},
+            {VoidNorthEastArrow, New TerrainTypeDescriptor("Empty Space", ChrW(9), DarkGray, Black)},
+            {VoidEastArrow, New TerrainTypeDescriptor("Empty Space", ChrW(10), DarkGray, Black)},
+            {VoidSouthEastArrow, New TerrainTypeDescriptor("Empty Space", ChrW(11), DarkGray, Black)},
+            {VoidSouthArrow, New TerrainTypeDescriptor("Empty Space", ChrW(12), DarkGray, Black)},
+            {VoidSouthWestArrow, New TerrainTypeDescriptor("Empty Space", ChrW(13), DarkGray, Black)},
+            {VoidWestArrow, New TerrainTypeDescriptor("Empty Space", ChrW(14), DarkGray, Black)},
+            {VoidNorthWestArrow, New TerrainTypeDescriptor("Empty Space", ChrW(15), DarkGray, Black)},
             {BlueStar, New TerrainTypeDescriptor("Blue Star", ChrW(224), Hue.Blue, Black)},
             {BlueWhiteStar, New TerrainTypeDescriptor("Blue-White Star", ChrW(224), Hue.LightBlue, Black)},
             {YellowStar, New TerrainTypeDescriptor("Yellow Star", ChrW(224), Hue.Yellow, Black)},

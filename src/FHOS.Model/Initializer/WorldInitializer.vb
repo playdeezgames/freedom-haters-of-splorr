@@ -59,6 +59,11 @@ Friend Module WorldInitializer
             SystemMapRows,
             TerrainTypes.Void)
         'mark system edge
+        'corners
+        'left edge
+        'right edge
+        'top edge
+        'bottom edge
         'create teleporter
         'place teleport along system edge
     End Sub
