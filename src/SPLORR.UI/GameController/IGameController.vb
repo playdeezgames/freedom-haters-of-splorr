@@ -14,5 +14,7 @@
     Property MuxVolume As Single
     Sub SetMuxVolumeHook(hook As Action(Of Single))
     Sub SetSizeHook(hook As Action(Of (Integer, Integer), Boolean))
+    Sub SetReloadKeyBindingsHook(hook As Action)
     Property StartStateEnabled As Boolean
+    Sub ReloadKeyBindings()
 End Interface

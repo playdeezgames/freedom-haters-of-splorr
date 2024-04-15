@@ -100,4 +100,12 @@
     Public Sub SetMuxVolumeHook(hook As Action(Of Single)) Implements IGameController.SetMuxVolumeHook
         Parent.SetMuxVolumeHook(hook)
     End Sub
+
+    Public Sub SetReloadKeyBindingsHook(hook As Action) Implements IGameController.SetReloadKeyBindingsHook
+        Parent.SetReloadKeyBindingsHook(hook)
+    End Sub
+
+    Public Sub ReloadKeyBindings() Implements IGameController.ReloadKeyBindings
+        Parent.ReloadKeyBindings()
+    End Sub
 End Class

@@ -30,7 +30,6 @@ Friend Class FHOSKeyBindings
 
     Public Sub Save() Implements IKeyBindings.Save
         File.WriteAllText(keysFilename, JsonSerializer.Serialize(_keysTable))
-        'TODO: apply to host key processor
     End Sub
 
     Public Sub RestoreDefaults() Implements IKeyBindings.RestoreDefaults

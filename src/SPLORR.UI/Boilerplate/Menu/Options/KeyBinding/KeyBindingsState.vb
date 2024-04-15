@@ -22,6 +22,7 @@
                 SetState(BoilerplateState.Options)
             Case SaveAndExitText
                 Context.KeyBindings.Save()
+                ReloadKeyBindings()
                 SetState(BoilerplateState.Options)
             Case RestoreDefaultsText
                 Context.KeyBindings.RestoreDefaults()

@@ -112,6 +112,7 @@
     Private OnSfx As Action(Of String)
     Private OnMux As Action(Of String)
     Private OnMuxVolume As Action(Of Single)
+    Private OnReloadKeyBindings As Action
 
     Public Sub HandleCommand(command As String) Implements IGameController.HandleCommand
         _states(_stateStack.Peek).HandleCommand(command)
@@ -150,5 +151,13 @@
 
     Public Sub SetMuxVolumeHook(hook As Action(Of Single)) Implements IGameController.SetMuxVolumeHook
         OnMuxVolume = hook
+    End Sub
+
+    Public Sub SetReloadKeyBindingsHook(hook As Action) Implements IGameController.SetReloadKeyBindingsHook
+        OnReloadKeyBindings = hook
+    End Sub
+
+    Public Sub ReloadKeyBindings() Implements IGameController.ReloadKeyBindings
+        OnReloadKeyBindings()
     End Sub
 End Class

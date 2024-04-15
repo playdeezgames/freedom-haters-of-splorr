@@ -15,7 +15,7 @@ Module Program
                 context),
             (ViewWidth, ViewHeight),
             LoadHues(),
-            LoadCommands(context.KeyBindings),
+            Function() LoadCommands(context.KeyBindings),
             LoadSfx(),
             LoadMux)
             host.Run()

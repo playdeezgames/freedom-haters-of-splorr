@@ -14,7 +14,8 @@ Public Class Host
     Private _texture As Texture2D
     Private _spriteBatch As SpriteBatch
     Private _displayBuffer As IDisplayBuffer
-    Private ReadOnly _commandTable As IReadOnlyDictionary(Of String, Func(Of KeyboardState, GamePadState, Boolean))
+    Private _commandTable As IReadOnlyDictionary(Of String, Func(Of KeyboardState, GamePadState, Boolean))
+    Private ReadOnly _commandTableLoader As Func(Of IReadOnlyDictionary(Of String, Func(Of KeyboardState, GamePadState, Boolean)))
     Private ReadOnly _sfxSoundEffects As New Dictionary(Of String, SoundEffect)
     Private ReadOnly _sfxFilenames As IReadOnlyDictionary(Of String, String)
     Private ReadOnly _muxSongs As New Dictionary(Of String, Song)
@@ -26,14 +27,15 @@ Public Class Host
            controller As IGameController,
            viewSize As (Integer, Integer),
            hueTable As IReadOnlyDictionary(Of Integer, Color),
-           commandTable As IReadOnlyDictionary(Of String, Func(Of KeyboardState, GamePadState, Boolean)),
+           commandTableLoader As Func(Of IReadOnlyDictionary(Of String, Func(Of KeyboardState, GamePadState, Boolean))),
            sfxFileNames As IReadOnlyDictionary(Of String, String),
            muxFileNames As IReadOnlyDictionary(Of String, String))
         _title = title
         _graphics = New GraphicsDeviceManager(Me)
         _controller = controller
         _viewSize = viewSize
-        _commandTable = commandTable
+        _commandTableLoader = commandTableLoader
+        _commandTable = _commandTableLoader()
         _sfxFilenames = sfxFileNames
         _muxFilenames = muxFileNames
         _hueTable = hueTable
@@ -42,6 +44,7 @@ Public Class Host
     Protected Overrides Sub Initialize()
         _controller.SetSizeHook(AddressOf OnWindowSizeChange)
         _controller.SetMuxVolumeHook(AddressOf OnMuxVolumeChange)
+        _controller.SetReloadKeyBindingsHook(AddressOf OnReloadKeyBindings)
         Window.Title = _title
         OnWindowSizeChange(_controller.Size, _controller.FullScreen)
         For Each entry In _sfxFilenames
@@ -54,6 +57,10 @@ Public Class Host
         _controller.SetMuxHook(AddressOf OnMux)
         MediaPlayer.IsRepeating = True
         MyBase.Initialize()
+    End Sub
+
+    Private Sub OnReloadKeyBindings()
+        _commandTable = _commandTableLoader()
     End Sub
 
     Private Sub OnMuxVolumeChange(volume As Single)
