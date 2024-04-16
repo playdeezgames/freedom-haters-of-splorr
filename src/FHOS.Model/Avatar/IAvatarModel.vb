@@ -11,4 +11,5 @@
     ReadOnly Property StarSystem As IStarSystemModel
     ReadOnly Property HasTutorial As Boolean
     ReadOnly Property CurrentTutorial As String
+    ReadOnly Property IgnoreCurrentTutorial As Boolean
 End Interface

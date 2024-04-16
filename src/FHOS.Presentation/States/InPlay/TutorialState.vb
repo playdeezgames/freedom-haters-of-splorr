@@ -43,4 +43,12 @@ Friend Class TutorialState
                         New TutorialDetailLine("then choose 'Enter System'", Hue.Black)
                     })}
         }
+
+    Public Overrides Sub OnStart()
+        MyBase.OnStart()
+        If Context.Model.Avatar.IgnoreCurrentTutorial Then
+            Context.Model.Avatar.DismissTutorial()
+            SetState(BoilerplateState.Neutral)
+        End If
+    End Sub
 End Class

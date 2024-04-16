@@ -39,6 +39,14 @@
         End If
     End Sub
 
+    Public Function HasFlag(flag As String) As Boolean Implements ICharacter.HasFlag
+        Return CharacterData.Flags.Contains(flag)
+    End Function
+
+    Public Sub SetFlag(flag As String) Implements ICharacter.SetFlag
+        CharacterData.Flags.Add(flag)
+    End Sub
+
     Public ReadOnly Property CharacterType As String Implements ICharacter.CharacterType
         Get
             Return CharacterData.Metadatas(MetadataTypes.CharacterType)

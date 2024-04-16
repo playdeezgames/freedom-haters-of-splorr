@@ -72,6 +72,19 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property IgnoreCurrentTutorial As Boolean Implements IAvatarModel.IgnoreCurrentTutorial
+        Get
+            If Not HasTutorial Then
+                Return True
+            End If
+            Dim descriptor = TutorialTypes.Descriptors(CurrentTutorial)
+            If descriptor.HasIgnoreFlag Then
+                Return avatar.HasFlag(descriptor.IgnoreFlag)
+            End If
+            Return False
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         Dim cell = avatar.Cell
         Dim nextColumn = cell.Column + delta.X
@@ -88,6 +101,10 @@ Friend Class AvatarModel
     End Sub
 
     Public Sub DismissTutorial() Implements IAvatarModel.DismissTutorial
+        Dim descriptor = TutorialTypes.Descriptors(avatar.CurrentTutorial)
+        If descriptor.HasIgnoreFlag Then
+            avatar.SetFlag(descriptor.IgnoreFlag)
+        End If
         avatar.DismissTutorial()
     End Sub
 End Class

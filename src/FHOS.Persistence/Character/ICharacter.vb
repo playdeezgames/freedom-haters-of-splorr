@@ -8,4 +8,6 @@
     ReadOnly Property HasTutorial As Boolean
     ReadOnly Property CurrentTutorial As String
     Sub DismissTutorial()
+    Sub SetFlag(flag As String)
+    Function HasFlag(flag As String) As Boolean
 End Interface
