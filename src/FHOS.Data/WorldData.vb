@@ -8,4 +8,6 @@ Public Class WorldData
     Property RecycledCells As New HashSet(Of Integer)
     Property StarSystems As New List(Of StarSystemData)
     Property RecycledStarSystems As New HashSet(Of Integer)
+    Property Teleporters As New List(Of TeleporterData)
+    Property RecycledTeleporters As New HashSet(Of Integer)
 End Class

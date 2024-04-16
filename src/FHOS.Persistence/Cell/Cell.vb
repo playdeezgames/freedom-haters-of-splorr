@@ -72,4 +72,25 @@
             End If
         End Set
     End Property
+
+    Public Property Teleporter As ITeleporter Implements ICell.Teleporter
+        Get
+            Dim teleporterId As Integer
+            If CellData.Statistics.TryGetValue(StatisticTypes.TeleporterId, teleporterId) Then
+                Return New Teleporter(WorldData, teleporterId)
+            End If
+            Return Nothing
+        End Get
+        Set(value As ITeleporter)
+            If value IsNot Nothing Then
+                CellData.Statistics(StatisticTypes.TeleporterId) = value.Id
+            Else
+                CellData.Statistics.Remove(StatisticTypes.TeleporterId)
+            End If
+        End Set
+    End Property
+
+    Public Sub SetFlag(flag As String) Implements ICell.SetFlag
+        CellData.Flags.Add(flag)
+    End Sub
 End Class

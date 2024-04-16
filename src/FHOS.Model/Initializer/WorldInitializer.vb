@@ -42,7 +42,8 @@ Friend Module WorldInitializer
                 cell.TerrainType = StarTypes.Descriptors(starType).TerrainType
                 Dim starSystemName As String = GenerateUnusedStarSystemName(starSystemNames)
                 cell.StarSystem = world.CreateStarSystem(starSystemName, starType)
-                InitializeStarSystem(cell.StarSystem)
+                cell.SetFlag(starSystemName)
+                InitializeStarSystem(cell.StarSystem, starMap, starSystemName)
                 tries = 0
             Else
                 tries += 1
@@ -51,21 +52,54 @@ Friend Module WorldInitializer
         Return starMap
     End Function
 
-    Private Sub InitializeStarSystem(starSystem As IStarSystem)
+    Private Sub InitializeStarSystem(starSystem As IStarSystem, starMap As IMap, starFlag As String)
         starSystem.Map = starSystem.World.CreateMap(
             MapTypes.System,
             $"{starSystem.Name} System",
             SystemMapColumns,
             SystemMapRows,
             TerrainTypes.Void)
-        'mark system edge
-        'corners
-        'left edge
-        'right edge
-        'top edge
-        'bottom edge
-        'create teleporter
-        'place teleport along system edge
+        Dim teleporter = starSystem.World.CreateTeleporter(starMap, starFlag)
+        With starSystem.Map.GetCell(0, 0)
+            .TerrainType = VoidNorthWestArrow
+            .Teleporter = teleporter
+        End With
+        With starSystem.Map.GetCell(SystemMapColumns - 1, 0)
+            .TerrainType = VoidNorthEastArrow
+            .Teleporter = teleporter
+        End With
+        With starSystem.Map.GetCell(0, SystemMapRows - 1)
+            .TerrainType = VoidSouthWestArrow
+            .Teleporter = teleporter
+        End With
+        With starSystem.Map.GetCell(0, SystemMapRows - 1)
+            .TerrainType = VoidSouthWestArrow
+            .Teleporter = teleporter
+        End With
+        With starSystem.Map.GetCell(SystemMapColumns - 1, SystemMapRows - 1)
+            .TerrainType = VoidSouthEastArrow
+            .Teleporter = teleporter
+        End With
+        For Each row In Enumerable.Range(1, SystemMapRows - 2)
+            With starSystem.Map.GetCell(0, row)
+                .Teleporter = teleporter
+                .TerrainType = VoidWestArrow
+            End With
+            With starSystem.Map.GetCell(SystemMapColumns - 1, row)
+                .Teleporter = teleporter
+                .TerrainType = VoidEastArrow
+            End With
+        Next
+        For Each column In Enumerable.Range(1, SystemMapColumns - 2)
+            With starSystem.Map.GetCell(column, 0)
+                .Teleporter = teleporter
+                .TerrainType = VoidNorthArrow
+            End With
+            With starSystem.Map.GetCell(column, SystemMapRows - 1)
+                .Teleporter = teleporter
+                .TerrainType = VoidSouthArrow
+            End With
+        Next
     End Sub
 
     Private Function GenerateUnusedStarSystemName(starSystemNames As HashSet(Of String)) As String

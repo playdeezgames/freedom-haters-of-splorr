@@ -11,4 +11,5 @@
     Friend Const Row = "Row"
     Friend Const Rows = "Rows"
     Friend Const StarSystemId = "StarSystemId"
+    Friend Const TeleporterId = "TeleporterId"
 End Module

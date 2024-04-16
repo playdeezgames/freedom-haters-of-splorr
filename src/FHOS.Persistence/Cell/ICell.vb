@@ -6,4 +6,6 @@
     Property TerrainType As String
     Property Character As ICharacter
     Property StarSystem As IStarSystem
+    Property Teleporter As ITeleporter
+    Sub SetFlag(flag As String)
 End Interface
