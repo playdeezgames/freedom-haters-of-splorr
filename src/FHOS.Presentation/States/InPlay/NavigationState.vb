@@ -61,8 +61,8 @@ Friend Class NavigationState
             position = NextLine(position, uiFont)
             uiFont.WriteLeftText(displayBuffer, position, $"O2: { .OxygenPercent}%", .OxygenHue)
             position = NextLine(position, uiFont)
-            If .StarSystem IsNot Nothing Then
-                uiFont.WriteLeftText(displayBuffer, position, .StarSystem.Name, Black)
+            If .StarSystem.Current IsNot Nothing Then
+                uiFont.WriteLeftText(displayBuffer, position, .StarSystem.Current.Name, Black)
                 position = NextLine(position, uiFont)
             End If
         End With

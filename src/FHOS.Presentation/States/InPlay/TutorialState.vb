@@ -10,7 +10,7 @@ Friend Class TutorialState
 
     Public Overrides Sub HandleCommand(cmd As String)
         If cmd = Command.A Then
-            Context.Model.Avatar.DismissTutorial()
+            Context.Model.Avatar.Tutorial.Dismiss()
             SetState(BoilerplateState.Neutral)
         End If
     End Sub
@@ -18,7 +18,7 @@ Friend Class TutorialState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFontName)
-        Dim details = TutorialDetails(Context.Model.Avatar.CurrentTutorial)
+        Dim details = TutorialDetails(Context.Model.Avatar.Tutorial.Current)
         Context.ShowHeader(displayBuffer, font, details.Header, Context.UIPalette.Header, Context.UIPalette.Background)
         Dim y = Context.ViewCenter.Y - details.Lines.Count * font.HalfHeight
         For Each line In details.Lines
@@ -46,8 +46,8 @@ Friend Class TutorialState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        If Context.Model.Avatar.IgnoreCurrentTutorial Then
-            Context.Model.Avatar.DismissTutorial()
+        If Context.Model.Avatar.Tutorial.IgnoreCurrent Then
+            Context.Model.Avatar.Tutorial.Dismiss()
             SetState(BoilerplateState.Neutral)
         End If
     End Sub

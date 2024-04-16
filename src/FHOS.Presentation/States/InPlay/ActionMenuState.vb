@@ -33,7 +33,7 @@ Friend Class ActionMenuState
             {
                 (GoBackText, GoBackText)
             }
-        If Context.Model.Avatar.CanEnterStarSystem Then
+        If Context.Model.Avatar.StarSystem.CanEnter Then
             result.Add((EnterStarSystemText, EnterStarSystemText))
         End If
         Return result

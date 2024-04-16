@@ -52,49 +52,15 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property StarSystem As IStarSystemModel Implements IAvatarModel.StarSystem
-        Get
-            If avatar.Cell.StarSystem Is Nothing Then
-                Return Nothing
-            End If
-            Return New StarSystemModel(avatar.Cell.StarSystem)
-        End Get
-    End Property
-
-    Public ReadOnly Property HasTutorial As Boolean Implements IAvatarModel.HasTutorial
-        Get
-            Return avatar.HasTutorial
-        End Get
-    End Property
-
-    Public ReadOnly Property CurrentTutorial As String Implements IAvatarModel.CurrentTutorial
-        Get
-            Return avatar.CurrentTutorial
-        End Get
-    End Property
-
-    Public ReadOnly Property IgnoreCurrentTutorial As Boolean Implements IAvatarModel.IgnoreCurrentTutorial
-        Get
-            If Not HasTutorial Then
-                Return True
-            End If
-            Dim descriptor = TutorialTypes.Descriptors(CurrentTutorial)
-            If descriptor.HasIgnoreFlag Then
-                Return avatar.HasFlag(descriptor.IgnoreFlag)
-            End If
-            Return False
-        End Get
-    End Property
-
-    Public ReadOnly Property CanEnterStarSystem As Boolean Implements IAvatarModel.CanEnterStarSystem
-        Get
-            Return StarSystem IsNot Nothing
-        End Get
-    End Property
-
     Public ReadOnly Property Tutorial As IAvatarTutorialModel Implements IAvatarModel.Tutorial
         Get
             Return New AvatarTutorialModel(avatar)
+        End Get
+    End Property
+
+    Public ReadOnly Property StarSystem As IAvatarStarSystemModel Implements IAvatarModel.StarSystem
+        Get
+            Return New AvatarStarSystemModel(avatar)
         End Get
     End Property
 
@@ -115,21 +81,5 @@ Friend Class AvatarModel
 
     Public Sub SetFacing(facing As Integer) Implements IAvatarModel.SetFacing
         avatar.Facing = facing
-    End Sub
-
-    Public Sub DismissTutorial() Implements IAvatarModel.DismissTutorial
-        Dim descriptor = TutorialTypes.Descriptors(avatar.CurrentTutorial)
-        If descriptor.HasIgnoreFlag Then
-            avatar.SetFlag(descriptor.IgnoreFlag)
-        End If
-        avatar.DismissTutorial()
-    End Sub
-
-    Public Sub EnterStarSystem() Implements IAvatarModel.EnterStarSystem
-        If CanEnterStarSystem Then
-            With avatar.Cell.StarSystem
-                avatar.Cell = RNG.FromEnumerable(.Map.Cells.Where(Function(x) x.HasFlag(.Name)))
-            End With
-        End If
     End Sub
 End Class

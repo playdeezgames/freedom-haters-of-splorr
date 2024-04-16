@@ -18,7 +18,7 @@ Friend Class NeutralState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        If Context.Model.Avatar.HasTutorial Then
+        If Context.Model.Avatar.Tutorial.HasAny Then
             SetState(GameState.Tutorial)
             Return
         End If
