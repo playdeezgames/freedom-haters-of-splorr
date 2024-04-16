@@ -8,7 +8,7 @@ Friend Class Map
         MyBase.New(worldData, mapId)
     End Sub
 
-    Public ReadOnly Property World As IWorld Implements IMap.World
+    Public ReadOnly Property World As IUniverse Implements IMap.World
         Get
             Return New World(WorldData)
         End Get
@@ -29,6 +29,12 @@ Friend Class Map
     Public ReadOnly Property Cells As IEnumerable(Of ICell) Implements IMap.Cells
         Get
             Return MapData.Cells.Select(Function(x) New Cell(WorldData, x))
+        End Get
+    End Property
+
+    Public ReadOnly Property Size As (Columns As Integer, Rows As Integer) Implements IMap.Size
+        Get
+            Return (MapData.Statistics(StatisticTypes.Columns), MapData.Statistics(StatisticTypes.Rows))
         End Get
     End Property
 

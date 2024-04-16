@@ -1,9 +1,9 @@
 ﻿Friend Class BoardModel
     Implements IBoardModel
 
-    Private ReadOnly world As Persistence.IWorld
+    Private ReadOnly world As Persistence.IUniverse
 
-    Public Sub New(world As Persistence.IWorld)
+    Public Sub New(world As Persistence.IUniverse)
         Me.world = world
     End Sub
 

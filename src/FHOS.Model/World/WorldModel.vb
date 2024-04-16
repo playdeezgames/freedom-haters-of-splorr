@@ -10,7 +10,7 @@ Public Class WorldModel
     Private _galacticAge As String = GalacticAges.Average
     Private _galacticDensity As String = GalacticDensities.Average
 
-    Private ReadOnly Property World As IWorld
+    Private ReadOnly Property World As IUniverse
         Get
             Return New World(worldData)
         End Get
@@ -66,7 +66,7 @@ Public Class WorldModel
 
     Public Sub Embark() Implements IWorldModel.Embark
         worldData = New WorldData()
-        WorldInitializer.Initialize(World, _galacticAge, _galacticDensity)
+        UniverseInitializer.Initialize(World, _galacticAge, _galacticDensity)
     End Sub
 
     Public Sub SetGalacticAge(age As String) Implements IWorldModel.SetGalacticAge

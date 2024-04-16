@@ -2,12 +2,12 @@
 
 Public Class World
     Inherits WorldDataClient
-    Implements IWorld
+    Implements IUniverse
     Sub New(worldData As WorldData)
         MyBase.New(worldData)
     End Sub
 
-    Public Property Avatar As ICharacter Implements IWorld.Avatar
+    Public Property Avatar As ICharacter Implements IUniverse.Avatar
         Get
             Dim avatarId As Integer
             If WorldData.Statistics.TryGetValue(StatisticTypes.AvatarId, avatarId) Then
@@ -24,7 +24,7 @@ Public Class World
         End Set
     End Property
 
-    Public Function CreateMap(mapType As String, mapName As String, columns As Integer, rows As Integer, terrainType As String) As IMap Implements IWorld.CreateMap
+    Public Function CreateMap(mapType As String, mapName As String, columns As Integer, rows As Integer, terrainType As String) As IMap Implements IUniverse.CreateMap
         Dim mapId As Integer
         Dim mapData = New MapData With
             {
@@ -54,7 +54,7 @@ Public Class World
         Return New Map(WorldData, mapId)
     End Function
 
-    Public Function CreateCharacter(characterType As String, cell As ICell) As ICharacter Implements IWorld.CreateCharacter
+    Public Function CreateCharacter(characterType As String, cell As ICell) As ICharacter Implements IUniverse.CreateCharacter
         Dim characterData = New CharacterData With
                                  {
                                     .Statistics = New Dictionary(Of String, Integer) From
@@ -81,7 +81,7 @@ Public Class World
         Return character
     End Function
 
-    Public Function CreateCell(terrainType As String, mapId As Integer, column As Integer, row As Integer) As ICell Implements IWorld.CreateCell
+    Public Function CreateCell(terrainType As String, mapId As Integer, column As Integer, row As Integer) As ICell Implements IUniverse.CreateCell
         Dim cellData = New CellData With
                             {
                                 .Statistics = New Dictionary(Of String, Integer) From
@@ -107,7 +107,7 @@ Public Class World
         Return New Cell(WorldData, cellId)
     End Function
 
-    Public Function CreateStarSystem(starSystemName As String, starType As String) As IStarSystem Implements IWorld.CreateStarSystem
+    Public Function CreateStarSystem(starSystemName As String, starType As String) As IStarSystem Implements IUniverse.CreateStarSystem
         Dim starSystemId As Integer
         Dim starSystemData = New StarSystemData With
             {
@@ -128,7 +128,7 @@ Public Class World
         Return New StarSystem(WorldData, starSystemId)
     End Function
 
-    Public Function CreateTeleporter(target As ICell) As ITeleporter Implements IWorld.CreateTeleporter
+    Public Function CreateTeleporter(target As ICell) As ITeleporter Implements IUniverse.CreateTeleporter
         Dim teleporterId As Integer
         Dim teleporterData As New TeleporterData With
             {

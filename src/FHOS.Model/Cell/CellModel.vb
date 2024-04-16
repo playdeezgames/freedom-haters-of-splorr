@@ -3,7 +3,7 @@
 
     Private ReadOnly cell As Persistence.ICell
 
-    Public Sub New(world As Persistence.IWorld, boardPosition As (X As Integer, Y As Integer))
+    Public Sub New(world As Persistence.IUniverse, boardPosition As (X As Integer, Y As Integer))
         Dim mapPosition As (X As Integer, Y As Integer) = (boardPosition.X + world.Avatar.Cell.Column, boardPosition.Y + world.Avatar.Cell.Row)
         Me.cell = world.Avatar.Cell.Map.GetCell(mapPosition.X, mapPosition.Y)
     End Sub

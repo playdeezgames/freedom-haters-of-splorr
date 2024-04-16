@@ -35,7 +35,7 @@
         End Set
     End Property
 
-    Public ReadOnly Property World As IWorld Implements IStarSystem.World
+    Public ReadOnly Property Universe As IUniverse Implements IStarSystem.Universe
         Get
             Return New World(WorldData)
         End Get
