@@ -2,11 +2,11 @@
 Imports SPLORR.Game
 
 Friend Module WorldInitializer
-    Const StarMapColumns = 63
-    Const StarMapRows = 63
-    Const StarMapName = "Star Map"
-    Const SystemMapColumns = 31
-    Const SystemMapRows = 31
+    Private Const StarMapColumns = 63
+    Private Const StarMapRows = 63
+    Private Const StarMapName = "Star Map"
+    Private Const SystemMapColumns = 31
+    Private Const SystemMapRows = 31
 
     Sub Initialize(world As IWorld, galacticAge As String, galacticDensity As String)
         Dim starMap = InitializeStarMap(world, galacticAge, galacticDensity)
@@ -43,8 +43,7 @@ Friend Module WorldInitializer
                 cell.Tutorial = TutorialTypes.StarSystemEntry
                 Dim starSystemName As String = GenerateUnusedStarSystemName(starSystemNames)
                 cell.StarSystem = world.CreateStarSystem(starSystemName, starType)
-                cell.SetFlag(starSystemName)
-                InitializeStarSystem(cell.StarSystem, starMap, starSystemName)
+                InitializeStarSystem(cell.StarSystem, cell, starSystemName)
                 tries = 0
             Else
                 tries += 1
@@ -53,14 +52,14 @@ Friend Module WorldInitializer
         Return starMap
     End Function
 
-    Private Sub InitializeStarSystem(starSystem As IStarSystem, starMap As IMap, starFlag As String)
+    Private Sub InitializeStarSystem(starSystem As IStarSystem, starCell As ICell, starFlag As String)
         starSystem.Map = starSystem.World.CreateMap(
             MapTypes.System,
             $"{starSystem.Name} System",
             SystemMapColumns,
             SystemMapRows,
             TerrainTypes.Void)
-        Dim teleporter = starSystem.World.CreateTeleporter(starMap, starFlag)
+        Dim teleporter = starSystem.World.CreateTeleporter(starCell)
         With starSystem.Map.GetCell(0, 0)
             .TerrainType = VoidNorthWestArrow
             .Teleporter = teleporter
@@ -90,11 +89,15 @@ Friend Module WorldInitializer
             With starSystem.Map.GetCell(0, row)
                 .Teleporter = teleporter
                 .TerrainType = VoidWestArrow
+            End With
+            With starSystem.Map.GetCell(1, row)
                 .SetFlag(starFlag)
             End With
             With starSystem.Map.GetCell(SystemMapColumns - 1, row)
                 .Teleporter = teleporter
                 .TerrainType = VoidEastArrow
+            End With
+            With starSystem.Map.GetCell(SystemMapColumns - 2, row)
                 .SetFlag(starFlag)
             End With
         Next
@@ -102,11 +105,15 @@ Friend Module WorldInitializer
             With starSystem.Map.GetCell(column, 0)
                 .Teleporter = teleporter
                 .TerrainType = VoidNorthArrow
+            End With
+            With starSystem.Map.GetCell(column, 1)
                 .SetFlag(starFlag)
             End With
             With starSystem.Map.GetCell(column, SystemMapRows - 1)
                 .Teleporter = teleporter
                 .TerrainType = VoidSouthArrow
+            End With
+            With starSystem.Map.GetCell(column, SystemMapRows - 2)
                 .SetFlag(starFlag)
             End With
         Next

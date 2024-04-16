@@ -128,25 +128,21 @@ Public Class World
         Return New StarSystem(WorldData, starSystemId)
     End Function
 
-    Public Function CreateTeleporter(destinationMap As IMap, flag As String) As ITeleporter Implements IWorld.CreateTeleporter
+    Public Function CreateTeleporter(target As ICell) As ITeleporter Implements IWorld.CreateTeleporter
         Dim teleporterId As Integer
         Dim teleporterData As New TeleporterData With
             {
                 .Statistics = New Dictionary(Of String, Integer) From
                 {
-                    {StatisticTypes.MapId, destinationMap.Id}
-                },
-                .Metadatas = New Dictionary(Of String, String) From
-                {
-                    {MetadataTypes.DestinationFlag, flag}
+                    {StatisticTypes.CellId, target.Id}
                 }
             }
         If WorldData.RecycledTeleporters.Any Then
             teleporterId = WorldData.RecycledTeleporters.First
-            WorldData.RecycledTeleporters.remove(teleporterId)
+            WorldData.RecycledTeleporters.Remove(teleporterId)
             WorldData.Teleporters(teleporterId) = teleporterData
         Else
-            teleporterId = WorldData.TelePorters.Count
+            teleporterId = WorldData.Teleporters.Count
             WorldData.Teleporters.Add(teleporterData)
         End If
         Return New Teleporter(WorldData, teleporterId)

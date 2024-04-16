@@ -99,7 +99,11 @@ Friend Class AvatarModel
         Dim map = cell.Map
         Dim nextCell = map.GetCell(nextColumn, nextRow)
         If nextCell IsNot Nothing Then
-            avatar.Cell = nextCell
+            If nextCell.HasTeleporter Then
+                avatar.Cell = nextCell.Teleporter.Target
+            Else
+                avatar.Cell = nextCell
+            End If
         End If
     End Sub
 

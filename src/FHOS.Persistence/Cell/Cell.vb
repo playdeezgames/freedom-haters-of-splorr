@@ -107,6 +107,12 @@
         End Set
     End Property
 
+    Public ReadOnly Property HasTeleporter As Boolean Implements ICell.HasTeleporter
+        Get
+            Return CellData.Statistics.ContainsKey(StatisticTypes.TeleporterId)
+        End Get
+    End Property
+
     Public Sub SetFlag(flag As String) Implements ICell.SetFlag
         CellData.Flags.Add(flag)
     End Sub

@@ -7,6 +7,7 @@
     Property Character As ICharacter
     Property StarSystem As IStarSystem
     Property Teleporter As ITeleporter
+    ReadOnly Property HasTeleporter As Boolean
     Property Tutorial As String
     Sub SetFlag(flag As String)
     Function HasFlag(name As String) As Boolean
