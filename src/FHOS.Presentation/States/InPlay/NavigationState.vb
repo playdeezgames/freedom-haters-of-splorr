@@ -51,6 +51,8 @@ Friend Class NavigationState
 
     Private Sub RenderStatistics(displayBuffer As IPixelSink, uiFont As Font, position As (X As Integer, Y As Integer))
         With Context.Model.Avatar
+            uiFont.WriteLeftText(displayBuffer, position, $"NAV SCREEN", Purple)
+            position = NextLine(position, uiFont)
             uiFont.WriteLeftText(displayBuffer, position, $"{ .MapName} ({ .X},{ .Y})", Black)
             position = NextLine(position, uiFont)
             uiFont.WriteLeftText(displayBuffer, position, $"O2: { .OxygenPercent}%", .OxygenHue)

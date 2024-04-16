@@ -39,7 +39,8 @@ Friend Class TutorialState
                         New TutorialDetailLine("You have reached a star system!", Hue.Black),
                         New TutorialDetailLine("", Hue.Black),
                         New TutorialDetailLine("To enter it,", Hue.Black),
-                        New TutorialDetailLine("press [A] from the NAV screen.", Hue.Black)
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
+                        New TutorialDetailLine("then choose 'Enter System'", Hue.Black)
                     })}
         }
 End Class
