@@ -9,4 +9,5 @@
     Property Teleporter As ITeleporter
     Property Tutorial As String
     Sub SetFlag(flag As String)
+    Function HasFlag(name As String) As Boolean
 End Interface

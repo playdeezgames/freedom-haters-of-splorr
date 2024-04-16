@@ -25,6 +25,10 @@ Friend Class NavigationState
                 SetState(GameState.MoveLeft)
             Case Command.Select
                 SetState(GameState.Scanner)
+            Case Command.A
+                If Context.Model.Avatar.HasActions Then
+                    SetState(GameState.ActionMenu)
+                End If
         End Select
     End Sub
 

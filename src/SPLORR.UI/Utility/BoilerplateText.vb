@@ -1,4 +1,4 @@
-﻿Friend Module BoilerplateText
+﻿Public Module BoilerplateText
     Friend Const AbandonGameText = "Abandon Game"
     Friend Const AboutText = "About..."
     Friend Const ContinueGameText = "Continue Game"
@@ -16,7 +16,7 @@
     Friend Const ToggleFullScreenText = "Toggle Full Screen"
     Friend Const YesText = "Yes"
     Friend Const KeyBindingsText = "Key Bindings..."
-    Friend Const GoBackText = "Go Back"
+    Public Const GoBackText = "Go Back"
     Friend Const RestoreDefaultsText = "Restore Defaults"
     Friend Const SaveAndExitText = "Save and Exit"
     Friend Const AddText = "Add..."

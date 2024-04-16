@@ -64,41 +64,50 @@ Friend Module WorldInitializer
         With starSystem.Map.GetCell(0, 0)
             .TerrainType = VoidNorthWestArrow
             .Teleporter = teleporter
+            .SetFlag(starFlag)
         End With
         With starSystem.Map.GetCell(SystemMapColumns - 1, 0)
             .TerrainType = VoidNorthEastArrow
             .Teleporter = teleporter
+            .SetFlag(starFlag)
         End With
         With starSystem.Map.GetCell(0, SystemMapRows - 1)
             .TerrainType = VoidSouthWestArrow
             .Teleporter = teleporter
+            .SetFlag(starFlag)
         End With
         With starSystem.Map.GetCell(0, SystemMapRows - 1)
             .TerrainType = VoidSouthWestArrow
             .Teleporter = teleporter
+            .SetFlag(starFlag)
         End With
         With starSystem.Map.GetCell(SystemMapColumns - 1, SystemMapRows - 1)
             .TerrainType = VoidSouthEastArrow
             .Teleporter = teleporter
+            .SetFlag(starFlag)
         End With
         For Each row In Enumerable.Range(1, SystemMapRows - 2)
             With starSystem.Map.GetCell(0, row)
                 .Teleporter = teleporter
                 .TerrainType = VoidWestArrow
+                .SetFlag(starFlag)
             End With
             With starSystem.Map.GetCell(SystemMapColumns - 1, row)
                 .Teleporter = teleporter
                 .TerrainType = VoidEastArrow
+                .SetFlag(starFlag)
             End With
         Next
         For Each column In Enumerable.Range(1, SystemMapColumns - 2)
             With starSystem.Map.GetCell(column, 0)
                 .Teleporter = teleporter
                 .TerrainType = VoidNorthArrow
+                .SetFlag(starFlag)
             End With
             With starSystem.Map.GetCell(column, SystemMapRows - 1)
                 .Teleporter = teleporter
                 .TerrainType = VoidSouthArrow
+                .SetFlag(starFlag)
             End With
         Next
     End Sub

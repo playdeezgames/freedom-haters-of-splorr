@@ -1,4 +1,5 @@
 ﻿Imports FHOS.Persistence
+Imports SPLORR.Game
 
 Friend Class AvatarModel
     Implements IAvatarModel
@@ -85,6 +86,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property CanEnterStarSystem As Boolean Implements IAvatarModel.CanEnterStarSystem
+        Get
+            Return StarSystem IsNot Nothing
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         Dim cell = avatar.Cell
         Dim nextColumn = cell.Column + delta.X
@@ -106,5 +113,13 @@ Friend Class AvatarModel
             avatar.SetFlag(descriptor.IgnoreFlag)
         End If
         avatar.DismissTutorial()
+    End Sub
+
+    Public Sub EnterStarSystem() Implements IAvatarModel.EnterStarSystem
+        If CanEnterStarSystem Then
+            With avatar.Cell.StarSystem
+                avatar.Cell = RNG.FromEnumerable(.Map.Cells.Where(Function(x) x.HasFlag(.Name)))
+            End With
+        End If
     End Sub
 End Class

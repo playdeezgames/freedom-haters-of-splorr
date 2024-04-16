@@ -26,6 +26,12 @@ Friend Class Map
         End Get
     End Property
 
+    Public ReadOnly Property Cells As IEnumerable(Of ICell) Implements IMap.Cells
+        Get
+            Return MapData.Cells.Select(Function(x) New Cell(WorldData, x))
+        End Get
+    End Property
+
     Public Function GetCell(column As Integer, row As Integer) As ICell Implements IMap.GetCell
         If column < 0 OrElse row < 0 OrElse column >= MapData.Statistics(StatisticTypes.Columns) OrElse row >= MapData.Statistics(StatisticTypes.Rows) Then
             Return Nothing

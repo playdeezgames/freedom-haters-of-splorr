@@ -110,4 +110,8 @@
     Public Sub SetFlag(flag As String) Implements ICell.SetFlag
         CellData.Flags.Add(flag)
     End Sub
+
+    Public Function HasFlag(name As String) As Boolean Implements ICell.HasFlag
+        Return CellData.Flags.Contains(name)
+    End Function
 End Class

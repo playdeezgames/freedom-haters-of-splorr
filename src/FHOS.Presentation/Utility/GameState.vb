@@ -8,4 +8,6 @@
     Friend Const ChangeGalacticAge = "ChangeGalacticAge"
     Friend Const ChangeGalacticDensity = "ChangeGalacticDensity"
     Friend Const Tutorial = "Tutorial"
+    Friend Const ActionMenu = "ActionMenu"
+    Friend Const EnterStarSystem = "EnterStarSystem"
 End Module
