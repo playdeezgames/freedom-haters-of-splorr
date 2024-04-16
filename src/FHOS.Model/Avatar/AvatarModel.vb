@@ -92,6 +92,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property Tutorial As IAvatarTutorialModel Implements IAvatarModel.Tutorial
+        Get
+            Return New AvatarTutorialModel(avatar)
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         Dim cell = avatar.Cell
         Dim nextColumn = cell.Column + delta.X
