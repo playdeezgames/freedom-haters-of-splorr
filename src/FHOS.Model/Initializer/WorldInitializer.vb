@@ -40,6 +40,7 @@ Friend Module WorldInitializer
                 stars.Add((column, row))
                 Dim cell = starMap.GetCell(column, row)
                 cell.TerrainType = StarTypes.Descriptors(starType).TerrainType
+                cell.Tutorial = TutorialTypes.StarSystemEntry
                 Dim starSystemName As String = GenerateUnusedStarSystemName(starSystemNames)
                 cell.StarSystem = world.CreateStarSystem(starSystemName, starType)
                 cell.SetFlag(starSystemName)

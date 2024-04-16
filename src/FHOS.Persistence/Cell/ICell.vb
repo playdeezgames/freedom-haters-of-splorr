@@ -7,5 +7,6 @@
     Property Character As ICharacter
     Property StarSystem As IStarSystem
     Property Teleporter As ITeleporter
+    Property Tutorial As String
     Sub SetFlag(flag As String)
 End Interface

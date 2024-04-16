@@ -90,6 +90,23 @@
         End Set
     End Property
 
+    Public Property Tutorial As String Implements ICell.Tutorial
+        Get
+            Dim result As String = Nothing
+            If CellData.Metadatas.TryGetValue(MetadataTypes.Tutorial, result) Then
+                Return result
+            End If
+            Return Nothing
+        End Get
+        Set(value As String)
+            If value Is Nothing Then
+                CellData.Metadatas.Remove(MetadataTypes.Tutorial)
+            Else
+                CellData.Metadatas(MetadataTypes.Tutorial) = value
+            End If
+        End Set
+    End Property
+
     Public Sub SetFlag(flag As String) Implements ICell.SetFlag
         CellData.Flags.Add(flag)
     End Sub

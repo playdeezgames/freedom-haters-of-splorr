@@ -7,4 +7,5 @@
     Friend Const Scanner = "Scanner"
     Friend Const ChangeGalacticAge = "ChangeGalacticAge"
     Friend Const ChangeGalacticDensity = "ChangeGalacticDensity"
+    Friend Const Tutorial = "Tutorial"
 End Module

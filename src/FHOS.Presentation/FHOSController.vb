@@ -17,6 +17,7 @@ Public Class FHOSController
         SetState(GameState.Scanner, New ScannerState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.ChangeGalacticAge, New ChangeGalacticAgeState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.ChangeGalacticDensity, New ChangeGalacticDensityState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Tutorial, New TutorialState(Me, AddressOf SetCurrentState, context))
         SetCurrentState(BoilerplateState.Splash, True)
     End Sub
 End Class

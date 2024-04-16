@@ -60,6 +60,18 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property HasTutorial As Boolean Implements IAvatarModel.HasTutorial
+        Get
+            Return avatar.HasTutorial
+        End Get
+    End Property
+
+    Public ReadOnly Property CurrentTutorial As String Implements IAvatarModel.CurrentTutorial
+        Get
+            Return avatar.CurrentTutorial
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         Dim cell = avatar.Cell
         Dim nextColumn = cell.Column + delta.X
@@ -73,5 +85,9 @@ Friend Class AvatarModel
 
     Public Sub SetFacing(facing As Integer) Implements IAvatarModel.SetFacing
         avatar.Facing = facing
+    End Sub
+
+    Public Sub DismissTutorial() Implements IAvatarModel.DismissTutorial
+        avatar.DismissTutorial()
     End Sub
 End Class

@@ -5,4 +5,5 @@
     Friend Const StarType = "StarType"
     Friend Const TerrainType = "TerrainType"
     Friend Const DestinationFlag = "DestinationFlag"
+    Friend Const Tutorial = "Tutorial"
 End Module

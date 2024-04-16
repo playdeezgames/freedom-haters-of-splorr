@@ -21,9 +21,23 @@
                 Cell.Character = Nothing
                 CharacterData.Statistics(StatisticTypes.CellId) = value.Id
                 value.Character = Me
+                TriggerTutorial(value.Tutorial)
             End If
         End Set
     End Property
+
+    Private Sub TriggerTutorial(tutorial As String)
+        If tutorial Is Nothing Then
+            Return
+        End If
+        CharacterData.Tutorials.Enqueue(tutorial)
+    End Sub
+
+    Public Sub DismissTutorial() Implements ICharacter.DismissTutorial
+        If HasTutorial Then
+            CharacterData.Tutorials.Dequeue()
+        End If
+    End Sub
 
     Public ReadOnly Property CharacterType As String Implements ICharacter.CharacterType
         Get
@@ -56,5 +70,20 @@
         Set(value As Integer)
             CharacterData.Statistics(StatisticTypes.Facing) = value
         End Set
+    End Property
+
+    Public ReadOnly Property HasTutorial As Boolean Implements ICharacter.HasTutorial
+        Get
+            Return CharacterData.Tutorials.Any
+        End Get
+    End Property
+
+    Public ReadOnly Property CurrentTutorial As String Implements ICharacter.CurrentTutorial
+        Get
+            If HasTutorial Then
+                Return CharacterData.Tutorials.Peek
+            End If
+            Return Nothing
+        End Get
     End Property
 End Class

@@ -5,4 +5,7 @@
     Property MaximumOxygen As Integer
     Property Oxygen As Integer
     Property Facing As Integer
+    ReadOnly Property HasTutorial As Boolean
+    ReadOnly Property CurrentTutorial As String
+    Sub DismissTutorial()
 End Interface
