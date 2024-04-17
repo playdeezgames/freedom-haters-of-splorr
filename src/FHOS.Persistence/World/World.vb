@@ -40,13 +40,13 @@ Public Class World
                     {MetadataTypes.Name, mapName}
                 }
             }
-        If WorldData.RecycledMaps.Any Then
-            mapId = WorldData.RecycledMaps.First
-            WorldData.RecycledMaps.Remove(mapId)
-            WorldData.LegacyMaps(mapId) = mapData
+        If WorldData.Maps.Recycled.Any Then
+            mapId = WorldData.Maps.Recycled.First
+            WorldData.Maps.Recycled.Remove(mapId)
+            WorldData.Maps.Entities(mapId) = mapData
         Else
-            mapId = WorldData.LegacyMaps.Count
-            WorldData.LegacyMaps.Add(mapData)
+            mapId = WorldData.Maps.Entities.Count
+            WorldData.Maps.Entities.Add(mapData)
         End If
         mapData.Locations = Enumerable.
                     Range(0, columns * rows).

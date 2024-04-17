@@ -5,7 +5,7 @@ Friend Class MapDataClient
     Protected ReadOnly MapId As Integer
     Protected ReadOnly Property MapData As MapData
         Get
-            Return WorldData.LegacyMaps(MapId)
+            Return WorldData.Maps.Entities(MapId)
         End Get
     End Property
     Sub New(worldData As UniverseData, mapId As Integer)

@@ -1,8 +1,6 @@
 Public Class UniverseData
     Inherits EntityData
     Property Maps As New BucketData(Of MapData)
-    Property LegacyMaps As New List(Of MapData)
-    Property RecycledMaps As New HashSet(Of Integer)
 
     Property Actors As New List(Of ActorData)
     Property RecycledActors As New HashSet(Of Integer)
