@@ -4,8 +4,8 @@ Friend Class CharacterTypeDescriptor
     ReadOnly Property Glyphs As Char()
     ReadOnly Property Hue As Integer
     ReadOnly Property MaximumOxygen As Integer
-    ReadOnly Property CanSpawn As Func(Of ICell, Boolean)
-    Sub New(glyphs As Char(), hue As Integer, maximumOxygen As Integer, Optional canSpawn As Func(Of ICell, Boolean) = Nothing)
+    ReadOnly Property CanSpawn As Func(Of ILocation, Boolean)
+    Sub New(glyphs As Char(), hue As Integer, maximumOxygen As Integer, Optional canSpawn As Func(Of ILocation, Boolean) = Nothing)
         Me.Glyphs = glyphs
         Me.Hue = hue
         Me.MaximumOxygen = maximumOxygen

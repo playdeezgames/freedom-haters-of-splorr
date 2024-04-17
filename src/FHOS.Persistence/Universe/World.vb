@@ -7,15 +7,15 @@ Public Class World
         MyBase.New(worldData)
     End Sub
 
-    Public Property Avatar As ICharacter Implements IUniverse.Avatar
+    Public Property Avatar As IActor Implements IUniverse.Avatar
         Get
             Dim avatarId As Integer
             If UniverseData.Statistics.TryGetValue(StatisticTypes.AvatarId, avatarId) Then
-                Return New Character(UniverseData, avatarId)
+                Return New Actor(UniverseData, avatarId)
             End If
             Return Nothing
         End Get
-        Set(value As ICharacter)
+        Set(value As IActor)
             If value IsNot Nothing Then
                 UniverseData.Statistics(StatisticTypes.AvatarId) = value.Id
             Else
@@ -54,17 +54,17 @@ Public Class World
         Return New Map(UniverseData, mapId)
     End Function
 
-    Public Function CreateCharacter(characterType As String, cell As ICell) As ICharacter Implements IUniverse.CreateCharacter
+    Public Function CreateCharacter(characterType As String, cell As ILocation) As IActor Implements IUniverse.CreateCharacter
         Dim characterData = New ActorData With
                                  {
                                     .Statistics = New Dictionary(Of String, Integer) From
                                     {
-                                        {StatisticTypes.CellId, cell.Id},
+                                        {StatisticTypes.LocationId, cell.Id},
                                         {StatisticTypes.Facing, 1}
                                     },
                                     .Metadatas = New Dictionary(Of String, String) From
                                     {
-                                        {MetadataTypes.CharacterType, characterType}
+                                        {MetadataTypes.ActorType, characterType}
                                     }
                                  }
         Dim characterId As Integer
@@ -76,12 +76,12 @@ Public Class World
             characterId = UniverseData.Actors.Entities.Count
             UniverseData.Actors.Entities.Add(characterData)
         End If
-        Dim character = New Character(UniverseData, characterId)
-        cell.Character = character
+        Dim character = New Actor(UniverseData, characterId)
+        cell.Actor = character
         Return character
     End Function
 
-    Public Function CreateCell(terrainType As String, mapId As Integer, column As Integer, row As Integer) As ICell Implements IUniverse.CreateCell
+    Public Function CreateCell(terrainType As String, mapId As Integer, column As Integer, row As Integer) As ILocation Implements IUniverse.CreateCell
         Dim cellData = New LocationData With
                             {
                                 .Statistics = New Dictionary(Of String, Integer) From
@@ -92,7 +92,7 @@ Public Class World
                                 },
                                 .Metadatas = New Dictionary(Of String, String) From
                                 {
-                                    {MetadataTypes.TerrainType, terrainType}
+                                    {MetadataTypes.LocationType, terrainType}
                                 }
                             }
         Dim cellId As Integer
@@ -104,7 +104,7 @@ Public Class World
             cellId = UniverseData.Locations.Entities.Count
             UniverseData.Locations.Entities.Add(cellData)
         End If
-        Return New Cell(UniverseData, cellId)
+        Return New Location(UniverseData, cellId)
     End Function
 
     Public Function CreateStarSystem(starSystemName As String, starType As String) As IStarSystem Implements IUniverse.CreateStarSystem
@@ -128,13 +128,13 @@ Public Class World
         Return New StarSystem(UniverseData, starSystemId)
     End Function
 
-    Public Function CreateTeleporter(target As ICell) As ITeleporter Implements IUniverse.CreateTeleporter
+    Public Function CreateTeleporter(target As ILocation) As ITeleporter Implements IUniverse.CreateTeleporter
         Dim teleporterId As Integer
         Dim teleporterData As New TeleporterData With
             {
                 .Statistics = New Dictionary(Of String, Integer) From
                 {
-                    {StatisticTypes.CellId, target.Id}
+                    {StatisticTypes.LocationId, target.Id}
                 }
             }
         If UniverseData.Teleporters.Recycled.Any Then

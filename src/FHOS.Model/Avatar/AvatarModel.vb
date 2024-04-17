@@ -4,27 +4,27 @@ Imports SPLORR.Game
 Friend Class AvatarModel
     Implements IAvatarModel
 
-    Private ReadOnly avatar As ICharacter
+    Private ReadOnly avatar As IActor
 
-    Public Sub New(avatar As ICharacter)
+    Public Sub New(avatar As IActor)
         Me.avatar = avatar
     End Sub
 
     Public ReadOnly Property X As Integer Implements IAvatarModel.X
         Get
-            Return avatar.Cell.Column
+            Return avatar.Location.Column
         End Get
     End Property
 
     Public ReadOnly Property Y As Integer Implements IAvatarModel.Y
         Get
-            Return avatar.Cell.Row
+            Return avatar.Location.Row
         End Get
     End Property
 
     Public ReadOnly Property MapName As String Implements IAvatarModel.MapName
         Get
-            Return avatar.Cell.Map.Name
+            Return avatar.Location.Map.Name
         End Get
     End Property
 
@@ -48,7 +48,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property HasActions As Boolean Implements IAvatarModel.HasActions
         Get
-            Return avatar.Cell.StarSystem IsNot Nothing
+            Return avatar.Location.StarSystem IsNot Nothing
         End Get
     End Property
 
@@ -65,16 +65,16 @@ Friend Class AvatarModel
     End Property
 
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
-        Dim cell = avatar.Cell
+        Dim cell = avatar.Location
         Dim nextColumn = cell.Column + delta.X
         Dim nextRow = cell.Row + delta.Y
         Dim map = cell.Map
-        Dim nextCell = map.GetCell(nextColumn, nextRow)
+        Dim nextCell = map.GetLocation(nextColumn, nextRow)
         If nextCell IsNot Nothing Then
             If nextCell.HasTeleporter Then
-                avatar.Cell = nextCell.Teleporter.Target
+                avatar.Location = nextCell.Teleporter.Target
             Else
-                avatar.Cell = nextCell
+                avatar.Location = nextCell
             End If
         End If
     End Sub

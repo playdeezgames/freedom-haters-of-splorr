@@ -1,9 +1,9 @@
 ﻿Friend Module MetadataTypes
-    Friend Const CharacterType = "CharacterType"
+    Friend Const ActorType = "ActorType"
     Friend Const MapType = "MapType"
     Friend Const Name = "Name"
     Friend Const StarType = "StarType"
-    Friend Const TerrainType = "TerrainType"
+    Friend Const LocationType = "LocationType"
     Friend Const DestinationFlag = "DestinationFlag"
     Friend Const Tutorial = "Tutorial"
 End Module

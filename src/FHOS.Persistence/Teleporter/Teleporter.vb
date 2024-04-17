@@ -12,9 +12,9 @@
         End Get
     End Property
 
-    Public ReadOnly Property Target As ICell Implements ITeleporter.Target
+    Public ReadOnly Property Target As ILocation Implements ITeleporter.Target
         Get
-            Return New Cell(UniverseData, TeleporterData.Statistics(StatisticTypes.CellId))
+            Return New Location(UniverseData, TeleporterData.Statistics(StatisticTypes.LocationId))
         End Get
     End Property
 End Class

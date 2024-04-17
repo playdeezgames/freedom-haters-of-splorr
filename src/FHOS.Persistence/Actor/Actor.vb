@@ -1,26 +1,26 @@
-﻿Friend Class Character
+﻿Friend Class Actor
     Inherits ActorDataClient
-    Implements ICharacter
+    Implements IActor
 
-    Public Sub New(worldData As Data.UniverseData, characterId As Integer)
-        MyBase.New(worldData, characterId)
+    Public Sub New(universeData As Data.UniverseData, actorId As Integer)
+        MyBase.New(universeData, actorId)
     End Sub
 
-    Public ReadOnly Property Id As Integer Implements ICharacter.Id
+    Public ReadOnly Property Id As Integer Implements IActor.Id
         Get
             Return ActorId
         End Get
     End Property
 
-    Public Property Cell As ICell Implements ICharacter.Cell
+    Public Property Location As ILocation Implements IActor.Location
         Get
-            Return New Cell(UniverseData, ActorData.Statistics(StatisticTypes.CellId))
+            Return New Location(UniverseData, ActorData.Statistics(StatisticTypes.LocationId))
         End Get
-        Set(value As ICell)
-            If value.Id <> ActorData.Statistics(StatisticTypes.CellId) Then
-                Cell.Character = Nothing
-                ActorData.Statistics(StatisticTypes.CellId) = value.Id
-                value.Character = Me
+        Set(value As ILocation)
+            If value.Id <> ActorData.Statistics(StatisticTypes.LocationId) Then
+                Location.Actor = Nothing
+                ActorData.Statistics(StatisticTypes.LocationId) = value.Id
+                value.Actor = Me
                 TriggerTutorial(value.Tutorial)
             End If
         End Set
@@ -33,27 +33,27 @@
         ActorData.Tutorials.Enqueue(tutorial)
     End Sub
 
-    Public Sub DismissTutorial() Implements ICharacter.DismissTutorial
+    Public Sub DismissTutorial() Implements IActor.DismissTutorial
         If HasTutorial Then
             ActorData.Tutorials.Dequeue()
         End If
     End Sub
 
-    Public Function HasFlag(flag As String) As Boolean Implements ICharacter.HasFlag
+    Public Function HasFlag(flag As String) As Boolean Implements IActor.HasFlag
         Return ActorData.Flags.Contains(flag)
     End Function
 
-    Public Sub SetFlag(flag As String) Implements ICharacter.SetFlag
+    Public Sub SetFlag(flag As String) Implements IActor.SetFlag
         ActorData.Flags.Add(flag)
     End Sub
 
-    Public ReadOnly Property CharacterType As String Implements ICharacter.CharacterType
+    Public ReadOnly Property ActorType As String Implements IActor.ActorType
         Get
-            Return ActorData.Metadatas(MetadataTypes.CharacterType)
+            Return ActorData.Metadatas(MetadataTypes.ActorType)
         End Get
     End Property
 
-    Public Property MaximumOxygen As Integer Implements ICharacter.MaximumOxygen
+    Public Property MaximumOxygen As Integer Implements IActor.MaximumOxygen
         Get
             Return Math.Max(0, ActorData.Statistics(StatisticTypes.MaximumOxygen))
         End Get
@@ -62,7 +62,7 @@
         End Set
     End Property
 
-    Public Property Oxygen As Integer Implements ICharacter.Oxygen
+    Public Property Oxygen As Integer Implements IActor.Oxygen
         Get
             Return Math.Clamp(ActorData.Statistics(StatisticTypes.Oxygen), 0, MaximumOxygen)
         End Get
@@ -71,7 +71,7 @@
         End Set
     End Property
 
-    Public Property Facing As Integer Implements ICharacter.Facing
+    Public Property Facing As Integer Implements IActor.Facing
         Get
             Return ActorData.Statistics(StatisticTypes.Facing)
         End Get
@@ -80,13 +80,13 @@
         End Set
     End Property
 
-    Public ReadOnly Property HasTutorial As Boolean Implements ICharacter.HasTutorial
+    Public ReadOnly Property HasTutorial As Boolean Implements IActor.HasTutorial
         Get
             Return ActorData.Tutorials.Any
         End Get
     End Property
 
-    Public ReadOnly Property CurrentTutorial As String Implements ICharacter.CurrentTutorial
+    Public ReadOnly Property CurrentTutorial As String Implements IActor.CurrentTutorial
         Get
             If HasTutorial Then
                 Return ActorData.Tutorials.Peek

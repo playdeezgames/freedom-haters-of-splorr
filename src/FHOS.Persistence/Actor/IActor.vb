@@ -1,7 +1,7 @@
-﻿Public Interface ICharacter
+﻿Public Interface IActor
     ReadOnly Property Id As Integer
-    Property Cell As ICell
-    ReadOnly Property CharacterType As String
+    Property Location As ILocation
+    ReadOnly Property ActorType As String
     Property MaximumOxygen As Integer
     Property Oxygen As Integer
     Property Facing As Integer

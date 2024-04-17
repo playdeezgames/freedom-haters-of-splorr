@@ -3,9 +3,9 @@
 Friend Class AvatarTutorialModel
     Implements IAvatarTutorialModel
 
-    Private avatar As ICharacter
+    Private avatar As IActor
 
-    Public Sub New(avatar As ICharacter)
+    Public Sub New(avatar As IActor)
         Me.avatar = avatar
     End Sub
     Public Sub Dismiss() Implements IAvatarTutorialModel.Dismiss

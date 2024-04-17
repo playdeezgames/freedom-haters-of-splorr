@@ -4,18 +4,18 @@ Imports SPLORR.Game
 Friend Class AvatarStarSystemModel
     Implements IAvatarStarSystemModel
 
-    Private avatar As ICharacter
+    Private avatar As IActor
 
-    Public Sub New(avatar As ICharacter)
+    Public Sub New(avatar As IActor)
         Me.avatar = avatar
     End Sub
 
     Public ReadOnly Property Current As IStarSystemModel Implements IAvatarStarSystemModel.Current
         Get
-            If avatar.Cell.StarSystem Is Nothing Then
+            If avatar.Location.StarSystem Is Nothing Then
                 Return Nothing
             End If
-            Return New StarSystemModel(avatar.Cell.StarSystem)
+            Return New StarSystemModel(avatar.Location.StarSystem)
         End Get
     End Property
 
@@ -27,8 +27,8 @@ Friend Class AvatarStarSystemModel
 
     Public Sub Enter() Implements IAvatarStarSystemModel.Enter
         If CanEnter Then
-            With avatar.Cell.StarSystem
-                avatar.Cell = RNG.FromEnumerable(.Map.Cells.Where(Function(x) x.HasFlag(.Name)))
+            With avatar.Location.StarSystem
+                avatar.Location = RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Name)))
             End With
         End If
     End Sub

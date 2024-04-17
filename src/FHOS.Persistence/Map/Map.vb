@@ -8,7 +8,7 @@ Friend Class Map
         MyBase.New(worldData, mapId)
     End Sub
 
-    Public ReadOnly Property World As IUniverse Implements IMap.World
+    Public ReadOnly Property Universe As IUniverse Implements IMap.Universe
         Get
             Return New World(UniverseData)
         End Get
@@ -26,9 +26,9 @@ Friend Class Map
         End Get
     End Property
 
-    Public ReadOnly Property Cells As IEnumerable(Of ICell) Implements IMap.Cells
+    Public ReadOnly Property Locations As IEnumerable(Of ILocation) Implements IMap.Locations
         Get
-            Return MapData.Locations.Select(Function(x) New Cell(UniverseData, x))
+            Return MapData.Locations.Select(Function(x) New Location(UniverseData, x))
         End Get
     End Property
 
@@ -38,10 +38,10 @@ Friend Class Map
         End Get
     End Property
 
-    Public Function GetCell(column As Integer, row As Integer) As ICell Implements IMap.GetCell
+    Public Function GetLocation(column As Integer, row As Integer) As ILocation Implements IMap.GetLocation
         If column < 0 OrElse row < 0 OrElse column >= MapData.Statistics(StatisticTypes.Columns) OrElse row >= MapData.Statistics(StatisticTypes.Rows) Then
             Return Nothing
         End If
-        Return New Cell(UniverseData, MapData.Locations(column + row * MapData.Statistics(StatisticTypes.Columns)))
+        Return New Location(UniverseData, MapData.Locations(column + row * MapData.Statistics(StatisticTypes.Columns)))
     End Function
 End Class
