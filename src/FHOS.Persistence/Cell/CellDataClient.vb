@@ -11,7 +11,7 @@ Friend Class CellDataClient
     Protected ReadOnly Property CellId As Integer
     Protected ReadOnly Property CellData As LocationData
         Get
-            Return UniverseData.LegacyLocations(CellId)
+            Return UniverseData.Locations.Entities(CellId)
         End Get
     End Property
 End Class

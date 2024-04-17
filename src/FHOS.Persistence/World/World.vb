@@ -96,13 +96,13 @@ Public Class World
                                 }
                             }
         Dim cellId As Integer
-        If UniverseData.RecycledLocations.Any Then
-            cellId = UniverseData.RecycledLocations.First
-            UniverseData.RecycledLocations.Remove(cellId)
-            UniverseData.LegacyLocations(cellId) = cellData
+        If UniverseData.Locations.Recycled.Any Then
+            cellId = UniverseData.Locations.Recycled.First
+            UniverseData.Locations.Recycled.Remove(cellId)
+            UniverseData.Locations.Entities(cellId) = cellData
         Else
-            cellId = UniverseData.LegacyLocations.Count
-            UniverseData.LegacyLocations.Add(cellData)
+            cellId = UniverseData.Locations.Entities.Count
+            UniverseData.Locations.Entities.Add(cellData)
         End If
         Return New Cell(UniverseData, cellId)
     End Function
@@ -117,13 +117,13 @@ Public Class World
                     {MetadataTypes.StarType, starType}
                 }
             }
-        If UniverseData.RecycledStarSystems.Any Then
-            starSystemId = UniverseData.RecycledStarSystems.First
-            UniverseData.RecycledStarSystems.Remove(starSystemId)
-            UniverseData.LegacyStarSystems(starSystemId) = starSystemData
+        If UniverseData.StarSystems.Recycled.Any Then
+            starSystemId = UniverseData.StarSystems.Recycled.First
+            UniverseData.StarSystems.Recycled.Remove(starSystemId)
+            UniverseData.StarSystems.Entities(starSystemId) = starSystemData
         Else
-            starSystemId = UniverseData.LegacyStarSystems.Count
-            UniverseData.LegacyStarSystems.Add(starSystemData)
+            starSystemId = UniverseData.StarSystems.Entities.Count
+            UniverseData.StarSystems.Entities.Add(starSystemData)
         End If
         Return New StarSystem(UniverseData, starSystemId)
     End Function

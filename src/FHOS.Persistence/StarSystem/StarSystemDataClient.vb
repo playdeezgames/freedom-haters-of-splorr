@@ -5,7 +5,7 @@ Friend Class StarSystemDataClient
     Protected ReadOnly StarSystemId As Integer
     Protected ReadOnly Property StarSystemData As StarSystemData
         Get
-            Return UniverseData.LegacyStarSystems(StarSystemId)
+            Return UniverseData.StarSystems.Entities(StarSystemId)
         End Get
     End Property
     Sub New(worldData As UniverseData, starSystemId As Integer)
