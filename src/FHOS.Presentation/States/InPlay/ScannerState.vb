@@ -62,9 +62,9 @@ Friend Class ScannerState
             DarkGray)
     End Sub
 
-    Private ReadOnly Property TargetCell As ICellModel
+    Private ReadOnly Property TargetCell As ILocationModel
         Get
-            Return Context.Model.Board.GetCell(target)
+            Return Context.Model.Board.GetLocation(target)
         End Get
     End Property
 

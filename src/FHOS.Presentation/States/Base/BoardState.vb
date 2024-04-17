@@ -37,7 +37,7 @@ Friend MustInherit Class BoardState
                           uiFont As Font,
                           boardPosition As (X As Integer, Y As Integer),
                           plotPosition As (X As Integer, Y As Integer))
-        Dim cellModel = Context.Model.Board.GetCell(boardPosition)
+        Dim cellModel = Context.Model.Board.GetLocation(boardPosition)
         If Not cellModel.Exists Then
             Return
         End If

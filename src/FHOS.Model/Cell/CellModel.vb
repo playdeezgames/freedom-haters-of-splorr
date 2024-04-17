@@ -1,5 +1,5 @@
 ﻿Friend Class CellModel
-    Implements ICellModel
+    Implements ILocationModel
 
     Private ReadOnly cell As Persistence.ILocation
 
@@ -8,13 +8,13 @@
         Me.cell = world.Avatar.Location.Map.GetLocation(mapPosition.X, mapPosition.Y)
     End Sub
 
-    Public ReadOnly Property Exists As Boolean Implements ICellModel.Exists
+    Public ReadOnly Property Exists As Boolean Implements ILocationModel.Exists
         Get
             Return cell IsNot Nothing
         End Get
     End Property
 
-    Public ReadOnly Property Terrain As ITerrainModel Implements ICellModel.Terrain
+    Public ReadOnly Property Terrain As ITerrainModel Implements ILocationModel.Terrain
         Get
             If Not Exists Then
                 Return Nothing
@@ -23,7 +23,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property Character As ICharacterModel Implements ICellModel.Character
+    Public ReadOnly Property Character As ICharacterModel Implements ILocationModel.Character
         Get
             Dim cellCharacter = cell?.Actor
             If cellCharacter Is Nothing Then
@@ -33,7 +33,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property StarSystem As IStarSystemModel Implements ICellModel.StarSystem
+    Public ReadOnly Property StarSystem As IStarSystemModel Implements ILocationModel.StarSystem
         Get
             Dim cellStarSystem = cell?.StarSystem
             If cellStarSystem Is Nothing Then
@@ -43,7 +43,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property HasDetails As Boolean Implements ICellModel.HasDetails
+    Public ReadOnly Property HasDetails As Boolean Implements ILocationModel.HasDetails
         Get
             Return StarSystem IsNot Nothing OrElse Character IsNot Nothing
         End Get

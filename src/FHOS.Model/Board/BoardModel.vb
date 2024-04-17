@@ -7,7 +7,7 @@
         Me.world = world
     End Sub
 
-    Public Function GetCell(boardPosition As (X As Integer, Y As Integer)) As ICellModel Implements IBoardModel.GetCell
+    Public Function GetLocation(boardPosition As (X As Integer, Y As Integer)) As ILocationModel Implements IBoardModel.GetLocation
         Return New CellModel(world, boardPosition)
     End Function
 End Class
