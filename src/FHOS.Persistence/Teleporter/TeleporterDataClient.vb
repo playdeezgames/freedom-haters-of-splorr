@@ -5,7 +5,7 @@ Friend Class TeleporterDataClient
     Protected ReadOnly Property TeleporterId As Integer
     Protected ReadOnly Property TeleporterData As TeleporterData
         Get
-            Return UniverseData.LegacyTeleporters(TeleporterId)
+            Return UniverseData.Teleporters.Entities(TeleporterId)
         End Get
     End Property
     Public Sub New(worldData As Data.UniverseData, teleporterId As Integer)

@@ -137,13 +137,13 @@ Public Class World
                     {StatisticTypes.CellId, target.Id}
                 }
             }
-        If UniverseData.RecycledTeleporters.Any Then
-            teleporterId = UniverseData.RecycledTeleporters.First
-            UniverseData.RecycledTeleporters.Remove(teleporterId)
-            UniverseData.LegacyTeleporters(teleporterId) = teleporterData
+        If UniverseData.Teleporters.Recycled.Any Then
+            teleporterId = UniverseData.Teleporters.Recycled.First
+            UniverseData.Teleporters.Recycled.Remove(teleporterId)
+            UniverseData.Teleporters.Entities(teleporterId) = teleporterData
         Else
-            teleporterId = UniverseData.LegacyTeleporters.Count
-            UniverseData.LegacyTeleporters.Add(teleporterData)
+            teleporterId = UniverseData.Teleporters.Entities.Count
+            UniverseData.Teleporters.Entities.Add(teleporterData)
         End If
         Return New Teleporter(UniverseData, teleporterId)
     End Function
