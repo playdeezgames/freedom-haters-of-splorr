@@ -43,10 +43,10 @@ Public Class World
         If WorldData.RecycledMaps.Any Then
             mapId = WorldData.RecycledMaps.First
             WorldData.RecycledMaps.Remove(mapId)
-            WorldData.Maps(mapId) = mapData
+            WorldData.LegacyMaps(mapId) = mapData
         Else
-            mapId = WorldData.Maps.Count
-            WorldData.Maps.Add(mapData)
+            mapId = WorldData.LegacyMaps.Count
+            WorldData.LegacyMaps.Add(mapData)
         End If
         mapData.Locations = Enumerable.
                     Range(0, columns * rows).
