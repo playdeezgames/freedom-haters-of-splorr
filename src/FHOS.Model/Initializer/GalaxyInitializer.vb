@@ -20,7 +20,7 @@ Friend Module GalaxyInitializer
                 Dim starType = GalacticAges.Descriptors(galacticAge).GenerateStarType()
                 stars.Add((column, row))
                 Dim cell = starMap.GetLocation(column, row)
-                cell.LocationType = StarTypes.Descriptors(starType).TerrainType
+                cell.LocationType = StarTypes.Descriptors(starType).LocationType
                 cell.Tutorial = TutorialTypes.StarSystemEntry
                 Dim starSystemName As String = GenerateUnusedStarSystemName(starSystemNames)
                 cell.StarSystem = universe.CreateStarSystem(starSystemName, starType)
