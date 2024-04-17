@@ -1,4 +1,4 @@
-﻿Friend Module TerrainTypes
+﻿Friend Module LocationTypes
     Friend Const Void = "Void"
     Friend Const VoidNorthArrow = "VoidNorthArrow"
     Friend Const VoidNorthEastArrow = "VoidNorthEastArrow"

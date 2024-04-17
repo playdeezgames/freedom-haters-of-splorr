@@ -10,7 +10,7 @@ Friend Module StarSystemInitializer
             $"{starSystem.Name} System",
             SystemMapColumns,
             SystemMapRows,
-            TerrainTypes.Void)
+            LocationTypes.Void)
         Dim teleporter = starSystem.Universe.CreateTeleporter(starCell)
         With starSystem.Map.GetLocation(0, 0)
             .LocationType = VoidNorthWestArrow

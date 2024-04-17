@@ -9,25 +9,25 @@
 
     Public ReadOnly Property Glyph As Char Implements ITerrainModel.Glyph
         Get
-            Return TerrainTypes.Descriptors(cell.LocationType).Glyph
+            Return LocationTypes.Descriptors(cell.LocationType).Glyph
         End Get
     End Property
 
     Public ReadOnly Property Foreground As Integer Implements ITerrainModel.Foreground
         Get
-            Return TerrainTypes.Descriptors(cell.LocationType).Foreground
+            Return LocationTypes.Descriptors(cell.LocationType).Foreground
         End Get
     End Property
 
     Public ReadOnly Property Background As Integer Implements ITerrainModel.Background
         Get
-            Return TerrainTypes.Descriptors(cell.LocationType).Background
+            Return LocationTypes.Descriptors(cell.LocationType).Background
         End Get
     End Property
 
     Public ReadOnly Property Name As String Implements ITerrainModel.Name
         Get
-            Return TerrainTypes.Descriptors(cell.LocationType).Name
+            Return LocationTypes.Descriptors(cell.LocationType).Name
         End Get
     End Property
 End Class

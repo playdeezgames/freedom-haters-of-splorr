@@ -1,6 +1,6 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class CharacterTypeDescriptor
+Friend Class ActorTypeDescriptor
     ReadOnly Property Glyphs As Char()
     ReadOnly Property Hue As Integer
     ReadOnly Property MaximumOxygen As Integer

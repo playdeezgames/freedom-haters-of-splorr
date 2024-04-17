@@ -23,13 +23,13 @@
         End Get
     End Property
 
-    Public ReadOnly Property Character As ICharacterModel Implements ILocationModel.Character
+    Public ReadOnly Property Character As IActorModel Implements ILocationModel.Character
         Get
             Dim cellCharacter = cell?.Actor
             If cellCharacter Is Nothing Then
                 Return Nothing
             End If
-            Return New CharacterModel(cellCharacter)
+            Return New ActorModel(cellCharacter)
         End Get
     End Property
 

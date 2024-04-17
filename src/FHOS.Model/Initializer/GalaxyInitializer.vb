@@ -7,7 +7,7 @@ Friend Module GalaxyInitializer
     Private Const GalaxyName = "Galaxy Map"
 
     Function Initialize(universe As IUniverse, galacticAge As String, galacticDensity As String) As IMap
-        Dim starMap = universe.CreateMap(MapTypes.Stellar, GalaxyName, GalaxyColumns, GalaxyRows, TerrainTypes.Void)
+        Dim starMap = universe.CreateMap(MapTypes.Stellar, GalaxyName, GalaxyColumns, GalaxyRows, LocationTypes.Void)
         Dim stars As New List(Of (Column As Integer, Row As Integer))
         Dim starSystemNames As New HashSet(Of String)
         Dim tries As Integer = 0
