@@ -56,8 +56,19 @@ Public Class FHOSContext
     End Sub
     Public Overrides Sub ShowSplashContent(displayBuffer As IPixelSink, font As Font)
         ShowTitle(displayBuffer, font)
+        ShowControls(displayBuffer)
         ShowSubtitle(displayBuffer, font)
         ShowStatusBar(displayBuffer, font, ControlsText(aButton:=ContinueText), UIPalette.Background, UIPalette.Footer)
+    End Sub
+
+    Private Sub ShowControls(displayBuffer As IPixelSink)
+        Dim tinyFont = Me.Font("Tiny")
+        Dim controls = Me.KeyBindings.KeysTable.GroupBy(Function(x) x.Value)
+        Dim y = 0
+        For Each control In controls
+            tinyFont.WriteRightText(displayBuffer, (ViewSize.Width, y), $"{control.Key}: {String.Join(", ", control.Select(Function(z) z.Key))}", Hue.LightGray)
+            y += tinyFont.Height
+        Next
     End Sub
 
     Private Sub ShowSubtitle(displayBuffer As IPixelSink, font As Font)

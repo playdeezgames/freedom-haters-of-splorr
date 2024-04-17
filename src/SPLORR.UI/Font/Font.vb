@@ -18,6 +18,12 @@
         End If
         WriteText(sink, position, text, hue)
     End Sub
+    Public Sub WriteRightText(sink As IPixelSink, position As (X As Integer, Y As Integer), text As String, hue As Integer)
+        If text Is Nothing Then
+            Return
+        End If
+        WriteText(sink, (position.X - TextWidth(text), position.Y), text, hue)
+    End Sub
     Private Sub WriteText(sink As IPixelSink, position As (X As Integer, Y As Integer), text As String, hue As Integer)
         For Each character In text
             Dim buffer = _glyphs(character)
