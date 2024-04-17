@@ -2,9 +2,9 @@
 Imports SPLORR.UI
 
 Friend Class TutorialState
-    Inherits BaseGameState(Of Model.IWorldModel)
+    Inherits BaseGameState(Of Model.IUniverseModel)
 
-    Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of Model.IWorldModel))
+    Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of Model.IUniverseModel))
         MyBase.New(parent, setState, context)
     End Sub
 

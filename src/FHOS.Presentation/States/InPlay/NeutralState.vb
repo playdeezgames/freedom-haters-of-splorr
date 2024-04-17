@@ -2,9 +2,9 @@
 Imports SPLORR.UI
 
 Friend Class NeutralState
-    Inherits BaseGameState(Of IWorldModel)
+    Inherits BaseGameState(Of IUniverseModel)
 
-    Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IWorldModel))
+    Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IUniverseModel))
         MyBase.New(parent, setState, context)
     End Sub
 

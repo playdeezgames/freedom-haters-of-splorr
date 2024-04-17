@@ -3,15 +3,15 @@
 Friend Class CellDataClient
     Inherits WorldDataClient
 
-    Public Sub New(worldData As WorldData, cellId As Integer)
+    Public Sub New(worldData As UniverseData, cellId As Integer)
         MyBase.New(worldData)
         Me.CellId = cellId
     End Sub
 
     Protected ReadOnly Property CellId As Integer
-    Protected ReadOnly Property CellData As CellData
+    Protected ReadOnly Property CellData As LocationData
         Get
-            Return WorldData.Cells(CellId)
+            Return WorldData.Locations(CellId)
         End Get
     End Property
 End Class

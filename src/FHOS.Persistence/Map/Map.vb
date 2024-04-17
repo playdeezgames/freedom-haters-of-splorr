@@ -4,7 +4,7 @@ Friend Class Map
     Inherits MapDataClient
     Implements IMap
 
-    Sub New(worldData As WorldData, mapId As Integer)
+    Sub New(worldData As UniverseData, mapId As Integer)
         MyBase.New(worldData, mapId)
     End Sub
 
@@ -28,7 +28,7 @@ Friend Class Map
 
     Public ReadOnly Property Cells As IEnumerable(Of ICell) Implements IMap.Cells
         Get
-            Return MapData.Cells.Select(Function(x) New Cell(WorldData, x))
+            Return MapData.Locations.Select(Function(x) New Cell(WorldData, x))
         End Get
     End Property
 
@@ -42,6 +42,6 @@ Friend Class Map
         If column < 0 OrElse row < 0 OrElse column >= MapData.Statistics(StatisticTypes.Columns) OrElse row >= MapData.Statistics(StatisticTypes.Rows) Then
             Return Nothing
         End If
-        Return New Cell(WorldData, MapData.Cells(column + row * MapData.Statistics(StatisticTypes.Columns)))
+        Return New Cell(WorldData, MapData.Locations(column + row * MapData.Statistics(StatisticTypes.Columns)))
     End Function
 End Class

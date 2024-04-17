@@ -3,7 +3,7 @@
 Public Class World
     Inherits WorldDataClient
     Implements IUniverse
-    Sub New(worldData As WorldData)
+    Sub New(worldData As UniverseData)
         MyBase.New(worldData)
     End Sub
 
@@ -28,7 +28,7 @@ Public Class World
         Dim mapId As Integer
         Dim mapData = New MapData With
             {
-                .Cells = Nothing,
+                .Locations = Nothing,
                 .Statistics = New Dictionary(Of String, Integer) From
                 {
                     {StatisticTypes.Columns, columns},
@@ -48,14 +48,14 @@ Public Class World
             mapId = WorldData.Maps.Count
             WorldData.Maps.Add(mapData)
         End If
-        mapData.Cells = Enumerable.
+        mapData.Locations = Enumerable.
                     Range(0, columns * rows).
                     Select(Function(x) CreateCell(terrainType, mapId, x Mod rows, x \ rows).Id).ToList
         Return New Map(WorldData, mapId)
     End Function
 
     Public Function CreateCharacter(characterType As String, cell As ICell) As ICharacter Implements IUniverse.CreateCharacter
-        Dim characterData = New CharacterData With
+        Dim characterData = New ActorData With
                                  {
                                     .Statistics = New Dictionary(Of String, Integer) From
                                     {
@@ -68,13 +68,13 @@ Public Class World
                                     }
                                  }
         Dim characterId As Integer
-        If WorldData.RecycledCharacters.Any Then
-            characterId = WorldData.RecycledCharacters.First
-            WorldData.RecycledCharacters.Remove(characterId)
-            WorldData.Characters(characterId) = characterData
+        If WorldData.RecycledActors.Any Then
+            characterId = WorldData.RecycledActors.First
+            WorldData.RecycledActors.Remove(characterId)
+            WorldData.Actors(characterId) = characterData
         Else
-            characterId = WorldData.Characters.Count
-            WorldData.Characters.Add(characterData)
+            characterId = WorldData.Actors.Count
+            WorldData.Actors.Add(characterData)
         End If
         Dim character = New Character(WorldData, characterId)
         cell.Character = character
@@ -82,7 +82,7 @@ Public Class World
     End Function
 
     Public Function CreateCell(terrainType As String, mapId As Integer, column As Integer, row As Integer) As ICell Implements IUniverse.CreateCell
-        Dim cellData = New CellData With
+        Dim cellData = New LocationData With
                             {
                                 .Statistics = New Dictionary(Of String, Integer) From
                                 {
@@ -96,13 +96,13 @@ Public Class World
                                 }
                             }
         Dim cellId As Integer
-        If WorldData.RecycledCells.Any Then
-            cellId = WorldData.RecycledCells.First
-            WorldData.RecycledCells.Remove(cellId)
-            WorldData.Cells(cellId) = cellData
+        If WorldData.RecycledLocations.Any Then
+            cellId = WorldData.RecycledLocations.First
+            WorldData.RecycledLocations.Remove(cellId)
+            WorldData.Locations(cellId) = cellData
         Else
-            cellId = WorldData.Cells.Count
-            WorldData.Cells.Add(cellData)
+            cellId = WorldData.Locations.Count
+            WorldData.Locations.Add(cellData)
         End If
         Return New Cell(WorldData, cellId)
     End Function

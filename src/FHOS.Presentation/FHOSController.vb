@@ -3,9 +3,9 @@ Imports FHOS.Persistence
 Imports SPLORR.UI
 
 Public Class FHOSController
-    Inherits BaseGameController(Of IWorldModel)
+    Inherits BaseGameController(Of IUniverseModel)
 
-    Public Sub New(settings As ISettings, context As IUIContext(Of IWorldModel))
+    Public Sub New(settings As ISettings, context As IUIContext(Of IUniverseModel))
         MyBase.New(settings, context)
         SetState(BoilerplateState.Embark, New EmbarkState(Me, AddressOf SetCurrentState, context))
         SetState(BoilerplateState.Neutral, New NeutralState(Me, AddressOf SetCurrentState, context))

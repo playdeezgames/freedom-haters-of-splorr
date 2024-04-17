@@ -2,13 +2,13 @@
 Imports SPLORR.UI
 
 Friend MustInherit Class BoardState
-    Inherits BaseGameState(Of IWorldModel)
+    Inherits BaseGameState(Of IUniverseModel)
     Protected Const ViewColumns = 21
     Protected Const ViewRows = 21
     Public Sub New(
                   parent As IGameController,
                   setState As Action(Of String, Boolean),
-                  context As IUIContext(Of IWorldModel))
+                  context As IUIContext(Of IUniverseModel))
         MyBase.New(parent, setState, context)
     End Sub
 

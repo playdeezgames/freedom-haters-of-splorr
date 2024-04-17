@@ -2,14 +2,14 @@
 Imports SPLORR.UI
 
 Friend Class MoveState
-    Inherits BaseGameState(Of IWorldModel)
+    Inherits BaseGameState(Of IUniverseModel)
 
     Private ReadOnly facing As Integer
 
     Public Sub New(
                   controller As FHOSController,
                   setState As Action(Of String, Boolean),
-                  context As IUIContext(Of IWorldModel),
+                  context As IUIContext(Of IUniverseModel),
                   facing As Integer)
         MyBase.New(controller, setState, context)
         Me.facing = facing

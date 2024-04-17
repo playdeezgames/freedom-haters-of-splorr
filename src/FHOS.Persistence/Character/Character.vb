@@ -2,7 +2,7 @@
     Inherits CharacterDataClient
     Implements ICharacter
 
-    Public Sub New(worldData As Data.WorldData, characterId As Integer)
+    Public Sub New(worldData As Data.UniverseData, characterId As Integer)
         MyBase.New(worldData, characterId)
     End Sub
 

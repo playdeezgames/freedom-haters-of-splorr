@@ -2,7 +2,7 @@
     Inherits TeleporterDataClient
     Implements ITeleporter
 
-    Public Sub New(worldData As Data.WorldData, teleporterId As Integer)
+    Public Sub New(worldData As Data.UniverseData, teleporterId As Integer)
         MyBase.New(worldData, teleporterId)
     End Sub
 

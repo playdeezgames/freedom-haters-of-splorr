@@ -3,14 +3,14 @@ Imports FHOS.Model
 Imports SPLORR.UI
 
 Public Class FHOSContext
-    Inherits UIContext(Of IWorldModel)
+    Inherits UIContext(Of IUniverseModel)
 
     Public Sub New(
                   fontFilenames As IReadOnlyDictionary(Of String, String),
                   viewSize As (Integer, Integer),
                   keyBindings As IKeyBindings)
         MyBase.New(
-            New WorldModel,
+            New UniverseModel,
             fontFilenames,
             viewSize,
             New FHOSUIPalette,

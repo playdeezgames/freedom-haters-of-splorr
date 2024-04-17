@@ -8,7 +8,7 @@ Friend Class StarSystemDataClient
             Return WorldData.StarSystems(StarSystemId)
         End Get
     End Property
-    Sub New(worldData As WorldData, starSystemId As Integer)
+    Sub New(worldData As UniverseData, starSystemId As Integer)
         MyBase.New(worldData)
         Me.StarSystemId = starSystemId
     End Sub

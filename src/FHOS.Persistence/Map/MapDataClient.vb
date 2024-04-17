@@ -8,7 +8,7 @@ Friend Class MapDataClient
             Return WorldData.Maps(MapId)
         End Get
     End Property
-    Sub New(worldData As WorldData, mapId As Integer)
+    Sub New(worldData As UniverseData, mapId As Integer)
         MyBase.New(worldData)
         Me.MapId = mapId
     End Sub

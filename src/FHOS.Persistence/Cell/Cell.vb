@@ -2,7 +2,7 @@
     Inherits CellDataClient
     Implements ICell
 
-    Public Sub New(worldData As Data.WorldData, cellId As Integer)
+    Public Sub New(worldData As Data.UniverseData, cellId As Integer)
         MyBase.New(worldData, cellId)
     End Sub
 

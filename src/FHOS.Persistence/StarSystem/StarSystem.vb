@@ -2,7 +2,7 @@
     Inherits StarSystemDataClient
     Implements IStarSystem
 
-    Public Sub New(worldData As Data.WorldData, starSystemId As Integer)
+    Public Sub New(worldData As Data.UniverseData, starSystemId As Integer)
         MyBase.New(worldData, starSystemId)
     End Sub
 

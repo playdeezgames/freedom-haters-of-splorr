@@ -1,13 +1,13 @@
 ﻿Imports SPLORR.UI
 
 Friend Class ActionMenuState
-    Inherits BasePickerState(Of Model.IWorldModel, String)
+    Inherits BasePickerState(Of Model.IUniverseModel, String)
     Private Const EnterStarSystemText = "Enter Star System"
 
     Public Sub New(
                   parent As IGameController,
                   setState As Action(Of String, Boolean),
-                  context As IUIContext(Of Model.IWorldModel))
+                  context As IUIContext(Of Model.IUniverseModel))
         MyBase.New(
             parent,
             setState,

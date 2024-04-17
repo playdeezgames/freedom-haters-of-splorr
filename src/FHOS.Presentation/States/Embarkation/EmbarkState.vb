@@ -2,7 +2,7 @@
 Imports SPLORR.UI
 
 Friend Class EmbarkState
-    Inherits BasePickerState(Of IWorldModel, String)
+    Inherits BasePickerState(Of IUniverseModel, String)
     Private Const AgeText = "age"
     Private Const DensityText = "density"
     Private Const GoText = "go"
@@ -10,7 +10,7 @@ Friend Class EmbarkState
     Public Sub New(
                   parent As IGameController,
                   setState As Action(Of String, Boolean),
-                  context As IUIContext(Of IWorldModel))
+                  context As IUIContext(Of IUniverseModel))
         MyBase.New(
             parent,
             setState,
