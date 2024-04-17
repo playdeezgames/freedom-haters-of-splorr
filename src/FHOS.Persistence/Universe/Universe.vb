@@ -54,8 +54,8 @@ Public Class Universe
         Return New Map(UniverseData, mapId)
     End Function
 
-    Public Function CreateActor(characterType As String, location As ILocation) As IActor Implements IUniverse.CreateActor
-        Dim characterData = New ActorData With
+    Public Function CreateActor(actorType As String, location As ILocation) As IActor Implements IUniverse.CreateActor
+        Dim actorData = New ActorData With
                                  {
                                     .Statistics = New Dictionary(Of String, Integer) From
                                     {
@@ -64,19 +64,19 @@ Public Class Universe
                                     },
                                     .Metadatas = New Dictionary(Of String, String) From
                                     {
-                                        {MetadataTypes.ActorType, characterType}
+                                        {MetadataTypes.ActorType, actorType}
                                     }
                                  }
-        Dim characterId As Integer
+        Dim actorId As Integer
         If UniverseData.Actors.Recycled.Any Then
-            characterId = UniverseData.Actors.Recycled.First
-            UniverseData.Actors.Recycled.Remove(characterId)
-            UniverseData.Actors.Entities(characterId) = characterData
+            actorId = UniverseData.Actors.Recycled.First
+            UniverseData.Actors.Recycled.Remove(actorId)
+            UniverseData.Actors.Entities(actorId) = actorData
         Else
-            characterId = UniverseData.Actors.Entities.Count
-            UniverseData.Actors.Entities.Add(characterData)
+            actorId = UniverseData.Actors.Entities.Count
+            UniverseData.Actors.Entities.Add(actorData)
         End If
-        Dim actor = New Actor(UniverseData, characterId)
+        Dim actor = New Actor(UniverseData, actorId)
         location.Actor = actor
         Return actor
     End Function

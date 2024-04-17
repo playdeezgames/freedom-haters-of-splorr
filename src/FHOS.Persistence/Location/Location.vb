@@ -41,9 +41,9 @@
 
     Public Property Actor As IActor Implements ILocation.Actor
         Get
-            Dim characterId As Integer
-            If LocationData.Statistics.TryGetValue(StatisticTypes.ActorId, characterId) Then
-                Return New Actor(UniverseData, characterId)
+            Dim actorId As Integer
+            If LocationData.Statistics.TryGetValue(StatisticTypes.ActorId, actorId) Then
+                Return New Actor(UniverseData, actorId)
             End If
             Return Nothing
         End Get

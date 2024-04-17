@@ -46,9 +46,9 @@ Friend MustInherit Class BoardState
         uiFont.WriteLeftText(displayBuffer, plotPosition, ChrW(15), locationTypeModel.Background)
         uiFont.WriteLeftText(displayBuffer, plotPosition, locationTypeModel.Glyph, locationTypeModel.Foreground)
 
-        Dim characterModel = locationModel.Actor
-        If characterModel IsNot Nothing Then
-            uiFont.WriteLeftText(displayBuffer, plotPosition, characterModel.Glyph, characterModel.Hue)
+        Dim actorModel = locationModel.Actor
+        If actorModel IsNot Nothing Then
+            uiFont.WriteLeftText(displayBuffer, plotPosition, actorModel.Glyph, actorModel.Hue)
         End If
     End Sub
 End Class
