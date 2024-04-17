@@ -4,9 +4,7 @@ Public Interface IUniverseModel
     Sub Abandon()
     Sub Embark()
 
-    Sub SetGalacticAge(age As String)
-    ReadOnly Property GalacticAgeName As String
-    ReadOnly Property GalacticAgeOptions As IEnumerable(Of (Text As String, Item As String))
+    ReadOnly Property GalacticAge As IGalacticAgeModel
 
     Sub SetGalacticDensity(density As String)
     ReadOnly Property GalacticDensityName As String
