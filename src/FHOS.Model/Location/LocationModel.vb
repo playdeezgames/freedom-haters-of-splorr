@@ -19,7 +19,7 @@
             If Not Exists Then
                 Return Nothing
             End If
-            Return New TerrainModel(location)
+            Return New LocationTypeModel(location)
         End Get
     End Property
 

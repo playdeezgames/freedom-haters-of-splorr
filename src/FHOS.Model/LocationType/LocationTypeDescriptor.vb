@@ -1,4 +1,4 @@
-﻿Friend Class TerrainTypeDescriptor
+﻿Friend Class LocationTypeDescriptor
     Sub New(name As String, glyph As Char, foreground As Integer, background As Integer)
         Me.Name = name
         Me.Glyph = glyph

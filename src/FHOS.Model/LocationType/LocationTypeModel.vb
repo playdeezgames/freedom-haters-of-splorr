@@ -1,33 +1,33 @@
-﻿Friend Class TerrainModel
+﻿Friend Class LocationTypeModel
     Implements ILocationTypeModel
 
-    Private ReadOnly cell As Persistence.ILocation
+    Private ReadOnly location As Persistence.ILocation
 
-    Public Sub New(cell As Persistence.ILocation)
-        Me.cell = cell
+    Public Sub New(location As Persistence.ILocation)
+        Me.location = location
     End Sub
 
     Public ReadOnly Property Glyph As Char Implements ILocationTypeModel.Glyph
         Get
-            Return LocationTypes.Descriptors(cell.LocationType).Glyph
+            Return LocationTypes.Descriptors(location.LocationType).Glyph
         End Get
     End Property
 
     Public ReadOnly Property Foreground As Integer Implements ILocationTypeModel.Foreground
         Get
-            Return LocationTypes.Descriptors(cell.LocationType).Foreground
+            Return LocationTypes.Descriptors(location.LocationType).Foreground
         End Get
     End Property
 
     Public ReadOnly Property Background As Integer Implements ILocationTypeModel.Background
         Get
-            Return LocationTypes.Descriptors(cell.LocationType).Background
+            Return LocationTypes.Descriptors(location.LocationType).Background
         End Get
     End Property
 
     Public ReadOnly Property Name As String Implements ILocationTypeModel.Name
         Get
-            Return LocationTypes.Descriptors(cell.LocationType).Name
+            Return LocationTypes.Descriptors(location.LocationType).Name
         End Get
     End Property
 End Class
