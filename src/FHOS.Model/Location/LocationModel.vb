@@ -25,21 +25,21 @@
 
     Public ReadOnly Property Actor As IActorModel Implements ILocationModel.Actor
         Get
-            Dim cellCharacter = location?.Actor
-            If cellCharacter Is Nothing Then
+            Dim locationActor = location?.Actor
+            If locationActor Is Nothing Then
                 Return Nothing
             End If
-            Return New ActorModel(cellCharacter)
+            Return New ActorModel(locationActor)
         End Get
     End Property
 
     Public ReadOnly Property StarSystem As IStarSystemModel Implements ILocationModel.StarSystem
         Get
-            Dim cellStarSystem = location?.StarSystem
-            If cellStarSystem Is Nothing Then
+            Dim locationStarSystem = location?.StarSystem
+            If locationStarSystem Is Nothing Then
                 Return Nothing
             End If
-            Return New StarSystemModel(cellStarSystem)
+            Return New StarSystemModel(locationStarSystem)
         End Get
     End Property
 

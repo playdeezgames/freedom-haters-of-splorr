@@ -4,14 +4,14 @@ Friend Module StarSystemInitializer
     Private Const SystemMapColumns = 31
     Private Const SystemMapRows = 31
 
-    Friend Sub Initialize(starSystem As IStarSystem, starCell As ILocation, starFlag As String)
+    Friend Sub Initialize(starSystem As IStarSystem, starLocation As ILocation, starFlag As String)
         starSystem.Map = starSystem.Universe.CreateMap(
             MapTypes.System,
             $"{starSystem.Name} System",
             SystemMapColumns,
             SystemMapRows,
             LocationTypes.Void)
-        Dim teleporter = starSystem.Universe.CreateTeleporter(starCell)
+        Dim teleporter = starSystem.Universe.CreateTeleporter(starLocation)
         With starSystem.Map.GetLocation(0, 0)
             .LocationType = VoidNorthWestArrow
             .Teleporter = teleporter

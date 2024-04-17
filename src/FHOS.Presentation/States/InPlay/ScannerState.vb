@@ -28,7 +28,7 @@ Friend Class ScannerState
         Dim oldX = target.X
         Dim oldY = target.Y
         target = (Math.Clamp(target.X + deltaX, -ViewColumns \ 2, ViewColumns \ 2), Math.Clamp(target.Y + deltaY, -ViewRows \ 2, ViewRows \ 2))
-        If Not TargetCell.Exists Then
+        If Not TargetLocation.Exists Then
             target = (oldX, oldY)
         End If
     End Sub
@@ -36,45 +36,45 @@ Friend Class ScannerState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim uiFont = Context.Font(UIFontName)
-        Dim cellWidth = uiFont.TextWidth(ChrW(32))
-        Dim cellHeight = uiFont.Height
+        Dim locationWidth = uiFont.TextWidth(ChrW(32))
+        Dim locationHeight = uiFont.Height
         RenderBoard(
             displayBuffer,
             uiFont,
             (0, 0),
-            (cellWidth, cellHeight))
+            (locationWidth, locationHeight))
         uiFont.WriteLeftText(
             displayBuffer,
-            (cellWidth * (target.X + ViewColumns \ 2), cellHeight * (target.Y + ViewRows \ 2)),
+            (locationWidth * (target.X + ViewColumns \ 2), locationHeight * (target.Y + ViewRows \ 2)),
             ChrW(255),
             4)
         RenderDetails(
             displayBuffer,
             uiFont,
-            (ViewColumns * cellWidth, 0))
+            (ViewColumns * locationWidth, 0))
         Context.ShowStatusBar(
             displayBuffer,
             uiFont,
             Context.ControlsText(
-                aButton:=If(TargetCell.HasDetails, "Details", Nothing),
+                aButton:=If(TargetLocation.HasDetails, "Details", Nothing),
                 selectButton:="Navigation"),
             Black,
             DarkGray)
     End Sub
 
-    Private ReadOnly Property TargetCell As ILocationModel
+    Private ReadOnly Property TargetLocation As ILocationModel
         Get
             Return Context.Model.Board.GetLocation(target)
         End Get
     End Property
 
     Private Sub RenderDetails(displayBuffer As IPixelSink, uiFont As Font, position As (X As Integer, Y As Integer))
-        If Not TargetCell.Exists Then
+        If Not TargetLocation.Exists Then
             Return
         End If
-        uiFont.WriteLeftText(displayBuffer, position, TargetCell.LocationType.Name, Black)
+        uiFont.WriteLeftText(displayBuffer, position, TargetLocation.LocationType.Name, Black)
         position = NextLine(position, uiFont)
-        Dim starSystem = TargetCell.StarSystem
+        Dim starSystem = TargetLocation.StarSystem
         If starSystem IsNot Nothing Then
             uiFont.WriteLeftText(displayBuffer, position, starSystem.Name, Black)
             position = NextLine(position, uiFont)

@@ -16,37 +16,37 @@ Friend MustInherit Class BoardState
                            displayBuffer As IPixelSink,
                            spriteFont As Font,
                            position As (X As Integer, Y As Integer),
-                           cellSize As (Width As Integer, Height As Integer))
+                           locationSize As (Width As Integer, Height As Integer))
         Dim x = position.X
         For Each deltaX In Enumerable.Range(-ViewColumns \ 2, ViewColumns)
             Dim y = position.Y
             For Each deltaY In Enumerable.Range(-ViewRows \ 2, ViewRows)
-                RenderCell(
+                RenderLocation(
                     displayBuffer,
                     spriteFont,
                     (deltaX, deltaY),
                     (x, y))
-                y += cellSize.Height
+                y += locationSize.Height
             Next
-            x += cellSize.Width
+            x += locationSize.Width
         Next
     End Sub
 
-    Private Sub RenderCell(
+    Private Sub RenderLocation(
                           displayBuffer As IPixelSink,
                           uiFont As Font,
                           boardPosition As (X As Integer, Y As Integer),
                           plotPosition As (X As Integer, Y As Integer))
-        Dim cellModel = Context.Model.Board.GetLocation(boardPosition)
-        If Not cellModel.Exists Then
+        Dim locationModel = Context.Model.Board.GetLocation(boardPosition)
+        If Not locationModel.Exists Then
             Return
         End If
 
-        Dim terrainModel = cellModel.LocationType
-        uiFont.WriteLeftText(displayBuffer, plotPosition, ChrW(15), terrainModel.Background)
-        uiFont.WriteLeftText(displayBuffer, plotPosition, terrainModel.Glyph, terrainModel.Foreground)
+        Dim locationTypeModel = locationModel.LocationType
+        uiFont.WriteLeftText(displayBuffer, plotPosition, ChrW(15), locationTypeModel.Background)
+        uiFont.WriteLeftText(displayBuffer, plotPosition, locationTypeModel.Glyph, locationTypeModel.Foreground)
 
-        Dim characterModel = cellModel.Actor
+        Dim characterModel = locationModel.Actor
         If characterModel IsNot Nothing Then
             uiFont.WriteLeftText(displayBuffer, plotPosition, characterModel.Glyph, characterModel.Hue)
         End If

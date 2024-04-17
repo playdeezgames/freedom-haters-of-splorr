@@ -19,12 +19,12 @@ Friend Module GalaxyInitializer
             If stars.All(Function(star) (column - star.Column) * (column - star.Column) + (row - star.Row) * (row - star.Row) >= MinimumDistance * MinimumDistance) Then
                 Dim starType = GalacticAges.Descriptors(galacticAge).GenerateStarType()
                 stars.Add((column, row))
-                Dim cell = starMap.GetLocation(column, row)
-                cell.LocationType = StarTypes.Descriptors(starType).LocationType
-                cell.Tutorial = TutorialTypes.StarSystemEntry
+                Dim location = starMap.GetLocation(column, row)
+                location.LocationType = StarTypes.Descriptors(starType).LocationType
+                location.Tutorial = TutorialTypes.StarSystemEntry
                 Dim starSystemName As String = GenerateUnusedStarSystemName(starSystemNames)
-                cell.StarSystem = universe.CreateStarSystem(starSystemName, starType)
-                StarSystemInitializer.Initialize(cell.StarSystem, cell, starSystemName)
+                location.StarSystem = universe.CreateStarSystem(starSystemName, starType)
+                StarSystemInitializer.Initialize(location.StarSystem, location, starSystemName)
                 tries = 0
             Else
                 tries += 1

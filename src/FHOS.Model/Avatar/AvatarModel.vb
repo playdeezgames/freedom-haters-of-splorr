@@ -65,16 +65,16 @@ Friend Class AvatarModel
     End Property
 
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
-        Dim cell = avatar.Location
-        Dim nextColumn = cell.Column + delta.X
-        Dim nextRow = cell.Row + delta.Y
-        Dim map = cell.Map
-        Dim nextCell = map.GetLocation(nextColumn, nextRow)
-        If nextCell IsNot Nothing Then
-            If nextCell.HasTeleporter Then
-                avatar.Location = nextCell.Teleporter.Target
+        Dim location = avatar.Location
+        Dim nextColumn = location.Column + delta.X
+        Dim nextRow = location.Row + delta.Y
+        Dim map = location.Map
+        Dim nextLocation = map.GetLocation(nextColumn, nextRow)
+        If nextLocation IsNot Nothing Then
+            If nextLocation.HasTeleporter Then
+                avatar.Location = nextLocation.Teleporter.Target
             Else
-                avatar.Location = nextCell
+                avatar.Location = nextLocation
             End If
         End If
     End Sub

@@ -24,7 +24,7 @@ Public Class Universe
         End Set
     End Property
 
-    Public Function CreateMap(mapType As String, mapName As String, columns As Integer, rows As Integer, terrainType As String) As IMap Implements IUniverse.CreateMap
+    Public Function CreateMap(mapType As String, mapName As String, columns As Integer, rows As Integer, locationType As String) As IMap Implements IUniverse.CreateMap
         Dim mapId As Integer
         Dim mapData = New MapData With
             {
@@ -50,16 +50,16 @@ Public Class Universe
         End If
         mapData.Locations = Enumerable.
                     Range(0, columns * rows).
-                    Select(Function(x) CreateLocation(terrainType, mapId, x Mod rows, x \ rows).Id).ToList
+                    Select(Function(x) CreateLocation(locationType, mapId, x Mod rows, x \ rows).Id).ToList
         Return New Map(UniverseData, mapId)
     End Function
 
-    Public Function CreateActor(characterType As String, cell As ILocation) As IActor Implements IUniverse.CreateActor
+    Public Function CreateActor(characterType As String, location As ILocation) As IActor Implements IUniverse.CreateActor
         Dim characterData = New ActorData With
                                  {
                                     .Statistics = New Dictionary(Of String, Integer) From
                                     {
-                                        {StatisticTypes.LocationId, cell.Id},
+                                        {StatisticTypes.LocationId, location.Id},
                                         {StatisticTypes.Facing, 1}
                                     },
                                     .Metadatas = New Dictionary(Of String, String) From
@@ -76,13 +76,13 @@ Public Class Universe
             characterId = UniverseData.Actors.Entities.Count
             UniverseData.Actors.Entities.Add(characterData)
         End If
-        Dim character = New Actor(UniverseData, characterId)
-        cell.Actor = character
-        Return character
+        Dim actor = New Actor(UniverseData, characterId)
+        location.Actor = actor
+        Return actor
     End Function
 
-    Public Function CreateLocation(terrainType As String, mapId As Integer, column As Integer, row As Integer) As ILocation Implements IUniverse.CreateLocation
-        Dim cellData = New LocationData With
+    Public Function CreateLocation(locationType As String, mapId As Integer, column As Integer, row As Integer) As ILocation Implements IUniverse.CreateLocation
+        Dim locationData = New LocationData With
                             {
                                 .Statistics = New Dictionary(Of String, Integer) From
                                 {
@@ -92,19 +92,19 @@ Public Class Universe
                                 },
                                 .Metadatas = New Dictionary(Of String, String) From
                                 {
-                                    {MetadataTypes.LocationType, terrainType}
+                                    {MetadataTypes.LocationType, locationType}
                                 }
                             }
-        Dim cellId As Integer
+        Dim locationId As Integer
         If UniverseData.Locations.Recycled.Any Then
-            cellId = UniverseData.Locations.Recycled.First
-            UniverseData.Locations.Recycled.Remove(cellId)
-            UniverseData.Locations.Entities(cellId) = cellData
+            locationId = UniverseData.Locations.Recycled.First
+            UniverseData.Locations.Recycled.Remove(locationId)
+            UniverseData.Locations.Entities(locationId) = locationData
         Else
-            cellId = UniverseData.Locations.Entities.Count
-            UniverseData.Locations.Entities.Add(cellData)
+            locationId = UniverseData.Locations.Entities.Count
+            UniverseData.Locations.Entities.Add(locationData)
         End If
-        Return New Location(UniverseData, cellId)
+        Return New Location(UniverseData, locationId)
     End Function
 
     Public Function CreateStarSystem(starSystemName As String, starType As String) As IStarSystem Implements IUniverse.CreateStarSystem

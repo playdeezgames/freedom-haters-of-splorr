@@ -35,14 +35,14 @@ Friend Class NavigationState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim uiFont = Context.Font(UIFontName)
-        Dim cellWidth = uiFont.TextWidth(ChrW(32))
-        Dim cellHeight = uiFont.Height
+        Dim locationWidth = uiFont.TextWidth(ChrW(32))
+        Dim locationHeight = uiFont.Height
         RenderBoard(
             displayBuffer,
             uiFont,
             (0, 0),
-            (cellWidth, cellHeight))
-        RenderStatistics(displayBuffer, uiFont, (ViewColumns * cellWidth, 0))
+            (locationWidth, locationHeight))
+        RenderStatistics(displayBuffer, uiFont, (ViewColumns * locationWidth, 0))
         Context.ShowStatusBar(
             displayBuffer,
             uiFont,
