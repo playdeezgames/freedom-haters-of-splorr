@@ -8,6 +8,6 @@
     End Sub
 
     Public Function GetLocation(boardPosition As (X As Integer, Y As Integer)) As ILocationModel Implements IBoardModel.GetLocation
-        Return New CellModel(world, boardPosition)
+        Return New LocationModel(world, boardPosition)
     End Function
 End Class

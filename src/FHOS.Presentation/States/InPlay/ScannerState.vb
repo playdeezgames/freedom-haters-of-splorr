@@ -72,7 +72,7 @@ Friend Class ScannerState
         If Not TargetCell.Exists Then
             Return
         End If
-        uiFont.WriteLeftText(displayBuffer, position, TargetCell.Terrain.Name, Black)
+        uiFont.WriteLeftText(displayBuffer, position, TargetCell.LocationType.Name, Black)
         position = NextLine(position, uiFont)
         Dim starSystem = TargetCell.StarSystem
         If starSystem IsNot Nothing Then

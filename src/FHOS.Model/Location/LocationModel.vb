@@ -1,31 +1,31 @@
-﻿Friend Class CellModel
+﻿Friend Class LocationModel
     Implements ILocationModel
 
-    Private ReadOnly cell As Persistence.ILocation
+    Private ReadOnly location As Persistence.ILocation
 
-    Public Sub New(world As Persistence.IUniverse, boardPosition As (X As Integer, Y As Integer))
-        Dim mapPosition As (X As Integer, Y As Integer) = (boardPosition.X + world.Avatar.Location.Column, boardPosition.Y + world.Avatar.Location.Row)
-        Me.cell = world.Avatar.Location.Map.GetLocation(mapPosition.X, mapPosition.Y)
+    Public Sub New(universe As Persistence.IUniverse, boardPosition As (X As Integer, Y As Integer))
+        Dim mapPosition As (X As Integer, Y As Integer) = (boardPosition.X + universe.Avatar.Location.Column, boardPosition.Y + universe.Avatar.Location.Row)
+        Me.location = universe.Avatar.Location.Map.GetLocation(mapPosition.X, mapPosition.Y)
     End Sub
 
     Public ReadOnly Property Exists As Boolean Implements ILocationModel.Exists
         Get
-            Return cell IsNot Nothing
+            Return location IsNot Nothing
         End Get
     End Property
 
-    Public ReadOnly Property Terrain As ITerrainModel Implements ILocationModel.Terrain
+    Public ReadOnly Property LocationType As ILocationTypeModel Implements ILocationModel.LocationType
         Get
             If Not Exists Then
                 Return Nothing
             End If
-            Return New TerrainModel(cell)
+            Return New TerrainModel(location)
         End Get
     End Property
 
-    Public ReadOnly Property Character As IActorModel Implements ILocationModel.Character
+    Public ReadOnly Property Actor As IActorModel Implements ILocationModel.Actor
         Get
-            Dim cellCharacter = cell?.Actor
+            Dim cellCharacter = location?.Actor
             If cellCharacter Is Nothing Then
                 Return Nothing
             End If
@@ -35,7 +35,7 @@
 
     Public ReadOnly Property StarSystem As IStarSystemModel Implements ILocationModel.StarSystem
         Get
-            Dim cellStarSystem = cell?.StarSystem
+            Dim cellStarSystem = location?.StarSystem
             If cellStarSystem Is Nothing Then
                 Return Nothing
             End If
@@ -45,7 +45,7 @@
 
     Public ReadOnly Property HasDetails As Boolean Implements ILocationModel.HasDetails
         Get
-            Return StarSystem IsNot Nothing OrElse Character IsNot Nothing
+            Return StarSystem IsNot Nothing OrElse Actor IsNot Nothing
         End Get
     End Property
 End Class

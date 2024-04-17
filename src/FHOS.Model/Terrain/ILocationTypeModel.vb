@@ -1,4 +1,4 @@
-﻿Public Interface ITerrainModel
+﻿Public Interface ILocationTypeModel
     ReadOnly Property Glyph As Char
     ReadOnly Property Foreground As Integer
     ReadOnly Property Background As Integer

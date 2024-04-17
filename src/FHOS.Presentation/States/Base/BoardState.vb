@@ -42,11 +42,11 @@ Friend MustInherit Class BoardState
             Return
         End If
 
-        Dim terrainModel = cellModel.Terrain
+        Dim terrainModel = cellModel.LocationType
         uiFont.WriteLeftText(displayBuffer, plotPosition, ChrW(15), terrainModel.Background)
         uiFont.WriteLeftText(displayBuffer, plotPosition, terrainModel.Glyph, terrainModel.Foreground)
 
-        Dim characterModel = cellModel.Character
+        Dim characterModel = cellModel.Actor
         If characterModel IsNot Nothing Then
             uiFont.WriteLeftText(displayBuffer, plotPosition, characterModel.Glyph, characterModel.Hue)
         End If
