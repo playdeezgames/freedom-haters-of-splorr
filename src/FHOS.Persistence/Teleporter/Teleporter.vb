@@ -2,8 +2,8 @@
     Inherits TeleporterDataClient
     Implements ITeleporter
 
-    Public Sub New(worldData As Data.UniverseData, teleporterId As Integer)
-        MyBase.New(worldData, teleporterId)
+    Public Sub New(universeData As Data.UniverseData, teleporterId As Integer)
+        MyBase.New(universeData, teleporterId)
     End Sub
 
     Public ReadOnly Property Id As Integer Implements ITeleporter.Id

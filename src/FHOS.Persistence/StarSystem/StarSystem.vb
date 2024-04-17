@@ -2,8 +2,8 @@
     Inherits StarSystemDataClient
     Implements IStarSystem
 
-    Public Sub New(worldData As Data.UniverseData, starSystemId As Integer)
-        MyBase.New(worldData, starSystemId)
+    Public Sub New(universeData As Data.UniverseData, starSystemId As Integer)
+        MyBase.New(universeData, starSystemId)
     End Sub
 
     Public ReadOnly Property Id As Integer Implements IStarSystem.Id
@@ -37,7 +37,7 @@
 
     Public ReadOnly Property Universe As IUniverse Implements IStarSystem.Universe
         Get
-            Return New World(UniverseData)
+            Return New Universe(UniverseData)
         End Get
     End Property
 End Class

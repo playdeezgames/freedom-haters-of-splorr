@@ -8,8 +8,8 @@ Friend Class TeleporterDataClient
             Return UniverseData.Teleporters.Entities(TeleporterId)
         End Get
     End Property
-    Public Sub New(worldData As Data.UniverseData, teleporterId As Integer)
-        MyBase.New(worldData)
+    Public Sub New(universeData As Data.UniverseData, teleporterId As Integer)
+        MyBase.New(universeData)
         Me.TeleporterId = teleporterId
     End Sub
 End Class

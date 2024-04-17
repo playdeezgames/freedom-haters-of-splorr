@@ -10,7 +10,7 @@ Friend Class Map
 
     Public ReadOnly Property Universe As IUniverse Implements IMap.Universe
         Get
-            Return New World(UniverseData)
+            Return New Universe(UniverseData)
         End Get
     End Property
 

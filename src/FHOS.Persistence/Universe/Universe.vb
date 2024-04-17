@@ -1,10 +1,10 @@
 ﻿Imports FHOS.Data
 
-Public Class World
+Public Class Universe
     Inherits UniverseDataClient
     Implements IUniverse
-    Sub New(worldData As UniverseData)
-        MyBase.New(worldData)
+    Sub New(universeData As UniverseData)
+        MyBase.New(universeData)
     End Sub
 
     Public Property Avatar As IActor Implements IUniverse.Avatar
@@ -50,11 +50,11 @@ Public Class World
         End If
         mapData.Locations = Enumerable.
                     Range(0, columns * rows).
-                    Select(Function(x) CreateCell(terrainType, mapId, x Mod rows, x \ rows).Id).ToList
+                    Select(Function(x) CreateLocation(terrainType, mapId, x Mod rows, x \ rows).Id).ToList
         Return New Map(UniverseData, mapId)
     End Function
 
-    Public Function CreateCharacter(characterType As String, cell As ILocation) As IActor Implements IUniverse.CreateCharacter
+    Public Function CreateActor(characterType As String, cell As ILocation) As IActor Implements IUniverse.CreateActor
         Dim characterData = New ActorData With
                                  {
                                     .Statistics = New Dictionary(Of String, Integer) From
@@ -81,7 +81,7 @@ Public Class World
         Return character
     End Function
 
-    Public Function CreateCell(terrainType As String, mapId As Integer, column As Integer, row As Integer) As ILocation Implements IUniverse.CreateCell
+    Public Function CreateLocation(terrainType As String, mapId As Integer, column As Integer, row As Integer) As ILocation Implements IUniverse.CreateLocation
         Dim cellData = New LocationData With
                             {
                                 .Statistics = New Dictionary(Of String, Integer) From

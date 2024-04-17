@@ -12,7 +12,7 @@ Public Class UniverseModel
 
     Private ReadOnly Property Universe As IUniverse
         Get
-            Return New World(universeData)
+            Return New Universe(universeData)
         End Get
     End Property
 

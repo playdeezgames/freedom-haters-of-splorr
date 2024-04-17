@@ -8,7 +8,7 @@ Friend Module AvatarInitializer
         Do
             characterCell = map.GetLocation(RNG.FromRange(0, map.Size.Columns - 1), RNG.FromRange(0, map.Size.Rows - 1))
         Loop Until descriptor.CanSpawn(characterCell)
-        Dim character = map.Universe.CreateCharacter(Player, characterCell)
+        Dim character = map.Universe.CreateActor(Player, characterCell)
         character.MaximumOxygen = descriptor.MaximumOxygen
         character.Oxygen = descriptor.MaximumOxygen
         Return character
