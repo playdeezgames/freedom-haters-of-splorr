@@ -23,7 +23,9 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "FontMaker", "FontMaker\Font
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_STUFF", "_STUFF", "{CA752FDE-1B1E-48AE-99B1-BE67A4C4F7FC}"
 	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
 		..\README.md = ..\README.md
+		..\shippit.sh = ..\shippit.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A9D3D963-BAD8-4BD3-8DE4-2ECA90D32873}"
