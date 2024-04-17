@@ -1,6 +1,6 @@
 ﻿Friend Class GalacticAgeModel
     Implements IGalacticAgeModel
-    Private _galacticAge As String = GalacticAges.Average
+    Private Shared _galacticAge As String = GalacticAges.Average
 
     Public ReadOnly Property CurrentName As String Implements IGalacticAgeModel.CurrentName
         Get

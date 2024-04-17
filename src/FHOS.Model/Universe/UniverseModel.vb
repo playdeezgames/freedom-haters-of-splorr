@@ -7,7 +7,6 @@ Public Class UniverseModel
     Implements IUniverseModel
 
     Private universeData As UniverseData = Nothing
-    Private _galacticDensity As String = GalacticDensities.Average
 
     Private ReadOnly Property Universe As IUniverse
         Get
@@ -27,21 +26,15 @@ Public Class UniverseModel
         End Get
     End Property
 
-    Public ReadOnly Property GalacticDensityName As String Implements IUniverseModel.GalacticDensityName
-        Get
-            Return GalacticDensities.Descriptors(_galacticDensity).DisplayName
-        End Get
-    End Property
-
-    Public ReadOnly Property GalacticDensityOptions As IEnumerable(Of (Text As String, Item As String)) Implements IUniverseModel.GalacticDensityOptions
-        Get
-            Return GalacticDensities.Descriptors.OrderBy(Function(x) x.Value.Ordinal).Select(Function(x) (x.Value.DisplayName, x.Key))
-        End Get
-    End Property
-
     Public ReadOnly Property GalacticAge As IGalacticAgeModel Implements IUniverseModel.GalacticAge
         Get
             Return New GalacticAgeModel()
+        End Get
+    End Property
+
+    Public ReadOnly Property GalacticDensity As IGalacticDensityModel Implements IUniverseModel.GalacticDensity
+        Get
+            Return New GalacticDensityModel()
         End Get
     End Property
 
@@ -59,10 +52,6 @@ Public Class UniverseModel
 
     Public Sub Embark() Implements IUniverseModel.Embark
         universeData = New UniverseData()
-        UniverseInitializer.Initialize(Universe, GalacticAge.Value, _galacticDensity)
-    End Sub
-
-    Public Sub SetGalacticDensity(density As String) Implements IUniverseModel.SetGalacticDensity
-        _galacticDensity = density
+        UniverseInitializer.Initialize(Universe, GalacticAge.Value, GalacticDensity.Value)
     End Sub
 End Class
