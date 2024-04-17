@@ -14,7 +14,7 @@
 
     Public ReadOnly Property Target As ICell Implements ITeleporter.Target
         Get
-            Return New Cell(WorldData, TeleporterData.Statistics(StatisticTypes.CellId))
+            Return New Cell(UniverseData, TeleporterData.Statistics(StatisticTypes.CellId))
         End Get
     End Property
 End Class

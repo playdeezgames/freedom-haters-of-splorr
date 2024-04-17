@@ -10,7 +10,7 @@ Friend Class Map
 
     Public ReadOnly Property World As IUniverse Implements IMap.World
         Get
-            Return New World(WorldData)
+            Return New World(UniverseData)
         End Get
     End Property
 
@@ -28,7 +28,7 @@ Friend Class Map
 
     Public ReadOnly Property Cells As IEnumerable(Of ICell) Implements IMap.Cells
         Get
-            Return MapData.Locations.Select(Function(x) New Cell(WorldData, x))
+            Return MapData.Locations.Select(Function(x) New Cell(UniverseData, x))
         End Get
     End Property
 
@@ -42,6 +42,6 @@ Friend Class Map
         If column < 0 OrElse row < 0 OrElse column >= MapData.Statistics(StatisticTypes.Columns) OrElse row >= MapData.Statistics(StatisticTypes.Rows) Then
             Return Nothing
         End If
-        Return New Cell(WorldData, MapData.Locations(column + row * MapData.Statistics(StatisticTypes.Columns)))
+        Return New Cell(UniverseData, MapData.Locations(column + row * MapData.Statistics(StatisticTypes.Columns)))
     End Function
 End Class

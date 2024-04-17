@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Data
 
 Friend Class CellDataClient
-    Inherits WorldDataClient
+    Inherits UniverseDataClient
 
     Public Sub New(worldData As UniverseData, cellId As Integer)
         MyBase.New(worldData)
@@ -11,7 +11,7 @@ Friend Class CellDataClient
     Protected ReadOnly Property CellId As Integer
     Protected ReadOnly Property CellData As LocationData
         Get
-            Return WorldData.Locations(CellId)
+            Return UniverseData.LegacyLocations(CellId)
         End Get
     End Property
 End Class

@@ -1,5 +1,5 @@
 ﻿Friend Class Character
-    Inherits CharacterDataClient
+    Inherits ActorDataClient
     Implements ICharacter
 
     Public Sub New(worldData As Data.UniverseData, characterId As Integer)
@@ -8,18 +8,18 @@
 
     Public ReadOnly Property Id As Integer Implements ICharacter.Id
         Get
-            Return CharacterId
+            Return ActorId
         End Get
     End Property
 
     Public Property Cell As ICell Implements ICharacter.Cell
         Get
-            Return New Cell(WorldData, CharacterData.Statistics(StatisticTypes.CellId))
+            Return New Cell(UniverseData, ActorData.Statistics(StatisticTypes.CellId))
         End Get
         Set(value As ICell)
-            If value.Id <> CharacterData.Statistics(StatisticTypes.CellId) Then
+            If value.Id <> ActorData.Statistics(StatisticTypes.CellId) Then
                 Cell.Character = Nothing
-                CharacterData.Statistics(StatisticTypes.CellId) = value.Id
+                ActorData.Statistics(StatisticTypes.CellId) = value.Id
                 value.Character = Me
                 TriggerTutorial(value.Tutorial)
             End If
@@ -30,66 +30,66 @@
         If tutorial Is Nothing Then
             Return
         End If
-        CharacterData.Tutorials.Enqueue(tutorial)
+        ActorData.Tutorials.Enqueue(tutorial)
     End Sub
 
     Public Sub DismissTutorial() Implements ICharacter.DismissTutorial
         If HasTutorial Then
-            CharacterData.Tutorials.Dequeue()
+            ActorData.Tutorials.Dequeue()
         End If
     End Sub
 
     Public Function HasFlag(flag As String) As Boolean Implements ICharacter.HasFlag
-        Return CharacterData.Flags.Contains(flag)
+        Return ActorData.Flags.Contains(flag)
     End Function
 
     Public Sub SetFlag(flag As String) Implements ICharacter.SetFlag
-        CharacterData.Flags.Add(flag)
+        ActorData.Flags.Add(flag)
     End Sub
 
     Public ReadOnly Property CharacterType As String Implements ICharacter.CharacterType
         Get
-            Return CharacterData.Metadatas(MetadataTypes.CharacterType)
+            Return ActorData.Metadatas(MetadataTypes.CharacterType)
         End Get
     End Property
 
     Public Property MaximumOxygen As Integer Implements ICharacter.MaximumOxygen
         Get
-            Return Math.Max(0, CharacterData.Statistics(StatisticTypes.MaximumOxygen))
+            Return Math.Max(0, ActorData.Statistics(StatisticTypes.MaximumOxygen))
         End Get
         Set(value As Integer)
-            CharacterData.Statistics(StatisticTypes.MaximumOxygen) = Math.Max(0, value)
+            ActorData.Statistics(StatisticTypes.MaximumOxygen) = Math.Max(0, value)
         End Set
     End Property
 
     Public Property Oxygen As Integer Implements ICharacter.Oxygen
         Get
-            Return Math.Clamp(CharacterData.Statistics(StatisticTypes.Oxygen), 0, MaximumOxygen)
+            Return Math.Clamp(ActorData.Statistics(StatisticTypes.Oxygen), 0, MaximumOxygen)
         End Get
         Set(value As Integer)
-            CharacterData.Statistics(StatisticTypes.Oxygen) = Math.Clamp(value, 0, MaximumOxygen)
+            ActorData.Statistics(StatisticTypes.Oxygen) = Math.Clamp(value, 0, MaximumOxygen)
         End Set
     End Property
 
     Public Property Facing As Integer Implements ICharacter.Facing
         Get
-            Return CharacterData.Statistics(StatisticTypes.Facing)
+            Return ActorData.Statistics(StatisticTypes.Facing)
         End Get
         Set(value As Integer)
-            CharacterData.Statistics(StatisticTypes.Facing) = value
+            ActorData.Statistics(StatisticTypes.Facing) = value
         End Set
     End Property
 
     Public ReadOnly Property HasTutorial As Boolean Implements ICharacter.HasTutorial
         Get
-            Return CharacterData.Tutorials.Any
+            Return ActorData.Tutorials.Any
         End Get
     End Property
 
     Public ReadOnly Property CurrentTutorial As String Implements ICharacter.CurrentTutorial
         Get
             If HasTutorial Then
-                Return CharacterData.Tutorials.Peek
+                Return ActorData.Tutorials.Peek
             End If
             Return Nothing
         End Get

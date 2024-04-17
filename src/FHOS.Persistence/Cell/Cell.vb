@@ -14,7 +14,7 @@
 
     Public ReadOnly Property Map As IMap Implements ICell.Map
         Get
-            Return New Map(WorldData, CellData.Statistics(StatisticTypes.MapId))
+            Return New Map(UniverseData, CellData.Statistics(StatisticTypes.MapId))
         End Get
     End Property
 
@@ -43,7 +43,7 @@
         Get
             Dim characterId As Integer
             If CellData.Statistics.TryGetValue(StatisticTypes.CharacterId, characterId) Then
-                Return New Character(WorldData, characterId)
+                Return New Character(UniverseData, characterId)
             End If
             Return Nothing
         End Get
@@ -60,7 +60,7 @@
         Get
             Dim starSystemId As Integer
             If CellData.Statistics.TryGetValue(StatisticTypes.StarSystemId, starSystemId) Then
-                Return New StarSystem(WorldData, starSystemId)
+                Return New StarSystem(UniverseData, starSystemId)
             End If
             Return Nothing
         End Get
@@ -77,7 +77,7 @@
         Get
             Dim teleporterId As Integer
             If CellData.Statistics.TryGetValue(StatisticTypes.TeleporterId, teleporterId) Then
-                Return New Teleporter(WorldData, teleporterId)
+                Return New Teleporter(UniverseData, teleporterId)
             End If
             Return Nothing
         End Get

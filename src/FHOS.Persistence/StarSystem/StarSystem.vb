@@ -22,7 +22,7 @@
         Get
             Dim mapId As Integer
             If StarSystemData.Statistics.TryGetValue(StatisticTypes.MapId, mapId) Then
-                Return New Map(WorldData, mapId)
+                Return New Map(UniverseData, mapId)
             End If
             Return Nothing
         End Get
@@ -37,7 +37,7 @@
 
     Public ReadOnly Property Universe As IUniverse Implements IStarSystem.Universe
         Get
-            Return New World(WorldData)
+            Return New World(UniverseData)
         End Get
     End Property
 End Class

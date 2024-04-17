@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Data
 
 Public Class World
-    Inherits WorldDataClient
+    Inherits UniverseDataClient
     Implements IUniverse
     Sub New(worldData As UniverseData)
         MyBase.New(worldData)
@@ -10,16 +10,16 @@ Public Class World
     Public Property Avatar As ICharacter Implements IUniverse.Avatar
         Get
             Dim avatarId As Integer
-            If WorldData.Statistics.TryGetValue(StatisticTypes.AvatarId, avatarId) Then
-                Return New Character(WorldData, avatarId)
+            If UniverseData.Statistics.TryGetValue(StatisticTypes.AvatarId, avatarId) Then
+                Return New Character(UniverseData, avatarId)
             End If
             Return Nothing
         End Get
         Set(value As ICharacter)
             If value IsNot Nothing Then
-                WorldData.Statistics(StatisticTypes.AvatarId) = value.Id
+                UniverseData.Statistics(StatisticTypes.AvatarId) = value.Id
             Else
-                WorldData.Statistics.Remove(StatisticTypes.AvatarId)
+                UniverseData.Statistics.Remove(StatisticTypes.AvatarId)
             End If
         End Set
     End Property
@@ -40,18 +40,18 @@ Public Class World
                     {MetadataTypes.Name, mapName}
                 }
             }
-        If WorldData.Maps.Recycled.Any Then
-            mapId = WorldData.Maps.Recycled.First
-            WorldData.Maps.Recycled.Remove(mapId)
-            WorldData.Maps.Entities(mapId) = mapData
+        If UniverseData.Maps.Recycled.Any Then
+            mapId = UniverseData.Maps.Recycled.First
+            UniverseData.Maps.Recycled.Remove(mapId)
+            UniverseData.Maps.Entities(mapId) = mapData
         Else
-            mapId = WorldData.Maps.Entities.Count
-            WorldData.Maps.Entities.Add(mapData)
+            mapId = UniverseData.Maps.Entities.Count
+            UniverseData.Maps.Entities.Add(mapData)
         End If
         mapData.Locations = Enumerable.
                     Range(0, columns * rows).
                     Select(Function(x) CreateCell(terrainType, mapId, x Mod rows, x \ rows).Id).ToList
-        Return New Map(WorldData, mapId)
+        Return New Map(UniverseData, mapId)
     End Function
 
     Public Function CreateCharacter(characterType As String, cell As ICell) As ICharacter Implements IUniverse.CreateCharacter
@@ -68,15 +68,15 @@ Public Class World
                                     }
                                  }
         Dim characterId As Integer
-        If WorldData.RecycledActors.Any Then
-            characterId = WorldData.RecycledActors.First
-            WorldData.RecycledActors.Remove(characterId)
-            WorldData.Actors(characterId) = characterData
+        If UniverseData.Actors.Recycled.Any Then
+            characterId = UniverseData.Actors.Recycled.First
+            UniverseData.Actors.Recycled.Remove(characterId)
+            UniverseData.Actors.Entities(characterId) = characterData
         Else
-            characterId = WorldData.Actors.Count
-            WorldData.Actors.Add(characterData)
+            characterId = UniverseData.Actors.Entities.Count
+            UniverseData.Actors.Entities.Add(characterData)
         End If
-        Dim character = New Character(WorldData, characterId)
+        Dim character = New Character(UniverseData, characterId)
         cell.Character = character
         Return character
     End Function
@@ -96,15 +96,15 @@ Public Class World
                                 }
                             }
         Dim cellId As Integer
-        If WorldData.RecycledLocations.Any Then
-            cellId = WorldData.RecycledLocations.First
-            WorldData.RecycledLocations.Remove(cellId)
-            WorldData.Locations(cellId) = cellData
+        If UniverseData.RecycledLocations.Any Then
+            cellId = UniverseData.RecycledLocations.First
+            UniverseData.RecycledLocations.Remove(cellId)
+            UniverseData.LegacyLocations(cellId) = cellData
         Else
-            cellId = WorldData.Locations.Count
-            WorldData.Locations.Add(cellData)
+            cellId = UniverseData.LegacyLocations.Count
+            UniverseData.LegacyLocations.Add(cellData)
         End If
-        Return New Cell(WorldData, cellId)
+        Return New Cell(UniverseData, cellId)
     End Function
 
     Public Function CreateStarSystem(starSystemName As String, starType As String) As IStarSystem Implements IUniverse.CreateStarSystem
@@ -117,15 +117,15 @@ Public Class World
                     {MetadataTypes.StarType, starType}
                 }
             }
-        If WorldData.RecycledStarSystems.Any Then
-            starSystemId = WorldData.RecycledStarSystems.First
-            WorldData.RecycledStarSystems.Remove(starSystemId)
-            WorldData.StarSystems(starSystemId) = starSystemData
+        If UniverseData.RecycledStarSystems.Any Then
+            starSystemId = UniverseData.RecycledStarSystems.First
+            UniverseData.RecycledStarSystems.Remove(starSystemId)
+            UniverseData.LegacyStarSystems(starSystemId) = starSystemData
         Else
-            starSystemId = WorldData.StarSystems.Count
-            WorldData.StarSystems.Add(starSystemData)
+            starSystemId = UniverseData.LegacyStarSystems.Count
+            UniverseData.LegacyStarSystems.Add(starSystemData)
         End If
-        Return New StarSystem(WorldData, starSystemId)
+        Return New StarSystem(UniverseData, starSystemId)
     End Function
 
     Public Function CreateTeleporter(target As ICell) As ITeleporter Implements IUniverse.CreateTeleporter
@@ -137,14 +137,14 @@ Public Class World
                     {StatisticTypes.CellId, target.Id}
                 }
             }
-        If WorldData.RecycledTeleporters.Any Then
-            teleporterId = WorldData.RecycledTeleporters.First
-            WorldData.RecycledTeleporters.Remove(teleporterId)
-            WorldData.Teleporters(teleporterId) = teleporterData
+        If UniverseData.RecycledTeleporters.Any Then
+            teleporterId = UniverseData.RecycledTeleporters.First
+            UniverseData.RecycledTeleporters.Remove(teleporterId)
+            UniverseData.LegacyTeleporters(teleporterId) = teleporterData
         Else
-            teleporterId = WorldData.Teleporters.Count
-            WorldData.Teleporters.Add(teleporterData)
+            teleporterId = UniverseData.LegacyTeleporters.Count
+            UniverseData.LegacyTeleporters.Add(teleporterData)
         End If
-        Return New Teleporter(WorldData, teleporterId)
+        Return New Teleporter(UniverseData, teleporterId)
     End Function
 End Class

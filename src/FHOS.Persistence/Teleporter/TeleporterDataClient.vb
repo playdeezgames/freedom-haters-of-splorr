@@ -1,11 +1,11 @@
 ﻿Imports FHOS.Data
 
 Friend Class TeleporterDataClient
-    Inherits WorldDataClient
+    Inherits UniverseDataClient
     Protected ReadOnly Property TeleporterId As Integer
     Protected ReadOnly Property TeleporterData As TeleporterData
         Get
-            Return WorldData.Teleporters(TeleporterId)
+            Return UniverseData.LegacyTeleporters(TeleporterId)
         End Get
     End Property
     Public Sub New(worldData As Data.UniverseData, teleporterId As Integer)
