@@ -1,4 +1,5 @@
 ﻿Imports FHOS.Persistence
+Imports SPLORR.Game
 
 Friend Module StarSystemInitializer
     Private Const SystemMapColumns = 31
@@ -13,7 +14,35 @@ Friend Module StarSystemInitializer
             LocationTypes.Void)
         PlaceSystemBoundaries(starSystem, starLocation, starFlag)
         PlaceStar(starSystem)
-        'PlacePlanets()
+        PlacePlanets(starSystem)
+    End Sub
+
+    Private Sub PlacePlanets(starSystem As IStarSystem)
+        Dim planets As New List(Of (Column As Integer, Row As Integer)) From
+            {
+                (SystemMapColumns \ 2, SystemMapRows \ 2)
+            }
+        Dim tries As Integer = 0
+        Const MaximumTries = 5000
+        Dim starType = StarTypes.Descriptors(starSystem.StarType)
+        Dim MinimumDistance = starType.MinimumPlanetaryDistance
+        While tries < MaximumTries
+            Dim column = RNG.FromRange(1, SystemMapColumns - 3)
+            Dim row = RNG.FromRange(1, SystemMapRows - 3)
+            If planets.All(Function(planet) (column - planet.Column) * (column - planet.Column) + (row - planet.Row) * (row - planet.Row) >= MinimumDistance * MinimumDistance) Then
+                Dim planetType = starType.GeneratePlanetType()
+                planets.Add((column, row))
+                Dim location = starSystem.Map.GetLocation(column, row)
+                location.LocationType = PlanetTypes.Descriptors(planetType).LocationType
+                'TODO: entering planet system tutorial
+                'TODO: give planet name
+                'TODO: create planet
+                'TODO: initialize planet system
+                tries = 0
+            Else
+                tries += 1
+            End If
+        End While
     End Sub
 
     Private Sub PlaceStar(starSystem As IStarSystem)
