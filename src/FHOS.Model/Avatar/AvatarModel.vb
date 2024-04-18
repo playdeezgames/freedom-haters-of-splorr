@@ -1,5 +1,4 @@
 ﻿Imports FHOS.Persistence
-Imports SPLORR.Game
 
 Friend Class AvatarModel
     Implements IAvatarModel
@@ -61,6 +60,12 @@ Friend Class AvatarModel
     Public ReadOnly Property StarSystem As IAvatarStarSystemModel Implements IAvatarModel.StarSystem
         Get
             Return New AvatarStarSystemModel(avatar)
+        End Get
+    End Property
+
+    Public ReadOnly Property Star As IAvatarStarModel Implements IAvatarModel.Star
+        Get
+            Return New AvatarStarModel(avatar)
         End Get
     End Property
 

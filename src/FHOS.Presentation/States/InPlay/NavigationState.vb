@@ -54,22 +54,17 @@ Friend Class NavigationState
     End Sub
 
     Private Sub RenderStatistics(displayBuffer As IPixelSink, uiFont As Font, position As (X As Integer, Y As Integer))
+        Dim textWidth = Context.ViewSize.Width - position.X
         With Context.Model.Avatar
-            uiFont.WriteLeftText(displayBuffer, position, $"NAV SCREEN", Purple)
-            position = NextLine(position, uiFont)
-            uiFont.WriteLeftText(displayBuffer, position, $"{ .MapName} ({ .X},{ .Y})", Black)
-            position = NextLine(position, uiFont)
-            uiFont.WriteLeftText(displayBuffer, position, $"O2: { .OxygenPercent}%", .OxygenHue)
-            position = NextLine(position, uiFont)
+            position = uiFont.WriteLeftTextWrapped(displayBuffer, position, textWidth, $"NAV SCREEN", Purple)
+            position = uiFont.WriteLeftTextWrapped(displayBuffer, position, textWidth, $"{ .MapName} ({ .X},{ .Y})", Black)
+            position = uiFont.WriteLeftTextWrapped(displayBuffer, position, textWidth, $"O2: { .OxygenPercent}%", .OxygenHue)
             If .StarSystem.Current IsNot Nothing Then
-                uiFont.WriteLeftText(displayBuffer, position, .StarSystem.Current.Name, Black)
-                position = NextLine(position, uiFont)
+                position = uiFont.WriteLeftTextWrapped(displayBuffer, position, textWidth, .StarSystem.Current.Name, Black)
+            End If
+            If .Star.Current IsNot Nothing Then
+                position = uiFont.WriteLeftTextWrapped(displayBuffer, position, textWidth, .Star.Current.Name, Black)
             End If
         End With
-
     End Sub
-
-    Private Function NextLine(position As (X As Integer, Y As Integer), uiFont As Font) As (X As Integer, Y As Integer)
-        Return (position.X, position.Y + uiFont.Height)
-    End Function
 End Class

@@ -72,18 +72,17 @@ Friend Class ScannerState
         If Not TargetLocation.Exists Then
             Return
         End If
-        uiFont.WriteLeftText(displayBuffer, position, TargetLocation.LocationType.Name, Black)
-        position = NextLine(position, uiFont)
+        Dim textWidth = Context.ViewSize.Width - position.X
+        position = uiFont.WriteLeftTextWrapped(displayBuffer, position, textWidth, TargetLocation.LocationType.Name, Black)
         Dim starSystem = TargetLocation.StarSystem
         If starSystem IsNot Nothing Then
-            uiFont.WriteLeftText(displayBuffer, position, starSystem.Name, Black)
-            position = NextLine(position, uiFont)
+            position = uiFont.WriteLeftTextWrapped(displayBuffer, position, textWidth, $"System: {starSystem.Name}", Black)
+        End If
+        Dim star = TargetLocation.Star
+        If star IsNot Nothing Then
+            position = uiFont.WriteLeftTextWrapped(displayBuffer, position, textWidth, $"Star: {star.Name}", Black)
         End If
     End Sub
-
-    Private Function NextLine(position As (X As Integer, Y As Integer), uiFont As Font) As (X As Integer, Y As Integer)
-        Return (position.X, position.Y + uiFont.Height)
-    End Function
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()

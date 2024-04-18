@@ -18,6 +18,16 @@
         End If
         WriteText(sink, position, text, hue)
     End Sub
+    Public Function WriteLeftTextWrapped(sink As IPixelSink, position As (X As Integer, Y As Integer), width As Integer, text As String, hue As Integer) As (X As Integer, Y As Integer)
+        Dim characterWidth = _glyphs.First.Value.Width
+        Dim characterCount = width \ characterWidth
+        While Not String.IsNullOrEmpty(text)
+            WriteLeftText(sink, position, text.Substring(0, Math.Min(characterCount, text.Length)), hue)
+            text = If(text.Length > characterCount, text.Substring(characterCount), String.Empty)
+            position = (position.X, position.Y + Height)
+        End While
+        Return position
+    End Function
     Public Sub WriteRightText(sink As IPixelSink, position As (X As Integer, Y As Integer), text As String, hue As Integer)
         If text Is Nothing Then
             Return

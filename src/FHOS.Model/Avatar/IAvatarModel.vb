@@ -12,4 +12,5 @@
 
     ReadOnly Property Tutorial As IAvatarTutorialModel
     ReadOnly Property StarSystem As IAvatarStarSystemModel
+    ReadOnly Property Star As IAvatarStarModel
 End Interface

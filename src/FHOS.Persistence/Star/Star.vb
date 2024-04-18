@@ -11,4 +11,10 @@
             Return StarId
         End Get
     End Property
+
+    Public ReadOnly Property Name As String Implements IStar.Name
+        Get
+            Return StarData.Metadatas(MetadataTypes.Name)
+        End Get
+    End Property
 End Class

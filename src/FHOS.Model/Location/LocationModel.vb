@@ -35,7 +35,7 @@
 
     Public ReadOnly Property StarSystem As IStarSystemModel Implements ILocationModel.StarSystem
         Get
-            Dim locationStarSystem = location?.StarSystem
+            Dim locationStarSystem = location.StarSystem
             If locationStarSystem Is Nothing Then
                 Return Nothing
             End If
@@ -46,6 +46,16 @@
     Public ReadOnly Property HasDetails As Boolean Implements ILocationModel.HasDetails
         Get
             Return StarSystem IsNot Nothing OrElse Actor IsNot Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property Star As IStarModel Implements ILocationModel.Star
+        Get
+            Dim locationStar = location.Star
+            If locationStar Is Nothing Then
+                Return Nothing
+            End If
+            Return New StarModel(locationStar)
         End Get
     End Property
 End Class
