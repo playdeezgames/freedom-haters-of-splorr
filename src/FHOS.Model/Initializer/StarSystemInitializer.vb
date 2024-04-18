@@ -49,16 +49,21 @@ Friend Module StarSystemInitializer
         Dim starColumn = SystemMapColumns \ 2
         Dim starRow = SystemMapRows \ 2
         Dim locationType = StarTypes.Descriptors(starSystem.StarType).LocationType
-        starSystem.Map.GetLocation(starColumn, starRow).LocationType = locationType
+        With starSystem.Map.GetLocation(starColumn, starRow)
+            .LocationType = locationType
+            .Star = starSystem.Universe.CreateStar(starSystem.Name, starSystem.StarType)
+        End With
     End Sub
 
     Private Sub PlaceSystemBoundaries(starSystem As IStarSystem, starLocation As ILocation, starFlag As String)
         Dim teleporter = starSystem.Universe.CreateTeleporter(starLocation)
+
         With starSystem.Map.GetLocation(0, 0)
             .LocationType = VoidNorthWestArrow
             .Teleporter = teleporter
             .SetFlag(starFlag)
         End With
+
         With starSystem.Map.GetLocation(SystemMapColumns - 1, 0)
             .LocationType = VoidNorthEastArrow
             .Teleporter = teleporter

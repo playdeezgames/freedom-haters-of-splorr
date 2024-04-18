@@ -113,6 +113,23 @@
         End Get
     End Property
 
+    Public Property Star As IStar Implements ILocation.Star
+        Get
+            Dim starId As Integer
+            If LocationData.Statistics.TryGetValue(StatisticTypes.StarId, starId) Then
+                Return New Star(UniverseData, starId)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IStar)
+            If value Is Nothing Then
+                LocationData.Statistics.Remove(StatisticTypes.StarId)
+            Else
+                LocationData.Statistics(StatisticTypes.StarId) = value.Id
+            End If
+        End Set
+    End Property
+
     Public Sub SetFlag(flag As String) Implements ILocation.SetFlag
         LocationData.Flags.Add(flag)
     End Sub

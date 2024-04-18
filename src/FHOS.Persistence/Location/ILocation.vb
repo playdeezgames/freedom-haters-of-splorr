@@ -11,4 +11,5 @@
     Property Tutorial As String
     Sub SetFlag(flag As String)
     Function HasFlag(name As String) As Boolean
+    Property Star As IStar
 End Interface

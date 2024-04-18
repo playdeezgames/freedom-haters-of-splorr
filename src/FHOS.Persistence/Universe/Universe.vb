@@ -147,4 +147,25 @@ Public Class Universe
         End If
         Return New Teleporter(UniverseData, teleporterId)
     End Function
+
+    Public Function CreateStar(starName As String, starType As String) As IStar Implements IUniverse.CreateStar
+        Dim starId As Integer
+        Dim starData = New StarData With
+            {
+                .Metadatas = New Dictionary(Of String, String) From
+                {
+                    {MetadataTypes.Name, starName},
+                    {MetadataTypes.StarType, starType}
+                }
+            }
+        If UniverseData.Stars.Recycled.Any Then
+            starId = UniverseData.Stars.Recycled.First
+            UniverseData.Stars.Recycled.Remove(starId)
+            UniverseData.Stars.Entities(starId) = starData
+        Else
+            starId = UniverseData.Stars.Entities.Count
+            UniverseData.Stars.Entities.Add(starData)
+        End If
+        Return New Star(UniverseData, starId)
+    End Function
 End Class

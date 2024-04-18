@@ -4,5 +4,6 @@ Public Interface IUniverse
     Function CreateLocation(locationType As String, mapId As Integer, column As Integer, row As Integer) As ILocation
     Function CreateStarSystem(starSystemName As String, starType As String) As IStarSystem
     Function CreateTeleporter(target As ILocation) As ITeleporter
+    Function CreateStar(starName As String, starType As String) As IStar
     Property Avatar As IActor
 End Interface
