@@ -40,4 +40,10 @@
             Return New Universe(UniverseData)
         End Get
     End Property
+
+    Public ReadOnly Property StarType As String Implements IStarSystem.StarType
+        Get
+            Return StarSystemData.Metadatas(MetadataTypes.StarType)
+        End Get
+    End Property
 End Class
