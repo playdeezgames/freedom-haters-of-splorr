@@ -18,7 +18,7 @@
         End If
         WriteText(sink, position, text, hue)
     End Sub
-    Public Function WriteLeftTextWrapped(sink As IPixelSink, position As (X As Integer, Y As Integer), width As Integer, text As String, hue As Integer) As (X As Integer, Y As Integer)
+    Public Function WriteLeftTextLines(sink As IPixelSink, position As (X As Integer, Y As Integer), width As Integer, text As String, hue As Integer) As (X As Integer, Y As Integer)
         Dim characterWidth = _glyphs.First.Value.Width
         Dim characterCount = width \ characterWidth
         While Not String.IsNullOrEmpty(text)
