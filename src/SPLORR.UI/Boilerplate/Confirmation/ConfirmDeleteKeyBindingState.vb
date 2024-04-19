@@ -10,8 +10,8 @@
             setState,
             context,
             "<placeholder>",
-            BoilerplateState.KeyBindings,
-            BoilerplateState.KeyBindings)
+            BoilerplateState.RemoveKeyBinding,
+            BoilerplateState.RemoveKeyBinding)
     End Sub
 
     Protected Overrides Sub OnConfirm()

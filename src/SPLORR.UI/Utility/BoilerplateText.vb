@@ -20,4 +20,5 @@
     Friend Const RestoreDefaultsText = "Restore Defaults"
     Friend Const SaveAndExitText = "Save and Exit"
     Friend Const AddText = "Add..."
+    Friend Const RemoveText = "Remove..."
 End Module

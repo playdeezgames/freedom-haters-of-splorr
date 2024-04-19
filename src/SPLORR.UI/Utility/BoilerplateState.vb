@@ -22,4 +22,5 @@
     Public Const AddBoundCommand = "AddBoundCommand"
     Public Const ConfirmDeleteKeyBinding = "DeleteKeyBinding"
     Public Const CannotUnbindKeyBinding = "CannotUnbindKeyBinding"
+    Public Const RemoveKeyBinding = "RemoveKeyBinding"
 End Module

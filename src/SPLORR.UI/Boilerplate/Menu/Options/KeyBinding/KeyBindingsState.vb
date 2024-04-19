@@ -29,9 +29,9 @@
                 OnStart()
             Case AddText
                 SetState(BoilerplateState.AddKeyBinding)
+            Case RemoveText
+                SetState(BoilerplateState.RemoveKeyBinding)
             Case Else
-                SelectedKey = value.Item
-                SetState(BoilerplateState.ConfirmDeleteKeyBinding)
         End Select
     End Sub
 
@@ -41,9 +41,9 @@
                 (GoBackText, GoBackText),
                 (SaveAndExitText, SaveAndExitText),
                 (RestoreDefaultsText, RestoreDefaultsText),
-                (AddText, AddText)
+                (AddText, AddText),
+                (RemoveText, RemoveText)
             }
-        result.AddRange(Context.KeyBindings.KeysTable.Select(Function(x) ($"{x.Key} -> [{x.Value}]", x.Key)))
         Return result
     End Function
 End Class
