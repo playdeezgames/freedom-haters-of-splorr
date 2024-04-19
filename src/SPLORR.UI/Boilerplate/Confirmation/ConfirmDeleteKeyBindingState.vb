@@ -1,5 +1,5 @@
 ﻿Friend Class ConfirmDeleteKeyBindingState(Of TModel)
-    Inherits BasePickerState(Of TModel, Boolean)
+    Inherits BaseConfirmState(Of TModel)
 
     Public Sub New(
                   parent As IGameController,
