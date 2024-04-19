@@ -34,7 +34,7 @@ Friend Module StarSystemInitializer
                 planets.Add((column, row))
                 Dim location = starSystem.Map.GetLocation(column, row)
                 location.LocationType = PlanetTypes.Descriptors(planetType).LocationType
-                'TODO: entering planet system tutorial
+                location.Tutorial = TutorialTypes.PlanetaryEntry
                 'TODO: give planet name
                 'TODO: create planet
                 'TODO: initialize planet system
@@ -52,6 +52,7 @@ Friend Module StarSystemInitializer
         With starSystem.Map.GetLocation(starColumn, starRow)
             .LocationType = locationType
             .Star = starSystem.Universe.CreateStar(starSystem.Name, starSystem.StarType)
+            .Tutorial = TutorialTypes.StarApproach
         End With
     End Sub
 

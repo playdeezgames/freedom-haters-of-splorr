@@ -40,8 +40,33 @@ Friend Class TutorialState
                         New TutorialDetailLine("", Hue.Black),
                         New TutorialDetailLine("To enter it,", Hue.Black),
                         New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
-                        New TutorialDetailLine("then choose 'Enter System'", Hue.Black)
-                    })}
+                        New TutorialDetailLine("then choose 'Enter Star System'", Hue.Black)
+                    })
+            },
+            {
+                TutorialTypes.StarApproach,
+                New TutorialDetail(
+                    "Approaching Star",
+                    {
+                        New TutorialDetailLine("You have reached a star!", Hue.Black),
+                        New TutorialDetailLine("", Hue.Black),
+                        New TutorialDetailLine("To approach it,", Hue.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
+                        New TutorialDetailLine("then choose 'Approach Star'", Hue.Black)
+                    })
+            },
+            {
+                TutorialTypes.PlanetaryEntry,
+                New TutorialDetail(
+                    "Approaching Planetary System",
+                    {
+                        New TutorialDetailLine("You have reached a planet!", Hue.Black),
+                        New TutorialDetailLine("", Hue.Black),
+                        New TutorialDetailLine("To approach it,", Hue.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
+                        New TutorialDetailLine("then choose 'Approach Planet'", Hue.Black)
+                    })
+            }
         }
 
     Public Overrides Sub OnStart()
