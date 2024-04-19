@@ -13,4 +13,5 @@
     Friend Const StarSystemId = "StarSystemId"
     Friend Const TeleporterId = "TeleporterId"
     Friend Const StarId = "StarId"
+    Friend Const PlanetId = "PlanetId"
 End Module

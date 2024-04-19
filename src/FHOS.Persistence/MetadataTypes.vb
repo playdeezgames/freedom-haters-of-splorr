@@ -6,4 +6,5 @@
     Friend Const LocationType = "LocationType"
     Friend Const DestinationFlag = "DestinationFlag"
     Friend Const Tutorial = "Tutorial"
+    Friend Const PlanetType = "PlanetType"
 End Module

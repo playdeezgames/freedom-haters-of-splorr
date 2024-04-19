@@ -6,4 +6,5 @@ Public Class UniverseData
     Property StarSystems As New BucketData(Of StarSystemData)
     Property Teleporters As New BucketData(Of TeleporterData)
     Property Stars As New BucketData(Of StarData)
+    Property Planets As New BucketData(Of PlanetData)
 End Class

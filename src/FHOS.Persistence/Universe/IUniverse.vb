@@ -5,5 +5,6 @@ Public Interface IUniverse
     Function CreateStarSystem(starSystemName As String, starType As String) As IStarSystem
     Function CreateTeleporter(target As ILocation) As ITeleporter
     Function CreateStar(starName As String, starType As String) As IStar
+    Function CreatePlanet(planetName As String, planetType As String) As IPlanet
     Property Avatar As IActor
 End Interface

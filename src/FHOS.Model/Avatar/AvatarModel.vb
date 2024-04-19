@@ -69,6 +69,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property Planet As IAvatarPlanetModel Implements IAvatarModel.Planet
+        Get
+            Return New AvatarPlanetModel(avatar)
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         Dim location = avatar.Location
         Dim nextColumn = location.Column + delta.X

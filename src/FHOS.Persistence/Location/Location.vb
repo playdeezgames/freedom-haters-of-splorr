@@ -130,6 +130,23 @@
         End Set
     End Property
 
+    Public Property Planet As IPlanet Implements ILocation.Planet
+        Get
+            Dim planetId As Integer
+            If LocationData.Statistics.TryGetValue(StatisticTypes.PlanetId, planetId) Then
+                Return New Planet(UniverseData, planetId)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IPlanet)
+            If value Is Nothing Then
+                LocationData.Statistics.Remove(StatisticTypes.PlanetId)
+            Else
+                LocationData.Statistics(StatisticTypes.PlanetId) = value.Id
+            End If
+        End Set
+    End Property
+
     Public Sub SetFlag(flag As String) Implements ILocation.SetFlag
         LocationData.Flags.Add(flag)
     End Sub

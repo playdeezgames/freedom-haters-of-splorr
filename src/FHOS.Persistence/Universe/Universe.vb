@@ -1,4 +1,5 @@
-﻿Imports FHOS.Data
+﻿Imports System.Security.Cryptography.X509Certificates
+Imports FHOS.Data
 
 Public Class Universe
     Inherits UniverseDataClient
@@ -167,5 +168,26 @@ Public Class Universe
             UniverseData.Stars.Entities.Add(starData)
         End If
         Return New Star(UniverseData, starId)
+    End Function
+
+    Public Function CreatePlanet(planetName As String, planetType As String) As IPlanet Implements IUniverse.CreatePlanet
+        Dim planetId As Integer
+        Dim planetData = New PlanetData With
+            {
+                .Metadatas = New Dictionary(Of String, String) From
+{
+                    {MetadataTypes.Name, planetName},
+                    {MetadataTypes.PlanetType, planetType}
+                }
+            }
+        If UniverseData.Planets.Recycled.Any Then
+            planetId = UniverseData.Planets.Recycled.First
+            UniverseData.Planets.Recycled.Remove(planetId)
+            UniverseData.Planets.Entities(planetId) = planetData
+        Else
+            planetId = UniverseData.Planets.Entities.Count
+            UniverseData.Planets.Entities.Add(planetData)
+        End If
+        Return New Planet(UniverseData, planetId)
     End Function
 End Class

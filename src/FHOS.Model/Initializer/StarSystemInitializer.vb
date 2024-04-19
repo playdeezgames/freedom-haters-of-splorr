@@ -1,4 +1,5 @@
-﻿Imports FHOS.Persistence
+﻿Imports System.Text
+Imports FHOS.Persistence
 Imports SPLORR.Game
 
 Friend Module StarSystemInitializer
@@ -26,6 +27,7 @@ Friend Module StarSystemInitializer
         Const MaximumTries = 5000
         Dim starType = StarTypes.Descriptors(starSystem.StarType)
         Dim MinimumDistance = starType.MinimumPlanetaryDistance
+        Dim index = 1
         While tries < MaximumTries
             Dim column = RNG.FromRange(1, SystemMapColumns - 3)
             Dim row = RNG.FromRange(1, SystemMapRows - 3)
@@ -35,15 +37,48 @@ Friend Module StarSystemInitializer
                 Dim location = starSystem.Map.GetLocation(column, row)
                 location.LocationType = PlanetTypes.Descriptors(planetType).LocationType
                 location.Tutorial = TutorialTypes.PlanetaryEntry
-                'TODO: give planet name
-                'TODO: create planet
-                'TODO: initialize planet system
+                Dim planetName = $"{starSystem.Name} {Romanize(index)}"
+                index += 1
+                location.Planet = starSystem.Universe.CreatePlanet(planetName, planetType)
+                'TODO: initialize planet
                 tries = 0
             Else
                 tries += 1
             End If
         End While
     End Sub
+
+    Private ReadOnly romanizers As IReadOnlyList(Of (Value As Integer, Text As String)) =
+        New List(Of (Value As Integer, Text As String)) From
+        {
+            (1000, "M"),
+            (900, "CM"),
+            (500, "D"),
+            (400, "CD"),
+            (100, "C"),
+            (90, "XC"),
+            (50, "L"),
+            (40, "XL"),
+            (10, "X"),
+            (9, "IX"),
+            (5, "V"),
+            (4, "IV"),
+            (1, "I")
+        }
+
+    Private Function Romanize(number As Integer) As String
+        If number > 4999 OrElse number < 1 Then
+            Throw New ArgumentOutOfRangeException()
+        End If
+        Dim builder As New StringBuilder
+        For Each romanizer In romanizers
+            While number >= romanizer.Value
+                number -= romanizer.Value
+                builder.Append(romanizer.Text)
+            End While
+        Next
+        Return builder.ToString
+    End Function
 
     Private Sub PlaceStar(starSystem As IStarSystem)
         Dim starColumn = SystemMapColumns \ 2
@@ -53,6 +88,7 @@ Friend Module StarSystemInitializer
             .LocationType = locationType
             .Star = starSystem.Universe.CreateStar(starSystem.Name, starSystem.StarType)
             .Tutorial = TutorialTypes.StarApproach
+            'TODO: initialize star proximity
         End With
     End Sub
 
