@@ -1,5 +1,5 @@
 ﻿Friend Class ConfirmQuitState(Of TModel)
-    Inherits BasePickerState(Of TModel, String)
+    Inherits BasePickerState(Of TModel, Boolean)
     Public Sub New(
                   parent As IGameController,
                   setState As Action(Of String, Boolean),
@@ -12,19 +12,19 @@
             context.ControlsText(aButton:="Choose", bButton:="Cancel"),
             BoilerplateState.MainMenu)
     End Sub
-    Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
+    Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As Boolean))
         Select Case value.Item
-            Case NoText
+            Case False
                 SetState(BoilerplateState.MainMenu)
-            Case YesText
+            Case True
                 SetState(Nothing)
         End Select
     End Sub
-    Protected Overrides Function InitializeMenuItems() As List(Of (String, String))
-        Return New List(Of (String, String)) From
+    Protected Overrides Function InitializeMenuItems() As List(Of (String, Boolean))
+        Return New List(Of (String, Boolean)) From
             {
-                (NoText, NoText),
-                (YesText, YesText)
+                (NoText, False),
+                (YesText, True)
             }
     End Function
 End Class
