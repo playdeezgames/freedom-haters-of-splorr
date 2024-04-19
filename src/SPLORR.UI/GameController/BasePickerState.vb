@@ -4,7 +4,7 @@
     Protected MenuItemIndex As Integer
     Private ReadOnly _statusBarText As String
     Protected Property HeaderText As String
-    Private ReadOnly _cancelGameState As String
+    Protected ReadOnly _cancelGameState As String
     Public Sub New(
                   parent As IGameController,
                   setState As Action(Of String, Boolean),

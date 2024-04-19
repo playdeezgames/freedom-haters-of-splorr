@@ -10,27 +10,13 @@
             setState,
             context,
             "<placeholder>",
-            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            BoilerplateState.KeyBindings,
             BoilerplateState.KeyBindings)
     End Sub
 
-    Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As Boolean))
-        Select Case value.Item
-            Case False
-                SetState(BoilerplateState.KeyBindings)
-            Case True
-                Context.KeyBindings.Unbind(KeyBindingsState(Of TModel).SelectedKey)
-                SetState(BoilerplateState.KeyBindings)
-        End Select
+    Protected Overrides Sub OnConfirm()
+        Context.KeyBindings.Unbind(KeyBindingsState(Of TModel).SelectedKey)
     End Sub
-
-    Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As Boolean))
-        Return New List(Of (Text As String, Item As Boolean)) From
-            {
-                (NoText, False),
-                (YesText, True)
-            }
-    End Function
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
