@@ -17,4 +17,23 @@
             Return PlanetData.Metadatas(MetadataTypes.Name)
         End Get
     End Property
+
+    Public ReadOnly Property Universe As IUniverse Implements IPlanet.Universe
+        Get
+            Return New Universe(UniverseData)
+        End Get
+    End Property
+
+    Public Property Map As IMap Implements IPlanet.Map
+        Get
+            Throw New NotImplementedException()
+        End Get
+        Set(value As IMap)
+            If value Is Nothing Then
+                PlanetData.Statistics.Remove(StatisticTypes.MapId)
+            Else
+                PlanetData.Statistics(StatisticTypes.MapId) = value.Id
+            End If
+        End Set
+    End Property
 End Class

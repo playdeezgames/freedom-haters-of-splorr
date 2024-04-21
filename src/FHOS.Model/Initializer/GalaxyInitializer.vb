@@ -24,7 +24,7 @@ Friend Module GalaxyInitializer
                 location.Tutorial = TutorialTypes.StarSystemEntry
                 Dim starSystemName As String = GenerateUnusedStarSystemName(starSystemNames)
                 location.StarSystem = universe.CreateStarSystem(starSystemName, starType)
-                StarSystemInitializer.Initialize(location.StarSystem, location, starSystemName)
+                StarSystemInitializer.Initialize(location.StarSystem, location)
                 tries = 0
             Else
                 tries += 1

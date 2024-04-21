@@ -2,6 +2,6 @@
 
 Friend Module StarInitializer
     Friend Sub Initialize(star As IStar)
-        Throw New NotImplementedException()
+        'TODO: stuff
     End Sub
 End Module

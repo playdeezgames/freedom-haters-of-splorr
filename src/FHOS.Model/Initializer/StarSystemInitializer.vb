@@ -6,14 +6,14 @@ Friend Module StarSystemInitializer
     Private Const SystemMapColumns = 31
     Private Const SystemMapRows = 31
 
-    Friend Sub Initialize(starSystem As IStarSystem, starLocation As ILocation, starFlag As String)
+    Friend Sub Initialize(starSystem As IStarSystem, starLocation As ILocation)
         starSystem.Map = starSystem.Universe.CreateMap(
             MapTypes.System,
             $"{starSystem.Name} System",
             SystemMapColumns,
             SystemMapRows,
             LocationTypes.Void)
-        PlaceSystemBoundaries(starSystem, starLocation, starFlag)
+        PlaceBoundaries(starSystem, starLocation)
         PlaceStar(starSystem)
         PlacePlanets(starSystem)
     End Sub
@@ -40,7 +40,7 @@ Friend Module StarSystemInitializer
                 Dim planetName = $"{starSystem.Name} {Romanize(index)}"
                 index += 1
                 location.Planet = starSystem.Universe.CreatePlanet(planetName, planetType)
-                PlanetInitializer.Initialize(location.Planet)
+                PlanetInitializer.Initialize(location.Planet, location)
                 tries = 0
             Else
                 tries += 1
@@ -91,67 +91,15 @@ Friend Module StarSystemInitializer
             StarInitializer.Initialize(.Star)
         End With
     End Sub
-
-    Private Sub PlaceSystemBoundaries(starSystem As IStarSystem, starLocation As ILocation, starFlag As String)
+    Private Sub PlaceBoundaries(starSystem As IStarSystem, starLocation As ILocation)
         Dim teleporter = starSystem.Universe.CreateTeleporter(starLocation)
-
-        With starSystem.Map.GetLocation(0, 0)
-            .LocationType = VoidNorthWestArrow
-            .Teleporter = teleporter
-            .SetFlag(starFlag)
-        End With
-
-        With starSystem.Map.GetLocation(SystemMapColumns - 1, 0)
-            .LocationType = VoidNorthEastArrow
-            .Teleporter = teleporter
-            .SetFlag(starFlag)
-        End With
-        With starSystem.Map.GetLocation(0, SystemMapRows - 1)
-            .LocationType = VoidSouthWestArrow
-            .Teleporter = teleporter
-            .SetFlag(starFlag)
-        End With
-        With starSystem.Map.GetLocation(0, SystemMapRows - 1)
-            .LocationType = VoidSouthWestArrow
-            .Teleporter = teleporter
-            .SetFlag(starFlag)
-        End With
-        With starSystem.Map.GetLocation(SystemMapColumns - 1, SystemMapRows - 1)
-            .LocationType = VoidSouthEastArrow
-            .Teleporter = teleporter
-            .SetFlag(starFlag)
-        End With
-        For Each row In Enumerable.Range(1, SystemMapRows - 2)
-            With starSystem.Map.GetLocation(0, row)
-                .Teleporter = teleporter
-                .LocationType = VoidWestArrow
-            End With
-            With starSystem.Map.GetLocation(1, row)
-                .SetFlag(starFlag)
-            End With
-            With starSystem.Map.GetLocation(SystemMapColumns - 1, row)
-                .Teleporter = teleporter
-                .LocationType = VoidEastArrow
-            End With
-            With starSystem.Map.GetLocation(SystemMapColumns - 2, row)
-                .SetFlag(starFlag)
-            End With
+        Dim starFlag = starSystem.Name
+        For Each corner In GetCorners(SystemMapColumns, SystemMapRows)
+            PlaceBoundary(starSystem.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter)
         Next
-        For Each column In Enumerable.Range(1, SystemMapColumns - 2)
-            With starSystem.Map.GetLocation(column, 0)
-                .Teleporter = teleporter
-                .LocationType = VoidNorthArrow
-            End With
-            With starSystem.Map.GetLocation(column, 1)
-                .SetFlag(starFlag)
-            End With
-            With starSystem.Map.GetLocation(column, SystemMapRows - 1)
-                .Teleporter = teleporter
-                .LocationType = VoidSouthArrow
-            End With
-            With starSystem.Map.GetLocation(column, SystemMapRows - 2)
-                .SetFlag(starFlag)
-            End With
+        For Each edge In GetEdges(SystemMapColumns, SystemMapRows)
+            PlaceBoundary(starSystem.Map.GetLocation(edge.X, edge.Y), edge.LocationType, teleporter)
+            starSystem.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(starFlag)
         Next
     End Sub
 End Module
