@@ -7,16 +7,15 @@
             Return GalacticAges.Descriptors(_galacticAge).DisplayName
         End Get
     End Property
+    Public ReadOnly Property Current As String Implements IGalacticAgeModel.Current
+        Get
+            Return _galacticAge
+        End Get
+    End Property
 
     Public ReadOnly Property Options As IEnumerable(Of (Text As String, Item As String)) Implements IGalacticAgeModel.Options
         Get
             Return GalacticAges.Descriptors.OrderBy(Function(x) x.Value.Ordinal).Select(Function(x) (x.Value.DisplayName, x.Key))
-        End Get
-    End Property
-
-    Public ReadOnly Property Value As String Implements IGalacticAgeModel.Value
-        Get
-            Return _galacticAge
         End Get
     End Property
 

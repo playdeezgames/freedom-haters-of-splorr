@@ -24,7 +24,7 @@ Friend Class ChangeGalacticDensityState
             Case NeverMindText
                 SetState(BoilerplateState.Embark)
             Case Else
-                Context.Model.GalacticDensity.SetGalacticDensity(value.Item)
+                Context.Model.GalacticDensity.SetDensity(value.Item)
                 SetState(BoilerplateState.Embark)
         End Select
     End Sub
@@ -34,7 +34,9 @@ Friend Class ChangeGalacticDensityState
             {
                 ("No Change", NeverMindText)
             }
-        result.AddRange(Context.Model.GalacticDensity.GalacticDensityOptions)
+        result.AddRange(
+            Context.Model.GalacticDensity.Options.Select(
+                Function(x) (If(x.Item = Context.Model.GalacticDensity.Current, $"** {x.Text} **", x.Text), x.Item)))
         Return result
     End Function
 End Class

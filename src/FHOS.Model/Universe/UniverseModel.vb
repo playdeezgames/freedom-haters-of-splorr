@@ -52,6 +52,6 @@ Public Class UniverseModel
 
     Public Sub Embark() Implements IUniverseModel.Embark
         universeData = New UniverseData()
-        UniverseInitializer.Initialize(Universe, GalacticAge.Value, GalacticDensity.Value)
+        UniverseInitializer.Initialize(Universe, GalacticAge.Current, GalacticDensity.Current)
     End Sub
 End Class

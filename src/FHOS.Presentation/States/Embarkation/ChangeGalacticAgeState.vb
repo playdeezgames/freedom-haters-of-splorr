@@ -34,7 +34,9 @@ Friend Class ChangeGalacticAgeState
             {
                 ("No Change", NeverMindText)
             }
-        result.AddRange(Context.Model.GalacticAge.Options)
+        result.AddRange(
+            Context.Model.GalacticAge.Options.Select(
+                Function(x) (If(x.Item = Context.Model.GalacticAge.Current, $"** {x.Text} **", x.Text), x.Item)))
         Return result
     End Function
 End Class
