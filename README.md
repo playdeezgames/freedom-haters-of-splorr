@@ -10,10 +10,7 @@ https://pernyblom.github.io/abundant-music/index.html
 
 # Names for the "Freedom Loving" Government whom we serve
 
-1. Liberal Predomninancy
-1. Conglomerated Hegemony
-1. Predominant Sovereignty
-1. Dong Matriarchy
+1. SIGMO Hegemony
 
 # Names for the "Freedom Hating" Anarchists
 

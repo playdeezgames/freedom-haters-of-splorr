@@ -40,7 +40,7 @@ Friend Module StarSystemInitializer
                 Dim planetName = $"{starSystem.Name} {Romanize(index)}"
                 index += 1
                 location.Planet = starSystem.Universe.CreatePlanet(planetName, planetType)
-                'TODO: initialize planet
+                PlanetInitializer.Initialize(location.Planet)
                 tries = 0
             Else
                 tries += 1
@@ -88,7 +88,7 @@ Friend Module StarSystemInitializer
             .LocationType = locationType
             .Star = starSystem.Universe.CreateStar(starSystem.Name, starSystem.StarType)
             .Tutorial = TutorialTypes.StarApproach
-            'TODO: initialize star proximity
+            StarInitializer.Initialize(.Star)
         End With
     End Sub
 
