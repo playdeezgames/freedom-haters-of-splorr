@@ -11,7 +11,22 @@ Friend Module PlanetInitializer
             PlanetVicinityRows,
             LocationTypes.Void)
         PlaceBoundaries(planet, planetLocation)
+        PlacePlanet(planet)
     End Sub
+
+    Private Sub PlacePlanet(planet As IPlanet)
+        Dim starColumn = PlanetVicinityColumns \ 2
+        Dim starRow = PlanetVicinityRows \ 2
+        Dim locationType = PlanetTypes.Descriptors(planet.PlanetType).LocationType
+        Dim location = planet.Map.GetLocation(starColumn, starRow)
+        With location
+            .LocationType = locationType
+            'TODO: create surface of planet
+            .Tutorial = TutorialTypes.PlanetLand
+            'TODO: initialize surface of planet
+        End With
+    End Sub
+
     Private Sub PlaceBoundaries(planet As IPlanet, planetLocation As ILocation)
         Dim teleporter = planet.Universe.CreateTeleporter(planetLocation)
         Dim starFlag = planet.Name

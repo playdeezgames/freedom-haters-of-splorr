@@ -40,4 +40,10 @@
             End If
         End Set
     End Property
+
+    Public ReadOnly Property StarType As String Implements IStar.StarType
+        Get
+            Return StarData.Metadatas(MetadataTypes.StarType)
+        End Get
+    End Property
 End Class
