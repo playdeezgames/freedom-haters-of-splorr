@@ -10,4 +10,6 @@
     Friend Const Tutorial = "Tutorial"
     Friend Const ActionMenu = "ActionMenu"
     Friend Const EnterStarSystem = "EnterStarSystem"
+    Friend Const ApproachPlanet = "ApproachPlanet"
+    Friend Const ApproachStar = "ApproachStar"
 End Module

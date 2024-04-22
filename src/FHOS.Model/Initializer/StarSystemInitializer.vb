@@ -84,11 +84,12 @@ Friend Module StarSystemInitializer
         Dim starColumn = SystemMapColumns \ 2
         Dim starRow = SystemMapRows \ 2
         Dim locationType = StarTypes.Descriptors(starSystem.StarType).LocationType
-        With starSystem.Map.GetLocation(starColumn, starRow)
+        Dim location = starSystem.Map.GetLocation(starColumn, starRow)
+        With location
             .LocationType = locationType
             .Star = starSystem.Universe.CreateStar(starSystem.Name, starSystem.StarType)
             .Tutorial = TutorialTypes.StarApproach
-            StarInitializer.Initialize(.Star)
+            StarInitializer.Initialize(.Star, location)
         End With
     End Sub
     Private Sub PlaceBoundaries(starSystem As IStarSystem, starLocation As ILocation)

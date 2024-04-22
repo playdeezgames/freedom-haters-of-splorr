@@ -1,4 +1,8 @@
 # freedom-haters-of-splorr
+
+  - [ ] 20240422 - SIGMO FHOS Episode 12
+  - [x] 20240421 - SIGMO FHOS Episode 11
+
 Freedom Haters of SPLORR!!
 
 "Freedom Haters of SPLORR!!" Dystopian Futuristic Sci-Fi Roguelike. #LoveFreedom #LiveFreeOrDie #FlossingForFreedom

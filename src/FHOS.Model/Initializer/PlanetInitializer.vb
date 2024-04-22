@@ -1,5 +1,4 @@
-﻿Imports System.Security.Cryptography.X509Certificates
-Imports FHOS.Persistence
+﻿Imports FHOS.Persistence
 
 Friend Module PlanetInitializer
     Private Const PlanetVicinityColumns = 15
@@ -11,7 +10,7 @@ Friend Module PlanetInitializer
             PlanetVicinityColumns,
             PlanetVicinityRows,
             LocationTypes.Void)
-        'PlaceBoundaries(planet, planetLocation)
+        PlaceBoundaries(planet, planetLocation)
     End Sub
     Private Sub PlaceBoundaries(planet As IPlanet, planetLocation As ILocation)
         Dim teleporter = planet.Universe.CreateTeleporter(planetLocation)

@@ -3,6 +3,8 @@
 Friend Class ActionMenuState
     Inherits BasePickerState(Of Model.IUniverseModel, String)
     Private Const EnterStarSystemText = "Enter Star System"
+    Private Const ApproachPlanetText = "Approach Planet"
+    Private Const ApproachStarText = "Approach Star"
 
     Public Sub New(
                   parent As IGameController,
@@ -23,6 +25,10 @@ Friend Class ActionMenuState
                 SetState(BoilerplateState.Neutral)
             Case EnterStarSystemText
                 SetState(GameState.EnterStarSystem)
+            Case ApproachPlanetText
+                SetState(GameState.ApproachPlanet)
+            Case ApproachStarText
+                SetState(GameState.ApproachStar)
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -35,6 +41,12 @@ Friend Class ActionMenuState
             }
         If Context.Model.Avatar.StarSystem.CanEnter Then
             result.Add((EnterStarSystemText, EnterStarSystemText))
+        End If
+        If Context.Model.Avatar.Star.CanApproach Then
+            result.Add((ApproachStarText, ApproachStarText))
+        End If
+        If Context.Model.Avatar.Planet.CanApproach Then
+            result.Add((ApproachPlanetText, ApproachPlanetText))
         End If
         Return result
     End Function

@@ -47,7 +47,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property HasActions As Boolean Implements IAvatarModel.HasActions
         Get
-            Return avatar.Location.StarSystem IsNot Nothing
+            Return StarSystem.CanEnter OrElse Planet.CanApproach OrElse Star.CanApproach
         End Get
     End Property
 

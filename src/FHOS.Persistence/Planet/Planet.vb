@@ -1,4 +1,6 @@
-﻿Friend Class Planet
+﻿Imports FHOS.Data
+
+Friend Class Planet
     Inherits PlanetDataClient
     Implements IPlanet
 
@@ -26,7 +28,11 @@
 
     Public Property Map As IMap Implements IPlanet.Map
         Get
-            Throw New NotImplementedException()
+            Dim mapId As Integer
+            If PlanetData.Statistics.TryGetValue(StatisticTypes.MapId, mapId) Then
+                Return New Map(UniverseData, mapId)
+            End If
+            Return Nothing
         End Get
         Set(value As IMap)
             If value Is Nothing Then

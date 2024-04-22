@@ -1,4 +1,5 @@
 ﻿Imports FHOS.Persistence
+Imports SPLORR.Game
 
 Friend Class AvatarPlanetModel
     Implements IAvatarPlanetModel
@@ -18,4 +19,18 @@ Friend Class AvatarPlanetModel
             Return Nothing
         End Get
     End Property
+
+    Public ReadOnly Property CanApproach As Boolean Implements IAvatarPlanetModel.CanApproach
+        Get
+            Return Current IsNot Nothing
+        End Get
+    End Property
+
+    Public Sub Approach() Implements IAvatarPlanetModel.Approach
+        If CanApproach Then
+            With avatar.Location.Planet
+                avatar.Location = RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Name)))
+            End With
+        End If
+    End Sub
 End Class
