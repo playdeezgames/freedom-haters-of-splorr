@@ -13,4 +13,5 @@
     Function HasFlag(name As String) As Boolean
     Property Star As IStar
     Property Planet As IPlanet
+    Property Satellite As ISatellite
 End Interface

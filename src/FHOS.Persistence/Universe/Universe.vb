@@ -190,4 +190,25 @@ Public Class Universe
         End If
         Return New Planet(UniverseData, planetId)
     End Function
+
+    Public Function CreateSatellite(satelliteName As String, satelliteType As String) As ISatellite Implements IUniverse.CreateSatellite
+        Dim satelliteId As Integer
+        Dim satelliteData = New SatelliteData With
+            {
+                .Metadatas = New Dictionary(Of String, String) From
+{
+                    {MetadataTypes.Name, satelliteName},
+                    {MetadataTypes.SatelliteType, satelliteType}
+                }
+            }
+        If UniverseData.Satellites.Recycled.Any Then
+            satelliteId = UniverseData.Satellites.Recycled.First
+            UniverseData.Satellites.Recycled.Remove(satelliteId)
+            UniverseData.Satellites.Entities(satelliteId) = satelliteData
+        Else
+            satelliteId = UniverseData.Satellites.Entities.Count
+            UniverseData.Satellites.Entities.Add(satelliteData)
+        End If
+        Return New Satellite(UniverseData, satelliteId)
+    End Function
 End Class

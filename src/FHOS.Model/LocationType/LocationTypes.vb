@@ -31,6 +31,13 @@
     Friend Const GaiaPlanet = "GaiaPlanet"
     Friend Const SwampPlanet = "SwampPlanet"
 
+    Friend Const RadiatedMoon = "RadiatedMoon"
+    Friend Const VolcanicMoon = "VolcanicMoon"
+    Friend Const BarrenMoon = "BarrenMoon"
+    Friend Const InfernoMoon = "InfernoMoon"
+    Friend Const CavernousMoon = "CavernousMoon"
+    Friend Const IceMoon = "IceMoon"
+
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, LocationTypeDescriptor) =
         New Dictionary(Of String, LocationTypeDescriptor) From
         {
@@ -62,6 +69,12 @@
             {GrasslandPlanet, New LocationTypeDescriptor("Grassland Planet", ChrW(225), Hue.LightGreen, Black)},
             {CavernousPlanet, New LocationTypeDescriptor("Cavernous Planet", ChrW(225), Hue.LightGray, Black)},
             {GaiaPlanet, New LocationTypeDescriptor("Gaia Planet", ChrW(225), Hue.Pink, Black)},
-            {Swamp, New LocationTypeDescriptor("Gaia Planet", ChrW(225), Hue.Cyan, Black)}
+            {SwampPlanet, New LocationTypeDescriptor("Swamp Planet", ChrW(225), Hue.Cyan, Black)},
+            {RadiatedMoon, New LocationTypeDescriptor("Radiated Moon", ChrW(226), Hue.Cyan, Black)},
+            {VolcanicMoon, New LocationTypeDescriptor("Volcanic Moon", ChrW(226), Hue.Orange, Black)},
+            {BarrenMoon, New LocationTypeDescriptor("Barren Moon", ChrW(226), Hue.DarkGray, Black)},
+            {InfernoMoon, New LocationTypeDescriptor("Inferno Moon", ChrW(226), Hue.Red, Black)},
+            {CavernousMoon, New LocationTypeDescriptor("Cavernous Moon", ChrW(226), Hue.LightGray, Black)},
+            {IceMoon, New LocationTypeDescriptor("Ice Moon", ChrW(226), Hue.White, Black)}
         }
 End Module

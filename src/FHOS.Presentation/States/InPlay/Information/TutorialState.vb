@@ -58,13 +58,37 @@ Friend Class TutorialState
             {
                 TutorialTypes.PlanetaryEntry,
                 New TutorialDetail(
-                    "Approaching Planetary System",
+                    "Approaching Planet",
                     {
-                        New TutorialDetailLine("You have reached a planet!", Hue.Black),
+                        New TutorialDetailLine("You are near a planet!", Hue.Black),
                         New TutorialDetailLine("", Hue.Black),
                         New TutorialDetailLine("To approach it,", Hue.Black),
                         New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
                         New TutorialDetailLine("then choose 'Approach Planet'", Hue.Black)
+                    })
+            },
+            {
+                TutorialTypes.SatelliteApproach,
+                New TutorialDetail(
+                    "Approaching Satellite",
+                    {
+                        New TutorialDetailLine("You have reached a Satellite!", Hue.Black),
+                        New TutorialDetailLine("", Hue.Black),
+                        New TutorialDetailLine("To approach it,", Hue.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
+                        New TutorialDetailLine("then choose 'Approach Satellite'", Hue.Black)
+                    })
+            },
+            {
+                TutorialTypes.PlanetLand,
+                New TutorialDetail(
+                    "Land on Planet",
+                    {
+                        New TutorialDetailLine("You have reached a planet!", Hue.Black),
+                        New TutorialDetailLine("", Hue.Black),
+                        New TutorialDetailLine("To land on it,", Hue.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
+                        New TutorialDetailLine("then choose 'Land on Planet'", Hue.Black)
                     })
             }
         }

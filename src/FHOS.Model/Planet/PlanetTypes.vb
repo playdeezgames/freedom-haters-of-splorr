@@ -15,23 +15,142 @@
     Friend Const Cavernous = "Cavernous"
     Friend Const Gaia = "Gaia"
     Friend Const Swamp = "Swamp"
+    Private Const DefaultSatelliteDistance = 5
+    Private ReadOnly defaultSatelliteTypeGenerator As IReadOnlyDictionary(Of String, Integer) =
+        New Dictionary(Of String, Integer) From
+        {
+            {
+                SatelliteTypes.BarrenMoon,
+                1
+            },
+            {
+                SatelliteTypes.RadiatedMoon,
+                1
+            },
+            {
+                SatelliteTypes.VolcanicMoon,
+                1
+            },
+            {
+                SatelliteTypes.InfernoMoon,
+                1
+            },
+            {
+                SatelliteTypes.CavernousMoon,
+                1
+            },
+            {
+                SatelliteTypes.IceMoon,
+                1
+            }
+        }
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, PlanetTypeDescriptor) =
         New Dictionary(Of String, PlanetTypeDescriptor) From
         {
-            {Radiated, New PlanetTypeDescriptor(RadiatedPlanet)},
-            {Toxic, New PlanetTypeDescriptor(ToxicPlanet)},
-            {Volcanic, New PlanetTypeDescriptor(VolcanicPlanet)},
-            {Barren, New PlanetTypeDescriptor(BarrenPlanet)},
-            {Desert, New PlanetTypeDescriptor(DesertPlanet)},
-            {Tundra, New PlanetTypeDescriptor(TundraPlanet)},
-            {Arid, New PlanetTypeDescriptor(AridPlanet)},
-            {Ocean, New PlanetTypeDescriptor(OceanPlanet)},
-            {Terran, New PlanetTypeDescriptor(TerranPlanet)},
-            {Inferno, New PlanetTypeDescriptor(InfernoPlanet)},
-            {Tropical, New PlanetTypeDescriptor(TropicalPlanet)},
-            {Grassland, New PlanetTypeDescriptor(GrasslandPlanet)},
-            {Cavernous, New PlanetTypeDescriptor(CavernousPlanet)},
-            {Gaia, New PlanetTypeDescriptor(GaiaPlanet)},
-            {Swamp, New PlanetTypeDescriptor(Swamp)}
+            {
+                Radiated,
+                New PlanetTypeDescriptor(
+                    RadiatedPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Toxic,
+                New PlanetTypeDescriptor(
+                    ToxicPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Volcanic,
+                New PlanetTypeDescriptor(
+                    VolcanicPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Barren,
+                New PlanetTypeDescriptor(
+                    BarrenPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Desert,
+                New PlanetTypeDescriptor(
+                    DesertPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Tundra,
+                New PlanetTypeDescriptor(
+                    TundraPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Arid,
+                New PlanetTypeDescriptor(
+                    AridPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Ocean,
+                New PlanetTypeDescriptor(
+                    OceanPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Terran,
+                New PlanetTypeDescriptor(
+                    TerranPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Inferno,
+                New PlanetTypeDescriptor(
+                    InfernoPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Tropical,
+                New PlanetTypeDescriptor(
+                    TropicalPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Grassland,
+                New PlanetTypeDescriptor(
+                    GrasslandPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Cavernous,
+                New PlanetTypeDescriptor(
+                    CavernousPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Gaia,
+                New PlanetTypeDescriptor(
+                    GaiaPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            },
+            {
+                Swamp,
+                New PlanetTypeDescriptor(
+                    SwampPlanet,
+                    DefaultSatelliteDistance,
+                    defaultSatelliteTypeGenerator)
+            }
         }
 End Module

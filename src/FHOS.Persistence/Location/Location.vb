@@ -147,6 +147,23 @@
         End Set
     End Property
 
+    Public Property Satellite As ISatellite Implements ILocation.Satellite
+        Get
+            Dim satelliteId As Integer
+            If LocationData.Statistics.TryGetValue(StatisticTypes.SatelliteId, satelliteId) Then
+                Return New Satellite(UniverseData, satelliteId)
+            End If
+            Return Nothing
+        End Get
+        Set(value As ISatellite)
+            If value Is Nothing Then
+                LocationData.Statistics.Remove(StatisticTypes.SatelliteId)
+            Else
+                LocationData.Statistics(StatisticTypes.SatelliteId) = value.Id
+            End If
+        End Set
+    End Property
+
     Public Sub SetFlag(flag As String) Implements ILocation.SetFlag
         LocationData.Flags.Add(flag)
     End Sub

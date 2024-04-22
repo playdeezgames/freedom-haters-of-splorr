@@ -1,6 +1,7 @@
 # freedom-haters-of-splorr
 
-  - [ ] 20240422 - SIGMO FHOS Episode 12
+  - [ ] 20240423 - SIGMO FHOS Episode 13
+  - [x] 20240422 - SIGMO FHOS Episode 12
   - [x] 20240421 - SIGMO FHOS Episode 11
 
 Freedom Haters of SPLORR!!
