@@ -121,7 +121,7 @@ Public Class Universe
         Return New Teleporter(UniverseData, teleporterId)
     End Function
 
-    Public Function CreateStar(starName As String, starType As String) As IStarVicinity Implements IUniverse.CreateStar
+    Public Function CreateStarVicinity(starName As String, starType As String) As IStarVicinity Implements IUniverse.CreateStarVicinity
         Return New StarVicinity(
             UniverseData,
             CreateOrRecycle(
@@ -136,7 +136,7 @@ Public Class Universe
                 }))
     End Function
 
-    Public Function CreatePlanet(planetName As String, planetType As String) As IPlanetVicinity Implements IUniverse.CreatePlanet
+    Public Function CreatePlanetVicinity(planetName As String, planetType As String) As IPlanetVicinity Implements IUniverse.CreatePlanetVicinity
         Return New PlanetVicinity(
             UniverseData,
             CreateOrRecycle(
