@@ -63,8 +63,8 @@ Friend Class NavigationState
             If .StarSystem.Current IsNot Nothing Then
                 position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .StarSystem.Current.Name, Black)
             End If
-            If .Star.Current IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .Star.Current.Name, Black)
+            If .StarVicinity.Current IsNot Nothing Then
+                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .StarVicinity.Current.Name, Black)
             End If
             If .PlanetVicinity.Current IsNot Nothing Then
                 position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .PlanetVicinity.Current.Name, Black)

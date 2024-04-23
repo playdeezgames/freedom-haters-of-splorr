@@ -11,4 +11,10 @@
             Return PlanetId
         End Get
     End Property
+
+    Public ReadOnly Property PlanetType As String Implements IPlanet.PlanetType
+        Get
+            Return PlanetData.Metadatas(MetadataTypes.PlanetType)
+        End Get
+    End Property
 End Class

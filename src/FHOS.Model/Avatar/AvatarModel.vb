@@ -46,7 +46,10 @@ Friend Class AvatarModel
 
     Public ReadOnly Property HasActions As Boolean Implements IAvatarModel.HasActions
         Get
-            Return StarSystem.CanEnter OrElse PlanetVicinity.CanApproach OrElse Star.CanApproach
+            Return StarSystem.CanEnter OrElse
+                PlanetVicinity.CanApproach OrElse
+                StarVicinity.CanApproach OrElse
+                Planet.CanRefillOxygen
         End Get
     End Property
 
@@ -62,7 +65,7 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Star As IAvatarStarVicinityModel Implements IAvatarModel.Star
+    Public ReadOnly Property StarVicinity As IAvatarStarVicinityModel Implements IAvatarModel.StarVicinity
         Get
             Return New AvatarStarVicinityModel(avatar)
         End Get
@@ -101,6 +104,12 @@ Friend Class AvatarModel
     Public ReadOnly Property IsDead As Boolean Implements IAvatarModel.IsDead
         Get
             Return OxygenPercent = 0
+        End Get
+    End Property
+
+    Public ReadOnly Property Planet As IAvatarPlanetModel Implements IAvatarModel.Planet
+        Get
+            Return New AvatarPlanetModel(avatar)
         End Get
     End Property
 

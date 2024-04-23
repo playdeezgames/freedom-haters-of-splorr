@@ -1,6 +1,6 @@
 ﻿Imports SPLORR.UI
 
-Friend Class ApproachStarState
+Friend Class RefillOxygenState
     Inherits BaseGameState(Of Model.IUniverseModel)
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of Model.IUniverseModel))
@@ -17,7 +17,7 @@ Friend Class ApproachStarState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.StarVicinity.Approach()
+        Context.Model.Avatar.Planet.RefillOxygen()
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

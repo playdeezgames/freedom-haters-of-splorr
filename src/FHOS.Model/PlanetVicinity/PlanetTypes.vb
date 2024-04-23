@@ -80,35 +80,40 @@
                 New PlanetTypeDescriptor(
                     DesertPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    canRefillOxygen:=True)
             },
             {
                 Tundra,
                 New PlanetTypeDescriptor(
                     TundraPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    canRefillOxygen:=True)
             },
             {
                 Arid,
                 New PlanetTypeDescriptor(
                     AridPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    canRefillOxygen:=True)
             },
             {
                 Ocean,
                 New PlanetTypeDescriptor(
                     OceanPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    canRefillOxygen:=True)
             },
             {
                 Terran,
                 New PlanetTypeDescriptor(
                     TerranPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    canRefillOxygen:=True)
             },
             {
                 Inferno,
@@ -122,14 +127,16 @@
                 New PlanetTypeDescriptor(
                     TropicalPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    canRefillOxygen:=True)
             },
             {
                 Grassland,
                 New PlanetTypeDescriptor(
                     GrasslandPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    canRefillOxygen:=True)
             },
             {
                 Cavernous,
@@ -143,14 +150,16 @@
                 New PlanetTypeDescriptor(
                     GaiaPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    canRefillOxygen:=True)
             },
             {
                 Swamp,
                 New PlanetTypeDescriptor(
                     SwampPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    canRefillOxygen:=True)
             }
         }
 End Module
