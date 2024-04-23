@@ -2,12 +2,11 @@
 Imports SPLORR.Game
 
 Friend Class AvatarStarSystemModel
+    Inherits BaseAvatarModel
     Implements IAvatarStarSystemModel
 
-    Private avatar As IActor
-
     Public Sub New(avatar As IActor)
-        Me.avatar = avatar
+        MyBase.New(avatar)
     End Sub
 
     Public ReadOnly Property Current As IStarSystemModel Implements IAvatarStarSystemModel.Current
@@ -27,6 +26,7 @@ Friend Class AvatarStarSystemModel
 
     Public Sub Enter() Implements IAvatarStarSystemModel.Enter
         If CanEnter Then
+            DoTurn()
             With avatar.Location.StarSystem
                 avatar.Location = RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Name)))
             End With

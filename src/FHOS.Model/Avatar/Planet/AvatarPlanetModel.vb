@@ -2,12 +2,11 @@
 Imports SPLORR.Game
 
 Friend Class AvatarPlanetModel
+    Inherits BaseAvatarModel
     Implements IAvatarPlanetModel
 
-    Private ReadOnly avatar As IActor
-
     Public Sub New(avatar As IActor)
-        Me.avatar = avatar
+        MyBase.New(avatar)
     End Sub
 
     Public ReadOnly Property Current As IPlanetModel Implements IAvatarPlanetModel.Current
@@ -28,6 +27,7 @@ Friend Class AvatarPlanetModel
 
     Public Sub Approach() Implements IAvatarPlanetModel.Approach
         If CanApproach Then
+            DoTurn()
             With avatar.Location.Planet
                 avatar.Location = RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Name)))
             End With

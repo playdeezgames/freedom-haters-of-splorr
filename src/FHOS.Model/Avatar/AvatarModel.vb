@@ -1,12 +1,12 @@
 ﻿Imports FHOS.Persistence
 
 Friend Class AvatarModel
+    Inherits BaseAvatarModel
     Implements IAvatarModel
 
-    Private ReadOnly avatar As IActor
 
     Public Sub New(avatar As IActor)
-        Me.avatar = avatar
+        MyBase.New(avatar)
     End Sub
 
     Public ReadOnly Property X As Integer Implements IAvatarModel.X
@@ -103,6 +103,7 @@ Friend Class AvatarModel
         If Not CanMove Then
             Return
         End If
+        DoTurn()
         avatar.Fuel -= 1
         Dim location = avatar.Location
         Dim nextColumn = location.Column + delta.X
