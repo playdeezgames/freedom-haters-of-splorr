@@ -9,6 +9,7 @@
 
     ReadOnly Property OxygenPercent As Integer
     ReadOnly Property OxygenHue As Integer
+    ReadOnly Property IsDead As Boolean
 
     ReadOnly Property FuelPercent As Integer
     ReadOnly Property FuelHue As Integer

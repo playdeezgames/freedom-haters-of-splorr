@@ -4,7 +4,6 @@ Friend Class AvatarModel
     Inherits BaseAvatarModel
     Implements IAvatarModel
 
-
     Public Sub New(avatar As IActor)
         MyBase.New(avatar)
     End Sub
@@ -96,6 +95,12 @@ Friend Class AvatarModel
     Public ReadOnly Property CanMove As Boolean Implements IAvatarModel.CanMove
         Get
             Return FuelPercent > 0
+        End Get
+    End Property
+
+    Public ReadOnly Property IsDead As Boolean Implements IAvatarModel.IsDead
+        Get
+            Return OxygenPercent = 0
         End Get
     End Property
 

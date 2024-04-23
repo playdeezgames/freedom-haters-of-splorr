@@ -12,4 +12,5 @@
     Friend Const EnterStarSystem = "EnterStarSystem"
     Friend Const ApproachPlanet = "ApproachPlanet"
     Friend Const ApproachStar = "ApproachStar"
+    Friend Const Dead = "Dead"
 End Module

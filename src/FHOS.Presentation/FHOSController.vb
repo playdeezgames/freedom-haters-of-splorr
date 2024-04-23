@@ -22,6 +22,7 @@ Public Class FHOSController
         SetState(GameState.EnterStarSystem, New EnterStarSystemState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.ApproachPlanet, New ApproachPlanetState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.ApproachStar, New ApproachStarState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Dead, New DeadState(Me, AddressOf SetCurrentState, context))
         SetCurrentState(BoilerplateState.Splash, True)
     End Sub
 End Class
