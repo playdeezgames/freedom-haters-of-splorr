@@ -113,19 +113,19 @@
         End Get
     End Property
 
-    Public Property Star As IStarVicinity Implements ILocation.Star
+    Public Property StarVicinity As IStarVicinity Implements ILocation.StarVicinity
         Get
             Dim starId As Integer
-            If LocationData.Statistics.TryGetValue(StatisticTypes.StarId, starId) Then
+            If LocationData.Statistics.TryGetValue(StatisticTypes.StarVicinityId, starId) Then
                 Return New StarVicinity(UniverseData, starId)
             End If
             Return Nothing
         End Get
         Set(value As IStarVicinity)
             If value Is Nothing Then
-                LocationData.Statistics.Remove(StatisticTypes.StarId)
+                LocationData.Statistics.Remove(StatisticTypes.StarVicinityId)
             Else
-                LocationData.Statistics(StatisticTypes.StarId) = value.Id
+                LocationData.Statistics(StatisticTypes.StarVicinityId) = value.Id
             End If
         End Set
     End Property
@@ -133,16 +133,16 @@
     Public Property PlanetVicinity As IPlanetVicinity Implements ILocation.PlanetVicinity
         Get
             Dim planetId As Integer
-            If LocationData.Statistics.TryGetValue(StatisticTypes.PlanetId, planetId) Then
+            If LocationData.Statistics.TryGetValue(StatisticTypes.PlanetVicinityId, planetId) Then
                 Return New PlanetVicinity(UniverseData, planetId)
             End If
             Return Nothing
         End Get
         Set(value As IPlanetVicinity)
             If value Is Nothing Then
-                LocationData.Statistics.Remove(StatisticTypes.PlanetId)
+                LocationData.Statistics.Remove(StatisticTypes.PlanetVicinityId)
             Else
-                LocationData.Statistics(StatisticTypes.PlanetId) = value.Id
+                LocationData.Statistics(StatisticTypes.PlanetVicinityId) = value.Id
             End If
         End Set
     End Property
@@ -160,6 +160,23 @@
                 LocationData.Statistics.Remove(StatisticTypes.SatelliteId)
             Else
                 LocationData.Statistics(StatisticTypes.SatelliteId) = value.Id
+            End If
+        End Set
+    End Property
+
+    Public Property Planet As IPlanet Implements ILocation.Planet
+        Get
+            Dim satelliteId As Integer
+            If LocationData.Statistics.TryGetValue(StatisticTypes.PlanetId, satelliteId) Then
+                Return New Planet(UniverseData, satelliteId)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IPlanet)
+            If value Is Nothing Then
+                LocationData.Statistics.Remove(StatisticTypes.PlanetId)
+            Else
+                LocationData.Statistics(StatisticTypes.PlanetId) = value.Id
             End If
         End Set
     End Property

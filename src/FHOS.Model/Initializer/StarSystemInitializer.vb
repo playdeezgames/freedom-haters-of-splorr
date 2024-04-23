@@ -87,9 +87,9 @@ Friend Module StarSystemInitializer
         Dim location = starSystem.Map.GetLocation(starColumn, starRow)
         With location
             .LocationType = locationType
-            .Star = starSystem.Universe.CreateStarVicinity(starSystem.Name, starSystem.StarType)
+            .StarVicinity = starSystem.Universe.CreateStarVicinity(starSystem.Name, starSystem.StarType)
             .Tutorial = TutorialTypes.StarVicinityApproach
-            StarVicinityInitializer.Initialize(.Star, location)
+            StarVicinityInitializer.Initialize(.StarVicinity, location)
         End With
     End Sub
     Private Sub PlaceBoundaries(starSystem As IStarSystem, starLocation As ILocation)

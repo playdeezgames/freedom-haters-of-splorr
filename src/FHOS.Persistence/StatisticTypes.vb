@@ -12,9 +12,10 @@
     Friend Const Rows = "Rows"
     Friend Const StarSystemId = "StarSystemId"
     Friend Const TeleporterId = "TeleporterId"
-    Friend Const StarId = "StarId"
-    Friend Const PlanetId = "PlanetId"
+    Friend Const StarVicinityId = "StarVicinityId"
+    Friend Const PlanetVicinityId = "PlanetVicinityId"
     Friend Const SatelliteId = "SatelliteId"
     Friend Const Fuel = "Fuel"
     Friend Const MaximumFuel = "MaximumFuel"
+    Friend Const PlanetId = "PlanetId"
 End Module

@@ -56,6 +56,8 @@ Friend Module PlanetVicinityInitializer
             'TODO: create  planet
             .Tutorial = TutorialTypes.PlanetLand
             'TODO: initialize planet
+            .Planet = planetVicinity.Universe.CreatePlanet(planetVicinity.Name, planetVicinity.PlanetType)
+            PlanetInitializer.Initialize(.Planet)
         End With
     End Sub
 

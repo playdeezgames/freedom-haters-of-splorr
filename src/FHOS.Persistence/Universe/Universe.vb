@@ -165,4 +165,19 @@ Public Class Universe
                     }
                 }))
     End Function
+
+    Public Function CreatePlanet(planetName As String, planetType As String) As IPlanet Implements IUniverse.CreatePlanet
+        Return New Planet(
+            UniverseData,
+            CreateOrRecycle(
+                UniverseData.Planets,
+                New PlanetData With
+                {
+                    .Metadatas = New Dictionary(Of String, String) From
+                    {
+                        {MetadataTypes.Name, planetName},
+                        {MetadataTypes.PlanetType, planetType}
+                    }
+                }))
+    End Function
 End Class
