@@ -12,6 +12,7 @@
 
     ReadOnly Property FuelPercent As Integer
     ReadOnly Property FuelHue As Integer
+    ReadOnly Property CanMove As Boolean
 
     ReadOnly Property Tutorial As IAvatarTutorialModel
     ReadOnly Property StarSystem As IAvatarStarSystemModel

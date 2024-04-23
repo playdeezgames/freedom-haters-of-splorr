@@ -93,7 +93,17 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property CanMove As Boolean Implements IAvatarModel.CanMove
+        Get
+            Return FuelPercent > 0
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
+        If Not CanMove Then
+            Return
+        End If
+        avatar.Fuel -= 1
         Dim location = avatar.Location
         Dim nextColumn = location.Column + delta.X
         Dim nextRow = location.Row + delta.Y
