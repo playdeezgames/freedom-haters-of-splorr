@@ -130,15 +130,15 @@
         End Set
     End Property
 
-    Public Property Planet As IPlanet Implements ILocation.Planet
+    Public Property Planet As IPlanetVicinity Implements ILocation.Planet
         Get
             Dim planetId As Integer
             If LocationData.Statistics.TryGetValue(StatisticTypes.PlanetId, planetId) Then
-                Return New Planet(UniverseData, planetId)
+                Return New PlanetVicinity(UniverseData, planetId)
             End If
             Return Nothing
         End Get
-        Set(value As IPlanet)
+        Set(value As IPlanetVicinity)
             If value Is Nothing Then
                 LocationData.Statistics.Remove(StatisticTypes.PlanetId)
             Else

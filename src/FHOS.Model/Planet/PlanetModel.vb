@@ -1,9 +1,9 @@
 ﻿Friend Class PlanetModel
     Implements IPlanetModel
 
-    Private ReadOnly planet As Persistence.IPlanet
+    Private ReadOnly planet As Persistence.IPlanetVicinity
 
-    Public Sub New(planet As Persistence.IPlanet)
+    Public Sub New(planet As Persistence.IPlanetVicinity)
         Me.planet = planet
     End Sub
 

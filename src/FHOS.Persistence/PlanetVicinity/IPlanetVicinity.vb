@@ -1,4 +1,4 @@
-﻿Public Interface IPlanet
+﻿Public Interface IPlanetVicinity
     ReadOnly Property Id As Integer
     ReadOnly Property Name As String
     ReadOnly Property Universe As IUniverse

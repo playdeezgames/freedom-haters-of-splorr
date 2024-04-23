@@ -4,7 +4,7 @@ Imports SPLORR.Game
 Friend Module PlanetInitializer
     Private Const PlanetVicinityColumns = 15
     Private Const PlanetVicinityRows = 15
-    Friend Sub Initialize(planet As IPlanet, planetLocation As ILocation)
+    Friend Sub Initialize(planet As IPlanetVicinity, planetLocation As ILocation)
         planet.Map = planet.Universe.CreateMap(
             MapTypes.System,
             $"{planet.Name} Vicinity",
@@ -16,7 +16,7 @@ Friend Module PlanetInitializer
         PlaceSatellites(planet)
     End Sub
 
-    Private Sub PlaceSatellites(planet As IPlanet)
+    Private Sub PlaceSatellites(planet As IPlanetVicinity)
         Dim satellites As New List(Of (Column As Integer, Row As Integer)) From
             {
                 (PlanetVicinityColumns \ 2, PlanetVicinityRows \ 2)
@@ -46,7 +46,7 @@ Friend Module PlanetInitializer
         End While
     End Sub
 
-    Private Sub PlacePlanet(planet As IPlanet)
+    Private Sub PlacePlanet(planet As IPlanetVicinity)
         Dim starColumn = PlanetVicinityColumns \ 2
         Dim starRow = PlanetVicinityRows \ 2
         Dim locationType = PlanetTypes.Descriptors(planet.PlanetType).LocationType
@@ -59,7 +59,7 @@ Friend Module PlanetInitializer
         End With
     End Sub
 
-    Private Sub PlaceBoundaries(planet As IPlanet, planetLocation As ILocation)
+    Private Sub PlaceBoundaries(planet As IPlanetVicinity, planetLocation As ILocation)
         Dim teleporter = planet.Universe.CreateTeleporter(planetLocation)
         Dim starFlag = planet.Name
         For Each corner In GetCorners(PlanetVicinityColumns, PlanetVicinityRows)

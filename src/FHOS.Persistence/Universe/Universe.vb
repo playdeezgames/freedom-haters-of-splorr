@@ -136,8 +136,8 @@ Public Class Universe
                 }))
     End Function
 
-    Public Function CreatePlanet(planetName As String, planetType As String) As IPlanet Implements IUniverse.CreatePlanet
-        Return New Planet(
+    Public Function CreatePlanet(planetName As String, planetType As String) As IPlanetVicinity Implements IUniverse.CreatePlanet
+        Return New PlanetVicinity(
             UniverseData,
             CreateOrRecycle(
                 UniverseData.PlanetVicinities,
