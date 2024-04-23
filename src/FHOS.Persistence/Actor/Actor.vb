@@ -94,4 +94,22 @@
             Return Nothing
         End Get
     End Property
+
+    Public Property MaximumFuel As Integer Implements IActor.MaximumFuel
+        Get
+            Return Math.Max(0, ActorData.Statistics(StatisticTypes.MaximumFuel))
+        End Get
+        Set(value As Integer)
+            ActorData.Statistics(StatisticTypes.MaximumFuel) = Math.Max(0, value)
+        End Set
+    End Property
+
+    Public Property Fuel As Integer Implements IActor.Fuel
+        Get
+            Return Math.Clamp(ActorData.Statistics(StatisticTypes.Fuel), 0, MaximumFuel)
+        End Get
+        Set(value As Integer)
+            ActorData.Statistics(StatisticTypes.Fuel) = Math.Clamp(value, 0, MaximumFuel)
+        End Set
+    End Property
 End Class

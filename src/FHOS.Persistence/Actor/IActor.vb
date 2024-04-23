@@ -4,6 +4,8 @@
     ReadOnly Property ActorType As String
     Property MaximumOxygen As Integer
     Property Oxygen As Integer
+    Property MaximumFuel As Integer
+    Property Fuel As Integer
     Property Facing As Integer
     ReadOnly Property HasTutorial As Boolean
     ReadOnly Property CurrentTutorial As String

@@ -75,6 +75,24 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property FuelPercent As Integer Implements IAvatarModel.FuelPercent
+        Get
+            Return avatar.Fuel * 100 \ avatar.MaximumFuel
+        End Get
+    End Property
+
+    Public ReadOnly Property FuelHue As Integer Implements IAvatarModel.FuelHue
+        Get
+            If FuelPercent <= 33 Then
+                Return Hue.Red
+            End If
+            If FuelPercent <= 66 Then
+                Return Hue.Yellow
+            End If
+            Return Hue.Green
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         Dim location = avatar.Location
         Dim nextColumn = location.Column + delta.X

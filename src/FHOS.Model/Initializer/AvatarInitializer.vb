@@ -11,6 +11,8 @@ Friend Module AvatarInitializer
         Dim actor = map.Universe.CreateActor(Player, actorLocation)
         actor.MaximumOxygen = descriptor.MaximumOxygen
         actor.Oxygen = descriptor.MaximumOxygen
+        actor.MaximumFuel = descriptor.MaximumFuel
+        actor.Fuel = descriptor.MaximumFuel
         Return actor
     End Function
 End Module

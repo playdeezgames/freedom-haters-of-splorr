@@ -8,7 +8,8 @@
                 New ActorTypeDescriptor(
                     {ChrW(128), ChrW(129), ChrW(130), ChrW(131)},
                     Hue.LightGray,
-                    100,
-                    Function(x) x.LocationType = LocationTypes.Void)}
+                    maximumOxygen:=100,
+                    maximumFuel:=100,
+                    canSpawn:=Function(x) x.LocationType = LocationTypes.Void)}
         }
 End Module

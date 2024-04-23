@@ -59,6 +59,7 @@ Friend Class NavigationState
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"NAV SCREEN", Purple)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"{ .MapName} ({ .X},{ .Y})", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"O2: { .OxygenPercent}%", .OxygenHue)
+            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Fuel: { .FuelPercent}%", .FuelHue)
             If .StarSystem.Current IsNot Nothing Then
                 position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .StarSystem.Current.Name, Black)
             End If

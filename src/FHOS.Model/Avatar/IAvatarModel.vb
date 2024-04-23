@@ -10,6 +10,9 @@
     ReadOnly Property OxygenPercent As Integer
     ReadOnly Property OxygenHue As Integer
 
+    ReadOnly Property FuelPercent As Integer
+    ReadOnly Property FuelHue As Integer
+
     ReadOnly Property Tutorial As IAvatarTutorialModel
     ReadOnly Property StarSystem As IAvatarStarSystemModel
     ReadOnly Property Star As IAvatarStarModel
