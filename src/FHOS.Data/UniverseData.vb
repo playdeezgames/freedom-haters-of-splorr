@@ -11,7 +11,7 @@ Public Class UniverseData
     <JsonPropertyName("p1")>
     Property PlanetVicinities As New BucketData(Of PlanetVicinityData)
     <JsonPropertyName("s2")>
-    Property StarVicinities As New BucketData(Of StarVicinity)
+    Property StarVicinities As New BucketData(Of StarVicinityData)
     <JsonPropertyName("s3")>
     Property StarSystems As New BucketData(Of StarSystemData)
     <JsonPropertyName("s4")>

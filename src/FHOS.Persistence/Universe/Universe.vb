@@ -126,7 +126,7 @@ Public Class Universe
             UniverseData,
             CreateOrRecycle(
                 UniverseData.StarVicinities,
-                New StarVicinity With
+                New StarVicinityData With
                 {
                     .Metadatas = New Dictionary(Of String, String) From
                     {

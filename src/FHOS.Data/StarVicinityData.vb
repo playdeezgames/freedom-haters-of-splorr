@@ -1,3 +1,3 @@
-﻿Public Class StarVicinity
+﻿Public Class StarVicinityData
     Inherits EntityData
 End Class
