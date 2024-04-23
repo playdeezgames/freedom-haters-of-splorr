@@ -1,6 +1,6 @@
 ﻿Imports FHOS.Persistence
 
-Friend Module StarInitializer
+Friend Module StarVicinityInitializer
     Private Const StarVicinityColumns = 15
     Private Const StarVicinityRows = 15
     Friend Sub Initialize(star As IStarVicinity, starLocation As ILocation)

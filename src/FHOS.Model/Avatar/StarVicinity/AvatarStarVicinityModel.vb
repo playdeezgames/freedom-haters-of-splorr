@@ -1,31 +1,31 @@
 ﻿Imports FHOS.Persistence
 Imports SPLORR.Game
 
-Friend Class AvatarStarModel
+Friend Class AvatarStarVicinityModel
     Inherits BaseAvatarModel
-    Implements IAvatarStarModel
+    Implements IAvatarStarVicinityModel
 
     Public Sub New(avatar As IActor)
         MyBase.New(avatar)
     End Sub
 
-    Public ReadOnly Property Current As IStarModel Implements IAvatarStarModel.Current
+    Public ReadOnly Property Current As IStarVicinityModel Implements IAvatarStarVicinityModel.Current
         Get
             Dim star = avatar.Location.Star
             If star IsNot Nothing Then
-                Return New StarModel(star)
+                Return New StarVicinityModel(star)
             End If
             Return Nothing
         End Get
     End Property
 
-    Public ReadOnly Property CanApproach As Boolean Implements IAvatarStarModel.CanApproach
+    Public ReadOnly Property CanApproach As Boolean Implements IAvatarStarVicinityModel.CanApproach
         Get
             Return Current IsNot Nothing
         End Get
     End Property
 
-    Public Sub Approach() Implements IAvatarStarModel.Approach
+    Public Sub Approach() Implements IAvatarStarVicinityModel.Approach
         If CanApproach Then
             DoTurn()
             With avatar.Location.Star

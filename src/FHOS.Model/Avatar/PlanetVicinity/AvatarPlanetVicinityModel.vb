@@ -1,34 +1,34 @@
 ﻿Imports FHOS.Persistence
 Imports SPLORR.Game
 
-Friend Class AvatarPlanetModel
+Friend Class AvatarPlanetVicinityModel
     Inherits BaseAvatarModel
-    Implements IAvatarPlanetModel
+    Implements IAvatarPlanetVicinityModel
 
     Public Sub New(avatar As IActor)
         MyBase.New(avatar)
     End Sub
 
-    Public ReadOnly Property Current As IPlanetModel Implements IAvatarPlanetModel.Current
+    Public ReadOnly Property Current As IPlanetVicinityModel Implements IAvatarPlanetVicinityModel.Current
         Get
-            Dim planet = avatar.Location.Planet
+            Dim planet = avatar.Location.PlanetVicinity
             If planet IsNot Nothing Then
-                Return New PlanetModel(planet)
+                Return New PlanetVicinityModel(planet)
             End If
             Return Nothing
         End Get
     End Property
 
-    Public ReadOnly Property CanApproach As Boolean Implements IAvatarPlanetModel.CanApproach
+    Public ReadOnly Property CanApproach As Boolean Implements IAvatarPlanetVicinityModel.CanApproach
         Get
             Return Current IsNot Nothing
         End Get
     End Property
 
-    Public Sub Approach() Implements IAvatarPlanetModel.Approach
+    Public Sub Approach() Implements IAvatarPlanetVicinityModel.Approach
         If CanApproach Then
             DoTurn()
-            With avatar.Location.Planet
+            With avatar.Location.PlanetVicinity
                 avatar.Location = RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Name)))
             End With
         End If

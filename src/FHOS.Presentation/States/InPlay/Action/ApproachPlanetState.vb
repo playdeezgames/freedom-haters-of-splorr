@@ -17,7 +17,7 @@ Friend Class ApproachPlanetState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.Planet.Approach()
+        Context.Model.Avatar.PlanetVicinity.Approach()
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

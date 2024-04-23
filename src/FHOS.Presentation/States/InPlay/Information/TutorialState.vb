@@ -44,7 +44,7 @@ Friend Class TutorialState
                     })
             },
             {
-                TutorialTypes.StarApproach,
+                TutorialTypes.StarVicinityApproach,
                 New TutorialDetail(
                     "Approaching Star",
                     {
@@ -56,7 +56,7 @@ Friend Class TutorialState
                     })
             },
             {
-                TutorialTypes.PlanetaryEntry,
+                TutorialTypes.PlanetVicinityApproach,
                 New TutorialDetail(
                     "Approaching Planet",
                     {

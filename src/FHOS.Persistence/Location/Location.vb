@@ -130,7 +130,7 @@
         End Set
     End Property
 
-    Public Property Planet As IPlanetVicinity Implements ILocation.Planet
+    Public Property PlanetVicinity As IPlanetVicinity Implements ILocation.PlanetVicinity
         Get
             Dim planetId As Integer
             If LocationData.Statistics.TryGetValue(StatisticTypes.PlanetId, planetId) Then

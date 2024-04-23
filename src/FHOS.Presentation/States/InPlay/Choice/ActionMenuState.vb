@@ -45,7 +45,7 @@ Friend Class ActionMenuState
         If Context.Model.Avatar.Star.CanApproach Then
             result.Add((ApproachStarText, ApproachStarText))
         End If
-        If Context.Model.Avatar.Planet.CanApproach Then
+        If Context.Model.Avatar.PlanetVicinity.CanApproach Then
             result.Add((ApproachPlanetText, ApproachPlanetText))
         End If
         Return result

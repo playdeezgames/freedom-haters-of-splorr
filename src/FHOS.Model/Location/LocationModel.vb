@@ -49,13 +49,13 @@
         End Get
     End Property
 
-    Public ReadOnly Property Star As IStarModel Implements ILocationModel.Star
+    Public ReadOnly Property Star As IStarVicinityModel Implements ILocationModel.Star
         Get
             Dim locationStar = location.Star
             If locationStar Is Nothing Then
                 Return Nothing
             End If
-            Return New StarModel(locationStar)
+            Return New StarVicinityModel(locationStar)
         End Get
     End Property
 End Class

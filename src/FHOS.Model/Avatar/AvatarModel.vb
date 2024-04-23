@@ -46,7 +46,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property HasActions As Boolean Implements IAvatarModel.HasActions
         Get
-            Return StarSystem.CanEnter OrElse Planet.CanApproach OrElse Star.CanApproach
+            Return StarSystem.CanEnter OrElse PlanetVicinity.CanApproach OrElse Star.CanApproach
         End Get
     End Property
 
@@ -62,15 +62,15 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Star As IAvatarStarModel Implements IAvatarModel.Star
+    Public ReadOnly Property Star As IAvatarStarVicinityModel Implements IAvatarModel.Star
         Get
-            Return New AvatarStarModel(avatar)
+            Return New AvatarStarVicinityModel(avatar)
         End Get
     End Property
 
-    Public ReadOnly Property Planet As IAvatarPlanetModel Implements IAvatarModel.Planet
+    Public ReadOnly Property PlanetVicinity As IAvatarPlanetVicinityModel Implements IAvatarModel.PlanetVicinity
         Get
-            Return New AvatarPlanetModel(avatar)
+            Return New AvatarPlanetVicinityModel(avatar)
         End Get
     End Property
 

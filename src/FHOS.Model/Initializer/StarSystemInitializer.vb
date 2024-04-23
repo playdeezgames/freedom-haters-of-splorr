@@ -36,11 +36,11 @@ Friend Module StarSystemInitializer
                 planets.Add((column, row))
                 Dim location = starSystem.Map.GetLocation(column, row)
                 location.LocationType = PlanetTypes.Descriptors(planetType).LocationType
-                location.Tutorial = TutorialTypes.PlanetaryEntry
+                location.Tutorial = TutorialTypes.PlanetVicinityApproach
                 Dim planetName = $"{starSystem.Name} {Romanize(index)}"
                 index += 1
-                location.Planet = starSystem.Universe.CreatePlanet(planetName, planetType)
-                PlanetInitializer.Initialize(location.Planet, location)
+                location.PlanetVicinity = starSystem.Universe.CreatePlanet(planetName, planetType)
+                PlanetVicinityInitializer.Initialize(location.PlanetVicinity, location)
                 tries = 0
             Else
                 tries += 1
@@ -88,8 +88,8 @@ Friend Module StarSystemInitializer
         With location
             .LocationType = locationType
             .Star = starSystem.Universe.CreateStar(starSystem.Name, starSystem.StarType)
-            .Tutorial = TutorialTypes.StarApproach
-            StarInitializer.Initialize(.Star, location)
+            .Tutorial = TutorialTypes.StarVicinityApproach
+            StarVicinityInitializer.Initialize(.Star, location)
         End With
     End Sub
     Private Sub PlaceBoundaries(starSystem As IStarSystem, starLocation As ILocation)
