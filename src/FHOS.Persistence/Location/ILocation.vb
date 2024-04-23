@@ -11,7 +11,7 @@
     Property Tutorial As String
     Sub SetFlag(flag As String)
     Function HasFlag(name As String) As Boolean
-    Property Star As IStar
+    Property Star As IStarVicinity
     Property Planet As IPlanetVicinity
     Property Satellite As ISatellite
 End Interface

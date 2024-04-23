@@ -113,15 +113,15 @@
         End Get
     End Property
 
-    Public Property Star As IStar Implements ILocation.Star
+    Public Property Star As IStarVicinity Implements ILocation.Star
         Get
             Dim starId As Integer
             If LocationData.Statistics.TryGetValue(StatisticTypes.StarId, starId) Then
-                Return New Star(UniverseData, starId)
+                Return New StarVicinity(UniverseData, starId)
             End If
             Return Nothing
         End Get
-        Set(value As IStar)
+        Set(value As IStarVicinity)
             If value Is Nothing Then
                 LocationData.Statistics.Remove(StatisticTypes.StarId)
             Else

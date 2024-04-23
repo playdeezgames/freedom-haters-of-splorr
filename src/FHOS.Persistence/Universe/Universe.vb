@@ -121,8 +121,8 @@ Public Class Universe
         Return New Teleporter(UniverseData, teleporterId)
     End Function
 
-    Public Function CreateStar(starName As String, starType As String) As IStar Implements IUniverse.CreateStar
-        Return New Star(
+    Public Function CreateStar(starName As String, starType As String) As IStarVicinity Implements IUniverse.CreateStar
+        Return New StarVicinity(
             UniverseData,
             CreateOrRecycle(
                 UniverseData.StarVicinities,

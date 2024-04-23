@@ -3,7 +3,7 @@
 Friend Module StarInitializer
     Private Const StarVicinityColumns = 15
     Private Const StarVicinityRows = 15
-    Friend Sub Initialize(star As IStar, starLocation As ILocation)
+    Friend Sub Initialize(star As IStarVicinity, starLocation As ILocation)
         star.Map = star.Universe.CreateMap(
             MapTypes.System,
             $"{star.Name} Vicinity",
@@ -13,7 +13,7 @@ Friend Module StarInitializer
         PlaceBoundaries(star, starLocation)
         PlaceStar(star)
     End Sub
-    Private Sub PlaceStar(star As IStar)
+    Private Sub PlaceStar(star As IStarVicinity)
         Dim starColumn = StarVicinityColumns \ 2
         Dim starRow = StarVicinityRows \ 2
         Dim locationType = StarTypes.Descriptors(star.StarType).LocationType
@@ -25,7 +25,7 @@ Friend Module StarInitializer
             'TODO: initialize surface of planet
         End With
     End Sub
-    Private Sub PlaceBoundaries(star As IStar, starLocation As ILocation)
+    Private Sub PlaceBoundaries(star As IStarVicinity, starLocation As ILocation)
         Dim teleporter = star.Universe.CreateTeleporter(starLocation)
         Dim starFlag = star.Name
         For Each corner In GetCorners(StarVicinityColumns, StarVicinityRows)

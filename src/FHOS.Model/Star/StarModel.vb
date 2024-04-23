@@ -1,9 +1,9 @@
 ﻿Friend Class StarModel
     Implements IStarModel
 
-    Private star As Persistence.IStar
+    Private star As Persistence.IStarVicinity
 
-    Public Sub New(star As Persistence.IStar)
+    Public Sub New(star As Persistence.IStarVicinity)
         Me.star = star
     End Sub
 
