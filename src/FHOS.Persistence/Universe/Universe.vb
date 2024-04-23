@@ -1,5 +1,4 @@
-﻿Imports System.Security.Cryptography.X509Certificates
-Imports FHOS.Data
+﻿Imports FHOS.Data
 
 Public Class Universe
     Inherits UniverseDataClient
@@ -26,7 +25,6 @@ Public Class Universe
     End Property
 
     Public Function CreateMap(mapType As String, mapName As String, columns As Integer, rows As Integer, locationType As String) As IMap Implements IUniverse.CreateMap
-        Dim mapId As Integer
         Dim mapData = New MapData With
             {
                 .Locations = Nothing,
@@ -41,18 +39,24 @@ Public Class Universe
                     {MetadataTypes.Name, mapName}
                 }
             }
-        If UniverseData.Maps.Recycled.Any Then
-            mapId = UniverseData.Maps.Recycled.First
-            UniverseData.Maps.Recycled.Remove(mapId)
-            UniverseData.Maps.Entities(mapId) = mapData
-        Else
-            mapId = UniverseData.Maps.Entities.Count
-            UniverseData.Maps.Entities.Add(mapData)
-        End If
+        Dim mapId = CreateOrRecycle(UniverseData.Maps, mapData)
         mapData.Locations = Enumerable.
-                    Range(0, columns * rows).
-                    Select(Function(x) CreateLocation(locationType, mapId, x Mod rows, x \ rows).Id).ToList
+                            Range(0, columns * rows).
+                            Select(Function(x) CreateLocation(locationType, mapId, x Mod rows, x \ rows).Id).ToList
         Return New Map(UniverseData, mapId)
+    End Function
+
+    Private Function CreateOrRecycle(Of TData)(bucket As BucketData(Of TData), data As TData) As Integer
+        Dim entityId As Integer
+        If bucket.Recycled.Any Then
+            entityId = bucket.Recycled.First
+            bucket.Recycled.Remove(entityId)
+            bucket.Entities(entityId) = data
+        Else
+            entityId = bucket.Entities.Count
+            bucket.Entities.Add(data)
+        End If
+        Return entityId
     End Function
 
     Public Function CreateActor(actorType As String, location As ILocation) As IActor Implements IUniverse.CreateActor
@@ -68,15 +72,7 @@ Public Class Universe
                                         {MetadataTypes.ActorType, actorType}
                                     }
                                  }
-        Dim actorId As Integer
-        If UniverseData.Actors.Recycled.Any Then
-            actorId = UniverseData.Actors.Recycled.First
-            UniverseData.Actors.Recycled.Remove(actorId)
-            UniverseData.Actors.Entities(actorId) = actorData
-        Else
-            actorId = UniverseData.Actors.Entities.Count
-            UniverseData.Actors.Entities.Add(actorData)
-        End If
+        Dim actorId As Integer = CreateOrRecycle(UniverseData.Actors, actorData)
         Dim actor = New Actor(UniverseData, actorId)
         location.Actor = actor
         Return actor
@@ -96,20 +92,11 @@ Public Class Universe
                                     {MetadataTypes.LocationType, locationType}
                                 }
                             }
-        Dim locationId As Integer
-        If UniverseData.Locations.Recycled.Any Then
-            locationId = UniverseData.Locations.Recycled.First
-            UniverseData.Locations.Recycled.Remove(locationId)
-            UniverseData.Locations.Entities(locationId) = locationData
-        Else
-            locationId = UniverseData.Locations.Entities.Count
-            UniverseData.Locations.Entities.Add(locationData)
-        End If
+        Dim locationId As Integer = CreateOrRecycle(UniverseData.Locations, locationData)
         Return New Location(UniverseData, locationId)
     End Function
 
     Public Function CreateStarSystem(starSystemName As String, starType As String) As IStarSystem Implements IUniverse.CreateStarSystem
-        Dim starSystemId As Integer
         Dim starSystemData = New StarSystemData With
             {
                 .Metadatas = New Dictionary(Of String, String) From
@@ -118,19 +105,11 @@ Public Class Universe
                     {MetadataTypes.StarType, starType}
                 }
             }
-        If UniverseData.StarSystems.Recycled.Any Then
-            starSystemId = UniverseData.StarSystems.Recycled.First
-            UniverseData.StarSystems.Recycled.Remove(starSystemId)
-            UniverseData.StarSystems.Entities(starSystemId) = starSystemData
-        Else
-            starSystemId = UniverseData.StarSystems.Entities.Count
-            UniverseData.StarSystems.Entities.Add(starSystemData)
-        End If
+        Dim starSystemId As Integer = CreateOrRecycle(UniverseData.StarSystems, starSystemData)
         Return New StarSystem(UniverseData, starSystemId)
     End Function
 
     Public Function CreateTeleporter(target As ILocation) As ITeleporter Implements IUniverse.CreateTeleporter
-        Dim teleporterId As Integer
         Dim teleporterData As New TeleporterData With
             {
                 .Statistics = New Dictionary(Of String, Integer) From
@@ -138,77 +117,52 @@ Public Class Universe
                     {StatisticTypes.LocationId, target.Id}
                 }
             }
-        If UniverseData.Teleporters.Recycled.Any Then
-            teleporterId = UniverseData.Teleporters.Recycled.First
-            UniverseData.Teleporters.Recycled.Remove(teleporterId)
-            UniverseData.Teleporters.Entities(teleporterId) = teleporterData
-        Else
-            teleporterId = UniverseData.Teleporters.Entities.Count
-            UniverseData.Teleporters.Entities.Add(teleporterData)
-        End If
+        Dim teleporterId As Integer = CreateOrRecycle(UniverseData.Teleporters, teleporterData)
         Return New Teleporter(UniverseData, teleporterId)
     End Function
 
     Public Function CreateStar(starName As String, starType As String) As IStar Implements IUniverse.CreateStar
-        Dim starId As Integer
-        Dim starData = New StarData With
-            {
-                .Metadatas = New Dictionary(Of String, String) From
+        Return New Star(
+            UniverseData,
+            CreateOrRecycle(
+                UniverseData.Stars,
+                New StarData With
                 {
-                    {MetadataTypes.Name, starName},
-                    {MetadataTypes.StarType, starType}
-                }
-            }
-        If UniverseData.Stars.Recycled.Any Then
-            starId = UniverseData.Stars.Recycled.First
-            UniverseData.Stars.Recycled.Remove(starId)
-            UniverseData.Stars.Entities(starId) = starData
-        Else
-            starId = UniverseData.Stars.Entities.Count
-            UniverseData.Stars.Entities.Add(starData)
-        End If
-        Return New Star(UniverseData, starId)
+                    .Metadatas = New Dictionary(Of String, String) From
+                    {
+                        {MetadataTypes.Name, starName},
+                        {MetadataTypes.StarType, starType}
+                    }
+                }))
     End Function
 
     Public Function CreatePlanet(planetName As String, planetType As String) As IPlanet Implements IUniverse.CreatePlanet
-        Dim planetId As Integer
-        Dim planetData = New PlanetData With
-            {
-                .Metadatas = New Dictionary(Of String, String) From
-{
-                    {MetadataTypes.Name, planetName},
-                    {MetadataTypes.PlanetType, planetType}
-                }
-            }
-        If UniverseData.Planets.Recycled.Any Then
-            planetId = UniverseData.Planets.Recycled.First
-            UniverseData.Planets.Recycled.Remove(planetId)
-            UniverseData.Planets.Entities(planetId) = planetData
-        Else
-            planetId = UniverseData.Planets.Entities.Count
-            UniverseData.Planets.Entities.Add(planetData)
-        End If
-        Return New Planet(UniverseData, planetId)
+        Return New Planet(
+            UniverseData,
+            CreateOrRecycle(
+                UniverseData.Planets,
+                New PlanetData With
+                {
+                    .Metadatas = New Dictionary(Of String, String) From
+                    {
+                        {MetadataTypes.Name, planetName},
+                        {MetadataTypes.PlanetType, planetType}
+                    }
+                }))
     End Function
 
     Public Function CreateSatellite(satelliteName As String, satelliteType As String) As ISatellite Implements IUniverse.CreateSatellite
-        Dim satelliteId As Integer
-        Dim satelliteData = New SatelliteData With
-            {
-                .Metadatas = New Dictionary(Of String, String) From
-{
-                    {MetadataTypes.Name, satelliteName},
-                    {MetadataTypes.SatelliteType, satelliteType}
-                }
-            }
-        If UniverseData.Satellites.Recycled.Any Then
-            satelliteId = UniverseData.Satellites.Recycled.First
-            UniverseData.Satellites.Recycled.Remove(satelliteId)
-            UniverseData.Satellites.Entities(satelliteId) = satelliteData
-        Else
-            satelliteId = UniverseData.Satellites.Entities.Count
-            UniverseData.Satellites.Entities.Add(satelliteData)
-        End If
-        Return New Satellite(UniverseData, satelliteId)
+        Return New Satellite(
+            UniverseData,
+            CreateOrRecycle(
+                UniverseData.Satellites,
+                New SatelliteData With
+                {
+                    .Metadatas = New Dictionary(Of String, String) From
+                    {
+                        {MetadataTypes.Name, satelliteName},
+                        {MetadataTypes.SatelliteType, satelliteType}
+                    }
+                }))
     End Function
 End Class
