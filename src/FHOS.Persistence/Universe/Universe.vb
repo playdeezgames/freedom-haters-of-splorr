@@ -125,8 +125,8 @@ Public Class Universe
         Return New Star(
             UniverseData,
             CreateOrRecycle(
-                UniverseData.Stars,
-                New StarData With
+                UniverseData.StarVicinities,
+                New StarVicinity With
                 {
                     .Metadatas = New Dictionary(Of String, String) From
                     {
@@ -140,8 +140,8 @@ Public Class Universe
         Return New Planet(
             UniverseData,
             CreateOrRecycle(
-                UniverseData.Planets,
-                New PlanetData With
+                UniverseData.PlanetVicinities,
+                New PlanetVicinityData With
                 {
                     .Metadatas = New Dictionary(Of String, String) From
                     {

@@ -9,9 +9,9 @@ Public Class UniverseData
     <JsonPropertyName("m2")>
     Property Maps As New BucketData(Of MapData)
     <JsonPropertyName("p1")>
-    Property Planets As New BucketData(Of PlanetData)
+    Property PlanetVicinities As New BucketData(Of PlanetVicinityData)
     <JsonPropertyName("s2")>
-    Property Stars As New BucketData(Of StarData)
+    Property StarVicinities As New BucketData(Of StarVicinity)
     <JsonPropertyName("s3")>
     Property StarSystems As New BucketData(Of StarSystemData)
     <JsonPropertyName("s4")>

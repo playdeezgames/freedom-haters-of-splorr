@@ -3,9 +3,9 @@
 Friend Class StarDataClient
     Inherits UniverseDataClient
     Protected ReadOnly StarId As Integer
-    Protected ReadOnly Property StarData As StarData
+    Protected ReadOnly Property StarData As StarVicinity
         Get
-            Return UniverseData.Stars.Entities(StarId)
+            Return UniverseData.StarVicinities.Entities(StarId)
         End Get
     End Property
     Public Sub New(universeData As Data.UniverseData, starId As Integer)
