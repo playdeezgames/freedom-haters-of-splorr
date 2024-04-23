@@ -166,9 +166,9 @@
 
     Public Property Planet As IPlanet Implements ILocation.Planet
         Get
-            Dim satelliteId As Integer
-            If LocationData.Statistics.TryGetValue(StatisticTypes.PlanetId, satelliteId) Then
-                Return New Planet(UniverseData, satelliteId)
+            Dim planetId As Integer
+            If LocationData.Statistics.TryGetValue(StatisticTypes.PlanetId, planetId) Then
+                Return New Planet(UniverseData, planetId)
             End If
             Return Nothing
         End Get
@@ -177,6 +177,23 @@
                 LocationData.Statistics.Remove(StatisticTypes.PlanetId)
             Else
                 LocationData.Statistics(StatisticTypes.PlanetId) = value.Id
+            End If
+        End Set
+    End Property
+
+    Public Property Star As IStar Implements ILocation.Star
+        Get
+            Dim starId As Integer
+            If LocationData.Statistics.TryGetValue(StatisticTypes.StarId, starId) Then
+                Return New Star(UniverseData, starId)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IStar)
+            If value Is Nothing Then
+                LocationData.Statistics.Remove(StatisticTypes.StarId)
+            Else
+                LocationData.Statistics(StatisticTypes.StarId) = value.Id
             End If
         End Set
     End Property

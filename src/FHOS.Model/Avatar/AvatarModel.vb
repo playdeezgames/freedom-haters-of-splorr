@@ -49,7 +49,8 @@ Friend Class AvatarModel
             Return StarSystem.CanEnter OrElse
                 PlanetVicinity.CanApproach OrElse
                 StarVicinity.CanApproach OrElse
-                Planet.CanRefillOxygen
+                Planet.CanRefillOxygen OrElse
+                Star.CanRefillFuel
         End Get
     End Property
 
@@ -110,6 +111,12 @@ Friend Class AvatarModel
     Public ReadOnly Property Planet As IAvatarPlanetModel Implements IAvatarModel.Planet
         Get
             Return New AvatarPlanetModel(avatar)
+        End Get
+    End Property
+
+    Public ReadOnly Property Star As IAvatarStarModel Implements IAvatarModel.Star
+        Get
+            Return New AvatarStarModel(avatar)
         End Get
     End Property
 

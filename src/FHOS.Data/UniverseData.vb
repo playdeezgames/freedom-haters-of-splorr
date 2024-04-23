@@ -18,6 +18,8 @@ Public Class UniverseData
     Property StarSystems As New BucketData(Of StarSystemData)
     <JsonPropertyName("s4")>
     Property Satellites As New BucketData(Of SatelliteData)
+    <JsonPropertyName("s5")>
+    Property Stars As New BucketData(Of StarData)
     <JsonPropertyName("t1")>
     Property Teleporters As New BucketData(Of TeleporterData)
 End Class

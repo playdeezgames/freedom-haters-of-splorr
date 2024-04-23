@@ -15,4 +15,5 @@
     Property PlanetVicinity As IPlanetVicinity
     Property Planet As IPlanet
     Property Satellite As ISatellite
+    Property Star As IStar
 End Interface

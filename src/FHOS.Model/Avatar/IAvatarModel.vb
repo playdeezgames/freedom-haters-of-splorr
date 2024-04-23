@@ -16,8 +16,11 @@
     ReadOnly Property CanMove As Boolean
 
     ReadOnly Property Tutorial As IAvatarTutorialModel
+
     ReadOnly Property StarSystem As IAvatarStarSystemModel
     ReadOnly Property StarVicinity As IAvatarStarVicinityModel
+    ReadOnly Property Star As IAvatarStarModel
+
     ReadOnly Property PlanetVicinity As IAvatarPlanetVicinityModel
     ReadOnly Property Planet As IAvatarPlanetModel
 End Interface
