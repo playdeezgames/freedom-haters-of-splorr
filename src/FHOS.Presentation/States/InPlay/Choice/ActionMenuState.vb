@@ -7,6 +7,7 @@ Friend Class ActionMenuState
     Private Const ApproachStarText = "Approach Star"
     Private Const RefillOxygenText = "Refill Oxygen"
     Private Const RefuelText = "Refuel"
+    Private Const StarSystemListText = "Known Star Systems..."
 
     Public Sub New(
                   parent As IGameController,
@@ -21,23 +22,20 @@ Friend Class ActionMenuState
             BoilerplateState.Neutral)
     End Sub
 
+    Private ReadOnly actionMap As IReadOnlyDictionary(Of String, String) =
+        New Dictionary(Of String, String) From
+        {
+            {GoBackText, BoilerplateState.Neutral},
+            {EnterStarSystemText, GameState.EnterStarSystem},
+            {ApproachPlanetText, GameState.ApproachPlanet},
+            {ApproachStarText, GameState.ApproachStar},
+            {RefillOxygenText, GameState.RefillOxygen},
+            {RefuelText, GameState.Refuel},
+            {StarSystemListText, GameState.StarSystemList}
+        }
+
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
-        Select Case value.Item
-            Case GoBackText
-                SetState(BoilerplateState.Neutral)
-            Case EnterStarSystemText
-                SetState(GameState.EnterStarSystem)
-            Case ApproachPlanetText
-                SetState(GameState.ApproachPlanet)
-            Case ApproachStarText
-                SetState(GameState.ApproachStar)
-            Case RefillOxygenText
-                SetState(GameState.RefillOxygen)
-            Case RefuelText
-                SetState(GameState.Refuel)
-            Case Else
-                Throw New NotImplementedException
-        End Select
+        SetState(actionMap(value.Item))
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
@@ -45,6 +43,9 @@ Friend Class ActionMenuState
             {
                 (GoBackText, GoBackText)
             }
+        If Context.Model.Avatar.KnowsStarSystems Then
+            result.Add((StarSystemListText, StarSystemListText))
+        End If
         If Context.Model.Avatar.StarSystem.CanEnter Then
             result.Add((EnterStarSystemText, EnterStarSystemText))
         End If

@@ -9,6 +9,8 @@
     Property Facing As Integer
     ReadOnly Property HasTutorial As Boolean
     ReadOnly Property CurrentTutorial As String
+    ReadOnly Property KnowsStarSystems As Boolean
+    ReadOnly Property KnownStarSystems As IEnumerable(Of IStarSystem)
     Sub DismissTutorial()
     Sub SetFlag(flag As String)
     Sub AddStarSystem(starSystem As IStarSystem)

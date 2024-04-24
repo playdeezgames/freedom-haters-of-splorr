@@ -116,4 +116,16 @@
             ActorData.Statistics(StatisticTypes.Fuel) = Math.Clamp(value, 0, MaximumFuel)
         End Set
     End Property
+
+    Public ReadOnly Property KnowsStarSystems As Boolean Implements IActor.KnowsStarSystems
+        Get
+            Return ActorData.StarSystems.Any
+        End Get
+    End Property
+
+    Public ReadOnly Property KnownStarSystems As IEnumerable(Of IStarSystem) Implements IActor.KnownStarSystems
+        Get
+            Return ActorData.StarSystems.Select(Function(x) New StarSystem(UniverseData, x)).OrderBy(Function(x) x.Name)
+        End Get
+    End Property
 End Class

@@ -15,4 +15,6 @@
     Friend Const Dead = "Dead"
     Friend Const RefillOxygen = "RefillOxygen"
     Friend Const Refuel = "Refuel"
+    Friend Const StarSystemList = "StarSystemList"
+    Friend Const StarSystemDetails = "StarSystemDetails"
 End Module

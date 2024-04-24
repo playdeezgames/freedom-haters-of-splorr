@@ -50,7 +50,8 @@ Friend Class AvatarModel
                 PlanetVicinity.CanApproach OrElse
                 StarVicinity.CanApproach OrElse
                 Planet.CanRefillOxygen OrElse
-                Star.CanRefillFuel
+                Star.CanRefillFuel OrElse
+                KnowsStarSystems
         End Get
     End Property
 
@@ -117,6 +118,18 @@ Friend Class AvatarModel
     Public ReadOnly Property Star As IAvatarStarModel Implements IAvatarModel.Star
         Get
             Return New AvatarStarModel(avatar)
+        End Get
+    End Property
+
+    Public ReadOnly Property KnowsStarSystems As Boolean Implements IAvatarModel.KnowsStarSystems
+        Get
+            Return avatar.KnowsStarSystems
+        End Get
+    End Property
+
+    Public ReadOnly Property StarSystemList As IEnumerable(Of (Text As String, Item As Integer)) Implements IAvatarModel.StarSystemList
+        Get
+            Return avatar.KnownStarSystems.Select(Function(x) (x.Name, x.Id))
         End Get
     End Property
 
