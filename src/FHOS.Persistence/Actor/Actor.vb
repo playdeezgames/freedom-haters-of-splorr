@@ -47,6 +47,10 @@
         ActorData.Flags.Add(flag)
     End Sub
 
+    Public Sub AddStarSystem(starSystem As IStarSystem) Implements IActor.AddStarSystem
+        ActorData.StarSystems.Add(starSystem.Id)
+    End Sub
+
     Public ReadOnly Property ActorType As String Implements IActor.ActorType
         Get
             Return ActorData.Metadatas(MetadataTypes.ActorType)

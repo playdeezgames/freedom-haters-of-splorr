@@ -18,12 +18,14 @@ Friend Class NeutralState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
+
         If Context.Model.Avatar.IsDead Then
             SetState(GameState.Dead)
         ElseIf Context.Model.Avatar.Tutorial.HasAny Then
             SetState(GameState.Tutorial)
         Else
-            SetState(Navigation)
+            SetState(GameState.Navigation)
         End If
+
     End Sub
 End Class

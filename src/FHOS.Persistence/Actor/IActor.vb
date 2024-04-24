@@ -11,5 +11,6 @@
     ReadOnly Property CurrentTutorial As String
     Sub DismissTutorial()
     Sub SetFlag(flag As String)
+    Sub AddStarSystem(starSystem As IStarSystem)
     Function HasFlag(flag As String) As Boolean
 End Interface

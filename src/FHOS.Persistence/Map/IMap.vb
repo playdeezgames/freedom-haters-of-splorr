@@ -5,4 +5,5 @@
     ReadOnly Property Name As String
     ReadOnly Property Id As Integer
     ReadOnly Property Size As (Columns As Integer, Rows As Integer)
+    Property StarSystem As IStarSystem
 End Interface

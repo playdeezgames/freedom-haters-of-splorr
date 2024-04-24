@@ -13,6 +13,7 @@ Friend Module StarSystemInitializer
             SystemMapColumns,
             SystemMapRows,
             LocationTypes.Void)
+        starSystem.Map.StarSystem = starSystem
         PlaceBoundaries(starSystem, starLocation)
         PlaceStar(starSystem)
         PlacePlanets(starSystem)
