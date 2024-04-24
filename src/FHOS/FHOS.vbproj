@@ -43,6 +43,7 @@
     <None Remove="Content\Fonts\CyFont4x6.json" />
     <None Remove="Content\Fonts\CyFont5x7.json" />
     <None Remove="Content\Fonts\CyFont8x8.json" />
+    <None Remove="Content\Fonts\Sigmo.json" />
     <None Remove="Content\hue.json" />
     <None Remove="Content\keys.json" />
     <None Remove="Content\mux.json" />
@@ -124,6 +125,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Fonts\CyFont8x8.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\Sigmo.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\hue.json">

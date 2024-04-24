@@ -56,9 +56,19 @@ Public Class FHOSContext
     End Sub
     Public Overrides Sub ShowSplashContent(displayBuffer As IPixelSink, font As Font)
         ShowTitle(displayBuffer, font)
+        ShowLogo(displayBuffer, (0, 0))
         ShowControls(displayBuffer)
         ShowSubtitle(displayBuffer, font)
         ShowStatusBar(displayBuffer, font, ControlsText(aButton:=ContinueText), UIPalette.Background, UIPalette.Footer)
+    End Sub
+
+    Private Sub ShowLogo(displayBuffer As IPixelSink, position As (X As Integer, Y As Integer))
+        Dim font = Me.Font("Sigmo")
+        displayBuffer.Fill(position, (font.TextWidth(ChrW(0)), font.Height), Hue.Cyan)
+        font.WriteLeftText(displayBuffer, position, ChrW(0), Hue.Black)
+        font.WriteLeftText(displayBuffer, position, ChrW(1), Hue.Brown)
+        font.WriteLeftText(displayBuffer, position, ChrW(2), Hue.Pink)
+        font.WriteLeftText(displayBuffer, position, ChrW(3), Hue.White)
     End Sub
 
     Private Sub ShowControls(displayBuffer As IPixelSink)

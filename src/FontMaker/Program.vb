@@ -11,6 +11,12 @@ Module Program
             8,
             "..\..\..\..\FHOS\Content\Fonts\Coco.json",
             0)
+        MakeFont(
+            "..\..\..\..\..\sources\inputs\sigmo.png",
+            25,
+            25,
+            "..\..\..\..\FHOS\Content\Fonts\Sigmo.json",
+            0)
     End Sub
     Private Sub MakeFont(
                         inputFilename As String,
