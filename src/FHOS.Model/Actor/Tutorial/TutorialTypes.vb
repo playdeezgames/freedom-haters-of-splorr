@@ -4,6 +4,7 @@
     Public Const StarVicinityApproach As String = "StarVicinityApproach"
     Public Const PlanetLand As String = "PlanetLand"
     Public Const SatelliteApproach As String = "SatelliteApproach"
+    Public Const RefuelAtStar As String = "RefuelAtStar"
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, TutorialDescriptor) =
         New Dictionary(Of String, TutorialDescriptor) From
         {
@@ -11,6 +12,7 @@
             {PlanetVicinityApproach, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{PlanetVicinityApproach}")},
             {StarVicinityApproach, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{StarVicinityApproach}")},
             {PlanetLand, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{PlanetLand}")},
-            {SatelliteApproach, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{SatelliteApproach}")}
+            {SatelliteApproach, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{SatelliteApproach}")},
+            {RefuelAtStar, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{RefuelAtStar}")}
         }
 End Module

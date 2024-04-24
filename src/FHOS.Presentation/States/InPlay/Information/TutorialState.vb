@@ -90,6 +90,18 @@ Friend Class TutorialState
                         New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
                         New TutorialDetailLine("then choose 'Land on Planet'", Hue.Black)
                     })
+            },
+            {
+                TutorialTypes.RefuelAtStar,
+                New TutorialDetail(
+                    "Refuel at Star",
+                    {
+                        New TutorialDetailLine("You have reached a star!", Hue.Black),
+                        New TutorialDetailLine("", Hue.Black),
+                        New TutorialDetailLine("To refuel,", Hue.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
+                        New TutorialDetailLine("then choose 'Refuel'", Hue.Black)
+                    })
             }
         }
 

@@ -22,4 +22,10 @@ Friend Class AvatarStarModel
             Return Nothing
         End Get
     End Property
+
+    Public Sub Refuel() Implements IAvatarStarModel.Refuel
+        If CanRefillFuel Then
+            avatar.Fuel = avatar.MaximumFuel
+        End If
+    End Sub
 End Class

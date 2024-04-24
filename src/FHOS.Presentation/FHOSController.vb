@@ -24,6 +24,7 @@ Public Class FHOSController
         SetState(GameState.ApproachStar, New ApproachStarState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Dead, New DeadState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.RefillOxygen, New RefillOxygenState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Refuel, New RefuelState(Me, AddressOf SetCurrentState, context))
         SetCurrentState(BoilerplateState.Splash, True)
     End Sub
 End Class

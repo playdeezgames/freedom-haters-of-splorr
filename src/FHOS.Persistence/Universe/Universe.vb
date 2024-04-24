@@ -180,4 +180,19 @@ Public Class Universe
                     }
                 }))
     End Function
+
+    Public Function CreateStar(starName As String, starType As String) As IStar Implements IUniverse.CreateStar
+        Return New Star(
+            UniverseData,
+            CreateOrRecycle(
+                UniverseData.Stars,
+                New StarData With
+                {
+                    .Metadatas = New Dictionary(Of String, String) From
+                    {
+                        {MetadataTypes.Name, starName},
+                        {MetadataTypes.StarType, starType}
+                    }
+                }))
+    End Function
 End Class

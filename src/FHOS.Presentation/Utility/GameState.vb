@@ -14,4 +14,5 @@
     Friend Const ApproachStar = "ApproachStar"
     Friend Const Dead = "Dead"
     Friend Const RefillOxygen = "RefillOxygen"
+    Friend Const Refuel = "Refuel"
 End Module

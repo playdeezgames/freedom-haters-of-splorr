@@ -13,16 +13,16 @@ Friend Module StarVicinityInitializer
         PlaceBoundaries(star, starLocation)
         PlaceStar(star)
     End Sub
-    Private Sub PlaceStar(star As IStarVicinity)
+    Private Sub PlaceStar(starVicinity As IStarVicinity)
         Dim starColumn = StarVicinityColumns \ 2
         Dim starRow = StarVicinityRows \ 2
-        Dim locationType = StarTypes.Descriptors(star.StarType).LocationType
-        Dim location = star.Map.GetLocation(starColumn, starRow)
+        Dim locationType = StarTypes.Descriptors(starVicinity.StarType).LocationType
+        Dim location = starVicinity.Map.GetLocation(starColumn, starRow)
         With location
             .LocationType = locationType
-            'TODO: create surface of planet
-            'TODO: Tutorial?
-            'TODO: initialize surface of planet
+            .Star = starVicinity.Universe.CreateStar(starVicinity.Name, starVicinity.StarType)
+            .Tutorial = TutorialTypes.RefuelAtStar
+            'TODO: initialize further down?
         End With
     End Sub
     Private Sub PlaceBoundaries(star As IStarVicinity, starLocation As ILocation)

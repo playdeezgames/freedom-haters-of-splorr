@@ -6,6 +6,7 @@ Friend Class ActionMenuState
     Private Const ApproachPlanetText = "Approach Planet"
     Private Const ApproachStarText = "Approach Star"
     Private Const RefillOxygenText = "Refill Oxygen"
+    Private Const RefuelText = "Refuel"
 
     Public Sub New(
                   parent As IGameController,
@@ -32,6 +33,8 @@ Friend Class ActionMenuState
                 SetState(GameState.ApproachStar)
             Case RefillOxygenText
                 SetState(GameState.RefillOxygen)
+            Case RefuelText
+                SetState(GameState.Refuel)
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -53,6 +56,9 @@ Friend Class ActionMenuState
         End If
         If Context.Model.Avatar.Planet.CanRefillOxygen Then
             result.Add((RefillOxygenText, RefillOxygenText))
+        End If
+        If Context.Model.Avatar.Star.CanRefillFuel Then
+            result.Add((RefuelText, RefuelText))
         End If
         Return result
     End Function
