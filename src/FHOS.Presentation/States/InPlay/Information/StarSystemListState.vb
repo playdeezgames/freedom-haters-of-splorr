@@ -1,8 +1,9 @@
-﻿Imports SPLORR.UI
+﻿Imports FHOS.Model
+Imports SPLORR.UI
 
 Friend Class StarSystemListState
-    Inherits BasePickerState(Of Model.IUniverseModel, Integer)
-    Friend Shared Property SelectedStarSystemId As Integer
+    Inherits BasePickerState(Of Model.IUniverseModel, IStarSystemModel)
+    Friend Shared Property SelectedStarSystem As IStarSystemModel
 
     Public Sub New(
                   parent As IGameController,
@@ -17,12 +18,12 @@ Friend Class StarSystemListState
             GameState.ActionMenu)
     End Sub
 
-    Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As Integer))
-        SelectedStarSystemId = value.Item
+    Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IStarSystemModel))
+        SelectedStarSystem = value.Item
         SetState(GameState.StarSystemDetails)
     End Sub
 
-    Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As Integer))
+    Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IStarSystemModel))
         Return Context.Model.Avatar.StarSystemList.ToList
     End Function
 End Class

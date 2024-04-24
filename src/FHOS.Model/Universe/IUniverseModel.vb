@@ -3,7 +3,6 @@ Public Interface IUniverseModel
     Sub Load(filename As String)
     Sub Abandon()
     Sub Embark()
-
     ReadOnly Property GalacticAge As IGalacticAgeModel
     ReadOnly Property GalacticDensity As IGalacticDensityModel
 

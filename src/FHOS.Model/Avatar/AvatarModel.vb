@@ -127,9 +127,9 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property StarSystemList As IEnumerable(Of (Text As String, Item As Integer)) Implements IAvatarModel.StarSystemList
+    Public ReadOnly Property StarSystemList As IEnumerable(Of (Text As String, Item As IStarSystemModel)) Implements IAvatarModel.StarSystemList
         Get
-            Return avatar.KnownStarSystems.Select(Function(x) (x.Name, x.Id))
+            Return avatar.KnownStarSystems.Select(Function(x) (x.Name, CType(New StarSystemModel(x), IStarSystemModel)))
         End Get
     End Property
 
