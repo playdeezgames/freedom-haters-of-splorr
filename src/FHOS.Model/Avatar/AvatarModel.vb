@@ -133,9 +133,9 @@ Friend Class AvatarModel
         Dim nextLocation = map.GetLocation(nextColumn, nextRow)
         If nextLocation IsNot Nothing Then
             If nextLocation.HasTeleporter Then
-                avatar.Location = nextLocation.Teleporter.Target
+                SetLocation(nextLocation.Teleporter.Target)
             Else
-                avatar.Location = nextLocation
+                SetLocation(nextLocation)
             End If
         End If
     End Sub

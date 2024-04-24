@@ -28,7 +28,7 @@ Friend Class AvatarStarSystemModel
         If CanEnter Then
             DoTurn()
             With avatar.Location.StarSystem
-                avatar.Location = RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Name)))
+                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Name))))
             End With
         End If
     End Sub
