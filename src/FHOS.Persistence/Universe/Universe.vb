@@ -194,8 +194,8 @@ Public Class Universe
                 }))
     End Function
 
-    Public Function CreateStar(starName As String, starType As String) As IStar Implements IUniverse.CreateStar
-        Return New Star(
+    Public Function CreateStar(starVicinity As IStarVicinity) As IStar Implements IUniverse.CreateStar
+        Dim star = New Star(
             UniverseData,
             CreateOrRecycle(
                 UniverseData.Stars,
@@ -203,9 +203,11 @@ Public Class Universe
                 {
                     .Metadatas = New Dictionary(Of String, String) From
                     {
-                        {MetadataTypes.Name, starName},
-                        {MetadataTypes.StarType, starType}
+                        {MetadataTypes.Name, starVicinity.Name},
+                        {MetadataTypes.StarType, starVicinity.StarType}
                     }
                 }))
+        starVicinity.AddStar(star)
+        Return star
     End Function
 End Class

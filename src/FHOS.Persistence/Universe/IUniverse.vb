@@ -8,6 +8,6 @@ Public Interface IUniverse
     Function CreatePlanetVicinity(starSystem As IStarSystem, planetName As String, planetType As String) As IPlanetVicinity
     Function CreatePlanet(planetName As String, planetType As String) As IPlanet
     Function CreateSatellite(satelliteName As String, satelliteType As String) As ISatellite
-    Function CreateStar(starName As String, starType As String) As IStar
+    Function CreateStar(starVicinity As IStarVicinity) As IStar
     Property Avatar As IActor
 End Interface

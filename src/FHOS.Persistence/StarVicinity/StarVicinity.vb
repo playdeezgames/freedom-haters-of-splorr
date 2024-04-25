@@ -46,4 +46,8 @@
             Return StarVicinityData.Metadatas(MetadataTypes.StarType)
         End Get
     End Property
+
+    Public Sub AddStar(star As IStar) Implements IStarVicinity.AddStar
+        StarVicinityData.Stars.Add(star.Id)
+    End Sub
 End Class
