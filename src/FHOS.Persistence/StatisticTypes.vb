@@ -19,4 +19,5 @@
     Friend Const MaximumFuel = "MaximumFuel"
     Friend Const PlanetId = "PlanetId"
     Friend Const StarId = "StarId"
+    Friend Const Turn = "Turn"
 End Module

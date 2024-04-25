@@ -66,7 +66,8 @@ Public Class Universe
                                     .Statistics = New Dictionary(Of String, Integer) From
                                     {
                                         {StatisticTypes.LocationId, location.Id},
-                                        {StatisticTypes.Facing, 1}
+                                        {StatisticTypes.Facing, 1},
+                                        {StatisticTypes.Turn, 1}
                                     },
                                     .Metadatas = New Dictionary(Of String, String) From
                                     {

@@ -128,4 +128,13 @@
             Return ActorData.StarSystems.Select(Function(x) New StarSystem(UniverseData, x)).OrderBy(Function(x) x.Name)
         End Get
     End Property
+
+    Public Property Turn As Integer Implements IActor.Turn
+        Get
+            Return ActorData.Statistics(StatisticTypes.Turn)
+        End Get
+        Set(value As Integer)
+            ActorData.Statistics(StatisticTypes.Turn) = value
+        End Set
+    End Property
 End Class

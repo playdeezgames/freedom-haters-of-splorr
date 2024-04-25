@@ -133,6 +133,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property Turn As Integer Implements IAvatarModel.Turn
+        Get
+            Return avatar.Turn
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         If Not CanMove Then
             Return

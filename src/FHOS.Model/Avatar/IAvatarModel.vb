@@ -6,6 +6,7 @@
 
     Sub Move(delta As (X As Integer, Y As Integer))
     Sub SetFacing(facing As Integer)
+    ReadOnly Property Turn As Integer
 
     ReadOnly Property OxygenPercent As Integer
     ReadOnly Property OxygenHue As Integer
