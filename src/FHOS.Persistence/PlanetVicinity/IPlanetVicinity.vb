@@ -4,4 +4,5 @@
     ReadOnly Property Universe As IUniverse
     ReadOnly Property PlanetType As String
     Property Map As IMap
+    Sub AddPlanet(planet As IPlanet)
 End Interface

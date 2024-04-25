@@ -179,8 +179,8 @@ Public Class Universe
                 }))
     End Function
 
-    Public Function CreatePlanet(planetName As String, planetType As String) As IPlanet Implements IUniverse.CreatePlanet
-        Return New Planet(
+    Public Function CreatePlanet(planetVicinity As IPlanetVicinity) As IPlanet Implements IUniverse.CreatePlanet
+        Dim planet As IPlanet = New Planet(
             UniverseData,
             CreateOrRecycle(
                 UniverseData.Planets,
@@ -188,10 +188,16 @@ Public Class Universe
                 {
                     .Metadatas = New Dictionary(Of String, String) From
                     {
-                        {MetadataTypes.Name, planetName},
-                        {MetadataTypes.PlanetType, planetType}
+                        {MetadataTypes.Name, planetVicinity.Name},
+                        {MetadataTypes.PlanetType, planetVicinity.PlanetType}
+                    },
+                    .Statistics = New Dictionary(Of String, Integer) From
+                    {
+                        {StatisticTypes.PlanetVicinityId, planetVicinity.Id}
                     }
                 }))
+        planetVicinity.AddPlanet(planet)
+        Return planet
     End Function
 
     Public Function CreateStar(starVicinity As IStarVicinity) As IStar Implements IUniverse.CreateStar
@@ -205,6 +211,10 @@ Public Class Universe
                     {
                         {MetadataTypes.Name, starVicinity.Name},
                         {MetadataTypes.StarType, starVicinity.StarType}
+                    },
+                    .Statistics = New Dictionary(Of String, Integer) From
+                    {
+                        {StatisticTypes.StarVicinityId, starVicinity.Id}
                     }
                 }))
         starVicinity.AddStar(star)

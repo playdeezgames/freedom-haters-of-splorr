@@ -53,10 +53,8 @@ Friend Module PlanetVicinityInitializer
         Dim location = planetVicinity.Map.GetLocation(starColumn, starRow)
         With location
             .LocationType = locationType
-            'TODO: create  planet
             .Tutorial = TutorialTypes.PlanetLand
-            'TODO: initialize planet
-            .Planet = planetVicinity.Universe.CreatePlanet(planetVicinity.Name, planetVicinity.PlanetType)
+            .Planet = planetVicinity.Universe.CreatePlanet(planetVicinity)
             PlanetInitializer.Initialize(.Planet)
         End With
     End Sub

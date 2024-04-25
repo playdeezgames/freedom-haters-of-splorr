@@ -46,4 +46,8 @@
             Return PlanetVicinityData.Metadatas(MetadataTypes.PlanetType)
         End Get
     End Property
+
+    Public Sub AddPlanet(planet As IPlanet) Implements IPlanetVicinity.AddPlanet
+        PlanetVicinityData.Planets.Add(planet.Id)
+    End Sub
 End Class
