@@ -1,4 +1,5 @@
-﻿Imports FHOS.Data
+﻿Imports System.Transactions
+Imports FHOS.Data
 
 Public Class Universe
     Inherits UniverseDataClient
@@ -121,8 +122,8 @@ Public Class Universe
         Return New Teleporter(UniverseData, teleporterId)
     End Function
 
-    Public Function CreateStarVicinity(starName As String, starType As String) As IStarVicinity Implements IUniverse.CreateStarVicinity
-        Return New StarVicinity(
+    Public Function CreateStarVicinity(starSystem As IStarSystem) As IStarVicinity Implements IUniverse.CreateStarVicinity
+        Dim starVicinity = New StarVicinity(
             UniverseData,
             CreateOrRecycle(
                 UniverseData.StarVicinities,
@@ -130,14 +131,20 @@ Public Class Universe
                 {
                     .Metadatas = New Dictionary(Of String, String) From
                     {
-                        {MetadataTypes.Name, starName},
-                        {MetadataTypes.StarType, starType}
+                        {MetadataTypes.Name, starSystem.Name},
+                        {MetadataTypes.StarType, starSystem.StarType}
+                    },
+                    .Statistics = New Dictionary(Of String, Integer) From
+                    {
+                        {StatisticTypes.StarSystemId, starSystem.Id}
                     }
                 }))
+        starSystem.AddStarVicinity(starVicinity)
+        Return starVicinity
     End Function
 
-    Public Function CreatePlanetVicinity(planetName As String, planetType As String) As IPlanetVicinity Implements IUniverse.CreatePlanetVicinity
-        Return New PlanetVicinity(
+    Public Function CreatePlanetVicinity(starSystem As IStarSystem, planetName As String, planetType As String) As IPlanetVicinity Implements IUniverse.CreatePlanetVicinity
+        Dim planetVicinity = New PlanetVicinity(
             UniverseData,
             CreateOrRecycle(
                 UniverseData.PlanetVicinities,
@@ -147,8 +154,14 @@ Public Class Universe
                     {
                         {MetadataTypes.Name, planetName},
                         {MetadataTypes.PlanetType, planetType}
+                    },
+                    .Statistics = New Dictionary(Of String, Integer) From
+                    {
+                        {StatisticTypes.StarSystemId, starSystem.Id}
                     }
                 }))
+        starSystem.AddPlanetVicinity(planetVicinity)
+        Return planetVicinity
     End Function
 
     Public Function CreateSatellite(satelliteName As String, satelliteType As String) As ISatellite Implements IUniverse.CreateSatellite

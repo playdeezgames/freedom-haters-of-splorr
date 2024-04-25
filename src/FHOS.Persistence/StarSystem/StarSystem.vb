@@ -46,4 +46,12 @@
             Return StarSystemData.Metadatas(MetadataTypes.StarType)
         End Get
     End Property
+
+    Public Sub AddStarVicinity(starVicinity As IStarVicinity) Implements IStarSystem.AddStarVicinity
+        StarSystemData.StarVicinities.Add(starVicinity.Id)
+    End Sub
+
+    Public Sub AddPlanetVicinity(planetVicinity As IPlanetVicinity) Implements IStarSystem.AddPlanetVicinity
+        StarSystemData.PlanetVicinities.Add(planetVicinity.Id)
+    End Sub
 End Class
