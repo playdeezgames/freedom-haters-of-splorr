@@ -8,6 +8,7 @@ Friend Class ActionMenuState
     Private Const RefillOxygenText = "Refill Oxygen"
     Private Const RefuelText = "Refuel"
     Private Const StarSystemListText = "Known Star Systems..."
+    Private Const DistressSignalText = "Distress Signal"
 
     Public Sub New(
                   parent As IGameController,
@@ -31,7 +32,8 @@ Friend Class ActionMenuState
             {ApproachStarText, GameState.ApproachStar},
             {RefillOxygenText, GameState.RefillOxygen},
             {RefuelText, GameState.Refuel},
-            {StarSystemListText, GameState.StarSystemList}
+            {StarSystemListText, GameState.StarSystemList},
+            {DistressSignalText, GameState.SignalDistress}
         }
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
@@ -60,6 +62,9 @@ Friend Class ActionMenuState
         End If
         If Context.Model.Avatar.Star.CanRefillFuel Then
             result.Add((RefuelText, RefuelText))
+        End If
+        If Not Context.Model.Avatar.CanMove Then
+            result.Add((DistressSignalText, DistressSignalText))
         End If
         Return result
     End Function

@@ -25,6 +25,12 @@ Public Class Universe
         End Set
     End Property
 
+    Public ReadOnly Property Messages As IMessages Implements IUniverse.Messages
+        Get
+            Return New Messages(UniverseData.Messages)
+        End Get
+    End Property
+
     Public Function CreateMap(mapType As String, mapName As String, columns As Integer, rows As Integer, locationType As String) As IMap Implements IUniverse.CreateMap
         Dim mapData = New MapData With
             {

@@ -27,6 +27,8 @@ Public Class FHOSController
         SetState(GameState.Refuel, New RefuelState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.StarSystemList, New StarSystemListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.StarSystemDetails, New StarSystemDetailsState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.SignalDistress, New SignalDistressState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Message, New MessageState(Me, AddressOf SetCurrentState, context))
         SetCurrentState(BoilerplateState.Splash, True)
     End Sub
 End Class

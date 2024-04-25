@@ -6,6 +6,7 @@
 
     Sub Move(delta As (X As Integer, Y As Integer))
     Sub SetFacing(facing As Integer)
+    Sub DoDistressSignal()
     ReadOnly Property Turn As Integer
     ReadOnly Property Jools As Integer
 

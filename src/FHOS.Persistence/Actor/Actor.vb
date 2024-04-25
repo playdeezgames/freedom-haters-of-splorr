@@ -1,4 +1,6 @@
-﻿Friend Class Actor
+﻿Imports FHOS.Data
+
+Friend Class Actor
     Inherits ActorDataClient
     Implements IActor
 
@@ -26,7 +28,7 @@
         End Set
     End Property
 
-    Private Sub TriggerTutorial(tutorial As String)
+    Public Sub TriggerTutorial(tutorial As String) Implements IActor.TriggerTutorial
         If tutorial Is Nothing Then
             Return
         End If
@@ -49,6 +51,14 @@
 
     Public Sub AddStarSystem(starSystem As IStarSystem) Implements IActor.AddStarSystem
         ActorData.StarSystems.Add(starSystem.Id)
+    End Sub
+
+    Public Sub AddMessage(header As String, ParamArray lines() As (Text As String, Hue As Integer)) Implements IActor.AddMessage
+        UniverseData.Messages.Enqueue(New MessageData With
+                                  {
+                                    .Header = header,
+                                    .Lines = lines.Select(Function(x) New MessageLineData With {.Text = x.Text, .Hue = x.Hue}).ToList
+                                  })
     End Sub
 
     Public ReadOnly Property ActorType As String Implements IActor.ActorType
@@ -145,5 +155,11 @@
         Set(value As Integer)
             ActorData.Statistics(StatisticTypes.Jools) = value
         End Set
+    End Property
+
+    Public ReadOnly Property HasFuel As Boolean Implements IActor.HasFuel
+        Get
+            Return Fuel > 0
+        End Get
     End Property
 End Class

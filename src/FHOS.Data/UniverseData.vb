@@ -22,4 +22,6 @@ Public Class UniverseData
     Property Stars As New BucketData(Of StarData)
     <JsonPropertyName("t1")>
     Property Teleporters As New BucketData(Of TeleporterData)
+    <JsonIgnore>
+    Property Messages As New Queue(Of MessageData)
 End Class

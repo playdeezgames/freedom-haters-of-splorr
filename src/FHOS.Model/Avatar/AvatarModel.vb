@@ -151,6 +151,9 @@ Friend Class AvatarModel
         End If
         DoTurn()
         avatar.Fuel -= 1
+        If Not avatar.HasFuel Then
+            avatar.TriggerTutorial(TutorialTypes.OutOfFuel)
+        End If
         Dim location = avatar.Location
         Dim nextColumn = location.Column + delta.X
         Dim nextRow = location.Row + delta.Y
@@ -167,5 +170,17 @@ Friend Class AvatarModel
 
     Public Sub SetFacing(facing As Integer) Implements IAvatarModel.SetFacing
         avatar.Facing = facing
+    End Sub
+
+    Public Sub DoDistressSignal() Implements IAvatarModel.DoDistressSignal
+        Dim fuelAdded = avatar.MaximumFuel - avatar.Fuel
+        Dim fuelPrice = 1 'TODO: don't just pick a magic number!
+        Dim price = fuelPrice * fuelAdded
+        avatar.Fuel = avatar.MaximumFuel
+        avatar.Jools -= fuelAdded * fuelPrice
+        avatar.AddMessage(
+            "Emergency Refuel",
+            ($"Added {fuelAdded} fuel!", Hue.Black),
+            ($"Price {price} jools!", Hue.Black))
     End Sub
 End Class

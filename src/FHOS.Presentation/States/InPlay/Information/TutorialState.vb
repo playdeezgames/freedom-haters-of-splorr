@@ -102,6 +102,18 @@ Friend Class TutorialState
                         New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
                         New TutorialDetailLine("then choose 'Refuel'", Hue.Black)
                     })
+            },
+            {
+                TutorialTypes.OutOfFuel,
+                New TutorialDetail(
+                    "Out of Fuel!",
+                    {
+                        New TutorialDetailLine("You are out of fuel!", Hue.Black),
+                        New TutorialDetailLine("", Hue.Black),
+                        New TutorialDetailLine("To send a distress signal,", Hue.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
+                        New TutorialDetailLine("then choose 'Distress Signal'", Hue.Black)
+                    })
             }
         }
 

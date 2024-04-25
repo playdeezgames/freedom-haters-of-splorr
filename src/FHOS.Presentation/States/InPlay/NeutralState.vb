@@ -19,7 +19,9 @@ Friend Class NeutralState
     Public Overrides Sub OnStart()
         MyBase.OnStart()
 
-        If Context.Model.Avatar.IsDead Then
+        If Context.Model.Messages.HasAny Then
+            SetState(GameState.Message)
+        ElseIf Context.Model.Avatar.IsDead Then
             SetState(GameState.Dead)
         ElseIf Context.Model.Avatar.Tutorial.HasAny Then
             SetState(GameState.Tutorial)

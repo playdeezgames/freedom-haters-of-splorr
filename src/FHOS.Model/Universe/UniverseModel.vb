@@ -38,6 +38,12 @@ Public Class UniverseModel
         End Get
     End Property
 
+    Public ReadOnly Property Messages As IMessagesModel Implements IUniverseModel.Messages
+        Get
+            Return New MessagesModel(Universe)
+        End Get
+    End Property
+
     Public Sub Save(filename As String) Implements IUniverseModel.Save
         File.WriteAllText(filename, JsonSerializer.Serialize(universeData))
     End Sub

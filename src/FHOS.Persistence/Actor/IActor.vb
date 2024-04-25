@@ -17,4 +17,9 @@
     Function HasFlag(flag As String) As Boolean
     Property Turn As Integer
     Property Jools As Integer
+    Sub TriggerTutorial(tutorial As String)
+    ReadOnly Property HasFuel As Boolean
+    Sub AddMessage(
+                  header As String,
+                  ParamArray lines As (Text As String, Hue As Integer)())
 End Interface

@@ -17,4 +17,6 @@
     Friend Const Refuel = "Refuel"
     Friend Const StarSystemList = "StarSystemList"
     Friend Const StarSystemDetails = "StarSystemDetails"
+    Friend Const SignalDistress = "SignalDistress"
+    Friend Const Message = "Message"
 End Module
