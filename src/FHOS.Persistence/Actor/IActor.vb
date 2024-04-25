@@ -16,4 +16,5 @@
     Sub AddStarSystem(starSystem As IStarSystem)
     Function HasFlag(flag As String) As Boolean
     Property Turn As Integer
+    Property Jools As Integer
 End Interface

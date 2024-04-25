@@ -139,6 +139,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property Jools As Integer Implements IAvatarModel.Jools
+        Get
+            Return avatar.Jools
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         If Not CanMove Then
             Return

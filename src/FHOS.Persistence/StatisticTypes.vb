@@ -20,4 +20,5 @@
     Friend Const PlanetId = "PlanetId"
     Friend Const StarId = "StarId"
     Friend Const Turn = "Turn"
+    Friend Const Jools = "Jools"
 End Module

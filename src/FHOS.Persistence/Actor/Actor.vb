@@ -137,4 +137,13 @@
             ActorData.Statistics(StatisticTypes.Turn) = value
         End Set
     End Property
+
+    Public Property Jools As Integer Implements IActor.Jools
+        Get
+            Return ActorData.Statistics(StatisticTypes.Jools)
+        End Get
+        Set(value As Integer)
+            ActorData.Statistics(StatisticTypes.Jools) = value
+        End Set
+    End Property
 End Class
