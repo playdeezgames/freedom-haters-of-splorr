@@ -50,7 +50,10 @@ Friend Class Actor
     End Sub
 
     Public Sub AddStarSystem(starSystem As IStarSystem) Implements IActor.AddStarSystem
-        ActorData.StarSystems.Add(starSystem.Id)
+        If Not ActorData.StarSystems.Discovered.ContainsKey(starSystem.Id) Then
+            ActorData.StarSystems.Discovered(starSystem.Id) = Turn
+        End If
+        ActorData.StarSystems.Visited(starSystem.Id) = Turn
     End Sub
 
     Public Sub AddMessage(header As String, ParamArray lines() As (Text As String, Hue As Integer)) Implements IActor.AddMessage
@@ -129,13 +132,13 @@ Friend Class Actor
 
     Public ReadOnly Property KnowsStarSystems As Boolean Implements IActor.KnowsStarSystems
         Get
-            Return ActorData.StarSystems.Any
+            Return ActorData.StarSystems.Discovered.Any
         End Get
     End Property
 
     Public ReadOnly Property KnownStarSystems As IEnumerable(Of IStarSystem) Implements IActor.KnownStarSystems
         Get
-            Return ActorData.StarSystems.Select(Function(x) New StarSystem(UniverseData, x)).OrderBy(Function(x) x.Name)
+            Return ActorData.StarSystems.Discovered.Select(Function(x) New StarSystem(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
         End Get
     End Property
 
