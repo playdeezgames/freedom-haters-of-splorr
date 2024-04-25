@@ -46,24 +46,11 @@ Public Class Universe
                     {MetadataTypes.Name, mapName}
                 }
             }
-        Dim mapId = CreateOrRecycle(UniverseData.Maps, mapData)
+        Dim mapId = UniverseData.Maps.CreateOrRecycle(mapData)
         mapData.Locations = Enumerable.
                             Range(0, columns * rows).
                             Select(Function(x) CreateLocation(locationType, mapId, x Mod rows, x \ rows).Id).ToList
         Return New Map(UniverseData, mapId)
-    End Function
-
-    Private Function CreateOrRecycle(Of TData)(bucket As BucketData(Of TData), data As TData) As Integer
-        Dim entityId As Integer
-        If bucket.Recycled.Any Then
-            entityId = bucket.Recycled.First
-            bucket.Recycled.Remove(entityId)
-            bucket.Entities(entityId) = data
-        Else
-            entityId = bucket.Entities.Count
-            bucket.Entities.Add(data)
-        End If
-        Return entityId
     End Function
 
     Public Function CreateActor(actorType As String, location As ILocation) As IActor Implements IUniverse.CreateActor
@@ -81,7 +68,7 @@ Public Class Universe
                                         {MetadataTypes.ActorType, actorType}
                                     }
                                  }
-        Dim actorId As Integer = CreateOrRecycle(UniverseData.Actors, actorData)
+        Dim actorId As Integer = UniverseData.Actors.CreateOrRecycle(actorData)
         Dim actor = New Actor(UniverseData, actorId)
         location.Actor = actor
         Return actor
@@ -101,7 +88,7 @@ Public Class Universe
                                     {MetadataTypes.LocationType, locationType}
                                 }
                             }
-        Dim locationId As Integer = CreateOrRecycle(UniverseData.Locations, locationData)
+        Dim locationId As Integer = UniverseData.Locations.CreateOrRecycle(locationData)
         Return New Location(UniverseData, locationId)
     End Function
 
@@ -114,7 +101,7 @@ Public Class Universe
                     {MetadataTypes.StarType, starType}
                 }
             }
-        Dim starSystemId As Integer = CreateOrRecycle(UniverseData.StarSystems, starSystemData)
+        Dim starSystemId As Integer = UniverseData.StarSystems.CreateOrRecycle(starSystemData)
         Return New StarSystem(UniverseData, starSystemId)
     End Function
 
@@ -126,15 +113,14 @@ Public Class Universe
                     {StatisticTypes.LocationId, target.Id}
                 }
             }
-        Dim teleporterId As Integer = CreateOrRecycle(UniverseData.Teleporters, teleporterData)
+        Dim teleporterId As Integer = UniverseData.Teleporters.CreateOrRecycle(teleporterData)
         Return New Teleporter(UniverseData, teleporterId)
     End Function
 
     Public Function CreateStarVicinity(starSystem As IStarSystem) As IStarVicinity Implements IUniverse.CreateStarVicinity
         Dim starVicinity = New StarVicinity(
             UniverseData,
-            CreateOrRecycle(
-                UniverseData.StarVicinities,
+                UniverseData.StarVicinities.CreateOrRecycle(
                 New StarVicinityData With
                 {
                     .Metadatas = New Dictionary(Of String, String) From
@@ -154,8 +140,7 @@ Public Class Universe
     Public Function CreatePlanetVicinity(starSystem As IStarSystem, planetName As String, planetType As String) As IPlanetVicinity Implements IUniverse.CreatePlanetVicinity
         Dim planetVicinity = New PlanetVicinity(
             UniverseData,
-            CreateOrRecycle(
-                UniverseData.PlanetVicinities,
+                UniverseData.PlanetVicinities.CreateOrRecycle(
                 New PlanetVicinityData With
                 {
                     .Metadatas = New Dictionary(Of String, String) From
@@ -175,8 +160,7 @@ Public Class Universe
     Public Function CreateSatellite(planetVicinity As IPlanetVicinity, satelliteName As String, satelliteType As String) As ISatellite Implements IUniverse.CreateSatellite
         Dim satellite As ISatellite = New Satellite(
             UniverseData,
-            CreateOrRecycle(
-                UniverseData.Satellites,
+                UniverseData.Satellites.CreateOrRecycle(
                 New SatelliteData With
                 {
                     .Metadatas = New Dictionary(Of String, String) From
@@ -196,8 +180,7 @@ Public Class Universe
     Public Function CreatePlanet(planetVicinity As IPlanetVicinity) As IPlanet Implements IUniverse.CreatePlanet
         Dim planet As IPlanet = New Planet(
             UniverseData,
-            CreateOrRecycle(
-                UniverseData.Planets,
+                UniverseData.Planets.CreateOrRecycle(
                 New PlanetData With
                 {
                     .Metadatas = New Dictionary(Of String, String) From
@@ -217,8 +200,7 @@ Public Class Universe
     Public Function CreateStar(starVicinity As IStarVicinity) As IStar Implements IUniverse.CreateStar
         Dim star = New Star(
             UniverseData,
-            CreateOrRecycle(
-                UniverseData.Stars,
+                UniverseData.Stars.CreateOrRecycle(
                 New StarData With
                 {
                     .Metadatas = New Dictionary(Of String, String) From
