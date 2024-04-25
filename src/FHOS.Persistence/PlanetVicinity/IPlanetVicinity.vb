@@ -5,4 +5,5 @@
     ReadOnly Property PlanetType As String
     Property Map As IMap
     Sub AddPlanet(planet As IPlanet)
+    Sub AddSatellite(satellite As ISatellite)
 End Interface

@@ -50,4 +50,8 @@
     Public Sub AddPlanet(planet As IPlanet) Implements IPlanetVicinity.AddPlanet
         PlanetVicinityData.Planets.Add(planet.Id)
     End Sub
+
+    Public Sub AddSatellite(satellite As ISatellite) Implements IPlanetVicinity.AddSatellite
+        PlanetVicinityData.Satellites.Add(satellite.Id)
+    End Sub
 End Class

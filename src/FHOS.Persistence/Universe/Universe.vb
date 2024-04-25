@@ -164,8 +164,8 @@ Public Class Universe
         Return planetVicinity
     End Function
 
-    Public Function CreateSatellite(satelliteName As String, satelliteType As String) As ISatellite Implements IUniverse.CreateSatellite
-        Return New Satellite(
+    Public Function CreateSatellite(planetVicinity As IPlanetVicinity, satelliteName As String, satelliteType As String) As ISatellite Implements IUniverse.CreateSatellite
+        Dim satellite As ISatellite = New Satellite(
             UniverseData,
             CreateOrRecycle(
                 UniverseData.Satellites,
@@ -175,8 +175,14 @@ Public Class Universe
                     {
                         {MetadataTypes.Name, satelliteName},
                         {MetadataTypes.SatelliteType, satelliteType}
+                    },
+                    .Statistics = New Dictionary(Of String, Integer) From
+                    {
+                        {StatisticTypes.PlanetVicinityId, planetVicinity.Id}
                     }
                 }))
+        planetVicinity.AddSatellite(satellite)
+        Return satellite
     End Function
 
     Public Function CreatePlanet(planetVicinity As IPlanetVicinity) As IPlanet Implements IUniverse.CreatePlanet
