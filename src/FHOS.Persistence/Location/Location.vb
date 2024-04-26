@@ -225,7 +225,7 @@ Friend Class Location
                                  }
         Dim actorId As Integer = UniverseData.Actors.CreateOrRecycle(actorData)
         Dim actor = New Actor(UniverseData, actorId)
-        actor = actor
+        Me.Actor = actor
         Return actor
     End Function
 
