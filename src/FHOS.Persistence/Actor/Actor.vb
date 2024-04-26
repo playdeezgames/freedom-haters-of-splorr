@@ -179,4 +179,16 @@ Friend Class Actor
             Return Fuel > 0
         End Get
     End Property
+
+    Public ReadOnly Property KnowsPlanetVicinities As Boolean Implements IActor.KnowsPlanetVicinities
+        Get
+            Return ActorData.PlanetVicinities.Discovered.Any
+        End Get
+    End Property
+
+    Public ReadOnly Property KnowsStarVicinities As Boolean Implements IActor.KnowsStarVicinities
+        Get
+            Return ActorData.StarVicinities.Discovered.Any
+        End Get
+    End Property
 End Class

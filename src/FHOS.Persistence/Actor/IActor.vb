@@ -25,7 +25,8 @@
 
     Property Turn As Integer
     Property Jools As Integer
-
+    ReadOnly Property KnowsPlanetVicinities As Boolean
+    ReadOnly Property KnowsStarVicinities As Boolean
     Sub AddMessage(
                   header As String,
                   ParamArray lines As (Text As String, Hue As Integer)())

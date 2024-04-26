@@ -7,6 +7,7 @@
     Sub Move(delta As (X As Integer, Y As Integer))
     Sub SetFacing(facing As Integer)
     Sub DoDistressSignal()
+    ReadOnly Property KnowsPlanetVicinities As Boolean
     ReadOnly Property Turn As Integer
     ReadOnly Property Jools As Integer
 
@@ -28,4 +29,5 @@
     ReadOnly Property Planet As IAvatarPlanetModel
     ReadOnly Property KnowsStarSystems As Boolean
     ReadOnly Property StarSystemList As IEnumerable(Of (Text As String, Item As IStarSystemModel))
+    ReadOnly Property KnowsStarVicinities As Boolean
 End Interface

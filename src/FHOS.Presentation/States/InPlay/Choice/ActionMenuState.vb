@@ -8,6 +8,8 @@ Friend Class ActionMenuState
     Private Const RefillOxygenText = "Refill Oxygen"
     Private Const RefuelText = "Refuel"
     Private Const StarSystemListText = "Known Star Systems..."
+    Private Const StarVicinitiesListText = "Known Star Vicinities..."
+    Private Const PlanetVicinitiesListText = "Known Planet Vicinities..."
     Private Const DistressSignalText = "Distress Signal"
 
     Public Sub New(
@@ -33,6 +35,8 @@ Friend Class ActionMenuState
             {RefillOxygenText, GameState.RefillOxygen},
             {RefuelText, GameState.Refuel},
             {StarSystemListText, GameState.StarSystemList},
+            {StarVicinitiesListText, GameState.StarVicinityList},
+            {PlanetVicinitiesListText, GameState.PlanetVicinityList},
             {DistressSignalText, GameState.SignalDistress}
         }
 
@@ -47,6 +51,12 @@ Friend Class ActionMenuState
             }
         If Context.Model.Avatar.KnowsStarSystems Then
             result.Add((StarSystemListText, StarSystemListText))
+        End If
+        If Context.Model.Avatar.KnowsStarVicinities Then
+            result.Add((StarVicinitiesListText, StarVicinitiesListText))
+        End If
+        If Context.Model.Avatar.KnowsPlanetVicinities Then
+            result.Add((PlanetVicinitiesListText, PlanetVicinitiesListText))
         End If
         If Context.Model.Avatar.StarSystem.CanEnter Then
             result.Add((EnterStarSystemText, EnterStarSystemText))

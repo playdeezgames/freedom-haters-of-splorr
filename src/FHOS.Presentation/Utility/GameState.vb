@@ -19,4 +19,6 @@
     Friend Const StarSystemDetails = "StarSystemDetails"
     Friend Const SignalDistress = "SignalDistress"
     Friend Const Message = "Message"
+    Friend Const StarVicinityList = "StarVicinityList"
+    Friend Const PlanetVicinityList = "PlanetVicinityList"
 End Module
