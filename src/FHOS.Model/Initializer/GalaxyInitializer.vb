@@ -6,18 +6,18 @@ Friend Module GalaxyInitializer
     Private Const GalaxyRows = 63
     Private Const GalaxyName = "Galaxy Map"
 
-    Function Initialize(universe As IUniverse, galacticAge As String, galacticDensity As String) As IMap
+    Function Initialize(universe As IUniverse, embarkSettings As EmbarkSettings) As IMap
         Dim starMap = universe.CreateMap(MapTypes.Stellar, GalaxyName, GalaxyColumns, GalaxyRows, LocationTypes.Void)
         Dim stars As New List(Of (Column As Integer, Row As Integer))
         Dim starSystemNames As New HashSet(Of String)
         Dim tries As Integer = 0
         Const MaximumTries = 5000
-        Dim MinimumDistance = GalacticDensities.Descriptors(galacticDensity).MinimumDistance
+        Dim MinimumDistance = GalacticDensities.Descriptors(embarkSettings.GalacticDensity).MinimumDistance
         While tries < MaximumTries
             Dim column = RNG.FromRange(0, GalaxyColumns - 1)
             Dim row = RNG.FromRange(0, GalaxyRows - 1)
             If stars.All(Function(star) (column - star.Column) * (column - star.Column) + (row - star.Row) * (row - star.Row) >= MinimumDistance * MinimumDistance) Then
-                Dim starType = GalacticAges.Descriptors(galacticAge).GenerateStarType()
+                Dim starType = GalacticAges.Descriptors(embarkSettings.GalacticAge).GenerateStarType()
                 stars.Add((column, row))
                 Dim location = starMap.GetLocation(column, row)
                 location.LocationType = StarTypes.Descriptors(starType).LocationType
@@ -30,6 +30,7 @@ Friend Module GalaxyInitializer
                 tries += 1
             End If
         End While
+        universe.Avatar = AvatarInitializer.Initialize(starMap, embarkSettings.StartingWealthLevel)
         Return starMap
     End Function
 

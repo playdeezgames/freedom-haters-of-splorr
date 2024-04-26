@@ -64,7 +64,7 @@ Public Class UniverseModel
 
     Public Sub Embark() Implements IUniverseModel.Embark
         universeData = New UniverseData()
-        UniverseInitializer.Initialize(
+        Initializer.Run(
             Universe,
             EmbarkSettings)
     End Sub
