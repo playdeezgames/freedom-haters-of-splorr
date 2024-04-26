@@ -11,6 +11,7 @@ Friend Module PlanetVicinityInitializer
             PlanetVicinityColumns,
             PlanetVicinityRows,
             LocationTypes.Void)
+        planetVicinity.Map.PlanetVicinity = planetVicinity
         PlaceBoundaries(planetVicinity, planetVicinityLocation)
         PlacePlanet(planetVicinity)
         PlaceSatellites(planetVicinity)

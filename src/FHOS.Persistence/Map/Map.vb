@@ -72,6 +72,23 @@ Friend Class Map
         End Set
     End Property
 
+    Public Property PlanetVicinity As IPlanetVicinity Implements IMap.PlanetVicinity
+        Get
+            Dim planetVicinityId As Integer
+            If MapData.Statistics.TryGetValue(StatisticTypes.PlanetVicinityId, planetVicinityId) Then
+                Return New PlanetVicinity(UniverseData, planetVicinityId)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IPlanetVicinity)
+            If value IsNot Nothing Then
+                MapData.Statistics(StatisticTypes.PlanetVicinityId) = value.Id
+            Else
+                MapData.Statistics.Remove(StatisticTypes.PlanetVicinityId)
+            End If
+        End Set
+    End Property
+
     Public Function GetLocation(column As Integer, row As Integer) As ILocation Implements IMap.GetLocation
         If column < 0 OrElse row < 0 OrElse column >= MapData.Statistics(StatisticTypes.Columns) OrElse row >= MapData.Statistics(StatisticTypes.Rows) Then
             Return Nothing

@@ -7,4 +7,5 @@
     ReadOnly Property Size As (Columns As Integer, Rows As Integer)
     Property StarSystem As IStarSystem
     Property StarVicinity As IStarVicinity
+    Property PlanetVicinity As IPlanetVicinity
 End Interface

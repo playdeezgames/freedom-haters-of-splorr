@@ -27,6 +27,9 @@ Friend Class BaseAvatarModel
         If map.StarVicinity IsNot Nothing Then
             avatar.AddStarVicinity(map.StarVicinity)
         End If
+        If map.PlanetVicinity IsNot Nothing Then
+            avatar.AddPlanetVicinity(map.PlanetVicinity)
+        End If
     End Sub
 
     Private Sub HandleMapExit(map As IMap)
