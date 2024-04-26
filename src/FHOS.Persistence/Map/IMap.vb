@@ -8,4 +8,5 @@
     Property StarSystem As IStarSystem
     Property StarVicinity As IStarVicinity
     Property PlanetVicinity As IPlanetVicinity
+    Function CreateLocation(locationType As String, column As Integer, row As Integer) As ILocation
 End Interface

@@ -47,10 +47,11 @@ Public Class Universe
                 }
             }
         Dim mapId = UniverseData.Maps.CreateOrRecycle(mapData)
+        Dim map = New Map(UniverseData, mapId)
         mapData.Locations = Enumerable.
                             Range(0, columns * rows).
-                            Select(Function(x) CreateLocation(locationType, mapId, x Mod rows, x \ rows).Id).ToList
-        Return New Map(UniverseData, mapId)
+                            Select(Function(x) map.CreateLocation(locationType, x Mod rows, x \ rows).Id).ToList
+        Return Map
     End Function
 
     Public Function CreateActor(actorType As String, location As ILocation) As IActor Implements IUniverse.CreateActor
@@ -74,24 +75,6 @@ Public Class Universe
         Return actor
     End Function
 
-    Public Function CreateLocation(locationType As String, mapId As Integer, column As Integer, row As Integer) As ILocation Implements IUniverse.CreateLocation
-        Dim locationData = New LocationData With
-                            {
-                                .Statistics = New Dictionary(Of String, Integer) From
-                                {
-                                    {StatisticTypes.MapId, mapId},
-                                    {StatisticTypes.Column, column},
-                                    {StatisticTypes.Row, row}
-                                },
-                                .Metadatas = New Dictionary(Of String, String) From
-                                {
-                                    {MetadataTypes.LocationType, locationType}
-                                }
-                            }
-        Dim locationId As Integer = UniverseData.Locations.CreateOrRecycle(locationData)
-        Return New Location(UniverseData, locationId)
-    End Function
-
     Public Function CreateStarSystem(starSystemName As String, starType As String) As IStarSystem Implements IUniverse.CreateStarSystem
         Dim starSystemData = New StarSystemData With
             {
@@ -105,7 +88,7 @@ Public Class Universe
         Return New StarSystem(UniverseData, starSystemId)
     End Function
 
-    Public Function CreateTeleporter(target As ILocation) As ITeleporter Implements IUniverse.CreateTeleporter
+    Public Function CreateTeleporterTo(target As ILocation) As ITeleporter Implements IUniverse.CreateTeleporterTo
         Dim teleporterData As New TeleporterData With
             {
                 .Statistics = New Dictionary(Of String, Integer) From

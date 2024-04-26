@@ -94,7 +94,7 @@ Friend Module StarSystemInitializer
         End With
     End Sub
     Private Sub PlaceBoundaries(starSystem As IStarSystem, starLocation As ILocation)
-        Dim teleporter = starSystem.Universe.CreateTeleporter(starLocation)
+        Dim teleporter = starSystem.Universe.CreateTeleporterTo(starLocation)
         Dim starFlag = starSystem.Name
         For Each corner In GetCorners(SystemMapColumns, SystemMapRows)
             PlaceBoundary(starSystem.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter)

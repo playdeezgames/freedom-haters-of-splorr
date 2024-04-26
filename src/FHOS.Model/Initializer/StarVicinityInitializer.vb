@@ -27,7 +27,7 @@ Friend Module StarVicinityInitializer
         End With
     End Sub
     Private Sub PlaceBoundaries(star As IStarVicinity, starLocation As ILocation)
-        Dim teleporter = star.Universe.CreateTeleporter(starLocation)
+        Dim teleporter = star.Universe.CreateTeleporterTo(starLocation)
         Dim starFlag = star.Name
         For Each corner In GetCorners(StarVicinityColumns, StarVicinityRows)
             PlaceBoundary(star.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter)

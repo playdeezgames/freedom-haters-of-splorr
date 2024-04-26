@@ -95,4 +95,22 @@ Friend Class Map
         End If
         Return New Location(UniverseData, MapData.Locations(column + row * MapData.Statistics(StatisticTypes.Columns)))
     End Function
+
+    Public Function CreateLocation(locationType As String, column As Integer, row As Integer) As ILocation Implements IMap.CreateLocation
+        Dim locationData = New LocationData With
+                            {
+                                .Statistics = New Dictionary(Of String, Integer) From
+                                {
+                                    {StatisticTypes.MapId, MapId},
+                                    {StatisticTypes.Column, column},
+                                    {StatisticTypes.Row, row}
+                                },
+                                .Metadatas = New Dictionary(Of String, String) From
+                                {
+                                    {MetadataTypes.LocationType, locationType}
+                                }
+                            }
+        Dim locationId As Integer = UniverseData.Locations.CreateOrRecycle(locationData)
+        Return New Location(UniverseData, locationId)
+    End Function
 End Class

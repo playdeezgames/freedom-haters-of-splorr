@@ -6,9 +6,6 @@ Public Interface IUniverse
 
     'TODO: place under location
     Function CreateActor(actorType As String, location As ILocation) As IActor
-    Function CreateTeleporter(target As ILocation) As ITeleporter
-
-    'TODO: place under map
-    Function CreateLocation(locationType As String, mapId As Integer, column As Integer, row As Integer) As ILocation
+    Function CreateTeleporterTo(target As ILocation) As ITeleporter
 
 End Interface
