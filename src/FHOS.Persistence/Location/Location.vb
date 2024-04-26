@@ -1,4 +1,6 @@
-﻿Friend Class Location
+﻿Imports FHOS.Data
+
+Friend Class Location
     Inherits LocationDataClient
     Implements ILocation
 
@@ -204,5 +206,38 @@
 
     Public Function HasFlag(name As String) As Boolean Implements ILocation.HasFlag
         Return LocationData.Flags.Contains(name)
+    End Function
+
+    Public Function CreateActor(actorType As String) As IActor Implements ILocation.CreateActor
+        Dim actorData = New ActorData With
+                                 {
+                                    .Statistics = New Dictionary(Of String, Integer) From
+                                    {
+                                        {StatisticTypes.LocationId, Id},
+                                        {StatisticTypes.Facing, 1},
+                                        {StatisticTypes.Turn, 1},
+                                        {StatisticTypes.Jools, 0}
+                                    },
+                                    .Metadatas = New Dictionary(Of String, String) From
+                                    {
+                                        {MetadataTypes.ActorType, actorType}
+                                    }
+                                 }
+        Dim actorId As Integer = UniverseData.Actors.CreateOrRecycle(actorData)
+        Dim actor = New Actor(UniverseData, actorId)
+        actor = actor
+        Return actor
+    End Function
+
+    Public Function CreateTeleporterTo() As ITeleporter Implements ILocation.CreateTeleporterTo
+        Dim teleporterData As New TeleporterData With
+            {
+                .Statistics = New Dictionary(Of String, Integer) From
+                {
+                    {StatisticTypes.LocationId, Id}
+                }
+            }
+        Dim teleporterId As Integer = UniverseData.Teleporters.CreateOrRecycle(teleporterData)
+        Return New Teleporter(UniverseData, teleporterId)
     End Function
 End Class

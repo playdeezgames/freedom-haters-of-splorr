@@ -54,27 +54,6 @@ Public Class Universe
         Return Map
     End Function
 
-    Public Function CreateActor(actorType As String, location As ILocation) As IActor Implements IUniverse.CreateActor
-        Dim actorData = New ActorData With
-                                 {
-                                    .Statistics = New Dictionary(Of String, Integer) From
-                                    {
-                                        {StatisticTypes.LocationId, location.Id},
-                                        {StatisticTypes.Facing, 1},
-                                        {StatisticTypes.Turn, 1},
-                                        {StatisticTypes.Jools, 0}
-                                    },
-                                    .Metadatas = New Dictionary(Of String, String) From
-                                    {
-                                        {MetadataTypes.ActorType, actorType}
-                                    }
-                                 }
-        Dim actorId As Integer = UniverseData.Actors.CreateOrRecycle(actorData)
-        Dim actor = New Actor(UniverseData, actorId)
-        location.Actor = actor
-        Return actor
-    End Function
-
     Public Function CreateStarSystem(starSystemName As String, starType As String) As IStarSystem Implements IUniverse.CreateStarSystem
         Dim starSystemData = New StarSystemData With
             {
@@ -86,17 +65,5 @@ Public Class Universe
             }
         Dim starSystemId As Integer = UniverseData.StarSystems.CreateOrRecycle(starSystemData)
         Return New StarSystem(UniverseData, starSystemId)
-    End Function
-
-    Public Function CreateTeleporterTo(target As ILocation) As ITeleporter Implements IUniverse.CreateTeleporterTo
-        Dim teleporterData As New TeleporterData With
-            {
-                .Statistics = New Dictionary(Of String, Integer) From
-                {
-                    {StatisticTypes.LocationId, target.Id}
-                }
-            }
-        Dim teleporterId As Integer = UniverseData.Teleporters.CreateOrRecycle(teleporterData)
-        Return New Teleporter(UniverseData, teleporterId)
     End Function
 End Class

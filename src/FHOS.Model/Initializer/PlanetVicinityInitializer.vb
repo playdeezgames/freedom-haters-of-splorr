@@ -61,7 +61,7 @@ Friend Module PlanetVicinityInitializer
     End Sub
 
     Private Sub PlaceBoundaries(planetVicinity As IPlanetVicinity, planetVicinityLocation As ILocation)
-        Dim teleporter = planetVicinity.Universe.CreateTeleporterTo(planetVicinityLocation)
+        Dim teleporter = planetVicinityLocation.CreateTeleporterTo()
         Dim starFlag = planetVicinity.Name
         For Each corner In GetCorners(PlanetVicinityColumns, PlanetVicinityRows)
             PlaceBoundary(planetVicinity.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter)
