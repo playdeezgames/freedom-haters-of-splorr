@@ -5,6 +5,7 @@ Friend Class EmbarkState
     Inherits BasePickerState(Of IUniverseModel, String)
     Private Const AgeText = "age"
     Private Const DensityText = "density"
+    Private Const WealthText = "wealth"
     Private Const GoText = "go"
 
     Public Sub New(
@@ -29,6 +30,8 @@ Friend Class EmbarkState
                 SetState(GameState.ChangeGalacticAge)
             Case DensityText
                 SetState(GameState.ChangeGalacticDensity)
+            Case WealthText
+                SetState(GameState.ChangeStartingWealthLevel)
         End Select
     End Sub
 
@@ -37,7 +40,8 @@ Friend Class EmbarkState
             {
                 ("Go!", GoText),
                 ($"Change Galactic Age...", AgeText),
-                ($"Change Galactic Density...", DensityText)
+                ($"Change Galactic Density...", DensityText),
+                ($"Change Starting Wealth...", WealthText)
             }
     End Function
 
@@ -46,5 +50,6 @@ Friend Class EmbarkState
         Dim uiFont = Context.Font(UIFontName)
         uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height), $"Galactic Age: {Context.Model.GalacticAge.CurrentName}", Black)
         uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height * 2), $"Galactic Density: {Context.Model.GalacticDensity.CurrentName}", Black)
+        uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height * 3), $"Starting Wealth: {Context.Model.StartingWealth.CurrentName}", Black)
     End Sub
 End Class

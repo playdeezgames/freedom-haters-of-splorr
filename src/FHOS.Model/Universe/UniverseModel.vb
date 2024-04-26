@@ -81,6 +81,13 @@ Public Class UniverseModel
             Return _embarkSettings
         End Get
     End Property
+
+    Public ReadOnly Property StartingWealth As IStartingWealthLevelModel Implements IUniverseModel.StartingWealth
+        Get
+            Return New StartingWealthLevelModel(EmbarkSettings, AddressOf PersistEmbarkSettings)
+        End Get
+    End Property
+
     Const EmbarkSettingsFilename = "embark-settings.json"
     Private Shared _embarkSettings As EmbarkSettings
 End Class

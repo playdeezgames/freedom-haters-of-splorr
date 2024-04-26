@@ -2,7 +2,7 @@
 Imports SPLORR.Game
 
 Friend Module AvatarInitializer
-    Friend Function Initialize(map As IMap) As IActor
+    Friend Function Initialize(map As IMap, startingWealthLevel As String) As IActor
         Dim actorLocation As ILocation
         Dim descriptor = ActorTypes.Descriptors(Player)
         Do
@@ -13,6 +13,7 @@ Friend Module AvatarInitializer
         actor.Oxygen = descriptor.MaximumOxygen
         actor.MaximumFuel = descriptor.MaximumFuel
         actor.Fuel = descriptor.MaximumFuel
+        actor.Jools = StartingWealthLevels.Descriptors(startingWealthLevel).GenerateJools
         Return actor
     End Function
 End Module

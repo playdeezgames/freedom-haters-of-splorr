@@ -5,6 +5,7 @@ Public Interface IUniverseModel
     Sub Embark()
     ReadOnly Property GalacticAge As IGalacticAgeModel
     ReadOnly Property GalacticDensity As IGalacticDensityModel
+    ReadOnly Property StartingWealth As IStartingWealthLevelModel
 
     ReadOnly Property Board As IBoardModel
     ReadOnly Property Avatar As IAvatarModel
