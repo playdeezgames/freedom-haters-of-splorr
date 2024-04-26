@@ -4,6 +4,6 @@
     ReadOnly Property Universe As IUniverse
     ReadOnly Property PlanetType As String
     Property Map As IMap
-    Sub AddPlanet(planet As IPlanet)
-    Sub AddSatellite(satellite As ISatellite)
+    Function CreatePlanet() As IPlanet
+    Function CreateSatellite(satelliteName As String, satelliteType As String) As ISatellite
 End Interface

@@ -1,4 +1,6 @@
-﻿Friend Class StarSystem
+﻿Imports FHOS.Data
+
+Friend Class StarSystem
     Inherits StarSystemDataClient
     Implements IStarSystem
 
@@ -47,11 +49,51 @@
         End Get
     End Property
 
-    Public Sub AddStarVicinity(starVicinity As IStarVicinity) Implements IStarSystem.AddStarVicinity
+    Private Sub AddStarVicinity(starVicinity As IStarVicinity)
         StarSystemData.StarVicinities.Add(starVicinity.Id)
     End Sub
 
-    Public Sub AddPlanetVicinity(planetVicinity As IPlanetVicinity) Implements IStarSystem.AddPlanetVicinity
+    Private Sub AddPlanetVicinity(planetVicinity As IPlanetVicinity)
         StarSystemData.PlanetVicinities.Add(planetVicinity.Id)
     End Sub
+
+    Public Function CreateStarVicinity() As IStarVicinity Implements IStarSystem.CreateStarVicinity
+        Dim starVicinity = New StarVicinity(
+            UniverseData,
+                UniverseData.StarVicinities.CreateOrRecycle(
+                New StarVicinityData With
+                {
+                    .Metadatas = New Dictionary(Of String, String) From
+                    {
+                        {MetadataTypes.Name, Name},
+                        {MetadataTypes.StarType, StarType}
+                    },
+                    .Statistics = New Dictionary(Of String, Integer) From
+                    {
+                        {StatisticTypes.StarSystemId, Id}
+                    }
+                }))
+        AddStarVicinity(starVicinity)
+        Return starVicinity
+    End Function
+
+    Public Function CreatePlanetVicinity(planetName As String, planetType As String) As IPlanetVicinity Implements IStarSystem.CreatePlanetVicinity
+        Dim planetVicinity = New PlanetVicinity(
+            UniverseData,
+                UniverseData.PlanetVicinities.CreateOrRecycle(
+                New PlanetVicinityData With
+                {
+                    .Metadatas = New Dictionary(Of String, String) From
+                    {
+                        {MetadataTypes.Name, planetName},
+                        {MetadataTypes.PlanetType, planetType}
+                    },
+                    .Statistics = New Dictionary(Of String, Integer) From
+                    {
+                        {StatisticTypes.StarSystemId, Id}
+                    }
+                }))
+        AddPlanetVicinity(planetVicinity)
+        Return planetVicinity
+    End Function
 End Class

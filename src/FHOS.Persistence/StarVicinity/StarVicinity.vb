@@ -1,4 +1,6 @@
-﻿Friend Class StarVicinity
+﻿Imports FHOS.Data
+
+Friend Class StarVicinity
     Inherits StarVicinityDataClient
     Implements IStarVicinity
 
@@ -47,7 +49,27 @@
         End Get
     End Property
 
-    Public Sub AddStar(star As IStar) Implements IStarVicinity.AddStar
+    Private Sub AddStar(star As IStar)
         StarVicinityData.Stars.Add(star.Id)
     End Sub
+
+    Public Function CreateStar() As IStar Implements IStarVicinity.CreateStar
+        Dim star = New Star(
+            UniverseData,
+                UniverseData.Stars.CreateOrRecycle(
+                New StarData With
+                {
+                    .Metadatas = New Dictionary(Of String, String) From
+                    {
+                        {MetadataTypes.Name, Name},
+                        {MetadataTypes.StarType, StarType}
+                    },
+                    .Statistics = New Dictionary(Of String, Integer) From
+                    {
+                        {StatisticTypes.StarVicinityId, Id}
+                    }
+                }))
+        AddStar(star)
+        Return star
+    End Function
 End Class

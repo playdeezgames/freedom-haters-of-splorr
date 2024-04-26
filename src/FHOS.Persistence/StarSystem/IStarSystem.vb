@@ -4,6 +4,6 @@
     Property Map As IMap
     ReadOnly Property Universe As IUniverse
     ReadOnly Property StarType As String
-    Sub AddStarVicinity(starVicinity As IStarVicinity)
-    Sub AddPlanetVicinity(planetVicinity As IPlanetVicinity)
+    Function CreateStarVicinity() As IStarVicinity
+    Function CreatePlanetVicinity(planetName As String, planetType As String) As IPlanetVicinity
 End Interface

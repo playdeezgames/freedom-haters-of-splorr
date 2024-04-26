@@ -4,5 +4,5 @@
     ReadOnly Property Universe As IUniverse
     ReadOnly Property StarType As String
     Property Map As IMap
-    Sub AddStar(star As IStar)
+    Function CreateStar() As IStar
 End Interface

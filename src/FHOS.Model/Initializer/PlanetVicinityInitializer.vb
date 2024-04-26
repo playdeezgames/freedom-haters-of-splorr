@@ -38,7 +38,7 @@ Friend Module PlanetVicinityInitializer
                 location.Tutorial = TutorialTypes.SatelliteApproach
                 Dim satelliteName = $"{planetVicinity.Name} {ChrW(AscW("A"c) + index)}"
                 index += 1
-                location.Satellite = planetVicinity.Universe.CreateSatellite(planetVicinity, satelliteName, satelliteType)
+                location.Satellite = planetVicinity.CreateSatellite(satelliteName, satelliteType)
                 SatelliteInitializer.Initialize(location.Satellite, location)
                 tries = 0
             Else
@@ -55,7 +55,7 @@ Friend Module PlanetVicinityInitializer
         With location
             .LocationType = locationType
             .Tutorial = TutorialTypes.PlanetLand
-            .Planet = planetVicinity.Universe.CreatePlanet(planetVicinity)
+            .Planet = planetVicinity.CreatePlanet()
             PlanetInitializer.Initialize(.Planet)
         End With
     End Sub

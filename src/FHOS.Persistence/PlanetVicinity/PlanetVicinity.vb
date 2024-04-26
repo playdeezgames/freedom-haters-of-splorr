@@ -1,4 +1,6 @@
-﻿Friend Class PlanetVicinity
+﻿Imports FHOS.Data
+
+Friend Class PlanetVicinity
     Inherits PlanetVicinityDataClient
     Implements IPlanetVicinity
 
@@ -47,11 +49,51 @@
         End Get
     End Property
 
-    Public Sub AddPlanet(planet As IPlanet) Implements IPlanetVicinity.AddPlanet
+    Private Sub AddPlanet(planet As IPlanet)
         PlanetVicinityData.Planets.Add(planet.Id)
     End Sub
 
-    Public Sub AddSatellite(satellite As ISatellite) Implements IPlanetVicinity.AddSatellite
+    Private Sub AddSatellite(satellite As ISatellite)
         PlanetVicinityData.Satellites.Add(satellite.Id)
     End Sub
+
+    Public Function CreatePlanet() As IPlanet Implements IPlanetVicinity.CreatePlanet
+        Dim planet As IPlanet = New Planet(
+            UniverseData,
+                UniverseData.Planets.CreateOrRecycle(
+                New PlanetData With
+                {
+                    .Metadatas = New Dictionary(Of String, String) From
+                    {
+                        {MetadataTypes.Name, Name},
+                        {MetadataTypes.PlanetType, PlanetType}
+                    },
+                    .Statistics = New Dictionary(Of String, Integer) From
+                    {
+                        {StatisticTypes.PlanetVicinityId, Id}
+                    }
+                }))
+        AddPlanet(planet)
+        Return planet
+    End Function
+
+    Public Function CreateSatellite(satelliteName As String, satelliteType As String) As ISatellite Implements IPlanetVicinity.CreateSatellite
+        Dim satellite As ISatellite = New Satellite(
+            UniverseData,
+                UniverseData.Satellites.CreateOrRecycle(
+                New SatelliteData With
+                {
+                    .Metadatas = New Dictionary(Of String, String) From
+                    {
+                        {MetadataTypes.Name, satelliteName},
+                        {MetadataTypes.SatelliteType, satelliteType}
+                    },
+                    .Statistics = New Dictionary(Of String, Integer) From
+                    {
+                        {StatisticTypes.PlanetVicinityId, Id}
+                    }
+                }))
+        AddSatellite(satellite)
+        Return satellite
+    End Function
 End Class

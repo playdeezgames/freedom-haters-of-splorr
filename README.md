@@ -1,6 +1,7 @@
 # Freedom Haters of SPLORR!!
 
-  - [ ] 20240425 - SIGMO FHOS Episode 15
+  - [ ] 20240428 - SIGMO FHOS Episode 16?
+  - [x] 20240425 - SIGMO FHOS Episode 15
   - [x] 20240424 - SIGMO FHOS Episode 14
   - [x] 20240423 - SIGMO FHOS Episode 13
   - [x] 20240422 - SIGMO FHOS Episode 12
@@ -17,7 +18,7 @@ https://pernyblom.github.io/abundant-music/index.html
 
 # Names for the "Freedom Loving" Government whom we serve
 
-1. SIGMO Hegemony
+1. SIGMO Federation
 
 # Names for the "Freedom Hating" Anarchists
 
