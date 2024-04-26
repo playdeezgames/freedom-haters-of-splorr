@@ -28,13 +28,19 @@ Public Class UniverseModel
 
     Public ReadOnly Property GalacticAge As IGalacticAgeModel Implements IUniverseModel.GalacticAge
         Get
-            Return New GalacticAgeModel()
+            Return New GalacticAgeModel(EmbarkSettings, AddressOf PersistEmbarkSettings)
         End Get
     End Property
 
+    Private Shared Sub PersistEmbarkSettings()
+        File.WriteAllText(
+            EmbarkSettingsFilename,
+            JsonSerializer.Serialize(EmbarkSettings))
+    End Sub
+
     Public ReadOnly Property GalacticDensity As IGalacticDensityModel Implements IUniverseModel.GalacticDensity
         Get
-            Return New GalacticDensityModel()
+            Return New GalacticDensityModel(EmbarkSettings, AddressOf PersistEmbarkSettings)
         End Get
     End Property
 
@@ -58,6 +64,23 @@ Public Class UniverseModel
 
     Public Sub Embark() Implements IUniverseModel.Embark
         universeData = New UniverseData()
-        UniverseInitializer.Initialize(Universe, GalacticAge.Current, GalacticDensity.Current)
+        UniverseInitializer.Initialize(
+            Universe,
+            EmbarkSettings)
     End Sub
+
+    Private Shared ReadOnly Property EmbarkSettings As EmbarkSettings
+        Get
+            If _embarkSettings Is Nothing Then
+                Try
+                    _embarkSettings = JsonSerializer.Deserialize(Of EmbarkSettings)(File.ReadAllText(EmbarkSettingsFilename))
+                Catch ex As Exception
+                    _embarkSettings = New EmbarkSettings
+                End Try
+            End If
+            Return _embarkSettings
+        End Get
+    End Property
+    Const EmbarkSettingsFilename = "embark-settings.json"
+    Private Shared _embarkSettings As EmbarkSettings
 End Class

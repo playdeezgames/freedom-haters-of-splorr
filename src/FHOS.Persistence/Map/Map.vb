@@ -55,6 +55,23 @@ Friend Class Map
         End Set
     End Property
 
+    Public Property StarVicinity As IStarVicinity Implements IMap.StarVicinity
+        Get
+            Dim starVicinityId As Integer
+            If MapData.Statistics.TryGetValue(StatisticTypes.StarVicinityId, starVicinityId) Then
+                Return New StarVicinity(UniverseData, starVicinityId)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IStarVicinity)
+            If value IsNot Nothing Then
+                MapData.Statistics(StatisticTypes.StarVicinityId) = value.Id
+            Else
+                MapData.Statistics.Remove(StatisticTypes.StarVicinityId)
+            End If
+        End Set
+    End Property
+
     Public Function GetLocation(column As Integer, row As Integer) As ILocation Implements IMap.GetLocation
         If column < 0 OrElse row < 0 OrElse column >= MapData.Statistics(StatisticTypes.Columns) OrElse row >= MapData.Statistics(StatisticTypes.Rows) Then
             Return Nothing

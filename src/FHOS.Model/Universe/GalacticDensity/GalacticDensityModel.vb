@@ -1,15 +1,20 @@
 ﻿Friend Class GalacticDensityModel
     Implements IGalacticDensityModel
-    Private Shared _galacticDensity As String = GalacticDensities.Average
+    Private ReadOnly embarkSettings As EmbarkSettings
+    Private ReadOnly persistSettings As Action
+    Sub New(embarkSettings As EmbarkSettings, persistSettings As Action)
+        Me.embarkSettings = embarkSettings
+        Me.persistSettings = persistSettings
+    End Sub
 
     Public ReadOnly Property CurrentName As String Implements IGalacticDensityModel.CurrentName
         Get
-            Return GalacticDensities.Descriptors(_galacticDensity).DisplayName
+            Return GalacticDensities.Descriptors(embarkSettings.GalacticDensity).DisplayName
         End Get
     End Property
     Public ReadOnly Property Current As String Implements IGalacticDensityModel.Current
         Get
-            Return _galacticDensity
+            Return embarkSettings.GalacticDensity
         End Get
     End Property
 
@@ -21,6 +26,7 @@
     End Property
 
     Public Sub SetDensity(density As String) Implements IGalacticDensityModel.SetDensity
-        _galacticDensity = density
+        embarkSettings.GalacticDensity = density
+        persistSettings()
     End Sub
 End Class

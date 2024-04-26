@@ -29,4 +29,5 @@
     Sub AddMessage(
                   header As String,
                   ParamArray lines As (Text As String, Hue As Integer)())
+    Sub AddStarVicinity(starVicinity As IStarVicinity)
 End Interface

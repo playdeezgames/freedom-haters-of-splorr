@@ -1,15 +1,20 @@
 ﻿Friend Class GalacticAgeModel
     Implements IGalacticAgeModel
-    Private Shared _galacticAge As String = GalacticAges.Average
+    Private ReadOnly embarkSettings As EmbarkSettings
+    Private ReadOnly persistSettings As Action
+    Sub New(embarkSettings As EmbarkSettings, persistSettings As Action)
+        Me.embarkSettings = embarkSettings
+        Me.persistSettings = persistSettings
+    End Sub
 
     Public ReadOnly Property CurrentName As String Implements IGalacticAgeModel.CurrentName
         Get
-            Return GalacticAges.Descriptors(_galacticAge).DisplayName
+            Return GalacticAges.Descriptors(embarkSettings.GalacticAge).DisplayName
         End Get
     End Property
     Public ReadOnly Property Current As String Implements IGalacticAgeModel.Current
         Get
-            Return _galacticAge
+            Return embarkSettings.GalacticAge
         End Get
     End Property
 
@@ -20,6 +25,7 @@
     End Property
 
     Public Sub SetAge(age As String) Implements IGalacticAgeModel.SetAge
-        _galacticAge = age
+        embarkSettings.GalacticAge = age
+        persistSettings()
     End Sub
 End Class

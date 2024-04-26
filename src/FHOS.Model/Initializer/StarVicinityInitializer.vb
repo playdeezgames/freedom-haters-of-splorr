@@ -3,15 +3,16 @@
 Friend Module StarVicinityInitializer
     Private Const StarVicinityColumns = 15
     Private Const StarVicinityRows = 15
-    Friend Sub Initialize(star As IStarVicinity, starLocation As ILocation)
-        star.Map = star.Universe.CreateMap(
+    Friend Sub Initialize(starVicinity As IStarVicinity, starLocation As ILocation)
+        starVicinity.Map = starVicinity.Universe.CreateMap(
             MapTypes.System,
-            $"{star.Name} Vicinity",
+            $"{starVicinity.Name} Vicinity",
             StarVicinityColumns,
             StarVicinityRows,
             LocationTypes.Void)
-        PlaceBoundaries(star, starLocation)
-        PlaceStar(star)
+        starVicinity.Map.StarVicinity = starVicinity
+        PlaceBoundaries(starVicinity, starLocation)
+        PlaceStar(starVicinity)
     End Sub
     Private Sub PlaceStar(starVicinity As IStarVicinity)
         Dim starColumn = StarVicinityColumns \ 2

@@ -64,6 +64,13 @@ Friend Class Actor
                                   })
     End Sub
 
+    Public Sub AddStarVicinity(starVicinity As IStarVicinity) Implements IActor.AddStarVicinity
+        If Not ActorData.StarVicinities.Discovered.ContainsKey(starVicinity.Id) Then
+            ActorData.StarVicinities.Discovered(starVicinity.Id) = Turn
+        End If
+        ActorData.StarVicinities.Visited(starVicinity.Id) = Turn
+    End Sub
+
     Public ReadOnly Property ActorType As String Implements IActor.ActorType
         Get
             Return ActorData.Metadatas(MetadataTypes.ActorType)
