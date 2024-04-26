@@ -191,4 +191,16 @@ Friend Class Actor
             Return ActorData.StarVicinities.Discovered.Any
         End Get
     End Property
+
+    Public ReadOnly Property KnownStarVicinities As IEnumerable(Of IStarVicinity) Implements IActor.KnownStarVicinities
+        Get
+            Return ActorData.StarVicinities.Discovered.Select(Function(x) New StarVicinity(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
+        End Get
+    End Property
+
+    Public ReadOnly Property KnownPlanetVicinities As IEnumerable(Of IPlanetVicinity) Implements IActor.KnownPlanetVicinities
+        Get
+            Return ActorData.PlanetVicinities.Discovered.Select(Function(x) New PlanetVicinity(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
+        End Get
+    End Property
 End Class

@@ -18,6 +18,8 @@
 
     ReadOnly Property KnowsStarSystems As Boolean
     ReadOnly Property KnownStarSystems As IEnumerable(Of IStarSystem)
+    ReadOnly Property KnownStarVicinities As IEnumerable(Of IStarVicinity)
+    ReadOnly Property KnownPlanetVicinities As IEnumerable(Of IPlanetVicinity)
     Sub AddStarSystem(starSystem As IStarSystem)
 
     Sub SetFlag(flag As String)

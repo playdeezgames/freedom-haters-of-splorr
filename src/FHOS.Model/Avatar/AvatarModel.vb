@@ -157,6 +157,18 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property StarVicinityList As IEnumerable(Of (Text As String, Item As IStarVicinityModel)) Implements IAvatarModel.StarVicinityList
+        Get
+            Return avatar.KnownStarVicinities.Select(Function(x) (x.Name, CType(New StarVicinityModel(x), IStarVicinityModel)))
+        End Get
+    End Property
+
+    Public ReadOnly Property PlanetVicinityList As IEnumerable(Of (Text As String, Item As IPlanetVicinityModel)) Implements IAvatarModel.PlanetVicinityList
+        Get
+            Return avatar.KnownPlanetVicinities.Select(Function(x) (x.Name, CType(New PlanetVicinityModel(x), IPlanetVicinityModel)))
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         If Not CanMove Then
             Return
