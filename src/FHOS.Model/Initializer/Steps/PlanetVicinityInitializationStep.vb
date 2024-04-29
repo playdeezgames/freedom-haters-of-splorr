@@ -19,10 +19,10 @@ Friend Class PlanetVicinityInitializationStep
             LocationTypes.Void)
         planetVicinity.Map.PlanetVicinity = planetVicinity
         PlaceBoundaries(planetVicinity, planetVicinityLocation)
-        PlacePlanet(planetVicinity)
-        PlaceSatellites(PlanetVicinity)
+        PlacePlanet(planetVicinity, addStep)
+        PlaceSatellites(planetVicinity, addStep)
     End Sub
-    Private Sub PlaceSatellites(planetVicinity As IPlanetVicinity)
+    Private Sub PlaceSatellites(planetVicinity As IPlanetVicinity, addStep As Action(Of InitializationStep))
         Dim satellites As New List(Of (Column As Integer, Row As Integer)) From
             {
                 (PlanetVicinityColumns \ 2, PlanetVicinityRows \ 2)
@@ -44,14 +44,14 @@ Friend Class PlanetVicinityInitializationStep
                 Dim satelliteName = $"{planetVicinity.Name} {ChrW(AscW("A"c) + index)}"
                 index += 1
                 location.Satellite = planetVicinity.CreateSatellite(satelliteName, satelliteType)
-                SatelliteInitializer.Initialize(location.Satellite, location)
+                addStep(New SatelliteInitializationStep(location))
                 tries = 0
             Else
                 tries += 1
             End If
         End While
     End Sub
-    Private Sub PlacePlanet(planetVicinity As IPlanetVicinity)
+    Private Sub PlacePlanet(planetVicinity As IPlanetVicinity, addStep As Action(Of InitializationStep))
         Dim starColumn = PlanetVicinityColumns \ 2
         Dim starRow = PlanetVicinityRows \ 2
         Dim locationType = PlanetTypes.Descriptors(planetVicinity.PlanetType).LocationType
@@ -60,7 +60,7 @@ Friend Class PlanetVicinityInitializationStep
             .LocationType = locationType
             .Tutorial = TutorialTypes.PlanetLand
             .Planet = planetVicinity.CreatePlanet()
-            PlanetInitializer.Initialize(.Planet)
+            addStep(New PlanetInitializationStep(location))
         End With
     End Sub
     Private Sub PlaceBoundaries(planetVicinity As IPlanetVicinity, planetVicinityLocation As ILocation)
