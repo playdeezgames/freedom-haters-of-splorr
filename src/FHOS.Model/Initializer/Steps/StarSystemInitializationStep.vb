@@ -1,22 +1,29 @@
-﻿Imports System.Text
+﻿Imports System.Security.Cryptography.X509Certificates
+Imports System.Text
 Imports FHOS.Persistence
 Imports SPLORR.Game
 
-Friend Module StarSystemInitializer
+Friend Class StarSystemInitializationStep
+    Inherits InitializationStep
     Private Const SystemMapColumns = 31
     Private Const SystemMapRows = 31
+    ReadOnly starLocation As ILocation
+    Sub New(location As ILocation)
+        Me.starLocation = location
+    End Sub
 
-    Friend Sub Initialize(starSystem As IStarSystem, starLocation As ILocation)
+    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
+        Dim starSystem = starLocation.StarSystem
         starSystem.Map = starSystem.Universe.CreateMap(
-            MapTypes.System,
+MapTypes.System,
             $"{starSystem.Name} System",
             SystemMapColumns,
             SystemMapRows,
-            LocationTypes.Void)
+LocationTypes.Void)
         starSystem.Map.StarSystem = starSystem
         PlaceBoundaries(starSystem, starLocation)
         PlaceStar(starSystem)
-        PlacePlanets(starSystem)
+        PlacePlanets(StarSystem)
     End Sub
 
     Private Sub PlacePlanets(starSystem As IStarSystem)
@@ -104,4 +111,4 @@ Friend Module StarSystemInitializer
             starSystem.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(starFlag)
         Next
     End Sub
-End Module
+End Class
