@@ -18,8 +18,9 @@ Friend Class NeutralState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-
-        If Context.Model.Messages.HasAny Then
+        If Not Context.Model.DoneGenerating Then
+            SetState(GameState.Generate)
+        ElseIf Context.Model.Messages.HasAny Then
             SetState(GameState.Message)
         ElseIf Context.Model.Avatar.IsGameOver Then
             SetState(GameState.GameOver)

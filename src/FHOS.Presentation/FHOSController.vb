@@ -54,5 +54,6 @@ Public Class FHOSController
         SetState(GameState.ChangeGalacticAge, New ChangeGalacticAgeState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.ChangeGalacticDensity, New ChangeGalacticDensityState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.ChangeStartingWealthLevel, New ChangeStartingWealthLevelState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Generate, New GenerateState(Me, AddressOf SetCurrentState, context))
     End Sub
 End Class

@@ -64,9 +64,14 @@ Public Class UniverseModel
 
     Public Sub Embark() Implements IUniverseModel.Embark
         universeData = New UniverseData()
-        Initializer.Run(
-            Universe,
-            EmbarkSettings)
+        Initializer.Start(Universe, EmbarkSettings)
+    End Sub
+
+    Public Sub Generate() Implements IUniverseModel.Generate
+        Dim endTime = DateTimeOffset.Now.AddSeconds(0.01)
+        Do
+            Initializer.Execute()
+        Loop Until DateTimeOffset.Now >= endTime
     End Sub
 
     Private Shared ReadOnly Property EmbarkSettings As EmbarkSettings
@@ -85,6 +90,24 @@ Public Class UniverseModel
     Public ReadOnly Property StartingWealth As IStartingWealthLevelModel Implements IUniverseModel.StartingWealth
         Get
             Return New StartingWealthLevelModel(EmbarkSettings, AddressOf PersistEmbarkSettings)
+        End Get
+    End Property
+
+    Public ReadOnly Property GenerationStepsRemaining As Integer Implements IUniverseModel.GenerationStepsRemaining
+        Get
+            Return Initializer.StepsRemaining
+        End Get
+    End Property
+
+    Public ReadOnly Property GenerationStepsCompleted As Integer Implements IUniverseModel.GenerationStepsCompleted
+        Get
+            Return Initializer.StepsDone
+        End Get
+    End Property
+
+    Public ReadOnly Property DoneGenerating As Boolean Implements IUniverseModel.DoneGenerating
+        Get
+            Return Initializer.StepsRemaining = 0
         End Get
     End Property
 
