@@ -23,11 +23,8 @@ Friend Module Initializer
     Public Function Execute() As Boolean
         If initializationSteps.Any Then
             _stepCount += 1
-            Dim timeStart = DateTimeOffset.Now
             Dim initializationStep = initializationSteps.Dequeue()
             initializationStep.DoStep(AddressOf AddStep)
-            Dim timeElapsed = DateTimeOffset.Now - timeStart
-            Debug.Print($"Step {_stepCount} done in {timeElapsed}!")
             Return True
         End If
         Return False
