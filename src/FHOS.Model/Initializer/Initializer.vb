@@ -17,8 +17,11 @@ Friend Module Initializer
         Return False
     End Function
     Public Sub Run(universe As IUniverse, embarkSettings As EmbarkSettings)
+        Dim timeStart = DateTimeOffset.Now
         Start(universe, embarkSettings)
         Do
         Loop While Execute()
+        Dim timeElapsed = DateTimeOffset.Now - timeStart
+        Debug.Print($"Universe Created in {timeElapsed}!")
     End Sub
 End Module

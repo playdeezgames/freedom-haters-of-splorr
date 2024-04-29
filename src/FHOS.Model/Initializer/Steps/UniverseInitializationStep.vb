@@ -1,12 +1,18 @@
 ﻿Imports FHOS.Persistence
 Imports SPLORR.Game
 
-Friend Module GalaxyInitializer
+Friend Class UniverseInitializationStep
+    Inherits InitializationStep
     Private Const GalaxyColumns = 63
     Private Const GalaxyRows = 63
     Private Const GalaxyName = "Galaxy Map"
-
-    Function Initialize(universe As IUniverse, embarkSettings As EmbarkSettings) As IMap
+    Private ReadOnly universe As IUniverse
+    Private ReadOnly embarkSettings As EmbarkSettings
+    Sub New(universe As IUniverse, embarkSettings As EmbarkSettings)
+        Me.universe = universe
+        Me.embarkSettings = embarkSettings
+    End Sub
+    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
         Dim starMap = universe.CreateMap(MapTypes.Stellar, GalaxyName, GalaxyColumns, GalaxyRows, LocationTypes.Void)
         Dim stars As New List(Of (Column As Integer, Row As Integer))
         Dim starSystemNames As New HashSet(Of String)
@@ -30,10 +36,8 @@ Friend Module GalaxyInitializer
                 tries += 1
             End If
         End While
-        universe.Avatar = AvatarInitializer.Initialize(starMap, embarkSettings.StartingWealthLevel)
-        Return starMap
-    End Function
-
+        addStep(New AvatarInitializationStep(universe, starMap, embarkSettings))
+    End Sub
     Private Function GenerateUnusedStarSystemName(starSystemNames As HashSet(Of String)) As String
         Dim starSystemName As String
         Do
@@ -104,4 +108,4 @@ Friend Module GalaxyInitializer
     Private Function GenerateStarSystemName() As String
         Return $"{RNG.FromEnumerable(ConstellationNames)} {RNG.FromEnumerable(GreekLetterNames)}"
     End Function
-End Module
+End Class
