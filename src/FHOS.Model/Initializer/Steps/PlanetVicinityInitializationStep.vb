@@ -1,10 +1,16 @@
 ﻿Imports FHOS.Persistence
 Imports SPLORR.Game
 
-Friend Module PlanetVicinityInitializer
+Friend Class PlanetVicinityInitializationStep
+    Inherits InitializationStep
     Private Const PlanetVicinityColumns = 15
     Private Const PlanetVicinityRows = 15
-    Friend Sub Initialize(planetVicinity As IPlanetVicinity, planetVicinityLocation As ILocation)
+    Private ReadOnly planetVicinityLocation As ILocation
+    Sub New(location As ILocation)
+        Me.planetVicinityLocation = location
+    End Sub
+    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
+        Dim planetVicinity = planetVicinityLocation.PlanetVicinity
         planetVicinity.Map = planetVicinity.Universe.CreateMap(
             MapTypes.System,
             $"{planetVicinity.Name} Vicinity",
@@ -14,9 +20,8 @@ Friend Module PlanetVicinityInitializer
         planetVicinity.Map.PlanetVicinity = planetVicinity
         PlaceBoundaries(planetVicinity, planetVicinityLocation)
         PlacePlanet(planetVicinity)
-        PlaceSatellites(planetVicinity)
+        PlaceSatellites(PlanetVicinity)
     End Sub
-
     Private Sub PlaceSatellites(planetVicinity As IPlanetVicinity)
         Dim satellites As New List(Of (Column As Integer, Row As Integer)) From
             {
@@ -46,7 +51,6 @@ Friend Module PlanetVicinityInitializer
             End If
         End While
     End Sub
-
     Private Sub PlacePlanet(planetVicinity As IPlanetVicinity)
         Dim starColumn = PlanetVicinityColumns \ 2
         Dim starRow = PlanetVicinityRows \ 2
@@ -59,7 +63,6 @@ Friend Module PlanetVicinityInitializer
             PlanetInitializer.Initialize(.Planet)
         End With
     End Sub
-
     Private Sub PlaceBoundaries(planetVicinity As IPlanetVicinity, planetVicinityLocation As ILocation)
         Dim teleporter = planetVicinityLocation.CreateTeleporterTo()
         Dim starFlag = planetVicinity.Name
@@ -71,4 +74,4 @@ Friend Module PlanetVicinityInitializer
             planetVicinity.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(starFlag)
         Next
     End Sub
-End Module
+End Class

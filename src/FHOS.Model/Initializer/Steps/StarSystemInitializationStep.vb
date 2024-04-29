@@ -1,5 +1,4 @@
-﻿Imports System.Security.Cryptography.X509Certificates
-Imports System.Text
+﻿Imports System.Text
 Imports FHOS.Persistence
 Imports SPLORR.Game
 
@@ -22,11 +21,11 @@ MapTypes.System,
 LocationTypes.Void)
         starSystem.Map.StarSystem = starSystem
         PlaceBoundaries(starSystem, starLocation)
-        PlaceStar(starSystem)
-        PlacePlanets(StarSystem)
+        PlaceStar(starSystem, addStep)
+        PlacePlanets(starSystem, addStep)
     End Sub
 
-    Private Sub PlacePlanets(starSystem As IStarSystem)
+    Private Sub PlacePlanets(starSystem As IStarSystem, addStep As Action(Of InitializationStep))
         Dim planets As New List(Of (Column As Integer, Row As Integer)) From
             {
                 (SystemMapColumns \ 2, SystemMapRows \ 2)
@@ -48,7 +47,7 @@ LocationTypes.Void)
                 Dim planetName = $"{starSystem.Name} {Romanize(index)}"
                 index += 1
                 location.PlanetVicinity = starSystem.CreatePlanetVicinity(planetName, planetType)
-                PlanetVicinityInitializer.Initialize(location.PlanetVicinity, location)
+                addStep(New PlanetVicinityInitializationStep(location))
                 tries = 0
             Else
                 tries += 1
@@ -88,7 +87,7 @@ LocationTypes.Void)
         Return builder.ToString
     End Function
 
-    Private Sub PlaceStar(starSystem As IStarSystem)
+    Private Sub PlaceStar(starSystem As IStarSystem, addStep As Action(Of InitializationStep))
         Dim starColumn = SystemMapColumns \ 2
         Dim starRow = SystemMapRows \ 2
         Dim locationType = StarTypes.Descriptors(starSystem.StarType).LocationType
@@ -97,7 +96,7 @@ LocationTypes.Void)
             .LocationType = locationType
             .StarVicinity = starSystem.CreateStarVicinity()
             .Tutorial = TutorialTypes.StarVicinityApproach
-            StarVicinityInitializer.Initialize(.StarVicinity, location)
+            addStep(New StarVicinityInitializationStep(location))
         End With
     End Sub
     Private Sub PlaceBoundaries(starSystem As IStarSystem, starLocation As ILocation)

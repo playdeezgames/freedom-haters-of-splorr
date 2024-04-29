@@ -1,18 +1,24 @@
 ﻿Imports FHOS.Persistence
 
-Friend Module StarVicinityInitializer
+Friend Class StarVicinityInitializationStep
+    Inherits InitializationStep
     Private Const StarVicinityColumns = 15
     Private Const StarVicinityRows = 15
-    Friend Sub Initialize(starVicinity As IStarVicinity, starLocation As ILocation)
-        starVicinity.Map = starVicinity.Universe.CreateMap(
+    Private ReadOnly starLocation As ILocation
+    Sub New(location As ILocation)
+        Me.starLocation = location
+    End Sub
+    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
+        Dim starVicinity = starLocation.StarVicinity
+        starVicinity.Map = StarVicinity.Universe.CreateMap(
             MapTypes.System,
-            $"{starVicinity.Name} Vicinity",
+            $"{StarVicinity.Name} Vicinity",
             StarVicinityColumns,
             StarVicinityRows,
             LocationTypes.Void)
-        starVicinity.Map.StarVicinity = starVicinity
-        PlaceBoundaries(starVicinity, starLocation)
-        PlaceStar(starVicinity)
+        StarVicinity.Map.StarVicinity = StarVicinity
+        PlaceBoundaries(StarVicinity, starLocation)
+        PlaceStar(StarVicinity)
     End Sub
     Private Sub PlaceStar(starVicinity As IStarVicinity)
         Dim starColumn = StarVicinityColumns \ 2
@@ -37,4 +43,4 @@ Friend Module StarVicinityInitializer
             star.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(starFlag)
         Next
     End Sub
-End Module
+End Class
