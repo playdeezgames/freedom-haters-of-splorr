@@ -25,4 +25,5 @@
     Friend Const PlanetVicinityDetails = "PlanetVicinityDetails"
     Friend Const ChangeStartingWealthLevel = "ChangeStartingWealthLevel"
     Friend Const Generate = "Generate"
+    Friend Const KnownPlaces = "KnownPlaces"
 End Module

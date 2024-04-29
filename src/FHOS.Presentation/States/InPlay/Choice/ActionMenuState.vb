@@ -7,10 +7,8 @@ Friend Class ActionMenuState
     Private Const ApproachStarText = "Approach Star"
     Private Const RefillOxygenText = "Refill Oxygen"
     Private Const RefuelText = "Refuel"
-    Private Const StarSystemListText = "Known Star Systems..."
-    Private Const StarVicinitiesListText = "Known Star Vicinities..."
-    Private Const PlanetVicinitiesListText = "Known Planet Vicinities..."
     Private Const DistressSignalText = "Distress Signal"
+    Private Const KnownPlacesText = "Known Places..."
 
     Public Sub New(
                   parent As IGameController,
@@ -34,10 +32,8 @@ Friend Class ActionMenuState
             {ApproachStarText, GameState.ApproachStar},
             {RefillOxygenText, GameState.RefillOxygen},
             {RefuelText, GameState.Refuel},
-            {StarSystemListText, GameState.StarSystemList},
-            {StarVicinitiesListText, GameState.StarVicinityList},
-            {PlanetVicinitiesListText, GameState.PlanetVicinityList},
-            {DistressSignalText, GameState.SignalDistress}
+            {DistressSignalText, GameState.SignalDistress},
+            {KnownPlacesText, GameState.KnownPlaces}
         }
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
@@ -49,33 +45,29 @@ Friend Class ActionMenuState
             {
                 (GoBackText, GoBackText)
             }
-        If Context.Model.Avatar.KnowsStarSystems Then
-            result.Add((StarSystemListText, StarSystemListText))
-        End If
-        If Context.Model.Avatar.KnowsStarVicinities Then
-            result.Add((StarVicinitiesListText, StarVicinitiesListText))
-        End If
-        If Context.Model.Avatar.KnowsPlanetVicinities Then
-            result.Add((PlanetVicinitiesListText, PlanetVicinitiesListText))
-        End If
-        If Context.Model.Avatar.StarSystem.CanEnter Then
-            result.Add((EnterStarSystemText, EnterStarSystemText))
-        End If
-        If Context.Model.Avatar.StarVicinity.CanApproach Then
-            result.Add((ApproachStarText, ApproachStarText))
-        End If
-        If Context.Model.Avatar.PlanetVicinity.CanApproach Then
-            result.Add((ApproachPlanetText, ApproachPlanetText))
-        End If
-        If Context.Model.Avatar.Planet.CanRefillOxygen Then
-            result.Add((RefillOxygenText, RefillOxygenText))
-        End If
-        If Context.Model.Avatar.Star.CanRefillFuel Then
-            result.Add((RefuelText, RefuelText))
-        End If
-        If Not Context.Model.Avatar.CanMove Then
-            result.Add((DistressSignalText, DistressSignalText))
-        End If
+        With Context.Model.Avatar
+            If .KnowsPlaces Then
+                result.Add((KnownPlacesText, KnownPlacesText))
+            End If
+            If .StarSystem.CanEnter Then
+                result.Add((EnterStarSystemText, EnterStarSystemText))
+            End If
+            If .StarVicinity.CanApproach Then
+                result.Add((ApproachStarText, ApproachStarText))
+            End If
+            If .PlanetVicinity.CanApproach Then
+                result.Add((ApproachPlanetText, ApproachPlanetText))
+            End If
+            If .Planet.CanRefillOxygen Then
+                result.Add((RefillOxygenText, RefillOxygenText))
+            End If
+            If .Star.CanRefillFuel Then
+                result.Add((RefuelText, RefuelText))
+            End If
+            If Not .CanMove Then
+                result.Add((DistressSignalText, DistressSignalText))
+            End If
+        End With
         Return result
     End Function
 End Class

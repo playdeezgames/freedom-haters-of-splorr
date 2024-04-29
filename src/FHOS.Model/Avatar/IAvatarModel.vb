@@ -37,4 +37,5 @@
     ReadOnly Property KnowsStarVicinities As Boolean
     ReadOnly Property StarVicinityList As IEnumerable(Of (Text As String, Item As IStarVicinityModel))
     ReadOnly Property PlanetVicinityList As IEnumerable(Of (Text As String, Item As IPlanetVicinityModel))
+    ReadOnly Property KnowsPlaces As Boolean
 End Interface

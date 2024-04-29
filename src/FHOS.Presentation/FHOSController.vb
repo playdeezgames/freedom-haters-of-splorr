@@ -28,6 +28,7 @@ Public Class FHOSController
     End Sub
 
     Private Sub CreateExplorationStates(context As IUIContext(Of IUniverseModel))
+        SetState(GameState.KnownPlaces, New KnownPlacesState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.StarSystemList, New StarSystemListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.StarSystemDetails, New StarSystemDetailsState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.StarVicinityList, New StarVicinityListState(Me, AddressOf SetCurrentState, context))
