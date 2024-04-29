@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Model
 Imports SPLORR.UI
 
-Friend Class DeadState
+Friend Class GameOverState
     Inherits BaseMessageState(Of Model.IUniverseModel)
 
     Public Sub New(
@@ -20,6 +20,11 @@ Friend Class DeadState
     End Function
 
     Protected Overrides Function MessageText() As String
-        Return "Yer Dead!"
+        If Context.Model.Avatar.IsDead Then
+            Return "Yer Dead!"
+        ElseIf Context.Model.Avatar.IsBankrupt Then
+            Return "Yer Bankrupt!"
+        End If
+        Throw New NotImplementedException
     End Function
 End Class

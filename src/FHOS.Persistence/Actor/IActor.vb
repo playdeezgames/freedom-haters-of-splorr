@@ -27,6 +27,7 @@
 
     Property Turn As Integer
     Property Jools As Integer
+    Property MinimumJools As Integer
     ReadOnly Property KnowsPlanetVicinities As Boolean
     ReadOnly Property KnowsStarVicinities As Boolean
     Sub AddMessage(

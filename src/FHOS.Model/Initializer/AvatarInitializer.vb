@@ -14,6 +14,7 @@ Friend Module AvatarInitializer
         actor.MaximumFuel = descriptor.MaximumFuel
         actor.Fuel = descriptor.MaximumFuel
         actor.Jools = StartingWealthLevels.Descriptors(startingWealthLevel).GenerateJools
+        actor.MinimumJools = StartingWealthLevels.Descriptors(startingWealthLevel).MinimumJools
         Return actor
     End Function
 End Module

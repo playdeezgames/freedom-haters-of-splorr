@@ -12,7 +12,7 @@
     Friend Const EnterStarSystem = "EnterStarSystem"
     Friend Const ApproachPlanet = "ApproachPlanet"
     Friend Const ApproachStar = "ApproachStar"
-    Friend Const Dead = "Dead"
+    Friend Const GameOver = "GameOver"
     Friend Const RefillOxygen = "RefillOxygen"
     Friend Const Refuel = "Refuel"
     Friend Const StarSystemList = "StarSystemList"

@@ -21,8 +21,8 @@ Friend Class NeutralState
 
         If Context.Model.Messages.HasAny Then
             SetState(GameState.Message)
-        ElseIf Context.Model.Avatar.IsDead Then
-            SetState(GameState.Dead)
+        ElseIf Context.Model.Avatar.IsGameOver Then
+            SetState(GameState.GameOver)
         ElseIf Context.Model.Avatar.Tutorial.HasAny Then
             SetState(GameState.Tutorial)
         Else

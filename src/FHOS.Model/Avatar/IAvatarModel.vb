@@ -9,11 +9,16 @@
     Sub DoDistressSignal()
     ReadOnly Property KnowsPlanetVicinities As Boolean
     ReadOnly Property Turn As Integer
+
     ReadOnly Property Jools As Integer
+    ReadOnly Property MinimumJools As Integer
 
     ReadOnly Property OxygenPercent As Integer
     ReadOnly Property OxygenHue As Integer
+
+    ReadOnly Property IsGameOver As Boolean
     ReadOnly Property IsDead As Boolean
+    ReadOnly Property IsBankrupt As Boolean
 
     ReadOnly Property FuelPercent As Integer
     ReadOnly Property FuelHue As Integer

@@ -103,9 +103,9 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property IsDead As Boolean Implements IAvatarModel.IsDead
+    Public ReadOnly Property IsGameOver As Boolean Implements IAvatarModel.IsGameOver
         Get
-            Return OxygenPercent = 0
+            Return IsDead OrElse IsBankrupt
         End Get
     End Property
 
@@ -166,6 +166,24 @@ Friend Class AvatarModel
     Public ReadOnly Property PlanetVicinityList As IEnumerable(Of (Text As String, Item As IPlanetVicinityModel)) Implements IAvatarModel.PlanetVicinityList
         Get
             Return avatar.KnownPlanetVicinities.Select(Function(x) (x.Name, CType(New PlanetVicinityModel(x), IPlanetVicinityModel)))
+        End Get
+    End Property
+
+    Public ReadOnly Property MinimumJools As Integer Implements IAvatarModel.MinimumJools
+        Get
+            Return avatar.MinimumJools
+        End Get
+    End Property
+
+    Public ReadOnly Property IsDead As Boolean Implements IAvatarModel.IsDead
+        Get
+            Return avatar.Oxygen = 0
+        End Get
+    End Property
+
+    Public ReadOnly Property IsBankrupt As Boolean Implements IAvatarModel.IsBankrupt
+        Get
+            Return avatar.Jools < avatar.MinimumJools
         End Get
     End Property
 

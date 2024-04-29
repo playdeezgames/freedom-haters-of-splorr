@@ -203,4 +203,13 @@ Friend Class Actor
             Return ActorData.PlanetVicinities.Discovered.Select(Function(x) New PlanetVicinity(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
         End Get
     End Property
+
+    Public Property MinimumJools As Integer Implements IActor.MinimumJools
+        Get
+            Return ActorData.Statistics(StatisticTypes.MinimumJools)
+        End Get
+        Set(value As Integer)
+            ActorData.Statistics(StatisticTypes.MinimumJools) = value
+        End Set
+    End Property
 End Class
