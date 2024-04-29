@@ -32,9 +32,4 @@ Friend Module Initializer
         End If
         Return False
     End Function
-    Public Sub Run(universe As IUniverse, embarkSettings As EmbarkSettings)
-        Start(universe, embarkSettings)
-        Do
-        Loop While Execute()
-    End Sub
 End Module

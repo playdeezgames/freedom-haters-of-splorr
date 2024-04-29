@@ -23,7 +23,7 @@ Friend Class GenerateState
         Context.ShowHeader(displayBuffer, font, "Generating...", Context.UIPalette.Header, Context.UIPalette.Background)
         font.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, Context.ViewCenter.Y - font.HalfHeight * 3), $"Steps Completed: {Context.Model.GenerationStepsCompleted}", Context.UIPalette.MenuItem)
         font.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, Context.ViewCenter.Y - font.HalfHeight), $"Steps To Go: {Context.Model.GenerationStepsRemaining}", Context.UIPalette.MenuItem)
-        font.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, Context.ViewCenter.Y + font.HalfHeight), $"Time Taken: {(DateTimeOffset.Now - _timeStart)}", Context.UIPalette.MenuItem)
+        font.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, Context.ViewCenter.Y + font.HalfHeight), $"Time Taken: {(DateTimeOffset.Now - _timeStart).TotalSeconds:f1}s", Context.UIPalette.MenuItem)
         Context.Model.Generate()
         If Context.Model.DoneGenerating Then
             SetState(BoilerplateState.Neutral)
