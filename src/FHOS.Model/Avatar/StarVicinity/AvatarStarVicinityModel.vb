@@ -29,7 +29,7 @@ Friend Class AvatarStarVicinityModel
         If CanApproach Then
             DoTurn()
             With avatar.Location.StarVicinity
-                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Name))))
+                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
             End With
         End If
     End Sub

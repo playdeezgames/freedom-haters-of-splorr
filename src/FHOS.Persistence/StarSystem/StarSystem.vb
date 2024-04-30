@@ -49,6 +49,12 @@ Friend Class StarSystem
         End Get
     End Property
 
+    Public ReadOnly Property Identifier As String Implements IStarSystem.Identifier
+        Get
+            Return StarSystemData.Metadatas(MetadataTypes.Identifier)
+        End Get
+    End Property
+
     Private Sub AddStarVicinity(starVicinity As IStarVicinity)
         StarSystemData.StarVicinities.Add(starVicinity.Id)
     End Sub
@@ -66,7 +72,8 @@ Friend Class StarSystem
                     .Metadatas = New Dictionary(Of String, String) From
                     {
                         {MetadataTypes.Name, Name},
-                        {MetadataTypes.StarType, StarType}
+                        {MetadataTypes.StarType, StarType},
+                        {MetadataTypes.Identifier, Guid.NewGuid.ToString}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
@@ -86,7 +93,8 @@ Friend Class StarSystem
                     .Metadatas = New Dictionary(Of String, String) From
                     {
                         {MetadataTypes.Name, planetName},
-                        {MetadataTypes.PlanetType, planetType}
+                        {MetadataTypes.PlanetType, planetType},
+                        {MetadataTypes.Identifier, Guid.NewGuid.ToString}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {

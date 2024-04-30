@@ -10,15 +10,15 @@ Friend Class StarVicinityInitializationStep
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
         Dim starVicinity = starLocation.StarVicinity
-        starVicinity.Map = StarVicinity.Universe.CreateMap(
+        starVicinity.Map = starVicinity.Universe.CreateMap(
             MapTypes.System,
-            $"{StarVicinity.Name} Vicinity",
+            $"{starVicinity.Name} Vicinity",
             StarVicinityColumns,
             StarVicinityRows,
             LocationTypes.Void)
-        StarVicinity.Map.StarVicinity = StarVicinity
-        PlaceBoundaries(StarVicinity, starLocation)
-        PlaceStar(StarVicinity)
+        starVicinity.Map.StarVicinity = starVicinity
+        PlaceBoundaries(starVicinity, starLocation)
+        PlaceStar(starVicinity)
     End Sub
     Private Sub PlaceStar(starVicinity As IStarVicinity)
         Dim starColumn = StarVicinityColumns \ 2
@@ -32,15 +32,15 @@ Friend Class StarVicinityInitializationStep
             'TODO: initialize further down?
         End With
     End Sub
-    Private Sub PlaceBoundaries(star As IStarVicinity, starLocation As ILocation)
+    Private Sub PlaceBoundaries(starVicinity As IStarVicinity, starLocation As ILocation)
         Dim teleporter = starLocation.CreateTeleporterTo()
-        Dim starFlag = star.Name
+        Dim identifier = starVicinity.Identifier
         For Each corner In GetCorners(StarVicinityColumns, StarVicinityRows)
-            PlaceBoundary(star.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter)
+            PlaceBoundary(starVicinity.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter)
         Next
         For Each edge In GetEdges(StarVicinityColumns, StarVicinityRows)
-            PlaceBoundary(star.Map.GetLocation(edge.X, edge.Y), edge.LocationType, teleporter)
-            star.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(starFlag)
+            PlaceBoundary(starVicinity.Map.GetLocation(edge.X, edge.Y), edge.LocationType, teleporter)
+            starVicinity.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(identifier)
         Next
     End Sub
 End Class

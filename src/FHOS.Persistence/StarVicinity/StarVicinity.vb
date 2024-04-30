@@ -49,6 +49,12 @@ Friend Class StarVicinity
         End Get
     End Property
 
+    Public ReadOnly Property Identifier As String Implements IStarVicinity.Identifier
+        Get
+            Return StarVicinityData.Metadatas(MetadataTypes.Identifier)
+        End Get
+    End Property
+
     Private Sub AddStar(star As IStar)
         StarVicinityData.Stars.Add(star.Id)
     End Sub

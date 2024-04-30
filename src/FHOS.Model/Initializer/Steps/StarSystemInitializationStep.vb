@@ -101,13 +101,13 @@ LocationTypes.Void)
     End Sub
     Private Sub PlaceBoundaries(starSystem As IStarSystem, starLocation As ILocation)
         Dim teleporter = starLocation.CreateTeleporterTo()
-        Dim starFlag = starSystem.Name
+        Dim identifier = starSystem.Identifier
         For Each corner In GetCorners(SystemMapColumns, SystemMapRows)
             PlaceBoundary(starSystem.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter)
         Next
         For Each edge In GetEdges(SystemMapColumns, SystemMapRows)
             PlaceBoundary(starSystem.Map.GetLocation(edge.X, edge.Y), edge.LocationType, teleporter)
-            starSystem.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(starFlag)
+            starSystem.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(identifier)
         Next
     End Sub
 End Class

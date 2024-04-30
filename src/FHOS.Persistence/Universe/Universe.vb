@@ -60,7 +60,8 @@ Public Class Universe
                 .Metadatas = New Dictionary(Of String, String) From
                 {
                     {MetadataTypes.Name, starSystemName},
-                    {MetadataTypes.StarType, starType}
+                    {MetadataTypes.StarType, starType},
+                    {MetadataTypes.Identifier, Guid.NewGuid.ToString}
                 }
             }
         Dim starSystemId As Integer = UniverseData.StarSystems.CreateOrRecycle(starSystemData)

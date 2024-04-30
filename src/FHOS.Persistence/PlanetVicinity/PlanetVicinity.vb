@@ -49,6 +49,12 @@ Friend Class PlanetVicinity
         End Get
     End Property
 
+    Public ReadOnly Property Identifier As String Implements IPlanetVicinity.Identifier
+        Get
+            Return PlanetVicinityData.Metadatas(MetadataTypes.Identifier)
+        End Get
+    End Property
+
     Private Sub AddPlanet(planet As IPlanet)
         PlanetVicinityData.Planets.Add(planet.Id)
     End Sub

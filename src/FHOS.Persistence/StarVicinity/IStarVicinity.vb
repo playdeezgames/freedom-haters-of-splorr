@@ -5,4 +5,5 @@
     ReadOnly Property StarType As String
     Property Map As IMap
     Function CreateStar() As IStar
+    ReadOnly Property Identifier As String
 End Interface

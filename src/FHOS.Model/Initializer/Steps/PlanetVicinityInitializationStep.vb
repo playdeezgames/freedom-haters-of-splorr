@@ -65,13 +65,13 @@ Friend Class PlanetVicinityInitializationStep
     End Sub
     Private Sub PlaceBoundaries(planetVicinity As IPlanetVicinity, planetVicinityLocation As ILocation)
         Dim teleporter = planetVicinityLocation.CreateTeleporterTo()
-        Dim starFlag = planetVicinity.Name
+        Dim identifier = planetVicinity.Identifier
         For Each corner In GetCorners(PlanetVicinityColumns, PlanetVicinityRows)
             PlaceBoundary(planetVicinity.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter)
         Next
         For Each edge In GetEdges(PlanetVicinityColumns, PlanetVicinityRows)
             PlaceBoundary(planetVicinity.Map.GetLocation(edge.X, edge.Y), edge.LocationType, teleporter)
-            planetVicinity.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(starFlag)
+            planetVicinity.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(identifier)
         Next
     End Sub
 End Class
