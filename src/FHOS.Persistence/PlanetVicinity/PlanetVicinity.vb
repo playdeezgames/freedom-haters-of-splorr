@@ -59,7 +59,7 @@ Friend Class PlanetVicinity
         PlaceData.Descendants.Add(planet.Id)
     End Sub
 
-    Private Sub AddSatellite(satellite As ISatellite)
+    Private Sub AddSatellite(satellite As IPlace)
         PlaceData.Descendants.Add(satellite.Id)
     End Sub
 
@@ -84,8 +84,8 @@ Friend Class PlanetVicinity
         Return planet
     End Function
 
-    Public Function CreateSatellite(satelliteName As String, satelliteType As String) As ISatellite Implements IPlanetVicinity.CreateSatellite
-        Dim satellite As ISatellite = New Satellite(
+    Public Function CreateSatellite(satelliteName As String, satelliteType As String) As IPlace Implements IPlanetVicinity.CreateSatellite
+        Dim satellite As IPlace = New Place(
             UniverseData,
                 UniverseData.Places.CreateOrRecycle(
                 New PlaceData With
