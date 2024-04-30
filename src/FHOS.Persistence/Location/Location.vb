@@ -153,7 +153,7 @@ Friend Class Location
         Get
             Dim satelliteId As Integer
             If LocationData.Statistics.TryGetValue(StatisticTypes.SatelliteId, satelliteId) Then
-                Return New Satellite(UniverseData, satelliteId)
+                Return New Place(UniverseData, satelliteId)
             End If
             Return Nothing
         End Get
