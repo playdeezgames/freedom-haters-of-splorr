@@ -8,8 +8,6 @@ Public Class UniverseData
     Property Locations As New BucketData(Of LocationData)
     <JsonPropertyName("m2")>
     Property Maps As New BucketData(Of MapData)
-    <JsonPropertyName("p1")>
-    Property PlanetVicinities As New BucketData(Of PlanetVicinityData)
     <JsonPropertyName("s2")>
     Property StarVicinities As New BucketData(Of StarVicinityData)
     <JsonPropertyName("s3")>

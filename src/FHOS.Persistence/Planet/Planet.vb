@@ -1,5 +1,5 @@
 ﻿Friend Class Planet
-    Inherits PlanetDataClient
+    Inherits PlaceDataClient
     Implements IPlanet
 
     Public Sub New(universeData As Data.UniverseData, planetId As Integer)

@@ -2,14 +2,14 @@
 
 Friend Class PlanetVicinityDataClient
     Inherits UniverseDataClient
-    Protected ReadOnly PlanetVicinityId As Integer
-    Protected ReadOnly Property PlanetVicinityData As PlanetVicinityData
+    Protected ReadOnly PlaceId As Integer
+    Protected ReadOnly Property PlaceData As PlaceData
         Get
-            Return UniverseData.PlanetVicinities.Entities(PlanetVicinityId)
+            Return UniverseData.Places.Entities(PlaceId)
         End Get
     End Property
-    Public Sub New(universeData As Data.UniverseData, planetId As Integer)
+    Public Sub New(universeData As Data.UniverseData, placeId As Integer)
         MyBase.New(universeData)
-        Me.PlanetVicinityId = planetId
+        Me.PlaceId = placeId
     End Sub
 End Class

@@ -10,13 +10,13 @@ Friend Class PlanetVicinity
 
     Public ReadOnly Property Id As Integer Implements IPlanetVicinity.Id
         Get
-            Return PlanetVicinityId
+            Return PlaceId
         End Get
     End Property
 
     Public ReadOnly Property Name As String Implements IPlanetVicinity.Name
         Get
-            Return PlanetVicinityData.Metadatas(MetadataTypes.Name)
+            Return PlaceData.Metadatas(MetadataTypes.Name)
         End Get
     End Property
 
@@ -29,38 +29,38 @@ Friend Class PlanetVicinity
     Public Property Map As IMap Implements IPlanetVicinity.Map
         Get
             Dim mapId As Integer
-            If PlanetVicinityData.Statistics.TryGetValue(StatisticTypes.MapId, mapId) Then
+            If PlaceData.Statistics.TryGetValue(StatisticTypes.MapId, mapId) Then
                 Return New Map(UniverseData, mapId)
             End If
             Return Nothing
         End Get
         Set(value As IMap)
             If value Is Nothing Then
-                PlanetVicinityData.Statistics.Remove(StatisticTypes.MapId)
+                PlaceData.Statistics.Remove(StatisticTypes.MapId)
             Else
-                PlanetVicinityData.Statistics(StatisticTypes.MapId) = value.Id
+                PlaceData.Statistics(StatisticTypes.MapId) = value.Id
             End If
         End Set
     End Property
 
     Public ReadOnly Property PlanetType As String Implements IPlanetVicinity.PlanetType
         Get
-            Return PlanetVicinityData.Metadatas(MetadataTypes.PlanetType)
+            Return PlaceData.Metadatas(MetadataTypes.PlanetType)
         End Get
     End Property
 
     Public ReadOnly Property Identifier As String Implements IPlanetVicinity.Identifier
         Get
-            Return PlanetVicinityData.Metadatas(MetadataTypes.Identifier)
+            Return PlaceData.Metadatas(MetadataTypes.Identifier)
         End Get
     End Property
 
     Private Sub AddPlanet(planet As IPlanet)
-        PlanetVicinityData.Descendants.Add(planet.Id)
+        PlaceData.Descendants.Add(planet.Id)
     End Sub
 
     Private Sub AddSatellite(satellite As ISatellite)
-        PlanetVicinityData.Descendants.Add(satellite.Id)
+        PlaceData.Descendants.Add(satellite.Id)
     End Sub
 
     Public Function CreatePlanet() As IPlanet Implements IPlanetVicinity.CreatePlanet

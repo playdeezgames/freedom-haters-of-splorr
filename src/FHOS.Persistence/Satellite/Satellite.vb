@@ -1,5 +1,5 @@
 ﻿Friend Class Satellite
-    Inherits SatelliteDataClient
+    Inherits PlaceDataClient
     Implements ISatellite
 
     Public Sub New(universeData As Data.UniverseData, satelliteId As Integer)

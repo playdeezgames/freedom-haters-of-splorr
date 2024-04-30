@@ -88,8 +88,8 @@ Friend Class StarSystem
     Public Function CreatePlanetVicinity(planetName As String, planetType As String) As IPlanetVicinity Implements IStarSystem.CreatePlanetVicinity
         Dim planetVicinity = New PlanetVicinity(
             UniverseData,
-                UniverseData.PlanetVicinities.CreateOrRecycle(
-                New PlanetVicinityData With
+                UniverseData.Places.CreateOrRecycle(
+                New PlaceData With
                 {
                     .Metadatas = New Dictionary(Of String, String) From
                     {
