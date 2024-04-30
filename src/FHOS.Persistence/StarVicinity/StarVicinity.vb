@@ -68,6 +68,7 @@ Friend Class StarVicinity
                     .Metadatas = New Dictionary(Of String, String) From
                     {
                         {MetadataTypes.Name, Name},
+                        {MetadataTypes.PlaceType, PlaceTypes.Star},
                         {MetadataTypes.StarType, StarType}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From

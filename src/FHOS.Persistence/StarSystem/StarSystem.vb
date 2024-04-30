@@ -73,7 +73,8 @@ Friend Class StarSystem
                     {
                         {MetadataTypes.Name, Name},
                         {MetadataTypes.StarType, StarType},
-                        {MetadataTypes.Identifier, Guid.NewGuid.ToString}
+                        {MetadataTypes.Identifier, Guid.NewGuid.ToString},
+                        {MetadataTypes.PlaceType, PlaceTypes.StarVicinity}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
@@ -94,7 +95,8 @@ Friend Class StarSystem
                     {
                         {MetadataTypes.Name, planetName},
                         {MetadataTypes.PlanetType, planetType},
-                        {MetadataTypes.Identifier, Guid.NewGuid.ToString}
+                        {MetadataTypes.Identifier, Guid.NewGuid.ToString},
+                        {MetadataTypes.PlaceType, PlaceTypes.PlanetVicinity}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {

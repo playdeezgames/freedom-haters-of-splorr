@@ -9,7 +9,7 @@ Friend Class SatelliteDataClient
     End Sub
 
     Protected ReadOnly Property PlaceId As Integer
-    Protected ReadOnly Property SatelliteData As PlaceData
+    Protected ReadOnly Property PlaceData As PlaceData
         Get
             Return UniverseData.Places.Entities(PlaceId)
         End Get

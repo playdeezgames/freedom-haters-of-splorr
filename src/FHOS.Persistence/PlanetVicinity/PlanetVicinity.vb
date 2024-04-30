@@ -66,12 +66,13 @@ Friend Class PlanetVicinity
     Public Function CreatePlanet() As IPlanet Implements IPlanetVicinity.CreatePlanet
         Dim planet As IPlanet = New Planet(
             UniverseData,
-                UniverseData.Planets.CreateOrRecycle(
-                New PlanetData With
+                UniverseData.Places.CreateOrRecycle(
+                New PlaceData With
                 {
                     .Metadatas = New Dictionary(Of String, String) From
                     {
                         {MetadataTypes.Name, Name},
+                        {MetadataTypes.PlaceType, PlaceTypes.Planet},
                         {MetadataTypes.PlanetType, PlanetType}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
@@ -92,6 +93,7 @@ Friend Class PlanetVicinity
                     .Metadatas = New Dictionary(Of String, String) From
                     {
                         {MetadataTypes.Name, satelliteName},
+                        {MetadataTypes.PlaceType, PlaceTypes.Satellite},
                         {MetadataTypes.SatelliteType, satelliteType}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From

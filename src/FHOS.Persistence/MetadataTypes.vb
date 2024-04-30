@@ -9,4 +9,5 @@
     Friend Const PlanetType = "PlanetType"
     Friend Const SatelliteType = "SatelliteType"
     Friend Const Identifier = "Identifier"
+    Friend Const PlaceType = "PlaceType"
 End Module
