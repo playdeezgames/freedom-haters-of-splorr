@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Persistence
 Imports SPLORR.Game
 
-Friend Class UniverseInitializationStep
+Friend Class GalaxyInitializationStep
     Inherits InitializationStep
     Private Const GalaxyColumns = 63
     Private Const GalaxyRows = 63
