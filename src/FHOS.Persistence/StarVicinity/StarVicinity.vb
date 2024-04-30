@@ -56,7 +56,7 @@ Friend Class StarVicinity
     End Property
 
     Private Sub AddStar(star As IPlace)
-        StarVicinityData.Stars.Add(star.Id)
+        StarVicinityData.Descendants.Add(star.Id)
     End Sub
 
     Public Function CreateStar() As IPlace Implements IStarVicinity.CreateStar
