@@ -14,10 +14,10 @@ Friend Class AvatarStarModel
         End Get
     End Property
 
-    Public ReadOnly Property Current As IStarModel Implements IAvatarStarModel.Current
+    Public ReadOnly Property Current As IPlaceModel Implements IAvatarStarModel.Current
         Get
             If avatar.Location.Star IsNot Nothing Then
-                Return New StarModel(avatar.Location.Star)
+                Return New PlaceModel(avatar.Location.Star)
             End If
             Return Nothing
         End Get

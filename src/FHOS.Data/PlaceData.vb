@@ -1,3 +1,3 @@
-﻿Public Class StarData
+﻿Public Class PlaceData
     Inherits EntityData
 End Class

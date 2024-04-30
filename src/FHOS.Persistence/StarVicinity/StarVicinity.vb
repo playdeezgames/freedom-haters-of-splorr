@@ -55,15 +55,15 @@ Friend Class StarVicinity
         End Get
     End Property
 
-    Private Sub AddStar(star As IStar)
+    Private Sub AddStar(star As IPlace)
         StarVicinityData.Stars.Add(star.Id)
     End Sub
 
-    Public Function CreateStar() As IStar Implements IStarVicinity.CreateStar
-        Dim star = New Star(
+    Public Function CreateStar() As IPlace Implements IStarVicinity.CreateStar
+        Dim star = New Place(
             UniverseData,
-                UniverseData.Stars.CreateOrRecycle(
-                New StarData With
+                UniverseData.Places.CreateOrRecycle(
+                New PlaceData With
                 {
                     .Metadatas = New Dictionary(Of String, String) From
                     {

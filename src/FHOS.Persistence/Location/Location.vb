@@ -183,15 +183,15 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property Star As IStar Implements ILocation.Star
+    Public Property Star As IPlace Implements ILocation.Star
         Get
             Dim starId As Integer
             If LocationData.Statistics.TryGetValue(StatisticTypes.StarId, starId) Then
-                Return New Star(UniverseData, starId)
+                Return New Place(UniverseData, starId)
             End If
             Return Nothing
         End Get
-        Set(value As IStar)
+        Set(value As IPlace)
             If value Is Nothing Then
                 LocationData.Statistics.Remove(StatisticTypes.StarId)
             Else

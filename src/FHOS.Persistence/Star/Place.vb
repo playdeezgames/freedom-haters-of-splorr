@@ -1,14 +1,14 @@
-﻿Friend Class Star
-    Inherits StarDataClient
-    Implements IStar
+﻿Friend Class Place
+    Inherits PlaceDataClient
+    Implements IPlace
 
     Public Sub New(universeData As Data.UniverseData, starId As Integer)
         MyBase.New(universeData, starId)
     End Sub
 
-    Public ReadOnly Property Id As Integer Implements IStar.Id
+    Public ReadOnly Property Id As Integer Implements IPlace.Id
         Get
-            Return StarId
+            Return PlaceId
         End Get
     End Property
 End Class
