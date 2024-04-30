@@ -86,8 +86,8 @@ Friend Class PlanetVicinity
     Public Function CreateSatellite(satelliteName As String, satelliteType As String) As ISatellite Implements IPlanetVicinity.CreateSatellite
         Dim satellite As ISatellite = New Satellite(
             UniverseData,
-                UniverseData.Satellites.CreateOrRecycle(
-                New SatelliteData With
+                UniverseData.Places.CreateOrRecycle(
+                New PlaceData With
                 {
                     .Metadatas = New Dictionary(Of String, String) From
                     {

@@ -8,7 +8,7 @@
 
     Public ReadOnly Property Id As Integer Implements ISatellite.Id
         Get
-            Return SatelliteId
+            Return PlaceId
         End Get
     End Property
 End Class
