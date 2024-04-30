@@ -1,4 +1,4 @@
 ﻿Public Interface IPlanet
-    ReadOnly Property Id As Integer
+    Inherits IPlace
     ReadOnly Property PlanetType As String
 End Interface

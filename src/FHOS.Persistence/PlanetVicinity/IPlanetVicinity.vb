@@ -1,5 +1,5 @@
 ﻿Public Interface IPlanetVicinity
-    ReadOnly Property Id As Integer
+    Inherits IPlace
     ReadOnly Property Name As String
     ReadOnly Property Universe As IUniverse
     ReadOnly Property PlanetType As String
