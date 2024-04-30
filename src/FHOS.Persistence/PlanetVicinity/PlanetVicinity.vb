@@ -56,11 +56,11 @@ Friend Class PlanetVicinity
     End Property
 
     Private Sub AddPlanet(planet As IPlanet)
-        PlanetVicinityData.Planets.Add(planet.Id)
+        PlanetVicinityData.Descendants.Add(planet.Id)
     End Sub
 
     Private Sub AddSatellite(satellite As ISatellite)
-        PlanetVicinityData.Satellites.Add(satellite.Id)
+        PlanetVicinityData.Descendants.Add(satellite.Id)
     End Sub
 
     Public Function CreatePlanet() As IPlanet Implements IPlanetVicinity.CreatePlanet

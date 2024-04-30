@@ -56,7 +56,7 @@ Friend Class StarSystem
     End Property
 
     Private Sub AddStarVicinity(starVicinity As IStarVicinity)
-        StarSystemData.StarVicinities.Add(starVicinity.Id)
+        StarSystemData.Descendants.Add(starVicinity.Id)
     End Sub
 
     Private Sub AddPlanetVicinity(planetVicinity As IPlanetVicinity)
