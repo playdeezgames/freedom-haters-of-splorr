@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Data
 
 Friend Class StarSystem
-    Inherits StarSystemDataClient
+    Inherits PlaceDataClient
     Implements IStarSystem
 
     Public Sub New(universeData As Data.UniverseData, starSystemId As Integer)
