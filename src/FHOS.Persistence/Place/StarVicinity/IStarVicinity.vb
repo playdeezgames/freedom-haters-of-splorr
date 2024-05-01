@@ -1,6 +1,5 @@
 ﻿Public Interface IStarVicinity
-    Inherits IPlace
+    Inherits IStar
     ReadOnly Property StarType As String
-    Function LegacyCreateStar() As IPlace
     Function CreateStar() As IStar
 End Interface
