@@ -1,28 +1,16 @@
 ﻿Imports FHOS.Data
 
 Friend Class PlanetVicinity
-    Inherits PlanetVicinityDataClient
+    Inherits Planet
     Implements IPlanetVicinity
 
     Public Sub New(universeData As Data.UniverseData, planetId As Integer)
         MyBase.New(universeData, planetId)
     End Sub
 
-    Public ReadOnly Property Id As Integer Implements IPlanetVicinity.Id
-        Get
-            Return PlaceId
-        End Get
-    End Property
-
     Public ReadOnly Property Name As String Implements IPlanetVicinity.Name
         Get
             Return PlaceData.Metadatas(MetadataTypes.Name)
-        End Get
-    End Property
-
-    Public ReadOnly Property Universe As IUniverse Implements IPlanetVicinity.Universe
-        Get
-            Return New Universe(UniverseData)
         End Get
     End Property
 
@@ -41,12 +29,6 @@ Friend Class PlanetVicinity
                 PlaceData.Statistics(StatisticTypes.MapId) = value.Id
             End If
         End Set
-    End Property
-
-    Public ReadOnly Property PlanetType As String Implements IPlanetVicinity.PlanetType
-        Get
-            Return PlaceData.Metadatas(MetadataTypes.PlanetType)
-        End Get
     End Property
 
     Public ReadOnly Property Identifier As String Implements IPlanetVicinity.Identifier

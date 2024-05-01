@@ -17,4 +17,10 @@
             Return PlaceData.Metadatas(MetadataTypes.PlanetType)
         End Get
     End Property
+
+    Public ReadOnly Property Universe As IUniverse Implements IPlace.Universe
+        Get
+            Return New Universe(UniverseData)
+        End Get
+    End Property
 End Class

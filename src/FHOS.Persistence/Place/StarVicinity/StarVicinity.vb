@@ -10,13 +10,13 @@ Friend Class StarVicinity
 
     Public ReadOnly Property Id As Integer Implements IStarVicinity.Id
         Get
-            Return StarVicinityId
+            Return PlaceId
         End Get
     End Property
 
     Public ReadOnly Property Name As String Implements IStarVicinity.Name
         Get
-            Return StarVicinityData.Metadatas(MetadataTypes.Name)
+            Return PlaceData.Metadatas(MetadataTypes.Name)
         End Get
     End Property
 
@@ -29,34 +29,34 @@ Friend Class StarVicinity
     Public Property Map As IMap Implements IStarVicinity.Map
         Get
             Dim mapId As Integer
-            If StarVicinityData.Statistics.TryGetValue(StatisticTypes.MapId, mapId) Then
+            If PlaceData.Statistics.TryGetValue(StatisticTypes.MapId, mapId) Then
                 Return New Map(UniverseData, mapId)
             End If
             Return Nothing
         End Get
         Set(value As IMap)
             If value Is Nothing Then
-                StarVicinityData.Statistics.Remove(StatisticTypes.MapId)
+                PlaceData.Statistics.Remove(StatisticTypes.MapId)
             Else
-                StarVicinityData.Statistics(StatisticTypes.MapId) = value.Id
+                PlaceData.Statistics(StatisticTypes.MapId) = value.Id
             End If
         End Set
     End Property
 
     Public ReadOnly Property StarType As String Implements IStarVicinity.StarType
         Get
-            Return StarVicinityData.Metadatas(MetadataTypes.StarType)
+            Return PlaceData.Metadatas(MetadataTypes.StarType)
         End Get
     End Property
 
     Public ReadOnly Property Identifier As String Implements IStarVicinity.Identifier
         Get
-            Return StarVicinityData.Metadatas(MetadataTypes.Identifier)
+            Return PlaceData.Metadatas(MetadataTypes.Identifier)
         End Get
     End Property
 
     Private Sub AddStar(star As IPlace)
-        StarVicinityData.Descendants.Add(star.Id)
+        PlaceData.Descendants.Add(star.Id)
     End Sub
 
     Public Function CreateStar() As IPlace Implements IStarVicinity.CreateStar

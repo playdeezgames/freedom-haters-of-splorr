@@ -2,14 +2,14 @@
 
 Friend Class StarVicinityDataClient
     Inherits UniverseDataClient
-    Protected ReadOnly StarVicinityId As Integer
-    Protected ReadOnly Property StarVicinityData As StarVicinityData
+    Protected ReadOnly PlaceId As Integer
+    Protected ReadOnly Property PlaceData As PlaceData
         Get
-            Return UniverseData.StarVicinities.Entities(StarVicinityId)
+            Return UniverseData.Places.Entities(PlaceId)
         End Get
     End Property
-    Public Sub New(universeData As Data.UniverseData, starId As Integer)
+    Public Sub New(universeData As Data.UniverseData, placeId As Integer)
         MyBase.New(universeData)
-        Me.StarVicinityId = starId
+        Me.PlaceId = placeId
     End Sub
 End Class
