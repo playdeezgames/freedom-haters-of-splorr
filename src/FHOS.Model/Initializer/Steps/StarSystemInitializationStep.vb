@@ -44,7 +44,7 @@ LocationTypes.Void)
                 Dim location = starSystem.Map.GetLocation(column, row)
                 location.LocationType = PlanetTypes.Descriptors(planetType).LocationType
                 location.Tutorial = TutorialTypes.PlanetVicinityApproach
-                Dim planetName = $"{starSystem.Name} {Romanize(index)}"
+                Dim planetName = Guid.NewGuid.ToString
                 index += 1
                 location.PlanetVicinity = starSystem.CreatePlanetVicinity(planetName, planetType)
                 addStep(New PlanetVicinityInitializationStep(location))
@@ -54,38 +54,6 @@ LocationTypes.Void)
             End If
         End While
     End Sub
-
-    Private ReadOnly romanizers As IReadOnlyList(Of (Value As Integer, Text As String)) =
-        New List(Of (Value As Integer, Text As String)) From
-        {
-            (1000, "M"),
-            (900, "CM"),
-            (500, "D"),
-            (400, "CD"),
-            (100, "C"),
-            (90, "XC"),
-            (50, "L"),
-            (40, "XL"),
-            (10, "X"),
-            (9, "IX"),
-            (5, "V"),
-            (4, "IV"),
-            (1, "I")
-        }
-
-    Private Function Romanize(number As Integer) As String
-        If number > 4999 OrElse number < 1 Then
-            Throw New ArgumentOutOfRangeException()
-        End If
-        Dim builder As New StringBuilder
-        For Each romanizer In romanizers
-            While number >= romanizer.Value
-                number -= romanizer.Value
-                builder.Append(romanizer.Text)
-            End While
-        Next
-        Return builder.ToString
-    End Function
 
     Private Sub PlaceStar(starSystem As IStarSystem, addStep As Action(Of InitializationStep))
         Dim starColumn = SystemMapColumns \ 2

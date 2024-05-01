@@ -47,65 +47,7 @@ Friend Class GalaxyInitializationStep
         Return starSystemName
     End Function
 
-    ReadOnly ConstellationNames As IReadOnlyList(Of String) = New List(Of String) From
-        {
-            "Thuspo",
-            "Reylon",
-            "Shyrana",
-            "Larak",
-            "Ywan",
-            "Meleka",
-            "Ardana",
-            "Krala",
-            "Kerdix",
-            "Derna",
-            "Zoora",
-            "Treyok",
-            "Neror",
-            "Bejis",
-            "Vulerai",
-            "Tsanrua",
-            "Grot",
-            "Jhama",
-            "Peshto",
-            "Antwerp",
-            "Kai",
-            "Polatarnia",
-            "Mlideen",
-            "Shuitan",
-            "Ralatlan",
-            "Liefzol"
-        }
-
-    ReadOnly GreekLetterNames As IReadOnlyList(Of String) = New List(Of String) From
-        {
-            "Alpha",
-            "Beta",
-            "Gamma",
-            "Delta",
-            "Epsilon",
-            "Zeta",
-            "Eta",
-            "Theta",
-            "Iota",
-            "Kappa",
-            "Lambda",
-            "Mu",
-            "Nu",
-            "Xi",
-            "Omicron",
-            "Pi",
-            "Rho",
-            "Sigma",
-            "Tau",
-            "Upsilon",
-            "Phi",
-            "Chi",
-            "Psi",
-            "Omega"
-        }
-
     Private Function GenerateStarSystemName() As String
-        Return $"{RNG.FromEnumerable(ConstellationNames)} {RNG.FromEnumerable(GreekLetterNames)}"
+        Return Guid.NewGuid.ToString
     End Function
 End Class

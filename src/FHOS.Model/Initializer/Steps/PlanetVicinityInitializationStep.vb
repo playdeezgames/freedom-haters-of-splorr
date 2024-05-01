@@ -31,7 +31,6 @@ Friend Class PlanetVicinityInitializationStep
         Const MaximumTries = 5000
         Dim planetType = PlanetTypes.Descriptors(planetVicinity.PlanetType)
         Dim MinimumDistance = planetType.MinimumSatelliteDistance
-        Dim index = 1
         While tries < MaximumTries
             Dim column = RNG.FromRange(1, PlanetVicinityColumns - 3)
             Dim row = RNG.FromRange(1, PlanetVicinityRows - 3)
@@ -41,8 +40,7 @@ Friend Class PlanetVicinityInitializationStep
                 Dim location = planetVicinity.Map.GetLocation(column, row)
                 location.LocationType = SatelliteTypes.Descriptors(satelliteType).LocationType
                 location.Tutorial = TutorialTypes.SatelliteApproach
-                Dim satelliteName = $"{planetVicinity.Name} {ChrW(AscW("A"c) + index)}"
-                index += 1
+                Dim satelliteName = Guid.NewGuid.ToString
                 location.Satellite = planetVicinity.CreateSatellite(satelliteName, satelliteType)
                 addStep(New SatelliteInitializationStep(location))
                 tries = 0
