@@ -43,7 +43,7 @@ Friend Class PlanetVicinityInitializationStep
                 location.Tutorial = TutorialTypes.SatelliteApproach
                 Dim satelliteName = $"{planetVicinity.Name} {ChrW(AscW("A"c) + index)}"
                 index += 1
-                location.Satellite = planetVicinity.CreateSatellite(satelliteName, satelliteType)
+                location.Satellite = planetVicinity.LegacyCreateSatellite(satelliteName, satelliteType)
                 addStep(New SatelliteInitializationStep(location))
                 tries = 0
             Else
