@@ -1,18 +1,12 @@
 ﻿Imports FHOS.Data
 
 Friend Class StarSystem
-    Inherits PlaceDataClient
+    Inherits Place
     Implements IStarSystem
 
     Public Sub New(universeData As Data.UniverseData, starSystemId As Integer)
         MyBase.New(universeData, starSystemId)
     End Sub
-
-    Public ReadOnly Property Id As Integer Implements IStarSystem.Id
-        Get
-            Return PlaceId
-        End Get
-    End Property
 
     Public ReadOnly Property Name As String Implements IStarSystem.Name
         Get
@@ -35,12 +29,6 @@ Friend Class StarSystem
                 PlaceData.Statistics(StatisticTypes.MapId) = value.Id
             End If
         End Set
-    End Property
-
-    Public ReadOnly Property Universe As IUniverse Implements IStarSystem.Universe
-        Get
-            Return New Universe(UniverseData)
-        End Get
     End Property
 
     Public ReadOnly Property StarType As String Implements IStarSystem.StarType

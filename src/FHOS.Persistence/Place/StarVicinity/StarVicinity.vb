@@ -1,28 +1,16 @@
 ﻿Imports FHOS.Data
 
 Friend Class StarVicinity
-    Inherits PlaceDataClient
+    Inherits Place
     Implements IStarVicinity
 
     Public Sub New(universeData As Data.UniverseData, placeId As Integer)
         MyBase.New(universeData, placeId)
     End Sub
 
-    Public ReadOnly Property Id As Integer Implements IStarVicinity.Id
-        Get
-            Return PlaceId
-        End Get
-    End Property
-
     Public ReadOnly Property Name As String Implements IStarVicinity.Name
         Get
             Return PlaceData.Metadatas(MetadataTypes.Name)
-        End Get
-    End Property
-
-    Public ReadOnly Property Universe As IUniverse Implements IStarVicinity.Universe
-        Get
-            Return New Universe(UniverseData)
         End Get
     End Property
 
