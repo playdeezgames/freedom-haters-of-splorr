@@ -149,15 +149,15 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property Satellite As IPlace Implements ILocation.Satellite
+    Public Property Satellite As ISatellite Implements ILocation.Satellite
         Get
             Dim satelliteId As Integer
             If LocationData.Statistics.TryGetValue(StatisticTypes.SatelliteId, satelliteId) Then
-                Return New Place(UniverseData, satelliteId)
+                Return New Satellite(UniverseData, satelliteId)
             End If
             Return Nothing
         End Get
-        Set(value As IPlace)
+        Set(value As ISatellite)
             If value Is Nothing Then
                 LocationData.Statistics.Remove(StatisticTypes.SatelliteId)
             Else

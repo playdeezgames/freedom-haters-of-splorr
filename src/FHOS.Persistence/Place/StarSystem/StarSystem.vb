@@ -14,14 +14,6 @@ Friend Class StarSystem
         End Get
     End Property
 
-    Private Sub AddStarVicinity(starVicinity As IStarVicinity)
-        PlaceData.Descendants.Add(starVicinity.Id)
-    End Sub
-
-    Private Sub AddPlanetVicinity(planetVicinity As IPlanetVicinity)
-        PlaceData.Descendants.Add(planetVicinity.Id)
-    End Sub
-
     Public Function CreateStarVicinity() As IStarVicinity Implements IStarSystem.CreateStarVicinity
         Dim starVicinity = New StarVicinity(
             UniverseData,
@@ -40,7 +32,7 @@ Friend Class StarSystem
                         {StatisticTypes.StarSystemId, Id}
                     }
                 }))
-        AddStarVicinity(starVicinity)
+        AddPlace(starVicinity)
         Return starVicinity
     End Function
 
@@ -62,7 +54,7 @@ Friend Class StarSystem
                         {StatisticTypes.StarSystemId, Id}
                     }
                 }))
-        AddPlanetVicinity(planetVicinity)
+        AddPlace(planetVicinity)
         Return planetVicinity
     End Function
 End Class

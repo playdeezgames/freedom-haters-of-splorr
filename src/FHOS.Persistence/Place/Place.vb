@@ -47,4 +47,8 @@
             Return PlaceData.Metadatas(MetadataTypes.Identifier)
         End Get
     End Property
+
+    Protected Sub AddPlace(place As IPlace)
+        PlaceData.Descendants.Add(place.Id)
+    End Sub
 End Class

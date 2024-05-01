@@ -14,7 +14,7 @@
     Property StarVicinity As IStarVicinity
     Property PlanetVicinity As IPlanetVicinity
     Property Planet As IPlanet
-    Property Satellite As IPlace
+    Property Satellite As ISatellite
     Property Star As IStar
     Function CreateActor(actorType As String) As IActor
     Function CreateTeleporterTo() As ITeleporter

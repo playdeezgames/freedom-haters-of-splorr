@@ -31,11 +31,7 @@ Friend Class StarVicinity
                         {StatisticTypes.StarVicinityId, Id}
                     }
                 }))
-        AddStar(star)
+        AddPlace(star)
         Return star
     End Function
-
-    Private Sub AddStar(star As Star)
-        PlaceData.Descendants.Add(star.Id)
-    End Sub
 End Class
