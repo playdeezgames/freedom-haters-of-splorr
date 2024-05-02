@@ -1,6 +1,7 @@
 ﻿Imports FHOS.Persistence
 
 Friend Class StarModel
+    Inherits PlaceModel
     Implements IStarModel
 
     Private ReadOnly star As IStar

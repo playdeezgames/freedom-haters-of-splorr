@@ -1,4 +1,5 @@
 ﻿Friend Class StarVicinityModel
+    Inherits PlaceModel
     Implements IStarVicinityModel
 
     Private ReadOnly starVicinity As Persistence.IStarVicinity

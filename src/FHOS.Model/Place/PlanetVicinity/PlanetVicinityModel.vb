@@ -1,4 +1,5 @@
 ﻿Friend Class PlanetVicinityModel
+    Inherits PlaceModel
     Implements IPlanetVicinityModel
 
     Private ReadOnly planet As Persistence.IPlanetVicinity

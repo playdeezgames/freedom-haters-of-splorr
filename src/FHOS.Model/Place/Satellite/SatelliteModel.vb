@@ -1,4 +1,5 @@
 ﻿Friend Class SatelliteModel
+    Inherits PlaceModel
     Implements ISatelliteModel
 
     Private ReadOnly satellite As Persistence.ISatellite
