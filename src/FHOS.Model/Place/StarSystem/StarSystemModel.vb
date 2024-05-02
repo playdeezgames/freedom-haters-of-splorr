@@ -7,12 +7,7 @@ Friend Class StarSystemModel
     Private ReadOnly starSystem As IStarSystem
 
     Public Sub New(starSystem As IStarSystem)
+        MyBase.New(starSystem)
         Me.starSystem = starSystem
     End Sub
-
-    Public ReadOnly Property Name As String Implements IStarSystemModel.Name
-        Get
-            Return starSystem.Name
-        End Get
-    End Property
 End Class
