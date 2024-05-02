@@ -1,12 +1,11 @@
 ﻿Imports FHOS.Persistence
 
 Friend Class AvatarSatelliteModel
+    Inherits AvatarPlaceModel
     Implements IAvatarSatelliteModel
 
-    Private ReadOnly avatar As IActor
-
     Public Sub New(avatar As IActor)
-        Me.avatar = avatar
+        MyBase.New(avatar)
     End Sub
 
     Public ReadOnly Property Current As ISatelliteModel Implements IAvatarSatelliteModel.Current

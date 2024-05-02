@@ -2,7 +2,7 @@
 Imports SPLORR.Game
 
 Friend Class AvatarStarVicinityModel
-    Inherits BaseAvatarModel
+    Inherits AvatarPlaceModel
     Implements IAvatarStarVicinityModel
 
     Public Sub New(avatar As IActor)

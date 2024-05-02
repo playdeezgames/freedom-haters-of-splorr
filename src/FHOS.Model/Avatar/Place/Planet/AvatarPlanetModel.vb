@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Persistence
 
 Friend Class AvatarPlanetModel
-    Inherits BaseAvatarModel
+    Inherits AvatarPlaceModel
     Implements IAvatarPlanetModel
 
     Public Sub New(avatar As IActor)
