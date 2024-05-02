@@ -19,10 +19,13 @@
     End Property
 
 
-    Public ReadOnly Property Name As String Implements IPlace.Name
+    Public Property Name As String Implements IPlace.Name
         Get
             Return PlaceData.Metadatas(MetadataTypes.Name)
         End Get
+        Set(value As String)
+            PlaceData.Metadatas(MetadataTypes.Name) = value
+        End Set
     End Property
 
     Public Property Map As IMap Implements IPlace.Map
@@ -48,7 +51,24 @@
         End Get
     End Property
 
+    Public ReadOnly Property PlaceType As String Implements IPlace.PlaceType
+        Get
+            Return PlaceData.Metadatas(MetadataTypes.PlaceType)
+        End Get
+    End Property
+
+    Public ReadOnly Property Parent As IPlace Implements IPlace.Parent
+        Get
+            Dim parentId As Integer
+            If PlaceData.Statistics.TryGetValue(StatisticTypes.ParentId, parentId) Then
+                Return New Place(UniverseData, parentId)
+            End If
+            Return Nothing
+        End Get
+    End Property
+
     Protected Sub AddPlace(place As IPlace)
+        Debug.Print(place.PlaceType)
         PlaceData.Descendants.Add(place.Id)
     End Sub
 End Class

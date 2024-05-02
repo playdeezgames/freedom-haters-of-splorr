@@ -1,5 +1,4 @@
-﻿Imports System.Transactions
-Imports FHOS.Data
+﻿Imports FHOS.Data
 
 Public Class Universe
     Inherits UniverseDataClient
@@ -31,6 +30,16 @@ Public Class Universe
         End Get
     End Property
 
+    Public ReadOnly Property Places As IEnumerable(Of IPlace) Implements IUniverse.Places
+        Get
+            Dim placeIds = New HashSet(Of Integer)(Enumerable.Range(0, UniverseData.Places.Entities.Count))
+            For Each recycledId In UniverseData.Places.Recycled
+                placeIds.Remove(recycledId)
+            Next
+            Return placeIds.Select(Function(x) New Place(UniverseData, x))
+        End Get
+    End Property
+
     Public Function CreateMap(mapType As String, mapName As String, columns As Integer, rows As Integer, locationType As String) As IMap Implements IUniverse.CreateMap
         Dim mapData = New MapData With
             {
@@ -51,7 +60,7 @@ Public Class Universe
         mapData.Locations = Enumerable.
                             Range(0, columns * rows).
                             Select(Function(x) map.CreateLocation(locationType, x Mod rows, x \ rows).Id).ToList
-        Return Map
+        Return map
     End Function
 
     Public Function CreateStarSystem(starSystemName As String, starType As String) As IStarSystem Implements IUniverse.CreateStarSystem
@@ -61,7 +70,8 @@ Public Class Universe
                 {
                     {MetadataTypes.Name, starSystemName},
                     {MetadataTypes.StarType, starType},
-                    {MetadataTypes.Identifier, Guid.NewGuid.ToString}
+                    {MetadataTypes.Identifier, Guid.NewGuid.ToString},
+                    {MetadataTypes.PlaceType, PlaceTypes.StarSystem}
                 }
             }
         Dim starSystemId As Integer = UniverseData.Places.CreateOrRecycle(placeData)

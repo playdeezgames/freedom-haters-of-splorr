@@ -10,4 +10,5 @@ Public Interface IUniverse
                              starType As String) As IStarSystem
     Property Avatar As IActor
     ReadOnly Property Messages As IMessages
+    ReadOnly Property Places As IEnumerable(Of IPlace)
 End Interface

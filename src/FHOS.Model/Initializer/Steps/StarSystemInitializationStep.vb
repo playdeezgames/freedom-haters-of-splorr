@@ -6,15 +6,17 @@ Friend Class StarSystemInitializationStep
     Inherits InitializationStep
     Private Const SystemMapColumns = 31
     Private Const SystemMapRows = 31
-    ReadOnly starLocation As ILocation
-    Sub New(location As ILocation)
+    Private ReadOnly starLocation As ILocation
+    Private ReadOnly nameGenerator As NameGenerator
+    Sub New(location As ILocation, nameGenerator As NameGenerator)
         Me.starLocation = location
+        Me.nameGenerator = nameGenerator
     End Sub
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
         Dim starSystem = starLocation.StarSystem
         starSystem.Map = starSystem.Universe.CreateMap(
-MapTypes.System,
+            MapTypes.System,
             $"{starSystem.Name} System",
             SystemMapColumns,
             SystemMapRows,
@@ -44,10 +46,10 @@ LocationTypes.Void)
                 Dim location = starSystem.Map.GetLocation(column, row)
                 location.LocationType = PlanetTypes.Descriptors(planetType).LocationType
                 location.Tutorial = TutorialTypes.PlanetVicinityApproach
-                Dim planetName = Guid.NewGuid.ToString
+                Dim planetName = nameGenerator.GenerateUnusedName
                 index += 1
                 location.PlanetVicinity = starSystem.CreatePlanetVicinity(planetName, planetType)
-                addStep(New PlanetVicinityInitializationStep(location))
+                addStep(New PlanetVicinityInitializationStep(location, nameGenerator))
                 tries = 0
             Else
                 tries += 1

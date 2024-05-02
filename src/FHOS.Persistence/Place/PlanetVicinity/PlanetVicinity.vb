@@ -22,7 +22,8 @@ Friend Class PlanetVicinity
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
-                        {StatisticTypes.PlanetVicinityId, Id}
+                        {StatisticTypes.PlanetVicinityId, Id},
+                        {StatisticTypes.ParentId, Id}
                     }
                 }))
         AddPlace(planet)
@@ -43,7 +44,8 @@ Friend Class PlanetVicinity
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
-                        {StatisticTypes.PlanetVicinityId, Id}
+                        {StatisticTypes.PlanetVicinityId, Id},
+                        {StatisticTypes.ParentId, Id}
                     }
                 }))
         AddSatellite(satellite)

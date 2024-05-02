@@ -14,10 +14,13 @@ Friend Class Map
         End Get
     End Property
 
-    Public ReadOnly Property Name As String Implements IMap.Name
+    Public Property Name As String Implements IMap.Name
         Get
             Return MapData.Metadatas(MetadataTypes.Name)
         End Get
+        Set(value As String)
+            MapData.Metadatas(MetadataTypes.Name) = value
+        End Set
     End Property
 
     Public ReadOnly Property Id As Integer Implements IMap.Id

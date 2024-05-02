@@ -22,4 +22,5 @@
     Friend Const StarVicinityId = "StarVicinityId"
     Friend Const TeleporterId = "TeleporterId"
     Friend Const Turn = "Turn"
+    Friend Const ParentId = "ParentId"
 End Module

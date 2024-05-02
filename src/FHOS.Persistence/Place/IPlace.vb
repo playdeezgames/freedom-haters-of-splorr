@@ -1,7 +1,9 @@
 ﻿Public Interface IPlace
     ReadOnly Property Id As Integer
     ReadOnly Property Universe As IUniverse
-    ReadOnly Property Name As String
+    Property Name As String
     Property Map As IMap
     ReadOnly Property Identifier As String
+    ReadOnly Property PlaceType As String
+    ReadOnly Property Parent As IPlace
 End Interface

@@ -29,7 +29,8 @@ Friend Class StarSystem
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
-                        {StatisticTypes.StarSystemId, Id}
+                        {StatisticTypes.StarSystemId, Id},
+                        {StatisticTypes.ParentId, Id}
                     }
                 }))
         AddPlace(starVicinity)
@@ -51,7 +52,8 @@ Friend Class StarSystem
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
-                        {StatisticTypes.StarSystemId, Id}
+                        {StatisticTypes.StarSystemId, Id},
+                        {StatisticTypes.ParentId, Id}
                     }
                 }))
         AddPlace(planetVicinity)

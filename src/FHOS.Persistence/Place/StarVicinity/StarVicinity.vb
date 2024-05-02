@@ -28,7 +28,8 @@ Friend Class StarVicinity
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
-                        {StatisticTypes.StarVicinityId, Id}
+                        {StatisticTypes.StarVicinityId, Id},
+                        {StatisticTypes.ParentId, Id}
                     }
                 }))
         AddPlace(star)

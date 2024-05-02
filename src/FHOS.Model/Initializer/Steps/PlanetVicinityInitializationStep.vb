@@ -6,8 +6,10 @@ Friend Class PlanetVicinityInitializationStep
     Private Const PlanetVicinityColumns = 15
     Private Const PlanetVicinityRows = 15
     Private ReadOnly planetVicinityLocation As ILocation
-    Sub New(location As ILocation)
+    Private ReadOnly nameGenerator As NameGenerator
+    Sub New(location As ILocation, nameGenerator As NameGenerator)
         Me.planetVicinityLocation = location
+        Me.nameGenerator = nameGenerator
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
         Dim planetVicinity = planetVicinityLocation.PlanetVicinity
@@ -40,7 +42,7 @@ Friend Class PlanetVicinityInitializationStep
                 Dim location = planetVicinity.Map.GetLocation(column, row)
                 location.LocationType = SatelliteTypes.Descriptors(satelliteType).LocationType
                 location.Tutorial = TutorialTypes.SatelliteApproach
-                Dim satelliteName = Guid.NewGuid.ToString
+                Dim satelliteName = nameGenerator.GenerateUnusedName
                 location.Satellite = planetVicinity.CreateSatellite(satelliteName, satelliteType)
                 addStep(New SatelliteInitializationStep(location))
                 tries = 0

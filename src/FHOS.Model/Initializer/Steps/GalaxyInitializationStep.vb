@@ -8,14 +8,15 @@ Friend Class GalaxyInitializationStep
     Private Const GalaxyName = "Galaxy Map"
     Private ReadOnly universe As IUniverse
     Private ReadOnly embarkSettings As EmbarkSettings
-    Sub New(universe As IUniverse, embarkSettings As EmbarkSettings)
+    Private ReadOnly nameGenerator As NameGenerator
+    Sub New(universe As IUniverse, embarkSettings As EmbarkSettings, nameGenerator As NameGenerator)
         Me.universe = universe
         Me.embarkSettings = embarkSettings
+        Me.nameGenerator = nameGenerator
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
         Dim starMap = universe.CreateMap(MapTypes.Stellar, GalaxyName, GalaxyColumns, GalaxyRows, LocationTypes.Void)
         Dim stars As New List(Of (Column As Integer, Row As Integer))
-        Dim starSystemNames As New HashSet(Of String)
         Dim tries As Integer = 0
         Const MaximumTries = 5000
         Dim MinimumDistance = GalacticDensities.Descriptors(embarkSettings.GalacticDensity).MinimumDistance
@@ -28,9 +29,9 @@ Friend Class GalaxyInitializationStep
                 Dim location = starMap.GetLocation(column, row)
                 location.LocationType = StarTypes.Descriptors(starType).LocationType
                 location.Tutorial = TutorialTypes.StarSystemEntry
-                Dim starSystemName As String = GenerateUnusedStarSystemName(starSystemNames)
+                Dim starSystemName As String = nameGenerator.GenerateUnusedName
                 location.StarSystem = universe.CreateStarSystem(starSystemName, starType)
-                addStep(New StarSystemInitializationStep(location))
+                addStep(New StarSystemInitializationStep(location, nameGenerator))
                 tries = 0
             Else
                 tries += 1
@@ -38,16 +39,4 @@ Friend Class GalaxyInitializationStep
         End While
         addStep(New AvatarInitializationStep(universe, starMap, embarkSettings))
     End Sub
-    Private Function GenerateUnusedStarSystemName(starSystemNames As HashSet(Of String)) As String
-        Dim starSystemName As String
-        Do
-            starSystemName = GenerateStarSystemName()
-        Loop Until Not starSystemNames.Contains(starSystemName)
-        starSystemNames.Add(starSystemName)
-        Return starSystemName
-    End Function
-
-    Private Function GenerateStarSystemName() As String
-        Return Guid.NewGuid.ToString
-    End Function
 End Class

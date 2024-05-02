@@ -1,7 +1,8 @@
-﻿Friend Module PlaceTypes
-    Friend Const Star = "Star"
-    Friend Const Planet = "Planet"
-    Friend Const Satellite = "Satellite"
-    Friend Const StarVicinity = "Star"
-    Friend Const PlanetVicinity = "Planet"
+﻿Public Module PlaceTypes
+    Public Const Star = "Star"
+    Public Const Planet = "Planet"
+    Public Const Satellite = "Satellite"
+    Public Const StarVicinity = "StarVicinity"
+    Public Const PlanetVicinity = "PlanetVicinity"
+    Public Const StarSystem = "StarSystem"
 End Module
