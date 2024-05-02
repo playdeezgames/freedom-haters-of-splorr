@@ -16,8 +16,8 @@ Friend Class AvatarPlanetModel
 
     Public ReadOnly Property LegacyCurrent As IPlanetModel Implements IAvatarPlanetModel.LegacyCurrent
         Get
-            If avatar.Location.Planet IsNot Nothing Then
-                Return New PlanetModel(avatar.Location.Planet)
+            If avatar.Location.LegacyPlanet IsNot Nothing Then
+                Return New PlanetModel(avatar.Location.LegacyPlanet)
             End If
             Return Nothing
         End Get

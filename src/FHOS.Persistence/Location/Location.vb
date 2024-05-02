@@ -58,19 +58,19 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property StarSystem As IStarSystem Implements ILocation.StarSystem
+    Public Property LegacyStarSystem As IStarSystem Implements ILocation.LegacyStarSystem
         Get
             Dim starSystemId As Integer
-            If LocationData.Statistics.TryGetValue(StatisticTypes.StarSystemId, starSystemId) Then
+            If LocationData.Statistics.TryGetValue(StatisticTypes.PlaceId, starSystemId) Then
                 Return New StarSystem(UniverseData, starSystemId)
             End If
             Return Nothing
         End Get
         Set(value As IStarSystem)
             If value IsNot Nothing Then
-                LocationData.Statistics(StatisticTypes.StarSystemId) = value.Id
+                LocationData.Statistics(StatisticTypes.PlaceId) = value.Id
             Else
-                LocationData.Statistics.Remove(StatisticTypes.StarSystemId)
+                LocationData.Statistics.Remove(StatisticTypes.PlaceId)
             End If
         End Set
     End Property
@@ -115,7 +115,7 @@ Friend Class Location
         End Get
     End Property
 
-    Public Property StarVicinity As IStarVicinity Implements ILocation.StarVicinity
+    Public Property LegacyStarVicinity As IStarVicinity Implements ILocation.LegacyStarVicinity
         Get
             Dim starId As Integer
             If LocationData.Statistics.TryGetValue(StatisticTypes.StarVicinityId, starId) Then
@@ -132,7 +132,7 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property PlanetVicinity As IPlanetVicinity Implements ILocation.PlanetVicinity
+    Public Property LegacyPlanetVicinity As IPlanetVicinity Implements ILocation.LegacyPlanetVicinity
         Get
             Dim planetId As Integer
             If LocationData.Statistics.TryGetValue(StatisticTypes.PlanetVicinityId, planetId) Then
@@ -149,7 +149,7 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property Satellite As ISatellite Implements ILocation.Satellite
+    Public Property LegacySatellite As ISatellite Implements ILocation.LegacySatellite
         Get
             Dim satelliteId As Integer
             If LocationData.Statistics.TryGetValue(StatisticTypes.SatelliteId, satelliteId) Then
@@ -166,7 +166,7 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property Planet As IPlanet Implements ILocation.Planet
+    Public Property LegacyPlanet As IPlanet Implements ILocation.LegacyPlanet
         Get
             Dim planetId As Integer
             If LocationData.Statistics.TryGetValue(StatisticTypes.PlanetId, planetId) Then
@@ -183,7 +183,7 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property Star As IStar Implements ILocation.Star
+    Public Property LegacyStar As IStar Implements ILocation.LegacyStar
         Get
             Dim starId As Integer
             If LocationData.Statistics.TryGetValue(StatisticTypes.StarId, starId) Then
@@ -196,6 +196,23 @@ Friend Class Location
                 LocationData.Statistics.Remove(StatisticTypes.StarId)
             Else
                 LocationData.Statistics(StatisticTypes.StarId) = value.Id
+            End If
+        End Set
+    End Property
+
+    Public Property Place As IPlace Implements ILocation.Place
+        Get
+            Dim starSystemId As Integer
+            If LocationData.Statistics.TryGetValue(StatisticTypes.PlaceId, starSystemId) Then
+                Return New StarSystem(UniverseData, starSystemId)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IPlace)
+            If value IsNot Nothing Then
+                LocationData.Statistics(StatisticTypes.PlaceId) = value.Id
+            Else
+                LocationData.Statistics.Remove(StatisticTypes.PlaceId)
             End If
         End Set
     End Property

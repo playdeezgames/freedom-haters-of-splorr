@@ -9,7 +9,7 @@ Friend Class StarVicinityInitializationStep
         Me.starLocation = location
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
-        Dim starVicinity = starLocation.StarVicinity
+        Dim starVicinity = starLocation.LegacyStarVicinity
         starVicinity.Map = starVicinity.Universe.CreateMap(
             MapTypes.System,
             $"{starVicinity.Name} Vicinity",
@@ -27,7 +27,7 @@ Friend Class StarVicinityInitializationStep
         Dim location = starVicinity.Map.GetLocation(starColumn, starRow)
         With location
             .LocationType = locationType
-            .Star = starVicinity.CreateStar()
+            .LegacyStar = starVicinity.CreateStar()
             .Tutorial = TutorialTypes.RefuelAtStar
             'TODO: initialize further down?
         End With

@@ -16,8 +16,8 @@ Friend Class AvatarStarModel
 
     Public ReadOnly Property LegacyCurrent As IStarModel Implements IAvatarStarModel.LegacyCurrent
         Get
-            If avatar.Location.Star IsNot Nothing Then
-                Return New StarModel(avatar.Location.Star)
+            If avatar.Location.LegacyStar IsNot Nothing Then
+                Return New StarModel(avatar.Location.LegacyStar)
             End If
             Return Nothing
         End Get

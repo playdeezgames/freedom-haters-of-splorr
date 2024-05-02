@@ -5,17 +5,18 @@
     ReadOnly Property Row As Integer
     Property LocationType As String
     Property Actor As IActor
-    Property StarSystem As IStarSystem
     Property Teleporter As ITeleporter
     ReadOnly Property HasTeleporter As Boolean
     Property Tutorial As String
     Sub SetFlag(flag As String)
     Function HasFlag(name As String) As Boolean
-    Property StarVicinity As IStarVicinity
-    Property PlanetVicinity As IPlanetVicinity
-    Property Planet As IPlanet
-    Property Satellite As ISatellite
-    Property Star As IStar
+    Property LegacyStarSystem As IStarSystem
+    Property LegacyStarVicinity As IStarVicinity
+    Property LegacyPlanetVicinity As IPlanetVicinity
+    Property LegacyPlanet As IPlanet
+    Property LegacySatellite As ISatellite
+    Property LegacyStar As IStar
+    Property Place As IPlace
     Function CreateActor(actorType As String) As IActor
     Function CreateTeleporterTo() As ITeleporter
 End Interface

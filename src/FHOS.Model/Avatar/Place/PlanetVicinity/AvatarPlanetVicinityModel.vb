@@ -11,7 +11,7 @@ Friend Class AvatarPlanetVicinityModel
 
     Public ReadOnly Property LegacyCurrent As IPlanetVicinityModel Implements IAvatarPlanetVicinityModel.LegacyCurrent
         Get
-            Dim planet = avatar.Location.PlanetVicinity
+            Dim planet = avatar.Location.LegacyPlanetVicinity
             If planet IsNot Nothing Then
                 Return New PlanetVicinityModel(planet)
             End If
@@ -28,7 +28,7 @@ Friend Class AvatarPlanetVicinityModel
     Public Sub Approach() Implements IAvatarPlanetVicinityModel.Approach
         If CanApproach Then
             DoTurn()
-            With avatar.Location.PlanetVicinity
+            With avatar.Location.LegacyPlanetVicinity
                 SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
             End With
         End If

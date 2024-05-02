@@ -14,7 +14,7 @@ Friend Class StarSystemInitializationStep
     End Sub
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
-        Dim starSystem = starLocation.StarSystem
+        Dim starSystem = starLocation.LegacyStarSystem
         starSystem.Map = starSystem.Universe.CreateMap(
             MapTypes.System,
             $"{starSystem.Name} System",
@@ -50,7 +50,7 @@ LocationTypes.Void)
                 location.Tutorial = TutorialTypes.PlanetVicinityApproach
                 Dim planetName = nameGenerator.GenerateUnusedName
                 index += 1
-                location.PlanetVicinity = starSystem.CreatePlanetVicinity(planetName, planetType)
+                location.LegacyPlanetVicinity = starSystem.CreatePlanetVicinity(planetName, planetType)
                 addStep(New PlanetVicinityInitializationStep(location, nameGenerator))
                 planetCount += 1
                 tries = 0
@@ -67,7 +67,7 @@ LocationTypes.Void)
         Dim location = starSystem.Map.GetLocation(starColumn, starRow)
         With location
             .LocationType = locationType
-            .StarVicinity = starSystem.CreateStarVicinity()
+            .LegacyStarVicinity = starSystem.CreateStarVicinity()
             .Tutorial = TutorialTypes.StarVicinityApproach
             addStep(New StarVicinityInitializationStep(location))
         End With

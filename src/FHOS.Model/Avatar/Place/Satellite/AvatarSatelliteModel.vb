@@ -10,8 +10,8 @@ Friend Class AvatarSatelliteModel
 
     Public ReadOnly Property LegacyCurrent As ISatelliteModel Implements IAvatarSatelliteModel.LegacyCurrent
         Get
-            If avatar.Location.Satellite IsNot Nothing Then
-                Return New SatelliteModel(avatar.Location.Satellite)
+            If avatar.Location.LegacySatellite IsNot Nothing Then
+                Return New SatelliteModel(avatar.Location.LegacySatellite)
             End If
             Return Nothing
         End Get

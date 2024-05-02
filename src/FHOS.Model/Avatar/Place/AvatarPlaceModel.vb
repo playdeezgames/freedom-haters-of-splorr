@@ -10,7 +10,10 @@ Friend Class AvatarPlaceModel
 
     Public ReadOnly Property Current As IPlaceModel Implements IAvatarPlaceModel.Current
         Get
-            Return New PlaceModel(avatar.Location.Star)
+            If avatar.Location.Place IsNot Nothing Then
+                Return New PlaceModel(avatar.Location.Place)
+            End If
+            Return Nothing
         End Get
     End Property
 End Class

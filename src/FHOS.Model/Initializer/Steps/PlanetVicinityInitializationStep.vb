@@ -12,7 +12,7 @@ Friend Class PlanetVicinityInitializationStep
         Me.nameGenerator = nameGenerator
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
-        Dim planetVicinity = planetVicinityLocation.PlanetVicinity
+        Dim planetVicinity = planetVicinityLocation.LegacyPlanetVicinity
         planetVicinity.Map = planetVicinity.Universe.CreateMap(
             MapTypes.System,
             $"{planetVicinity.Name} Vicinity",
@@ -45,7 +45,7 @@ Friend Class PlanetVicinityInitializationStep
                 location.LocationType = SatelliteTypes.Descriptors(satelliteType).LocationType
                 location.Tutorial = TutorialTypes.SatelliteApproach
                 Dim satelliteName = nameGenerator.GenerateUnusedName
-                location.Satellite = planetVicinity.CreateSatellite(satelliteName, satelliteType)
+                location.LegacySatellite = planetVicinity.CreateSatellite(satelliteName, satelliteType)
                 addStep(New SatelliteInitializationStep(location))
                 satelliteCount += 1
                 tries = 0
@@ -62,7 +62,7 @@ Friend Class PlanetVicinityInitializationStep
         With location
             .LocationType = locationType
             .Tutorial = TutorialTypes.PlanetLand
-            .Planet = planetVicinity.CreatePlanet()
+            .LegacyPlanet = planetVicinity.CreatePlanet()
             addStep(New PlanetInitializationStep(location))
         End With
     End Sub

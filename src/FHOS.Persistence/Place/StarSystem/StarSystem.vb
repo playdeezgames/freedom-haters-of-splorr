@@ -29,7 +29,6 @@ Friend Class StarSystem
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
-                        {StatisticTypes.StarSystemId, Id},
                         {StatisticTypes.ParentId, Id}
                     }
                 }))
@@ -52,7 +51,7 @@ Friend Class StarSystem
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
-                        {StatisticTypes.StarSystemId, Id},
+                        {StatisticTypes.PlaceId, Id},
                         {StatisticTypes.ParentId, Id}
                     }
                 }))
