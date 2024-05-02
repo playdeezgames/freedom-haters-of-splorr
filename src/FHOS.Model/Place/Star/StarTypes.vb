@@ -25,27 +25,42 @@ Friend Module StarTypes
             {PlanetTypes.Tundra, 1},
             {PlanetTypes.Volcanic, 1}
         }
+    Private ReadOnly defaultPlanetCountGenerator As IReadOnlyDictionary(Of Integer, Integer) =
+        New Dictionary(Of Integer, Integer) From
+        {
+            {2, 1},
+            {3, 2},
+            {4, 3},
+            {5, 4},
+            {6, 5},
+            {7, 6},
+            {8, 5},
+            {9, 4},
+            {10, 3},
+            {11, 2},
+            {12, 1}
+        }
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, StarTypeDescriptor) =
         New Dictionary(Of String, StarTypeDescriptor) From
         {
             {
                 StarTypes.Blue,
-                New StarTypeDescriptor("Blue Star", LocationTypes.BlueStar, 1, 6, defaultPlanetTypeGenerator)
+                New StarTypeDescriptor("Blue Star", LocationTypes.BlueStar, 1, 6, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
             },
             {
                 StarTypes.BlueWhite,
-                New StarTypeDescriptor("Blue-White Star", LocationTypes.BlueWhiteStar, 1, 8, defaultPlanetTypeGenerator)
+                New StarTypeDescriptor("Blue-White Star", LocationTypes.BlueWhiteStar, 1, 8, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
             },
             {
                 StarTypes.Yellow,
-                New StarTypeDescriptor("Yellow Star", LocationTypes.YellowStar, 1, 10, defaultPlanetTypeGenerator)
+                New StarTypeDescriptor("Yellow Star", LocationTypes.YellowStar, 1, 10, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
             },
             {
                 StarTypes.Orange,
-                New StarTypeDescriptor("Orange Star", LocationTypes.OrangeStar, 1, 12, defaultPlanetTypeGenerator)
+                New StarTypeDescriptor("Orange Star", LocationTypes.OrangeStar, 1, 12, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
             },
             {
-                StarTypes.Red, New StarTypeDescriptor("Red Star", LocationTypes.RedStar, 1, 14, defaultPlanetTypeGenerator)
+                StarTypes.Red, New StarTypeDescriptor("Red Star", LocationTypes.RedStar, 1, 14, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
             }
         }
     Private ReadOnly starTypeGenerator As IReadOnlyDictionary(Of String, Integer) =

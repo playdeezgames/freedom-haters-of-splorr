@@ -37,7 +37,9 @@ LocationTypes.Void)
         Dim starType = StarTypes.Descriptors(starSystem.StarType)
         Dim MinimumDistance = starType.MinimumPlanetaryDistance
         Dim index = 1
-        While tries < MaximumTries
+        Dim maximumPlanetCount As Integer = starType.GenerateMaximumPlanetCount()
+        Dim planetCount = 0
+        While planetCount < maximumPlanetCount AndAlso tries < MaximumTries
             Dim column = RNG.FromRange(1, SystemMapColumns - 3)
             Dim row = RNG.FromRange(1, SystemMapRows - 3)
             If planets.All(Function(planet) (column - planet.Column) * (column - planet.Column) + (row - planet.Row) * (row - planet.Row) >= MinimumDistance * MinimumDistance) Then
@@ -50,6 +52,7 @@ LocationTypes.Void)
                 index += 1
                 location.PlanetVicinity = starSystem.CreatePlanetVicinity(planetName, planetType)
                 addStep(New PlanetVicinityInitializationStep(location, nameGenerator))
+                planetCount += 1
                 tries = 0
             Else
                 tries += 1
