@@ -9,7 +9,7 @@ Friend Class AvatarPlanetVicinityModel
         MyBase.New(avatar)
     End Sub
 
-    Public ReadOnly Property Current As IPlanetVicinityModel Implements IAvatarPlanetVicinityModel.Current
+    Public ReadOnly Property LegacyCurrent As IPlanetVicinityModel Implements IAvatarPlanetVicinityModel.LegacyCurrent
         Get
             Dim planet = avatar.Location.PlanetVicinity
             If planet IsNot Nothing Then
@@ -21,7 +21,7 @@ Friend Class AvatarPlanetVicinityModel
 
     Public ReadOnly Property CanApproach As Boolean Implements IAvatarPlanetVicinityModel.CanApproach
         Get
-            Return Current IsNot Nothing
+            Return LegacyCurrent IsNot Nothing
         End Get
     End Property
 

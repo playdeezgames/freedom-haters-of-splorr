@@ -10,11 +10,11 @@ Friend Class AvatarStarModel
 
     Public ReadOnly Property CanRefillFuel As Boolean Implements IAvatarStarModel.CanRefillFuel
         Get
-            Return Current IsNot Nothing
+            Return LegacyCurrent IsNot Nothing
         End Get
     End Property
 
-    Public ReadOnly Property Current As IStarModel Implements IAvatarStarModel.Current
+    Public ReadOnly Property LegacyCurrent As IStarModel Implements IAvatarStarModel.LegacyCurrent
         Get
             If avatar.Location.Star IsNot Nothing Then
                 Return New StarModel(avatar.Location.Star)

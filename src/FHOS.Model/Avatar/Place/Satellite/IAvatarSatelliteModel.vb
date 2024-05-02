@@ -1,4 +1,4 @@
 ﻿Public Interface IAvatarSatelliteModel
     Inherits IAvatarPlaceModel
-    ReadOnly Property Current As ISatelliteModel
+    ReadOnly Property LegacyCurrent As ISatelliteModel
 End Interface

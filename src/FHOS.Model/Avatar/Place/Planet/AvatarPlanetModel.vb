@@ -10,11 +10,11 @@ Friend Class AvatarPlanetModel
 
     Public ReadOnly Property CanRefillOxygen As Boolean Implements IAvatarPlanetModel.CanRefillOxygen
         Get
-            Return If(Current?.CanRefillOxygen, False)
+            Return If(LegacyCurrent?.CanRefillOxygen, False)
         End Get
     End Property
 
-    Public ReadOnly Property Current As IPlanetModel Implements IAvatarPlanetModel.Current
+    Public ReadOnly Property LegacyCurrent As IPlanetModel Implements IAvatarPlanetModel.LegacyCurrent
         Get
             If avatar.Location.Planet IsNot Nothing Then
                 Return New PlanetModel(avatar.Location.Planet)

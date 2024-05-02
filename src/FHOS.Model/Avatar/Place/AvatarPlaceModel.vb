@@ -1,10 +1,16 @@
 ﻿Imports FHOS.Persistence
 
-Friend MustInherit Class AvatarPlaceModel
+Friend Class AvatarPlaceModel
     Inherits BaseAvatarModel
     Implements IAvatarPlaceModel
 
-    Protected Sub New(avatar As IActor)
+    Sub New(avatar As IActor)
         MyBase.New(avatar)
     End Sub
+
+    Public ReadOnly Property Current As IPlaceModel Implements IAvatarPlaceModel.Current
+        Get
+            Return New PlaceModel(avatar.Location.Star)
+        End Get
+    End Property
 End Class

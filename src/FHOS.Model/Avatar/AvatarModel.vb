@@ -199,6 +199,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property Place As IAvatarPlaceModel Implements IAvatarModel.Place
+        Get
+            Return New AvatarPlaceModel(avatar)
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         If Not CanMove Then
             Return

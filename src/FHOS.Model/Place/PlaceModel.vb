@@ -1,6 +1,6 @@
 ﻿Imports FHOS.Persistence
 
-Friend MustInherit Class PlaceModel
+Friend Class PlaceModel
     Implements IPlaceModel
     Private ReadOnly place As IPlace
 

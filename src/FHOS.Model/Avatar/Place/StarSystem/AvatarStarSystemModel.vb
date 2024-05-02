@@ -9,7 +9,7 @@ Friend Class AvatarStarSystemModel
         MyBase.New(avatar)
     End Sub
 
-    Public ReadOnly Property Current As IStarSystemModel Implements IAvatarStarSystemModel.Current
+    Public ReadOnly Property LegacyCurrent As IStarSystemModel Implements IAvatarStarSystemModel.LegacyCurrent
         Get
             If avatar.Location.StarSystem Is Nothing Then
                 Return Nothing
@@ -20,7 +20,7 @@ Friend Class AvatarStarSystemModel
 
     Public ReadOnly Property CanEnter As Boolean Implements IAvatarStarSystemModel.CanEnter
         Get
-            Return Current IsNot Nothing
+            Return LegacyCurrent IsNot Nothing
         End Get
     End Property
 

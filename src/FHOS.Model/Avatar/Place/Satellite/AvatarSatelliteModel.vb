@@ -8,7 +8,7 @@ Friend Class AvatarSatelliteModel
         MyBase.New(avatar)
     End Sub
 
-    Public ReadOnly Property Current As ISatelliteModel Implements IAvatarSatelliteModel.Current
+    Public ReadOnly Property LegacyCurrent As ISatelliteModel Implements IAvatarSatelliteModel.LegacyCurrent
         Get
             If avatar.Location.Satellite IsNot Nothing Then
                 Return New SatelliteModel(avatar.Location.Satellite)

@@ -9,7 +9,7 @@ Friend Class AvatarStarVicinityModel
         MyBase.New(avatar)
     End Sub
 
-    Public ReadOnly Property Current As IStarVicinityModel Implements IAvatarStarVicinityModel.Current
+    Public ReadOnly Property LegacyCurrent As IStarVicinityModel Implements IAvatarStarVicinityModel.LegacyCurrent
         Get
             Dim star = avatar.Location.StarVicinity
             If star IsNot Nothing Then
@@ -21,7 +21,7 @@ Friend Class AvatarStarVicinityModel
 
     Public ReadOnly Property CanApproach As Boolean Implements IAvatarStarVicinityModel.CanApproach
         Get
-            Return Current IsNot Nothing
+            Return LegacyCurrent IsNot Nothing
         End Get
     End Property
 

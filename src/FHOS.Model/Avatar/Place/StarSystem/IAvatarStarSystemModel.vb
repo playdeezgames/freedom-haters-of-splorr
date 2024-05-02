@@ -2,5 +2,5 @@
     Inherits IAvatarPlaceModel
     Sub Enter()
     ReadOnly Property CanEnter As Boolean
-    ReadOnly Property Current As IStarSystemModel
+    ReadOnly Property LegacyCurrent As IStarSystemModel
 End Interface
