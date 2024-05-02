@@ -16,6 +16,15 @@
     Friend Const Gaia = "Gaia"
     Friend Const Swamp = "Swamp"
     Private Const DefaultSatelliteDistance = 5
+    Private ReadOnly defaultSatelliteCountGenerator As IReadOnlyDictionary(Of Integer, Integer) =
+        New Dictionary(Of Integer, Integer) From
+        {
+            {0, 1},
+            {1, 2},
+            {2, 3},
+            {3, 2},
+            {4, 1}
+        }
     Private ReadOnly defaultSatelliteTypeGenerator As IReadOnlyDictionary(Of String, Integer) =
         New Dictionary(Of String, Integer) From
         {
@@ -52,28 +61,32 @@
                 New PlanetTypeDescriptor(
                     RadiatedPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator)
             },
             {
                 Toxic,
                 New PlanetTypeDescriptor(
                     ToxicPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator)
             },
             {
                 Volcanic,
                 New PlanetTypeDescriptor(
                     VolcanicPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator)
             },
             {
                 Barren,
                 New PlanetTypeDescriptor(
                     BarrenPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator)
             },
             {
                 Desert,
@@ -81,6 +94,7 @@
                     DesertPlanet,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator,
                     canRefillOxygen:=True)
             },
             {
@@ -89,6 +103,7 @@
                     TundraPlanet,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator,
                     canRefillOxygen:=True)
             },
             {
@@ -97,6 +112,7 @@
                     AridPlanet,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator,
                     canRefillOxygen:=True)
             },
             {
@@ -105,6 +121,7 @@
                     OceanPlanet,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator,
                     canRefillOxygen:=True)
             },
             {
@@ -113,6 +130,7 @@
                     TerranPlanet,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator,
                     canRefillOxygen:=True)
             },
             {
@@ -120,7 +138,8 @@
                 New PlanetTypeDescriptor(
                     InfernoPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator)
             },
             {
                 Tropical,
@@ -128,6 +147,7 @@
                     TropicalPlanet,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator,
                     canRefillOxygen:=True)
             },
             {
@@ -136,6 +156,7 @@
                     GrasslandPlanet,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator,
                     canRefillOxygen:=True)
             },
             {
@@ -143,7 +164,8 @@
                 New PlanetTypeDescriptor(
                     CavernousPlanet,
                     DefaultSatelliteDistance,
-                    defaultSatelliteTypeGenerator)
+                    defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator)
             },
             {
                 Gaia,
@@ -151,6 +173,7 @@
                     GaiaPlanet,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator,
                     canRefillOxygen:=True)
             },
             {
@@ -159,6 +182,7 @@
                     SwampPlanet,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
+                    defaultSatelliteCountGenerator,
                     canRefillOxygen:=True)
             }
         }

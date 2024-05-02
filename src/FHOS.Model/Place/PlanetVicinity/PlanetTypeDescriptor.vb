@@ -9,15 +9,21 @@ Friend Class PlanetTypeDescriptor
            locationType As String,
            minimumSatelliteDistance As Integer,
            satelliteTypeTable As IReadOnlyDictionary(Of String, Integer),
+           satelliteCountTable As IReadOnlyDictionary(Of Integer, Integer),
            Optional canRefillOxygen As Boolean = False)
         Me.LocationType = locationType
         Me.MinimumSatelliteDistance = minimumSatelliteDistance
         Me.satelliteTypeTable = satelliteTypeTable
         Me.CanRefillOxygen = canRefillOxygen
+        Me.satelliteCountTable = satelliteCountTable
     End Sub
     Private ReadOnly satelliteTypeTable As IReadOnlyDictionary(Of String, Integer)
-
+    Private ReadOnly satelliteCountTable As IReadOnlyDictionary(Of Integer, Integer)
     Friend Function GenerateSatelliteType() As String
         Return RNG.FromGenerator(satelliteTypeTable)
+    End Function
+
+    Friend Function GenerateMaximumSatelliteCount() As Integer
+        Return RNG.FromGenerator(satelliteCountTable)
     End Function
 End Class
