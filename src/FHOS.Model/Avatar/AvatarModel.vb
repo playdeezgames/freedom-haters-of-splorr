@@ -193,6 +193,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property Satellite As IAvatarSatelliteModel Implements IAvatarModel.Satellite
+        Get
+            Return New AvatarSatelliteModel(avatar)
+        End Get
+    End Property
+
     Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
         If Not CanMove Then
             Return

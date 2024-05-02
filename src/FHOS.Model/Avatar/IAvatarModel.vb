@@ -32,6 +32,7 @@
 
     ReadOnly Property PlanetVicinity As IAvatarPlanetVicinityModel
     ReadOnly Property Planet As IAvatarPlanetModel
+    ReadOnly Property Satellite As IAvatarSatelliteModel
     ReadOnly Property KnowsStarSystems As Boolean
     ReadOnly Property StarSystemList As IEnumerable(Of (Text As String, Item As IStarSystemModel))
     ReadOnly Property KnowsStarVicinities As Boolean

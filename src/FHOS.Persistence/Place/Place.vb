@@ -68,7 +68,6 @@
     End Property
 
     Protected Sub AddPlace(place As IPlace)
-        Debug.Print(place.PlaceType)
         PlaceData.Descendants.Add(place.Id)
     End Sub
 End Class

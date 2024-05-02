@@ -12,4 +12,10 @@
             Return PlanetTypes.Descriptors(planet.PlanetType).CanRefillOxygen
         End Get
     End Property
+
+    Public ReadOnly Property Name As String Implements IPlanetModel.Name
+        Get
+            Return planet.Name
+        End Get
+    End Property
 End Class
