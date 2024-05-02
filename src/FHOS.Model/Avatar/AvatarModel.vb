@@ -46,11 +46,11 @@ Friend Class AvatarModel
 
     Public ReadOnly Property HasActions As Boolean Implements IAvatarModel.HasActions
         Get
-            Return StarSystem.CanEnter OrElse
-                PlanetVicinity.CanApproach OrElse
-                StarVicinity.CanApproach OrElse
-                Planet.CanRefillOxygen OrElse
-                Star.CanRefillFuel OrElse
+            Return LegacyStarSystem.CanEnter OrElse
+                LegacyPlanetVicinity.CanApproach OrElse
+                LegacyStarVicinity.CanApproach OrElse
+                LegacyPlanet.CanRefillOxygen OrElse
+                LegacyStar.CanRefillFuel OrElse
                 KnowsStarSystems
         End Get
     End Property
@@ -61,19 +61,19 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property StarSystem As IAvatarStarSystemModel Implements IAvatarModel.StarSystem
+    Public ReadOnly Property LegacyStarSystem As IAvatarStarSystemModel Implements IAvatarModel.LegacyStarSystem
         Get
             Return New AvatarStarSystemModel(avatar)
         End Get
     End Property
 
-    Public ReadOnly Property StarVicinity As IAvatarStarVicinityModel Implements IAvatarModel.StarVicinity
+    Public ReadOnly Property LegacyStarVicinity As IAvatarStarVicinityModel Implements IAvatarModel.LegacyStarVicinity
         Get
             Return New AvatarStarVicinityModel(avatar)
         End Get
     End Property
 
-    Public ReadOnly Property PlanetVicinity As IAvatarPlanetVicinityModel Implements IAvatarModel.PlanetVicinity
+    Public ReadOnly Property LegacyPlanetVicinity As IAvatarPlanetVicinityModel Implements IAvatarModel.LegacyPlanetVicinity
         Get
             Return New AvatarPlanetVicinityModel(avatar)
         End Get
@@ -109,13 +109,13 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Planet As IAvatarPlanetModel Implements IAvatarModel.Planet
+    Public ReadOnly Property LegacyPlanet As IAvatarPlanetModel Implements IAvatarModel.LegacyPlanet
         Get
             Return New AvatarPlanetModel(avatar)
         End Get
     End Property
 
-    Public ReadOnly Property Star As IAvatarStarModel Implements IAvatarModel.Star
+    Public ReadOnly Property LegacyStar As IAvatarStarModel Implements IAvatarModel.LegacyStar
         Get
             Return New AvatarStarModel(avatar)
         End Get
@@ -193,7 +193,7 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Satellite As IAvatarSatelliteModel Implements IAvatarModel.Satellite
+    Public ReadOnly Property LegacySatellite As IAvatarSatelliteModel Implements IAvatarModel.LegacySatellite
         Get
             Return New AvatarSatelliteModel(avatar)
         End Get

@@ -49,19 +49,19 @@ Friend Class ActionMenuState
             If .KnowsPlaces Then
                 result.Add((KnownPlacesText, KnownPlacesText))
             End If
-            If .StarSystem.CanEnter Then
+            If .LegacyStarSystem.CanEnter Then
                 result.Add((EnterStarSystemText, EnterStarSystemText))
             End If
-            If .StarVicinity.CanApproach Then
+            If .LegacyStarVicinity.CanApproach Then
                 result.Add((ApproachStarText, ApproachStarText))
             End If
-            If .PlanetVicinity.CanApproach Then
+            If .LegacyPlanetVicinity.CanApproach Then
                 result.Add((ApproachPlanetText, ApproachPlanetText))
             End If
-            If .Planet.CanRefillOxygen Then
+            If .LegacyPlanet.CanRefillOxygen Then
                 result.Add((RefillOxygenText, RefillOxygenText))
             End If
-            If .Star.CanRefillFuel Then
+            If .LegacyStar.CanRefillFuel Then
                 result.Add((RefuelText, RefuelText))
             End If
             If Not .CanMove Then

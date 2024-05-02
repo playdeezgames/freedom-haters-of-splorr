@@ -17,7 +17,7 @@ Friend Class RefillOxygenState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.Planet.RefillOxygen()
+        Context.Model.Avatar.LegacyPlanet.RefillOxygen()
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

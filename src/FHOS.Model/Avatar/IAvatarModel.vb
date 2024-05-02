@@ -26,13 +26,13 @@
 
     ReadOnly Property Tutorial As IAvatarTutorialModel
 
-    ReadOnly Property StarSystem As IAvatarStarSystemModel
-    ReadOnly Property StarVicinity As IAvatarStarVicinityModel
-    ReadOnly Property Star As IAvatarStarModel
+    ReadOnly Property LegacyStarSystem As IAvatarStarSystemModel
+    ReadOnly Property LegacyStarVicinity As IAvatarStarVicinityModel
+    ReadOnly Property LegacyStar As IAvatarStarModel
 
-    ReadOnly Property PlanetVicinity As IAvatarPlanetVicinityModel
-    ReadOnly Property Planet As IAvatarPlanetModel
-    ReadOnly Property Satellite As IAvatarSatelliteModel
+    ReadOnly Property LegacyPlanetVicinity As IAvatarPlanetVicinityModel
+    ReadOnly Property LegacyPlanet As IAvatarPlanetModel
+    ReadOnly Property LegacySatellite As IAvatarSatelliteModel
     ReadOnly Property KnowsStarSystems As Boolean
     ReadOnly Property StarSystemList As IEnumerable(Of (Text As String, Item As IStarSystemModel))
     ReadOnly Property KnowsStarVicinities As Boolean

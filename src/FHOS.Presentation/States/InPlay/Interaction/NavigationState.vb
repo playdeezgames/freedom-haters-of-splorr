@@ -62,23 +62,23 @@ Friend Class NavigationState
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Jools: { .Jools}", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"O2: { .OxygenPercent}%", .OxygenHue)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Fuel: { .FuelPercent}%", .FuelHue)
-            If .StarSystem.Current IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .StarSystem.Current.Name, Black)
+            If .LegacyStarSystem.Current IsNot Nothing Then
+                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .LegacyStarSystem.Current.Name, Black)
             End If
-            If .StarVicinity.Current IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .StarVicinity.Current.Name, Black)
+            If .LegacyStarVicinity.Current IsNot Nothing Then
+                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .LegacyStarVicinity.Current.Name, Black)
             End If
-            If .PlanetVicinity.Current IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .PlanetVicinity.Current.Name, Black)
+            If .LegacyPlanetVicinity.Current IsNot Nothing Then
+                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .LegacyPlanetVicinity.Current.Name, Black)
             End If
-            If .Star.Current IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .Star.Current.Name, Black)
+            If .LegacyStar.Current IsNot Nothing Then
+                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .LegacyStar.Current.Name, Black)
             End If
-            If .Planet.Current IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .Planet.Current.Name, Black)
+            If .LegacyPlanet.Current IsNot Nothing Then
+                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .LegacyPlanet.Current.Name, Black)
             End If
-            If .Satellite.Current IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .Satellite.Current.Name, Black)
+            If .LegacySatellite.Current IsNot Nothing Then
+                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .LegacySatellite.Current.Name, Black)
             End If
         End With
     End Sub
