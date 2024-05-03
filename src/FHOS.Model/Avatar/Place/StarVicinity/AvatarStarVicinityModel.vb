@@ -11,7 +11,7 @@ Friend Class AvatarStarVicinityModel
 
     Public ReadOnly Property LegacyCurrent As IStarVicinityModel Implements IAvatarStarVicinityModel.LegacyCurrent
         Get
-            Dim star = avatar.Location.LegacyStarVicinity
+            Dim star = avatar.Location.Place
             If star IsNot Nothing Then
                 Return New StarVicinityModel(star)
             End If
@@ -28,7 +28,7 @@ Friend Class AvatarStarVicinityModel
     Public Sub Approach() Implements IAvatarStarVicinityModel.Approach
         If CanApproach Then
             DoTurn()
-            With avatar.Location.LegacyStarVicinity
+            With avatar.Location.Place
                 SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
             End With
         End If

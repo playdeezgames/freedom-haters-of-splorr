@@ -79,8 +79,8 @@ Friend Class Place
         End Get
     End Property
 
-    Public Function CreateStarVicinity() As IStarVicinity Implements IPlace.CreateStarVicinity
-        Dim starVicinity = New StarVicinity(
+    Public Function CreateStarVicinity() As IPlace Implements IPlace.CreateStarVicinity
+        Dim starVicinity = New Place(
             UniverseData,
                 UniverseData.Places.CreateOrRecycle(
                 New PlaceData With

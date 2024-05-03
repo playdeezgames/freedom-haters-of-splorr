@@ -51,7 +51,7 @@
 
     Public ReadOnly Property Star As IStarVicinityModel Implements ILocationModel.Star
         Get
-            Dim locationStar = location.LegacyStarVicinity
+            Dim locationStar = location.Place
             If locationStar Is Nothing Then
                 Return Nothing
             End If

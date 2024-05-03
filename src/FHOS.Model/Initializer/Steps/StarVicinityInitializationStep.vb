@@ -9,18 +9,18 @@ Friend Class StarVicinityInitializationStep
         Me.starLocation = location
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
-        Dim starVicinity = starLocation.LegacyStarVicinity
+        Dim starVicinity = starLocation.Place
         starVicinity.Map = starVicinity.Universe.CreateMap(
             MapTypes.System,
             $"{starVicinity.Name} Vicinity",
             StarVicinityColumns,
             StarVicinityRows,
             LocationTypes.Void)
-        starVicinity.Map.StarVicinity = starVicinity
+        starVicinity.Map.Place = starVicinity
         PlaceBoundaries(starVicinity, starLocation)
         PlaceStar(starVicinity)
     End Sub
-    Private Sub PlaceStar(starVicinity As IStarVicinity)
+    Private Sub PlaceStar(starVicinity As IPlace)
         Dim starColumn = StarVicinityColumns \ 2
         Dim starRow = StarVicinityRows \ 2
         Dim locationType = StarTypes.Descriptors(starVicinity.StarType).LocationType
@@ -32,7 +32,7 @@ Friend Class StarVicinityInitializationStep
             'TODO: initialize further down?
         End With
     End Sub
-    Private Sub PlaceBoundaries(starVicinity As IStarVicinity, starLocation As ILocation)
+    Private Sub PlaceBoundaries(starVicinity As IPlace, starLocation As ILocation)
         Dim teleporter = starLocation.CreateTeleporterTo()
         Dim identifier = starVicinity.Identifier
         For Each corner In GetCorners(StarVicinityColumns, StarVicinityRows)

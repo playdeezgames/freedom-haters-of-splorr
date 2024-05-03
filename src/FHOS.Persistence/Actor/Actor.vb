@@ -64,13 +64,6 @@ Friend Class Actor
                                   })
     End Sub
 
-    Public Sub AddStarVicinity(starVicinity As IStarVicinity) Implements IActor.AddStarVicinity
-        If Not ActorData.StarVicinities.Discovered.ContainsKey(starVicinity.Id) Then
-            ActorData.StarVicinities.Discovered(starVicinity.Id) = Turn
-        End If
-        ActorData.StarVicinities.Visited(starVicinity.Id) = Turn
-    End Sub
-
     Public ReadOnly Property ActorType As String Implements IActor.ActorType
         Get
             Return ActorData.Metadatas(MetadataTypes.ActorType)
@@ -185,9 +178,9 @@ Friend Class Actor
         End Get
     End Property
 
-    Public ReadOnly Property KnownStarVicinities As IEnumerable(Of IStarVicinity) Implements IActor.KnownStarVicinities
+    Public ReadOnly Property KnownStarVicinities As IEnumerable(Of IPlace) Implements IActor.KnownStarVicinities
         Get
-            Return ActorData.StarVicinities.Discovered.Select(Function(x) New StarVicinity(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
+            Return ActorData.StarVicinities.Discovered.Select(Function(x) New Place(UniverseData, x.Key)).Where(Function(x) x.PlaceType = PlaceTypes.StarVicinity).OrderBy(Function(x) x.Name)
         End Get
     End Property
 

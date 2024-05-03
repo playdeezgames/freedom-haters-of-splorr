@@ -2,9 +2,9 @@
     Inherits PlaceModel
     Implements IStarVicinityModel
 
-    Private ReadOnly starVicinity As Persistence.IStarVicinity
+    Private ReadOnly starVicinity As Persistence.IPlace
 
-    Public Sub New(starVicinity As Persistence.IStarVicinity)
+    Public Sub New(starVicinity As Persistence.IPlace)
         MyBase.New(starVicinity)
         Me.starVicinity = starVicinity
     End Sub
