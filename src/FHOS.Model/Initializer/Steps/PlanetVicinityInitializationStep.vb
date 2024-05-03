@@ -12,19 +12,19 @@ Friend Class PlanetVicinityInitializationStep
         Me.nameGenerator = nameGenerator
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
-        Dim planetVicinity = planetVicinityLocation.LegacyPlanetVicinity
+        Dim planetVicinity = planetVicinityLocation.Place
         planetVicinity.Map = planetVicinity.Universe.CreateMap(
             MapTypes.System,
             $"{planetVicinity.Name} Vicinity",
             PlanetVicinityColumns,
             PlanetVicinityRows,
             LocationTypes.Void)
-        planetVicinity.Map.PlanetVicinity = planetVicinity
+        planetVicinity.Map.Place = planetVicinity
         PlaceBoundaries(planetVicinity, planetVicinityLocation)
         PlacePlanet(planetVicinity, addStep)
         PlaceSatellites(planetVicinity, addStep)
     End Sub
-    Private Sub PlaceSatellites(planetVicinity As IPlanetVicinity, addStep As Action(Of InitializationStep))
+    Private Sub PlaceSatellites(planetVicinity As IPlace, addStep As Action(Of InitializationStep))
         Dim satellites As New List(Of (Column As Integer, Row As Integer)) From
             {
                 (PlanetVicinityColumns \ 2, PlanetVicinityRows \ 2)
@@ -54,7 +54,7 @@ Friend Class PlanetVicinityInitializationStep
             End If
         End While
     End Sub
-    Private Sub PlacePlanet(planetVicinity As IPlanetVicinity, addStep As Action(Of InitializationStep))
+    Private Sub PlacePlanet(planetVicinity As IPlace, addStep As Action(Of InitializationStep))
         Dim starColumn = PlanetVicinityColumns \ 2
         Dim starRow = PlanetVicinityRows \ 2
         Dim locationType = PlanetTypes.Descriptors(planetVicinity.PlanetType).LocationType
@@ -66,7 +66,7 @@ Friend Class PlanetVicinityInitializationStep
             addStep(New PlanetInitializationStep(location))
         End With
     End Sub
-    Private Sub PlaceBoundaries(planetVicinity As IPlanetVicinity, planetVicinityLocation As ILocation)
+    Private Sub PlaceBoundaries(planetVicinity As IPlace, planetVicinityLocation As ILocation)
         Dim teleporter = planetVicinityLocation.CreateTeleporterTo()
         Dim identifier = planetVicinity.Identifier
         For Each corner In GetCorners(PlanetVicinityColumns, PlanetVicinityRows)

@@ -19,7 +19,7 @@
     ReadOnly Property KnowsStarSystems As Boolean
     ReadOnly Property KnownStarSystems As IEnumerable(Of IPlace)
     ReadOnly Property KnownStarVicinities As IEnumerable(Of IStarVicinity)
-    ReadOnly Property KnownPlanetVicinities As IEnumerable(Of IPlanetVicinity)
+    ReadOnly Property KnownPlanetVicinities As IEnumerable(Of IPlace)
     Sub AddPlace(place As IPlace)
 
     Sub SetFlag(flag As String)
@@ -34,5 +34,4 @@
                   header As String,
                   ParamArray lines As (Text As String, Hue As Integer)())
     Sub AddStarVicinity(starVicinity As IStarVicinity)
-    Sub AddPlanetVicinity(planetVicinity As IPlanetVicinity)
 End Interface

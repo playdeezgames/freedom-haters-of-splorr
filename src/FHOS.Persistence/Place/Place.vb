@@ -101,8 +101,8 @@ Friend Class Place
         Return starVicinity
     End Function
 
-    Public Function CreatePlanetVicinity(planetName As String, planetType As String) As IPlanetVicinity Implements IPlace.CreatePlanetVicinity
-        Dim planetVicinity = New PlanetVicinity(
+    Public Function CreatePlanetVicinity(planetName As String, planetType As String) As IPlace Implements IPlace.CreatePlanetVicinity
+        Dim planetVicinity = New Place(
             UniverseData,
                 UniverseData.Places.CreateOrRecycle(
                 New PlaceData With

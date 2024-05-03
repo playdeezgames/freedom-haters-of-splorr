@@ -50,7 +50,7 @@ LocationTypes.Void)
                 location.Tutorial = TutorialTypes.PlanetVicinityApproach
                 Dim planetName = nameGenerator.GenerateUnusedName
                 index += 1
-                location.LegacyPlanetVicinity = starSystem.CreatePlanetVicinity(planetName, planetType)
+                location.Place = starSystem.CreatePlanetVicinity(planetName, planetType)
                 addStep(New PlanetVicinityInitializationStep(location, nameGenerator))
                 planetCount += 1
                 tries = 0

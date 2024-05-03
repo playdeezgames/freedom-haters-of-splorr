@@ -115,23 +115,6 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property LegacyPlanetVicinity As IPlanetVicinity Implements ILocation.LegacyPlanetVicinity
-        Get
-            Dim planetId As Integer
-            If LocationData.Statistics.TryGetValue(StatisticTypes.PlaceId, planetId) Then
-                Return New PlanetVicinity(UniverseData, planetId)
-            End If
-            Return Nothing
-        End Get
-        Set(value As IPlanetVicinity)
-            If value Is Nothing Then
-                LocationData.Statistics.Remove(StatisticTypes.PlaceId)
-            Else
-                LocationData.Statistics(StatisticTypes.PlaceId) = value.Id
-            End If
-        End Set
-    End Property
-
     Public Property LegacySatellite As ISatellite Implements ILocation.LegacySatellite
         Get
             Dim satelliteId As Integer
