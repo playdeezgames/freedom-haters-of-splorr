@@ -32,4 +32,19 @@ Friend Class AvatarPlaceModel
             End With
         End If
     End Sub
+
+    Public ReadOnly Property CanApproachStarVicinity As Boolean Implements IAvatarPlaceModel.CanApproachStarVicinity
+        Get
+            Return avatar.Location.Place?.PlaceType = PlaceTypes.StarVicinity
+        End Get
+    End Property
+
+    Public Sub ApproachStarVicinity() Implements IAvatarPlaceModel.ApproachStarVicinity
+        If CanApproachStarVicinity Then
+            DoTurn()
+            With avatar.Location.Place
+                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
+            End With
+        End If
+    End Sub
 End Class

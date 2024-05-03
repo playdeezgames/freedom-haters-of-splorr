@@ -48,7 +48,7 @@ Friend Class AvatarModel
         Get
             Return Place.CanEnterStarSystem OrElse
                 LegacyPlanetVicinity.CanApproach OrElse
-                LegacyStarVicinity.CanApproach OrElse
+                LegacyStarVicinity.CanApproachStarVicinity OrElse
                 LegacyPlanet.CanRefillOxygen OrElse
                 LegacyStar.CanRefillFuel OrElse
                 KnowsStarSystems
