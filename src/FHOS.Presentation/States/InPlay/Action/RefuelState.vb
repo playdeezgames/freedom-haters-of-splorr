@@ -17,7 +17,7 @@ Friend Class RefuelState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.LegacyStar.Refuel()
+        Context.Model.Avatar.Place.Refuel()
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

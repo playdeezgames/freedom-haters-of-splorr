@@ -27,7 +27,6 @@
     ReadOnly Property Tutorial As IAvatarTutorialModel
 
     ReadOnly Property Place As IAvatarPlaceModel
-    ReadOnly Property LegacyStar As IAvatarStarModel
 
     ReadOnly Property LegacyPlanetVicinity As IAvatarPlanetVicinityModel
     ReadOnly Property LegacyPlanet As IAvatarPlanetModel

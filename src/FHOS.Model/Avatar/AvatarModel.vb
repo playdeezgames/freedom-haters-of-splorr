@@ -50,7 +50,7 @@ Friend Class AvatarModel
                 LegacyPlanetVicinity.CanApproach OrElse
                 Place.CanApproachStarVicinity OrElse
                 LegacyPlanet.CanRefillOxygen OrElse
-                LegacyStar.CanRefillFuel OrElse
+                Place.CanRefillFuel OrElse
                 KnowsStarSystems
         End Get
     End Property
@@ -100,12 +100,6 @@ Friend Class AvatarModel
     Public ReadOnly Property LegacyPlanet As IAvatarPlanetModel Implements IAvatarModel.LegacyPlanet
         Get
             Return New AvatarPlanetModel(avatar)
-        End Get
-    End Property
-
-    Public ReadOnly Property LegacyStar As IAvatarStarModel Implements IAvatarModel.LegacyStar
-        Get
-            Return New AvatarStarModel(avatar)
         End Get
     End Property
 

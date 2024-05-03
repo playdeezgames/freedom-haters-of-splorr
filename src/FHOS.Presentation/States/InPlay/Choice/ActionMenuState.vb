@@ -61,7 +61,7 @@ Friend Class ActionMenuState
             If .LegacyPlanet.CanRefillOxygen Then
                 result.Add((RefillOxygenText, RefillOxygenText))
             End If
-            If .LegacyStar.CanRefillFuel Then
+            If .Place.CanRefillFuel Then
                 result.Add((RefuelText, RefuelText))
             End If
             If Not .CanMove Then
