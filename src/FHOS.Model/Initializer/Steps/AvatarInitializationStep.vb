@@ -11,7 +11,7 @@ Friend Class AvatarInitializationStep
         Me.starMap = starMap
         Me.embarkSettings = embarkSettings
     End Sub
-    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
+    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim actorLocation As ILocation
         Dim descriptor = ActorTypes.Descriptors(Player)
         Do

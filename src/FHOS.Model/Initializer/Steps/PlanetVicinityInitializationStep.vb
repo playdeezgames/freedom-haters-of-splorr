@@ -11,7 +11,7 @@ Friend Class PlanetVicinityInitializationStep
         Me.planetVicinityLocation = location
         Me.nameGenerator = nameGenerator
     End Sub
-    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
+    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planetVicinity = planetVicinityLocation.Place
         planetVicinity.Map = planetVicinity.Universe.CreateMap(
             MapTypes.System,
@@ -24,7 +24,7 @@ Friend Class PlanetVicinityInitializationStep
         PlacePlanet(planetVicinity, addStep)
         PlaceSatellites(planetVicinity, addStep)
     End Sub
-    Private Sub PlaceSatellites(planetVicinity As IPlace, addStep As Action(Of InitializationStep))
+    Private Sub PlaceSatellites(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean))
         Dim satellites As New List(Of (Column As Integer, Row As Integer)) From
             {
                 (PlanetVicinityColumns \ 2, PlanetVicinityRows \ 2)
@@ -46,7 +46,7 @@ Friend Class PlanetVicinityInitializationStep
                 location.Tutorial = TutorialTypes.SatelliteApproach
                 Dim satelliteName = nameGenerator.GenerateUnusedName
                 location.Place = planetVicinity.CreateSatellite(satelliteName, satelliteType)
-                addStep(New SatelliteInitializationStep(location))
+                addStep(New SatelliteInitializationStep(location), False)
                 satelliteCount += 1
                 tries = 0
             Else
@@ -54,7 +54,7 @@ Friend Class PlanetVicinityInitializationStep
             End If
         End While
     End Sub
-    Private Sub PlacePlanet(planetVicinity As IPlace, addStep As Action(Of InitializationStep))
+    Private Sub PlacePlanet(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean))
         Dim starColumn = PlanetVicinityColumns \ 2
         Dim starRow = PlanetVicinityRows \ 2
         Dim locationType = PlanetTypes.Descriptors(planetVicinity.PlanetType).LocationType
@@ -63,7 +63,7 @@ Friend Class PlanetVicinityInitializationStep
             .LocationType = locationType
             .Tutorial = TutorialTypes.PlanetLand
             .Place = planetVicinity.CreatePlanet()
-            addStep(New PlanetInitializationStep(location))
+            addStep(New PlanetInitializationStep(location), False)
         End With
     End Sub
     Private Sub PlaceBoundaries(planetVicinity As IPlace, planetVicinityLocation As ILocation)

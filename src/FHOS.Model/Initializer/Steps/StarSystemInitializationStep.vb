@@ -13,7 +13,7 @@ Friend Class StarSystemInitializationStep
         Me.nameGenerator = nameGenerator
     End Sub
 
-    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
+    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim starSystem = starLocation.Place
         starSystem.Map = starSystem.Universe.CreateMap(
             MapTypes.System,
@@ -27,7 +27,7 @@ LocationTypes.Void)
         PlacePlanets(starSystem, addStep)
     End Sub
 
-    Private Sub PlacePlanets(starSystem As IPlace, addStep As Action(Of InitializationStep))
+    Private Sub PlacePlanets(starSystem As IPlace, addStep As Action(Of InitializationStep, Boolean))
         Dim planets As New List(Of (Column As Integer, Row As Integer)) From
             {
                 (SystemMapColumns \ 2, SystemMapRows \ 2)
@@ -51,7 +51,7 @@ LocationTypes.Void)
                 Dim planetName = nameGenerator.GenerateUnusedName
                 index += 1
                 location.Place = starSystem.CreatePlanetVicinity(planetName, planetType)
-                addStep(New PlanetVicinityInitializationStep(location, nameGenerator))
+                addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
                 planetCount += 1
                 tries = 0
             Else
@@ -60,7 +60,7 @@ LocationTypes.Void)
         End While
     End Sub
 
-    Private Sub PlaceStar(starSystem As IPlace, addStep As Action(Of InitializationStep))
+    Private Sub PlaceStar(starSystem As IPlace, addStep As Action(Of InitializationStep, Boolean))
         Dim starColumn = SystemMapColumns \ 2
         Dim starRow = SystemMapRows \ 2
         Dim locationType = StarTypes.Descriptors(starSystem.StarType).LocationType
@@ -69,7 +69,7 @@ LocationTypes.Void)
             .LocationType = locationType
             .Place = starSystem.CreateStarVicinity()
             .Tutorial = TutorialTypes.StarVicinityApproach
-            addStep(New StarVicinityInitializationStep(location))
+            addStep(New StarVicinityInitializationStep(location), False)
         End With
     End Sub
     Private Sub PlaceBoundaries(starSystem As IPlace, starLocation As ILocation)

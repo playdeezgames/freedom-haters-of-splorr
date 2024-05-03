@@ -14,7 +14,7 @@ Friend Class GalaxyInitializationStep
         Me.embarkSettings = embarkSettings
         Me.nameGenerator = nameGenerator
     End Sub
-    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
+    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim starMap = universe.CreateMap(MapTypes.Stellar, GalaxyName, GalaxyColumns, GalaxyRows, LocationTypes.Void)
         Dim stars As New List(Of (Column As Integer, Row As Integer))
         Dim tries As Integer = 0
@@ -31,12 +31,12 @@ Friend Class GalaxyInitializationStep
                 location.Tutorial = TutorialTypes.StarSystemEntry
                 Dim starSystemName As String = nameGenerator.GenerateUnusedName
                 location.Place = universe.CreateStarSystem(starSystemName, starType)
-                addStep(New StarSystemInitializationStep(location, nameGenerator))
+                addStep(New StarSystemInitializationStep(location, nameGenerator), False)
                 tries = 0
             Else
                 tries += 1
             End If
         End While
-        addStep(New AvatarInitializationStep(universe, starMap, embarkSettings))
+        addStep(New AvatarInitializationStep(universe, starMap, embarkSettings), False)
     End Sub
 End Class

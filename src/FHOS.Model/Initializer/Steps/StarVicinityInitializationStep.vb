@@ -8,7 +8,7 @@ Friend Class StarVicinityInitializationStep
     Sub New(location As ILocation)
         Me.starLocation = location
     End Sub
-    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
+    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim starVicinity = starLocation.Place
         starVicinity.Map = starVicinity.Universe.CreateMap(
             MapTypes.System,

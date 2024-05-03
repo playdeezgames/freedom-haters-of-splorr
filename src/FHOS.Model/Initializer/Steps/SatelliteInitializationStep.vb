@@ -7,7 +7,7 @@
         Me.location = location
     End Sub
 
-    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
+    Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         'TODO: ???
     End Sub
 End Class

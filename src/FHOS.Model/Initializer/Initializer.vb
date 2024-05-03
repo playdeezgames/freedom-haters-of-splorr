@@ -17,7 +17,7 @@ Friend Module Initializer
         _stepCount = 0
         AddStep(New GalaxyInitializationStep(universe, embarkSettings, New NameGenerator))
     End Sub
-    Private Sub AddStep(initializationStep As InitializationStep)
+    Private Sub AddStep(initializationStep As InitializationStep, Optional isFinalizer As Boolean = False)
         initializationSteps.Enqueue(initializationStep)
     End Sub
     Public Function Execute() As Boolean
