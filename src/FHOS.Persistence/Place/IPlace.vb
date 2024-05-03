@@ -10,7 +10,7 @@
     Function CreateStarVicinity() As IPlace
     Function CreatePlanetVicinity(planetName As String, planetType As String) As IPlace
     Function CreateStar() As IPlace
-    Function CreatePlanet() As IPlanet
+    Function CreatePlanet() As IPlace
     Function CreateSatellite(satelliteName As String, satelliteType As String) As IPlace
     ReadOnly Property PlanetType As String
 End Interface

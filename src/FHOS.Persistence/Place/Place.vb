@@ -145,8 +145,8 @@ Friend Class Place
         Return star
     End Function
 
-    Public Function CreatePlanet() As IPlanet Implements IPlace.CreatePlanet
-        Dim planet As IPlanet = New Planet(
+    Public Function CreatePlanet() As IPlace Implements IPlace.CreatePlanet
+        Dim planet As IPlace = New Place(
             UniverseData,
                 UniverseData.Places.CreateOrRecycle(
                 New PlaceData With

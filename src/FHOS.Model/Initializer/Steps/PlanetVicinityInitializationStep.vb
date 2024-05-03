@@ -62,7 +62,7 @@ Friend Class PlanetVicinityInitializationStep
         With location
             .LocationType = locationType
             .Tutorial = TutorialTypes.PlanetLand
-            .LegacyPlanet = planetVicinity.CreatePlanet()
+            .Place = planetVicinity.CreatePlanet()
             addStep(New PlanetInitializationStep(location))
         End With
     End Sub

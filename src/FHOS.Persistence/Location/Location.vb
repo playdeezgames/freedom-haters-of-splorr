@@ -98,23 +98,6 @@ Friend Class Location
         End Get
     End Property
 
-    Public Property LegacyPlanet As IPlanet Implements ILocation.LegacyPlanet
-        Get
-            Dim planetId As Integer
-            If LocationData.Statistics.TryGetValue(StatisticTypes.PlaceId, planetId) Then
-                Return New Planet(UniverseData, planetId)
-            End If
-            Return Nothing
-        End Get
-        Set(value As IPlanet)
-            If value Is Nothing Then
-                LocationData.Statistics.Remove(StatisticTypes.PlaceId)
-            Else
-                LocationData.Statistics(StatisticTypes.PlaceId) = value.Id
-            End If
-        End Set
-    End Property
-
     Public Property Place As IPlace Implements ILocation.Place
         Get
             Dim starSystemId As Integer

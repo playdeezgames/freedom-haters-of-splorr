@@ -2,9 +2,9 @@
     Inherits PlaceModel
     Implements IPlanetModel
 
-    Private ReadOnly planet As Persistence.IPlanet
+    Private ReadOnly planet As Persistence.IPlace
 
-    Public Sub New(planet As Persistence.IPlanet)
+    Public Sub New(planet As Persistence.IPlace)
         MyBase.New(planet)
         Me.planet = planet
     End Sub
