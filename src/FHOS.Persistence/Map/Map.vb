@@ -78,16 +78,16 @@ Friend Class Map
     Public Property PlanetVicinity As IPlanetVicinity Implements IMap.PlanetVicinity
         Get
             Dim planetVicinityId As Integer
-            If MapData.Statistics.TryGetValue(StatisticTypes.PlanetVicinityId, planetVicinityId) Then
+            If MapData.Statistics.TryGetValue(StatisticTypes.PlaceId, planetVicinityId) Then
                 Return New PlanetVicinity(UniverseData, planetVicinityId)
             End If
             Return Nothing
         End Get
         Set(value As IPlanetVicinity)
             If value IsNot Nothing Then
-                MapData.Statistics(StatisticTypes.PlanetVicinityId) = value.Id
+                MapData.Statistics(StatisticTypes.PlaceId) = value.Id
             Else
-                MapData.Statistics.Remove(StatisticTypes.PlanetVicinityId)
+                MapData.Statistics.Remove(StatisticTypes.PlaceId)
             End If
         End Set
     End Property

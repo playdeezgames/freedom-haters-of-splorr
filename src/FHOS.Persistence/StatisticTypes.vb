@@ -13,7 +13,6 @@
     Friend Const MinimumJools = "MinimumJools"
     Friend Const Oxygen = "Oxygen"
     Friend Const PlanetId = "PlanetId"
-    Friend Const PlanetVicinityId = "PlanetVicinityId"
     Friend Const Row = "Row"
     Friend Const Rows = "Rows"
     Friend Const SatelliteId = "SatelliteId"

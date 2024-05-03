@@ -160,7 +160,6 @@ Friend Class Place
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
-                        {StatisticTypes.PlanetVicinityId, Id},
                         {StatisticTypes.ParentId, Id}
                     }
                 }))
@@ -182,7 +181,6 @@ Friend Class Place
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
-                        {StatisticTypes.PlanetVicinityId, Id},
                         {StatisticTypes.ParentId, Id}
                     }
                 }))
