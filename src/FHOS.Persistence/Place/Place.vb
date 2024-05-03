@@ -193,7 +193,11 @@ Friend Class Place
 
     Public ReadOnly Property PlanetType As String Implements IPlace.PlanetType
         Get
-            Return PlaceData.Metadatas(MetadataTypes.PlanetType)
+            Dim result = String.Empty
+            If PlaceData.Metadatas.TryGetValue(MetadataTypes.PlanetType, result) Then
+                Return result
+            End If
+            Return Nothing
         End Get
     End Property
 End Class

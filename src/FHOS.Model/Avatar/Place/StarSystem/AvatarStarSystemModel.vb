@@ -17,19 +17,4 @@ Friend Class AvatarStarSystemModel
             Return New StarSystemModel(avatar.Location.Place)
         End Get
     End Property
-
-    Public ReadOnly Property CanEnter As Boolean Implements IAvatarStarSystemModel.CanEnter
-        Get
-            Return LegacyCurrent IsNot Nothing
-        End Get
-    End Property
-
-    Public Sub Enter() Implements IAvatarStarSystemModel.Enter
-        If CanEnter Then
-            DoTurn()
-            With avatar.Location.Place
-                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
-            End With
-        End If
-    End Sub
 End Class

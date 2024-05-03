@@ -1,4 +1,5 @@
 ﻿Imports FHOS.Persistence
+Imports SPLORR.Game
 
 Friend Class AvatarPlaceModel
     Inherits BaseAvatarModel
@@ -16,4 +17,19 @@ Friend Class AvatarPlaceModel
             Return Nothing
         End Get
     End Property
+
+    Public ReadOnly Property CanEnter As Boolean Implements IAvatarPlaceModel.CanEnter
+        Get
+            Return avatar.Location.Place?.PlaceType = PlaceTypes.StarSystem
+        End Get
+    End Property
+
+    Public Sub Enter() Implements IAvatarPlaceModel.Enter
+        If CanEnter Then
+            DoTurn()
+            With avatar.Location.Place
+                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
+            End With
+        End If
+    End Sub
 End Class
