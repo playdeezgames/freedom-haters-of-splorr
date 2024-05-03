@@ -49,7 +49,7 @@ Friend Class AvatarModel
             Return Place.CanEnterStarSystem OrElse
                 Place.CanApproachPlanetVicinity OrElse
                 Place.CanApproachStarVicinity OrElse
-                LegacyPlanet.CanRefillOxygen OrElse
+                Place.CanRefillOxygen OrElse
                 Place.CanRefillFuel OrElse
                 KnowsStarSystems
         End Get
@@ -88,12 +88,6 @@ Friend Class AvatarModel
     Public ReadOnly Property IsGameOver As Boolean Implements IAvatarModel.IsGameOver
         Get
             Return IsDead OrElse IsBankrupt
-        End Get
-    End Property
-
-    Public ReadOnly Property LegacyPlanet As IAvatarPlanetModel Implements IAvatarModel.LegacyPlanet
-        Get
-            Return New AvatarPlanetModel(avatar)
         End Get
     End Property
 
