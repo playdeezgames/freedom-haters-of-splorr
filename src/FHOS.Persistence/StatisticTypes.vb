@@ -17,7 +17,6 @@
     Friend Const Rows = "Rows"
     Friend Const SatelliteId = "SatelliteId"
     Friend Const StarId = "StarId"
-    Friend Const StarVicinityId = "StarVicinityId"
     Friend Const TeleporterId = "TeleporterId"
     Friend Const Turn = "Turn"
     Friend Const ParentId = "ParentId"

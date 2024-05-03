@@ -61,16 +61,16 @@ Friend Class Map
     Public Property StarVicinity As IStarVicinity Implements IMap.StarVicinity
         Get
             Dim starVicinityId As Integer
-            If MapData.Statistics.TryGetValue(StatisticTypes.StarVicinityId, starVicinityId) Then
+            If MapData.Statistics.TryGetValue(StatisticTypes.PlaceId, starVicinityId) Then
                 Return New StarVicinity(UniverseData, starVicinityId)
             End If
             Return Nothing
         End Get
         Set(value As IStarVicinity)
             If value IsNot Nothing Then
-                MapData.Statistics(StatisticTypes.StarVicinityId) = value.Id
+                MapData.Statistics(StatisticTypes.PlaceId) = value.Id
             Else
-                MapData.Statistics.Remove(StatisticTypes.StarVicinityId)
+                MapData.Statistics.Remove(StatisticTypes.PlaceId)
             End If
         End Set
     End Property

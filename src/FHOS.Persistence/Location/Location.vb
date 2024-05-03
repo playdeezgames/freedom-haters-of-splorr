@@ -101,16 +101,16 @@ Friend Class Location
     Public Property LegacyStarVicinity As IStarVicinity Implements ILocation.LegacyStarVicinity
         Get
             Dim starId As Integer
-            If LocationData.Statistics.TryGetValue(StatisticTypes.StarVicinityId, starId) Then
+            If LocationData.Statistics.TryGetValue(StatisticTypes.PlaceId, starId) Then
                 Return New StarVicinity(UniverseData, starId)
             End If
             Return Nothing
         End Get
         Set(value As IStarVicinity)
             If value Is Nothing Then
-                LocationData.Statistics.Remove(StatisticTypes.StarVicinityId)
+                LocationData.Statistics.Remove(StatisticTypes.PlaceId)
             Else
-                LocationData.Statistics(StatisticTypes.StarVicinityId) = value.Id
+                LocationData.Statistics(StatisticTypes.PlaceId) = value.Id
             End If
         End Set
     End Property
