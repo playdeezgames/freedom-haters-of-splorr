@@ -58,4 +58,19 @@ Friend Class AvatarPlaceModel
             avatar.Fuel = avatar.MaximumFuel
         End If
     End Sub
+
+    Public ReadOnly Property CanApproachPlanetVicinity As Boolean Implements IAvatarPlaceModel.CanApproachPlanetVicinity
+        Get
+            Return avatar.Location.Place?.PlaceType = PlaceTypes.PlanetVicinity
+        End Get
+    End Property
+
+    Public Sub ApproachPlanetVicinity() Implements IAvatarPlaceModel.ApproachPlanetVicinity
+        If CanApproachPlanetVicinity Then
+            DoTurn()
+            With avatar.Location.Place
+                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
+            End With
+        End If
+    End Sub
 End Class

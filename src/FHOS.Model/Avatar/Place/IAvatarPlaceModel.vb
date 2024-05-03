@@ -6,4 +6,6 @@
     Sub ApproachStarVicinity()
     ReadOnly Property CanRefillFuel As Boolean
     Sub Refuel()
+    ReadOnly Property CanApproachPlanetVicinity As Boolean
+    Sub ApproachPlanetVicinity()
 End Interface

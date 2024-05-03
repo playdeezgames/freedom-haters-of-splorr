@@ -55,7 +55,7 @@ Friend Class ActionMenuState
             If .Place.CanApproachStarVicinity Then
                 result.Add((ApproachStarText, ApproachStarText))
             End If
-            If .LegacyPlanetVicinity.CanApproach Then
+            If .LegacyPlanetVicinity.CanApproachPlanetVicinity Then
                 result.Add((ApproachPlanetText, ApproachPlanetText))
             End If
             If .LegacyPlanet.CanRefillOxygen Then
