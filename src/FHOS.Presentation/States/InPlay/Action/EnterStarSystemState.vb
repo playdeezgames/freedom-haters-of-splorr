@@ -17,7 +17,7 @@ Friend Class EnterStarSystemState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.LegacyStarSystem.Enter()
+        Context.Model.Avatar.Place.EnterStarSystem()
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

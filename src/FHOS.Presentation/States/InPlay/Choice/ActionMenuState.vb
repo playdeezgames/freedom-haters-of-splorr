@@ -49,7 +49,7 @@ Friend Class ActionMenuState
             If .KnowsPlaces Then
                 result.Add((KnownPlacesText, KnownPlacesText))
             End If
-            If .LegacyStarSystem.CanEnter Then
+            If .Place.CanEnterStarSystem Then
                 result.Add((EnterStarSystemText, EnterStarSystemText))
             End If
             If .LegacyStarVicinity.CanApproach Then

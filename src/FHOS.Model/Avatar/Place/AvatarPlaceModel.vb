@@ -18,14 +18,14 @@ Friend Class AvatarPlaceModel
         End Get
     End Property
 
-    Public ReadOnly Property CanEnter As Boolean Implements IAvatarPlaceModel.CanEnter
+    Public ReadOnly Property CanEnterStarSystem As Boolean Implements IAvatarPlaceModel.CanEnterStarSystem
         Get
             Return avatar.Location.Place?.PlaceType = PlaceTypes.StarSystem
         End Get
     End Property
 
-    Public Sub Enter() Implements IAvatarPlaceModel.Enter
-        If CanEnter Then
+    Public Sub EnterStarSystem() Implements IAvatarPlaceModel.EnterStarSystem
+        If CanEnterStarSystem Then
             DoTurn()
             With avatar.Location.Place
                 SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
