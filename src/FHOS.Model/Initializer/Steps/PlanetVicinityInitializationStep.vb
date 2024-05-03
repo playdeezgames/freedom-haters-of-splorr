@@ -45,7 +45,7 @@ Friend Class PlanetVicinityInitializationStep
                 location.LocationType = SatelliteTypes.Descriptors(satelliteType).LocationType
                 location.Tutorial = TutorialTypes.SatelliteApproach
                 Dim satelliteName = nameGenerator.GenerateUnusedName
-                location.LegacySatellite = planetVicinity.CreateSatellite(satelliteName, satelliteType)
+                location.Place = planetVicinity.CreateSatellite(satelliteName, satelliteType)
                 addStep(New SatelliteInitializationStep(location))
                 satelliteCount += 1
                 tries = 0

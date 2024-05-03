@@ -11,7 +11,6 @@
     Sub SetFlag(flag As String)
     Function HasFlag(name As String) As Boolean
     Property LegacyPlanet As IPlanet
-    Property LegacySatellite As ISatellite
     Property Place As IPlace
     Function CreateActor(actorType As String) As IActor
     Function CreateTeleporterTo() As ITeleporter

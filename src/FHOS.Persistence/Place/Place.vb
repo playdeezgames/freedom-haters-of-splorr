@@ -166,8 +166,8 @@ Friend Class Place
         Return planet
     End Function
 
-    Public Function CreateSatellite(satelliteName As String, satelliteType As String) As ISatellite Implements IPlace.CreateSatellite
-        Dim satellite As ISatellite = New Satellite(
+    Public Function CreateSatellite(satelliteName As String, satelliteType As String) As IPlace Implements IPlace.CreateSatellite
+        Dim satellite As IPlace = New Place(
             UniverseData,
                 UniverseData.Places.CreateOrRecycle(
                 New PlaceData With
@@ -187,7 +187,7 @@ Friend Class Place
         Return satellite
     End Function
 
-    Private Sub AddSatellite(satellite As ISatellite)
+    Private Sub AddSatellite(satellite As IPlace)
         PlaceData.Descendants.Add(satellite.Id)
     End Sub
 
