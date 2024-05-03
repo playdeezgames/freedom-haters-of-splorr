@@ -163,12 +163,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property LegacySatellite As IAvatarSatelliteModel Implements IAvatarModel.LegacySatellite
-        Get
-            Return New AvatarSatelliteModel(avatar)
-        End Get
-    End Property
-
     Public ReadOnly Property Place As IAvatarPlaceModel Implements IAvatarModel.Place
         Get
             Return New AvatarPlaceModel(avatar)

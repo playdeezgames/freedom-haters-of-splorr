@@ -28,7 +28,6 @@
 
     ReadOnly Property Place As IAvatarPlaceModel
 
-    ReadOnly Property LegacySatellite As IAvatarSatelliteModel
     ReadOnly Property KnowsStarSystems As Boolean
     ReadOnly Property StarSystemList As IEnumerable(Of (Text As String, Item As IStarSystemModel))
     ReadOnly Property KnowsStarVicinities As Boolean
