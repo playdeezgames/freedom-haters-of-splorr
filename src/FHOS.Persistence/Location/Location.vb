@@ -132,23 +132,6 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property LegacyStar As IStar Implements ILocation.LegacyStar
-        Get
-            Dim starId As Integer
-            If LocationData.Statistics.TryGetValue(StatisticTypes.PlaceId, starId) Then
-                Return New Star(UniverseData, starId)
-            End If
-            Return Nothing
-        End Get
-        Set(value As IStar)
-            If value Is Nothing Then
-                LocationData.Statistics.Remove(StatisticTypes.PlaceId)
-            Else
-                LocationData.Statistics(StatisticTypes.PlaceId) = value.Id
-            End If
-        End Set
-    End Property
-
     Public Property Place As IPlace Implements ILocation.Place
         Get
             Dim starSystemId As Integer

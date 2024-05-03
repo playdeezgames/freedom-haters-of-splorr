@@ -4,9 +4,9 @@ Friend Class StarModel
     Inherits PlaceModel
     Implements IStarModel
 
-    Private ReadOnly star As IStar
+    Private ReadOnly star As IPlace
 
-    Public Sub New(star As IStar)
+    Public Sub New(star As IPlace)
         MyBase.New(star)
         Me.star = star
     End Sub

@@ -124,8 +124,8 @@ Friend Class Place
         Return planetVicinity
     End Function
 
-    Public Function CreateStar() As IStar Implements IPlace.CreateStar
-        Dim star = New Star(
+    Public Function CreateStar() As IPlace Implements IPlace.CreateStar
+        Dim star = New Place(
             UniverseData,
                 UniverseData.Places.CreateOrRecycle(
                 New PlaceData With
