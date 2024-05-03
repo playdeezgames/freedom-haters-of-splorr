@@ -17,7 +17,7 @@ Friend Class ApproachStarState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.LegacyStarVicinity.ApproachStarVicinity()
+        Context.Model.Avatar.Place.ApproachStarVicinity()
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

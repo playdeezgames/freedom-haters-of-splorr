@@ -4,4 +4,6 @@
     ReadOnly Property CanEnterStarSystem As Boolean
     ReadOnly Property CanApproachStarVicinity As Boolean
     Sub ApproachStarVicinity()
+    ReadOnly Property CanRefillFuel As Boolean
+    Sub Refuel()
 End Interface

@@ -47,4 +47,15 @@ Friend Class AvatarPlaceModel
             End With
         End If
     End Sub
+    Public ReadOnly Property CanRefillFuel As Boolean Implements IAvatarPlaceModel.CanRefillFuel
+        Get
+            Return avatar.Location.Place?.PlaceType = PlaceTypes.Star
+        End Get
+    End Property
+
+    Public Sub Refuel() Implements IAvatarPlaceModel.Refuel
+        If CanRefillFuel Then
+            avatar.Fuel = avatar.MaximumFuel
+        End If
+    End Sub
 End Class

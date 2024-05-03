@@ -65,21 +65,6 @@ Friend Class NavigationState
             If .Place.Current IsNot Nothing Then
                 position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .Place.Current.Name, Black)
             End If
-            If .LegacyStarVicinity.LegacyCurrent IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .LegacyStarVicinity.LegacyCurrent.Name, Black)
-            End If
-            If .LegacyPlanetVicinity.LegacyCurrent IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .LegacyPlanetVicinity.LegacyCurrent.Name, Black)
-            End If
-            If .LegacyStar.LegacyCurrent IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .LegacyStar.LegacyCurrent.Name, Black)
-            End If
-            If .LegacyPlanet.LegacyCurrent IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .LegacyPlanet.LegacyCurrent.Name, Black)
-            End If
-            If .LegacySatellite.LegacyCurrent IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .LegacySatellite.LegacyCurrent.Name, Black)
-            End If
         End With
     End Sub
 End Class
