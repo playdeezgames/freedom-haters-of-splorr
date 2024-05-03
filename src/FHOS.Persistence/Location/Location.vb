@@ -101,16 +101,16 @@ Friend Class Location
     Public Property LegacySatellite As ISatellite Implements ILocation.LegacySatellite
         Get
             Dim satelliteId As Integer
-            If LocationData.Statistics.TryGetValue(StatisticTypes.SatelliteId, satelliteId) Then
+            If LocationData.Statistics.TryGetValue(StatisticTypes.PlaceId, satelliteId) Then
                 Return New Satellite(UniverseData, satelliteId)
             End If
             Return Nothing
         End Get
         Set(value As ISatellite)
             If value Is Nothing Then
-                LocationData.Statistics.Remove(StatisticTypes.SatelliteId)
+                LocationData.Statistics.Remove(StatisticTypes.PlaceId)
             Else
-                LocationData.Statistics(StatisticTypes.SatelliteId) = value.Id
+                LocationData.Statistics(StatisticTypes.PlaceId) = value.Id
             End If
         End Set
     End Property
@@ -118,16 +118,16 @@ Friend Class Location
     Public Property LegacyPlanet As IPlanet Implements ILocation.LegacyPlanet
         Get
             Dim planetId As Integer
-            If LocationData.Statistics.TryGetValue(StatisticTypes.PlanetId, planetId) Then
+            If LocationData.Statistics.TryGetValue(StatisticTypes.PlaceId, planetId) Then
                 Return New Planet(UniverseData, planetId)
             End If
             Return Nothing
         End Get
         Set(value As IPlanet)
             If value Is Nothing Then
-                LocationData.Statistics.Remove(StatisticTypes.PlanetId)
+                LocationData.Statistics.Remove(StatisticTypes.PlaceId)
             Else
-                LocationData.Statistics(StatisticTypes.PlanetId) = value.Id
+                LocationData.Statistics(StatisticTypes.PlaceId) = value.Id
             End If
         End Set
     End Property
@@ -135,16 +135,16 @@ Friend Class Location
     Public Property LegacyStar As IStar Implements ILocation.LegacyStar
         Get
             Dim starId As Integer
-            If LocationData.Statistics.TryGetValue(StatisticTypes.StarId, starId) Then
+            If LocationData.Statistics.TryGetValue(StatisticTypes.PlaceId, starId) Then
                 Return New Star(UniverseData, starId)
             End If
             Return Nothing
         End Get
         Set(value As IStar)
             If value Is Nothing Then
-                LocationData.Statistics.Remove(StatisticTypes.StarId)
+                LocationData.Statistics.Remove(StatisticTypes.PlaceId)
             Else
-                LocationData.Statistics(StatisticTypes.StarId) = value.Id
+                LocationData.Statistics(StatisticTypes.PlaceId) = value.Id
             End If
         End Set
     End Property
