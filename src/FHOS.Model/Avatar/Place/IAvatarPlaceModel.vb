@@ -8,4 +8,6 @@
     Sub Refuel()
     ReadOnly Property CanApproachPlanetVicinity As Boolean
     Sub ApproachPlanetVicinity()
+    ReadOnly Property CanRefillOxygen As Boolean
+    Sub RefillOxygen()
 End Interface

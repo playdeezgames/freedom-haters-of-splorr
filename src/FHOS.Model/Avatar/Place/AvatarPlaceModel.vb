@@ -73,4 +73,20 @@ Friend Class AvatarPlaceModel
             End With
         End If
     End Sub
+
+    Public ReadOnly Property CanRefillOxygen As Boolean Implements IAvatarPlaceModel.CanRefillOxygen
+        Get
+            Dim placeType = avatar.Location.Place?.PlaceType
+            If placeType <> PlaceTypes.Planet Then
+                Return False
+            End If
+            Return PlanetTypes.Descriptors(placeType).CanRefillOxygen
+        End Get
+    End Property
+
+    Public Sub RefillOxygen() Implements IAvatarPlaceModel.RefillOxygen
+        If CanRefillOxygen Then
+            avatar.Oxygen = avatar.MaximumOxygen
+        End If
+    End Sub
 End Class
