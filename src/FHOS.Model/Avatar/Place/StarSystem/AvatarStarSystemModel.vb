@@ -11,10 +11,10 @@ Friend Class AvatarStarSystemModel
 
     Public ReadOnly Property LegacyCurrent As IStarSystemModel Implements IAvatarStarSystemModel.LegacyCurrent
         Get
-            If avatar.Location.LegacyStarSystem Is Nothing Then
+            If avatar.Location.Place Is Nothing Then
                 Return Nothing
             End If
-            Return New StarSystemModel(avatar.Location.LegacyStarSystem)
+            Return New StarSystemModel(avatar.Location.Place)
         End Get
     End Property
 
@@ -27,7 +27,7 @@ Friend Class AvatarStarSystemModel
     Public Sub Enter() Implements IAvatarStarSystemModel.Enter
         If CanEnter Then
             DoTurn()
-            With avatar.Location.LegacyStarSystem
+            With avatar.Location.Place
                 SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
             End With
         End If

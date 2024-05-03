@@ -63,7 +63,7 @@ Public Class Universe
         Return map
     End Function
 
-    Public Function CreateStarSystem(starSystemName As String, starType As String) As IStarSystem Implements IUniverse.CreateStarSystem
+    Public Function CreateStarSystem(starSystemName As String, starType As String) As IPlace Implements IUniverse.CreateStarSystem
         Dim placeData = New PlaceData With
             {
                 .Metadatas = New Dictionary(Of String, String) From
@@ -75,6 +75,6 @@ Public Class Universe
                 }
             }
         Dim starSystemId As Integer = UniverseData.Places.CreateOrRecycle(placeData)
-        Return New StarSystem(UniverseData, starSystemId)
+        Return New Place(UniverseData, starSystemId)
     End Function
 End Class

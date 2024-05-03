@@ -49,7 +49,7 @@ Friend Class Actor
         ActorData.Flags.Add(flag)
     End Sub
 
-    Public Sub AddStarSystem(starSystem As IStarSystem) Implements IActor.AddStarSystem
+    Public Sub AddPlace(starSystem As IPlace) Implements IActor.AddPlace
         If Not ActorData.StarSystems.Discovered.ContainsKey(starSystem.Id) Then
             ActorData.StarSystems.Discovered(starSystem.Id) = Turn
         End If
@@ -150,9 +150,9 @@ Friend Class Actor
         End Get
     End Property
 
-    Public ReadOnly Property KnownStarSystems As IEnumerable(Of IStarSystem) Implements IActor.KnownStarSystems
+    Public ReadOnly Property KnownStarSystems As IEnumerable(Of IPlace) Implements IActor.KnownStarSystems
         Get
-            Return ActorData.StarSystems.Discovered.Select(Function(x) New StarSystem(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
+            Return ActorData.StarSystems.Discovered.Select(Function(x) New Place(UniverseData, x.Key)).Where(Function(x) x.PlaceType = PlaceTypes.StarSystem).OrderBy(Function(x) x.Name)
         End Get
     End Property
 

@@ -35,7 +35,7 @@
 
     Public ReadOnly Property StarSystem As IStarSystemModel Implements ILocationModel.StarSystem
         Get
-            Dim locationStarSystem = location.LegacyStarSystem
+            Dim locationStarSystem = location.Place
             If locationStarSystem Is Nothing Then
                 Return Nothing
             End If

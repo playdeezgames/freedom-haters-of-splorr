@@ -14,20 +14,20 @@ Friend Class StarSystemInitializationStep
     End Sub
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep))
-        Dim starSystem = starLocation.LegacyStarSystem
+        Dim starSystem = starLocation.Place
         starSystem.Map = starSystem.Universe.CreateMap(
             MapTypes.System,
             $"{starSystem.Name} System",
             SystemMapColumns,
             SystemMapRows,
 LocationTypes.Void)
-        starSystem.Map.StarSystem = starSystem
+        starSystem.Map.Place = starSystem
         PlaceBoundaries(starSystem, starLocation)
         PlaceStar(starSystem, addStep)
         PlacePlanets(starSystem, addStep)
     End Sub
 
-    Private Sub PlacePlanets(starSystem As IStarSystem, addStep As Action(Of InitializationStep))
+    Private Sub PlacePlanets(starSystem As IPlace, addStep As Action(Of InitializationStep))
         Dim planets As New List(Of (Column As Integer, Row As Integer)) From
             {
                 (SystemMapColumns \ 2, SystemMapRows \ 2)
@@ -60,7 +60,7 @@ LocationTypes.Void)
         End While
     End Sub
 
-    Private Sub PlaceStar(starSystem As IStarSystem, addStep As Action(Of InitializationStep))
+    Private Sub PlaceStar(starSystem As IPlace, addStep As Action(Of InitializationStep))
         Dim starColumn = SystemMapColumns \ 2
         Dim starRow = SystemMapRows \ 2
         Dim locationType = StarTypes.Descriptors(starSystem.StarType).LocationType
@@ -72,7 +72,7 @@ LocationTypes.Void)
             addStep(New StarVicinityInitializationStep(location))
         End With
     End Sub
-    Private Sub PlaceBoundaries(starSystem As IStarSystem, starLocation As ILocation)
+    Private Sub PlaceBoundaries(starSystem As IPlace, starLocation As ILocation)
         Dim teleporter = starLocation.CreateTeleporterTo()
         Dim identifier = starSystem.Identifier
         For Each corner In GetCorners(SystemMapColumns, SystemMapRows)

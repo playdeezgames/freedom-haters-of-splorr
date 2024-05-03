@@ -41,15 +41,15 @@ Friend Class Map
         End Get
     End Property
 
-    Public Property StarSystem As IStarSystem Implements IMap.StarSystem
+    Public Property Place As IPlace Implements IMap.Place
         Get
             Dim starSystemId As Integer
             If MapData.Statistics.TryGetValue(StatisticTypes.PlaceId, starSystemId) Then
-                Return New StarSystem(UniverseData, starSystemId)
+                Return New Place(UniverseData, starSystemId)
             End If
             Return Nothing
         End Get
-        Set(value As IStarSystem)
+        Set(value As IPlace)
             If value IsNot Nothing Then
                 MapData.Statistics(StatisticTypes.PlaceId) = value.Id
             Else

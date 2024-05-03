@@ -7,7 +7,7 @@ Public Interface IUniverse
                       locationType As String) As IMap
     Function CreateStarSystem(
                              starSystemName As String,
-                             starType As String) As IStarSystem
+                             starType As String) As IPlace
     Property Avatar As IActor
     ReadOnly Property Messages As IMessages
     ReadOnly Property Places As IEnumerable(Of IPlace)

@@ -10,7 +10,6 @@
     Property Tutorial As String
     Sub SetFlag(flag As String)
     Function HasFlag(name As String) As Boolean
-    Property LegacyStarSystem As IStarSystem
     Property LegacyStarVicinity As IStarVicinity
     Property LegacyPlanetVicinity As IPlanetVicinity
     Property LegacyPlanet As IPlanet

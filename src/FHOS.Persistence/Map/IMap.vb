@@ -5,7 +5,7 @@
     Property Name As String
     ReadOnly Property Id As Integer
     ReadOnly Property Size As (Columns As Integer, Rows As Integer)
-    Property StarSystem As IStarSystem
+    Property Place As IPlace
     Property StarVicinity As IStarVicinity
     Property PlanetVicinity As IPlanetVicinity
     Function CreateLocation(locationType As String, column As Integer, row As Integer) As ILocation

@@ -58,23 +58,6 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property LegacyStarSystem As IStarSystem Implements ILocation.LegacyStarSystem
-        Get
-            Dim starSystemId As Integer
-            If LocationData.Statistics.TryGetValue(StatisticTypes.PlaceId, starSystemId) Then
-                Return New StarSystem(UniverseData, starSystemId)
-            End If
-            Return Nothing
-        End Get
-        Set(value As IStarSystem)
-            If value IsNot Nothing Then
-                LocationData.Statistics(StatisticTypes.PlaceId) = value.Id
-            Else
-                LocationData.Statistics.Remove(StatisticTypes.PlaceId)
-            End If
-        End Set
-    End Property
-
     Public Property Teleporter As ITeleporter Implements ILocation.Teleporter
         Get
             Dim teleporterId As Integer
@@ -204,7 +187,7 @@ Friend Class Location
         Get
             Dim starSystemId As Integer
             If LocationData.Statistics.TryGetValue(StatisticTypes.PlaceId, starSystemId) Then
-                Return New StarSystem(UniverseData, starSystemId)
+                Return New Place(UniverseData, starSystemId)
             End If
             Return Nothing
         End Get
