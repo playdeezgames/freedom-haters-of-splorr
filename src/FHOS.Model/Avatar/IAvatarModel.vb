@@ -28,7 +28,6 @@
 
     ReadOnly Property Place As IAvatarPlaceModel
 
-    ReadOnly Property LegacyPlanetVicinity As IAvatarPlanetVicinityModel
     ReadOnly Property LegacyPlanet As IAvatarPlanetModel
     ReadOnly Property LegacySatellite As IAvatarSatelliteModel
     ReadOnly Property KnowsStarSystems As Boolean
