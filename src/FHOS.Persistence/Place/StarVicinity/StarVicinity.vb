@@ -8,12 +8,6 @@ Friend Class StarVicinity
         MyBase.New(universeData, placeId)
     End Sub
 
-    Public ReadOnly Property StarType As String Implements IStarVicinity.StarType
-        Get
-            Return PlaceData.Metadatas(MetadataTypes.StarType)
-        End Get
-    End Property
-
     Public Function CreateStar() As IStar Implements IStarVicinity.CreateStar
         Dim star = New Star(
             UniverseData,
