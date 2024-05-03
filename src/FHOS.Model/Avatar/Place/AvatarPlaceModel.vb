@@ -80,7 +80,7 @@ Friend Class AvatarPlaceModel
             If placeType <> PlaceTypes.Planet Then
                 Return False
             End If
-            Return PlanetTypes.Descriptors(placeType).CanRefillOxygen
+            Return PlanetTypes.Descriptors(avatar.Location.Place.PlanetType).CanRefillOxygen
         End Get
     End Property
 
