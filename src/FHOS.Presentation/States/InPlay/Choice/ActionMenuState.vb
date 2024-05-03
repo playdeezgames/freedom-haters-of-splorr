@@ -52,7 +52,7 @@ Friend Class ActionMenuState
             If .Place.CanEnterStarSystem Then
                 result.Add((EnterStarSystemText, EnterStarSystemText))
             End If
-            If .LegacyStarVicinity.CanApproachStarVicinity Then
+            If .Place.CanApproachStarVicinity Then
                 result.Add((ApproachStarText, ApproachStarText))
             End If
             If .LegacyPlanetVicinity.CanApproach Then

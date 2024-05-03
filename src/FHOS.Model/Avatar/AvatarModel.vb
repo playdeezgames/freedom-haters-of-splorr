@@ -44,11 +44,11 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property HasActions As Boolean Implements IAvatarModel.HasActions
+    Public ReadOnly Property HasVerbs As Boolean Implements IAvatarModel.HasVerbs
         Get
             Return Place.CanEnterStarSystem OrElse
                 LegacyPlanetVicinity.CanApproach OrElse
-                LegacyStarVicinity.CanApproachStarVicinity OrElse
+                Place.CanApproachStarVicinity OrElse
                 LegacyPlanet.CanRefillOxygen OrElse
                 LegacyStar.CanRefillFuel OrElse
                 KnowsStarSystems
@@ -58,12 +58,6 @@ Friend Class AvatarModel
     Public ReadOnly Property Tutorial As IAvatarTutorialModel Implements IAvatarModel.Tutorial
         Get
             Return New AvatarTutorialModel(avatar)
-        End Get
-    End Property
-
-    Public ReadOnly Property LegacyStarVicinity As IAvatarStarVicinityModel Implements IAvatarModel.LegacyStarVicinity
-        Get
-            Return New AvatarStarVicinityModel(avatar)
         End Get
     End Property
 

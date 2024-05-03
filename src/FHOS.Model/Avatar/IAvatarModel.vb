@@ -2,7 +2,7 @@
     ReadOnly Property X As Integer
     ReadOnly Property Y As Integer
     ReadOnly Property MapName As String
-    ReadOnly Property HasActions As Boolean
+    ReadOnly Property HasVerbs As Boolean
 
     Sub Move(delta As (X As Integer, Y As Integer))
     Sub SetFacing(facing As Integer)
@@ -27,7 +27,6 @@
     ReadOnly Property Tutorial As IAvatarTutorialModel
 
     ReadOnly Property Place As IAvatarPlaceModel
-    ReadOnly Property LegacyStarVicinity As IAvatarStarVicinityModel
     ReadOnly Property LegacyStar As IAvatarStarModel
 
     ReadOnly Property LegacyPlanetVicinity As IAvatarPlanetVicinityModel
