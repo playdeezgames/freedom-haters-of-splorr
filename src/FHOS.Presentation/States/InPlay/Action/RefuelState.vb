@@ -1,4 +1,5 @@
-﻿Imports SPLORR.UI
+﻿Imports FHOS.Model
+Imports SPLORR.UI
 
 Friend Class RefuelState
     Inherits BaseGameState(Of Model.IUniverseModel)
@@ -17,7 +18,7 @@ Friend Class RefuelState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.Place.Refuel()
+        Context.Model.Avatar.Place.DoVerb(VerbTypes.Refuel)
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class
