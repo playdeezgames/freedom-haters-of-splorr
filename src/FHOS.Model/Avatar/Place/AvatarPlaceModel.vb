@@ -59,13 +59,13 @@ Friend Class AvatarPlaceModel
         End If
     End Sub
 
-    Public ReadOnly Property CanApproachPlanetVicinity As Boolean Implements IAvatarPlaceModel.CanApproachPlanetVicinity
+    Private ReadOnly Property CanApproachPlanetVicinity As Boolean
         Get
             Return avatar.Location.Place?.PlaceType = PlaceTypes.PlanetVicinity
         End Get
     End Property
 
-    Public Sub ApproachPlanetVicinity() Implements IAvatarPlaceModel.ApproachPlanetVicinity
+    Private Sub ApproachPlanetVicinity()
         If CanApproachPlanetVicinity Then
             DoTurn()
             With avatar.Location.Place
