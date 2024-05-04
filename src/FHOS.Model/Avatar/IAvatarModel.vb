@@ -26,7 +26,9 @@
 
     ReadOnly Property Tutorial As IAvatarTutorialModel
 
-    ReadOnly Property Place As IAvatarPlaceModel
+    ReadOnly Property CurrentPlace As IPlaceModel
+    ReadOnly Property AvailableVerbs As IEnumerable(Of String)
+    Sub DoVerb(verbType As String)
 
     ReadOnly Property KnowsStarSystems As Boolean
     ReadOnly Property StarSystemList As IEnumerable(Of (Text As String, Item As IStarSystemModel))

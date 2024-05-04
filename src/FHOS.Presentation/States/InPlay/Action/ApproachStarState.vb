@@ -18,7 +18,7 @@ Friend Class ApproachStarState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.Place.DoVerb(VerbTypes.ApproachStarVicinity)
+        Context.Model.Avatar.DoVerb(VerbTypes.ApproachStarVicinity)
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

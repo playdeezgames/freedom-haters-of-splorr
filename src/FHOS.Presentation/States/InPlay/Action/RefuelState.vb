@@ -18,7 +18,7 @@ Friend Class RefuelState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.Place.DoVerb(VerbTypes.Refuel)
+        Context.Model.Avatar.DoVerb(VerbTypes.Refuel)
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

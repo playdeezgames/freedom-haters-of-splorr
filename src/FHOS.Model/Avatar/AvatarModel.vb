@@ -1,4 +1,5 @@
 ﻿Imports FHOS.Persistence
+Imports SPLORR.Game
 
 Friend Class AvatarModel
     Inherits BaseAvatarModel
@@ -46,7 +47,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property HasVerbs As Boolean Implements IAvatarModel.HasVerbs
         Get
-            Return Place.Verbs.Any OrElse
+            Return AvailableVerbs.Any OrElse
                 KnowsStarSystems
         End Get
     End Property
@@ -159,9 +160,18 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Place As IAvatarPlaceModel Implements IAvatarModel.Place
+    Public ReadOnly Property CurrentPlace As IPlaceModel Implements IAvatarModel.CurrentPlace
         Get
-            Return New AvatarPlaceModel(avatar)
+            If avatar.Location.Place IsNot Nothing Then
+                Return New PlaceModel(avatar.Location.Place)
+            End If
+            Return Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property AvailableVerbs As IEnumerable(Of String) Implements IAvatarModel.AvailableVerbs
+        Get
+            Return verbTable.Where(Function(x) x.Value.isAvailable.Invoke()).Select(Function(x) x.Key)
         End Get
     End Property
 
@@ -202,5 +212,92 @@ Friend Class AvatarModel
             "Emergency Refuel",
             ($"Added {fuelAdded} fuel!", Hue.Black),
             ($"Price {price} jools!", Hue.Black))
+    End Sub
+
+    Public Sub DoVerb(verbType As String) Implements IAvatarModel.DoVerb
+        If verbTable(verbType).isAvailable() Then
+            verbTable(verbType).perform()
+        End If
+    End Sub
+
+    Private ReadOnly verbTable As IReadOnlyDictionary(Of String, (isAvailable As Func(Of Boolean), perform As Action)) =
+        New Dictionary(Of String, (isAvailable As Func(Of Boolean), perform As Action)) From
+        {
+            {VerbTypes.RefillOxygen, (Function() CanRefillOxygen, AddressOf RefillOxygen)},
+            {VerbTypes.Refuel, (Function() CanRefillFuel, AddressOf Refuel)},
+            {VerbTypes.EnterStarSystem, (Function() CanEnterStarSystem, AddressOf EnterStarSystem)},
+            {VerbTypes.ApproachPlanetVicinity, (Function() CanApproachPlanetVicinity, AddressOf ApproachPlanetVicinity)},
+            {VerbTypes.ApproachStarVicinity, (Function() CanApproachStarVicinity, AddressOf ApproachStarVicinity)}
+        }
+
+    Private ReadOnly Property CanEnterStarSystem As Boolean
+        Get
+            Return avatar.Location.Place?.PlaceType = PlaceTypes.StarSystem
+        End Get
+    End Property
+
+    Private Sub EnterStarSystem()
+        If CanEnterStarSystem Then
+            DoTurn()
+            With avatar.Location.Place
+                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
+            End With
+        End If
+    End Sub
+
+    Private ReadOnly Property CanApproachStarVicinity As Boolean
+        Get
+            Return avatar.Location.Place?.PlaceType = PlaceTypes.StarVicinity
+        End Get
+    End Property
+
+    Private Sub ApproachStarVicinity()
+        If CanApproachStarVicinity Then
+            DoTurn()
+            With avatar.Location.Place
+                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
+            End With
+        End If
+    End Sub
+    Private ReadOnly Property CanRefillFuel As Boolean
+        Get
+            Return avatar.Location.Place?.PlaceType = PlaceTypes.Star
+        End Get
+    End Property
+
+    Private Sub Refuel()
+        If CanRefillFuel Then
+            avatar.Fuel = avatar.MaximumFuel
+        End If
+    End Sub
+
+    Private ReadOnly Property CanApproachPlanetVicinity As Boolean
+        Get
+            Return avatar.Location.Place?.PlaceType = PlaceTypes.PlanetVicinity
+        End Get
+    End Property
+
+    Private Sub ApproachPlanetVicinity()
+        If CanApproachPlanetVicinity Then
+            DoTurn()
+            With avatar.Location.Place
+                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
+            End With
+        End If
+    End Sub
+
+    Private ReadOnly Property CanRefillOxygen As Boolean
+        Get
+            Dim placeType = avatar.Location.Place?.PlaceType
+            If placeType <> PlaceTypes.Planet Then
+                Return False
+            End If
+            Return PlanetTypes.Descriptors(avatar.Location.Place.PlanetType).CanRefillOxygen
+        End Get
+    End Property
+    Private Sub RefillOxygen()
+        If CanRefillOxygen Then
+            avatar.Oxygen = avatar.MaximumOxygen
+        End If
     End Sub
 End Class

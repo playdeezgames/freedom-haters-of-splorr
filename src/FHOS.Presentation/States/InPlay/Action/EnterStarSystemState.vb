@@ -18,7 +18,7 @@ Friend Class EnterStarSystemState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.Place.DoVerb(VerbTypes.EnterStarSystem)
+        Context.Model.Avatar.DoVerb(VerbTypes.EnterStarSystem)
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

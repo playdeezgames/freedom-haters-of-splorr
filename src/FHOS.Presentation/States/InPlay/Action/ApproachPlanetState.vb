@@ -18,7 +18,7 @@ Friend Class ApproachPlanetState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.Place.DoVerb(VerbTypes.ApproachPlanetVicinity)
+        Context.Model.Avatar.DoVerb(VerbTypes.ApproachPlanetVicinity)
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

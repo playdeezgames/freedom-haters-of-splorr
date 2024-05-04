@@ -45,7 +45,7 @@ Friend Class ActionMenuState
             If .KnowsPlaces Then
                 result.Add((KnownPlacesText, KnownPlacesText))
             End If
-            For Each verb In .Place.Verbs
+            For Each verb In .AvailableVerbs
                 result.Add((verb, verb))
             Next
             If Not .CanMove Then
