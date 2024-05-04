@@ -18,13 +18,13 @@ Friend Class AvatarPlaceModel
         End Get
     End Property
 
-    Public ReadOnly Property CanEnterStarSystem As Boolean Implements IAvatarPlaceModel.CanEnterStarSystem
+    Private ReadOnly Property CanEnterStarSystem As Boolean
         Get
             Return avatar.Location.Place?.PlaceType = PlaceTypes.StarSystem
         End Get
     End Property
 
-    Public Sub EnterStarSystem() Implements IAvatarPlaceModel.EnterStarSystem
+    Private Sub EnterStarSystem()
         If CanEnterStarSystem Then
             DoTurn()
             With avatar.Location.Place
@@ -33,13 +33,13 @@ Friend Class AvatarPlaceModel
         End If
     End Sub
 
-    Public ReadOnly Property CanApproachStarVicinity As Boolean Implements IAvatarPlaceModel.CanApproachStarVicinity
+    Private ReadOnly Property CanApproachStarVicinity As Boolean
         Get
             Return avatar.Location.Place?.PlaceType = PlaceTypes.StarVicinity
         End Get
     End Property
 
-    Public Sub ApproachStarVicinity() Implements IAvatarPlaceModel.ApproachStarVicinity
+    Private Sub ApproachStarVicinity()
         If CanApproachStarVicinity Then
             DoTurn()
             With avatar.Location.Place
@@ -84,9 +84,31 @@ Friend Class AvatarPlaceModel
         End Get
     End Property
 
+    Private ReadOnly verbTable As IReadOnlyDictionary(Of String, (isAvailable As Func(Of Boolean), perform As Action)) =
+        New Dictionary(Of String, (isAvailable As Func(Of Boolean), perform As Action)) From
+        {
+            {VerbTypes.RefillOxygen, (Function() CanRefillOxygen, AddressOf RefillOxygen)},
+            {VerbTypes.Refuel, (Function() CanRefillFuel, AddressOf Refuel)},
+            {VerbTypes.EnterStarSystem, (Function() CanEnterStarSystem, AddressOf EnterStarSystem)},
+            {VerbTypes.ApproachPlanetVicinity, (Function() CanApproachPlanetVicinity, AddressOf ApproachPlanetVicinity)},
+            {VerbTypes.ApproachStarVicinity, (Function() CanApproachStarVicinity, AddressOf ApproachStarVicinity)}
+        }
+
+    Public ReadOnly Property Verbs As IEnumerable(Of String) Implements IAvatarPlaceModel.Verbs
+        Get
+            Return verbTable.Where(Function(x) x.Value.isAvailable.Invoke()).Select(Function(x) x.Key)
+        End Get
+    End Property
+
     Public Sub RefillOxygen() Implements IAvatarPlaceModel.RefillOxygen
         If CanRefillOxygen Then
             avatar.Oxygen = avatar.MaximumOxygen
+        End If
+    End Sub
+
+    Public Sub DoVerb(verbType As String) Implements IAvatarPlaceModel.DoVerb
+        If verbTable(verbType).isAvailable() Then
+            verbTable(verbType).perform()
         End If
     End Sub
 End Class

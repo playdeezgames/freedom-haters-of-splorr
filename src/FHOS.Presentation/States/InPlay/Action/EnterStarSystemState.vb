@@ -1,4 +1,5 @@
-﻿Imports SPLORR.UI
+﻿Imports FHOS.Model
+Imports SPLORR.UI
 
 Friend Class EnterStarSystemState
     Inherits BaseGameState(Of Model.IUniverseModel)
@@ -17,7 +18,7 @@ Friend Class EnterStarSystemState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.Place.EnterStarSystem()
+        Context.Model.Avatar.Place.DoVerb(VerbTypes.EnterStarSystem)
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

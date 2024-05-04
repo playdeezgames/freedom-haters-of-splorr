@@ -1,12 +1,8 @@
 ﻿Imports SPLORR.UI
+Imports FHOS.Model
 
 Friend Class ActionMenuState
     Inherits BasePickerState(Of Model.IUniverseModel, String)
-    Private Const EnterStarSystemText = "Enter Star System"
-    Private Const ApproachPlanetText = "Approach Planet"
-    Private Const ApproachStarText = "Approach Star"
-    Private Const RefillOxygenText = "Refill Oxygen"
-    Private Const RefuelText = "Refuel"
     Private Const DistressSignalText = "Distress Signal"
     Private Const KnownPlacesText = "Known Places..."
 
@@ -27,11 +23,11 @@ Friend Class ActionMenuState
         New Dictionary(Of String, String) From
         {
             {GoBackText, BoilerplateState.Neutral},
-            {EnterStarSystemText, GameState.EnterStarSystem},
-            {ApproachPlanetText, GameState.ApproachPlanet},
-            {ApproachStarText, GameState.ApproachStar},
-            {RefillOxygenText, GameState.RefillOxygen},
-            {RefuelText, GameState.Refuel},
+            {VerbTypes.EnterStarSystem, GameState.EnterStarSystem},
+            {ApproachPlanetVicinity, GameState.ApproachPlanet},
+            {ApproachStarVicinity, GameState.ApproachStar},
+            {VerbTypes.RefillOxygen, GameState.RefillOxygen},
+            {VerbTypes.Refuel, GameState.Refuel},
             {DistressSignalText, GameState.SignalDistress},
             {KnownPlacesText, GameState.KnownPlaces}
         }
@@ -49,21 +45,9 @@ Friend Class ActionMenuState
             If .KnowsPlaces Then
                 result.Add((KnownPlacesText, KnownPlacesText))
             End If
-            If .Place.CanEnterStarSystem Then
-                result.Add((EnterStarSystemText, EnterStarSystemText))
-            End If
-            If .Place.CanApproachStarVicinity Then
-                result.Add((ApproachStarText, ApproachStarText))
-            End If
-            If .Place.CanApproachPlanetVicinity Then
-                result.Add((ApproachPlanetText, ApproachPlanetText))
-            End If
-            If .Place.CanRefillOxygen Then
-                result.Add((RefillOxygenText, RefillOxygenText))
-            End If
-            If .Place.CanRefillFuel Then
-                result.Add((RefuelText, RefuelText))
-            End If
+            For Each verb In .Place.Verbs
+                result.Add((verb, verb))
+            Next
             If Not .CanMove Then
                 result.Add((DistressSignalText, DistressSignalText))
             End If

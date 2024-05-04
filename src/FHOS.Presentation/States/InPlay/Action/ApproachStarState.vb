@@ -1,4 +1,5 @@
-﻿Imports SPLORR.UI
+﻿Imports FHOS.Model
+Imports SPLORR.UI
 
 Friend Class ApproachStarState
     Inherits BaseGameState(Of Model.IUniverseModel)
@@ -17,7 +18,7 @@ Friend Class ApproachStarState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.Place.ApproachStarVicinity()
+        Context.Model.Avatar.Place.DoVerb(VerbTypes.ApproachStarVicinity)
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class
