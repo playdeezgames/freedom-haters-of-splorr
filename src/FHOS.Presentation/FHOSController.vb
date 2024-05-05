@@ -47,7 +47,7 @@ Public Class FHOSController
         SetState(GameState.SignalDistress, New SignalDistressState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.EnterStarSystem, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.EnterStarSystem))
         SetState(GameState.ApproachPlanet, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.ApproachPlanetVicinity))
-        SetState(GameState.ApproachStar, New ApproachStarState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.ApproachStar, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.ApproachStarVicinity))
         SetState(GameState.EnterWormhole, New EnterWormholeState(Me, AddressOf SetCurrentState, context))
     End Sub
 
