@@ -1,11 +1,16 @@
-﻿Imports FHOS.Model
-Imports SPLORR.UI
+﻿Imports SPLORR.UI
 
-Friend Class ApproachPlanetState
+Friend Class DoVerbState
     Inherits BaseGameState(Of Model.IUniverseModel)
+    Private ReadOnly verbType As String
 
-    Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of Model.IUniverseModel))
+    Public Sub New(
+                  parent As IGameController,
+                  setState As Action(Of String, Boolean),
+                  context As IUIContext(Of Model.IUniverseModel),
+                  verbType As String)
         MyBase.New(parent, setState, context)
+        Me.verbType = verbType
     End Sub
 
     Public Overrides Sub HandleCommand(cmd As String)
@@ -18,7 +23,7 @@ Friend Class ApproachPlanetState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.DoVerb(VerbTypes.ApproachPlanetVicinity)
+        Context.Model.Avatar.DoVerb(verbType)
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class
