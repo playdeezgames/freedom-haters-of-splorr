@@ -15,6 +15,8 @@ Friend Class WormholeInitializationStep
         Dim wormhole = startLocation.Place
         Dim destinationLocation = RNG.FromEnumerable(starSystem.Map.Locations.Where(Function(x) LocationTypes.Descriptors(x.LocationType).CanPlaceWormhole))
         wormhole.WormholeDestination = destinationLocation
+        destinationLocation.LocationType = LocationTypes.Wormhole
+        destinationLocation.Tutorial = TutorialTypes.WormholeEntry
         destinationLocation.Place = wormhole.Universe.CreateWormhole("Nexus Wormhole")
         destinationLocation.Place.WormholeDestination = startLocation
     End Sub

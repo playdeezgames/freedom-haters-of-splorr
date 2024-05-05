@@ -38,6 +38,5 @@ Friend Class NexusInitializationStep
                 tries += 1
             End If
         End While
-        addStep(New AvatarInitializationStep(universe, nexusMap, embarkSettings), True)
     End Sub
 End Class

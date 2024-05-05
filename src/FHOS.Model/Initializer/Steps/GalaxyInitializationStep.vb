@@ -38,6 +38,6 @@ Friend Class GalaxyInitializationStep
             End If
         End While
         addStep(New NexusInitializationStep(universe, embarkSettings), True)
-        'addStep(New AvatarInitializationStep(universe, starMap, embarkSettings), True)
+        addStep(New AvatarInitializationStep(universe, starMap, embarkSettings), True)
     End Sub
 End Class

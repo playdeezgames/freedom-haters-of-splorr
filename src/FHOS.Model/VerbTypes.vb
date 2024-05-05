@@ -4,4 +4,5 @@
     Public Const ApproachStarVicinity = "Approach Star"
     Public Const RefillOxygen = "Refill Oxygen"
     Public Const Refuel = "Refuel"
+    Public Const EnterWormhole = "Enter Wormhole"
 End Module

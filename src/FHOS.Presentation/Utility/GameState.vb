@@ -26,4 +26,5 @@
     Friend Const ChangeStartingWealthLevel = "ChangeStartingWealthLevel"
     Friend Const Generate = "Generate"
     Friend Const KnownPlaces = "KnownPlaces"
+    Friend Const EnterWormhole = "EnterWormhole"
 End Module
