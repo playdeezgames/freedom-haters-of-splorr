@@ -42,7 +42,7 @@ Public Class FHOSController
         SetState(GameState.MoveDown, New MoveState(Me, AddressOf SetCurrentState, context, Facing.Down))
         SetState(GameState.MoveLeft, New MoveState(Me, AddressOf SetCurrentState, context, Facing.Left))
         SetState(GameState.MoveRight, New MoveState(Me, AddressOf SetCurrentState, context, Facing.Right))
-        SetState(GameState.RefillOxygen, New RefillOxygenState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.RefillOxygen, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.RefillOxygen))
         SetState(GameState.Refuel, New RefuelState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.SignalDistress, New SignalDistressState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.EnterStarSystem, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.EnterStarSystem))
