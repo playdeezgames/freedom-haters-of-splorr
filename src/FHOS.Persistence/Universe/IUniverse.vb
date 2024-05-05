@@ -8,6 +8,7 @@ Public Interface IUniverse
     Function CreateStarSystem(
                              starSystemName As String,
                              starType As String) As IPlace
+    Function CreateWormhole(wormholeName As String) As IPlace
     Property Avatar As IActor
     ReadOnly Property Messages As IMessages
     ReadOnly Property Places As IEnumerable(Of IPlace)

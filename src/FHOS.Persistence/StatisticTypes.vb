@@ -18,4 +18,5 @@
     Friend Const Turn = "Turn"
     Friend Const ParentId = "ParentId"
     Friend Const PlaceId = "PlaceId"
+    Friend Const WormholeDestinationId = "WormholeDestinationId"
 End Module

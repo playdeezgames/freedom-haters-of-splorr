@@ -5,4 +5,5 @@
     Public Const StarVicinity = "StarVicinity"
     Public Const PlanetVicinity = "PlanetVicinity"
     Public Const StarSystem = "StarSystem"
+    Public Const Wormhole = "Wormhole"
 End Module

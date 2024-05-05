@@ -77,4 +77,18 @@ Public Class Universe
         Dim starSystemId As Integer = UniverseData.Places.CreateOrRecycle(placeData)
         Return New Place(UniverseData, starSystemId)
     End Function
+
+    Public Function CreateWormhole(wormholeName As String) As IPlace Implements IUniverse.CreateWormhole
+        Dim placeData = New PlaceData With
+            {
+                .Metadatas = New Dictionary(Of String, String) From
+                {
+                    {MetadataTypes.Name, wormholeName},
+                    {MetadataTypes.Identifier, Guid.NewGuid.ToString},
+                    {MetadataTypes.PlaceType, PlaceTypes.Wormhole}
+                }
+            }
+        Dim starSystemId As Integer = UniverseData.Places.CreateOrRecycle(placeData)
+        Return New Place(UniverseData, starSystemId)
+    End Function
 End Class

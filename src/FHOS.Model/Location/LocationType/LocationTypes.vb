@@ -38,10 +38,12 @@
     Friend Const CavernousMoon = "CavernousMoon"
     Friend Const IceMoon = "IceMoon"
 
+    Friend Const Wormhole = "Wormhole"
+
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, LocationTypeDescriptor) =
         New Dictionary(Of String, LocationTypeDescriptor) From
         {
-            {Void, New LocationTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black)},
+            {Void, New LocationTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black, canPlaceWormhole:=True)},
             {VoidNorthArrow, New LocationTypeDescriptor("Empty Space", ChrW(16), DarkGray, Black)},
             {VoidNorthEastArrow, New LocationTypeDescriptor("Empty Space", ChrW(17), DarkGray, Black)},
             {VoidEastArrow, New LocationTypeDescriptor("Empty Space", ChrW(18), DarkGray, Black)},
@@ -75,6 +77,7 @@
             {BarrenMoon, New LocationTypeDescriptor("Barren Moon", ChrW(226), Hue.DarkGray, Black)},
             {InfernoMoon, New LocationTypeDescriptor("Inferno Moon", ChrW(226), Hue.Red, Black)},
             {CavernousMoon, New LocationTypeDescriptor("Cavernous Moon", ChrW(226), Hue.LightGray, Black)},
-            {IceMoon, New LocationTypeDescriptor("Ice Moon", ChrW(226), Hue.White, Black)}
+            {IceMoon, New LocationTypeDescriptor("Ice Moon", ChrW(226), Hue.White, Black)},
+            {Wormhole, New LocationTypeDescriptor("Wormhole", ChrW(228), Hue.Purple, Black)}
         }
 End Module

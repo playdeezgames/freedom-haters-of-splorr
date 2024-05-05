@@ -1,13 +1,19 @@
 ﻿Friend Class LocationTypeDescriptor
-    Sub New(name As String, glyph As Char, foreground As Integer, background As Integer)
+    Sub New(
+           name As String,
+           glyph As Char,
+           foreground As Integer,
+           background As Integer,
+           Optional canPlaceWormhole As Boolean = False)
         Me.Name = name
         Me.Glyph = glyph
         Me.Foreground = foreground
         Me.Background = background
+        Me.CanPlaceWormhole = canPlaceWormhole
     End Sub
     ReadOnly Property Name As String
     ReadOnly Property Glyph As Char
     ReadOnly Property Background As Integer
     ReadOnly Property Foreground As Integer
-
+    ReadOnly Property CanPlaceWormhole As Boolean
 End Class

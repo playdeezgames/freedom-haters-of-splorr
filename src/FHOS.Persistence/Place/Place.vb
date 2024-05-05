@@ -200,4 +200,21 @@ Friend Class Place
             Return Nothing
         End Get
     End Property
+
+    Public Property WormholeDestination As ILocation Implements IPlace.WormholeDestination
+        Get
+            Dim locationId As Integer
+            If PlaceData.Statistics.TryGetValue(StatisticTypes.WormholeDestinationId, locationId) Then
+                Return New Location(UniverseData, locationId)
+            End If
+            Return Nothing
+        End Get
+        Set(value As ILocation)
+            If value Is Nothing Then
+                PlaceData.Statistics.Remove(StatisticTypes.WormholeDestinationId)
+                Return
+            End If
+            PlaceData.Statistics(StatisticTypes.WormholeDestinationId) = value.Id
+        End Set
+    End Property
 End Class

@@ -114,6 +114,18 @@ Friend Class TutorialState
                         New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
                         New TutorialDetailLine("then choose 'Distress Signal'", Hue.Black)
                     })
+            },
+            {
+                TutorialTypes.WormholeEntry,
+                New TutorialDetail(
+                    "Wormhole!",
+                    {
+                        New TutorialDetailLine("You have reached a wormhole!", Hue.Black),
+                        New TutorialDetailLine("", Hue.Black),
+                        New TutorialDetailLine("To enter it,", Hue.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
+                        New TutorialDetailLine("then choose 'Enter Wormhole'", Hue.Black)
+                    })
             }
         }
 

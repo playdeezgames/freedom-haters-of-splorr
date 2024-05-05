@@ -13,4 +13,5 @@
     Function CreatePlanet() As IPlace
     Function CreateSatellite(satelliteName As String, satelliteType As String) As IPlace
     ReadOnly Property PlanetType As String
+    Property WormholeDestination As ILocation
 End Interface
