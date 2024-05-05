@@ -37,18 +37,27 @@ Public Class FHOSController
         SetState(GameState.PlanetVicinityDetails, New PlanetVicinityDetailsState(Me, AddressOf SetCurrentState, context))
     End Sub
 
+    Private ReadOnly doVerbStates As IReadOnlyDictionary(Of String, String) =
+        New Dictionary(Of String, String) From
+        {
+            {GameState.EnterStarSystem, VerbTypes.EnterStarSystem},
+            {GameState.EnterWormhole, VerbTypes.EnterWormhole},
+            {GameState.ApproachStar, VerbTypes.ApproachStarVicinity},
+            {GameState.ApproachPlanet, VerbTypes.ApproachPlanetVicinity},
+            {GameState.RefillOxygen, VerbTypes.RefillOxygen},
+            {GameState.Refuel, VerbTypes.Refuel}
+        }
+
     Private Sub CreateActionStates(context As IUIContext(Of IUniverseModel))
         SetState(GameState.MoveUp, New MoveState(Me, AddressOf SetCurrentState, context, Facing.Up))
         SetState(GameState.MoveDown, New MoveState(Me, AddressOf SetCurrentState, context, Facing.Down))
         SetState(GameState.MoveLeft, New MoveState(Me, AddressOf SetCurrentState, context, Facing.Left))
         SetState(GameState.MoveRight, New MoveState(Me, AddressOf SetCurrentState, context, Facing.Right))
-        SetState(GameState.RefillOxygen, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.RefillOxygen))
-        SetState(GameState.Refuel, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.Refuel))
         SetState(GameState.SignalDistress, New SignalDistressState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.EnterStarSystem, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.EnterStarSystem))
-        SetState(GameState.ApproachPlanet, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.ApproachPlanetVicinity))
-        SetState(GameState.ApproachStar, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.ApproachStarVicinity))
-        SetState(GameState.EnterWormhole, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.EnterWormhole))
+
+        For Each state In doVerbStates
+            SetState(state.Key, New DoVerbState(Me, AddressOf SetCurrentState, context, state.Value))
+        Next
     End Sub
 
     Private Sub CreateEmbarkationStates(context As IUIContext(Of IUniverseModel))
