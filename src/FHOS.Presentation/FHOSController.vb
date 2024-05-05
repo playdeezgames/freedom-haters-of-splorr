@@ -48,7 +48,7 @@ Public Class FHOSController
         SetState(GameState.EnterStarSystem, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.EnterStarSystem))
         SetState(GameState.ApproachPlanet, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.ApproachPlanetVicinity))
         SetState(GameState.ApproachStar, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.ApproachStarVicinity))
-        SetState(GameState.EnterWormhole, New EnterWormholeState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.EnterWormhole, New DoVerbState(Me, AddressOf SetCurrentState, context, VerbTypes.EnterWormhole))
     End Sub
 
     Private Sub CreateEmbarkationStates(context As IUIContext(Of IUniverseModel))
