@@ -59,7 +59,7 @@
             {
                 Radiated,
                 New PlanetTypeDescriptor(
-                    RadiatedPlanet,
+                    PlanetTypes.Radiated,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator)
@@ -67,7 +67,7 @@
             {
                 Toxic,
                 New PlanetTypeDescriptor(
-                    ToxicPlanet,
+                    PlanetTypes.Toxic,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator)
@@ -75,7 +75,7 @@
             {
                 Volcanic,
                 New PlanetTypeDescriptor(
-                    VolcanicPlanet,
+                    PlanetTypes.Volcanic,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator)
@@ -83,7 +83,7 @@
             {
                 Barren,
                 New PlanetTypeDescriptor(
-                    BarrenPlanet,
+                    PlanetTypes.Barren,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator)
@@ -91,7 +91,7 @@
             {
                 Desert,
                 New PlanetTypeDescriptor(
-                    DesertPlanet,
+                    PlanetTypes.Desert,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -100,7 +100,7 @@
             {
                 Tundra,
                 New PlanetTypeDescriptor(
-                    TundraPlanet,
+                    PlanetTypes.Tundra,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -109,7 +109,7 @@
             {
                 Arid,
                 New PlanetTypeDescriptor(
-                    AridPlanet,
+                    PlanetTypes.Arid,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -118,7 +118,7 @@
             {
                 Ocean,
                 New PlanetTypeDescriptor(
-                    OceanPlanet,
+                    PlanetTypes.Ocean,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -127,7 +127,7 @@
             {
                 Terran,
                 New PlanetTypeDescriptor(
-                    TerranPlanet,
+                    PlanetTypes.Terran,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -136,7 +136,7 @@
             {
                 Inferno,
                 New PlanetTypeDescriptor(
-                    InfernoPlanet,
+                    PlanetTypes.Inferno,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator)
@@ -144,7 +144,7 @@
             {
                 Tropical,
                 New PlanetTypeDescriptor(
-                    TropicalPlanet,
+                    PlanetTypes.Tropical,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -153,7 +153,7 @@
             {
                 Grassland,
                 New PlanetTypeDescriptor(
-                    GrasslandPlanet,
+                    PlanetTypes.Grassland,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -162,7 +162,7 @@
             {
                 Cavernous,
                 New PlanetTypeDescriptor(
-                    CavernousPlanet,
+                    PlanetTypes.Cavernous,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator)
@@ -170,7 +170,7 @@
             {
                 Gaia,
                 New PlanetTypeDescriptor(
-                    GaiaPlanet,
+                    PlanetTypes.Gaia,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -179,7 +179,7 @@
             {
                 Swamp,
                 New PlanetTypeDescriptor(
-                    SwampPlanet,
+                    PlanetTypes.Swamp,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,

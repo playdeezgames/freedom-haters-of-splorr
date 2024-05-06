@@ -15,21 +15,12 @@
     Friend Const OrangeStar = "OrangeStar"
     Friend Const RedStar = "RedStar"
 
-    Friend Const RadiatedPlanet = "RadiatedPlanet"
-    Friend Const ToxicPlanet = "ToxicPlanet"
-    Friend Const VolcanicPlanet = "VolcanicPlanet"
-    Friend Const BarrenPlanet = "BarrenPlanet"
-    Friend Const DesertPlanet = "DesertPlanet"
-    Friend Const TundraPlanet = "TundraPlanet"
-    Friend Const AridPlanet = "AridPlanet"
-    Friend Const OceanPlanet = "OceanPlanet"
-    Friend Const TerranPlanet = "TerranPlanet"
-    Friend Const InfernoPlanet = "InfernoPlanet"
-    Friend Const TropicalPlanet = "TropicalPlanet"
-    Friend Const GrasslandPlanet = "GrasslandPlanet"
-    Friend Const CavernousPlanet = "CavernousPlanet"
-    Friend Const GaiaPlanet = "GaiaPlanet"
-    Friend Const SwampPlanet = "SwampPlanet"
+    Friend Function MakePlanetLocationType(planetType As String) As String
+        Return $"{planetType}Planet"
+    End Function
+    Friend Function MakePlanetSectionLocationType(planetType As String, sectionName As String) As String
+        Return $"{MakePlanetLocationType(planetType)}{sectionName}"
+    End Function
 
     Friend Const RadiatedMoon = "RadiatedMoon"
     Friend Const VolcanicMoon = "VolcanicMoon"
@@ -40,8 +31,49 @@
 
     Friend Const Wormhole = "Wormhole"
 
-    Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, LocationTypeDescriptor) =
-        New Dictionary(Of String, LocationTypeDescriptor) From
+    Private ReadOnly planetHueTable As IReadOnlyDictionary(Of String, Integer) =
+        New Dictionary(Of String, Integer) From
+        {
+            {Radiated, Hue.Yellow},
+            {Toxic, Hue.Purple},
+            {Volcanic, Hue.Orange},
+            {Barren, Hue.DarkGray},
+            {Desert, Hue.Brown},
+            {Tundra, Hue.White},
+            {Arid, Hue.Tan},
+            {Ocean, Hue.Blue},
+            {Terran, Hue.Green},
+            {Inferno, Hue.Red},
+            {Tropical, Hue.LightBlue},
+            {Grassland, Hue.LightGreen},
+            {Cavernous, Hue.LightGray},
+            {Gaia, Hue.Pink},
+            {Swamp, Hue.Cyan}
+        }
+    Friend Const TopLeft = "TopLeft"
+    Friend Const TopCenter = "TopCenter"
+    Friend Const TopRight = "TopRight"
+    Friend Const CenterLeft = "CenterLeft"
+    Friend Const Center = "Center"
+    Friend Const CenterRight = "CenterRight"
+    Friend Const BottomLeft = "BottomLeft"
+    Friend Const BottomCenter = "BottomCenter"
+    Friend Const BottomRight = "BottomRight"
+    Private ReadOnly planetSectionTable As IReadOnlyDictionary(Of String, Char) =
+        New Dictionary(Of String, Char) From
+        {
+            {TopLeft, ChrW(229)},
+            {TopCenter, ChrW(230)},
+            {TopRight, ChrW(231)},
+            {CenterLeft, ChrW(230)},
+            {Center, ChrW(230)},
+            {CenterRight, ChrW(232)},
+            {BottomLeft, ChrW(233)},
+            {BottomCenter, ChrW(234)},
+            {BottomRight, ChrW(235)}
+        }
+    Private Function GenerateLocationTypes() As IReadOnlyDictionary(Of String, LocationTypeDescriptor)
+        Dim result = New Dictionary(Of String, LocationTypeDescriptor) From
         {
             {Void, New LocationTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black, canPlaceWormhole:=True)},
             {VoidNorthArrow, New LocationTypeDescriptor("Empty Space", ChrW(16), DarkGray, Black)},
@@ -57,21 +89,6 @@
             {YellowStar, New LocationTypeDescriptor("Yellow Star", ChrW(224), Hue.Yellow, Black)},
             {OrangeStar, New LocationTypeDescriptor("Orange Star", ChrW(224), Hue.Orange, Black)},
             {RedStar, New LocationTypeDescriptor("Red Star", ChrW(224), Hue.Red, Black)},
-            {RadiatedPlanet, New LocationTypeDescriptor("Radiated Planet", ChrW(225), Hue.Yellow, Black)},
-            {ToxicPlanet, New LocationTypeDescriptor("Toxic Planet", ChrW(225), Hue.Purple, Black)},
-            {VolcanicPlanet, New LocationTypeDescriptor("Volcanic Planet", ChrW(225), Hue.Orange, Black)},
-            {BarrenPlanet, New LocationTypeDescriptor("Barren Planet", ChrW(225), Hue.DarkGray, Black)},
-            {DesertPlanet, New LocationTypeDescriptor("Desert Planet", ChrW(225), Hue.Brown, Black)},
-            {TundraPlanet, New LocationTypeDescriptor("Tundra Planet", ChrW(225), Hue.White, Black)},
-            {AridPlanet, New LocationTypeDescriptor("Arid Planet", ChrW(225), Hue.Tan, Black)},
-            {OceanPlanet, New LocationTypeDescriptor("Ocean Planet", ChrW(225), Hue.Blue, Black)},
-            {TerranPlanet, New LocationTypeDescriptor("Terran Planet", ChrW(225), Hue.Green, Black)},
-            {InfernoPlanet, New LocationTypeDescriptor("Inferno Planet", ChrW(225), Hue.Red, Black)},
-            {TropicalPlanet, New LocationTypeDescriptor("Tropical Planet", ChrW(225), Hue.LightBlue, Black)},
-            {GrasslandPlanet, New LocationTypeDescriptor("Grassland Planet", ChrW(225), Hue.LightGreen, Black)},
-            {CavernousPlanet, New LocationTypeDescriptor("Cavernous Planet", ChrW(225), Hue.LightGray, Black)},
-            {GaiaPlanet, New LocationTypeDescriptor("Gaia Planet", ChrW(225), Hue.Pink, Black)},
-            {SwampPlanet, New LocationTypeDescriptor("Swamp Planet", ChrW(225), Hue.Cyan, Black)},
             {RadiatedMoon, New LocationTypeDescriptor("Radiated Moon", ChrW(226), Hue.Cyan, Black)},
             {VolcanicMoon, New LocationTypeDescriptor("Volcanic Moon", ChrW(226), Hue.Orange, Black)},
             {BarrenMoon, New LocationTypeDescriptor("Barren Moon", ChrW(226), Hue.DarkGray, Black)},
@@ -80,4 +97,15 @@
             {IceMoon, New LocationTypeDescriptor("Ice Moon", ChrW(226), Hue.White, Black)},
             {Wormhole, New LocationTypeDescriptor("Wormhole", ChrW(228), Hue.Purple, Black)}
         }
+        For Each planetHue In planetHueTable
+            result(MakePlanetLocationType(planetHue.Key)) = New LocationTypeDescriptor($"{planetHue.Key} Planet", ChrW(225), planetHue.Value, Black)
+            For Each planetSection In planetSectionTable
+                result(MakePlanetSectionLocationType(planetHue.Key, planetSection.Key)) = New LocationTypeDescriptor($"{planetHue.Key} Planet", planetSection.Value, planetHue.Value, Black)
+            Next
+        Next
+        Return result
+    End Function
+
+    Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, LocationTypeDescriptor) =
+        GenerateLocationTypes()
 End Module
