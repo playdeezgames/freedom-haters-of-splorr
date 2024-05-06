@@ -5,7 +5,7 @@ Friend Class FHOSUIPalette
 
     Public ReadOnly Property Background As Integer Implements IUIPalette.Background
         Get
-            Return 15
+            Return 3
         End Get
     End Property
 
