@@ -64,7 +64,6 @@ Public Class FHOSContext
 
     Private Sub ShowLogo(displayBuffer As IPixelSink, position As (X As Integer, Y As Integer))
         Dim font = Me.Font("Sigmo")
-        displayBuffer.Fill(position, (font.TextWidth(ChrW(0)), font.Height), Hue.Cyan)
         font.WriteLeftText(displayBuffer, position, ChrW(0), Hue.Black)
         font.WriteLeftText(displayBuffer, position, ChrW(1), Hue.Brown)
         font.WriteLeftText(displayBuffer, position, ChrW(2), Hue.Pink)
