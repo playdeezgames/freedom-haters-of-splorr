@@ -155,7 +155,8 @@ Friend Class Place
                     {
                         {MetadataTypes.Name, Name},
                         {MetadataTypes.PlaceType, PlaceTypes.Planet},
-                        {MetadataTypes.PlanetType, PlanetType}
+                        {MetadataTypes.PlanetType, PlanetType},
+                        {MetadataTypes.Identifier, Guid.NewGuid.ToString}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
@@ -176,7 +177,8 @@ Friend Class Place
                     {
                         {MetadataTypes.Name, satelliteName},
                         {MetadataTypes.PlaceType, PlaceTypes.Satellite},
-                        {MetadataTypes.SatelliteType, satelliteType}
+                        {MetadataTypes.SatelliteType, satelliteType},
+                        {MetadataTypes.Identifier, Guid.NewGuid.ToString}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
