@@ -25,10 +25,10 @@ Friend Class PlanetVicinityInitializationStep
         PlaceSatellites(planetVicinity, addStep)
     End Sub
     Private Sub PlaceSatellites(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean))
-        Dim satellites As New List(Of (Column As Integer, Row As Integer)) From
-            {
-                (PlanetVicinityColumns \ 2, PlanetVicinityRows \ 2)
-            }
+        Dim satellites As List(Of (Column As Integer, Row As Integer)) =
+            planetSectionDeltas.
+            Select(Function(x) (x.DeltaX + PlanetVicinityColumns \ 2, x.DeltaY + PlanetVicinityRows \ 2)).
+            ToList
         Dim tries As Integer = 0
         Const MaximumTries = 5000
         Dim planetType = PlanetTypes.Descriptors(planetVicinity.PlanetType)
@@ -54,18 +54,38 @@ Friend Class PlanetVicinityInitializationStep
             End If
         End While
     End Sub
+    Private ReadOnly planetSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
+        New List(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) From
+        {
+            (-1, -1, LocationTypes.TopLeft),
+            (0, -1, LocationTypes.TopCenter),
+            (1, -1, LocationTypes.TopRight),
+            (-1, 0, LocationTypes.CenterLeft),
+            (0, 0, LocationTypes.Center),
+            (1, 0, LocationTypes.CenterRight),
+            (-1, 1, LocationTypes.BottomLeft),
+            (0, 1, LocationTypes.BottomCenter),
+            (1, 1, LocationTypes.BottomRight)
+        }
     Private Sub PlacePlanet(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean))
-        Dim starColumn = PlanetVicinityColumns \ 2
-        Dim starRow = PlanetVicinityRows \ 2
-        Dim locationType = PlanetTypes.Descriptors(planetVicinity.PlanetType).LocationType
-        Dim location = planetVicinity.Map.GetLocation(starColumn, starRow)
+        Dim planetCenterColumn = PlanetVicinityColumns \ 2
+        Dim planetCenterRow = PlanetVicinityRows \ 2
+        Dim planet = planetVicinity.CreatePlanet()
+        For Each delta In planetSectionDeltas
+            PlacePlanetSection(planet, planetVicinity.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
+        Next
+        addStep(New PlanetInitializationStep(planetVicinity.Map.GetLocation(planetCenterColumn, planetCenterRow)), False)
+    End Sub
+
+    Private Shared Sub PlacePlanetSection(planet As IPlace, location As ILocation, sectionName As String)
+        Dim locationType = PlanetTypes.Descriptors(planet.PlanetType).SectionLocationType(sectionName)
         With location
             .LocationType = locationType
             .Tutorial = TutorialTypes.PlanetLand
-            .Place = planetVicinity.CreatePlanet()
-            addStep(New PlanetInitializationStep(location), False)
+            .Place = planet
         End With
     End Sub
+
     Private Sub PlaceBoundaries(planetVicinity As IPlace, planetVicinityLocation As ILocation)
         Dim teleporter = planetVicinityLocation.CreateTeleporterTo()
         Dim identifier = planetVicinity.Identifier

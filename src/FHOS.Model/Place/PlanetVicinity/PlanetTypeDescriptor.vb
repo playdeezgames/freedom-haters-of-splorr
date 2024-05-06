@@ -2,8 +2,16 @@
 
 Friend Class PlanetTypeDescriptor
     Friend ReadOnly Property LocationType As String
+        Get
+            Return LocationTypes.MakePlanetLocationType(PlanetType)
+        End Get
+    End Property
+    Friend Function SectionLocationType(sectionName As String) As String
+        Return LocationTypes.MakePlanetSectionLocationType(PlanetType, sectionName)
+    End Function
     Friend ReadOnly Property MinimumSatelliteDistance As Integer
     Friend ReadOnly Property CanRefillOxygen As Boolean
+    Private ReadOnly Property PlanetType As String
 
     Sub New(
            planetType As String,
@@ -11,7 +19,7 @@ Friend Class PlanetTypeDescriptor
            satelliteTypeTable As IReadOnlyDictionary(Of String, Integer),
            satelliteCountTable As IReadOnlyDictionary(Of Integer, Integer),
            Optional canRefillOxygen As Boolean = False)
-        Me.LocationType = LocationTypes.MakePlanetLocationType(planetType)
+        Me.PlanetType = planetType
         Me.MinimumSatelliteDistance = minimumSatelliteDistance
         Me.satelliteTypeTable = satelliteTypeTable
         Me.CanRefillOxygen = canRefillOxygen
