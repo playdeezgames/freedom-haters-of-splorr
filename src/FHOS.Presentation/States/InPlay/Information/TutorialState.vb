@@ -68,15 +68,15 @@ Friend Class TutorialState
                     })
             },
             {
-                TutorialTypes.SatelliteApproach,
+                TutorialTypes.EnterSatelliteOrbit,
                 New TutorialDetail(
                     "Approaching Satellite",
                     {
                         New TutorialDetailLine("You have reached a Satellite!", Hue.Black),
                         New TutorialDetailLine("", Hue.Black),
-                        New TutorialDetailLine("To approach it,", Hue.Black),
+                        New TutorialDetailLine("To enter its orbit,", Hue.Black),
                         New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
-                        New TutorialDetailLine("then choose 'Approach Satellite'", Hue.Black)
+                        New TutorialDetailLine("then choose 'Enter Orbit'", Hue.Black)
                     })
             },
             {

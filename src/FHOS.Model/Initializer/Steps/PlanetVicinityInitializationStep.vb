@@ -43,7 +43,7 @@ Friend Class PlanetVicinityInitializationStep
                 satellites.Add((column, row))
                 Dim location = planetVicinity.Map.GetLocation(column, row)
                 location.LocationType = SatelliteTypes.Descriptors(satelliteType).LocationType
-                location.Tutorial = TutorialTypes.SatelliteApproach
+                location.Tutorial = TutorialTypes.EnterSatelliteOrbit
                 Dim satelliteName = nameGenerator.GenerateUnusedName
                 location.Place = planetVicinity.CreateSatellite(satelliteName, satelliteType)
                 addStep(New SatelliteInitializationStep(location), False)
