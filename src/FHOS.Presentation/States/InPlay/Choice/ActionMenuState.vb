@@ -30,7 +30,8 @@ Friend Class ActionMenuState
             {VerbTypes.Refuel, GameState.Refuel},
             {VerbTypes.EnterWormhole, GameState.EnterWormhole},
             {DistressSignalText, GameState.SignalDistress},
-            {KnownPlacesText, GameState.KnownPlaces}
+            {KnownPlacesText, GameState.KnownPlaces},
+            {VerbTypes.EnterOrbit, GameState.EnterOrbit}
         }
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))

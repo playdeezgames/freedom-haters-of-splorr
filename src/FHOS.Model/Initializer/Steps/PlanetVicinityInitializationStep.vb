@@ -81,7 +81,7 @@ Friend Class PlanetVicinityInitializationStep
         Dim locationType = PlanetTypes.Descriptors(planet.PlanetType).SectionLocationType(sectionName)
         With location
             .LocationType = locationType
-            .Tutorial = TutorialTypes.PlanetLand
+            .Tutorial = TutorialTypes.EnterPlanetOrbit
             .Place = planet
         End With
     End Sub

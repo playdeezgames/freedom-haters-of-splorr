@@ -5,4 +5,5 @@
     Public Const RefillOxygen = "Refill Oxygen"
     Public Const Refuel = "Refuel"
     Public Const EnterWormhole = "Enter Wormhole"
+    Public Const EnterOrbit = "Enter Orbit"
 End Module

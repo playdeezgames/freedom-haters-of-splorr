@@ -226,6 +226,7 @@ Friend Class AvatarModel
             {VerbTypes.RefillOxygen, (Function() CanRefillOxygen, AddressOf RefillOxygen)},
             {VerbTypes.Refuel, (Function() CanRefillFuel, AddressOf Refuel)},
             {VerbTypes.EnterWormhole, (Function() CanEnterWormhole, AddressOf EnterWormhole)},
+            {VerbTypes.EnterOrbit, (Function() CanEnterOrbit, AddressOf EnterOrbit)},
             {VerbTypes.EnterStarSystem, (Function() CanEnterStarSystem, AddressOf EnterStarSystem)},
             {VerbTypes.ApproachPlanetVicinity, (Function() CanApproachPlanetVicinity, AddressOf ApproachPlanetVicinity)},
             {VerbTypes.ApproachStarVicinity, (Function() CanApproachStarVicinity, AddressOf ApproachStarVicinity)}
@@ -243,8 +244,22 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Private ReadOnly Property CanEnterOrbit As Boolean
+        Get
+            Return avatar.Location.Place?.PlaceType = PlaceTypes.Planet OrElse avatar.Location.Place?.PlaceType = PlaceTypes.Satellite
+        End Get
+    End Property
+
     Private Sub EnterStarSystem()
         If CanEnterStarSystem Then
+            DoTurn()
+            With avatar.Location.Place
+                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
+            End With
+        End If
+    End Sub
+    Private Sub EnterOrbit()
+        If CanEnterOrbit Then
             DoTurn()
             With avatar.Location.Place
                 SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))

@@ -80,15 +80,15 @@ Friend Class TutorialState
                     })
             },
             {
-                TutorialTypes.PlanetLand,
+                TutorialTypes.EnterPlanetOrbit,
                 New TutorialDetail(
-                    "Land on Planet",
+                    "Planet Orbit",
                     {
                         New TutorialDetailLine("You have reached a planet!", Hue.Black),
                         New TutorialDetailLine("", Hue.Black),
-                        New TutorialDetailLine("To land on it,", Hue.Black),
+                        New TutorialDetailLine("To enter its orbit,", Hue.Black),
                         New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
-                        New TutorialDetailLine("then choose 'Land on Planet'", Hue.Black)
+                        New TutorialDetailLine("then choose 'Enter Orbit'", Hue.Black)
                     })
             },
             {

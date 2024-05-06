@@ -45,7 +45,8 @@ Public Class FHOSController
             {GameState.ApproachStar, VerbTypes.ApproachStarVicinity},
             {GameState.ApproachPlanet, VerbTypes.ApproachPlanetVicinity},
             {GameState.RefillOxygen, VerbTypes.RefillOxygen},
-            {GameState.Refuel, VerbTypes.Refuel}
+            {GameState.Refuel, VerbTypes.Refuel},
+            {GameState.EnterOrbit, VerbTypes.EnterOrbit}
         }
 
     Private Sub CreateActionStates(context As IUIContext(Of IUniverseModel))

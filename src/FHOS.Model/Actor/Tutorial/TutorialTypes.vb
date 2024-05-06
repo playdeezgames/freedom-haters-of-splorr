@@ -2,7 +2,7 @@
     Public Const StarSystemEntry As String = "StarSystemEntry"
     Public Const PlanetVicinityApproach As String = "PlanetVicinityApproach"
     Public Const StarVicinityApproach As String = "StarVicinityApproach"
-    Public Const PlanetLand As String = "PlanetLand"
+    Public Const EnterPlanetOrbit As String = "EnterPlanetOrbit"
     Public Const SatelliteApproach As String = "SatelliteApproach"
     Public Const RefuelAtStar As String = "RefuelAtStar"
     Public Const OutOfFuel As String = "OutOfFuel"
@@ -13,7 +13,7 @@
             {StarSystemEntry, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{StarSystemEntry}")},
             {PlanetVicinityApproach, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{PlanetVicinityApproach}")},
             {StarVicinityApproach, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{StarVicinityApproach}")},
-            {PlanetLand, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{PlanetLand}")},
+            {EnterPlanetOrbit, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{EnterPlanetOrbit}")},
             {SatelliteApproach, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{SatelliteApproach}")},
             {RefuelAtStar, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{RefuelAtStar}")},
             {OutOfFuel, New TutorialDescriptor(ignoreFlag:=$"IgnoreTutorial{OutOfFuel}")},

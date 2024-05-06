@@ -27,4 +27,5 @@
     Friend Const Generate = "Generate"
     Friend Const KnownPlaces = "KnownPlaces"
     Friend Const EnterWormhole = "EnterWormhole"
+    Friend Const EnterOrbit = "EnterOrbit"
 End Module
