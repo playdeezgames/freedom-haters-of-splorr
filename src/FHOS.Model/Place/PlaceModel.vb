@@ -13,4 +13,13 @@ Friend Class PlaceModel
             Return place.Name
         End Get
     End Property
+
+    Public ReadOnly Property CanRefillOxygen As Boolean Implements IPlaceModel.CanRefillOxygen
+        Get
+            If place.PlanetType Is Nothing OrElse place.PlaceType <> PlaceTypes.Planet Then
+                Return False
+            End If
+            Return PlanetTypes.Descriptors(place.PlanetType).CanRefillOxygen
+        End Get
+    End Property
 End Class

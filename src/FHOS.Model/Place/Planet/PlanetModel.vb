@@ -10,13 +10,4 @@ Friend Class PlanetModel
         MyBase.New(planet)
         Me.planet = planet
     End Sub
-
-    Public ReadOnly Property CanRefillOxygen As Boolean Implements IPlanetModel.CanRefillOxygen
-        Get
-            If planet.PlanetType Is Nothing OrElse planet.PlaceType <> PlaceTypes.Planet Then
-                Return False
-            End If
-            Return PlanetTypes.Descriptors(planet.PlanetType).CanRefillOxygen
-        End Get
-    End Property
 End Class
