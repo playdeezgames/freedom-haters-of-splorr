@@ -2,8 +2,8 @@
 
 Friend Class PlanetInitializationStep
     Inherits InitializationStep
-    Private Const PlanetOrbitColumns = 7
-    Private Const PlanetOrbitRows = 7
+    Private Const PlanetOrbitColumns = 11
+    Private Const PlanetOrbitRows = 11
     Private ReadOnly location As Persistence.ILocation
     Public Sub New(location As Persistence.ILocation)
         Me.location = location

@@ -2,8 +2,8 @@
 
 Friend Class SatelliteInitializationStep
     Inherits InitializationStep
-    Private Const SatelliteOrbitColumns = 5
-    Private Const SatelliteOrbitRows = 5
+    Private Const SatelliteOrbitColumns = 9
+    Private Const SatelliteOrbitRows = 9
     Private ReadOnly location As Persistence.ILocation
 
     Public Sub New(location As Persistence.ILocation)
