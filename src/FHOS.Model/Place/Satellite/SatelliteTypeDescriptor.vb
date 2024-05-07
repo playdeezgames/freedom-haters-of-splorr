@@ -1,4 +1,4 @@
-﻿Friend Class SatelliteDescriptor
+﻿Friend Class SatelliteTypeDescriptor
     Friend Function SectionLocationType(sectionName As String) As String
         Return LocationTypes.MakeSatelliteSectionLocationType(SatelliteType, sectionName)
     End Function

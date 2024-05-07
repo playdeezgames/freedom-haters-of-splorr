@@ -6,32 +6,32 @@
     Friend Const Cavernous = "Cavernous"
     Friend Const Ice = "Ice"
 
-    Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, SatelliteDescriptor) =
-        New Dictionary(Of String, SatelliteDescriptor) From
+    Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, SatelliteTypeDescriptor) =
+        New Dictionary(Of String, SatelliteTypeDescriptor) From
         {
             {
                 Radiated,
-                New SatelliteDescriptor(Radiated)
+                New SatelliteTypeDescriptor(Radiated)
             },
             {
                 Volcanic,
-                New SatelliteDescriptor(Volcanic)
+                New SatelliteTypeDescriptor(Volcanic)
             },
             {
                 Barren,
-                New SatelliteDescriptor(Barren)
+                New SatelliteTypeDescriptor(Barren)
             },
             {
                 Inferno,
-                New SatelliteDescriptor(Inferno)
+                New SatelliteTypeDescriptor(Inferno)
             },
             {
                 Cavernous,
-                New SatelliteDescriptor(Cavernous)
+                New SatelliteTypeDescriptor(Cavernous)
             },
             {
                 Ice,
-                New SatelliteDescriptor(Ice)
+                New SatelliteTypeDescriptor(Ice)
             }
         }
 End Module
