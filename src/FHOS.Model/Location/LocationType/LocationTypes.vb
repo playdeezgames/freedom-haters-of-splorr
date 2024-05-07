@@ -18,8 +18,14 @@
     Friend Function MakePlanetLocationType(planetType As String) As String
         Return $"{planetType}Planet"
     End Function
+    Friend Function MakeSatelliteLocationType(satelliteType As String) As String
+        Return $"{satelliteType}Moon"
+    End Function
     Friend Function MakePlanetSectionLocationType(planetType As String, sectionName As String) As String
         Return $"{MakePlanetLocationType(planetType)}{sectionName}"
+    End Function
+    Friend Function MakeSatelliteSectionLocationType(satelliteType As String, sectionName As String) As String
+        Return $"{MakeSatelliteLocationType(satelliteType)}{sectionName}"
     End Function
 
 
@@ -29,6 +35,16 @@
     Friend Const InfernoMoon = "InfernoMoon"
     Friend Const CavernousMoon = "CavernousMoon"
     Friend Const IceMoon = "IceMoon"
+    Private ReadOnly satelliteList As IReadOnlyDictionary(Of String, Integer) =
+        New Dictionary(Of String, Integer) From
+        {
+            {SatelliteTypes.RadiatedMoon, Hue.Cyan},
+            {SatelliteTypes.VolcanicMoon, Hue.Orange},
+            {SatelliteTypes.BarrenMoon, Hue.DarkGray},
+            {SatelliteTypes.InfernoMoon, Hue.Red},
+            {SatelliteTypes.CavernousMoon, Hue.LightGray},
+            {SatelliteTypes.IceMoon, Hue.White}
+        }
 
     Friend Const Wormhole = "Wormhole"
 
