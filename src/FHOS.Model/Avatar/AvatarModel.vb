@@ -124,9 +124,9 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property PlanetVicinityList As IEnumerable(Of (Text As String, Item As IPlanetVicinityModel)) Implements IAvatarModel.PlanetVicinityList
+    Public ReadOnly Property PlanetVicinityList As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.PlanetVicinityList
         Get
-            Return avatar.KnownPlanetVicinities.Select(Function(x) (x.Name, CType(New PlanetVicinityModel(x), IPlanetVicinityModel)))
+            Return avatar.KnownPlanetVicinities.Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
         End Get
     End Property
 

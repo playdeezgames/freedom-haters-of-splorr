@@ -20,7 +20,7 @@ Friend Class PlanetVicinityDetailsState
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
-        Dim planetVicinity As IPlanetVicinityModel = PlanetVicinityListState.SelectedPlanetVicinity
+        Dim planetVicinity As IPlaceModel = PlanetVicinityListState.SelectedPlanetVicinity
         With Context
             .ShowHeader(
                 displayBuffer,
