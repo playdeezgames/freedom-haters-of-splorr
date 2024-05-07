@@ -40,6 +40,16 @@ Public Class Universe
         End Get
     End Property
 
+    Public ReadOnly Property Factions As IEnumerable(Of IFaction) Implements IUniverse.Factions
+        Get
+            Dim factionIds = New HashSet(Of Integer)(Enumerable.Range(0, UniverseData.Factions.Entities.Count))
+            For Each recycledId In UniverseData.Factions.Recycled
+                factionIds.Remove(recycledId)
+            Next
+            Return factionIds.Select(Function(x) New Faction(UniverseData, x))
+        End Get
+    End Property
+
     Public Function CreateMap(mapType As String, mapName As String, columns As Integer, rows As Integer, locationType As String) As IMap Implements IUniverse.CreateMap
         Dim mapData = New MapData With
             {
@@ -92,14 +102,18 @@ Public Class Universe
         Return New Place(UniverseData, starSystemId)
     End Function
 
-    Public Function CreateFaction(factionName As String, flags As IEnumerable(Of String)) As IFaction Implements IUniverse.CreateFaction
+    Public Function CreateFaction(factionName As String, minimumPlanetCount As Integer, flags As IEnumerable(Of String)) As IFaction Implements IUniverse.CreateFaction
         Dim factionData = New FactionData With
             {
                 .Metadatas = New Dictionary(Of String, String) From
                 {
                     {MetadataTypes.Name, factionName}
                 },
-                .Flags = New HashSet(Of String)(flags)
+                .Flags = New HashSet(Of String)(flags),
+                .Statistics = New Dictionary(Of String, Integer) From
+                {
+                    {StatisticTypes.MinimumPlanetCount, minimumPlanetCount}
+                }
             }
         Dim factionId As Integer = UniverseData.Factions.CreateOrRecycle(factionData)
         Return New Faction(UniverseData, factionId)

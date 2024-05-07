@@ -229,4 +229,21 @@ Friend Class Place
             Return Nothing
         End Get
     End Property
+
+    Public Property Faction As IFaction Implements IPlace.Faction
+        Get
+            Dim result = 0
+            If PlaceData.Statistics.TryGetValue(StatisticTypes.FactionId, result) Then
+                Return New Faction(UniverseData, result)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IFaction)
+            If value IsNot Nothing Then
+                PlaceData.Statistics(StatisticTypes.FactionId) = value.Id
+            Else
+                PlaceData.Statistics.Remove(StatisticTypes.FactionId)
+            End If
+        End Set
+    End Property
 End Class

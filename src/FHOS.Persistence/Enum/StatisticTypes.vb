@@ -19,4 +19,6 @@
     Friend Const ParentId = "ParentId"
     Friend Const PlaceId = "PlaceId"
     Friend Const WormholeDestinationId = "WormholeDestinationId"
+    Friend Const MinimumPlanetCount = "MinimumPlanetCount"
+    Friend Const FactionId = "FactionId"
 End Module

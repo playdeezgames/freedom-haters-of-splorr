@@ -12,5 +12,6 @@ Public Interface IUniverse
     Property Avatar As IActor
     ReadOnly Property Messages As IMessages
     ReadOnly Property Places As IEnumerable(Of IPlace)
-    Function CreateFaction(factionName As String, flags As IEnumerable(Of String)) As IFaction
+    Function CreateFaction(factionName As String, minimumPlanetCount As Integer, flags As IEnumerable(Of String)) As IFaction
+    ReadOnly Property Factions As IEnumerable(Of IFaction)
 End Interface

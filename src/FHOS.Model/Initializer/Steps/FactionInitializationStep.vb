@@ -12,11 +12,11 @@ Friend Class FactionInitializationStep
     End Sub
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        universe.CreateFaction("SIGMO Federation", {FlagTypes.LovesFreedom})
+        universe.CreateFaction("SIGMO Federation", 1, {FlagTypes.LovesFreedom})
         Dim names As New HashSet(Of String)
         For Each dummy In Enumerable.Range(0, embarkSettings.FactionCount)
             Dim name As String = GenerateName(names)
-            universe.CreateFaction(name, {})
+            universe.CreateFaction(name, 0, {})
         Next
     End Sub
 
