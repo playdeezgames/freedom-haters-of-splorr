@@ -11,27 +11,27 @@
         {
             {
                 Radiated,
-                New SatelliteDescriptor(LocationTypes.RadiatedMoon)
+                New SatelliteDescriptor(Radiated)
             },
             {
                 Volcanic,
-                New SatelliteDescriptor(LocationTypes.VolcanicMoon)
+                New SatelliteDescriptor(Volcanic)
             },
             {
                 Barren,
-                New SatelliteDescriptor(LocationTypes.BarrenMoon)
+                New SatelliteDescriptor(Barren)
             },
             {
                 Inferno,
-                New SatelliteDescriptor(LocationTypes.InfernoMoon)
+                New SatelliteDescriptor(Inferno)
             },
             {
                 Cavernous,
-                New SatelliteDescriptor(LocationTypes.CavernousMoon)
+                New SatelliteDescriptor(Cavernous)
             },
             {
                 Ice,
-                New SatelliteDescriptor(LocationTypes.IceMoon)
+                New SatelliteDescriptor(Ice)
             }
         }
 End Module

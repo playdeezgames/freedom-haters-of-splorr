@@ -219,4 +219,14 @@ Friend Class Place
             PlaceData.Statistics(StatisticTypes.WormholeDestinationId) = value.Id
         End Set
     End Property
+
+    Public ReadOnly Property SatelliteType As String Implements IPlace.SatelliteType
+        Get
+            Dim result = String.Empty
+            If PlaceData.Metadatas.TryGetValue(MetadataTypes.SatelliteType, result) Then
+                Return result
+            End If
+            Return Nothing
+        End Get
+    End Property
 End Class

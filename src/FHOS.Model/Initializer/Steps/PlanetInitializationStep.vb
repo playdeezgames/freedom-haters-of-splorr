@@ -71,7 +71,6 @@ Friend Class PlanetInitializationStep
         Dim locationType = PlanetTypes.Descriptors(planetType).SectionLocationType(sectionName)
         With location
             .LocationType = locationType
-            .Tutorial = TutorialTypes.EnterPlanetOrbit
         End With
     End Sub
 End Class
