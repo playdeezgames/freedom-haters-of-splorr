@@ -6,6 +6,7 @@ Friend Class EmbarkState
     Private Const AgeText = "age"
     Private Const DensityText = "density"
     Private Const WealthText = "wealth"
+    Private Const FactionCountText = "faction-count"
     Private Const GoText = "go"
 
     Public Sub New(
@@ -32,6 +33,8 @@ Friend Class EmbarkState
                 SetState(GameState.ChangeGalacticDensity)
             Case WealthText
                 SetState(GameState.ChangeStartingWealthLevel)
+            Case FactionCountText
+                SetState(GameState.ChangeFactionCount)
         End Select
     End Sub
 
@@ -41,7 +44,8 @@ Friend Class EmbarkState
                 ("Go!", GoText),
                 ($"Change Galactic Age...", AgeText),
                 ($"Change Galactic Density...", DensityText),
-                ($"Change Starting Wealth...", WealthText)
+                ($"Change Starting Wealth...", WealthText),
+                ($"Change Faction Count...", FactionCountText)
             }
     End Function
 

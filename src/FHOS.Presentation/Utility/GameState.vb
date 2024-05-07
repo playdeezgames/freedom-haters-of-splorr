@@ -28,4 +28,5 @@
     Friend Const KnownPlaces = "KnownPlaces"
     Friend Const EnterWormhole = "EnterWormhole"
     Friend Const EnterOrbit = "EnterOrbit"
+    Friend Const ChangeFactionCount = "ChangeFactionCount"
 End Module
