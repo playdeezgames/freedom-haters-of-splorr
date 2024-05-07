@@ -198,4 +198,44 @@ Friend Class Actor
             ActorData.Statistics(StatisticTypes.MinimumJools) = value
         End Set
     End Property
+
+    Public Property Faction As IFaction Implements IActor.Faction
+        Get
+            Dim id = 0
+            If ActorData.Statistics.TryGetValue(StatisticTypes.FactionId, id) Then
+                Return New Faction(UniverseData, id)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IFaction)
+            If value IsNot Nothing Then
+                ActorData.Statistics(StatisticTypes.FactionId) = value.Id
+            Else
+                ActorData.Statistics.Remove(StatisticTypes.FactionId)
+            End If
+        End Set
+    End Property
+
+    Public ReadOnly Property Universe As IUniverse Implements IActor.Universe
+        Get
+            Return New Universe(UniverseData)
+        End Get
+    End Property
+
+    Public Property HomePlanet As IPlace Implements IActor.HomePlanet
+        Get
+            Dim id = 0
+            If ActorData.Statistics.TryGetValue(StatisticTypes.HomePlanetId, id) Then
+                Return New Place(UniverseData, id)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IPlace)
+            If value IsNot Nothing Then
+                ActorData.Statistics(StatisticTypes.HomePlanetId) = value.Id
+            Else
+                ActorData.Statistics.Remove(StatisticTypes.HomePlanetId)
+            End If
+        End Set
+    End Property
 End Class

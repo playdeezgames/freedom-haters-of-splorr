@@ -33,4 +33,7 @@
     Sub AddMessage(
                   header As String,
                   ParamArray lines As (Text As String, Hue As Integer)())
+    Property Faction As IFaction
+    ReadOnly Property Universe As IUniverse
+    Property HomePlanet As IPlace
 End Interface

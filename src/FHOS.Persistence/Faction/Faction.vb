@@ -17,4 +17,8 @@
             Return FactionData.Statistics(StatisticTypes.MinimumPlanetCount)
         End Get
     End Property
+
+    Public Function HasFlag(flag As String) As Boolean Implements IFaction.HasFlag
+        Return FactionData.Flags.Contains(flag)
+    End Function
 End Class
