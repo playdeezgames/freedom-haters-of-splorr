@@ -169,7 +169,7 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public Sub Move(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
+    Public Sub LegacyMove(delta As (X As Integer, Y As Integer)) Implements IAvatarModel.LegacyMove
         If Not CanMove Then
             Return
         End If
@@ -192,7 +192,7 @@ Friend Class AvatarModel
         End If
     End Sub
 
-    Public Sub SetFacing(facing As Integer) Implements IAvatarModel.SetFacing
+    Public Sub LegacySetFacing(facing As Integer) Implements IAvatarModel.LegacySetFacing
         avatar.Facing = facing
     End Sub
 

@@ -4,8 +4,8 @@
     ReadOnly Property MapName As String
     ReadOnly Property HasVerbs As Boolean
 
-    Sub Move(delta As (X As Integer, Y As Integer))
-    Sub SetFacing(facing As Integer)
+    Sub LegacyMove(delta As (X As Integer, Y As Integer))
+    Sub LegacySetFacing(facing As Integer)
     Sub DoDistressSignal()
     ReadOnly Property KnowsPlanetVicinities As Boolean
     ReadOnly Property Turn As Integer

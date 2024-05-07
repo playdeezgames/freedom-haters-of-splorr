@@ -1,4 +1,4 @@
-﻿Friend Class TutorialDescriptor
+﻿Friend Class TutorialTypeDescriptor
     Public ReadOnly Property HasIgnoreFlag As Boolean
         Get
             Return Not String.IsNullOrEmpty(IgnoreFlag)

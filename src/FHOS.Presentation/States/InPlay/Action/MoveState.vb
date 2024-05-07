@@ -27,8 +27,8 @@ Friend Class MoveState
         MyBase.OnStart()
         With Context.Model.Avatar
             If .CanMove Then
-                .SetFacing(facing)
-                .Move(Persistence.Facing.Deltas(facing))
+                .LegacySetFacing(facing)
+                .LegacyMove(Persistence.Facing.Deltas(facing))
             End If
         End With
         SetState(BoilerplateState.Neutral)
