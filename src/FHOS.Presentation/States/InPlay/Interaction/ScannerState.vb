@@ -74,13 +74,9 @@ Friend Class ScannerState
         End If
         Dim textWidth = Context.ViewSize.Width - position.X
         position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, TargetLocation.LocationType.Name, Black)
-        Dim starSystem = TargetLocation.Place
-        If starSystem IsNot Nothing Then
-            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"System: {starSystem.Name}", Black)
-        End If
-        Dim star = TargetLocation.Star
-        If star IsNot Nothing Then
-            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Star: {star.Name}", Black)
+        Dim place = TargetLocation.Place
+        If place IsNot Nothing Then
+            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Place: {place.Name}", Black)
         End If
     End Sub
 

@@ -20,7 +20,7 @@ Friend Class StarVicinityDetailsState
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
-        Dim starVicinity As IStarVicinityModel = StarVicinityListState.SelectedStarVicinity
+        Dim starVicinity As IPlaceModel = StarVicinityListState.SelectedStarVicinity
         With Context
             .ShowHeader(
                 displayBuffer,

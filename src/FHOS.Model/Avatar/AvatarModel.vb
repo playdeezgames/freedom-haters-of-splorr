@@ -118,9 +118,9 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property StarVicinityList As IEnumerable(Of (Text As String, Item As IStarVicinityModel)) Implements IAvatarModel.StarVicinityList
+    Public ReadOnly Property StarVicinityList As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.StarVicinityList
         Get
-            Return avatar.KnownStarVicinities.Select(Function(x) (x.Name, CType(New StarVicinityModel(x), IStarVicinityModel)))
+            Return avatar.KnownStarVicinities.Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
         End Get
     End Property
 

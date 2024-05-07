@@ -48,14 +48,4 @@
             Return Place IsNot Nothing OrElse Actor IsNot Nothing
         End Get
     End Property
-
-    Public ReadOnly Property Star As IStarVicinityModel Implements ILocationModel.Star
-        Get
-            Dim locationStar = location.Place
-            If locationStar Is Nothing Then
-                Return Nothing
-            End If
-            Return New StarVicinityModel(locationStar)
-        End Get
-    End Property
 End Class
