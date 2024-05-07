@@ -18,7 +18,7 @@ Friend Class SatelliteInitializationStep
             SatelliteOrbitColumns,
             SatelliteOrbitRows,
             LocationTypes.Void)
-        PlaceBoundaries(satellite, location)
+        PlaceBoundaries(satellite, location, SatelliteOrbitColumns, SatelliteOrbitRows)
         PlaceSatellite(satellite)
         satellite.Map.Place = satellite
     End Sub
@@ -49,17 +49,5 @@ Friend Class SatelliteInitializationStep
         With location
             .LocationType = locationType
         End With
-    End Sub
-
-    Private Sub PlaceBoundaries(planet As IPlace, location As ILocation)
-        Dim teleporter = location.CreateTeleporterTo()
-        Dim identifier = planet.Identifier
-        For Each corner In GetCorners(SatelliteOrbitColumns, SatelliteOrbitRows)
-            PlaceBoundary(planet.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter)
-        Next
-        For Each edge In GetEdges(SatelliteOrbitColumns, SatelliteOrbitRows)
-            PlaceBoundary(planet.Map.GetLocation(edge.X, edge.Y), edge.LocationType, teleporter)
-            planet.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(identifier)
-        Next
     End Sub
 End Class

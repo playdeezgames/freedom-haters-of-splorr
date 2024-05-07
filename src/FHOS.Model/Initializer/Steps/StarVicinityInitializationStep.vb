@@ -17,7 +17,7 @@ Friend Class StarVicinityInitializationStep
             StarVicinityRows,
             LocationTypes.Void)
         starVicinity.Map.Place = starVicinity
-        PlaceBoundaries(starVicinity, starLocation)
+        PlaceBoundaries(starVicinity, starLocation, StarVicinityColumns, StarVicinityRows)
         PlaceStar(starVicinity)
     End Sub
     Private Sub PlaceStar(starVicinity As IPlace)
@@ -31,16 +31,5 @@ Friend Class StarVicinityInitializationStep
             .Tutorial = TutorialTypes.RefuelAtStar
             'TODO: initialize further down?
         End With
-    End Sub
-    Private Sub PlaceBoundaries(starVicinity As IPlace, starLocation As ILocation)
-        Dim teleporter = starLocation.CreateTeleporterTo()
-        Dim identifier = starVicinity.Identifier
-        For Each corner In GetCorners(StarVicinityColumns, StarVicinityRows)
-            PlaceBoundary(starVicinity.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter)
-        Next
-        For Each edge In GetEdges(StarVicinityColumns, StarVicinityRows)
-            PlaceBoundary(starVicinity.Map.GetLocation(edge.X, edge.Y), edge.LocationType, teleporter)
-            starVicinity.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(identifier)
-        Next
     End Sub
 End Class

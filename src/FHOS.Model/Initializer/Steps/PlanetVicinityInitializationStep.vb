@@ -20,7 +20,7 @@ Friend Class PlanetVicinityInitializationStep
             PlanetVicinityRows,
             LocationTypes.Void)
         planetVicinity.Map.Place = planetVicinity
-        PlaceBoundaries(planetVicinity, planetVicinityLocation)
+        PlaceBoundaries(planetVicinity, planetVicinityLocation, PlanetVicinityColumns, PlanetVicinityRows)
         PlacePlanet(planetVicinity, addStep)
         PlaceSatellites(planetVicinity, addStep)
     End Sub
@@ -84,17 +84,5 @@ Friend Class PlanetVicinityInitializationStep
             .Tutorial = TutorialTypes.EnterPlanetOrbit
             .Place = planet
         End With
-    End Sub
-
-    Private Sub PlaceBoundaries(planetVicinity As IPlace, planetVicinityLocation As ILocation)
-        Dim teleporter = planetVicinityLocation.CreateTeleporterTo()
-        Dim identifier = planetVicinity.Identifier
-        For Each corner In GetCorners(PlanetVicinityColumns, PlanetVicinityRows)
-            PlaceBoundary(planetVicinity.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter)
-        Next
-        For Each edge In GetEdges(PlanetVicinityColumns, PlanetVicinityRows)
-            PlaceBoundary(planetVicinity.Map.GetLocation(edge.X, edge.Y), edge.LocationType, teleporter)
-            planetVicinity.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(identifier)
-        Next
     End Sub
 End Class

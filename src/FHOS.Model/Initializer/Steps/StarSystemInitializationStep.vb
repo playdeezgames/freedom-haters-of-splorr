@@ -22,7 +22,7 @@ Friend Class StarSystemInitializationStep
             SystemMapRows,
 LocationTypes.Void)
         starSystem.Map.Place = starSystem
-        PlaceBoundaries(starSystem, starLocation)
+        PlaceBoundaries(starSystem, starLocation, SystemMapColumns, SystemMapRows)
         PlaceStar(starSystem, addStep)
         PlacePlanets(starSystem, addStep)
     End Sub
@@ -71,16 +71,5 @@ LocationTypes.Void)
             .Tutorial = TutorialTypes.StarVicinityApproach
             addStep(New StarVicinityInitializationStep(location), False)
         End With
-    End Sub
-    Private Sub PlaceBoundaries(starSystem As IPlace, starLocation As ILocation)
-        Dim teleporter = starLocation.CreateTeleporterTo()
-        Dim identifier = starSystem.Identifier
-        For Each corner In GetCorners(SystemMapColumns, SystemMapRows)
-            PlaceBoundary(starSystem.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter)
-        Next
-        For Each edge In GetEdges(SystemMapColumns, SystemMapRows)
-            PlaceBoundary(starSystem.Map.GetLocation(edge.X, edge.Y), edge.LocationType, teleporter)
-            starSystem.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(identifier)
-        Next
     End Sub
 End Class

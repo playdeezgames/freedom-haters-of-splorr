@@ -16,20 +16,9 @@ Friend Class PlanetInitializationStep
             PlanetOrbitColumns,
             PlanetOrbitRows,
             LocationTypes.Void)
-        PlaceBoundaries(planet, location)
+        PlaceBoundaries(planet, location, PlanetOrbitColumns, PlanetOrbitRows)
         PlacePlanet(planet)
         planet.Map.Place = planet
-    End Sub
-    Private Sub PlaceBoundaries(planet As IPlace, location As ILocation)
-        Dim teleporter = location.CreateTeleporterTo()
-        Dim identifier = planet.Identifier
-        For Each corner In GetCorners(PlanetOrbitColumns, PlanetOrbitRows)
-            PlaceBoundary(planet.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter)
-        Next
-        For Each edge In GetEdges(PlanetOrbitColumns, PlanetOrbitRows)
-            PlaceBoundary(planet.Map.GetLocation(edge.X, edge.Y), edge.LocationType, teleporter)
-            planet.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(identifier)
-        Next
     End Sub
     Private ReadOnly planetSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
         New List(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) From
