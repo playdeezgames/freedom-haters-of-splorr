@@ -90,13 +90,13 @@ Friend Class AvatarModel
 
     Public ReadOnly Property KnowsStarSystems As Boolean Implements IAvatarModel.KnowsStarSystems
         Get
-            Return avatar.KnowsStarSystems
+            Return avatar.KnowsPlaces
         End Get
     End Property
 
     Public ReadOnly Property StarSystemList As IEnumerable(Of (Text As String, Item As IStarSystemModel)) Implements IAvatarModel.StarSystemList
         Get
-            Return avatar.KnownStarSystems.Select(Function(x) (x.Name, CType(New StarSystemModel(x), IStarSystemModel)))
+            Return avatar.KnownPlaces.Select(Function(x) (x.Name, CType(New StarSystemModel(x), IStarSystemModel)))
         End Get
     End Property
 

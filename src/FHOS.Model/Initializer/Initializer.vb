@@ -16,7 +16,8 @@ Friend Module Initializer
     Private ReadOnly finalizationSteps As New Queue(Of InitializationStep)
     Sub Start(universe As IUniverse, embarkSettings As EmbarkSettings)
         _stepCount = 0
-        AddStep(New GalaxyInitializationStep(universe, embarkSettings, New NameGenerator))
+        AddStep(New FactionInitializationStep(universe, embarkSettings), True)
+        AddStep(New GalaxyInitializationStep(universe, embarkSettings, New NameGenerator), True)
     End Sub
     Private Sub AddStep(initializationStep As InitializationStep, Optional isFinalizer As Boolean = False)
         If isFinalizer Then

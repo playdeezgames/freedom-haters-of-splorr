@@ -49,11 +49,11 @@ Friend Class Actor
         ActorData.Flags.Add(flag)
     End Sub
 
-    Public Sub AddPlace(starSystem As IPlace) Implements IActor.AddPlace
-        If Not ActorData.StarSystems.Discovered.ContainsKey(starSystem.Id) Then
-            ActorData.StarSystems.Discovered(starSystem.Id) = Turn
+    Public Sub AddPlace(place As IPlace) Implements IActor.AddPlace
+        If Not ActorData.Places.Discovered.ContainsKey(place.Id) Then
+            ActorData.Places.Discovered(place.Id) = Turn
         End If
-        ActorData.StarSystems.Visited(starSystem.Id) = Turn
+        ActorData.Places.Visited(place.Id) = Turn
     End Sub
 
     Public Sub AddMessage(header As String, ParamArray lines() As (Text As String, Hue As Integer)) Implements IActor.AddMessage
@@ -130,15 +130,15 @@ Friend Class Actor
         End Set
     End Property
 
-    Public ReadOnly Property KnowsStarSystems As Boolean Implements IActor.KnowsStarSystems
+    Public ReadOnly Property KnowsPlaces As Boolean Implements IActor.KnowsPlaces
         Get
-            Return ActorData.StarSystems.Discovered.Any
+            Return ActorData.Places.Discovered.Any
         End Get
     End Property
 
-    Public ReadOnly Property KnownStarSystems As IEnumerable(Of IPlace) Implements IActor.KnownStarSystems
+    Public ReadOnly Property KnownPlaces As IEnumerable(Of IPlace) Implements IActor.KnownPlaces
         Get
-            Return ActorData.StarSystems.Discovered.Select(Function(x) New Place(UniverseData, x.Key)).Where(Function(x) x.PlaceType = PlaceTypes.StarSystem).OrderBy(Function(x) x.Name)
+            Return ActorData.Places.Discovered.Select(Function(x) New Place(UniverseData, x.Key)).Where(Function(x) x.PlaceType = PlaceTypes.StarSystem).OrderBy(Function(x) x.Name)
         End Get
     End Property
 

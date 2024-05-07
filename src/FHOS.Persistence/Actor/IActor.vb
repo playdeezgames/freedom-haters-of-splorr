@@ -16,8 +16,8 @@
     Sub DismissTutorial()
     Sub TriggerTutorial(tutorial As String)
 
-    ReadOnly Property KnowsStarSystems As Boolean
-    ReadOnly Property KnownStarSystems As IEnumerable(Of IPlace)
+    ReadOnly Property KnowsPlaces As Boolean
+    ReadOnly Property KnownPlaces As IEnumerable(Of IPlace)
     ReadOnly Property KnownStarVicinities As IEnumerable(Of IPlace)
     ReadOnly Property KnownPlanetVicinities As IEnumerable(Of IPlace)
     Sub AddPlace(place As IPlace)

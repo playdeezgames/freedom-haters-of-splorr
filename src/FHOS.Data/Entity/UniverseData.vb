@@ -12,6 +12,7 @@ Public Class UniverseData
     Property Places As New BucketData(Of PlaceData)
     <JsonPropertyName("t1")>
     Property Teleporters As New BucketData(Of TeleporterData)
+    Property Factions As New BucketData(Of FactionData)
     <JsonIgnore>
     Property Messages As New Queue(Of MessageData)
 End Class

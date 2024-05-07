@@ -91,4 +91,17 @@ Public Class Universe
         Dim starSystemId As Integer = UniverseData.Places.CreateOrRecycle(placeData)
         Return New Place(UniverseData, starSystemId)
     End Function
+
+    Public Function CreateFaction(factionName As String, flags As IEnumerable(Of String)) As IFaction Implements IUniverse.CreateFaction
+        Dim factionData = New FactionData With
+            {
+                .Metadatas = New Dictionary(Of String, String) From
+                {
+                    {MetadataTypes.Name, factionName}
+                },
+                .Flags = New HashSet(Of String)(flags)
+            }
+        Dim factionId As Integer = UniverseData.Factions.CreateOrRecycle(factionData)
+        Return New Faction(UniverseData, factionId)
+    End Function
 End Class
