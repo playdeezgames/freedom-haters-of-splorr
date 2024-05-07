@@ -18,7 +18,6 @@
 
     ReadOnly Property KnowsPlaces As Boolean
     ReadOnly Property KnownPlaces As IEnumerable(Of IPlace)
-    ReadOnly Property KnownStarVicinities As IEnumerable(Of IPlace)
     ReadOnly Property KnownPlanetVicinities As IEnumerable(Of IPlace)
     Sub AddPlace(place As IPlace)
 
@@ -29,7 +28,6 @@
     Property Jools As Integer
     Property MinimumJools As Integer
     ReadOnly Property KnowsPlanetVicinities As Boolean
-    ReadOnly Property KnowsStarVicinities As Boolean
     Sub AddMessage(
                   header As String,
                   ParamArray lines As (Text As String, Hue As Integer)())

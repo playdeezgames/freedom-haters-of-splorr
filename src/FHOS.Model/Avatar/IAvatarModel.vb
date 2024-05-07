@@ -30,8 +30,6 @@
     Sub DoVerb(verbType As String)
 
     ReadOnly Property PlaceList As IEnumerable(Of (Text As String, Item As IPlaceModel))
-    ReadOnly Property KnowsStarVicinities As Boolean
-    ReadOnly Property StarVicinityList As IEnumerable(Of (Text As String, Item As IPlaceModel))
     ReadOnly Property PlanetVicinityList As IEnumerable(Of (Text As String, Item As IPlaceModel))
     ReadOnly Property KnowsPlaces As Boolean
 End Interface

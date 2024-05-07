@@ -112,18 +112,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property KnowsStarVicinities As Boolean Implements IAvatarModel.KnowsStarVicinities
-        Get
-            Return avatar.KnowsStarVicinities
-        End Get
-    End Property
-
-    Public ReadOnly Property StarVicinityList As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.StarVicinityList
-        Get
-            Return avatar.KnownStarVicinities.Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
-        End Get
-    End Property
-
     Public ReadOnly Property PlanetVicinityList As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.PlanetVicinityList
         Get
             Return avatar.KnownPlanetVicinities.Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
@@ -150,7 +138,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property KnowsPlaces As Boolean Implements IAvatarModel.KnowsPlaces
         Get
-            Return KnowsPlanetVicinities OrElse avatar.KnowsPlaces OrElse KnowsStarVicinities
+            Return KnowsPlanetVicinities OrElse avatar.KnowsPlaces
         End Get
     End Property
 
