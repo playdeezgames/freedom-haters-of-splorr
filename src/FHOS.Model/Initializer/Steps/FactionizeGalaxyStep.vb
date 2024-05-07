@@ -12,7 +12,7 @@ Friend Class FactionizeGalaxyStep
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim factions = universe.Factions
-        Dim planets = New HashSet(Of IPlace)(universe.Places.Where(Function(x) x.PlaceType = PlaceTypes.Planet))
+        Dim planets = New HashSet(Of IPlace)(universe.GetPlacesOfType(PlaceTypes.Planet))
         For Each faction In factions
             For Each dummy In Enumerable.Range(0, faction.MinimumPlanetCount)
                 Dim planet = RNG.FromEnumerable(planets)

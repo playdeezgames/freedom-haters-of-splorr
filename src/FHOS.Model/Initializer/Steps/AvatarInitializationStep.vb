@@ -24,6 +24,7 @@ Friend Class AvatarInitializationStep
         actor.Fuel = descriptor.MaximumFuel
         actor.Jools = StartingWealthLevels.Descriptors(embarkSettings.StartingWealthLevel).GenerateJools
         actor.MinimumJools = StartingWealthLevels.Descriptors(embarkSettings.StartingWealthLevel).MinimumJools
+        'TODO: home planet
         universe.Avatar = actor
     End Sub
 End Class

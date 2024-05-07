@@ -118,4 +118,8 @@ Public Class Universe
         Dim factionId As Integer = UniverseData.Factions.CreateOrRecycle(factionData)
         Return New Faction(UniverseData, factionId)
     End Function
+
+    Public Function GetPlacesOfType(placeType As String) As IEnumerable(Of IPlace) Implements IUniverse.GetPlacesOfType
+        Return Places.Where(Function(x) x.PlaceType = placeType)
+    End Function
 End Class

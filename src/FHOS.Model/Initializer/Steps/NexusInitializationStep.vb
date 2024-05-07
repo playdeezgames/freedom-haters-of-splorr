@@ -21,7 +21,7 @@ Friend Class NexusInitializationStep
         Dim tries As Integer = 0
         Const MaximumTries = 5000
         Dim MinimumDistance = GalacticDensities.Descriptors(embarkSettings.GalacticDensity).MinimumWormholeDistance
-        Dim starSystems = universe.Places.Where(Function(x) x.PlaceType = PlaceTypes.StarSystem)
+        Dim starSystems = universe.GetPlacesOfType(PlaceTypes.StarSystem)
         While tries < MaximumTries
             Dim column = RNG.FromRange(0, nexusMap.Size.Columns - 1)
             Dim row = RNG.FromRange(0, nexusMap.Size.Rows - 1)
