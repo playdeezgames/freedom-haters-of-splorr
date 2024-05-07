@@ -324,4 +324,9 @@ Friend Class AvatarModel
             avatar.Oxygen = avatar.MaximumOxygen
         End If
     End Sub
+
+    Public Sub Move(facing As Integer, delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
+        LegacySetFacing(facing)
+        LegacyMove(delta)
+    End Sub
 End Class

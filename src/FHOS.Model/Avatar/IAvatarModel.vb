@@ -6,6 +6,7 @@
 
     Sub LegacyMove(delta As (X As Integer, Y As Integer))
     Sub LegacySetFacing(facing As Integer)
+    Sub Move(facing As Integer, delta As (X As Integer, Y As Integer))
     Sub DoDistressSignal()
     ReadOnly Property KnowsPlanetVicinities As Boolean
     ReadOnly Property Turn As Integer
