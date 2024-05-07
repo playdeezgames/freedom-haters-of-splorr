@@ -1,36 +1,36 @@
 ﻿Public Module SatelliteTypes
-    Friend Const RadiatedMoon = "RadiatedMoon"
-    Friend Const VolcanicMoon = "VolcanicMoon"
-    Friend Const BarrenMoon = "BarrenMoon"
-    Friend Const InfernoMoon = "InfernoMoon"
-    Friend Const CavernousMoon = "CavernousMoon"
-    Friend Const IceMoon = "IceMoon"
+    Friend Const Radiated = "Radiated"
+    Friend Const Volcanic = "Volcanic"
+    Friend Const Barren = "Barren"
+    Friend Const Inferno = "Inferno"
+    Friend Const Cavernous = "Cavernous"
+    Friend Const Ice = "Ice"
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, SatelliteDescriptor) =
         New Dictionary(Of String, SatelliteDescriptor) From
         {
             {
-                RadiatedMoon,
+                Radiated,
                 New SatelliteDescriptor(LocationTypes.RadiatedMoon)
             },
             {
-                VolcanicMoon,
+                Volcanic,
                 New SatelliteDescriptor(LocationTypes.VolcanicMoon)
             },
             {
-                BarrenMoon,
+                Barren,
                 New SatelliteDescriptor(LocationTypes.BarrenMoon)
             },
             {
-                InfernoMoon,
+                Inferno,
                 New SatelliteDescriptor(LocationTypes.InfernoMoon)
             },
             {
-                CavernousMoon,
+                Cavernous,
                 New SatelliteDescriptor(LocationTypes.CavernousMoon)
             },
             {
-                IceMoon,
+                Ice,
                 New SatelliteDescriptor(LocationTypes.IceMoon)
             }
         }

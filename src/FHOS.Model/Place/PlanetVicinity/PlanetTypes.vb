@@ -29,27 +29,27 @@
         New Dictionary(Of String, Integer) From
         {
             {
-                SatelliteTypes.BarrenMoon,
+                SatelliteTypes.Barren,
                 1
             },
             {
-                SatelliteTypes.RadiatedMoon,
+                SatelliteTypes.Radiated,
                 1
             },
             {
-                SatelliteTypes.VolcanicMoon,
+                SatelliteTypes.Volcanic,
                 1
             },
             {
-                SatelliteTypes.InfernoMoon,
+                SatelliteTypes.Inferno,
                 1
             },
             {
-                SatelliteTypes.CavernousMoon,
+                SatelliteTypes.Cavernous,
                 1
             },
             {
-                SatelliteTypes.IceMoon,
+                SatelliteTypes.Ice,
                 1
             }
         }

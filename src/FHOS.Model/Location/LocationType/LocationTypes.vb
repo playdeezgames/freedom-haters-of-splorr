@@ -35,15 +35,15 @@
     Friend Const InfernoMoon = "InfernoMoon"
     Friend Const CavernousMoon = "CavernousMoon"
     Friend Const IceMoon = "IceMoon"
-    Private ReadOnly satelliteList As IReadOnlyDictionary(Of String, Integer) =
+    Private ReadOnly satelliteHueTable As IReadOnlyDictionary(Of String, Integer) =
         New Dictionary(Of String, Integer) From
         {
-            {SatelliteTypes.RadiatedMoon, Hue.Cyan},
-            {SatelliteTypes.VolcanicMoon, Hue.Orange},
-            {SatelliteTypes.BarrenMoon, Hue.DarkGray},
-            {SatelliteTypes.InfernoMoon, Hue.Red},
-            {SatelliteTypes.CavernousMoon, Hue.LightGray},
-            {SatelliteTypes.IceMoon, Hue.White}
+            {SatelliteTypes.Radiated, Hue.Cyan},
+            {SatelliteTypes.Volcanic, Hue.Orange},
+            {SatelliteTypes.Barren, Hue.DarkGray},
+            {SatelliteTypes.Inferno, Hue.Red},
+            {SatelliteTypes.Cavernous, Hue.LightGray},
+            {SatelliteTypes.Ice, Hue.White}
         }
 
     Friend Const Wormhole = "Wormhole"
@@ -51,19 +51,19 @@
     Private ReadOnly planetHueTable As IReadOnlyDictionary(Of String, Integer) =
         New Dictionary(Of String, Integer) From
         {
-            {Radiated, Hue.Yellow},
+            {PlanetTypes.Radiated, Hue.Yellow},
             {Toxic, Hue.Purple},
-            {Volcanic, Hue.Orange},
-            {Barren, Hue.DarkGray},
+            {PlanetTypes.Volcanic, Hue.Orange},
+            {PlanetTypes.Barren, Hue.DarkGray},
             {Desert, Hue.Brown},
             {Tundra, Hue.White},
             {Arid, Hue.Tan},
             {Ocean, Hue.Blue},
             {Terran, Hue.Green},
-            {Inferno, Hue.Red},
+            {PlanetTypes.Inferno, Hue.Red},
             {Tropical, Hue.LightBlue},
             {Grassland, Hue.LightGreen},
-            {Cavernous, Hue.LightGray},
+            {PlanetTypes.Cavernous, Hue.LightGray},
             {Gaia, Hue.Pink},
             {Swamp, Hue.Cyan}
         }
@@ -160,14 +160,14 @@
             {YellowStar, New LocationTypeDescriptor("Yellow Star", ChrW(224), Hue.Yellow, Black)},
             {OrangeStar, New LocationTypeDescriptor("Orange Star", ChrW(224), Hue.Orange, Black)},
             {RedStar, New LocationTypeDescriptor("Red Star", ChrW(224), Hue.Red, Black)},
-            {RadiatedMoon, New LocationTypeDescriptor("Radiated Moon", ChrW(226), Hue.Cyan, Black)},
-            {VolcanicMoon, New LocationTypeDescriptor("Volcanic Moon", ChrW(226), Hue.Orange, Black)},
-            {BarrenMoon, New LocationTypeDescriptor("Barren Moon", ChrW(226), Hue.DarkGray, Black)},
-            {InfernoMoon, New LocationTypeDescriptor("Inferno Moon", ChrW(226), Hue.Red, Black)},
-            {CavernousMoon, New LocationTypeDescriptor("Cavernous Moon", ChrW(226), Hue.LightGray, Black)},
-            {IceMoon, New LocationTypeDescriptor("Ice Moon", ChrW(226), Hue.White, Black)},
             {Wormhole, New LocationTypeDescriptor("Wormhole", ChrW(228), Hue.Purple, Black)}
         }
+        For Each satelliteHue In satelliteHueTable
+            result(MakeSatelliteLocationType(satelliteHue.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", ChrW(226), satelliteHue.Value, Black)
+            For Each satelliteSection In planet3x3SectionTable
+                result(MakeSatelliteSectionLocationType(satelliteHue.Key, satelliteSection.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", satelliteSection.Value, satelliteHue.Value, Black)
+            Next
+        Next
         For Each planetHue In planetHueTable
             result(MakePlanetLocationType(planetHue.Key)) = New LocationTypeDescriptor($"{planetHue.Key} Planet", ChrW(225), planetHue.Value, Black)
             For Each planetSection In planet3x3SectionTable
