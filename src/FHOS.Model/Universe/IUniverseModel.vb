@@ -9,6 +9,7 @@ Public Interface IUniverseModel
     ReadOnly Property GalacticAge As IGalacticAgeModel
     ReadOnly Property GalacticDensity As IGalacticDensityModel
     ReadOnly Property StartingWealth As IStartingWealthLevelModel
+    ReadOnly Property FactionCount As IFactionCountModel
 
     ReadOnly Property Board As IBoardModel
     ReadOnly Property Avatar As IAvatarModel

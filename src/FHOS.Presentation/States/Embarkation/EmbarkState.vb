@@ -51,5 +51,6 @@ Friend Class EmbarkState
         uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height), $"Galactic Age: {Context.Model.GalacticAge.CurrentName}", Black)
         uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height * 2), $"Galactic Density: {Context.Model.GalacticDensity.CurrentName}", Black)
         uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height * 3), $"Starting Wealth: {Context.Model.StartingWealth.CurrentName}", Black)
+        uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height * 4), $"Faction Count: {Context.Model.FactionCount.CurrentName}", Black)
     End Sub
 End Class

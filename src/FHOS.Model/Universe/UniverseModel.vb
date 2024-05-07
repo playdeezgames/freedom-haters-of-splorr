@@ -111,6 +111,12 @@ Public Class UniverseModel
         End Get
     End Property
 
+    Public ReadOnly Property FactionCount As IFactionCountModel Implements IUniverseModel.FactionCount
+        Get
+            Return New FactionCountModel(EmbarkSettings, AddressOf PersistEmbarkSettings)
+        End Get
+    End Property
+
     Const EmbarkSettingsFilename = "embark-settings.json"
     Private Shared _embarkSettings As EmbarkSettings
 End Class
