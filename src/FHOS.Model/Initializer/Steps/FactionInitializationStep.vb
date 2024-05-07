@@ -16,7 +16,7 @@ Friend Class FactionInitializationStep
         Dim names As New HashSet(Of String)
         For Each dummy In Enumerable.Range(0, embarkSettings.FactionCount)
             Dim name As String = GenerateName(names)
-            universe.CreateFaction(name, {})
+            universe.CreateFaction(name, {})yste
         Next
     End Sub
 

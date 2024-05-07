@@ -39,7 +39,7 @@ Friend Class KnownPlacesState
                 (GoBackText, GoBackText)
             }
         With Context.Model.Avatar
-            If .KnowsStarSystems Then
+            If .KnowsPlaces Then
                 result.Add((StarSystemListText, StarSystemListText))
             End If
             If .KnowsStarVicinities Then

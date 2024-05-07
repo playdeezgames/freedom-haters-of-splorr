@@ -30,8 +30,7 @@
     ReadOnly Property AvailableVerbs As IEnumerable(Of String)
     Sub DoVerb(verbType As String)
 
-    ReadOnly Property KnowsStarSystems As Boolean
-    ReadOnly Property StarSystemList As IEnumerable(Of (Text As String, Item As IStarSystemModel))
+    ReadOnly Property PlaceList As IEnumerable(Of (Text As String, Item As IPlaceModel))
     ReadOnly Property KnowsStarVicinities As Boolean
     ReadOnly Property StarVicinityList As IEnumerable(Of (Text As String, Item As IStarVicinityModel))
     ReadOnly Property PlanetVicinityList As IEnumerable(Of (Text As String, Item As IPlanetVicinityModel))

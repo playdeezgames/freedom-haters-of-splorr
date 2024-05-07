@@ -48,7 +48,7 @@ Friend Class AvatarModel
     Public ReadOnly Property HasVerbs As Boolean Implements IAvatarModel.HasVerbs
         Get
             Return AvailableVerbs.Any OrElse
-                KnowsStarSystems
+                KnowsPlaces
         End Get
     End Property
 
@@ -88,15 +88,9 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property KnowsStarSystems As Boolean Implements IAvatarModel.KnowsStarSystems
+    Public ReadOnly Property PlaceList As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.PlaceList
         Get
-            Return avatar.KnowsPlaces
-        End Get
-    End Property
-
-    Public ReadOnly Property StarSystemList As IEnumerable(Of (Text As String, Item As IStarSystemModel)) Implements IAvatarModel.StarSystemList
-        Get
-            Return avatar.KnownPlaces.Select(Function(x) (x.Name, CType(New StarSystemModel(x), IStarSystemModel)))
+            Return avatar.KnownPlaces.Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
         End Get
     End Property
 
@@ -156,7 +150,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property KnowsPlaces As Boolean Implements IAvatarModel.KnowsPlaces
         Get
-            Return KnowsPlanetVicinities OrElse KnowsStarSystems OrElse KnowsStarVicinities
+            Return KnowsPlanetVicinities OrElse avatar.KnowsPlaces OrElse KnowsStarVicinities
         End Get
     End Property
 
