@@ -180,12 +180,6 @@ Friend Class Actor
         End Get
     End Property
 
-    Public ReadOnly Property LegacyKnownPlanetVicinities As IEnumerable(Of IPlace) Implements IActor.LegacyKnownPlanetVicinities
-        Get
-            Return ActorData.PlanetVicinities.Discovered.Select(Function(x) New Place(UniverseData, x.Key)).Where(Function(x) x.PlaceType = PlaceTypes.PlanetVicinity).OrderBy(Function(x) x.Name)
-        End Get
-    End Property
-
     Public Property MinimumJools As Integer Implements IActor.MinimumJools
         Get
             Return ActorData.Statistics(StatisticTypes.MinimumJools)
