@@ -23,12 +23,6 @@ Friend Class Map
         End Set
     End Property
 
-    Public ReadOnly Property Id As Integer Implements IMap.Id
-        Get
-            Return MapId
-        End Get
-    End Property
-
     Public ReadOnly Property Locations As IEnumerable(Of ILocation) Implements IMap.Locations
         Get
             Return MapData.Locations.Select(Function(x) New Location(UniverseData, x))
@@ -53,7 +47,7 @@ Friend Class Map
                             {
                                 .Statistics = New Dictionary(Of String, Integer) From
                                 {
-                                    {StatisticTypes.MapId, MapId},
+                                    {StatisticTypes.MapId, Id},
                                     {StatisticTypes.Column, column},
                                     {StatisticTypes.Row, row}
                                 },

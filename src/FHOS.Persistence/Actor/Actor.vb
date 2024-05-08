@@ -8,12 +8,6 @@ Friend Class Actor
         MyBase.New(universeData, actorId)
     End Sub
 
-    Public ReadOnly Property Id As Integer Implements IActor.Id
-        Get
-            Return ActorId
-        End Get
-    End Property
-
     Public Property Location As ILocation Implements IActor.Location
         Get
             Return New Location(UniverseData, ActorData.Statistics(StatisticTypes.LocationId))

@@ -1,15 +1,13 @@
 ﻿Imports FHOS.Data
 
 Friend Class TeleporterDataClient
-    Inherits UniverseDataClient
-    Protected ReadOnly Property TeleporterId As Integer
+    Inherits EntityDataClient
     Protected ReadOnly Property TeleporterData As TeleporterData
         Get
-            Return UniverseData.Teleporters.Entities(TeleporterId)
+            Return UniverseData.Teleporters.Entities(Id)
         End Get
     End Property
     Public Sub New(universeData As Data.UniverseData, teleporterId As Integer)
-        MyBase.New(universeData)
-        Me.TeleporterId = teleporterId
+        MyBase.New(universeData, teleporterId)
     End Sub
 End Class

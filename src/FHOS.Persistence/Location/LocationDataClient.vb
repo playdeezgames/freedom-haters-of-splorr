@@ -1,17 +1,14 @@
 ﻿Imports FHOS.Data
 
 Friend Class LocationDataClient
-    Inherits UniverseDataClient
+    Inherits EntityDataClient
 
     Public Sub New(universeData As UniverseData, locationId As Integer)
-        MyBase.New(universeData)
-        Me.LocationId = locationId
+        MyBase.New(universeData, locationId)
     End Sub
-
-    Protected ReadOnly Property LocationId As Integer
     Protected ReadOnly Property LocationData As LocationData
         Get
-            Return UniverseData.Locations.Entities(LocationId)
+            Return UniverseData.Locations.Entities(Id)
         End Get
     End Property
 End Class

@@ -8,12 +8,6 @@ Friend Class Location
         MyBase.New(universeData, locationId)
     End Sub
 
-    Public ReadOnly Property Id As Integer Implements ILocation.Id
-        Get
-            Return LocationId
-        End Get
-    End Property
-
     Public ReadOnly Property Map As IMap Implements ILocation.Map
         Get
             Return New Map(UniverseData, LocationData.Statistics(StatisticTypes.MapId))

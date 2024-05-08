@@ -48,3 +48,4 @@ https://pernyblom.github.io/abundant-music/index.html
 1. Take yer Protein Pills
 1. Put yer Helmet On
 1. Coffee v. Tea: Coffee obviously
+1. Spelling is for the week

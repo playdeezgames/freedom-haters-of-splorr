@@ -1,17 +1,15 @@
 ﻿Imports FHOS.Data
 
 Friend Class PlaceDataClient
-    Inherits UniverseDataClient
+    Inherits EntityDataClient
 
-    Protected ReadOnly PlaceId As Integer
     Protected ReadOnly Property PlaceData As PlaceData
         Get
-            Return UniverseData.Places.Entities(PlaceId)
+            Return UniverseData.Places.Entities(Id)
         End Get
     End Property
 
     Public Sub New(universeData As Data.UniverseData, placeId As Integer)
-        MyBase.New(universeData)
-        Me.PlaceId = placeId
+        MyBase.New(universeData, placeId)
     End Sub
 End Class

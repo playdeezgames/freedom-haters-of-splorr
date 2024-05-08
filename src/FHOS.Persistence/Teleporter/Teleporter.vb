@@ -6,12 +6,6 @@
         MyBase.New(universeData, teleporterId)
     End Sub
 
-    Public ReadOnly Property Id As Integer Implements ITeleporter.Id
-        Get
-            Return TeleporterId
-        End Get
-    End Property
-
     Public ReadOnly Property Target As ILocation Implements ITeleporter.Target
         Get
             Return New Location(UniverseData, TeleporterData.Statistics(StatisticTypes.LocationId))
