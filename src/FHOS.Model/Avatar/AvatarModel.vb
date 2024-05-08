@@ -100,12 +100,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property KnowsPlanetVicinities As Boolean Implements IAvatarModel.KnowsPlanetVicinities
-        Get
-            Return avatar.KnowsPlanetVicinities
-        End Get
-    End Property
-
     Public ReadOnly Property MinimumJools As Integer Implements IAvatarModel.MinimumJools
         Get
             Return avatar.MinimumJools
@@ -126,7 +120,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property KnowsPlaces As Boolean Implements IAvatarModel.KnowsPlaces
         Get
-            Return KnowsPlanetVicinities OrElse avatar.LegacyKnowsPlaces
+            Return avatar.KnowsPlaces
         End Get
     End Property
 

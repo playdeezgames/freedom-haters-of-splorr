@@ -16,7 +16,7 @@
     Sub DismissTutorial()
     Sub TriggerTutorial(tutorial As String)
 
-    ReadOnly Property LegacyKnowsPlaces As Boolean
+    ReadOnly Property KnowsPlaces As Boolean
     ReadOnly Property KnownPlaces As IEnumerable(Of IPlace)
     ReadOnly Property LegacyKnownPlanetVicinities As IEnumerable(Of IPlace)
     Function KnowsPlacesOfType(placeType As String) As Boolean

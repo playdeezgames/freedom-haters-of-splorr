@@ -138,7 +138,7 @@ Friend Class Actor
         End Set
     End Property
 
-    Public ReadOnly Property LegacyKnowsPlaces As Boolean Implements IActor.LegacyKnowsPlaces
+    Public ReadOnly Property KnowsPlaces As Boolean Implements IActor.KnowsPlaces
         Get
             Return ActorData.Places.Discovered.Any
         End Get
