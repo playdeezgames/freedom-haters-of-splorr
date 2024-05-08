@@ -106,12 +106,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property LegacyPlanetVicinityList As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.LegacyPlanetVicinityList
-        Get
-            Return avatar.LegacyKnownPlanetVicinities.Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
-        End Get
-    End Property
-
     Public ReadOnly Property MinimumJools As Integer Implements IAvatarModel.MinimumJools
         Get
             Return avatar.MinimumJools

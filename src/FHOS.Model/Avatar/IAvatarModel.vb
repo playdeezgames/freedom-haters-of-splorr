@@ -28,8 +28,6 @@
     ReadOnly Property CurrentPlace As IPlaceModel
     ReadOnly Property AvailableVerbs As IEnumerable(Of String)
     Sub DoVerb(verbType As String)
-
-    ReadOnly Property LegacyPlanetVicinityList As IEnumerable(Of (Text As String, Item As IPlaceModel))
     ReadOnly Property KnowsPlaces As Boolean
     Function KnowsPlacesOfType(placeType As String) As Boolean
     Function GetKnownPlacesOfType(placeType As String) As IEnumerable(Of (Text As String, Item As IPlaceModel))
