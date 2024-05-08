@@ -19,7 +19,6 @@ Friend Class PlanetVicinityInitializationStep
             PlanetVicinityColumns,
             PlanetVicinityRows,
             LocationTypes.Void)
-        planetVicinity.Map.Place = planetVicinity
         PlaceBoundaries(planetVicinity, planetVicinityLocation, PlanetVicinityColumns, PlanetVicinityRows)
         PlacePlanet(planetVicinity, addStep)
         PlaceSatellites(planetVicinity, addStep)

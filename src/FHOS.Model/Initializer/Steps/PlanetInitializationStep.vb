@@ -18,7 +18,6 @@ Friend Class PlanetInitializationStep
             LocationTypes.Void)
         PlaceBoundaries(planet, location, PlanetOrbitColumns, PlanetOrbitRows)
         PlacePlanet(planet)
-        planet.Map.Place = planet
     End Sub
     Private ReadOnly planetSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
         New List(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) From

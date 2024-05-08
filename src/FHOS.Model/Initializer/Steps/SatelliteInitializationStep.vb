@@ -20,7 +20,6 @@ Friend Class SatelliteInitializationStep
             LocationTypes.Void)
         PlaceBoundaries(satellite, location, SatelliteOrbitColumns, SatelliteOrbitRows)
         PlaceSatellite(satellite)
-        satellite.Map.Place = satellite
     End Sub
     Private ReadOnly satelliteSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
         New List(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) From

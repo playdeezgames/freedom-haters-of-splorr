@@ -21,7 +21,6 @@ Friend Class StarSystemInitializationStep
             SystemMapColumns,
             SystemMapRows,
 LocationTypes.Void)
-        starSystem.Map.Place = starSystem
         PlaceBoundaries(starSystem, starLocation, SystemMapColumns, SystemMapRows)
         PlaceStar(starSystem, addStep)
         PlacePlanets(starSystem, addStep)

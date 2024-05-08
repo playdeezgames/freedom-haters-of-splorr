@@ -16,7 +16,6 @@ Friend Class StarVicinityInitializationStep
             StarVicinityColumns,
             StarVicinityRows,
             LocationTypes.Void)
-        starVicinity.Map.Place = starVicinity
         PlaceBoundaries(starVicinity, starLocation, StarVicinityColumns, StarVicinityRows)
         PlaceStar(starVicinity)
     End Sub

@@ -15,15 +15,15 @@ Friend Class BaseAvatarModel
             HandleMapExit(avatar.Location.Map)
         End If
         Me.avatar.Location = location
+        If location.Place IsNot Nothing Then
+            avatar.AddPlace(location.Place)
+        End If
         If isDifferentMap Then
             HandleMapEntry(avatar.Location.Map)
         End If
     End Sub
 
     Private Sub HandleMapEntry(map As IMap)
-        If map.Place IsNot Nothing Then
-            avatar.AddPlace(map.Place)
-        End If
     End Sub
 
     Private Sub HandleMapExit(map As IMap)

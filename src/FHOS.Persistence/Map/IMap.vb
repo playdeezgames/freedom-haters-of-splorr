@@ -5,6 +5,5 @@
     Property Name As String
     ReadOnly Property Id As Integer
     ReadOnly Property Size As (Columns As Integer, Rows As Integer)
-    Property Place As IPlace
     Function CreateLocation(locationType As String, column As Integer, row As Integer) As ILocation
 End Interface
