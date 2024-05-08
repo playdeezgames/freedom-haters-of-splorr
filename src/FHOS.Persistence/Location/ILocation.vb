@@ -1,4 +1,5 @@
 ﻿Public Interface ILocation
+    Inherits IEntity
     ReadOnly Property Id As Integer
     ReadOnly Property Map As IMap
     ReadOnly Property Column As Integer

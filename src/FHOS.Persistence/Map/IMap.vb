@@ -1,4 +1,5 @@
 ﻿Public Interface IMap
+    Inherits IEntity
     Function GetLocation(column As Integer, row As Integer) As ILocation
     ReadOnly Property Locations As IEnumerable(Of ILocation)
     ReadOnly Property Universe As IUniverse
