@@ -1,6 +1,5 @@
 ﻿Public Interface IActor
     Inherits IEntity
-    ReadOnly Property Id As Integer
     ReadOnly Property ActorType As String
     Property Location As ILocation
     Property Facing As Integer
