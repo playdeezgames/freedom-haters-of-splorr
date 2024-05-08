@@ -64,6 +64,14 @@ Friend Class Actor
                                   })
     End Sub
 
+    Public Function KnowsPlacesOfType(placeType As String) As Boolean Implements IActor.KnowsPlacesOfType
+        Return KnownPlaces.Any(Function(x) x.PlaceType = placeType)
+    End Function
+
+    Public Function GetKnownPlacesOfType(placeType As String) As IEnumerable(Of IPlace) Implements IActor.GetKnownPlacesOfType
+        Return KnownPlaces.Where(Function(x) x.PlaceType = placeType)
+    End Function
+
     Public ReadOnly Property ActorType As String Implements IActor.ActorType
         Get
             Return ActorData.Metadatas(MetadataTypes.ActorType)
@@ -130,7 +138,7 @@ Friend Class Actor
         End Set
     End Property
 
-    Public ReadOnly Property KnowsPlaces As Boolean Implements IActor.KnowsPlaces
+    Public ReadOnly Property LegacyKnowsPlaces As Boolean Implements IActor.LegacyKnowsPlaces
         Get
             Return ActorData.Places.Discovered.Any
         End Get
@@ -172,7 +180,7 @@ Friend Class Actor
         End Get
     End Property
 
-    Public ReadOnly Property KnownPlanetVicinities As IEnumerable(Of IPlace) Implements IActor.KnownPlanetVicinities
+    Public ReadOnly Property LegacyKnownPlanetVicinities As IEnumerable(Of IPlace) Implements IActor.LegacyKnownPlanetVicinities
         Get
             Return ActorData.PlanetVicinities.Discovered.Select(Function(x) New Place(UniverseData, x.Key)).Where(Function(x) x.PlaceType = PlaceTypes.PlanetVicinity).OrderBy(Function(x) x.Name)
         End Get

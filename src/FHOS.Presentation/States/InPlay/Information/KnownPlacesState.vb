@@ -1,4 +1,5 @@
 ﻿Imports FHOS.Model
+Imports FHOS.Persistence
 Imports SPLORR.UI
 
 Friend Class KnownPlacesState
@@ -35,7 +36,7 @@ Friend Class KnownPlacesState
                 (GoBackText, GoBackText)
             }
         With Context.Model.Avatar
-            If .KnowsPlaces Then
+            If .KnowsPlacesOfType(PlaceTypes.StarSystem) Then
                 result.Add((StarSystemListText, StarSystemListText))
             End If
         End With

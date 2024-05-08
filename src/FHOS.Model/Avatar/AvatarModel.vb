@@ -114,7 +114,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property PlanetVicinityList As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.PlanetVicinityList
         Get
-            Return avatar.KnownPlanetVicinities.Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
+            Return avatar.LegacyKnownPlanetVicinities.Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
         End Get
     End Property
 
@@ -138,7 +138,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property KnowsPlaces As Boolean Implements IAvatarModel.KnowsPlaces
         Get
-            Return KnowsPlanetVicinities OrElse avatar.KnowsPlaces
+            Return KnowsPlanetVicinities OrElse avatar.LegacyKnowsPlaces
         End Get
     End Property
 
@@ -317,4 +317,12 @@ Friend Class AvatarModel
         LegacySetFacing(facing)
         LegacyMove(delta)
     End Sub
+
+    Public Function KnowsPlacesOfType(placeType As String) As Boolean Implements IAvatarModel.KnowsPlacesOfType
+        Return avatar.KnowsPlacesOfType(placeType)
+    End Function
+
+    Public Function GetKnownPlacesOfType(placeType As String) As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.GetKnownPlacesOfType
+        Return avatar.GetKnownPlacesOfType(placeType).Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
+    End Function
 End Class
