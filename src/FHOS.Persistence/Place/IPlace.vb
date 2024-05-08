@@ -16,4 +16,7 @@
     ReadOnly Property PlanetType As String
     Property WormholeDestination As ILocation
     Property Faction As IFaction
+    Property PlanetVicinityCount As Integer
+    ReadOnly Property X As Integer
+    ReadOnly Property Y As Integer
 End Interface

@@ -7,7 +7,9 @@ Public Interface IUniverse
                       locationType As String) As IMap
     Function CreateStarSystem(
                              starSystemName As String,
-                             starType As String) As IPlace
+                             starType As String,
+                             x As Integer,
+                             y As Integer) As IPlace
     Function CreateWormhole(wormholeName As String) As IPlace
     Property Avatar As IActor
     ReadOnly Property Messages As IMessages

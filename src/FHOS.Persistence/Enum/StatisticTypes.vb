@@ -22,4 +22,7 @@
     Friend Const MinimumPlanetCount = "MinimumPlanetCount"
     Friend Const FactionId = "FactionId"
     Friend Const HomePlanetId = "HomePlanetId"
+    Friend Const PlanetVicinityCount = "PlanetVicinityCount"
+    Friend Const X = "X"
+    Friend Const Y = "Y"
 End Module

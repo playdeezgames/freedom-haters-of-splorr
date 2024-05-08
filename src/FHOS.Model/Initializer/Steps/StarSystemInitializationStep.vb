@@ -23,10 +23,10 @@ Friend Class StarSystemInitializationStep
 LocationTypes.Void)
         PlaceBoundaries(starSystem, starLocation, SystemMapColumns, SystemMapRows)
         PlaceStar(starSystem, addStep)
-        PlacePlanets(starSystem, addStep)
+        starSystem.PlanetVicinityCount = PlacePlanets(starSystem, addStep)
     End Sub
 
-    Private Sub PlacePlanets(starSystem As IPlace, addStep As Action(Of InitializationStep, Boolean))
+    Private Function PlacePlanets(starSystem As IPlace, addStep As Action(Of InitializationStep, Boolean)) As Integer
         Dim planets As New List(Of (Column As Integer, Row As Integer)) From
             {
                 (SystemMapColumns \ 2, SystemMapRows \ 2)
@@ -57,7 +57,8 @@ LocationTypes.Void)
                 tries += 1
             End If
         End While
-    End Sub
+        Return planetCount
+    End Function
 
     Private Sub PlaceStar(starSystem As IPlace, addStep As Action(Of InitializationStep, Boolean))
         Dim starColumn = SystemMapColumns \ 2

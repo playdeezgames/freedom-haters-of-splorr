@@ -246,4 +246,37 @@ Friend Class Place
             End If
         End Set
     End Property
+
+    Public Property PlanetVicinityCount As Integer Implements IPlace.PlanetVicinityCount
+        Get
+            Dim result = 0
+            If PlaceData.Statistics.TryGetValue(StatisticTypes.PlanetVicinityCount, result) Then
+                Return result
+            End If
+            Return 0
+        End Get
+        Set(value As Integer)
+            PlaceData.Statistics(StatisticTypes.PlanetVicinityCount) = value
+        End Set
+    End Property
+
+    Public ReadOnly Property X As Integer Implements IPlace.X
+        Get
+            Dim result = 0
+            If PlaceData.Statistics.TryGetValue(StatisticTypes.X, result) Then
+                Return result
+            End If
+            Return 0
+        End Get
+    End Property
+
+    Public ReadOnly Property Y As Integer Implements IPlace.Y
+        Get
+            Dim result = 0
+            If PlaceData.Statistics.TryGetValue(StatisticTypes.Y, result) Then
+                Return result
+            End If
+            Return 0
+        End Get
+    End Property
 End Class

@@ -22,15 +22,20 @@ Friend Class StarSystemDetailsState
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim starSystem As IPlaceModel = StarSystemListState.SelectedStarSystem
         With Context
+            Dim font = .Font(UIFontName)
             .ShowHeader(
                 displayBuffer,
-                .Font(UIFontName),
-                starSystem.Name,
+                font,
+                $"{starSystem.Name} System",
                 .UIPalette.Header,
                 .UIPalette.Background)
+            Dim position = (.ViewCenter.X, font.Height)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Type: {starSystem.StarType}", Hue.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Planets: {starSystem.PlanetVicinityCount}", Hue.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Galaxy Position: ({starSystem.X},{starSystem.Y})", Hue.Black)
             .ShowStatusBar(
                 displayBuffer,
-                .Font(UIFontName),
+                font,
                 .ControlsText(bButton:="Cancel"),
                 .UIPalette.Background,
                 .UIPalette.Footer)
