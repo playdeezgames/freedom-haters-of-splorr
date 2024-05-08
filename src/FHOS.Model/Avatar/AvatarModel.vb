@@ -88,12 +88,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property LegacyPlaceList As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.LegacyPlaceList
-        Get
-            Return avatar.KnownPlaces.Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
-        End Get
-    End Property
-
     Public ReadOnly Property Turn As Integer Implements IAvatarModel.Turn
         Get
             Return avatar.Turn
