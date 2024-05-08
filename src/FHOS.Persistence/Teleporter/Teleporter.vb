@@ -8,7 +8,7 @@
 
     Public ReadOnly Property Target As ILocation Implements ITeleporter.Target
         Get
-            Return New Location(UniverseData, TeleporterData.Statistics(StatisticTypes.LocationId))
+            Return New Location(UniverseData, EntityData.Statistics(StatisticTypes.LocationId))
         End Get
     End Property
 End Class

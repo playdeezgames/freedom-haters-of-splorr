@@ -17,46 +17,46 @@ Friend Class Place
 
     Public Property Name As String Implements IPlace.Name
         Get
-            Return PlaceData.Metadatas(MetadataTypes.Name)
+            Return EntityData.Metadatas(MetadataTypes.Name)
         End Get
         Set(value As String)
-            PlaceData.Metadatas(MetadataTypes.Name) = value
+            EntityData.Metadatas(MetadataTypes.Name) = value
         End Set
     End Property
 
     Public Property Map As IMap Implements IPlace.Map
         Get
             Dim mapId As Integer
-            If PlaceData.Statistics.TryGetValue(StatisticTypes.MapId, mapId) Then
+            If EntityData.Statistics.TryGetValue(StatisticTypes.MapId, mapId) Then
                 Return New Map(UniverseData, mapId)
             End If
             Return Nothing
         End Get
         Set(value As IMap)
             If value Is Nothing Then
-                PlaceData.Statistics.Remove(StatisticTypes.MapId)
+                EntityData.Statistics.Remove(StatisticTypes.MapId)
             Else
-                PlaceData.Statistics(StatisticTypes.MapId) = value.Id
+                EntityData.Statistics(StatisticTypes.MapId) = value.Id
             End If
         End Set
     End Property
 
     Public ReadOnly Property Identifier As String Implements IPlace.Identifier
         Get
-            Return PlaceData.Metadatas(MetadataTypes.Identifier)
+            Return EntityData.Metadatas(MetadataTypes.Identifier)
         End Get
     End Property
 
     Public ReadOnly Property PlaceType As String Implements IPlace.PlaceType
         Get
-            Return PlaceData.Metadatas(MetadataTypes.PlaceType)
+            Return EntityData.Metadatas(MetadataTypes.PlaceType)
         End Get
     End Property
 
     Public ReadOnly Property Parent As IPlace Implements IPlace.Parent
         Get
             Dim parentId As Integer
-            If PlaceData.Statistics.TryGetValue(StatisticTypes.ParentId, parentId) Then
+            If EntityData.Statistics.TryGetValue(StatisticTypes.ParentId, parentId) Then
                 Return New Place(UniverseData, parentId)
             End If
             Return Nothing
@@ -64,12 +64,12 @@ Friend Class Place
     End Property
 
     Protected Sub AddPlace(place As IPlace)
-        PlaceData.Descendants.Add(place.Id)
+        EntityData.Descendants.Add(place.Id)
     End Sub
 
     Public ReadOnly Property StarType As String Implements IPlace.StarType
         Get
-            Return PlaceData.Metadatas(MetadataTypes.StarType)
+            Return EntityData.Metadatas(MetadataTypes.StarType)
         End Get
     End Property
 
@@ -189,13 +189,13 @@ Friend Class Place
     End Function
 
     Private Sub AddSatellite(satellite As IPlace)
-        PlaceData.Descendants.Add(satellite.Id)
+        EntityData.Descendants.Add(satellite.Id)
     End Sub
 
     Public ReadOnly Property PlanetType As String Implements IPlace.PlanetType
         Get
             Dim result = String.Empty
-            If PlaceData.Metadatas.TryGetValue(MetadataTypes.PlanetType, result) Then
+            If EntityData.Metadatas.TryGetValue(MetadataTypes.PlanetType, result) Then
                 Return result
             End If
             Return Nothing
@@ -205,24 +205,24 @@ Friend Class Place
     Public Property WormholeDestination As ILocation Implements IPlace.WormholeDestination
         Get
             Dim locationId As Integer
-            If PlaceData.Statistics.TryGetValue(StatisticTypes.WormholeDestinationId, locationId) Then
+            If EntityData.Statistics.TryGetValue(StatisticTypes.WormholeDestinationId, locationId) Then
                 Return New Location(UniverseData, locationId)
             End If
             Return Nothing
         End Get
         Set(value As ILocation)
             If value Is Nothing Then
-                PlaceData.Statistics.Remove(StatisticTypes.WormholeDestinationId)
+                EntityData.Statistics.Remove(StatisticTypes.WormholeDestinationId)
                 Return
             End If
-            PlaceData.Statistics(StatisticTypes.WormholeDestinationId) = value.Id
+            EntityData.Statistics(StatisticTypes.WormholeDestinationId) = value.Id
         End Set
     End Property
 
     Public ReadOnly Property SatelliteType As String Implements IPlace.SatelliteType
         Get
             Dim result = String.Empty
-            If PlaceData.Metadatas.TryGetValue(MetadataTypes.SatelliteType, result) Then
+            If EntityData.Metadatas.TryGetValue(MetadataTypes.SatelliteType, result) Then
                 Return result
             End If
             Return Nothing
@@ -232,16 +232,16 @@ Friend Class Place
     Public Property Faction As IFaction Implements IPlace.Faction
         Get
             Dim result = 0
-            If PlaceData.Statistics.TryGetValue(StatisticTypes.FactionId, result) Then
+            If EntityData.Statistics.TryGetValue(StatisticTypes.FactionId, result) Then
                 Return New Faction(UniverseData, result)
             End If
             Return Nothing
         End Get
         Set(value As IFaction)
             If value IsNot Nothing Then
-                PlaceData.Statistics(StatisticTypes.FactionId) = value.Id
+                EntityData.Statistics(StatisticTypes.FactionId) = value.Id
             Else
-                PlaceData.Statistics.Remove(StatisticTypes.FactionId)
+                EntityData.Statistics.Remove(StatisticTypes.FactionId)
             End If
         End Set
     End Property
@@ -249,20 +249,20 @@ Friend Class Place
     Public Property PlanetVicinityCount As Integer Implements IPlace.PlanetVicinityCount
         Get
             Dim result = 0
-            If PlaceData.Statistics.TryGetValue(StatisticTypes.PlanetVicinityCount, result) Then
+            If EntityData.Statistics.TryGetValue(StatisticTypes.PlanetVicinityCount, result) Then
                 Return result
             End If
             Return 0
         End Get
         Set(value As Integer)
-            PlaceData.Statistics(StatisticTypes.PlanetVicinityCount) = value
+            EntityData.Statistics(StatisticTypes.PlanetVicinityCount) = value
         End Set
     End Property
 
     Public ReadOnly Property X As Integer Implements IPlace.X
         Get
             Dim result = 0
-            If PlaceData.Statistics.TryGetValue(StatisticTypes.X, result) Then
+            If EntityData.Statistics.TryGetValue(StatisticTypes.X, result) Then
                 Return result
             End If
             Return 0
@@ -272,7 +272,7 @@ Friend Class Place
     Public ReadOnly Property Y As Integer Implements IPlace.Y
         Get
             Dim result = 0
-            If PlaceData.Statistics.TryGetValue(StatisticTypes.Y, result) Then
+            If EntityData.Statistics.TryGetValue(StatisticTypes.Y, result) Then
                 Return result
             End If
             Return 0
@@ -282,13 +282,13 @@ Friend Class Place
     Public Property SatelliteCount As Integer Implements IPlace.SatelliteCount
         Get
             Dim result = 0
-            If PlaceData.Statistics.TryGetValue(StatisticTypes.SatelliteCount, result) Then
+            If EntityData.Statistics.TryGetValue(StatisticTypes.SatelliteCount, result) Then
                 Return result
             End If
             Return 0
         End Get
         Set(value As Integer)
-            PlaceData.Statistics(StatisticTypes.SatelliteCount) = value
+            EntityData.Statistics(StatisticTypes.SatelliteCount) = value
         End Set
     End Property
 End Class

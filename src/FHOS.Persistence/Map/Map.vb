@@ -16,30 +16,30 @@ Friend Class Map
 
     Public Property Name As String Implements IMap.Name
         Get
-            Return MapData.Metadatas(MetadataTypes.Name)
+            Return EntityData.Metadatas(MetadataTypes.Name)
         End Get
         Set(value As String)
-            MapData.Metadatas(MetadataTypes.Name) = value
+            EntityData.Metadatas(MetadataTypes.Name) = value
         End Set
     End Property
 
     Public ReadOnly Property Locations As IEnumerable(Of ILocation) Implements IMap.Locations
         Get
-            Return MapData.Locations.Select(Function(x) New Location(UniverseData, x))
+            Return EntityData.Locations.Select(Function(x) New Location(UniverseData, x))
         End Get
     End Property
 
     Public ReadOnly Property Size As (Columns As Integer, Rows As Integer) Implements IMap.Size
         Get
-            Return (MapData.Statistics(StatisticTypes.Columns), MapData.Statistics(StatisticTypes.Rows))
+            Return (EntityData.Statistics(StatisticTypes.Columns), EntityData.Statistics(StatisticTypes.Rows))
         End Get
     End Property
 
     Public Function GetLocation(column As Integer, row As Integer) As ILocation Implements IMap.GetLocation
-        If column < 0 OrElse row < 0 OrElse column >= MapData.Statistics(StatisticTypes.Columns) OrElse row >= MapData.Statistics(StatisticTypes.Rows) Then
+        If column < 0 OrElse row < 0 OrElse column >= EntityData.Statistics(StatisticTypes.Columns) OrElse row >= EntityData.Statistics(StatisticTypes.Rows) Then
             Return Nothing
         End If
-        Return New Location(UniverseData, MapData.Locations(column + row * MapData.Statistics(StatisticTypes.Columns)))
+        Return New Location(UniverseData, EntityData.Locations(column + row * EntityData.Statistics(StatisticTypes.Columns)))
     End Function
 
     Public Function CreateLocation(locationType As String, column As Integer, row As Integer) As ILocation Implements IMap.CreateLocation
