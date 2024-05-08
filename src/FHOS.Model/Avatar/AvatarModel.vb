@@ -139,33 +139,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Private Sub LegacyMove(delta As (X As Integer, Y As Integer))
-        If Not CanMove Then
-            Return
-        End If
-        DoTurn()
-        avatar.Fuel -= 1
-        If Not avatar.HasFuel Then
-            avatar.TriggerTutorial(TutorialTypes.OutOfFuel)
-        End If
-        Dim location = avatar.Location
-        Dim nextColumn = location.Column + delta.X
-        Dim nextRow = location.Row + delta.Y
-        Dim map = location.Map
-        Dim nextLocation = map.GetLocation(nextColumn, nextRow)
-        If nextLocation IsNot Nothing Then
-            If nextLocation.HasTeleporter Then
-                SetLocation(nextLocation.Teleporter.Target)
-            Else
-                SetLocation(nextLocation)
-            End If
-        End If
-    End Sub
-
-    Private Sub LegacySetFacing(facing As Integer)
-        avatar.Facing = facing
-    End Sub
-
     Public Sub DoDistressSignal() Implements IAvatarModel.DoDistressSignal
         Dim fuelAdded = avatar.MaximumFuel - avatar.Fuel
         Dim fuelPrice = 1 'TODO: don't just pick a magic number!
@@ -296,8 +269,27 @@ Friend Class AvatarModel
     End Sub
 
     Public Sub Move(facing As Integer, delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
-        LegacySetFacing(facing)
-        LegacyMove(delta)
+        avatar.Facing = facing
+        If Not CanMove Then
+            Return
+        End If
+        DoTurn()
+        avatar.Fuel -= 1
+        If Not avatar.HasFuel Then
+            avatar.TriggerTutorial(TutorialTypes.OutOfFuel)
+        End If
+        Dim location = avatar.Location
+        Dim nextColumn = location.Column + delta.X
+        Dim nextRow = location.Row + delta.Y
+        Dim map = location.Map
+        Dim nextLocation = map.GetLocation(nextColumn, nextRow)
+        If nextLocation IsNot Nothing Then
+            If nextLocation.HasTeleporter Then
+                SetLocation(nextLocation.Teleporter.Target)
+            Else
+                SetLocation(nextLocation)
+            End If
+        End If
     End Sub
 
     Public Function KnowsPlacesOfType(placeType As String) As Boolean Implements IAvatarModel.KnowsPlacesOfType

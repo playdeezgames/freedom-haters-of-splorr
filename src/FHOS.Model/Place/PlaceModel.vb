@@ -58,4 +58,14 @@ Friend Class PlaceModel
             Return place.PlanetType
         End Get
     End Property
+
+    Public ReadOnly Property Parent As IPlaceModel Implements IPlaceModel.Parent
+        Get
+            Dim parentPlace = place.Parent
+            If parentPlace IsNot Nothing Then
+                Return New PlaceModel(parentPlace)
+            End If
+            Return Nothing
+        End Get
+    End Property
 End Class

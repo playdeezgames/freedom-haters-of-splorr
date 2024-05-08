@@ -7,4 +7,5 @@
     ReadOnly Property PlanetType As String
     ReadOnly Property X As Integer
     ReadOnly Property Y As Integer
+    ReadOnly Property Parent As IPlaceModel
 End Interface

@@ -32,6 +32,7 @@ Friend Class PlanetVicinityDetailsState
             Dim position = (.ViewCenter.X, font.Height)
             position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Type: {planetVicinity.PlanetType}", Hue.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Satellites: {planetVicinity.SatelliteCount}", Hue.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"System: {planetVicinity.Parent.Name}", Hue.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"System Position: ({planetVicinity.X},{planetVicinity.Y})", Hue.Black)
             .ShowStatusBar(
                 displayBuffer,
