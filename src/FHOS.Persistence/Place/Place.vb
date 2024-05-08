@@ -101,7 +101,11 @@ Friend Class Place
         Return starVicinity
     End Function
 
-    Public Function CreatePlanetVicinity(planetName As String, planetType As String) As IPlace Implements IPlace.CreatePlanetVicinity
+    Public Function CreatePlanetVicinity(
+                                        planetName As String,
+                                        planetType As String,
+                                        x As Integer,
+                                        y As Integer) As IPlace Implements IPlace.CreatePlanetVicinity
         Dim planetVicinity = New Place(
             UniverseData,
                 UniverseData.Places.CreateOrRecycle(
@@ -116,8 +120,9 @@ Friend Class Place
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
-                        {StatisticTypes.PlaceId, Id},
-                        {StatisticTypes.ParentId, Id}
+                        {StatisticTypes.ParentId, Id},
+                        {StatisticTypes.X, x},
+                        {StatisticTypes.Y, y}
                     }
                 }))
         AddPlace(planetVicinity)
@@ -278,5 +283,18 @@ Friend Class Place
             End If
             Return 0
         End Get
+    End Property
+
+    Public Property SatelliteCount As Integer Implements IPlace.SatelliteCount
+        Get
+            Dim result = 0
+            If PlaceData.Statistics.TryGetValue(StatisticTypes.SatelliteCount, result) Then
+                Return result
+            End If
+            Return 0
+        End Get
+        Set(value As Integer)
+            PlaceData.Statistics(StatisticTypes.SatelliteCount) = value
+        End Set
     End Property
 End Class

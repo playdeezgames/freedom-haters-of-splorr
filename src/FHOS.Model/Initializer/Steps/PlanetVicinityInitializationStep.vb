@@ -21,9 +21,9 @@ Friend Class PlanetVicinityInitializationStep
             LocationTypes.Void)
         PlaceBoundaries(planetVicinity, planetVicinityLocation, PlanetVicinityColumns, PlanetVicinityRows)
         PlacePlanet(planetVicinity, addStep)
-        PlaceSatellites(planetVicinity, addStep)
+        planetVicinity.SatelliteCount = PlaceSatellites(planetVicinity, addStep)
     End Sub
-    Private Sub PlaceSatellites(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean))
+    Private Function PlaceSatellites(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean)) As Integer
         Dim satellites As List(Of (Column As Integer, Row As Integer)) =
             planetSectionDeltas.
             Select(Function(x) (x.DeltaX + PlanetVicinityColumns \ 2, x.DeltaY + PlanetVicinityRows \ 2)).
@@ -52,7 +52,8 @@ Friend Class PlanetVicinityInitializationStep
                 tries += 1
             End If
         End While
-    End Sub
+        Return satelliteCount
+    End Function
     Private ReadOnly planetSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
         New List(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) From
         {

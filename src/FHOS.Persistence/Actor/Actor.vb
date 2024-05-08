@@ -146,7 +146,7 @@ Friend Class Actor
 
     Public ReadOnly Property KnownPlaces As IEnumerable(Of IPlace) Implements IActor.KnownPlaces
         Get
-            Return ActorData.Places.Discovered.Select(Function(x) New Place(UniverseData, x.Key)).Where(Function(x) x.PlaceType = PlaceTypes.StarSystem).OrderBy(Function(x) x.Name)
+            Return ActorData.Places.Discovered.Select(Function(x) New Place(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
         End Get
     End Property
 

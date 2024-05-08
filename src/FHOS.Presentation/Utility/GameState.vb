@@ -25,4 +25,6 @@
     Friend Const EnterWormhole = "EnterWormhole"
     Friend Const EnterOrbit = "EnterOrbit"
     Friend Const ChangeFactionCount = "ChangeFactionCount"
+    Friend Const PlanetVicinityList = "PlanetVicinityList"
+    Friend Const PlanetVicinityDetails = "PlanetVicinityDetails"
 End Module

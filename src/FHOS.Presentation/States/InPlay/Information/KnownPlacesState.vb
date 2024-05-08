@@ -5,6 +5,7 @@ Imports SPLORR.UI
 Friend Class KnownPlacesState
     Inherits BasePickerState(Of IUniverseModel, String)
     Private Const StarSystemListText = "Known Star Systems..."
+    Private Const PlanetVicinityListText = "Known Planet Vicinities..."
 
     Public Sub New(
                   parent As IGameController,
@@ -23,7 +24,8 @@ Friend Class KnownPlacesState
         New Dictionary(Of String, String) From
         {
             {GoBackText, BoilerplateState.Neutral},
-            {StarSystemListText, GameState.StarSystemList}
+            {StarSystemListText, GameState.StarSystemList},
+            {PlanetVicinityListText, GameState.PlanetVicinityList}
         }
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
@@ -38,6 +40,9 @@ Friend Class KnownPlacesState
         With Context.Model.Avatar
             If .KnowsPlacesOfType(PlaceTypes.StarSystem) Then
                 result.Add((StarSystemListText, StarSystemListText))
+            End If
+            If .KnowsPlacesOfType(PlaceTypes.PlanetVicinity) Then
+                result.Add((PlanetVicinityListText, PlanetVicinityListText))
             End If
         End With
         Return result

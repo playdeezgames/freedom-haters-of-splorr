@@ -25,4 +25,5 @@
     Friend Const PlanetVicinityCount = "PlanetVicinityCount"
     Friend Const X = "X"
     Friend Const Y = "Y"
+    Friend Const SatelliteCount = "SatelliteCount"
 End Module

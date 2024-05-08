@@ -88,7 +88,7 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property PlaceList As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.PlaceList
+    Public ReadOnly Property LegacyPlaceList As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.LegacyPlaceList
         Get
             Return avatar.KnownPlaces.Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
         End Get
@@ -112,7 +112,7 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property PlanetVicinityList As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.PlanetVicinityList
+    Public ReadOnly Property LegacyPlanetVicinityList As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.LegacyPlanetVicinityList
         Get
             Return avatar.LegacyKnownPlanetVicinities.Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
         End Get

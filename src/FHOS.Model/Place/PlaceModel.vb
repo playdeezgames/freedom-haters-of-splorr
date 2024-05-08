@@ -46,4 +46,16 @@ Friend Class PlaceModel
             Return place.Y
         End Get
     End Property
+
+    Public ReadOnly Property SatelliteCount As Integer Implements IPlaceModel.SatelliteCount
+        Get
+            Return place.SatelliteCount
+        End Get
+    End Property
+
+    Public ReadOnly Property PlanetType As String Implements IPlaceModel.PlanetType
+        Get
+            Return place.PlanetType
+        End Get
+    End Property
 End Class
