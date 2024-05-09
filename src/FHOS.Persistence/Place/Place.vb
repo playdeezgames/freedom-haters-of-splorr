@@ -206,7 +206,7 @@ Friend Class Place
         Get
             Dim locationId As Integer
             If EntityData.Statistics.TryGetValue(StatisticTypes.WormholeDestinationId, locationId) Then
-                Return New Location(UniverseData, locationId)
+                Return Location.FromId(UniverseData, locationId)
             End If
             Return Nothing
         End Get

@@ -25,7 +25,7 @@ Friend Class Map
 
     Public ReadOnly Property Locations As IEnumerable(Of ILocation) Implements IMap.Locations
         Get
-            Return EntityData.Locations.Select(Function(x) New Location(UniverseData, x))
+            Return EntityData.Locations.Select(Function(x) Location.FromId(UniverseData, x))
         End Get
     End Property
 
@@ -39,7 +39,7 @@ Friend Class Map
         If column < 0 OrElse row < 0 OrElse column >= EntityData.Statistics(StatisticTypes.Columns) OrElse row >= EntityData.Statistics(StatisticTypes.Rows) Then
             Return Nothing
         End If
-        Return New Location(UniverseData, EntityData.Locations(column + row * EntityData.Statistics(StatisticTypes.Columns)))
+        Return Location.FromId(UniverseData, EntityData.Locations(column + row * EntityData.Statistics(StatisticTypes.Columns)))
     End Function
 
     Public Function CreateLocation(locationType As String, column As Integer, row As Integer) As ILocation Implements IMap.CreateLocation
@@ -57,6 +57,6 @@ Friend Class Map
                                 }
                             }
         Dim locationId As Integer = UniverseData.Locations.CreateOrRecycle(locationData)
-        Return New Location(UniverseData, locationId)
+        Return Location.FromId(UniverseData, locationId)
     End Function
 End Class

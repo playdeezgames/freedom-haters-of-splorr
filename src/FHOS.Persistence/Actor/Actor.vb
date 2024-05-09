@@ -17,7 +17,7 @@ Friend Class Actor
 
     Public Property Location As ILocation Implements IActor.Location
         Get
-            Return New Location(UniverseData, EntityData.Statistics(StatisticTypes.LocationId))
+            Return Persistence.Location.FromId(UniverseData, EntityData.Statistics(StatisticTypes.LocationId))
         End Get
         Set(value As ILocation)
             If value.Id <> EntityData.Statistics(StatisticTypes.LocationId) Then
