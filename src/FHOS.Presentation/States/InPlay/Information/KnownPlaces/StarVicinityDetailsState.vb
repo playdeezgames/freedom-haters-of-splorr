@@ -5,7 +5,7 @@ Friend Class StarVicinityDetailsState
     Inherits KnownPlaceDetailsState
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IUniverseModel))
-        MyBase.New(parent, setState, context, GameState.StarSystemList)
+        MyBase.New(parent, setState, context, GameState.StarVicinityList)
     End Sub
 
     Protected Overrides ReadOnly Property HeaderText As String

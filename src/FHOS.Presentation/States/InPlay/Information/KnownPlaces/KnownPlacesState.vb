@@ -8,6 +8,7 @@ Friend Class KnownPlacesState
     Private Const PlanetVicinityListText = "Known Planet Vicinities..."
     Private Const StarVicinityListText = "Known Star Vicinities..."
     Private Const PlanetListText = "Known Planets..."
+    Private Const SatelliteListText = "Known Satellites..."
 
     Public Sub New(
                   parent As IGameController,
@@ -28,7 +29,8 @@ Friend Class KnownPlacesState
             {StarSystemListText, GameState.StarSystemList},
             {PlanetVicinityListText, GameState.PlanetVicinityList},
             {StarVicinityListText, GameState.StarVicinityList},
-            {PlanetListText, GameState.PlanetList}
+            {PlanetListText, GameState.PlanetList},
+            {SatelliteListText, GameState.SatelliteList}
         }
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
@@ -49,6 +51,9 @@ Friend Class KnownPlacesState
             End If
             If .KnowsPlacesOfType(PlaceTypes.Planet) Then
                 result.Add((PlanetListText, PlanetListText))
+            End If
+            If .KnowsPlacesOfType(PlaceTypes.Satellite) Then
+                result.Add((SatelliteListText, SatelliteListText))
             End If
         End With
         Return result

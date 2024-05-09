@@ -65,6 +65,15 @@ Public Class FHOSController
                      PlaceTypes.Planet,
                      GameState.PlanetDetails))
         SetState(GameState.PlanetDetails, New PlanetDetailsState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.SatelliteList,
+                 New KnownPlaceListState(
+                     Me,
+                     AddressOf SetCurrentState, context,
+                     "Known Satellites",
+                     GameState.KnownPlaces,
+                     PlaceTypes.Satellite,
+                     GameState.SatelliteDetails))
+        SetState(GameState.SatelliteDetails, New SatelliteDetailsState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private ReadOnly doVerbStates As IReadOnlyDictionary(Of String, String) =

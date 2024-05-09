@@ -32,4 +32,6 @@
     Friend Const StarVicinityDetails = "StarVicinityDetails"
     Friend Const PlanetList = "PlanetList"
     Friend Const PlanetDetails = "PlanetDetails"
+    Friend Const SatelliteList = "SatelliteList"
+    Friend Const SatelliteDetails = "SatelliteDetails"
 End Module
