@@ -1,6 +1,7 @@
 # Freedom Haters of SPLORR!!
 
-  - [ ] 20240509 - SIGMO FHOS Episode 25 - 
+  - [ ] 20240510 - SIGMO FHOS Episode 26 - 
+  - [x] 20240509 - SIGMO FHOS Episode 25 - 
   - [x] 20240508 - SIGMO FHOS Episode 24 - 
   - [x] 20240507 - SIGMO FHOS Episode 23 - 
   - [x] 20240506 - SIGMO FHOS Episode 22 - 
