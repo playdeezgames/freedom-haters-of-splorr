@@ -5,9 +5,6 @@
   - [x] 20240508 - SIGMO FHOS Episode 24 - 
   - [x] 20240507 - SIGMO FHOS Episode 23 - 
   - [x] 20240506 - SIGMO FHOS Episode 22 - 
-  - [x] 20240505 - SIGMO FHOS Episode 21 - 
-  - [x] 20240503 - SIGMO FHOS Episode 20 - 
-  - [x] 20240502 - SIGMO FHOS Episode 19 - 
 
 Freedom Haters of SPLORR!!
 
