@@ -20,19 +20,19 @@ Friend Class StarVicinityDetailsState
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
-        Dim starVicinity As IPlaceModel = KnownPlaceListState.SelectedPlace
+        Dim place As IPlaceModel = KnownPlaceListState.SelectedPlace
         With Context
             Dim font = .Font(UIFontName)
             .ShowHeader(
                 displayBuffer,
                 font,
-                $"{starVicinity.Name} Vicinity",
+                $"{place.Name} Vicinity",
                 .UIPalette.Header,
                 .UIPalette.Background)
             Dim position = (.ViewCenter.X, font.Height)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Type: {starVicinity.StarType}", Hue.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"System: {starVicinity.Parent.Name}", Hue.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"System Position: ({starVicinity.X},{starVicinity.Y})", Hue.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Type: {place.StarType}", Hue.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"System: {place.Parent.Name}", Hue.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"System Position: ({place.X},{place.Y})", Hue.Black)
             .ShowStatusBar(
                 displayBuffer,
                 font,

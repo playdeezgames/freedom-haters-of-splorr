@@ -20,20 +20,20 @@ Friend Class PlanetVicinityDetailsState
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
-        Dim planetVicinity As IPlaceModel = KnownPlaceListState.SelectedPlace
+        Dim place As IPlaceModel = KnownPlaceListState.SelectedPlace
         With Context
             Dim font = .Font(UIFontName)
             .ShowHeader(
                 displayBuffer,
                 font,
-                $"{planetVicinity.Name} Vicinity",
+                $"{place.Name} Vicinity",
                 .UIPalette.Header,
                 .UIPalette.Background)
             Dim position = (.ViewCenter.X, font.Height)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Type: {planetVicinity.PlanetType}", Hue.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Satellites: {planetVicinity.SatelliteCount}", Hue.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"System: {planetVicinity.Parent.Name}", Hue.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"System Position: ({planetVicinity.X},{planetVicinity.Y})", Hue.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Type: {place.PlanetType}", Hue.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Satellites: {place.SatelliteCount}", Hue.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"System: {place.Parent.Name}", Hue.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"System Position: ({place.X},{place.Y})", Hue.Black)
             .ShowStatusBar(
                 displayBuffer,
                 font,

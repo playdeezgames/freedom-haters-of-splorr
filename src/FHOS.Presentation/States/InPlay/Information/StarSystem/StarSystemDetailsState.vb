@@ -2,43 +2,25 @@
 Imports SPLORR.UI
 
 Friend Class StarSystemDetailsState
-    Inherits BaseGameState(Of Model.IUniverseModel)
+    Inherits KnownPlaceDetailsState
 
-    Public Sub New(
-                  parent As IGameController,
-                  setState As Action(Of String, Boolean),
-                  context As IUIContext(Of Model.IUniverseModel))
-        MyBase.New(
-            parent,
-            setState,
-            context)
+    Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IUniverseModel))
+        MyBase.New(parent, setState, context, GameState.StarSystemList)
     End Sub
 
-    Public Overrides Sub HandleCommand(cmd As String)
-        SetState(GameState.StarSystemList)
-    End Sub
+    Protected Overrides ReadOnly Property HeaderText As String
+        Get
+            Return $"{Place.Name} System"
+        End Get
+    End Property
 
-    Public Overrides Sub Render(displayBuffer As IPixelSink)
-        displayBuffer.Fill(Context.UIPalette.Background)
-        Dim starSystem As IPlaceModel = KnownPlaceListState.SelectedPlace
-        With Context
-            Dim font = .Font(UIFontName)
-            .ShowHeader(
-                displayBuffer,
-                font,
-                $"{starSystem.Name} System",
-                .UIPalette.Header,
-                .UIPalette.Background)
-            Dim position = (.ViewCenter.X, font.Height)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Type: {starSystem.StarType}", Hue.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Planets: {starSystem.PlanetVicinityCount}", Hue.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Galaxy Position: ({starSystem.X},{starSystem.Y})", Hue.Black)
-            .ShowStatusBar(
-                displayBuffer,
-                font,
-                .ControlsText(bButton:="Cancel"),
-                .UIPalette.Background,
-                .UIPalette.Footer)
-        End With
-    End Sub
+    Protected Overrides ReadOnly Property Details As IEnumerable(Of (Text As String, Hue As Integer))
+        Get
+            Return {
+                    ($"Type: {Place.StarType}", Hue.Black),
+                    ($"Planets: {Place.PlanetVicinityCount}", Hue.Black),
+                    ($"Galaxy Position: ({Place.X},{Place.Y})", Hue.Black)
+                }
+        End Get
+    End Property
 End Class
