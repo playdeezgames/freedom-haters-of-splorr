@@ -28,7 +28,7 @@ Friend Class Place
         Get
             Dim mapId As Integer
             If EntityData.Statistics.TryGetValue(StatisticTypes.MapId, mapId) Then
-                Return New Map(UniverseData, mapId)
+                Return Persistence.Map.FromId(UniverseData, mapId)
             End If
             Return Nothing
         End Get

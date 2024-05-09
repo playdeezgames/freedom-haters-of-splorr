@@ -66,7 +66,7 @@ Public Class Universe
                 }
             }
         Dim mapId = UniverseData.Maps.CreateOrRecycle(mapData)
-        Dim map = New Map(UniverseData, mapId)
+        Dim map = Persistence.Map.FromId(UniverseData, mapId)
         mapData.Locations = Enumerable.
                             Range(0, columns * rows).
                             Select(Function(x) map.CreateLocation(locationType, x Mod rows, x \ rows).Id).ToList

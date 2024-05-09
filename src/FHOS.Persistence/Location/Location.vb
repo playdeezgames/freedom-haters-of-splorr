@@ -17,7 +17,7 @@ Friend Class Location
 
     Public ReadOnly Property Map As IMap Implements ILocation.Map
         Get
-            Return New Map(UniverseData, EntityData.Statistics(StatisticTypes.MapId))
+            Return Persistence.Map.FromId(UniverseData, EntityData.Statistics(StatisticTypes.MapId))
         End Get
     End Property
 
