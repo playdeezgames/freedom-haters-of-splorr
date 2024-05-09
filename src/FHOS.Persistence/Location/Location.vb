@@ -63,7 +63,7 @@ Friend Class Location
         Get
             Dim teleporterId As Integer
             If EntityData.Statistics.TryGetValue(StatisticTypes.TeleporterId, teleporterId) Then
-                Return New Teleporter(UniverseData, teleporterId)
+                Return Persistence.Teleporter.FromId(UniverseData, teleporterId)
             End If
             Return Nothing
         End Get
@@ -146,6 +146,6 @@ Friend Class Location
                 }
             }
         Dim teleporterId As Integer = UniverseData.Teleporters.CreateOrRecycle(teleporterData)
-        Return New Teleporter(UniverseData, teleporterId)
+        Return Persistence.Teleporter.FromId(UniverseData, teleporterId)
     End Function
 End Class

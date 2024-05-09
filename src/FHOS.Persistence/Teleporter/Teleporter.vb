@@ -1,10 +1,19 @@
-﻿Friend Class Teleporter
+﻿Imports FHOS.Data
+
+Friend Class Teleporter
     Inherits TeleporterDataClient
     Implements ITeleporter
 
-    Public Sub New(universeData As Data.UniverseData, teleporterId As Integer)
+    Protected Sub New(universeData As Data.UniverseData, teleporterId As Integer)
         MyBase.New(universeData, teleporterId)
     End Sub
+
+    Friend Shared Function FromId(universeData As UniverseData, teleporterId As Integer?) As ITeleporter
+        If teleporterId.HasValue Then
+            Return New Teleporter(universeData, teleporterId.Value)
+        End If
+        Return Nothing
+    End Function
 
     Public ReadOnly Property Target As ILocation Implements ITeleporter.Target
         Get
