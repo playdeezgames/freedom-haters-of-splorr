@@ -36,7 +36,7 @@ Public Class Universe
             For Each recycledId In UniverseData.Places.Recycled
                 placeIds.Remove(recycledId)
             Next
-            Return placeIds.Select(Function(x) New Place(UniverseData, x))
+            Return placeIds.Select(Function(x) Place.FromId(UniverseData, x))
         End Get
     End Property
 
@@ -94,7 +94,7 @@ Public Class Universe
                 }
             }
         Dim starSystemId As Integer = UniverseData.Places.CreateOrRecycle(placeData)
-        Return New Place(UniverseData, starSystemId)
+        Return Place.FromId(UniverseData, starSystemId)
     End Function
 
     Public Function CreateWormhole(wormholeName As String) As IPlace Implements IUniverse.CreateWormhole
@@ -108,7 +108,7 @@ Public Class Universe
                 }
             }
         Dim starSystemId As Integer = UniverseData.Places.CreateOrRecycle(placeData)
-        Return New Place(UniverseData, starSystemId)
+        Return Place.FromId(UniverseData, starSystemId)
     End Function
 
     Public Function CreateFaction(factionName As String, minimumPlanetCount As Integer, flags As IEnumerable(Of String)) As IFaction Implements IUniverse.CreateFaction

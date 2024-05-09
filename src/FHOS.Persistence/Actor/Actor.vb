@@ -139,7 +139,7 @@ Friend Class Actor
 
     Public ReadOnly Property KnownPlaces As IEnumerable(Of IPlace) Implements IActor.KnownPlaces
         Get
-            Return EntityData.Places.Discovered.Select(Function(x) New Place(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
+            Return EntityData.Places.Discovered.Select(Function(x) Place.FromId(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
         End Get
     End Property
 
@@ -203,7 +203,7 @@ Friend Class Actor
         Get
             Dim id = 0
             If EntityData.Statistics.TryGetValue(StatisticTypes.HomePlanetId, id) Then
-                Return New Place(UniverseData, id)
+                Return Place.FromId(UniverseData, id)
             End If
             Return Nothing
         End Get

@@ -103,7 +103,7 @@ Friend Class Location
         Get
             Dim starSystemId As Integer
             If EntityData.Statistics.TryGetValue(StatisticTypes.PlaceId, starSystemId) Then
-                Return New Place(UniverseData, starSystemId)
+                Return Persistence.Place.FromId(UniverseData, starSystemId)
             End If
             Return Nothing
         End Get

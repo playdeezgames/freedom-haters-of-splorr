@@ -4,9 +4,16 @@ Friend Class Place
     Inherits PlaceDataClient
     Implements IPlace
 
-    Public Sub New(universeData As Data.UniverseData, placeId As Integer)
+    Protected Sub New(universeData As Data.UniverseData, placeId As Integer)
         MyBase.New(universeData, placeId)
     End Sub
+
+    Friend Shared Function FromId(universeData As UniverseData, placeId As Integer?) As IPlace
+        If placeId.HasValue Then
+            Return New Place(universeData, placeId.Value)
+        End If
+        Return Nothing
+    End Function
 
     Public ReadOnly Property Universe As IUniverse Implements IPlace.Universe
         Get
