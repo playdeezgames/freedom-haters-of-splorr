@@ -124,8 +124,7 @@ Public Class Universe
                     {StatisticTypes.MinimumPlanetCount, minimumPlanetCount}
                 }
             }
-        Dim factionId As Integer = UniverseData.Factions.CreateOrRecycle(factionData)
-        Return Faction.FromId(UniverseData, factionId)
+        Return Faction.FromId(UniverseData, UniverseData.Factions.CreateOrRecycle(factionData))
     End Function
 
     Public Function GetPlacesOfType(placeType As String) As IEnumerable(Of IPlace) Implements IUniverse.GetPlacesOfType
