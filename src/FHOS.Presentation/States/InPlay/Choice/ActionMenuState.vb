@@ -3,8 +3,6 @@ Imports FHOS.Model
 
 Friend Class ActionMenuState
     Inherits BasePickerState(Of Model.IUniverseModel, String)
-    Private Const DistressSignalText = "Distress Signal"
-    Private Const KnownPlacesText = "Known Places..."
 
     Public Sub New(
                   parent As IGameController,
@@ -24,13 +22,13 @@ Friend Class ActionMenuState
         {
             {GoBackText, BoilerplateState.Neutral},
             {VerbTypes.EnterStarSystem, GameState.EnterStarSystem},
-            {ApproachPlanetVicinity, GameState.ApproachPlanet},
-            {ApproachStarVicinity, GameState.ApproachStar},
+            {VerbTypes.ApproachPlanetVicinity, GameState.ApproachPlanet},
+            {VerbTypes.ApproachStarVicinity, GameState.ApproachStar},
             {VerbTypes.RefillOxygen, GameState.RefillOxygen},
             {VerbTypes.Refuel, GameState.Refuel},
             {VerbTypes.EnterWormhole, GameState.EnterWormhole},
-            {DistressSignalText, GameState.SignalDistress},
-            {KnownPlacesText, GameState.KnownPlaces},
+            {VerbTypes.DistressSignal, GameState.SignalDistress},
+            {VerbTypes.KnownPlaces, GameState.KnownPlaces},
             {VerbTypes.EnterOrbit, GameState.EnterOrbit}
         }
 
@@ -44,15 +42,9 @@ Friend Class ActionMenuState
                 (GoBackText, GoBackText)
             }
         With Context.Model.Avatar
-            If .KnowsPlaces Then
-                result.Add((KnownPlacesText, KnownPlacesText))
-            End If
             For Each verb In .AvailableVerbs
                 result.Add((verb, verb))
             Next
-            If Not .CanMove Then
-                result.Add((DistressSignalText, DistressSignalText))
-            End If
         End With
         Return result
     End Function

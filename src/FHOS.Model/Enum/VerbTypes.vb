@@ -6,4 +6,6 @@
     Public Const Refuel = "Refuel"
     Public Const EnterWormhole = "Enter Wormhole"
     Public Const EnterOrbit = "Enter Orbit"
+    Public Const KnownPlaces = "Known Places..."
+    Public Const DistressSignal = "Signal Distress"
 End Module

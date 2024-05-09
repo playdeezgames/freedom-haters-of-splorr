@@ -160,13 +160,15 @@ Friend Class AvatarModel
     Private ReadOnly verbTable As IReadOnlyDictionary(Of String, (isAvailable As Func(Of Boolean), perform As Action)) =
         New Dictionary(Of String, (isAvailable As Func(Of Boolean), perform As Action)) From
         {
+            {VerbTypes.KnownPlaces, (Function() KnowsPlaces, Sub() Return)},
             {VerbTypes.RefillOxygen, (Function() CanRefillOxygen, AddressOf RefillOxygen)},
             {VerbTypes.Refuel, (Function() CanRefillFuel, AddressOf Refuel)},
             {VerbTypes.EnterWormhole, (Function() CanEnterWormhole, AddressOf EnterWormhole)},
             {VerbTypes.EnterOrbit, (Function() CanEnterOrbit, AddressOf EnterOrbit)},
             {VerbTypes.EnterStarSystem, (Function() CanEnterStarSystem, AddressOf EnterStarSystem)},
             {VerbTypes.ApproachPlanetVicinity, (Function() CanApproachPlanetVicinity, AddressOf ApproachPlanetVicinity)},
-            {VerbTypes.ApproachStarVicinity, (Function() CanApproachStarVicinity, AddressOf ApproachStarVicinity)}
+            {VerbTypes.ApproachStarVicinity, (Function() CanApproachStarVicinity, AddressOf ApproachStarVicinity)},
+            {VerbTypes.DistressSignal, (Function() Not CanMove, AddressOf DoDistressSignal)}
         }
 
     Private ReadOnly Property CanEnterStarSystem As Boolean
