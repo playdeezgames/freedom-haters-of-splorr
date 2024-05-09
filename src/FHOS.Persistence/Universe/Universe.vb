@@ -46,7 +46,7 @@ Public Class Universe
             For Each recycledId In UniverseData.Factions.Recycled
                 factionIds.Remove(recycledId)
             Next
-            Return factionIds.Select(Function(x) New Faction(UniverseData, x))
+            Return factionIds.Select(Function(x) Faction.FromId(UniverseData, x))
         End Get
     End Property
 
@@ -125,7 +125,7 @@ Public Class Universe
                 }
             }
         Dim factionId As Integer = UniverseData.Factions.CreateOrRecycle(factionData)
-        Return New Faction(UniverseData, factionId)
+        Return Faction.FromId(UniverseData, factionId)
     End Function
 
     Public Function GetPlacesOfType(placeType As String) As IEnumerable(Of IPlace) Implements IUniverse.GetPlacesOfType

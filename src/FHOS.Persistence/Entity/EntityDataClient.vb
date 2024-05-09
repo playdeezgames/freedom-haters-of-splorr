@@ -22,4 +22,27 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         Me.entityId = entityId
         Me.entityDataFetcher = entityDataFetcher
     End Sub
+
+    Public Function HasFlag(flag As String) As Boolean Implements IEntity.HasFlag
+        Return EntityData.Flags.Contains(flag)
+    End Function
+
+    Public Sub SetFlag(flag As String) Implements IEntity.SetFlag
+        EntityData.Flags.Add(flag)
+    End Sub
+    Protected Sub SetStatistic(statisticType As String, value As Integer?)
+        If value.HasValue Then
+            EntityData.Statistics(statisticType) = value.Value
+        Else
+            EntityData.Statistics.Remove(statisticType)
+        End If
+    End Sub
+    Protected Function GetStatistic(statisticType As String) As Integer?
+        Dim result As Integer
+        If EntityData.Statistics.TryGetValue(statisticType, result) Then
+            Return result
+        End If
+        Return Nothing
+    End Function
+
 End Class

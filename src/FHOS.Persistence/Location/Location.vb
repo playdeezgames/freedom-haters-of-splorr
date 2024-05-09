@@ -109,14 +109,6 @@ Friend Class Location
         End Set
     End Property
 
-    Public Sub SetFlag(flag As String) Implements ILocation.SetFlag
-        EntityData.Flags.Add(flag)
-    End Sub
-
-    Public Function HasFlag(name As String) As Boolean Implements ILocation.HasFlag
-        Return EntityData.Flags.Contains(name)
-    End Function
-
     Public Function CreateActor(actorType As String) As IActor Implements ILocation.CreateActor
         Dim actorData = New ActorData With
                                  {

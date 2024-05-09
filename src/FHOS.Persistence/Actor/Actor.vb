@@ -35,15 +35,7 @@ Friend Class Actor
         End If
     End Sub
 
-    Public Function HasFlag(flag As String) As Boolean Implements IActor.HasFlag
-        Return EntityData.Flags.Contains(flag)
-    End Function
-
-    Public Sub SetFlag(flag As String) Implements IActor.SetFlag
-        EntityData.Flags.Add(flag)
-    End Sub
-
-    Public Sub AddPlace(place As IPlace) Implements IActor.AddPlace
+    Public Sub AddKnownPlace(place As IPlace) Implements IActor.AddKnownPlace
         If Not EntityData.Places.Discovered.ContainsKey(place.Id) Then
             EntityData.Places.Discovered(place.Id) = Turn
         End If
@@ -168,12 +160,6 @@ Friend Class Actor
         End Get
     End Property
 
-    Public ReadOnly Property KnowsPlanetVicinities As Boolean Implements IActor.KnowsPlanetVicinities
-        Get
-            Return EntityData.PlanetVicinities.Discovered.Any
-        End Get
-    End Property
-
     Public Property MinimumJools As Integer Implements IActor.MinimumJools
         Get
             Return EntityData.Statistics(StatisticTypes.MinimumJools)
@@ -185,9 +171,9 @@ Friend Class Actor
 
     Public Property Faction As IFaction Implements IActor.Faction
         Get
-            Dim id = 0
-            If EntityData.Statistics.TryGetValue(StatisticTypes.FactionId, id) Then
-                Return New Faction(UniverseData, id)
+            Dim id = GetStatistic(StatisticTypes.FactionId)
+            If id.HasValue Then
+                Return Persistence.Faction.FromId(UniverseData, id.Value)
             End If
             Return Nothing
         End Get

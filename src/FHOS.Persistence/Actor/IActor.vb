@@ -20,15 +20,11 @@
     ReadOnly Property KnownPlaces As IEnumerable(Of IPlace)
     Function KnowsPlacesOfType(placeType As String) As Boolean
     Function GetKnownPlacesOfType(placeType As String) As IEnumerable(Of IPlace)
-    Sub AddPlace(place As IPlace)
-
-    Sub SetFlag(flag As String)
-    Function HasFlag(flag As String) As Boolean
+    Sub AddKnownPlace(place As IPlace)
 
     Property Turn As Integer
     Property Jools As Integer
     Property MinimumJools As Integer
-    ReadOnly Property KnowsPlanetVicinities As Boolean
     Sub AddMessage(
                   header As String,
                   ParamArray lines As (Text As String, Hue As Integer)())

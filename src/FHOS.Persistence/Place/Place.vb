@@ -231,11 +231,7 @@ Friend Class Place
 
     Public Property Faction As IFaction Implements IPlace.Faction
         Get
-            Dim result = 0
-            If EntityData.Statistics.TryGetValue(StatisticTypes.FactionId, result) Then
-                Return New Faction(UniverseData, result)
-            End If
-            Return Nothing
+            Return Persistence.Faction.FromId(UniverseData, GetStatistic(StatisticTypes.FactionId))
         End Get
         Set(value As IFaction)
             If value IsNot Nothing Then

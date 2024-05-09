@@ -16,7 +16,7 @@ Friend Class BaseAvatarModel
         End If
         Me.avatar.Location = location
         If location.Place IsNot Nothing Then
-            avatar.AddPlace(location.Place)
+            avatar.AddKnownPlace(location.Place)
         End If
         If isDifferentMap Then
             HandleMapEntry(avatar.Location.Map)
