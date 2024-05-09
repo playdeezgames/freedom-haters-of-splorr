@@ -4,9 +4,16 @@ Friend Class Actor
     Inherits ActorDataClient
     Implements IActor
 
-    Public Sub New(universeData As Data.UniverseData, actorId As Integer)
+    Protected Sub New(universeData As Data.UniverseData, actorId As Integer)
         MyBase.New(universeData, actorId)
     End Sub
+
+    Friend Shared Function FromId(universeData As UniverseData, actorId As Integer?) As IActor
+        If actorId.HasValue Then
+            Return New Actor(universeData, actorId.Value)
+        End If
+        Return Nothing
+    End Function
 
     Public Property Location As ILocation Implements IActor.Location
         Get

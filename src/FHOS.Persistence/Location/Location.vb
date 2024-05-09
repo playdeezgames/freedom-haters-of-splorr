@@ -39,7 +39,7 @@ Friend Class Location
         Get
             Dim actorId As Integer
             If EntityData.Statistics.TryGetValue(StatisticTypes.ActorId, actorId) Then
-                Return New Actor(UniverseData, actorId)
+                Return Persistence.Actor.FromId(UniverseData, actorId)
             End If
             Return Nothing
         End Get
@@ -125,7 +125,7 @@ Friend Class Location
                                     }
                                  }
         Dim actorId As Integer = UniverseData.Actors.CreateOrRecycle(actorData)
-        Dim actor = New Actor(UniverseData, actorId)
+        Dim actor = Persistence.Actor.FromId(UniverseData, actorId)
         Me.Actor = actor
         Return actor
     End Function

@@ -11,7 +11,7 @@ Public Class Universe
         Get
             Dim avatarId As Integer
             If UniverseData.Statistics.TryGetValue(StatisticTypes.AvatarId, avatarId) Then
-                Return New Actor(UniverseData, avatarId)
+                Return Persistence.Actor.FromId(UniverseData, avatarId)
             End If
             Return Nothing
         End Get
