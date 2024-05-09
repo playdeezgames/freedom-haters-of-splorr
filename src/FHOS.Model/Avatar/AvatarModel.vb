@@ -160,6 +160,7 @@ Friend Class AvatarModel
     Private ReadOnly verbTable As IReadOnlyDictionary(Of String, (isAvailable As Func(Of Boolean), perform As Action)) =
         New Dictionary(Of String, (isAvailable As Func(Of Boolean), perform As Action)) From
         {
+            {VerbTypes.Status, (Function() True, Sub() Return)},
             {VerbTypes.KnownPlaces, (Function() KnowsPlaces, Sub() Return)},
             {VerbTypes.RefillOxygen, (Function() CanRefillOxygen, AddressOf RefillOxygen)},
             {VerbTypes.Refuel, (Function() CanRefillFuel, AddressOf Refuel)},
@@ -264,6 +265,19 @@ Friend Class AvatarModel
             Return PlanetTypes.Descriptors(avatar.Location.Place.PlanetType).CanRefillOxygen
         End Get
     End Property
+
+    Public ReadOnly Property HomePlanet As IPlaceModel Implements IAvatarModel.HomePlanet
+        Get
+            Return New PlaceModel(avatar.HomePlanet)
+        End Get
+    End Property
+
+    Public ReadOnly Property Faction As IFactionModel Implements IAvatarModel.Faction
+        Get
+            Return New FactionModel(avatar.Faction)
+        End Get
+    End Property
+
     Private Sub RefillOxygen()
         If CanRefillOxygen Then
             avatar.Oxygen = avatar.MaximumOxygen

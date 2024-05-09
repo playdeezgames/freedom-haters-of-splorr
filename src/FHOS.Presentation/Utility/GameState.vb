@@ -27,4 +27,5 @@
     Friend Const ChangeFactionCount = "ChangeFactionCount"
     Friend Const PlanetVicinityList = "PlanetVicinityList"
     Friend Const PlanetVicinityDetails = "PlanetVicinityDetails"
+    Friend Const Status = "Status"
 End Module

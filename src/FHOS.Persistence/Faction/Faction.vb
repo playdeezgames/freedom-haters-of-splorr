@@ -16,4 +16,10 @@ Friend Class Faction
             Return EntityData.Statistics(StatisticTypes.MinimumPlanetCount)
         End Get
     End Property
+
+    Public ReadOnly Property Name As String Implements IFaction.Name
+        Get
+            Return EntityData.Metadatas(MetadataTypes.Name)
+        End Get
+    End Property
 End Class

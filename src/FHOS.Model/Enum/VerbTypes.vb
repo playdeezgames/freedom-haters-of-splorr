@@ -8,4 +8,5 @@
     Public Const EnterOrbit = "Enter Orbit"
     Public Const KnownPlaces = "Known Places..."
     Public Const DistressSignal = "Signal Distress"
+    Public Const Status = "Status"
 End Module

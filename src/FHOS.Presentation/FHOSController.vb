@@ -53,6 +53,7 @@ Public Class FHOSController
         SetState(GameState.MoveLeft, New MoveState(Me, AddressOf SetCurrentState, context, Facing.Left))
         SetState(GameState.MoveRight, New MoveState(Me, AddressOf SetCurrentState, context, Facing.Right))
         SetState(GameState.SignalDistress, New SignalDistressState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Status, New StatusState(Me, AddressOf SetCurrentState, context))
 
         For Each state In doVerbStates
             SetState(state.Key, New DoVerbState(Me, AddressOf SetCurrentState, context, state.Value))
