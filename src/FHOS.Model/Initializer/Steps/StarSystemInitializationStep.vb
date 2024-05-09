@@ -67,7 +67,7 @@ LocationTypes.Void)
         Dim location = starSystem.Map.GetLocation(starColumn, starRow)
         With location
             .LocationType = locationType
-            .Place = starSystem.CreateStarVicinity()
+            .Place = starSystem.CreateStarVicinity(starColumn, starRow)
             .Tutorial = TutorialTypes.StarVicinityApproach
             addStep(New StarVicinityInitializationStep(location), False)
         End With

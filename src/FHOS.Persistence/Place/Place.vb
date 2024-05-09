@@ -80,7 +80,7 @@ Friend Class Place
         End Get
     End Property
 
-    Public Function CreateStarVicinity() As IPlace Implements IPlace.CreateStarVicinity
+    Public Function CreateStarVicinity(x As Integer, y As Integer) As IPlace Implements IPlace.CreateStarVicinity
         Dim starVicinity = New Place(
             UniverseData,
                 UniverseData.Places.CreateOrRecycle(
@@ -95,7 +95,9 @@ Friend Class Place
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
-                        {StatisticTypes.ParentId, Id}
+                        {StatisticTypes.ParentId, Id},
+                        {StatisticTypes.X, x},
+                        {StatisticTypes.Y, y}
                     }
                 }))
         AddPlace(starVicinity)

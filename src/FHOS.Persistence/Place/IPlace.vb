@@ -8,7 +8,7 @@
     ReadOnly Property Parent As IPlace
     ReadOnly Property StarType As String
     ReadOnly Property SatelliteType As String
-    Function CreateStarVicinity() As IPlace
+    Function CreateStarVicinity(x As Integer, y As Integer) As IPlace
     Function CreatePlanetVicinity(planetName As String, planetType As String, x As Integer, y As Integer) As IPlace
     Function CreateStar() As IPlace
     Function CreatePlanet() As IPlace

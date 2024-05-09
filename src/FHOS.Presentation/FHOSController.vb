@@ -33,6 +33,8 @@ Public Class FHOSController
         SetState(GameState.StarSystemDetails, New StarSystemDetailsState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.PlanetVicinityList, New PlanetVicinityListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.PlanetVicinityDetails, New PlanetVicinityDetailsState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.StarVicinityList, New StarVicinityListState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.StarVicinityDetails, New StarVicinityDetailsState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private ReadOnly doVerbStates As IReadOnlyDictionary(Of String, String) =
