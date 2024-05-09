@@ -20,7 +20,7 @@ Friend Class StarSystemDetailsState
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
-        Dim starSystem As IPlaceModel = StarSystemListState.SelectedStarSystem
+        Dim starSystem As IPlaceModel = KnownPlaceListState.SelectedPlace
         With Context
             Dim font = .Font(UIFontName)
             .ShowHeader(
