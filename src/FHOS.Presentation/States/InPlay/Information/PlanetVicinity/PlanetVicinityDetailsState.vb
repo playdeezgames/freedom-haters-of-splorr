@@ -20,7 +20,7 @@ Friend Class PlanetVicinityDetailsState
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
-        Dim planetVicinity As IPlaceModel = PlanetVicinityListState.SelectedPlanetVicinity
+        Dim planetVicinity As IPlaceModel = KnownPlaceListState.SelectedPlace
         With Context
             Dim font = .Font(UIFontName)
             .ShowHeader(

@@ -29,11 +29,32 @@ Public Class FHOSController
 
     Private Sub CreateExplorationStates(context As IUIContext(Of IUniverseModel))
         SetState(GameState.KnownPlaces, New KnownPlacesState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.StarSystemList, New StarSystemListState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.StarSystemList,
+                 New KnownPlaceListState(
+                     Me,
+                     AddressOf SetCurrentState, context,
+                     "Known Star Systems",
+                     GameState.KnownPlaces,
+                     PlaceTypes.StarSystem,
+                     GameState.StarSystemDetails))
         SetState(GameState.StarSystemDetails, New StarSystemDetailsState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.PlanetVicinityList, New PlanetVicinityListState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.PlanetVicinityList,
+                 New KnownPlaceListState(
+                     Me,
+                     AddressOf SetCurrentState, context,
+                     "Known Planet Vicinities",
+                     GameState.KnownPlaces,
+                     PlaceTypes.PlanetVicinity,
+                     GameState.PlanetVicinityDetails))
         SetState(GameState.PlanetVicinityDetails, New PlanetVicinityDetailsState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.StarVicinityList, New StarVicinityListState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.StarVicinityList,
+                 New KnownPlaceListState(
+                     Me,
+                     AddressOf SetCurrentState, context,
+                     "Known Star Vicinities",
+                     GameState.KnownPlaces,
+                     PlaceTypes.StarVicinity,
+                     GameState.StarVicinityDetails))
         SetState(GameState.StarVicinityDetails, New StarVicinityDetailsState(Me, AddressOf SetCurrentState, context))
     End Sub
 

@@ -39,11 +39,11 @@ Friend Class KnownPlacesState
             If .KnowsPlacesOfType(PlaceTypes.StarSystem) Then
                 result.Add((StarSystemListText, StarSystemListText))
             End If
-            If .KnowsPlacesOfType(PlaceTypes.PlanetVicinity) Then
-                result.Add((PlanetVicinityListText, PlanetVicinityListText))
-            End If
             If .KnowsPlacesOfType(PlaceTypes.StarVicinity) Then
                 result.Add((StarVicinityListText, StarVicinityListText))
+            End If
+            If .KnowsPlacesOfType(PlaceTypes.PlanetVicinity) Then
+                result.Add((PlanetVicinityListText, PlanetVicinityListText))
             End If
         End With
         Return result
