@@ -5,12 +5,9 @@
     ReadOnly Property Row As Integer
     Property LocationType As String
     Property Actor As IActor
-    Property Teleporter As ITeleporter
-    ReadOnly Property HasTeleporter As Boolean
     Property Tutorial As String
     Property Place As IPlace
     Function CreateActor(actorType As String) As IActor
-    Function CreateTeleporterTo() As ITeleporter
     Property TargetLocation As ILocation
     ReadOnly Property HasTargetLocation As Boolean
 End Interface

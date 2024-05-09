@@ -59,23 +59,6 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property Teleporter As ITeleporter Implements ILocation.Teleporter
-        Get
-            Dim teleporterId As Integer
-            If EntityData.Statistics.TryGetValue(StatisticTypes.TeleporterId, teleporterId) Then
-                Return Persistence.Teleporter.FromId(UniverseData, teleporterId)
-            End If
-            Return Nothing
-        End Get
-        Set(value As ITeleporter)
-            If value IsNot Nothing Then
-                EntityData.Statistics(StatisticTypes.TeleporterId) = value.Id
-            Else
-                EntityData.Statistics.Remove(StatisticTypes.TeleporterId)
-            End If
-        End Set
-    End Property
-
     Public Property Tutorial As String Implements ILocation.Tutorial
         Get
             Dim result As String = Nothing
@@ -91,12 +74,6 @@ Friend Class Location
                 EntityData.Metadatas(MetadataTypes.Tutorial) = value
             End If
         End Set
-    End Property
-
-    Public ReadOnly Property HasTeleporter As Boolean Implements ILocation.HasTeleporter
-        Get
-            Return EntityData.Statistics.ContainsKey(StatisticTypes.TeleporterId)
-        End Get
     End Property
 
     Public Property Place As IPlace Implements ILocation.Place
@@ -150,17 +127,5 @@ Friend Class Location
         Dim actor = Persistence.Actor.FromId(UniverseData, actorId)
         Me.Actor = actor
         Return actor
-    End Function
-
-    Public Function CreateTeleporterTo() As ITeleporter Implements ILocation.CreateTeleporterTo
-        Dim teleporterData As New TeleporterData With
-            {
-                .Statistics = New Dictionary(Of String, Integer) From
-                {
-                    {StatisticTypes.LocationId, Id}
-                }
-            }
-        Dim teleporterId As Integer = UniverseData.Teleporters.CreateOrRecycle(teleporterData)
-        Return Persistence.Teleporter.FromId(UniverseData, teleporterId)
     End Function
 End Class
