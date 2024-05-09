@@ -29,10 +29,22 @@ Friend Module Edger
             End Function).ToList
 
     End Function
-    Friend Sub PlaceBoundary(location As ILocation, locationType As String, teleporter As ITeleporter)
+    Friend Sub PlaceBoundary(location As ILocation, locationType As String, teleporter As ITeleporter, targetLocation As ILocation)
         With location
             .LocationType = locationType
             .Teleporter = teleporter
+            .TargetLocation = targetLocation
         End With
+    End Sub
+    Friend Sub PlaceBoundaries(place As IPlace, targetLocation As ILocation, columns As Integer, rows As Integer)
+        Dim teleporter = targetLocation.CreateTeleporterTo()
+        Dim identifier = place.Identifier
+        For Each corner In GetCorners(columns, rows)
+            PlaceBoundary(place.Map.GetLocation(corner.X, corner.Y), corner.LocationType, teleporter, targetLocation)
+        Next
+        For Each edge In GetEdges(columns, rows)
+            PlaceBoundary(place.Map.GetLocation(edge.X, edge.Y), edge.LocationType, teleporter, targetLocation)
+            place.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(identifier)
+        Next
     End Sub
 End Module

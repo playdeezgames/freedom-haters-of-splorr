@@ -11,4 +11,6 @@
     Property Place As IPlace
     Function CreateActor(actorType As String) As IActor
     Function CreateTeleporterTo() As ITeleporter
+    Property TargetLocation As ILocation
+    ReadOnly Property HasTargetLocation As Boolean
 End Interface

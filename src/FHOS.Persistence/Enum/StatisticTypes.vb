@@ -26,4 +26,5 @@
     Friend Const X = "X"
     Friend Const Y = "Y"
     Friend Const SatelliteCount = "SatelliteCount"
+    Friend Const TargetLocationId = "TargetLocationId"
 End Module

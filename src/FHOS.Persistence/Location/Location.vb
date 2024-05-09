@@ -116,6 +116,21 @@ Friend Class Location
         End Set
     End Property
 
+    Public Property TargetLocation As ILocation Implements ILocation.TargetLocation
+        Get
+            Return Location.FromId(UniverseData, GetStatistic(StatisticTypes.TargetLocationId))
+        End Get
+        Set(value As ILocation)
+            SetStatistic(StatisticTypes.TargetLocationId, value?.Id)
+        End Set
+    End Property
+
+    Public ReadOnly Property HasTargetLocation As Boolean Implements ILocation.HasTargetLocation
+        Get
+            Return EntityData.Statistics.ContainsKey(StatisticTypes.TargetLocationId)
+        End Get
+    End Property
+
     Public Function CreateActor(actorType As String) As IActor Implements ILocation.CreateActor
         Dim actorData = New ActorData With
                                  {
