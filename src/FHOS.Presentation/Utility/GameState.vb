@@ -34,4 +34,6 @@
     Friend Const PlanetDetails = "PlanetDetails"
     Friend Const SatelliteList = "SatelliteList"
     Friend Const SatelliteDetails = "SatelliteDetails"
+    Friend ReadOnly Interaction As String = NameOf(Interaction)
+    Friend ReadOnly LeaveInteraction As String = NameOf(LeaveInteraction)
 End Module

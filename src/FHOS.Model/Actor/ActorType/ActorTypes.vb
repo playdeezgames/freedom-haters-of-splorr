@@ -34,6 +34,8 @@ Friend Module ActorTypes
         }
 
     Private Sub InitializeEnemy(actor As Persistence.IActor)
+        actor.Faction = RNG.FromGenerator(actor.Universe.Factions.ToDictionary(Function(x) x, Function(x) x.PlanetCount))
+        actor.HomePlanet = RNG.FromEnumerable(actor.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = actor.Faction.Id))
     End Sub
 
     Private Sub InitializePlayer(actor As Persistence.IActor)

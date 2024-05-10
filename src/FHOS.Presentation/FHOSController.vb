@@ -21,6 +21,8 @@ Public Class FHOSController
         SetState(GameState.Tutorial, New TutorialState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Message, New MessageState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.GameOver, New GameOverState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Interaction, New InteractionState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.LeaveInteraction, New LeaveInteractionState(Me, AddressOf SetCurrentState, context))
 
         SetState(GameState.ActionMenu, New ActionMenuState(Me, AddressOf SetCurrentState, context))
 

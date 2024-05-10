@@ -22,4 +22,13 @@ Friend Class Faction
             Return EntityData.Metadatas(MetadataTypes.Name)
         End Get
     End Property
+
+    Public Property PlanetCount As Integer Implements IFaction.PlanetCount
+        Get
+            Return If(GetStatistic(StatisticTypes.PlanetCount), 0)
+        End Get
+        Set(value As Integer)
+            SetStatistic(StatisticTypes.PlanetCount, value)
+        End Set
+    End Property
 End Class

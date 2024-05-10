@@ -31,4 +31,5 @@
     Property Faction As IFaction
     ReadOnly Property Universe As IUniverse
     Property HomePlanet As IPlace
+    Property Interactor As IActor
 End Interface

@@ -215,4 +215,13 @@ Friend Class Actor
             End If
         End Set
     End Property
+
+    Public Property Interactor As IActor Implements IActor.Interactor
+        Get
+            Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.InteractorId))
+        End Get
+        Set(value As IActor)
+            SetStatistic(StatisticTypes.InteractorId, value?.Id)
+        End Set
+    End Property
 End Class

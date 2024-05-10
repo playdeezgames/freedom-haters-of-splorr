@@ -27,4 +27,6 @@
     Friend Const Y = "Y"
     Friend Const SatelliteCount = "SatelliteCount"
     Friend Const TargetLocationId = "TargetLocationId"
+    Friend Const PlanetCount = "PlanetCount"
+    Friend ReadOnly InteractorId As String = NameOf(InteractorId)
 End Module

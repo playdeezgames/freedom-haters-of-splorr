@@ -278,6 +278,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property IsInteracting As Boolean Implements IAvatarModel.IsInteracting
+        Get
+            Return avatar.Interactor IsNot Nothing
+        End Get
+    End Property
+
     Private Sub RefillOxygen()
         If CanRefillOxygen Then
             avatar.Oxygen = avatar.MaximumOxygen
@@ -299,13 +305,17 @@ Friend Class AvatarModel
         Dim nextRow = location.Row + delta.Y
         Dim map = location.Map
         Dim nextLocation = map.GetLocation(nextColumn, nextRow)
-        If nextLocation IsNot Nothing And nextLocation.Actor Is Nothing Then
-            If nextLocation.HasTargetLocation Then
-                SetLocation(nextLocation.TargetLocation)
-            Else
-                SetLocation(nextLocation)
-            End If
+        If nextLocation Is Nothing Then
+            Return
         End If
+        If nextLocation.Actor IsNot Nothing Then
+            avatar.Interactor = nextLocation.Actor
+            Return
+        End If
+        If nextLocation.HasTargetLocation Then
+            nextLocation = nextLocation.TargetLocation
+        End If
+        SetLocation(nextLocation)
     End Sub
 
     Public Function KnowsPlacesOfType(placeType As String) As Boolean Implements IAvatarModel.KnowsPlacesOfType
@@ -315,4 +325,8 @@ Friend Class AvatarModel
     Public Function GetKnownPlacesOfType(placeType As String) As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.GetKnownPlacesOfType
         Return avatar.GetKnownPlacesOfType(placeType).Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
     End Function
+
+    Public Sub LeaveInteraction() Implements IAvatarModel.LeaveInteraction
+        avatar.Interactor = Nothing
+    End Sub
 End Class

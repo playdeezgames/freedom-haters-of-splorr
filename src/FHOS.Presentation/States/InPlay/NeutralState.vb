@@ -18,17 +18,20 @@ Friend Class NeutralState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        If Not Context.Model.DoneGenerating Then
-            SetState(GameState.Generate)
-        ElseIf Context.Model.Messages.HasAny Then
-            SetState(GameState.Message)
-        ElseIf Context.Model.Avatar.IsGameOver Then
-            SetState(GameState.GameOver)
-        ElseIf Context.Model.Avatar.Tutorial.HasAny Then
-            SetState(GameState.Tutorial)
-        Else
-            SetState(GameState.Navigation)
-        End If
-
+        With Context.Model
+            If Not .DoneGenerating Then
+                SetState(GameState.Generate)
+            ElseIf .Messages.HasAny Then
+                SetState(GameState.Message)
+            ElseIf .Avatar.IsGameOver Then
+                SetState(GameState.GameOver)
+            ElseIf .Avatar.Tutorial.HasAny Then
+                SetState(GameState.Tutorial)
+            ElseIf .Avatar.IsInteracting Then
+                SetState(GameState.Interaction)
+            Else
+                SetState(GameState.Navigation)
+            End If
+        End With
     End Sub
 End Class

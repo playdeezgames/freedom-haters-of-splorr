@@ -30,6 +30,8 @@
     ReadOnly Property KnowsPlaces As Boolean
     Function KnowsPlacesOfType(placeType As String) As Boolean
     Function GetKnownPlacesOfType(placeType As String) As IEnumerable(Of (Text As String, Item As IPlaceModel))
+    Sub LeaveInteraction()
     ReadOnly Property HomePlanet As IPlaceModel
     ReadOnly Property Faction As IFactionModel
+    ReadOnly Property IsInteracting As Boolean
 End Interface
