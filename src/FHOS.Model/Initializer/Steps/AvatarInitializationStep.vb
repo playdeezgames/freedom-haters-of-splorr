@@ -17,11 +17,7 @@ Friend Class AvatarInitializationStep
         Do
             actorLocation = starMap.GetLocation(RNG.FromRange(0, starMap.Size.Columns - 1), RNG.FromRange(0, starMap.Size.Rows - 1))
         Loop Until descriptor.CanSpawn(actorLocation)
-        Dim actor = actorLocation.CreateActor(Player)
-        actor.MaximumOxygen = descriptor.MaximumOxygen
-        actor.Oxygen = descriptor.MaximumOxygen
-        actor.MaximumFuel = descriptor.MaximumFuel
-        actor.Fuel = descriptor.MaximumFuel
+        Dim actor = descriptor.CreateActor(actorLocation)
         actor.Jools = StartingWealthLevels.Descriptors(embarkSettings.StartingWealthLevel).GenerateJools
         actor.MinimumJools = StartingWealthLevels.Descriptors(embarkSettings.StartingWealthLevel).MinimumJools
         actor.Faction = actor.Universe.Factions.Single(Function(x) x.HasFlag(FlagTypes.LovesFreedom))

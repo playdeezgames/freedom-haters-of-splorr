@@ -299,7 +299,7 @@ Friend Class AvatarModel
         Dim nextRow = location.Row + delta.Y
         Dim map = location.Map
         Dim nextLocation = map.GetLocation(nextColumn, nextRow)
-        If nextLocation IsNot Nothing Then
+        If nextLocation IsNot Nothing And nextLocation.Actor Is Nothing Then
             If nextLocation.HasTargetLocation Then
                 SetLocation(nextLocation.TargetLocation)
             Else
