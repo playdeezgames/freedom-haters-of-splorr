@@ -50,6 +50,16 @@ Public Class Universe
         End Get
     End Property
 
+    Public ReadOnly Property Actors As IEnumerable(Of IActor) Implements IUniverse.Actors
+        Get
+            Dim actorIds = New HashSet(Of Integer)(Enumerable.Range(0, UniverseData.Actors.Entities.Count))
+            For Each recycledId In UniverseData.Actors.Recycled
+                actorIds.Remove(recycledId)
+            Next
+            Return actorIds.Select(Function(x) Actor.FromId(UniverseData, x))
+        End Get
+    End Property
+
     Public Function CreateMap(mapType As String, mapName As String, columns As Integer, rows As Integer, locationType As String) As IMap Implements IUniverse.CreateMap
         Dim mapData = New MapData With
             {

@@ -1,4 +1,7 @@
-﻿Friend Module ActorTypes
+﻿Imports FHOS.Persistence
+Imports SPLORR.Game
+
+Friend Module ActorTypes
     Friend Const Player = "Player"
     Friend Const Enemy = "Enemy"
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, ActorTypeDescriptor) =
@@ -12,7 +15,9 @@
                     Hue.LightGray,
                     maximumOxygen:=100,
                     maximumFuel:=100,
-                    canSpawn:=Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing)
+                    spawnCount:=1,
+                    canSpawn:=Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing,
+                    initializer:=AddressOf InitializePlayer)
             },
             {
                 Enemy,
@@ -23,7 +28,17 @@
                     maximumOxygen:=100,
                     maximumFuel:=100,
                     spawnCount:=25,
-                    canSpawn:=Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing)
+                    canSpawn:=Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing,
+                    initializer:=AddressOf InitializeEnemy)
             }
         }
+
+    Private Sub InitializeEnemy(actor As Persistence.IActor)
+    End Sub
+
+    Private Sub InitializePlayer(actor As Persistence.IActor)
+        actor.SetFlag(FlagTypes.IsAvatar)
+        actor.Faction = actor.Universe.Factions.Single(Function(x) x.HasFlag(FlagTypes.LovesFreedom))
+        actor.HomePlanet = RNG.FromEnumerable(actor.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = actor.Faction.Id))
+    End Sub
 End Module

@@ -4,24 +4,15 @@ Imports SPLORR.Game
 Friend Class AvatarInitializationStep
     Inherits InitializationStep
     ReadOnly universe As IUniverse
-    ReadOnly starMap As IMap
     ReadOnly embarkSettings As EmbarkSettings
-    Sub New(universe As IUniverse, starMap As IMap, embarkSettings As EmbarkSettings)
+    Sub New(universe As IUniverse, embarkSettings As EmbarkSettings)
         Me.universe = universe
-        Me.starMap = starMap
         Me.embarkSettings = embarkSettings
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        Dim actorLocation As ILocation
-        Dim descriptor = ActorTypes.Descriptors(Player)
-        Do
-            actorLocation = starMap.GetLocation(RNG.FromRange(0, starMap.Size.Columns - 1), RNG.FromRange(0, starMap.Size.Rows - 1))
-        Loop Until descriptor.CanSpawn(actorLocation)
-        Dim actor = descriptor.CreateActor(actorLocation)
+        Dim actor = universe.Actors.Single(Function(x) x.HasFlag(FlagTypes.IsAvatar))
         actor.Jools = StartingWealthLevels.Descriptors(embarkSettings.StartingWealthLevel).GenerateJools
         actor.MinimumJools = StartingWealthLevels.Descriptors(embarkSettings.StartingWealthLevel).MinimumJools
-        actor.Faction = actor.Universe.Factions.Single(Function(x) x.HasFlag(FlagTypes.LovesFreedom))
-        actor.HomePlanet = RNG.FromEnumerable(actor.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = actor.Faction.Id))
         universe.Avatar = actor
     End Sub
 End Class

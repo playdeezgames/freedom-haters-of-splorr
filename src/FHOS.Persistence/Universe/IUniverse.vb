@@ -17,4 +17,5 @@ Public Interface IUniverse
     Function GetPlacesOfType(placeType As String) As IEnumerable(Of IPlace)
     Function CreateFaction(factionName As String, minimumPlanetCount As Integer, flags As IEnumerable(Of String)) As IFaction
     ReadOnly Property Factions As IEnumerable(Of IFaction)
+    ReadOnly Property Actors As IEnumerable(Of IActor)
 End Interface

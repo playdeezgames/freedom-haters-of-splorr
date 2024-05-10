@@ -9,6 +9,7 @@ Friend Class ActorTypeDescriptor
     ReadOnly Property CanSpawn As Func(Of ILocation, Boolean)
     ReadOnly Property SpawnCount As Integer
     ReadOnly Property ActorType As String
+    ReadOnly Property Initializer As Action(Of IActor)
     Sub New(
            actorType As String,
            glyphs As Char(),
@@ -16,7 +17,8 @@ Friend Class ActorTypeDescriptor
            Optional maximumOxygen As Integer = 0,
            Optional maximumFuel As Integer = 0,
            Optional spawnCount As Integer = 0,
-           Optional canSpawn As Func(Of ILocation, Boolean) = Nothing)
+           Optional canSpawn As Func(Of ILocation, Boolean) = Nothing,
+           Optional initializer As Action(Of IActor) = Nothing)
         Me.ActorType = actorType
         Me.Glyphs = glyphs
         Me.Hue = hue
@@ -27,6 +29,10 @@ Friend Class ActorTypeDescriptor
         End If
         Me.CanSpawn = canSpawn
         Me.SpawnCount = spawnCount
+        If initializer Is Nothing Then
+            initializer = Sub(x) Return
+        End If
+        Me.Initializer = initializer
     End Sub
     Function CreateActor(location As ILocation) As IActor
         If Not CanSpawn(location) Then
@@ -38,6 +44,9 @@ Friend Class ActorTypeDescriptor
         actor.Oxygen = MaximumOxygen
         actor.MaximumFuel = MaximumFuel
         actor.Fuel = MaximumFuel
+        actor.Jools = 0
+        actor.MinimumJools = 0
+        Initializer.Invoke(actor)
         Return actor
     End Function
 End Class
