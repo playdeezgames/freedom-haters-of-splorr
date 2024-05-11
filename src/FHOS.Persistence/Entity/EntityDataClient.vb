@@ -44,5 +44,18 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         End If
         Return Nothing
     End Function
-
+    Protected Sub SetMetadata(metadataType As String, value As String)
+        If value Is Nothing Then
+            EntityData.Metadatas.Remove(metadataType)
+        Else
+            EntityData.Metadatas(metadataType) = value
+        End If
+    End Sub
+    Protected Function GetMetadata(metadataType As String) As String
+        Dim result As String = Nothing
+        If EntityData.Metadatas.TryGetValue(metadataType, result) Then
+            Return result
+        End If
+        Return Nothing
+    End Function
 End Class

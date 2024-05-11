@@ -1,5 +1,6 @@
 # Freedom Haters of SPLORR!!
 
+  - [ ] 20240510 - SIGMO FHOS Episode 27 - 
   - [ ] 20240510 - SIGMO FHOS Episode 26 - 
   - [x] 20240509 - SIGMO FHOS Episode 25 - 
   - [x] 20240508 - SIGMO FHOS Episode 24 - 
@@ -8,7 +9,7 @@
 
 Freedom Haters of SPLORR!!
 
-"Freedom Haters of SPLORR!!" Dystopian Futuristic Sci-Fi Roguelike. #LoveFreedom #LiveFreeOrDie #FlossingForFreedom
+"Freedom Haters of SPLORR!!" Dev. Rule #1: Love FREEDOM! Rule #2: Live FREE or DIE! #satire
 
 ## Music
 https://pernyblom.github.io/abundant-music/index.html

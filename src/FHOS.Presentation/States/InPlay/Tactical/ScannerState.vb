@@ -78,6 +78,10 @@ Friend Class ScannerState
         If place IsNot Nothing Then
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Place: {place.Name}", Black)
         End If
+        Dim actor = TargetLocation.Actor
+        If actor IsNot Nothing Then
+            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"{actor.Name}", Black)
+        End If
     End Sub
 
     Public Overrides Sub OnStart()

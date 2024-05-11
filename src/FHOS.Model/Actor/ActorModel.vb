@@ -18,4 +18,16 @@
             Return ActorTypes.Descriptors(actor.ActorType).Hue
         End Get
     End Property
+
+    Public ReadOnly Property Name As String Implements IActorModel.Name
+        Get
+            Return actor.Name
+        End Get
+    End Property
+
+    Public ReadOnly Property Faction As IFactionModel Implements IActorModel.Faction
+        Get
+            Return New FactionModel(actor.Faction)
+        End Get
+    End Property
 End Class

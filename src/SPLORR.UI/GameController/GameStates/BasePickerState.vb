@@ -30,11 +30,14 @@
         End Select
     End Sub
     Protected MustOverride Sub OnActivateMenuItem(value As (Text As String, Item As TItem))
+    Protected Overridable Function GetCenterY() As Integer
+        Return Context.ViewCenter.Y
+    End Function
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFont)
-        displayBuffer.Fill((0, Context.ViewCenter.Y - font.HalfHeight), (Context.ViewSize.Width, font.Height), Context.UIPalette.MenuItem)
-        Dim y = Context.ViewCenter.Y - font.HalfHeight - MenuItemIndex * font.Height
+        displayBuffer.Fill((0, GetCenterY() - font.HalfHeight), (Context.ViewSize.Width, font.Height), Context.UIPalette.MenuItem)
+        Dim y = GetCenterY() - font.HalfHeight - MenuItemIndex * font.Height
         Dim index = 0
         For Each menuItem In _menuItems
             Dim h = If(index = MenuItemIndex, Context.UIPalette.Background, Context.UIPalette.MenuItem)

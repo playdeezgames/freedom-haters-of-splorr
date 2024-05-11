@@ -3,6 +3,7 @@
     ReadOnly Property ActorType As String
     Property Location As ILocation
     Property Facing As Integer
+    Property Name As String
 
     Property MaximumOxygen As Integer
     Property Oxygen As Integer

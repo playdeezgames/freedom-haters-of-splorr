@@ -224,4 +224,13 @@ Friend Class Actor
             SetStatistic(StatisticTypes.InteractorId, value?.Id)
         End Set
     End Property
+
+    Public Property Name As String Implements IActor.Name
+        Get
+            Return GetMetadata(MetadataTypes.Name)
+        End Get
+        Set(value As String)
+            SetMetadata(MetadataTypes.Name, value)
+        End Set
+    End Property
 End Class

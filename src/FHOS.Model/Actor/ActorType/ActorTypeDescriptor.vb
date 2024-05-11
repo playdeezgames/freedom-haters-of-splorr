@@ -46,6 +46,7 @@ Friend Class ActorTypeDescriptor
         actor.Fuel = MaximumFuel
         actor.Jools = 0
         actor.MinimumJools = 0
+        actor.Name = ActorType
         Initializer.Invoke(actor)
         Return actor
     End Function

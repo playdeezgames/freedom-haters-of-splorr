@@ -12,7 +12,7 @@ Friend Class InteractionState
             parent,
             setState,
             context,
-            "<interaction placeholder>",
+            "",
             context.ControlsText(aButton:="Chooses", bButton:="Cancel"),
             GameState.LeaveInteraction)
     End Sub
@@ -31,4 +31,13 @@ Friend Class InteractionState
             (GoodbyeText, GoodbyeText)
             }.ToList
     End Function
+
+    Protected Overrides Function GetCenterY() As Integer
+        Return Context.ViewSize.Height * 7 \ 8
+    End Function
+
+    Public Overrides Sub Render(displayBuffer As IPixelSink)
+        MyBase.Render(displayBuffer)
+        displayBuffer.Fill((0, 0), (Context.ViewSize.Width, Context.ViewSize.Height * 3 \ 4), Context.UIPalette.Background)
+    End Sub
 End Class
