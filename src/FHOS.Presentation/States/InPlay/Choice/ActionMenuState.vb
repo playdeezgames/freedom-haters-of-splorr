@@ -29,7 +29,8 @@ Friend Class ActionMenuState
             {VerbTypes.DistressSignal, GameState.SignalDistress},
             {VerbTypes.KnownPlaces, GameState.KnownPlaces},
             {VerbTypes.EnterOrbit, GameState.EnterOrbit},
-            {VerbTypes.Status, GameState.Status}
+            {VerbTypes.Status, GameState.Status},
+            {VerbTypes.SPLORRPedia, GameState.SPLORRPedia}
         }
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
@@ -40,7 +41,7 @@ Friend Class ActionMenuState
         Dim result As New List(Of (Text As String, Item As String))
         With Context.Model.Avatar
             For Each verb In .AvailableVerbs
-                result.Add((verb, verb))
+                result.Add((verb.Text, verb.VerbType))
             Next
         End With
         Return result

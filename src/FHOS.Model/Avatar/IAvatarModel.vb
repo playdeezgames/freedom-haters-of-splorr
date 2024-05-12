@@ -25,7 +25,7 @@
     ReadOnly Property Tutorial As IAvatarTutorialModel
 
     ReadOnly Property CurrentPlace As IPlaceModel
-    ReadOnly Property AvailableVerbs As IEnumerable(Of String)
+    ReadOnly Property AvailableVerbs As IEnumerable(Of (Text As String, VerbType As String))
     Sub DoVerb(verbType As String)
     ReadOnly Property KnowsPlaces As Boolean
     Function KnowsPlacesOfType(placeType As String) As Boolean

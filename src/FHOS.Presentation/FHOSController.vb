@@ -23,6 +23,7 @@ Public Class FHOSController
         SetState(GameState.GameOver, New GameOverState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Interaction, New InteractionState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.LeaveInteraction, New LeaveInteractionState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.SPLORRPedia, New SPLORRPediaState(Me, AddressOf SetCurrentState, context))
 
         SetState(GameState.ActionMenu, New ActionMenuState(Me, AddressOf SetCurrentState, context))
 

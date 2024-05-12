@@ -133,9 +133,11 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property AvailableVerbs As IEnumerable(Of String) Implements IAvatarModel.AvailableVerbs
+    Public ReadOnly Property AvailableVerbs As IEnumerable(Of (Text As String, VerbType As String)) Implements IAvatarModel.AvailableVerbs
         Get
-            Return verbTable.Where(Function(x) x.Value.isAvailable.Invoke()).Select(Function(x) x.Key)
+            Return verbTable.
+                Where(Function(x) x.Value.isAvailable.Invoke()).
+                Select(Function(x) (VerbTypes.Descriptors(x.Key).Text, x.Key))
         End Get
     End Property
 
@@ -169,7 +171,8 @@ Friend Class AvatarModel
             {VerbTypes.EnterStarSystem, (Function() CanEnterStarSystem, AddressOf EnterStarSystem)},
             {VerbTypes.ApproachPlanetVicinity, (Function() CanApproachPlanetVicinity, AddressOf ApproachPlanetVicinity)},
             {VerbTypes.ApproachStarVicinity, (Function() CanApproachStarVicinity, AddressOf ApproachStarVicinity)},
-            {VerbTypes.DistressSignal, (Function() Not CanMove, AddressOf DoDistressSignal)}
+            {VerbTypes.DistressSignal, (Function() Not CanMove, AddressOf DoDistressSignal)},
+            {VerbTypes.SPLORRPedia, (Function() True, Sub() Return)}
         }
 
     Private ReadOnly Property CanEnterStarSystem As Boolean
