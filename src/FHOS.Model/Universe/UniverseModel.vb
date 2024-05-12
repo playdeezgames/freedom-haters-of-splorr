@@ -117,6 +117,12 @@ Public Class UniverseModel
         End Get
     End Property
 
+    Public ReadOnly Property FactionList As IEnumerable(Of (String, IFactionModel)) Implements IUniverseModel.FactionList
+        Get
+            Return Universe.Factions.Select(Function(x) (x.Name, CType(New FactionModel(x), IFactionModel)))
+        End Get
+    End Property
+
     Const EmbarkSettingsFilename = "embark-settings.json"
     Private Shared _embarkSettings As EmbarkSettings
 End Class

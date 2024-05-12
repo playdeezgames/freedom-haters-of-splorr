@@ -15,4 +15,5 @@ Public Interface IUniverseModel
     ReadOnly Property Avatar As IAvatarModel
     ReadOnly Property Messages As IMessagesModel
     ReadOnly Property DoneGenerating As Boolean
+    ReadOnly Property FactionList As IEnumerable(Of (String, IFactionModel))
 End Interface

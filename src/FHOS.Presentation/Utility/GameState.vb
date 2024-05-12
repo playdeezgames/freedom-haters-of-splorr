@@ -38,4 +38,5 @@
     Friend ReadOnly LeaveInteraction As String = NameOf(LeaveInteraction)
     Friend ReadOnly SPLORRPedia As String = NameOf(SPLORRPedia)
     Friend ReadOnly FactionList As String = NameOf(FactionList)
+    Friend ReadOnly FactionDetails As String = NameOf(FactionDetails)
 End Module

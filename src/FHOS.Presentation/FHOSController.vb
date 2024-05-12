@@ -21,9 +21,13 @@ Public Class FHOSController
         SetState(GameState.Tutorial, New TutorialState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Message, New MessageState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.GameOver, New GameOverState(Me, AddressOf SetCurrentState, context))
+
         SetState(GameState.Interaction, New InteractionState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.LeaveInteraction, New LeaveInteractionState(Me, AddressOf SetCurrentState, context))
+
         SetState(GameState.SPLORRPedia, New SPLORRPediaState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.FactionList, New FactionListState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.FactionDetails, New FactionDetailState(Me, AddressOf SetCurrentState, context))
 
         SetState(GameState.ActionMenu, New ActionMenuState(Me, AddressOf SetCurrentState, context))
 
