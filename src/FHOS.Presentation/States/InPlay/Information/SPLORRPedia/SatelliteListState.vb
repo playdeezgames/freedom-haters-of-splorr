@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Model
 Imports SPLORR.UI
 
-Friend Class StarSystemListState
+Friend Class SatelliteListState
     Inherits BasePickerState(Of IUniverseModel, IPlaceModel)
 
     Public Sub New(
@@ -12,7 +12,7 @@ Friend Class StarSystemListState
             parent,
             setState,
             context,
-            "Star Systems",
+            "Satellites",
             context.ControlsText(bButton:="Cancel"),
             GameState.SPLORRPedia,
             pageSize:=20)
@@ -23,6 +23,6 @@ Friend Class StarSystemListState
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IPlaceModel))
-        Return Context.Model.StarSystems.ToList
+        Return Context.Model.Satellites.ToList
     End Function
 End Class

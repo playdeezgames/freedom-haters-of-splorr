@@ -40,4 +40,6 @@
     Friend ReadOnly FactionList As String = NameOf(FactionList)
     Friend ReadOnly FactionDetails As String = NameOf(FactionDetails)
     Friend ReadOnly StarSystemList As String = NameOf(StarSystemList)
+    Friend ReadOnly PlanetList As String = NameOf(PlanetList)
+    Friend ReadOnly SatelliteList As String = NameOf(SatelliteList)
 End Module
