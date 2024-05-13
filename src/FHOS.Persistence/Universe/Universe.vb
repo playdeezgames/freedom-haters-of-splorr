@@ -7,23 +7,6 @@ Public Class Universe
         MyBase.New(universeData)
     End Sub
 
-    Public Property LegacyAvatar As IActor Implements IUniverse.LegacyAvatar
-        Get
-            Dim avatarId As Integer
-            If UniverseData.Statistics.TryGetValue(StatisticTypes.AvatarId, avatarId) Then
-                Return Persistence.Actor.FromId(UniverseData, avatarId)
-            End If
-            Return Nothing
-        End Get
-        Set(value As IActor)
-            If value IsNot Nothing Then
-                UniverseData.Statistics(StatisticTypes.AvatarId) = value.Id
-            Else
-                UniverseData.Statistics.Remove(StatisticTypes.AvatarId)
-            End If
-        End Set
-    End Property
-
     Public ReadOnly Property Messages As IMessages Implements IUniverse.Messages
         Get
             Return New Messages(UniverseData.Messages)

@@ -11,7 +11,6 @@ Public Interface IUniverse
                              x As Integer,
                              y As Integer) As IPlace
     Function CreateWormhole(wormholeName As String) As IPlace
-    Property LegacyAvatar As IActor
     Sub PushAvatar(avatar As IActor)
     Function PopAvatar() As IActor
     ReadOnly Property Avatar As IActor

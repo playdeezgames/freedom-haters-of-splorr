@@ -1,6 +1,5 @@
 ﻿Friend Module StatisticTypes
     Friend Const ActorId = "ActorId"
-    Friend Const AvatarId = "AvatarId"
     Friend Const Column = "Column"
     Friend Const Columns = "Columns"
     Friend Const Facing = "Facing"
