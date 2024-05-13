@@ -30,7 +30,11 @@ Friend Class ActionMenuState
             {VerbTypes.KnownPlaces, GameState.KnownPlaces},
             {VerbTypes.EnterOrbit, GameState.EnterOrbit},
             {VerbTypes.Status, GameState.Status},
-            {VerbTypes.SPLORRPedia, GameState.SPLORRPedia}
+            {VerbTypes.SPLORRPedia, GameState.SPLORRPedia},
+            {VerbTypes.MoveRight, GameState.MoveRight},
+            {VerbTypes.MoveLeft, GameState.MoveLeft},
+            {VerbTypes.MoveUp, GameState.MoveUp},
+            {VerbTypes.MoveDown, GameState.MoveDown}
         }
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))

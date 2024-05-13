@@ -1,15 +1,20 @@
 ﻿Public Module VerbTypes
-    Public ReadOnly EnterStarSystem As String = NameOf(EnterStarSystem)
     Public ReadOnly ApproachPlanetVicinity As String = NameOf(ApproachPlanetVicinity)
     Public ReadOnly ApproachStarVicinity As String = NameOf(ApproachStarVicinity)
+    Public ReadOnly DistressSignal As String = NameOf(DistressSignal)
+    Public ReadOnly EnterOrbit As String = NameOf(EnterOrbit)
+    Public ReadOnly EnterStarSystem As String = NameOf(EnterStarSystem)
+    Public ReadOnly EnterWormhole As String = NameOf(EnterWormhole)
+    Public ReadOnly KnownPlaces As String = NameOf(KnownPlaces)
+    Public ReadOnly MoveRight As String = NameOf(MoveRight)
+    Public ReadOnly MoveUp As String = NameOf(MoveUp)
+    Public ReadOnly MoveDown As String = NameOf(MoveDown)
+    Public ReadOnly MoveLeft As String = NameOf(MoveLeft)
     Public ReadOnly RefillOxygen As String = NameOf(RefillOxygen)
     Public ReadOnly Refuel As String = NameOf(Refuel)
-    Public ReadOnly EnterWormhole As String = NameOf(EnterWormhole)
-    Public ReadOnly EnterOrbit As String = NameOf(EnterOrbit)
-    Public ReadOnly KnownPlaces As String = NameOf(KnownPlaces)
-    Public ReadOnly DistressSignal As String = NameOf(DistressSignal)
-    Public ReadOnly Status As String = NameOf(Status)
     Public ReadOnly SPLORRPedia As String = NameOf(SPLORRPedia)
+    Public ReadOnly Status As String = NameOf(Status)
+
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, VerbTypeDescriptor) =
         New Dictionary(Of String, VerbTypeDescriptor) From
         {
@@ -23,6 +28,10 @@
             {KnownPlaces, New VerbTypeDescriptor("Known Places...")},
             {DistressSignal, New VerbTypeDescriptor("Signal Distress")},
             {Status, New VerbTypeDescriptor("Status")},
+            {MoveUp, New VerbTypeDescriptor("Move Up")},
+            {MoveRight, New VerbTypeDescriptor("Move Right")},
+            {MoveDown, New VerbTypeDescriptor("Move Down")},
+            {MoveLeft, New VerbTypeDescriptor("Move Left")},
             {SPLORRPedia, New VerbTypeDescriptor("SPLORR!!Pedia")}
         }
 End Module

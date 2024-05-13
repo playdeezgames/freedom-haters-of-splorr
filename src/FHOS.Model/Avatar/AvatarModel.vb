@@ -172,6 +172,10 @@ Friend Class AvatarModel
             {VerbTypes.ApproachPlanetVicinity, (Function() CanApproachPlanetVicinity, AddressOf ApproachPlanetVicinity)},
             {VerbTypes.ApproachStarVicinity, (Function() CanApproachStarVicinity, AddressOf ApproachStarVicinity)},
             {VerbTypes.DistressSignal, (Function() Not CanMove, AddressOf DoDistressSignal)},
+            {VerbTypes.MoveUp, (Function() CanMove, Sub() Return)},
+            {VerbTypes.MoveRight, (Function() CanMove, Sub() Return)},
+            {VerbTypes.MoveDown, (Function() CanMove, Sub() Return)},
+            {VerbTypes.MoveLeft, (Function() CanMove, Sub() Return)},
             {VerbTypes.SPLORRPedia, (Function() True, Sub() Return)}
         }
 
