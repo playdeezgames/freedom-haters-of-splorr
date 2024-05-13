@@ -28,10 +28,10 @@
             {KnownPlaces, New VerbTypeDescriptor("Known Places...")},
             {DistressSignal, New VerbTypeDescriptor("Signal Distress")},
             {Status, New VerbTypeDescriptor("Status")},
-            {MoveUp, New VerbTypeDescriptor("Move Up")},
-            {MoveRight, New VerbTypeDescriptor("Move Right")},
-            {MoveDown, New VerbTypeDescriptor("Move Down")},
-            {MoveLeft, New VerbTypeDescriptor("Move Left")},
+            {MoveUp, New VerbTypeDescriptor("Move Up", visible:=False)},
+            {MoveRight, New VerbTypeDescriptor("Move Right", visible:=False)},
+            {MoveDown, New VerbTypeDescriptor("Move Down", visible:=False)},
+            {MoveLeft, New VerbTypeDescriptor("Move Left", visible:=False)},
             {SPLORRPedia, New VerbTypeDescriptor("SPLORR!!Pedia")}
         }
 End Module

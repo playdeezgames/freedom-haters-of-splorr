@@ -23,7 +23,7 @@ Friend Class SignalDistressState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.DoDistressSignal()
+        Context.Model.Avatar.LegacyDistressSignal()
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

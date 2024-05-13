@@ -141,7 +141,7 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public Sub DoDistressSignal() Implements IAvatarModel.DoDistressSignal
+    Public Sub LegacyDistressSignal() Implements IAvatarModel.LegacyDistressSignal
         Dim fuelAdded = avatar.MaximumFuel - avatar.Fuel
         Dim fuelPrice = 1 'TODO: don't just pick a magic number!
         Dim price = fuelPrice * fuelAdded
@@ -171,13 +171,42 @@ Friend Class AvatarModel
             {VerbTypes.EnterStarSystem, (Function() CanEnterStarSystem, AddressOf EnterStarSystem)},
             {VerbTypes.ApproachPlanetVicinity, (Function() CanApproachPlanetVicinity, AddressOf ApproachPlanetVicinity)},
             {VerbTypes.ApproachStarVicinity, (Function() CanApproachStarVicinity, AddressOf ApproachStarVicinity)},
-            {VerbTypes.DistressSignal, (Function() Not CanMove, AddressOf DoDistressSignal)},
-            {VerbTypes.MoveUp, (Function() CanMove, Sub() Return)},
-            {VerbTypes.MoveRight, (Function() CanMove, Sub() Return)},
-            {VerbTypes.MoveDown, (Function() CanMove, Sub() Return)},
-            {VerbTypes.MoveLeft, (Function() CanMove, Sub() Return)},
+            {VerbTypes.DistressSignal, (Function() Not CanMove, AddressOf LegacyDistressSignal)},
+            {VerbTypes.MoveUp, (Function() CanMove, Sub() Move(Facing.Up))},
+            {VerbTypes.MoveRight, (Function() CanMove, Sub() Move(Facing.Right))},
+            {VerbTypes.MoveDown, (Function() CanMove, Sub() Move(Facing.Down))},
+            {VerbTypes.MoveLeft, (Function() CanMove, Sub() Move(Facing.Left))},
             {VerbTypes.SPLORRPedia, (Function() True, Sub() Return)}
         }
+
+    Private Sub Move(facing As Integer)
+        avatar.Facing = facing
+        Dim delta = Persistence.Facing.Deltas(facing)
+        If Not CanMove Then
+            Return
+        End If
+        DoTurn()
+        avatar.Fuel -= 1
+        If Not avatar.HasFuel Then
+            avatar.TriggerTutorial(TutorialTypes.OutOfFuel)
+        End If
+        Dim location = avatar.Location
+        Dim nextColumn = location.Column + delta.X
+        Dim nextRow = location.Row + delta.Y
+        Dim map = location.Map
+        Dim nextLocation = map.GetLocation(nextColumn, nextRow)
+        If nextLocation Is Nothing Then
+            Return
+        End If
+        If nextLocation.Actor IsNot Nothing Then
+            avatar.Interactor = nextLocation.Actor
+            Return
+        End If
+        If nextLocation.HasTargetLocation Then
+            nextLocation = nextLocation.TargetLocation
+        End If
+        SetLocation(nextLocation)
+    End Sub
 
     Private ReadOnly Property CanEnterStarSystem As Boolean
         Get
@@ -297,7 +326,7 @@ Friend Class AvatarModel
         End If
     End Sub
 
-    Public Sub Move(facing As Integer, delta As (X As Integer, Y As Integer)) Implements IAvatarModel.Move
+    Public Sub LegacyMove(facing As Integer, delta As (X As Integer, Y As Integer)) Implements IAvatarModel.LegacyMove
         avatar.Facing = facing
         If Not CanMove Then
             Return

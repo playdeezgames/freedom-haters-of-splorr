@@ -4,8 +4,8 @@
     ReadOnly Property MapName As String
     ReadOnly Property HasVerbs As Boolean
 
-    Sub Move(facing As Integer, delta As (X As Integer, Y As Integer))
-    Sub DoDistressSignal()
+    Sub LegacyMove(facing As Integer, delta As (X As Integer, Y As Integer))
+    Sub LegacyDistressSignal()
     ReadOnly Property Turn As Integer
 
     ReadOnly Property Jools As Integer
