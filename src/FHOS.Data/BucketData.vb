@@ -1,9 +1,7 @@
 ﻿Imports System.Text.Json.Serialization
 
 Public Class BucketData(Of TEntity)
-    <JsonPropertyName("e1")>
     Property Entities As New List(Of TEntity)
-    <JsonPropertyName("r1")>
     Property Recycled As New HashSet(Of Integer)
     Function CreateOrRecycle(data As TEntity) As Integer
         Dim entityId As Integer
