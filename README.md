@@ -55,3 +55,9 @@ https://pernyblom.github.io/abundant-music/index.html
 
 * Authority: "Lawfulness" (Chaotic = 0, Lawful = 100)
 * Standards: "Morality" (Evil = 100, Good = 0)
+* Conviction: "Fanaticism"
+
+Relationship is based on the distance from one faction's ASC to another = ```SQRT((A * A)+(S * S)+(C * C))```, giving 0 to ~173
+*  0 - 25: Friendly
+* 26 - 50: Neutral
+* 51 and up: Hostile

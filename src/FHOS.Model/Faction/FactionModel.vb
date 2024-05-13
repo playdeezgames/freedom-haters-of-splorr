@@ -1,4 +1,6 @@
-﻿Friend Class FactionModel
+﻿Imports System.Runtime.InteropServices
+
+Friend Class FactionModel
     Implements IFactionModel
 
     Private faction As Persistence.IFaction
@@ -30,4 +32,18 @@
             Return faction.Conviction
         End Get
     End Property
+
+    Public Function RelationNameTo(otherFaction As IFactionModel) As String Implements IFactionModel.RelationNameTo
+        Dim deltaAuthority = otherFaction.Authority - Authority
+        Dim deltaStandards = otherFaction.Standards - Standards
+        Dim deltaConviction = otherFaction.Conviction - Conviction
+        Select Case CInt(Math.Sqrt(deltaAuthority * deltaAuthority) + (deltaStandards * deltaStandards) + (deltaConviction * deltaConviction))
+            Case Is >= 50
+                Return "Hostile"
+            Case Is >= 25
+                Return "Neutral"
+            Case Else
+                Return "Friendly"
+        End Select
+    End Function
 End Class
