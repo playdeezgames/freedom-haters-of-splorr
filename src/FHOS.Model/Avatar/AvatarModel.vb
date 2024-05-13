@@ -326,34 +326,6 @@ Friend Class AvatarModel
         End If
     End Sub
 
-    Public Sub LegacyMove(facing As Integer, delta As (X As Integer, Y As Integer)) Implements IAvatarModel.LegacyMove
-        avatar.Facing = facing
-        If Not CanMove Then
-            Return
-        End If
-        DoTurn()
-        avatar.Fuel -= 1
-        If Not avatar.HasFuel Then
-            avatar.TriggerTutorial(TutorialTypes.OutOfFuel)
-        End If
-        Dim location = avatar.Location
-        Dim nextColumn = location.Column + delta.X
-        Dim nextRow = location.Row + delta.Y
-        Dim map = location.Map
-        Dim nextLocation = map.GetLocation(nextColumn, nextRow)
-        If nextLocation Is Nothing Then
-            Return
-        End If
-        If nextLocation.Actor IsNot Nothing Then
-            avatar.Interactor = nextLocation.Actor
-            Return
-        End If
-        If nextLocation.HasTargetLocation Then
-            nextLocation = nextLocation.TargetLocation
-        End If
-        SetLocation(nextLocation)
-    End Sub
-
     Public Function KnowsPlacesOfType(placeType As String) As Boolean Implements IAvatarModel.KnowsPlacesOfType
         Return avatar.KnowsPlacesOfType(placeType)
     End Function

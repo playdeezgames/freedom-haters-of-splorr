@@ -92,14 +92,14 @@ Public Class FHOSController
             {GameState.ApproachPlanet, VerbTypes.ApproachPlanetVicinity},
             {GameState.RefillOxygen, VerbTypes.RefillOxygen},
             {GameState.Refuel, VerbTypes.Refuel},
-            {GameState.EnterOrbit, VerbTypes.EnterOrbit}
+            {GameState.EnterOrbit, VerbTypes.EnterOrbit},
+            {GameState.MoveDown, VerbTypes.MoveDown},
+            {GameState.MoveUp, VerbTypes.MoveUp},
+            {GameState.MoveLeft, VerbTypes.MoveLeft},
+            {GameState.MoveRight, VerbTypes.MoveRight}
         }
 
     Private Sub CreateActionStates(context As IUIContext(Of IUniverseModel))
-        SetState(GameState.MoveUp, New MoveState(Me, AddressOf SetCurrentState, context, Facing.Up))
-        SetState(GameState.MoveDown, New MoveState(Me, AddressOf SetCurrentState, context, Facing.Down))
-        SetState(GameState.MoveLeft, New MoveState(Me, AddressOf SetCurrentState, context, Facing.Left))
-        SetState(GameState.MoveRight, New MoveState(Me, AddressOf SetCurrentState, context, Facing.Right))
         SetState(GameState.SignalDistress, New SignalDistressState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Status, New StatusState(Me, AddressOf SetCurrentState, context))
 
