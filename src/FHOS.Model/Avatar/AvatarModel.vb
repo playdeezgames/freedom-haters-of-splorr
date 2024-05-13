@@ -136,7 +136,7 @@ Friend Class AvatarModel
     Public ReadOnly Property AvailableVerbs As IEnumerable(Of (Text As String, VerbType As String)) Implements IAvatarModel.AvailableVerbs
         Get
             Return verbTable.
-                Where(Function(x) x.Value.isAvailable.Invoke()).
+                Where(Function(x) VerbTypes.Descriptors(x.Key).Visible AndAlso x.Value.isAvailable.Invoke()).
                 Select(Function(x) (VerbTypes.Descriptors(x.Key).Text, x.Key))
         End Get
     End Property
