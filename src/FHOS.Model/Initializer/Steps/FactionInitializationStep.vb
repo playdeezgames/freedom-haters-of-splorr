@@ -12,12 +12,16 @@ Friend Class FactionInitializationStep
     End Sub
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        universe.CreateFaction("SIGMO Federation", 1, {FlagTypes.LovesFreedom})
+        CreateSIGFED()
         Dim names As New HashSet(Of String)
         For Each dummy In Enumerable.Range(0, embarkSettings.FactionCount)
             Dim name As String = GenerateName(names)
-            universe.CreateFaction(name, 0, {})
+            universe.CreateFaction(name, 0, {}, RNG.RollDice("10d11+-10d1"), RNG.RollDice("10d11+-10d1"), RNG.RollDice("10d11+-10d1"))
         Next
+    End Sub
+
+    Private Sub CreateSIGFED()
+        Dim sigfed = universe.CreateFaction("SIGMO Federation", 1, {FlagTypes.LovesFreedom}, 100, 100, 100)
     End Sub
 
     Private ReadOnly firstParts As IReadOnlyList(Of String) =

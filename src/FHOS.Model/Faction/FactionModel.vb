@@ -12,4 +12,22 @@
             Return faction.Name
         End Get
     End Property
+
+    Public ReadOnly Property Authority As Integer Implements IFactionModel.Authority
+        Get
+            Return faction.Authority
+        End Get
+    End Property
+
+    Public ReadOnly Property Standards As Integer Implements IFactionModel.Standards
+        Get
+            Return faction.Standards
+        End Get
+    End Property
+
+    Public ReadOnly Property Conviction As Integer Implements IFactionModel.Conviction
+        Get
+            Return faction.Conviction
+        End Get
+    End Property
 End Class

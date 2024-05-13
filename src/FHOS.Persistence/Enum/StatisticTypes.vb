@@ -29,4 +29,7 @@
     Friend Const TargetLocationId = "TargetLocationId"
     Friend Const PlanetCount = "PlanetCount"
     Friend ReadOnly InteractorId As String = NameOf(InteractorId)
+    Friend ReadOnly Authority As String = NameOf(Authority)
+    Friend ReadOnly Standards As String = NameOf(Standards)
+    Friend ReadOnly Conviction As String = NameOf(Conviction)
 End Module

@@ -121,7 +121,13 @@ Public Class Universe
         Return Place.FromId(UniverseData, starSystemId)
     End Function
 
-    Public Function CreateFaction(factionName As String, minimumPlanetCount As Integer, flags As IEnumerable(Of String)) As IFaction Implements IUniverse.CreateFaction
+    Public Function CreateFaction(
+                                 factionName As String,
+                                 minimumPlanetCount As Integer,
+                                 flags As IEnumerable(Of String),
+                                 authority As Integer,
+                                 standards As Integer,
+                                 conviction As Integer) As IFaction Implements IUniverse.CreateFaction
         Dim factionData = New FactionData With
             {
                 .Metadatas = New Dictionary(Of String, String) From
@@ -131,7 +137,10 @@ Public Class Universe
                 .Flags = New HashSet(Of String)(flags),
                 .Statistics = New Dictionary(Of String, Integer) From
                 {
-                    {StatisticTypes.MinimumPlanetCount, minimumPlanetCount}
+                    {StatisticTypes.MinimumPlanetCount, minimumPlanetCount},
+                    {StatisticTypes.Authority, authority},
+                    {StatisticTypes.Standards, standards},
+                    {StatisticTypes.Conviction, conviction}
                 }
             }
         Return Faction.FromId(UniverseData, UniverseData.Factions.CreateOrRecycle(factionData))

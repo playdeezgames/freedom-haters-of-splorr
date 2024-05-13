@@ -31,4 +31,22 @@ Friend Class Faction
             SetStatistic(StatisticTypes.PlanetCount, value)
         End Set
     End Property
+
+    Public ReadOnly Property Authority As Integer Implements IFaction.Authority
+        Get
+            Return GetStatistic(StatisticTypes.Authority).Value
+        End Get
+    End Property
+
+    Public ReadOnly Property Standards As Integer Implements IFaction.Standards
+        Get
+            Return GetStatistic(StatisticTypes.Standards).Value
+        End Get
+    End Property
+
+    Public ReadOnly Property Conviction As Integer Implements IFaction.Conviction
+        Get
+            Return GetStatistic(StatisticTypes.Conviction).Value
+        End Get
+    End Property
 End Class
