@@ -13,6 +13,6 @@ Friend Class AvatarInitializationStep
         Dim actor = universe.Actors.Single(Function(x) x.HasFlag(FlagTypes.IsAvatar))
         actor.Jools = StartingWealthLevels.Descriptors(embarkSettings.StartingWealthLevel).GenerateJools
         actor.MinimumJools = StartingWealthLevels.Descriptors(embarkSettings.StartingWealthLevel).MinimumJools
-        universe.Avatar = actor
+        universe.LegacyAvatar = actor
     End Sub
 End Class

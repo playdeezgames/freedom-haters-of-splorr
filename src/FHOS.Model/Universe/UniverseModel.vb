@@ -22,7 +22,7 @@ Public Class UniverseModel
 
     Public ReadOnly Property Avatar As IAvatarModel Implements IUniverseModel.Avatar
         Get
-            Return New AvatarModel(Universe.Avatar)
+            Return New AvatarModel(Universe.LegacyAvatar)
         End Get
     End Property
 

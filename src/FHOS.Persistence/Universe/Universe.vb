@@ -7,7 +7,7 @@ Public Class Universe
         MyBase.New(universeData)
     End Sub
 
-    Public Property Avatar As IActor Implements IUniverse.Avatar
+    Public Property LegacyAvatar As IActor Implements IUniverse.LegacyAvatar
         Get
             Dim avatarId As Integer
             If UniverseData.Statistics.TryGetValue(StatisticTypes.AvatarId, avatarId) Then
@@ -59,6 +59,24 @@ Public Class Universe
             Return actorIds.Select(Function(x) Actor.FromId(UniverseData, x))
         End Get
     End Property
+
+    Public ReadOnly Property Avatar As IActor Implements IUniverse.Avatar
+        Get
+            Dim avatarId As Integer
+            If UniverseData.Avatars.TryPeek(avatarId) Then
+                Return Actor.FromId(UniverseData, avatarId)
+            End If
+            Return Nothing
+        End Get
+    End Property
+
+    Public Sub PushAvatar(avatar As IActor) Implements IUniverse.PushAvatar
+        UniverseData.Avatars.Push(avatar.Id)
+    End Sub
+
+    Public Function PopAvatar() As IActor Implements IUniverse.PopAvatar
+        Return Actor.FromId(UniverseData, UniverseData.Avatars.Pop())
+    End Function
 
     Public Function CreateMap(mapType As String, mapName As String, columns As Integer, rows As Integer, locationType As String) As IMap Implements IUniverse.CreateMap
         Dim mapData = New MapData With

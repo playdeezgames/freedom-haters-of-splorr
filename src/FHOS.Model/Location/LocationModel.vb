@@ -4,8 +4,8 @@
     Private ReadOnly location As Persistence.ILocation
 
     Public Sub New(universe As Persistence.IUniverse, boardPosition As (X As Integer, Y As Integer))
-        Dim mapPosition As (X As Integer, Y As Integer) = (boardPosition.X + universe.Avatar.Location.Column, boardPosition.Y + universe.Avatar.Location.Row)
-        Me.location = universe.Avatar.Location.Map.GetLocation(mapPosition.X, mapPosition.Y)
+        Dim mapPosition As (X As Integer, Y As Integer) = (boardPosition.X + universe.LegacyAvatar.Location.Column, boardPosition.Y + universe.LegacyAvatar.Location.Row)
+        Me.location = universe.LegacyAvatar.Location.Map.GetLocation(mapPosition.X, mapPosition.Y)
     End Sub
 
     Public ReadOnly Property Exists As Boolean Implements ILocationModel.Exists
