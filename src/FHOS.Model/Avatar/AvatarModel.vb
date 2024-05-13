@@ -141,7 +141,7 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public Sub LegacyDistressSignal() Implements IAvatarModel.LegacyDistressSignal
+    Private Sub DistressSignal()
         Dim fuelAdded = avatar.MaximumFuel - avatar.Fuel
         Dim fuelPrice = 1 'TODO: don't just pick a magic number!
         Dim price = fuelPrice * fuelAdded
@@ -171,7 +171,7 @@ Friend Class AvatarModel
             {VerbTypes.EnterStarSystem, (Function() CanEnterStarSystem, AddressOf EnterStarSystem)},
             {VerbTypes.ApproachPlanetVicinity, (Function() CanApproachPlanetVicinity, AddressOf ApproachPlanetVicinity)},
             {VerbTypes.ApproachStarVicinity, (Function() CanApproachStarVicinity, AddressOf ApproachStarVicinity)},
-            {VerbTypes.DistressSignal, (Function() Not CanMove, AddressOf LegacyDistressSignal)},
+            {VerbTypes.DistressSignal, (Function() Not CanMove, AddressOf DistressSignal)},
             {VerbTypes.MoveUp, (Function() CanMove, Sub() Move(Facing.Up))},
             {VerbTypes.MoveRight, (Function() CanMove, Sub() Move(Facing.Right))},
             {VerbTypes.MoveDown, (Function() CanMove, Sub() Move(Facing.Down))},

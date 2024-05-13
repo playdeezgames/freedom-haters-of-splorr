@@ -4,7 +4,6 @@
     ReadOnly Property MapName As String
     ReadOnly Property HasVerbs As Boolean
 
-    Sub LegacyDistressSignal()
     ReadOnly Property Turn As Integer
 
     ReadOnly Property Jools As Integer

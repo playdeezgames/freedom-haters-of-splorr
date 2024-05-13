@@ -96,11 +96,11 @@ Public Class FHOSController
             {GameState.MoveDown, VerbTypes.MoveDown},
             {GameState.MoveUp, VerbTypes.MoveUp},
             {GameState.MoveLeft, VerbTypes.MoveLeft},
-            {GameState.MoveRight, VerbTypes.MoveRight}
+            {GameState.MoveRight, VerbTypes.MoveRight},
+            {GameState.SignalDistress, VerbTypes.DistressSignal}
         }
 
     Private Sub CreateActionStates(context As IUIContext(Of IUniverseModel))
-        SetState(GameState.SignalDistress, New SignalDistressState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Status, New StatusState(Me, AddressOf SetCurrentState, context))
 
         For Each state In doVerbStates
