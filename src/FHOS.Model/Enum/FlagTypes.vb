@@ -1,4 +1,4 @@
 ﻿Friend Module FlagTypes
-    Friend Const LovesFreedom = "LovesFreedom"
-    Friend Const IsAvatar = "IsAvatar"
+    Friend ReadOnly LovesFreedom As String = NameOf(LovesFreedom)
+    Friend ReadOnly IsAvatar As String = NameOf(IsAvatar)
 End Module

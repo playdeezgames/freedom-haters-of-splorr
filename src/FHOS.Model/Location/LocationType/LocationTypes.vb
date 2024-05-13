@@ -15,6 +15,17 @@
     Friend Const OrangeStar = "OrangeStar"
     Friend Const RedStar = "RedStar"
 
+    Friend Const TopLeft = "TopLeft"
+    Friend Const TopCenter = "TopCenter"
+    Friend Const TopRight = "TopRight"
+    Friend Const CenterLeft = "CenterLeft"
+    Friend Const Center = "Center"
+    Friend Const CenterRight = "CenterRight"
+    Friend Const BottomLeft = "BottomLeft"
+    Friend Const BottomCenter = "BottomCenter"
+    Friend Const BottomRight = "BottomRight"
+
+
     Friend Function MakePlanetLocationType(planetType As String) As String
         Return $"{planetType}Planet"
     End Function
@@ -29,12 +40,6 @@
     End Function
 
 
-    Friend Const RadiatedMoon = "RadiatedMoon"
-    Friend Const VolcanicMoon = "VolcanicMoon"
-    Friend Const BarrenMoon = "BarrenMoon"
-    Friend Const InfernoMoon = "InfernoMoon"
-    Friend Const CavernousMoon = "CavernousMoon"
-    Friend Const IceMoon = "IceMoon"
     Private ReadOnly satelliteHueTable As IReadOnlyDictionary(Of String, Integer) =
         New Dictionary(Of String, Integer) From
         {
@@ -67,15 +72,6 @@
             {Gaia, Hue.Pink},
             {Swamp, Hue.Cyan}
         }
-    Friend Const TopLeft = "TopLeft"
-    Friend Const TopCenter = "TopCenter"
-    Friend Const TopRight = "TopRight"
-    Friend Const CenterLeft = "CenterLeft"
-    Friend Const Center = "Center"
-    Friend Const CenterRight = "CenterRight"
-    Friend Const BottomLeft = "BottomLeft"
-    Friend Const BottomCenter = "BottomCenter"
-    Friend Const BottomRight = "BottomRight"
     Private ReadOnly planet3x3SectionTable As IReadOnlyDictionary(Of String, Char) =
         New Dictionary(Of String, Char) From
         {

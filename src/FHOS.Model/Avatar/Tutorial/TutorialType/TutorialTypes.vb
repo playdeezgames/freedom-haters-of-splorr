@@ -1,12 +1,13 @@
 ﻿Public Module TutorialTypes
-    Public Const StarSystemEntry As String = "StarSystemEntry"
-    Public Const PlanetVicinityApproach As String = "PlanetVicinityApproach"
-    Public Const StarVicinityApproach As String = "StarVicinityApproach"
-    Public Const EnterPlanetOrbit As String = "EnterPlanetOrbit"
-    Public Const EnterSatelliteOrbit As String = "EnterSatelliteOrbit"
-    Public Const RefuelAtStar As String = "RefuelAtStar"
-    Public Const OutOfFuel As String = "OutOfFuel"
-    Public Const WormholeEntry As String = "WormholeEntry"
+    Public ReadOnly StarSystemEntry As String = NameOf(StarSystemEntry)
+    Public ReadOnly PlanetVicinityApproach As String = NameOf(PlanetVicinityApproach)
+    Public ReadOnly StarVicinityApproach As String = NameOf(StarVicinityApproach)
+    Public ReadOnly EnterPlanetOrbit As String = NameOf(EnterPlanetOrbit)
+    Public ReadOnly EnterSatelliteOrbit As String = NameOf(EnterSatelliteOrbit)
+    Public ReadOnly RefuelAtStar As String = NameOf(RefuelAtStar)
+    Public ReadOnly OutOfFuel As String = NameOf(OutOfFuel)
+    Public ReadOnly WormholeEntry As String = NameOf(WormholeEntry)
+
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, TutorialTypeDescriptor) =
         New Dictionary(Of String, TutorialTypeDescriptor) From
         {

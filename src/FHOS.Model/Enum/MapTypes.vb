@@ -1,4 +1,4 @@
 ﻿Friend Module MapTypes
-    Friend Const Stellar = "Stellar"
-    Friend Const System = "System"
+    Friend ReadOnly Stellar As String = NameOf(Stellar)
+    Friend ReadOnly System As String = NameOf(System)
 End Module
