@@ -1,29 +1,29 @@
 ﻿Friend Module LocationTypes
-    Friend Const Void = "Void"
-    Friend Const VoidNorthArrow = "VoidNorthArrow"
-    Friend Const VoidNorthEastArrow = "VoidNorthEastArrow"
-    Friend Const VoidEastArrow = "VoidEastArrow"
-    Friend Const VoidSouthEastArrow = "VoidSouthEastArrow"
-    Friend Const VoidSouthArrow = "VoidSouthArrow"
-    Friend Const VoidSouthWestArrow = "VoidSouthWestArrow"
-    Friend Const VoidWestArrow = "VoidWestArrow"
-    Friend Const VoidNorthWestArrow = "VoidNorthWestArrow"
+    Friend ReadOnly Void As String = NameOf(Void)
+    Friend ReadOnly VoidNorthArrow As String = NameOf(VoidNorthArrow)
+    Friend ReadOnly VoidNorthEastArrow As String = NameOf(VoidNorthEastArrow)
+    Friend ReadOnly VoidEastArrow As String = NameOf(VoidEastArrow)
+    Friend ReadOnly VoidSouthEastArrow As String = NameOf(VoidSouthEastArrow)
+    Friend ReadOnly VoidSouthArrow As String = NameOf(VoidSouthArrow)
+    Friend ReadOnly VoidSouthWestArrow As String = NameOf(VoidSouthWestArrow)
+    Friend ReadOnly VoidWestArrow As String = NameOf(VoidWestArrow)
+    Friend ReadOnly VoidNorthWestArrow As String = NameOf(VoidNorthWestArrow)
 
-    Friend Const BlueStar = "BlueStar"
-    Friend Const BlueWhiteStar = "BlueWhiteStar"
-    Friend Const YellowStar = "YellowStar"
-    Friend Const OrangeStar = "OrangeStar"
-    Friend Const RedStar = "RedStar"
+    Friend ReadOnly BlueStar As String = NameOf(BlueStar)
+    Friend ReadOnly BlueWhiteStar As String = NameOf(BlueWhiteStar)
+    Friend ReadOnly YellowStar As String = NameOf(YellowStar)
+    Friend ReadOnly OrangeStar As String = NameOf(OrangeStar)
+    Friend ReadOnly RedStar As String = NameOf(RedStar)
 
-    Friend Const TopLeft = "TopLeft"
-    Friend Const TopCenter = "TopCenter"
-    Friend Const TopRight = "TopRight"
-    Friend Const CenterLeft = "CenterLeft"
-    Friend Const Center = "Center"
-    Friend Const CenterRight = "CenterRight"
-    Friend Const BottomLeft = "BottomLeft"
-    Friend Const BottomCenter = "BottomCenter"
-    Friend Const BottomRight = "BottomRight"
+    Friend ReadOnly TopLeft As String = NameOf(TopLeft)
+    Friend ReadOnly TopCenter As String = NameOf(TopCenter)
+    Friend ReadOnly TopRight As String = NameOf(TopRight)
+    Friend ReadOnly CenterLeft As String = NameOf(CenterLeft)
+    Friend ReadOnly Center As String = NameOf(Center)
+    Friend ReadOnly CenterRight As String = NameOf(CenterRight)
+    Friend ReadOnly BottomLeft As String = NameOf(BottomLeft)
+    Friend ReadOnly BottomCenter As String = NameOf(BottomCenter)
+    Friend ReadOnly BottomRight As String = NameOf(BottomRight)
 
 
     Friend Function MakePlanetLocationType(planetType As String) As String
@@ -51,7 +51,7 @@
             {SatelliteTypes.Ice, Hue.White}
         }
 
-    Friend Const Wormhole = "Wormhole"
+    Friend ReadOnly Wormhole As String = NameOf(Wormhole)
 
     Private ReadOnly planetHueTable As IReadOnlyDictionary(Of String, Integer) =
         New Dictionary(Of String, Integer) From
@@ -85,31 +85,31 @@
             {BottomCenter, ChrW(234)},
             {BottomRight, ChrW(235)}
         }
-    Friend Const C1R1 = "C1R1"
-    Friend Const C1R2 = "C1R2"
-    Friend Const C1R3 = "C1R3"
-    Friend Const C1R4 = "C1R4"
-    Friend Const C1R5 = "C1R5"
-    Friend Const C2R1 = "C2R1"
-    Friend Const C2R2 = "C2R2"
-    Friend Const C2R3 = "C2R3"
-    Friend Const C2R4 = "C2R4"
-    Friend Const C2R5 = "C2R5"
-    Friend Const C3R1 = "C3R1"
-    Friend Const C3R2 = "C3R2"
-    Friend Const C3R3 = "C3R3"
-    Friend Const C3R4 = "C3R4"
-    Friend Const C3R5 = "C3R5"
-    Friend Const C4R1 = "C4R1"
-    Friend Const C4R2 = "C4R2"
-    Friend Const C4R3 = "C4R3"
-    Friend Const C4R4 = "C4R4"
-    Friend Const C4R5 = "C4R5"
-    Friend Const C5R1 = "C5R1"
-    Friend Const C5R2 = "C5R2"
-    Friend Const C5R3 = "C5R3"
-    Friend Const C5R4 = "C5R4"
-    Friend Const C5R5 = "C5R5"
+    Friend ReadOnly C1R1 As String = NameOf(C1R1)
+    Friend ReadOnly C1R2 As String = NameOf(C1R2)
+    Friend ReadOnly C1R3 As String = NameOf(C1R3)
+    Friend ReadOnly C1R4 As String = NameOf(C1R4)
+    Friend ReadOnly C1R5 As String = NameOf(C1R5)
+    Friend ReadOnly C2R1 As String = NameOf(C2R1)
+    Friend ReadOnly C2R2 As String = NameOf(C2R2)
+    Friend ReadOnly C2R3 As String = NameOf(C2R3)
+    Friend ReadOnly C2R4 As String = NameOf(C2R4)
+    Friend ReadOnly C2R5 As String = NameOf(C2R5)
+    Friend ReadOnly C3R1 As String = NameOf(C3R1)
+    Friend ReadOnly C3R2 As String = NameOf(C3R2)
+    Friend ReadOnly C3R3 As String = NameOf(C3R3)
+    Friend ReadOnly C3R4 As String = NameOf(C3R4)
+    Friend ReadOnly C3R5 As String = NameOf(C3R5)
+    Friend ReadOnly C4R1 As String = NameOf(C4R1)
+    Friend ReadOnly C4R2 As String = NameOf(C4R2)
+    Friend ReadOnly C4R3 As String = NameOf(C4R3)
+    Friend ReadOnly C4R4 As String = NameOf(C4R4)
+    Friend ReadOnly C4R5 As String = NameOf(C4R5)
+    Friend ReadOnly C5R1 As String = NameOf(C5R1)
+    Friend ReadOnly C5R2 As String = NameOf(C5R2)
+    Friend ReadOnly C5R3 As String = NameOf(C5R3)
+    Friend ReadOnly C5R4 As String = NameOf(C5R4)
+    Friend ReadOnly C5R5 As String = NameOf(C5R5)
     Private ReadOnly planet5x5SectionTable As IReadOnlyDictionary(Of String, Char) =
         New Dictionary(Of String, Char) From
         {
