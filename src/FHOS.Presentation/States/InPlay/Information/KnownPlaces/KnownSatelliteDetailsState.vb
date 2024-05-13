@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Model
 Imports SPLORR.UI
 
-Friend Class SatelliteDetailsState
+Friend Class KnownSatelliteDetailsState
     Inherits KnownPlaceDetailsState
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IUniverseModel))

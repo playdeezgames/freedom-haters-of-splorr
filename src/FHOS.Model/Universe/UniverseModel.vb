@@ -123,6 +123,15 @@ Public Class UniverseModel
         End Get
     End Property
 
+    Public ReadOnly Property StarSystems As IEnumerable(Of (Text As String, Place As IPlaceModel)) Implements IUniverseModel.StarSystems
+        Get
+            Return Universe.
+                GetPlacesOfType(PlaceTypes.StarSystem).
+                OrderBy(Function(x) x.Name).
+                Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
+        End Get
+    End Property
+
     Const EmbarkSettingsFilename = "embark-settings.json"
     Private Shared _embarkSettings As EmbarkSettings
 End Class

@@ -16,4 +16,5 @@ Public Interface IUniverseModel
     ReadOnly Property Messages As IMessagesModel
     ReadOnly Property DoneGenerating As Boolean
     ReadOnly Property FactionList As IEnumerable(Of (String, IFactionModel))
+    ReadOnly Property StarSystems As IEnumerable(Of (Text As String, Place As IPlaceModel))
 End Interface

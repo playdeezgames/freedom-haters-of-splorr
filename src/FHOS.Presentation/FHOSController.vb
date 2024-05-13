@@ -25,13 +25,18 @@ Public Class FHOSController
         SetState(GameState.Interaction, New InteractionState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.LeaveInteraction, New LeaveInteractionState(Me, AddressOf SetCurrentState, context))
 
-        SetState(GameState.SPLORRPedia, New SPLORRPediaState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.FactionList, New FactionListState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.FactionDetails, New FactionDetailState(Me, AddressOf SetCurrentState, context))
+        CreateSPLORRPediaStates(context)
 
         SetState(GameState.ActionMenu, New ActionMenuState(Me, AddressOf SetCurrentState, context))
 
         SetCurrentState(BoilerplateState.Splash, True)
+    End Sub
+
+    Private Sub CreateSPLORRPediaStates(context As IUIContext(Of IUniverseModel))
+        SetState(GameState.SPLORRPedia, New SPLORRPediaState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.FactionList, New FactionListState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.FactionDetails, New FactionDetailState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.StarSystemList, New StarSystemListState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private Sub CreateExplorationStates(context As IUIContext(Of IUniverseModel))
@@ -80,7 +85,7 @@ Public Class FHOSController
                      GameState.KnownPlaces,
                      PlaceTypes.Satellite,
                      GameState.KnownSatelliteDetails))
-        SetState(GameState.KnownSatelliteDetails, New SatelliteDetailsState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.KnownSatelliteDetails, New KnownSatelliteDetailsState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private ReadOnly doVerbStates As IReadOnlyDictionary(Of String, String) =
