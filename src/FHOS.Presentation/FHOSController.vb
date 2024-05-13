@@ -36,51 +36,51 @@ Public Class FHOSController
 
     Private Sub CreateExplorationStates(context As IUIContext(Of IUniverseModel))
         SetState(GameState.KnownPlaces, New KnownPlacesState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.StarSystemList,
+        SetState(GameState.KnownStarSystemList,
                  New KnownPlaceListState(
                      Me,
                      AddressOf SetCurrentState, context,
                      "Known Star Systems",
                      GameState.KnownPlaces,
                      PlaceTypes.StarSystem,
-                     GameState.StarSystemDetails))
-        SetState(GameState.StarSystemDetails, New StarSystemDetailsState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.PlanetVicinityList,
+                     GameState.KnownStarSystemDetails))
+        SetState(GameState.KnownStarSystemDetails, New KnownStarSystemDetailsState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.KnownPlanetVicinityList,
                  New KnownPlaceListState(
                      Me,
                      AddressOf SetCurrentState, context,
                      "Known Planet Vicinities",
                      GameState.KnownPlaces,
                      PlaceTypes.PlanetVicinity,
-                     GameState.PlanetVicinityDetails))
-        SetState(GameState.PlanetVicinityDetails, New PlanetVicinityDetailsState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.StarVicinityList,
+                     GameState.KnownPlanetVicinityDetails))
+        SetState(GameState.KnownPlanetVicinityDetails, New KnownPlanetVicinityDetailsState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.KnownStarVicinityList,
                  New KnownPlaceListState(
                      Me,
                      AddressOf SetCurrentState, context,
                      "Known Star Vicinities",
                      GameState.KnownPlaces,
                      PlaceTypes.StarVicinity,
-                     GameState.StarVicinityDetails))
-        SetState(GameState.StarVicinityDetails, New StarVicinityDetailsState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.PlanetList,
+                     GameState.KnownStarVicinityDetails))
+        SetState(GameState.KnownStarVicinityDetails, New KnownStarVicinityDetailsState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.KnownPlanetList,
                  New KnownPlaceListState(
                      Me,
                      AddressOf SetCurrentState, context,
                      "Known Planets",
                      GameState.KnownPlaces,
                      PlaceTypes.Planet,
-                     GameState.PlanetDetails))
-        SetState(GameState.PlanetDetails, New PlanetDetailsState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.SatelliteList,
+                     GameState.KnownPlanetDetails))
+        SetState(GameState.KnownPlanetDetails, New KnownPlanetDetailsState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.KnownSatelliteList,
                  New KnownPlaceListState(
                      Me,
                      AddressOf SetCurrentState, context,
                      "Known Satellites",
                      GameState.KnownPlaces,
                      PlaceTypes.Satellite,
-                     GameState.SatelliteDetails))
-        SetState(GameState.SatelliteDetails, New SatelliteDetailsState(Me, AddressOf SetCurrentState, context))
+                     GameState.KnownSatelliteDetails))
+        SetState(GameState.KnownSatelliteDetails, New SatelliteDetailsState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private ReadOnly doVerbStates As IReadOnlyDictionary(Of String, String) =

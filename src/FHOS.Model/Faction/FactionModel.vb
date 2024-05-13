@@ -1,6 +1,4 @@
-﻿Imports System.Runtime.InteropServices
-
-Friend Class FactionModel
+﻿Friend Class FactionModel
     Implements IFactionModel
 
     Private faction As Persistence.IFaction
@@ -30,6 +28,12 @@ Friend Class FactionModel
     Public ReadOnly Property Conviction As Integer Implements IFactionModel.Conviction
         Get
             Return faction.Conviction
+        End Get
+    End Property
+
+    Public ReadOnly Property PlanetCount As Integer Implements IFactionModel.PlanetCount
+        Get
+            Return faction.PlanetCount
         End Get
     End Property
 

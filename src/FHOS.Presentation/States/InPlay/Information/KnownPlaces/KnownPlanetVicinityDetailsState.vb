@@ -1,11 +1,11 @@
 ﻿Imports FHOS.Model
 Imports SPLORR.UI
 
-Friend Class PlanetVicinityDetailsState
+Friend Class KnownPlanetVicinityDetailsState
     Inherits KnownPlaceDetailsState
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IUniverseModel))
-        MyBase.New(parent, setState, context, GameState.PlanetVicinityList)
+        MyBase.New(parent, setState, context, GameState.KnownPlanetVicinityList)
     End Sub
 
     Protected Overrides ReadOnly Property HeaderText As String

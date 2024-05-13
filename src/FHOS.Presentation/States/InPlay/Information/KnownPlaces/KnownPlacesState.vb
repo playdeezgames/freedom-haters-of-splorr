@@ -26,11 +26,11 @@ Friend Class KnownPlacesState
     Private ReadOnly actionMap As IReadOnlyDictionary(Of String, String) =
         New Dictionary(Of String, String) From
         {
-            {StarSystemListText, GameState.StarSystemList},
-            {PlanetVicinityListText, GameState.PlanetVicinityList},
-            {StarVicinityListText, GameState.StarVicinityList},
-            {PlanetListText, GameState.PlanetList},
-            {SatelliteListText, GameState.SatelliteList}
+            {StarSystemListText, GameState.KnownStarSystemList},
+            {PlanetVicinityListText, GameState.KnownPlanetVicinityList},
+            {StarVicinityListText, GameState.KnownStarVicinityList},
+            {PlanetListText, GameState.KnownPlanetList},
+            {SatelliteListText, GameState.KnownSatelliteList}
         }
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))

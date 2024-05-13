@@ -1,25 +1,24 @@
 ﻿Imports FHOS.Model
 Imports SPLORR.UI
 
-Friend Class StarSystemDetailsState
+Friend Class KnownPlanetDetailsState
     Inherits KnownPlaceDetailsState
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of IUniverseModel))
-        MyBase.New(parent, setState, context, GameState.StarSystemList)
+        MyBase.New(parent, setState, context, GameState.KnownPlanetList)
     End Sub
 
     Protected Overrides ReadOnly Property HeaderText As String
         Get
-            Return $"{Place.Name} System"
+            Return $"Planet {Place.Name}"
         End Get
     End Property
 
     Protected Overrides ReadOnly Property Details As IEnumerable(Of (Text As String, Hue As Integer))
         Get
             Return {
-                    ($"Type: {Place.StarType}", Hue.Black),
-                    ($"Planets: {Place.PlanetVicinityCount}", Hue.Black),
-                    ($"Galaxy Position: ({Place.X},{Place.Y})", Hue.Black)
+                    ($"Type: {Place.PlanetType}", Hue.Black),
+                    ($"System: {Place.Parent.Parent.Name}", Hue.Black)
                 }
         End Get
     End Property
