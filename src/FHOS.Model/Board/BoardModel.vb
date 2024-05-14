@@ -14,6 +14,6 @@ Friend Class BoardModel
     End Function
 
     Public Function GetLocation(boardPosition As (X As Integer, Y As Integer)) As ILocationModel Implements IBoardModel.GetLocation
-        Return New LocationModel(universe, boardPosition)
+        Return LocationModel.FromBoardPosition(universe, boardPosition)
     End Function
 End Class

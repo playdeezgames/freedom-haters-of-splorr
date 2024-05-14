@@ -1,14 +1,20 @@
-﻿Friend Class LocationModel
+﻿Imports FHOS.Persistence
+
+Friend Class LocationModel
     Implements ILocationModel
 
     Private ReadOnly location As Persistence.ILocation
 
-    Public Sub New(universe As Persistence.IUniverse, boardPosition As (X As Integer, Y As Integer))
+    Protected Sub New(universe As Persistence.IUniverse, boardPosition As (X As Integer, Y As Integer))
         Dim mapPosition As (X As Integer, Y As Integer) = (
             boardPosition.X + universe.Avatar.Location.Column,
             boardPosition.Y + universe.Avatar.Location.Row)
         Me.location = universe.Avatar.Location.Map.GetLocation(mapPosition.X, mapPosition.Y)
     End Sub
+
+    Friend Shared Function FromBoardPosition(universe As Persistence.IUniverse, boardPosition As (X As Integer, Y As Integer)) As ILocationModel
+        Return New LocationModel(universe, boardPosition)
+    End Function
 
     Public ReadOnly Property Exists As Boolean Implements ILocationModel.Exists
         Get

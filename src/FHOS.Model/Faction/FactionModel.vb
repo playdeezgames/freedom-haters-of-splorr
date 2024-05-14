@@ -10,6 +10,9 @@ Friend Class FactionModel
     End Sub
 
     Friend Shared Function FromFaction(faction As IFaction) As IFactionModel
+        If faction Is Nothing Then
+            Return Nothing
+        End If
         Return New FactionModel(faction)
     End Function
 
