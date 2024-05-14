@@ -10,14 +10,6 @@
     Friend ReadOnly ArrowNorthWest As String = NameOf(ArrowNorthWest)
 
     Friend ReadOnly Void As String = NameOf(Void)
-    Friend ReadOnly VoidArrowNorth As String = NameOf(VoidArrowNorth)
-    Friend ReadOnly VoidArrowNorthEast As String = NameOf(VoidArrowNorthEast)
-    Friend ReadOnly VoidArrowEast As String = NameOf(VoidArrowEast)
-    Friend ReadOnly VoidArrowSouthEast As String = NameOf(VoidArrowSouthEast)
-    Friend ReadOnly VoidArrowSouth As String = NameOf(VoidArrowSouth)
-    Friend ReadOnly VoidArrowSouthWest As String = NameOf(VoidArrowSouthWest)
-    Friend ReadOnly VoidArrowWest As String = NameOf(VoidArrowWest)
-    Friend ReadOnly VoidArrowNorthWest As String = NameOf(VoidArrowNorthWest)
 
     Friend Function MakeVoidArrow(arrowType As String) As String
         Return $"{Void}{arrowType}"
@@ -157,14 +149,14 @@
         Dim result = New Dictionary(Of String, LocationTypeDescriptor) From
         {
             {Void, New LocationTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black, canPlaceWormhole:=True)},
-            {VoidArrowNorth, New LocationTypeDescriptor("Empty Space", ChrW(16), DarkGray, Black)},
-            {VoidArrowNorthEast, New LocationTypeDescriptor("Empty Space", ChrW(17), DarkGray, Black)},
-            {VoidArrowEast, New LocationTypeDescriptor("Empty Space", ChrW(18), DarkGray, Black)},
-            {VoidArrowSouthEast, New LocationTypeDescriptor("Empty Space", ChrW(19), DarkGray, Black)},
-            {VoidArrowSouth, New LocationTypeDescriptor("Empty Space", ChrW(20), DarkGray, Black)},
-            {VoidArrowSouthWest, New LocationTypeDescriptor("Empty Space", ChrW(21), DarkGray, Black)},
-            {VoidArrowWest, New LocationTypeDescriptor("Empty Space", ChrW(22), DarkGray, Black)},
-            {VoidArrowNorthWest, New LocationTypeDescriptor("Empty Space", ChrW(23), DarkGray, Black)},
+            {MakeVoidArrow(ArrowNorth), New LocationTypeDescriptor("Empty Space", ChrW(16), DarkGray, Black)},
+            {MakeVoidArrow(ArrowNorthEast), New LocationTypeDescriptor("Empty Space", ChrW(17), DarkGray, Black)},
+            {MakeVoidArrow(ArrowEast), New LocationTypeDescriptor("Empty Space", ChrW(18), DarkGray, Black)},
+            {MakeVoidArrow(ArrowSouthEast), New LocationTypeDescriptor("Empty Space", ChrW(19), DarkGray, Black)},
+            {MakeVoidArrow(ArrowSouth), New LocationTypeDescriptor("Empty Space", ChrW(20), DarkGray, Black)},
+            {MakeVoidArrow(ArrowSouthWest), New LocationTypeDescriptor("Empty Space", ChrW(21), DarkGray, Black)},
+            {MakeVoidArrow(ArrowWest), New LocationTypeDescriptor("Empty Space", ChrW(22), DarkGray, Black)},
+            {MakeVoidArrow(ArrowNorthWest), New LocationTypeDescriptor("Empty Space", ChrW(23), DarkGray, Black)},
             {BlueStar, New LocationTypeDescriptor("Blue Star", ChrW(224), Hue.Blue, Black)},
             {BlueWhiteStar, New LocationTypeDescriptor("Blue-White Star", ChrW(224), Hue.LightBlue, Black)},
             {YellowStar, New LocationTypeDescriptor("Yellow Star", ChrW(224), Hue.Yellow, Black)},

@@ -6,20 +6,20 @@ Friend Module Edger
                               rows As Integer) As IReadOnlyList(Of (X As Integer, Y As Integer, LocationType As String))
         Return New List(Of (X As Integer, Y As Integer, LocationType As String)) From
         {
-            (0, 0, VoidArrowNorthWest),
-            (columns - 1, 0, VoidArrowNorthEast),
-            (0, rows - 1, VoidArrowSouthWest),
-            (columns - 1, rows - 1, VoidArrowSouthEast)
+            (0, 0, MakeVoidArrow(ArrowNorthWest)),
+            (columns - 1, 0, MakeVoidArrow(ArrowNorthEast)),
+            (0, rows - 1, MakeVoidArrow(ArrowSouthWest)),
+            (columns - 1, rows - 1, MakeVoidArrow(ArrowSouthEast))
         }
     End Function
     Friend Function GetEdges(
                               columns As Integer,
                               rows As Integer) As IReadOnlyList(Of (X As Integer, Y As Integer, LocationType As String, DeltaX As Integer, DeltaY As Integer))
         Return {
-            Enumerable.Range(1, columns - 2).Select(Function(x) (x, 0, VoidArrowNorth, 0, 1)),
-            Enumerable.Range(1, rows - 2).Select(Function(x) (columns - 1, x, VoidArrowEast, -1, 0)),
-            Enumerable.Range(1, columns - 2).Select(Function(x) (x, rows - 1, VoidArrowSouth, 0, -1)),
-            Enumerable.Range(1, rows - 2).Select(Function(x) (0, x, VoidArrowWest, 1, 0))
+            Enumerable.Range(1, columns - 2).Select(Function(x) (x, 0, MakeVoidArrow(ArrowNorth), 0, 1)),
+            Enumerable.Range(1, rows - 2).Select(Function(x) (columns - 1, x, MakeVoidArrow(ArrowEast), -1, 0)),
+            Enumerable.Range(1, columns - 2).Select(Function(x) (x, rows - 1, MakeVoidArrow(ArrowSouth), 0, -1)),
+            Enumerable.Range(1, rows - 2).Select(Function(x) (0, x, MakeVoidArrow(ArrowWest), 1, 0))
         }.Aggregate(
             New List(Of (X As Integer, Y As Integer, LocationType As String, DeltaX As Integer, DeltaY As Integer)),
             Function(a, x)
