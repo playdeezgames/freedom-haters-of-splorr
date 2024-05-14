@@ -36,4 +36,6 @@
     Property Interior As IMap
     Sub AddCrew(crew As IActor)
     Property Vessel As IActor
+    ReadOnly Property HasCrew As Boolean
+    ReadOnly Property Crew As IEnumerable(Of IActor)
 End Interface

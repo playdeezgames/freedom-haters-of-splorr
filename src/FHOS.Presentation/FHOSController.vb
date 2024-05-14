@@ -109,6 +109,7 @@ Public Class FHOSController
 
     Private Sub CreateActionStates(context As IUIContext(Of IUniverseModel))
         SetState(GameState.Status, New StatusState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.SelectCrewMember, New SelectCrewMemberState(Me, AddressOf SetCurrentState, context))
 
         For Each state In doVerbStates
             SetState(state.Key, New DoVerbState(Me, AddressOf SetCurrentState, context, state.Value))

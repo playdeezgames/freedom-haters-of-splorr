@@ -82,6 +82,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Private ReadOnly Property HasCrew As Boolean
+        Get
+            Return avatar.HasCrew
+        End Get
+    End Property
+
     Public ReadOnly Property IsGameOver As Boolean Implements IAvatarModel.IsGameOver
         Get
             Return IsDead OrElse IsBankrupt
@@ -176,7 +182,8 @@ Friend Class AvatarModel
             {VerbTypes.MoveRight, (Function() CanMove, Sub() Move(Facing.Right))},
             {VerbTypes.MoveDown, (Function() CanMove, Sub() Move(Facing.Down))},
             {VerbTypes.MoveLeft, (Function() CanMove, Sub() Move(Facing.Left))},
-            {VerbTypes.SPLORRPedia, (Function() True, Sub() Return)}
+            {VerbTypes.SPLORRPedia, (Function() True, Sub() Return)},
+            {VerbTypes.Crew, (Function() HasCrew, Sub() Return)}
         }
 
     Private Sub Move(facing As Integer)
@@ -320,6 +327,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel)) Implements IAvatarModel.AvailableCrew
+        Get
+            Return avatar.Crew.Select(Function(x) (x.Name, CType(New ActorModel(x), IActorModel)))
+        End Get
+    End Property
+
     Private Sub RefillOxygen()
         If CanRefillOxygen Then
             avatar.Oxygen = avatar.MaximumOxygen
@@ -336,5 +349,9 @@ Friend Class AvatarModel
 
     Public Sub LeaveInteraction() Implements IAvatarModel.LeaveInteraction
         avatar.Interactor = Nothing
+    End Sub
+
+    Public Sub Push(actor As IActorModel) Implements IAvatarModel.Push
+        avatar.Universe.PushAvatar(ActorModel.GetActor(actor))
     End Sub
 End Class

@@ -37,8 +37,8 @@ Friend Module ActorTypes
                 Person,
                 New ActorTypeDescriptor(
                     Person,
-                    {ChrW(144), ChrW(144), ChrW(144), ChrW(144)},
-                    Hue.DarkGray,
+                    {ChrW(160), ChrW(160), ChrW(160), ChrW(160)},
+                    Hue.LightGray,
                     maximumOxygen:=100,
                     maximumFuel:=100,
                     spawnCount:=25,
@@ -69,10 +69,10 @@ Friend Module ActorTypes
     End Sub
 
     Private Sub InitializePlayerShipCrew(playerShip As IActor)
-        Dim actor = playerShip.
+        Dim location = playerShip.
             Interior.
-            GetLocation(PlayerShipInteriorColumns \ 2, PlayerShipInteriorRows \ 2).
-            CreateActor(ActorTypes.Person)
+            GetLocation(PlayerShipInteriorColumns \ 2, PlayerShipInteriorRows \ 2)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.Person).CreateActor(location)
         playerShip.AddCrew(actor)
     End Sub
 

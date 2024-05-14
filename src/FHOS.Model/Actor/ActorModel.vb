@@ -1,4 +1,6 @@
-﻿Friend Class ActorModel
+﻿Imports FHOS.Persistence
+
+Friend Class ActorModel
     Implements IActorModel
 
     Private ReadOnly actor As Persistence.IActor
@@ -30,4 +32,8 @@
             Return New FactionModel(actor.Faction)
         End Get
     End Property
+
+    Friend Shared Function GetActor(model As IActorModel) As IActor
+        Return CType(model, ActorModel).actor
+    End Function
 End Class

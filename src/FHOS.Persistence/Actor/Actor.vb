@@ -87,10 +87,10 @@ Friend Class Actor
 
     Public Property Oxygen As Integer Implements IActor.Oxygen
         Get
-            Return Math.Clamp(EntityData.Statistics(StatisticTypes.Oxygen), 0, MaximumOxygen)
+            Return GetStatistic(StatisticTypes.Oxygen).Value
         End Get
         Set(value As Integer)
-            EntityData.Statistics(StatisticTypes.Oxygen) = Math.Clamp(value, 0, MaximumOxygen)
+            SetStatistic(StatisticTypes.Oxygen, Math.Clamp(value, 0, MaximumOxygen))
         End Set
     End Property
 
@@ -159,10 +159,10 @@ Friend Class Actor
 
     Public Property Jools As Integer Implements IActor.Jools
         Get
-            Return EntityData.Statistics(StatisticTypes.Jools)
+            Return GetStatistic(StatisticTypes.Jools).Value
         End Get
         Set(value As Integer)
-            EntityData.Statistics(StatisticTypes.Jools) = value
+            SetStatistic(StatisticTypes.Jools, value)
         End Set
     End Property
 
@@ -255,5 +255,17 @@ Friend Class Actor
         Set(value As IActor)
             SetStatistic(StatisticTypes.VesselId, value?.Id)
         End Set
+    End Property
+
+    Public ReadOnly Property HasCrew As Boolean Implements IActor.HasCrew
+        Get
+            Return EntityData.Crew.Any
+        End Get
+    End Property
+
+    Public ReadOnly Property Crew As IEnumerable(Of IActor) Implements IActor.Crew
+        Get
+            Return EntityData.Crew.Select(Function(x) Actor.FromId(UniverseData, x))
+        End Get
     End Property
 End Class

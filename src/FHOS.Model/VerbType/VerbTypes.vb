@@ -14,6 +14,7 @@
     Public ReadOnly Refuel As String = NameOf(Refuel)
     Public ReadOnly SPLORRPedia As String = NameOf(SPLORRPedia)
     Public ReadOnly Status As String = NameOf(Status)
+    Public ReadOnly Crew As String = NameOf(Crew)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, VerbTypeDescriptor) =
         New Dictionary(Of String, VerbTypeDescriptor) From
@@ -32,6 +33,7 @@
             {MoveRight, New VerbTypeDescriptor("Move Right", visible:=False)},
             {MoveDown, New VerbTypeDescriptor("Move Down", visible:=False)},
             {MoveLeft, New VerbTypeDescriptor("Move Left", visible:=False)},
-            {SPLORRPedia, New VerbTypeDescriptor("SPLORR!!Pedia")}
+            {SPLORRPedia, New VerbTypeDescriptor("SPLORR!!Pedia")},
+            {Crew, New VerbTypeDescriptor("Crew...")}
         }
 End Module

@@ -42,4 +42,5 @@
     Friend ReadOnly StarSystemList As String = NameOf(StarSystemList)
     Friend ReadOnly PlanetList As String = NameOf(PlanetList)
     Friend ReadOnly SatelliteList As String = NameOf(SatelliteList)
+    Friend ReadOnly SelectCrewMember As String = NameOf(SelectCrewMember)
 End Module
