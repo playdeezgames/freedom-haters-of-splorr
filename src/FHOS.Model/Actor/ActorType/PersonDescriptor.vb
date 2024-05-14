@@ -13,7 +13,6 @@ Friend Class PersonDescriptor
                 ChrW(160)
             },
             LightGray,
-            maximumOxygen:=100,
             maximumFuel:=100,
             spawnCount:=25,
             canSpawn:=Function(x) x.LocationType = LocationTypes.Air AndAlso x.Actor Is Nothing,

@@ -4,7 +4,7 @@ Friend Class BaseAvatarModel
     Protected ReadOnly avatar As IActor
     Protected Sub DoTurn()
         avatar.Turn += 1
-        avatar.Oxygen -= 1
+        avatar.LifeSupport.CurrentValue -= 1
     End Sub
     Protected Sub New(avatar As IActor)
         Me.avatar = avatar

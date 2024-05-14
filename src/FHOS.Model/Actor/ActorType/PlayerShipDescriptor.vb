@@ -14,7 +14,6 @@ Friend Class PlayerShipDescriptor
                 ChrW(131)
             },
             LightGray,
-            maximumOxygen:=100,
             maximumFuel:=100,
             spawnCount:=1,
             canSpawn:=Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing,
@@ -27,10 +26,8 @@ Friend Class PlayerShipDescriptor
         ship.Faction = ship.Universe.Factions.Single(Function(x) x.HasFlag(FlagTypes.LovesFreedom))
         ship.HomePlanet = RNG.FromEnumerable(ship.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = ship.Faction.Id))
         ship.Name = "(yer ship)"
-        'TODO: create wallet
         ship.Wallet = ship.Universe.CreateStore(0, minimum:=0)
-        'TODO: create life support
-        ship.LifeSupport = ship.Universe.CreateStore(0, minimum:=0, maximum:=100)
+        ship.LifeSupport = ship.Universe.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
         InitializePlayerShipInterior(ship)
         InitializePlayerShipCrew(ship)
     End Sub
@@ -40,11 +37,14 @@ Friend Class PlayerShipDescriptor
             Interior.
             GetLocation(PlayerShipInteriorColumns \ 2, PlayerShipInteriorRows \ 2)
         Dim actor = ActorTypes.Descriptors(ActorTypes.Person).CreateActor(location)
+        actor.Wallet = ship.Wallet
+        actor.LifeSupport = ship.LifeSupport
         ship.AddCrew(actor)
     End Sub
 
     Private Const PlayerShipInteriorColumns = 5
     Private Const PlayerShipInteriorRows = 5
+    Private Const PlayerShipMaximumOxygen = 100
     Private Shared Sub InitializePlayerShipInterior(ship As IActor)
         Dim map = ship.Universe.CreateMap(
             MapTypes.Vessel,

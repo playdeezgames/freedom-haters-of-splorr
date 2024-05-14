@@ -5,8 +5,6 @@
     Property Facing As Integer
     Property Name As String
 
-    Property MaximumOxygen As Integer
-    Property Oxygen As Integer
     Property LifeSupport As IStore
 
     Property MaximumFuel As Integer

@@ -76,24 +76,6 @@ Friend Class Actor
         End Get
     End Property
 
-    Public Property MaximumOxygen As Integer Implements IActor.MaximumOxygen
-        Get
-            Return Math.Max(0, EntityData.Statistics(StatisticTypes.MaximumOxygen))
-        End Get
-        Set(value As Integer)
-            EntityData.Statistics(StatisticTypes.MaximumOxygen) = Math.Max(0, value)
-        End Set
-    End Property
-
-    Public Property Oxygen As Integer Implements IActor.Oxygen
-        Get
-            Return GetStatistic(StatisticTypes.Oxygen).Value
-        End Get
-        Set(value As Integer)
-            SetStatistic(StatisticTypes.Oxygen, Math.Clamp(value, 0, MaximumOxygen))
-        End Set
-    End Property
-
     Public Property Facing As Integer Implements IActor.Facing
         Get
             Return EntityData.Statistics(StatisticTypes.Facing)

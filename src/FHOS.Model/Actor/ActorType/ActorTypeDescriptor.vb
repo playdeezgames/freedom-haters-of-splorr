@@ -4,7 +4,6 @@ Imports SPLORR.Game
 Friend Class ActorTypeDescriptor
     ReadOnly Property Glyphs As Char()
     ReadOnly Property Hue As Integer
-    ReadOnly Property MaximumOxygen As Integer
     ReadOnly Property MaximumFuel As Integer
     ReadOnly Property CanSpawn As Func(Of ILocation, Boolean)
     ReadOnly Property SpawnCount As Integer
@@ -14,7 +13,6 @@ Friend Class ActorTypeDescriptor
            actorType As String,
            glyphs As Char(),
            hue As Integer,
-           Optional maximumOxygen As Integer = 0,
            Optional maximumFuel As Integer = 0,
            Optional spawnCount As Integer = 0,
            Optional canSpawn As Func(Of ILocation, Boolean) = Nothing,
@@ -22,7 +20,6 @@ Friend Class ActorTypeDescriptor
         Me.ActorType = actorType
         Me.Glyphs = glyphs
         Me.Hue = hue
-        Me.MaximumOxygen = maximumOxygen
         Me.MaximumFuel = maximumFuel
         If canSpawn Is Nothing Then
             canSpawn = Function(x) True
@@ -40,8 +37,6 @@ Friend Class ActorTypeDescriptor
         End If
         Dim actor = location.CreateActor(ActorType)
         actor.Facing = RNG.FromRange(0, Facing.Deltas.Length - 1)
-        actor.MaximumOxygen = MaximumOxygen
-        actor.Oxygen = MaximumOxygen
         actor.MaximumFuel = MaximumFuel
         actor.Fuel = MaximumFuel
         actor.Jools = 0

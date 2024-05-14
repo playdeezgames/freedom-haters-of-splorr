@@ -48,7 +48,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property OxygenPercent As Integer Implements IAvatarModel.OxygenPercent
         Get
-            Return avatar.Oxygen * 100 \ avatar.MaximumOxygen
+            Return avatar.LifeSupport.CurrentValue * 100 \ avatar.LifeSupport.MaximumValue.Value
         End Get
     End Property
 
@@ -127,7 +127,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property IsDead As Boolean Implements IAvatarModel.IsDead
         Get
-            Return avatar.Oxygen = 0
+            Return avatar.LifeSupport.CurrentValue = avatar.LifeSupport.MinimumValue.Value
         End Get
     End Property
 
@@ -349,7 +349,7 @@ Friend Class AvatarModel
 
     Private Sub RefillOxygen()
         If CanRefillOxygen Then
-            avatar.Oxygen = avatar.MaximumOxygen
+            avatar.LifeSupport.CurrentValue = avatar.LifeSupport.MaximumValue.Value
         End If
     End Sub
 
