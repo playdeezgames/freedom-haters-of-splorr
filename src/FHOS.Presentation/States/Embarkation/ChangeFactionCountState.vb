@@ -13,7 +13,7 @@ Friend Class ChangeFactionCountState
             setState,
             context,
             "Faction Count",
-            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            context.ChooseOrCancel,
             BoilerplateState.Embark)
     End Sub
 

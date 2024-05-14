@@ -15,7 +15,7 @@ Friend Class ChangeStartingWealthLevelState
             setState,
             context,
             "Starting Wealth",
-            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            context.ChooseOrCancel,
             BoilerplateState.Embark)
     End Sub
 

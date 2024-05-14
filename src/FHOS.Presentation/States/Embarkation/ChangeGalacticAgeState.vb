@@ -15,7 +15,7 @@ Friend Class ChangeGalacticAgeState
             setState,
             context,
             "Galactic Age",
-            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            context.ChooseOrCancel,
             BoilerplateState.Embark)
     End Sub
 

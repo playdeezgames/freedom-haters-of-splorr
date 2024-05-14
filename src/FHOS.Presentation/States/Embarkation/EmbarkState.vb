@@ -18,7 +18,7 @@ Friend Class EmbarkState
             setState,
             context,
             "Embarkation Options...",
-            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            context.ChooseOrCancel,
             BoilerplateState.MainMenu)
     End Sub
 

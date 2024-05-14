@@ -13,7 +13,7 @@ Friend Class ActionMenuState
             setState,
             context,
             "Action Menu",
-            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            context.ChooseOrCancel,
             BoilerplateState.Neutral)
     End Sub
 

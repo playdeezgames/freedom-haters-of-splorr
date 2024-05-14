@@ -19,7 +19,7 @@ Friend Class KnownPlacesState
             setState,
             context,
             "Known Places...",
-            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            context.ChooseOrCancel,
             GameState.ActionMenu)
     End Sub
 

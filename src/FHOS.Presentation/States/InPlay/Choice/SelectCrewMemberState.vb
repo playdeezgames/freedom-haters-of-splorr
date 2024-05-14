@@ -13,7 +13,7 @@ Friend Class SelectCrewMemberState
             setState,
             context,
             "Select Crew Member",
-            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            context.ChooseOrCancel,
             GameState.ActionMenu)
     End Sub
 

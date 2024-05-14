@@ -1,0 +1,24 @@
+﻿Imports FHOS.Persistence
+Imports SPLORR.Game
+
+Friend Class MilitaryVesselDescriptor
+    Inherits ActorTypeDescriptor
+
+    Public Sub New()
+        MyBase.New(MilitaryShip,
+                    {ChrW(132), ChrW(133), ChrW(134), ChrW(135)},
+                    DarkGray,
+                    maximumOxygen:=100,
+                    maximumFuel:=100,
+                    spawnCount:=25,
+                    canSpawn:=Function(x) x.LocationType = Void AndAlso x.Actor Is Nothing,
+                    initializer:=AddressOf InitializeMilitaryShip)
+    End Sub
+    Private Shared Sub InitializeMilitaryShip(actor As Persistence.IActor)
+        actor.Faction = RNG.FromGenerator(actor.Universe.Factions.ToDictionary(Function(x) x, Function(x) x.PlanetCount))
+        actor.HomePlanet = RNG.FromEnumerable(actor.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = actor.Faction.Id))
+        actor.Fuel = RNG.FromRange(0, actor.MaximumFuel)
+        actor.Oxygen = RNG.FromRange(0, actor.MaximumOxygen)
+        actor.Name = $"{actor.Faction.Name} Military Vessel"
+    End Sub
+End Class

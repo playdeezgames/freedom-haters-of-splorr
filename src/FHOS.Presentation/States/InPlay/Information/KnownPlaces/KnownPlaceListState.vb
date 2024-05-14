@@ -21,7 +21,7 @@ Public Class KnownPlaceListState
             setState,
             context,
             headerText,
-            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            context.ChooseOrCancel,
             cancelGameState)
         Me.placeType = placeType
         Me.detailsState = detailsState

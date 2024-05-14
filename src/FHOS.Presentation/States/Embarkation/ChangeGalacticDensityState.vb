@@ -15,7 +15,7 @@ Friend Class ChangeGalacticDensityState
             setState,
             context,
             "Galactic Density",
-            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            context.ChooseOrCancel,
             BoilerplateState.Embark)
     End Sub
 

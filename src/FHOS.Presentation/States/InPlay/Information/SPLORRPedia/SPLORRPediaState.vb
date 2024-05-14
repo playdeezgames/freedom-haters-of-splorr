@@ -17,7 +17,7 @@ Friend Class SPLORRPediaState
             setState,
             context,
             "SPLORR!!Pedia",
-            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            context.ChooseOrCancel,
             GameState.ActionMenu)
     End Sub
 

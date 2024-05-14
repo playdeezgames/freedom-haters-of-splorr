@@ -14,7 +14,7 @@ Friend Class FactionListState
             setState,
             context,
             "Galactic Factions",
-            context.ControlsText(aButton:="Choose", bButton:="Cancel"),
+            context.ChooseOrCancel,
             GameState.SPLORRPedia)
     End Sub
 
