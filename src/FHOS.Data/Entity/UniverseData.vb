@@ -7,6 +7,7 @@ Public Class UniverseData
     Property Maps As New BucketData(Of MapData)
     Property Places As New BucketData(Of PlaceData)
     Property Factions As New BucketData(Of FactionData)
+    Property Stores As New BucketData(Of StoreData)
     Property Avatars As New Stack(Of Integer)
     <JsonIgnore>
     Property Messages As New Queue(Of MessageData)

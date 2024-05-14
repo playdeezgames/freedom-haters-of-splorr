@@ -268,4 +268,22 @@ Friend Class Actor
             Return EntityData.Crew.Select(Function(x) Actor.FromId(UniverseData, x))
         End Get
     End Property
+
+    Public Property LifeSupport As IStore Implements IActor.LifeSupport
+        Get
+            Return Store.FromId(UniverseData, GetStatistic(StatisticTypes.LifeSupportId))
+        End Get
+        Set(value As IStore)
+            SetStatistic(StatisticTypes.LifeSupportId, value?.Id)
+        End Set
+    End Property
+
+    Public Property Wallet As IStore Implements IActor.Wallet
+        Get
+            Return Store.FromId(UniverseData, GetStatistic(StatisticTypes.WalletId))
+        End Get
+        Set(value As IStore)
+            SetStatistic(StatisticTypes.WalletId, value?.Id)
+        End Set
+    End Property
 End Class

@@ -150,4 +150,21 @@ Public Class Universe
     Public Function GetPlacesOfType(placeType As String) As IEnumerable(Of IPlace) Implements IUniverse.GetPlacesOfType
         Return Places.Where(Function(x) x.PlaceType = placeType)
     End Function
+
+    Public Function CreateStore(value As Integer, Optional minimum As Integer? = Nothing, Optional maximum As Integer? = Nothing) As IStore Implements IUniverse.CreateStore
+        Dim storeData = New StoreData With
+            {
+                .Statistics = New Dictionary(Of String, Integer) From
+                {
+                    {StatisticTypes.CurrentValue, value}
+                }
+            }
+        If minimum.HasValue Then
+            storeData.Statistics(StatisticTypes.MinimumValue) = minimum.Value
+        End If
+        If maximum.HasValue Then
+            storeData.Statistics(StatisticTypes.MaximumValue) = maximum.Value
+        End If
+        Return Store.FromId(UniverseData, UniverseData.Stores.CreateOrRecycle(storeData))
+    End Function
 End Class

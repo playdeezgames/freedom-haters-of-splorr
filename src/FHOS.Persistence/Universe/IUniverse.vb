@@ -24,6 +24,7 @@ Public Interface IUniverse
                           authority As Integer,
                           standards As Integer,
                           conviction As Integer) As IFaction
+    Function CreateStore(value As Integer, Optional minimum As Integer? = Nothing, Optional maximum As Integer? = Nothing) As IStore
     ReadOnly Property Factions As IEnumerable(Of IFaction)
     ReadOnly Property Actors As IEnumerable(Of IActor)
 End Interface

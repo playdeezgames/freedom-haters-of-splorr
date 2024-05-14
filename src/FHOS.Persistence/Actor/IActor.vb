@@ -7,6 +7,7 @@
 
     Property MaximumOxygen As Integer
     Property Oxygen As Integer
+    Property LifeSupport As IStore
 
     Property MaximumFuel As Integer
     Property Fuel As Integer
@@ -26,6 +27,7 @@
     Property Turn As Integer
     Property Jools As Integer
     Property MinimumJools As Integer
+    Property Wallet As IStore
     Sub AddMessage(
                   header As String,
                   ParamArray lines As (Text As String, Hue As Integer)())
