@@ -2,10 +2,14 @@
     Implements IGalacticDensityModel
     Private ReadOnly embarkSettings As EmbarkSettings
     Private ReadOnly persistSettings As Action
-    Sub New(embarkSettings As EmbarkSettings, persistSettings As Action)
+    Protected Sub New(embarkSettings As EmbarkSettings, persistSettings As Action)
         Me.embarkSettings = embarkSettings
         Me.persistSettings = persistSettings
     End Sub
+
+    Friend Shared Function FromSettings(embarkSettings As EmbarkSettings, persistSettings As Action) As IGalacticDensityModel
+        Return New GalacticDensityModel(embarkSettings, persistSettings)
+    End Function
 
     Public ReadOnly Property CurrentName As String Implements IGalacticDensityModel.CurrentName
         Get

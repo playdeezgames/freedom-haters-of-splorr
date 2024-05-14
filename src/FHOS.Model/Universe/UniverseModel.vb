@@ -28,7 +28,7 @@ Public Class UniverseModel
 
     Public ReadOnly Property GalacticAge As IGalacticAgeModel Implements IUniverseModel.GalacticAge
         Get
-            Return New GalacticAgeModel(EmbarkSettings, AddressOf PersistEmbarkSettings)
+            Return GalacticAgeModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
         End Get
     End Property
 
@@ -40,7 +40,7 @@ Public Class UniverseModel
 
     Public ReadOnly Property GalacticDensity As IGalacticDensityModel Implements IUniverseModel.GalacticDensity
         Get
-            Return New GalacticDensityModel(EmbarkSettings, AddressOf PersistEmbarkSettings)
+            Return GalacticDensityModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
         End Get
     End Property
 
@@ -89,7 +89,7 @@ Public Class UniverseModel
 
     Public ReadOnly Property StartingWealth As IStartingWealthLevelModel Implements IUniverseModel.StartingWealth
         Get
-            Return New StartingWealthLevelModel(EmbarkSettings, AddressOf PersistEmbarkSettings)
+            Return StartingWealthLevelModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
         End Get
     End Property
 
@@ -113,7 +113,7 @@ Public Class UniverseModel
 
     Public ReadOnly Property FactionCount As IFactionCountModel Implements IUniverseModel.FactionCount
         Get
-            Return New FactionCountModel(EmbarkSettings, AddressOf PersistEmbarkSettings)
+            Return FactionCountModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
         End Get
     End Property
 

@@ -4,10 +4,14 @@
     Private ReadOnly embarkSettings As EmbarkSettings
     Private ReadOnly persistSettings As Action
 
-    Public Sub New(embarkSettings As EmbarkSettings, value As Action)
+    Protected Sub New(embarkSettings As EmbarkSettings, persistSettings As Action)
         Me.embarkSettings = embarkSettings
-        Me.persistSettings = value
+        Me.persistSettings = persistSettings
     End Sub
+
+    Friend Shared Function FromSettings(embarkSettings As EmbarkSettings, persistSettings As Action) As IFactionCountModel
+        Return New FactionCountModel(embarkSettings, persistSettings)
+    End Function
 
     Public ReadOnly Property CurrentName As String Implements IFactionCountModel.CurrentName
         Get

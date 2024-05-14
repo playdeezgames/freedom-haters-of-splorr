@@ -2,10 +2,14 @@
     Implements IStartingWealthLevelModel
     Private ReadOnly embarkSettings As EmbarkSettings
     Private ReadOnly persistSettings As Action
-    Sub New(embarkSettings As EmbarkSettings, persistSettings As Action)
+    Protected Sub New(embarkSettings As EmbarkSettings, persistSettings As Action)
         Me.embarkSettings = embarkSettings
         Me.persistSettings = persistSettings
     End Sub
+
+    Friend Shared Function FromSettings(embarkSettings As EmbarkSettings, persistSettings As Action) As IStartingWealthLevelModel
+        Return New StartingWealthLevelModel(embarkSettings, persistSettings)
+    End Function
 
 
     Public ReadOnly Property Current As String Implements IStartingWealthLevelModel.Current
