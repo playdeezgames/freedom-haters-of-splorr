@@ -1,4 +1,14 @@
 ﻿Friend Module LocationTypes
+
+    Friend ReadOnly ArrowNorth As String = NameOf(ArrowNorth)
+    Friend ReadOnly ArrowNorthEast As String = NameOf(ArrowNorthEast)
+    Friend ReadOnly ArrowEast As String = NameOf(ArrowEast)
+    Friend ReadOnly ArrowSouthEast As String = NameOf(ArrowSouthEast)
+    Friend ReadOnly ArrowSouth As String = NameOf(ArrowSouth)
+    Friend ReadOnly ArrowSouthWest As String = NameOf(ArrowSouthWest)
+    Friend ReadOnly ArrowWest As String = NameOf(ArrowWest)
+    Friend ReadOnly ArrowNorthWest As String = NameOf(ArrowNorthWest)
+
     Friend ReadOnly Void As String = NameOf(Void)
     Friend ReadOnly VoidArrowNorth As String = NameOf(VoidArrowNorth)
     Friend ReadOnly VoidArrowNorthEast As String = NameOf(VoidArrowNorthEast)
@@ -8,6 +18,10 @@
     Friend ReadOnly VoidArrowSouthWest As String = NameOf(VoidArrowSouthWest)
     Friend ReadOnly VoidArrowWest As String = NameOf(VoidArrowWest)
     Friend ReadOnly VoidArrowNorthWest As String = NameOf(VoidArrowNorthWest)
+
+    Friend Function MakeVoidArrow(arrowType As String) As String
+        Return $"{Void}{arrowType}"
+    End Function
 
     Friend ReadOnly BlueStar As String = NameOf(BlueStar)
     Friend ReadOnly BlueWhiteStar As String = NameOf(BlueWhiteStar)
