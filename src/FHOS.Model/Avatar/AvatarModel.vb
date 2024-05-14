@@ -88,6 +88,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Private ReadOnly Property HasVessel As Boolean
+        Get
+            Return avatar.Vessel IsNot Nothing
+        End Get
+    End Property
+
     Public ReadOnly Property IsGameOver As Boolean Implements IAvatarModel.IsGameOver
         Get
             Return IsDead OrElse IsBankrupt
@@ -183,7 +189,8 @@ Friend Class AvatarModel
             {VerbTypes.MoveDown, (Function() CanMove, Sub() Move(Facing.Down))},
             {VerbTypes.MoveLeft, (Function() CanMove, Sub() Move(Facing.Left))},
             {VerbTypes.SPLORRPedia, (Function() True, Sub() Return)},
-            {VerbTypes.Crew, (Function() HasCrew, Sub() Return)}
+            {VerbTypes.Crew, (Function() HasCrew, Sub() Return)},
+            {VerbTypes.Vessel, (Function() HasVessel, Sub() Return)}
         }
 
     Private Sub Move(facing As Integer)
@@ -353,5 +360,9 @@ Friend Class AvatarModel
 
     Public Sub Push(actor As IActorModel) Implements IAvatarModel.Push
         avatar.Universe.PushAvatar(ActorModel.GetActor(actor))
+    End Sub
+
+    Public Sub Pop() Implements IAvatarModel.Pop
+        avatar.Universe.PopAvatar()
     End Sub
 End Class

@@ -35,7 +35,8 @@ Friend Class ActionMenuState
             {VerbTypes.MoveLeft, GameState.MoveLeft},
             {VerbTypes.MoveUp, GameState.MoveUp},
             {VerbTypes.MoveDown, GameState.MoveDown},
-            {VerbTypes.Crew, GameState.SelectCrewMember}
+            {VerbTypes.Crew, GameState.SelectCrewMember},
+            {VerbTypes.Vessel, GameState.SelectVessel}
         }
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))

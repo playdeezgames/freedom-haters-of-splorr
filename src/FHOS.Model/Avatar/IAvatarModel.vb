@@ -30,6 +30,7 @@
     Function GetKnownPlacesOfType(placeType As String) As IEnumerable(Of (Text As String, Item As IPlaceModel))
     Sub LeaveInteraction()
     Sub Push(actor As IActorModel)
+    Sub Pop()
     ReadOnly Property HomePlanet As IPlaceModel
     ReadOnly Property Faction As IFactionModel
     ReadOnly Property IsInteracting As Boolean
