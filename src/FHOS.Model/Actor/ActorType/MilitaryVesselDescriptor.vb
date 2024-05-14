@@ -5,14 +5,20 @@ Friend Class MilitaryVesselDescriptor
     Inherits ActorTypeDescriptor
 
     Public Sub New()
-        MyBase.New(MilitaryShip,
-                    {ChrW(132), ChrW(133), ChrW(134), ChrW(135)},
-                    DarkGray,
-                    maximumOxygen:=100,
-                    maximumFuel:=100,
-                    spawnCount:=25,
-                    canSpawn:=Function(x) x.LocationType = Void AndAlso x.Actor Is Nothing,
-                    initializer:=AddressOf InitializeMilitaryShip)
+        MyBase.New(
+            MilitaryShip,
+            {
+                ChrW(132),
+                ChrW(133),
+                ChrW(134),
+                ChrW(135)
+            },
+            DarkGray,
+            maximumOxygen:=100,
+            maximumFuel:=100,
+            spawnCount:=25,
+            canSpawn:=Function(x) x.LocationType = Void AndAlso x.Actor Is Nothing,
+            initializer:=AddressOf InitializeMilitaryShip)
     End Sub
     Private Shared Sub InitializeMilitaryShip(actor As Persistence.IActor)
         actor.Faction = RNG.FromGenerator(actor.Universe.Factions.ToDictionary(Function(x) x, Function(x) x.PlanetCount))

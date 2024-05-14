@@ -5,14 +5,20 @@ Friend Class PlayerShipDescriptor
     Inherits ActorTypeDescriptor
 
     Public Sub New()
-        MyBase.New(PlayerShip,
-                    {ChrW(128), ChrW(129), ChrW(130), ChrW(131)},
-                    LightGray,
-                    maximumOxygen:=100,
-                    maximumFuel:=100,
-                    spawnCount:=1,
-                    canSpawn:=Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing,
-                    initializer:=AddressOf InitializePlayerShip)
+        MyBase.New(
+            PlayerShip,
+            {
+                ChrW(128),
+                ChrW(129),
+                ChrW(130),
+                ChrW(131)
+            },
+            LightGray,
+            maximumOxygen:=100,
+            maximumFuel:=100,
+            spawnCount:=1,
+            canSpawn:=Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing,
+            initializer:=AddressOf InitializePlayerShip)
     End Sub
 
 
