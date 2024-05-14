@@ -10,6 +10,8 @@
     Friend ReadOnly ArrowNorthWest As String = NameOf(ArrowNorthWest)
 
     Friend ReadOnly Void As String = NameOf(Void)
+    Friend ReadOnly Air As String = NameOf(Air)
+    Friend ReadOnly Bulkhead As String = NameOf(Bulkhead)
 
     Friend Function MakeVoidArrow(arrowType As String) As String
         Return $"{Void}{arrowType}"

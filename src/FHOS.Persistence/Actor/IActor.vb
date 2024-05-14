@@ -33,4 +33,7 @@
     ReadOnly Property Universe As IUniverse
     Property HomePlanet As IPlace
     Property Interactor As IActor
+    Property Interior As IMap
+    Sub AddCrew(crew As IActor)
+    Property Vessel As IActor
 End Interface

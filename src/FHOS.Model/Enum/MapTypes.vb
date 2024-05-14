@@ -5,4 +5,5 @@
     Friend ReadOnly PlanetVicinity As String = NameOf(PlanetVicinity)
     Friend ReadOnly PlanetOrbit As String = NameOf(PlanetOrbit)
     Friend ReadOnly SatelliteOrbit As String = NameOf(SatelliteOrbit)
+    Friend ReadOnly Vessel As String = NameOf(Vessel)
 End Module

@@ -65,6 +65,11 @@ Friend Class Actor
         Return KnownPlaces.Where(Function(x) x.PlaceType = placeType)
     End Function
 
+    Public Sub AddCrew(crew As IActor) Implements IActor.AddCrew
+        EntityData.Crew.Add(crew.Id)
+        crew.Vessel = Me
+    End Sub
+
     Public ReadOnly Property ActorType As String Implements IActor.ActorType
         Get
             Return EntityData.Metadatas(MetadataTypes.ActorType)
@@ -231,6 +236,24 @@ Friend Class Actor
         End Get
         Set(value As String)
             SetMetadata(MetadataTypes.Name, value)
+        End Set
+    End Property
+
+    Public Property Interior As IMap Implements IActor.Interior
+        Get
+            Return Map.FromId(UniverseData, GetStatistic(StatisticTypes.MapId))
+        End Get
+        Set(value As IMap)
+            SetStatistic(StatisticTypes.MapId, value?.Id)
+        End Set
+    End Property
+
+    Public Property Vessel As IActor Implements IActor.Vessel
+        Get
+            Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.VesselId))
+        End Get
+        Set(value As IActor)
+            SetStatistic(StatisticTypes.VesselId, value?.Id)
         End Set
     End Property
 End Class
