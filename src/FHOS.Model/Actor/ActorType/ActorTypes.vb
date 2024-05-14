@@ -2,9 +2,10 @@
 Imports SPLORR.Game
 
 Friend Module ActorTypes
+    Friend ReadOnly Person As String = NameOf(Person)
     Friend ReadOnly PlayerShip As String = NameOf(PlayerShip)
     Friend ReadOnly MilitaryShip As String = NameOf(MilitaryShip)
-    Friend ReadOnly Person As String = NameOf(Person)
+
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, ActorTypeDescriptor) =
         New Dictionary(Of String, ActorTypeDescriptor) From
         {
