@@ -16,13 +16,13 @@ Public Class UniverseModel
 
     Public ReadOnly Property Board As IBoardModel Implements IUniverseModel.Board
         Get
-            Return New BoardModel(Universe)
+            Return BoardModel.FromUniverse(Universe)
         End Get
     End Property
 
     Public ReadOnly Property Avatar As IAvatarModel Implements IUniverseModel.Avatar
         Get
-            Return New AvatarModel(Universe.Avatar)
+            Return AvatarModel.FromActor(Universe.Avatar)
         End Get
     End Property
 

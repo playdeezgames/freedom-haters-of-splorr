@@ -5,9 +5,16 @@ Friend Class ActorModel
 
     Private ReadOnly actor As Persistence.IActor
 
-    Public Sub New(actor As Persistence.IActor)
+    Protected Sub New(actor As Persistence.IActor)
         Me.actor = actor
     End Sub
+
+    Friend Shared Function FromActor(actor As IActor) As IActorModel
+        If actor Is Nothing Then
+            Return Nothing
+        End If
+        Return New ActorModel(actor)
+    End Function
 
     Public ReadOnly Property Glyph As Char Implements IActorModel.Glyph
         Get

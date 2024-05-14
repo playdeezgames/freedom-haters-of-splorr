@@ -6,7 +6,7 @@ Friend Class BaseAvatarModel
         avatar.Turn += 1
         avatar.Oxygen -= 1
     End Sub
-    Sub New(avatar As IActor)
+    Protected Sub New(avatar As IActor)
         Me.avatar = avatar
     End Sub
     Protected Sub SetLocation(location As ILocation)

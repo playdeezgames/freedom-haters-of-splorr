@@ -5,9 +5,16 @@ Friend Class AvatarModel
     Inherits BaseAvatarModel
     Implements IAvatarModel
 
-    Public Sub New(avatar As IActor)
+    Protected Sub New(avatar As IActor)
         MyBase.New(avatar)
     End Sub
+
+    Friend Shared Function FromActor(actor As IActor) As IAvatarModel
+        If actor Is Nothing Then
+            Return Nothing
+        End If
+        Return New AvatarModel(actor)
+    End Function
 
     Public ReadOnly Property X As Integer Implements IAvatarModel.X
         Get
@@ -336,7 +343,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel)) Implements IAvatarModel.AvailableCrew
         Get
-            Return avatar.Crew.Select(Function(x) (x.Name, CType(New ActorModel(x), IActorModel)))
+            Return avatar.Crew.Select(Function(x) (x.Name, ActorModel.FromActor(x)))
         End Get
     End Property
 

@@ -9,6 +9,9 @@ Friend Class PlaceModel
     End Sub
 
     Friend Shared Function FromPlace(place As IPlace) As IPlaceModel
+        If place Is Nothing Then
+            Return Nothing
+        End If
         Return New PlaceModel(place)
     End Function
 

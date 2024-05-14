@@ -31,7 +31,7 @@
             If locationActor Is Nothing Then
                 Return Nothing
             End If
-            Return New ActorModel(locationActor)
+            Return ActorModel.FromActor(locationActor)
         End Get
     End Property
 
