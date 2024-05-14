@@ -19,7 +19,6 @@
         Return $"{starType}Star"
     End Function
 
-    Friend ReadOnly BlueStar As String = NameOf(BlueStar)
     Friend ReadOnly BlueWhiteStar As String = NameOf(BlueWhiteStar)
     Friend ReadOnly YellowStar As String = NameOf(YellowStar)
     Friend ReadOnly OrangeStar As String = NameOf(OrangeStar)
@@ -161,11 +160,11 @@
             {MakeVoidArrow(ArrowSouthWest), New LocationTypeDescriptor("Empty Space", ChrW(21), DarkGray, Black)},
             {MakeVoidArrow(ArrowWest), New LocationTypeDescriptor("Empty Space", ChrW(22), DarkGray, Black)},
             {MakeVoidArrow(ArrowNorthWest), New LocationTypeDescriptor("Empty Space", ChrW(23), DarkGray, Black)},
-            {BlueStar, New LocationTypeDescriptor("Blue Star", ChrW(224), Hue.Blue, Black)},
-            {BlueWhiteStar, New LocationTypeDescriptor("Blue-White Star", ChrW(224), Hue.LightBlue, Black)},
-            {YellowStar, New LocationTypeDescriptor("Yellow Star", ChrW(224), Hue.Yellow, Black)},
-            {OrangeStar, New LocationTypeDescriptor("Orange Star", ChrW(224), Hue.Orange, Black)},
-            {RedStar, New LocationTypeDescriptor("Red Star", ChrW(224), Hue.Red, Black)},
+            {MakeStar(StarTypes.Blue), New LocationTypeDescriptor("Blue Star", ChrW(224), Hue.Blue, Black)},
+            {MakeStar(StarTypes.BlueWhite), New LocationTypeDescriptor("Blue-White Star", ChrW(224), Hue.LightBlue, Black)},
+            {MakeStar(StarTypes.Yellow), New LocationTypeDescriptor("Yellow Star", ChrW(224), Hue.Yellow, Black)},
+            {MakeStar(StarTypes.Orange), New LocationTypeDescriptor("Orange Star", ChrW(224), Hue.Orange, Black)},
+            {MakeStar(StarTypes.Red), New LocationTypeDescriptor("Red Star", ChrW(224), Hue.Red, Black)},
             {Wormhole, New LocationTypeDescriptor("Wormhole", ChrW(228), Hue.Purple, Black)}
         }
         For Each satelliteHue In satelliteHueTable
