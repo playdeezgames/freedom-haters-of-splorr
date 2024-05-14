@@ -15,6 +15,10 @@
         Return $"{Void}{arrowType}"
     End Function
 
+    Friend Function MakeStar(starType As String) As String
+        Return $"{starType}Star"
+    End Function
+
     Friend ReadOnly BlueStar As String = NameOf(BlueStar)
     Friend ReadOnly BlueWhiteStar As String = NameOf(BlueWhiteStar)
     Friend ReadOnly YellowStar As String = NameOf(YellowStar)
