@@ -36,7 +36,7 @@ Friend Class ActorModel
 
     Public ReadOnly Property Faction As IFactionModel Implements IActorModel.Faction
         Get
-            Return New FactionModel(actor.Faction)
+            Return FactionModel.FromFaction(actor.Faction)
         End Get
     End Property
 

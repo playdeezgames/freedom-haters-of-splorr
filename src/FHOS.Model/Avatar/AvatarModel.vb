@@ -331,7 +331,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property Faction As IFactionModel Implements IAvatarModel.Faction
         Get
-            Return New FactionModel(avatar.Faction)
+            Return FactionModel.FromFaction(avatar.Faction)
         End Get
     End Property
 

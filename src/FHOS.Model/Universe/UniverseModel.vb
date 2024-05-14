@@ -119,7 +119,7 @@ Public Class UniverseModel
 
     Public ReadOnly Property FactionList As IEnumerable(Of (String, IFactionModel)) Implements IUniverseModel.FactionList
         Get
-            Return Universe.Factions.Select(Function(x) (x.Name, CType(New FactionModel(x), IFactionModel)))
+            Return Universe.Factions.Select(Function(x) (x.Name, FactionModel.FromFaction(x)))
         End Get
     End Property
 
