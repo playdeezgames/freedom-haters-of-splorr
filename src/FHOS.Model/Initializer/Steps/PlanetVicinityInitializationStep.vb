@@ -14,7 +14,7 @@ Friend Class PlanetVicinityInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planetVicinity = planetVicinityLocation.Place
         planetVicinity.Map = planetVicinity.Universe.CreateMap(
-            MapTypes.System,
+            MapTypes.PlanetVicinity,
             $"{planetVicinity.Name} Vicinity",
             PlanetVicinityColumns,
             PlanetVicinityRows,

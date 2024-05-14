@@ -11,7 +11,7 @@ Friend Class StarVicinityInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim starVicinity = starLocation.Place
         starVicinity.Map = starVicinity.Universe.CreateMap(
-            MapTypes.System,
+            MapTypes.StarVicinity,
             $"{starVicinity.Name} Vicinity",
             StarVicinityColumns,
             StarVicinityRows,
