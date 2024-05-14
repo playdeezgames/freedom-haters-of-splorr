@@ -13,21 +13,34 @@
         End Get
     End Property
 
-    Public ReadOnly Property Authority As Integer Implements IFactionModel.Authority
+    Private Shared Function ToLevelName(value As Integer) As String
+        Select Case value
+            Case Is > 90
+                Return "Acceptable"
+            Case Is > 75
+                Return "Tolerable"
+            Case Is > 50
+                Return "Unacceptable"
+            Case Else
+                Return "Inexcusable"
+        End Select
+    End Function
+
+    Public ReadOnly Property Authority As (LevelName As String, Value As Integer) Implements IFactionModel.Authority
         Get
-            Return faction.Authority
+            Return (ToLevelName(faction.Authority), faction.Authority)
         End Get
     End Property
 
-    Public ReadOnly Property Standards As Integer Implements IFactionModel.Standards
+    Public ReadOnly Property Standards As (LevelName As String, Value As Integer) Implements IFactionModel.Standards
         Get
-            Return faction.Standards
+            Return (ToLevelName(faction.Standards), faction.Standards)
         End Get
     End Property
 
-    Public ReadOnly Property Conviction As Integer Implements IFactionModel.Conviction
+    Public ReadOnly Property Conviction As (LevelName As String, Value As Integer) Implements IFactionModel.Conviction
         Get
-            Return faction.Conviction
+            Return (ToLevelName(faction.Conviction), faction.Conviction)
         End Get
     End Property
 
@@ -38,9 +51,9 @@
     End Property
 
     Public Function RelationNameTo(otherFaction As IFactionModel) As String Implements IFactionModel.RelationNameTo
-        Dim deltaAuthority = otherFaction.Authority - Authority
-        Dim deltaStandards = otherFaction.Standards - Standards
-        Dim deltaConviction = otherFaction.Conviction - Conviction
+        Dim deltaAuthority = otherFaction.Authority.Value - Authority.Value
+        Dim deltaStandards = otherFaction.Standards.Value - Standards.Value
+        Dim deltaConviction = otherFaction.Conviction.Value - Conviction.Value
         Select Case CInt(Math.Sqrt(deltaAuthority * deltaAuthority) + (deltaStandards * deltaStandards) + (deltaConviction * deltaConviction))
             Case Is >= 50
                 Return "Hostile"
