@@ -46,7 +46,7 @@ Public Class UniverseModel
 
     Public ReadOnly Property Messages As IMessagesModel Implements IUniverseModel.Messages
         Get
-            Return New MessagesModel(Universe)
+            Return MessagesModel.FromUniverse(Universe)
         End Get
     End Property
 

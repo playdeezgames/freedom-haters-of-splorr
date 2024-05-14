@@ -1,11 +1,20 @@
-﻿Friend Class MessagesModel
+﻿Imports FHOS.Persistence
+
+Friend Class MessagesModel
     Implements IMessagesModel
 
     Private ReadOnly universe As Persistence.IUniverse
 
-    Public Sub New(universe As Persistence.IUniverse)
+    Protected Sub New(universe As Persistence.IUniverse)
         Me.universe = universe
     End Sub
+
+    Friend Shared Function FromUniverse(universe As IUniverse) As IMessagesModel
+        If universe Is Nothing Then
+            Return Nothing
+        End If
+        Return New MessagesModel(universe)
+    End Function
 
     Public ReadOnly Property HasAny As Boolean Implements IMessagesModel.HasAny
         Get
@@ -15,7 +24,7 @@
 
     Public ReadOnly Property Current As IMessageModel Implements IMessagesModel.Current
         Get
-            Return New MessageModel(universe.Messages.Current)
+            Return MessageModel.FromMessage(universe.Messages.Current)
         End Get
     End Property
 

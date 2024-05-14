@@ -5,9 +5,16 @@ Friend Class MessageModel
 
     Private ReadOnly message As IMessage
 
-    Public Sub New(message As IMessage)
+    Protected Sub New(message As IMessage)
         Me.message = message
     End Sub
+
+    Friend Shared Function FromMessage(message As IMessage) As IMessageModel
+        If message Is Nothing Then
+            Return Nothing
+        End If
+        Return New MessageModel(message)
+    End Function
 
     Public ReadOnly Property Header As String Implements IMessageModel.Header
         Get
