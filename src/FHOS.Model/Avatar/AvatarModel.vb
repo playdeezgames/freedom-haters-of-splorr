@@ -139,7 +139,7 @@ Friend Class AvatarModel
     Public ReadOnly Property CurrentPlace As IPlaceModel Implements IAvatarModel.CurrentPlace
         Get
             If avatar.Location.Place IsNot Nothing Then
-                Return New PlaceModel(avatar.Location.Place)
+                Return PlaceModel.FromPlace(avatar.Location.Place)
             End If
             Return Nothing
         End Get
@@ -318,7 +318,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property HomePlanet As IPlaceModel Implements IAvatarModel.HomePlanet
         Get
-            Return New PlaceModel(avatar.HomePlanet)
+            Return PlaceModel.FromPlace(avatar.HomePlanet)
         End Get
     End Property
 
@@ -351,7 +351,7 @@ Friend Class AvatarModel
     End Function
 
     Public Function GetKnownPlacesOfType(placeType As String) As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.GetKnownPlacesOfType
-        Return avatar.GetKnownPlacesOfType(placeType).Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
+        Return avatar.GetKnownPlacesOfType(placeType).Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
     End Function
 
     Public Sub LeaveInteraction() Implements IAvatarModel.LeaveInteraction

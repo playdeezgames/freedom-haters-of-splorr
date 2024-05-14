@@ -4,9 +4,13 @@ Friend Class PlaceModel
     Implements IPlaceModel
     Private ReadOnly place As IPlace
 
-    Sub New(place As IPlace)
+    Protected Sub New(place As IPlace)
         Me.place = place
     End Sub
+
+    Friend Shared Function FromPlace(place As IPlace) As IPlaceModel
+        Return New PlaceModel(place)
+    End Function
 
     ReadOnly Property Name As String Implements IPlaceModel.Name
         Get

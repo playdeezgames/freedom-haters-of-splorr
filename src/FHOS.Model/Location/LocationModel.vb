@@ -41,7 +41,7 @@
             If locationStarSystem Is Nothing Then
                 Return Nothing
             End If
-            Return New PlaceModel(locationStarSystem)
+            Return PlaceModel.FromPlace(locationStarSystem)
         End Get
     End Property
 

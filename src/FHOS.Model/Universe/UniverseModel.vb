@@ -128,7 +128,7 @@ Public Class UniverseModel
             Return Universe.
                 GetPlacesOfType(PlaceTypes.StarSystem).
                 OrderBy(Function(x) x.Name).
-                Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
+                Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
         End Get
     End Property
 
@@ -137,7 +137,7 @@ Public Class UniverseModel
             Return Universe.
                 GetPlacesOfType(PlaceTypes.Planet).
                 OrderBy(Function(x) x.Name).
-                Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
+                Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
         End Get
     End Property
 
@@ -146,7 +146,7 @@ Public Class UniverseModel
             Return Universe.
                 GetPlacesOfType(PlaceTypes.Satellite).
                 OrderBy(Function(x) x.Name).
-                Select(Function(x) (x.Name, CType(New PlaceModel(x), IPlaceModel)))
+                Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
         End Get
     End Property
 
