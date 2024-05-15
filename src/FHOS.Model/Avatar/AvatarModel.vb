@@ -83,9 +83,9 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property CanMove As Boolean Implements IAvatarModel.CanMove
+    Private ReadOnly Property CanMove As Boolean
         Get
-            Return FuelPercent > 0
+            Return Not avatar.ConsumesFuel OrElse FuelPercent > 0
         End Get
     End Property
 
@@ -329,18 +329,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property HomePlanet As IPlaceModel Implements IAvatarModel.HomePlanet
-        Get
-            Return PlaceModel.FromPlace(avatar.HomePlanet)
-        End Get
-    End Property
-
-    Public ReadOnly Property Faction As IFactionModel Implements IAvatarModel.Faction
-        Get
-            Return FactionModel.FromFaction(avatar.Faction)
-        End Get
-    End Property
-
     Public ReadOnly Property IsInteracting As Boolean Implements IAvatarModel.IsInteracting
         Get
             Return avatar.Interactor IsNot Nothing
@@ -356,6 +344,12 @@ Friend Class AvatarModel
     Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IAvatarModel.Position
         Get
             Return (X, Y)
+        End Get
+    End Property
+
+    Public ReadOnly Property Bio As IAvatarBioModel Implements IAvatarModel.Bio
+        Get
+            Return AvatarBioModel.FromAvatar(avatar)
         End Get
     End Property
 

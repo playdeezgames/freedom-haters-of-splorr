@@ -32,8 +32,8 @@ Friend Class StatusState
             Dim position = (.ViewCenter.X, font.Height)
             position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"O2: {avatar.OxygenPercent}%", avatar.OxygenHue)
             position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Fuel: {avatar.FuelPercent}%", avatar.FuelHue)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Faction: {avatar.Faction.Name}", Hues.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Home Planet: {avatar.HomePlanet.Name}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Faction: {avatar.Bio.Faction.Name}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Home Planet: {avatar.Bio.HomePlanet.Name}", Hues.Black)
             .ShowStatusBar(
                 displayBuffer,
                 font,

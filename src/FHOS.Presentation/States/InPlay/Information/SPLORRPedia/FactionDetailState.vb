@@ -21,7 +21,7 @@ Friend Class FactionDetailState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFontName)
-        Dim avatarFaction = Context.Model.Avatar.Faction
+        Dim avatarFaction = Context.Model.Avatar.Bio.Faction
         With FactionListState.SelectedFaction
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
