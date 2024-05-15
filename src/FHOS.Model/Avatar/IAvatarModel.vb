@@ -7,10 +7,6 @@
     ReadOnly Property Status As IAvatarStatusModel
     ReadOnly Property State As IAvatarStateModel
 
-    ReadOnly Property Position As (X As Integer, Y As Integer)
-    ReadOnly Property MapName As String
-    ReadOnly Property CurrentPlace As IPlaceModel
-
     'Vessel
     ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel))
     ReadOnly Property OxygenPercent As Integer

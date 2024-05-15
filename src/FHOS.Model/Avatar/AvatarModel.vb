@@ -15,24 +15,6 @@ Friend Class AvatarModel
         Return New AvatarModel(actor)
     End Function
 
-    Private ReadOnly Property X As Integer
-        Get
-            Return avatar.Location.Column
-        End Get
-    End Property
-
-    Private ReadOnly Property Y As Integer
-        Get
-            Return avatar.Location.Row
-        End Get
-    End Property
-
-    Public ReadOnly Property MapName As String Implements IAvatarModel.MapName
-        Get
-            Return avatar.Location.Map.Name
-        End Get
-    End Property
-
     Public ReadOnly Property OxygenHue As Integer Implements IAvatarModel.OxygenHue
         Get
             If OxygenPercent <= 33 Then
@@ -93,15 +75,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property CurrentPlace As IPlaceModel Implements IAvatarModel.CurrentPlace
-        Get
-            If avatar.Location.Place IsNot Nothing Then
-                Return PlaceModel.FromPlace(avatar.Location.Place)
-            End If
-            Return Nothing
-        End Get
-    End Property
-
     Public ReadOnly Property IsInteracting As Boolean Implements IAvatarModel.IsInteracting
         Get
             Return avatar.Interactor IsNot Nothing
@@ -111,12 +84,6 @@ Friend Class AvatarModel
     Public ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel)) Implements IAvatarModel.AvailableCrew
         Get
             Return avatar.Crew.Select(Function(x) (x.Name, ActorModel.FromActor(x)))
-        End Get
-    End Property
-
-    Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IAvatarModel.Position
-        Get
-            Return (X, Y)
         End Get
     End Property
 
