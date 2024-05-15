@@ -16,4 +16,28 @@
     Public Const Yellow As Integer = 14
     Public Const White As Integer = 15
 
+    Friend ReadOnly Descriptors As IReadOnlyDictionary(Of Integer, HueDescriptor) =
+        GenerateDescriptors().ToDictionary(Function(x) x.Hue, Function(x) x)
+
+    Private Function GenerateDescriptors() As IReadOnlyList(Of HueDescriptor)
+        Return New List(Of HueDescriptor) From
+            {
+                New HueDescriptor(Black, "Black"),
+                New HueDescriptor(Blue, "Blue"),
+                New HueDescriptor(Green, "Green"),
+                New HueDescriptor(Cyan, "Cyan"),
+                New HueDescriptor(Red, "Red"),
+                New HueDescriptor(Purple, "Purple"),
+                New HueDescriptor(Brown, "Brown"),
+                New HueDescriptor(LightGray, "Light Gray"),
+                New HueDescriptor(DarkGray, "Dark Gray"),
+                New HueDescriptor(LightBlue, "Light Blue"),
+                New HueDescriptor(LightGreen, "Light Green"),
+                New HueDescriptor(Orange, "Orange"),
+                New HueDescriptor(Pink, "Pink"),
+                New HueDescriptor(Tan, "Tan"),
+                New HueDescriptor(Yellow, "Yellow"),
+                New HueDescriptor(White, "White")
+            }
+    End Function
 End Module
