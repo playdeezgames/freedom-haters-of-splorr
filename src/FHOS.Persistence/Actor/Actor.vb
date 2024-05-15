@@ -277,4 +277,17 @@ Friend Class Actor
             SetMetadata(MetadataTypes.Costume, value)
         End Set
     End Property
+
+    Public Property ConsumesFuel As Boolean Implements IActor.ConsumesFuel
+        Get
+            Return HasFlag(FlagTypes.ConsumesFuel)
+        End Get
+        Set(value As Boolean)
+            If value Then
+                SetFlag(FlagTypes.ConsumesFuel)
+            Else
+                ClearFlag(FlagTypes.ConsumesFuel)
+            End If
+        End Set
+    End Property
 End Class

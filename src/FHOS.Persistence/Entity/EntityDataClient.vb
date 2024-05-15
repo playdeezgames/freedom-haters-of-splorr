@@ -58,4 +58,8 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         End If
         Return Nothing
     End Function
+
+    Public Sub ClearFlag(flag As String) Implements IEntity.ClearFlag
+        EntityData.Flags.Remove(flag)
+    End Sub
 End Class

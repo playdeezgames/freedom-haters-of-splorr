@@ -25,5 +25,6 @@ Friend Class MilitaryVesselDescriptor
         actor.HomePlanet = RNG.FromEnumerable(actor.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = actor.Faction.Id))
         actor.Fuel = RNG.FromRange(0, actor.MaximumFuel)
         actor.Name = $"{actor.Faction.Name} Military Vessel"
+        actor.ConsumesFuel = True
     End Sub
 End Class

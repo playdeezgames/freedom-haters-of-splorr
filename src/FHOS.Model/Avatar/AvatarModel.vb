@@ -207,10 +207,7 @@ Friend Class AvatarModel
             Return
         End If
         DoTurn()
-        avatar.Fuel -= 1
-        If Not avatar.HasFuel Then
-            avatar.TriggerTutorial(TutorialTypes.OutOfFuel)
-        End If
+        DoFuelConsumption()
         Dim location = avatar.Location
         Dim nextColumn = location.Column + delta.X
         Dim nextRow = location.Row + delta.Y
@@ -227,6 +224,15 @@ Friend Class AvatarModel
             nextLocation = nextLocation.TargetLocation
         End If
         SetLocation(nextLocation)
+    End Sub
+
+    Private Sub DoFuelConsumption()
+        If avatar.ConsumesFuel Then
+            avatar.Fuel -= 1
+            If Not avatar.HasFuel Then
+                avatar.TriggerTutorial(TutorialTypes.OutOfFuel)
+            End If
+        End If
     End Sub
 
     Private ReadOnly Property CanEnterStarSystem As Boolean

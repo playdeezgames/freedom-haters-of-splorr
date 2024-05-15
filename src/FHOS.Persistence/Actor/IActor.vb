@@ -11,6 +11,7 @@
     Property MaximumFuel As Integer
     Property Fuel As Integer
     ReadOnly Property HasFuel As Boolean
+    Property ConsumesFuel As Boolean
 
     ReadOnly Property HasTutorial As Boolean
     ReadOnly Property CurrentTutorial As String

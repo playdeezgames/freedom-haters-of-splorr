@@ -1,4 +1,5 @@
-﻿Imports FHOS.Persistence
+﻿Imports System.Numerics
+Imports FHOS.Persistence
 Imports SPLORR.Game
 
 Friend Class PlayerShipDescriptor
@@ -25,6 +26,7 @@ Friend Class PlayerShipDescriptor
         ship.Name = "(yer ship)"
         ship.Wallet = ship.Universe.CreateStore(0, minimum:=0)
         ship.LifeSupport = ship.Universe.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
+        ship.ConsumesFuel = True
         InitializePlayerShipInterior(ship)
         InitializePlayerShipCrew(ship)
     End Sub
