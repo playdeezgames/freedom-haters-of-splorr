@@ -2,11 +2,13 @@
     ReadOnly Property Bio As IAvatarBioModel
     ReadOnly Property Verbs As IAvatarVerbsModel
     ReadOnly Property KnownPlaces As IAvatarKnownPlacesModel
+    ReadOnly Property Tutorial As IAvatarTutorialModel
+    ReadOnly Property Stack As IAvatarStackModel
 
     ReadOnly Property Position As (X As Integer, Y As Integer)
     ReadOnly Property MapName As String
-    ReadOnly Property Tutorial As IAvatarTutorialModel
     ReadOnly Property CurrentPlace As IPlaceModel
+
     ReadOnly Property IsGameOver As Boolean
     ReadOnly Property IsDead As Boolean
     ReadOnly Property IsBankrupt As Boolean

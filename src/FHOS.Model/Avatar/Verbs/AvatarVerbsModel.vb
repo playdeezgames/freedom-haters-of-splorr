@@ -162,7 +162,7 @@ Friend Class AvatarVerbsModel
         End If
     End Sub
 
-    Friend Shared Function FromAvatar(avatar As IActor) As IAvatarVerbsModel
+    Friend Shared Function FromActor(avatar As IActor) As IAvatarVerbsModel
         Return New AvatarVerbsModel(avatar)
     End Function
 

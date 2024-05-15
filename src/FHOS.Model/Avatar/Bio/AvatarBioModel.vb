@@ -20,7 +20,7 @@ Friend Class AvatarBioModel
         End Get
     End Property
 
-    Friend Shared Function FromAvatar(avatar As IActor) As IAvatarBioModel
+    Friend Shared Function FromActor(avatar As IActor) As IAvatarBioModel
         Return New AvatarBioModel(avatar)
     End Function
 End Class

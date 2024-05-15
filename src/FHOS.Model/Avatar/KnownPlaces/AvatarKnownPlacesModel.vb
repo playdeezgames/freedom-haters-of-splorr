@@ -8,7 +8,7 @@ Friend Class AvatarKnownPlacesModel
         MyBase.New(avatar)
     End Sub
 
-    Friend Shared Function FromAvatar(avatar As IActor) As IAvatarKnownPlacesModel
+    Friend Shared Function FromActor(avatar As IActor) As IAvatarKnownPlacesModel
         Return New AvatarKnownPlacesModel(avatar)
     End Function
 

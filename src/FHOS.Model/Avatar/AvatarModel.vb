@@ -140,19 +140,25 @@ Friend Class AvatarModel
 
     Public ReadOnly Property Bio As IAvatarBioModel Implements IAvatarModel.Bio
         Get
-            Return AvatarBioModel.FromAvatar(avatar)
+            Return AvatarBioModel.FromActor(avatar)
         End Get
     End Property
 
     Public ReadOnly Property Verbs As IAvatarVerbsModel Implements IAvatarModel.Verbs
         Get
-            Return AvatarVerbsModel.FromAvatar(avatar)
+            Return AvatarVerbsModel.FromActor(avatar)
         End Get
     End Property
 
     Public ReadOnly Property KnownPlaces As IAvatarKnownPlacesModel Implements IAvatarModel.KnownPlaces
         Get
-            Return AvatarKnownPlacesModel.FromAvatar(avatar)
+            Return AvatarKnownPlacesModel.FromActor(avatar)
+        End Get
+    End Property
+
+    Public ReadOnly Property Stack As IAvatarStackModel Implements IAvatarModel.Stack
+        Get
+            Return AvatarStackModel.FromActor(avatar)
         End Get
     End Property
 
