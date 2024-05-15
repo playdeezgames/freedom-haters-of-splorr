@@ -17,7 +17,7 @@ Public Interface IUniverseModel
     ReadOnly Property Board As IBoardModel
     ReadOnly Property Avatar As IAvatarModel
     ReadOnly Property Messages As IMessagesModel
-    ReadOnly Property FactionList As IEnumerable(Of (String, IFactionModel))
+    ReadOnly Property FactionList As IEnumerable(Of (Text As String, Faction As IFactionModel))
     ReadOnly Property StarSystems As IEnumerable(Of (Text As String, Place As IPlaceModel))
     ReadOnly Property Planets As IEnumerable(Of (Text As String, Place As IPlaceModel))
     ReadOnly Property Satellites As IEnumerable(Of (Text As String, Place As IPlaceModel))
