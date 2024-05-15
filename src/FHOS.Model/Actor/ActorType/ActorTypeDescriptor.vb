@@ -40,6 +40,7 @@ Friend Class ActorTypeDescriptor
         End If
         Dim actor = location.CreateActor(ActorType)
         actor.Facing = RNG.FromRange(0, Facing.Deltas.Length - 1)
+        actor.Costume = RNG.FromGenerator(CostumeGenerator)
         actor.MaximumFuel = MaximumFuel
         actor.Fuel = MaximumFuel
         actor.Jools = 0

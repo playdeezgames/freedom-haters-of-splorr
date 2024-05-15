@@ -1,13 +1,14 @@
 ﻿Friend Module MetadataTypes
-    Friend Const ActorType = "ActorType"
-    Friend Const MapType = "MapType"
-    Friend Const Name = "Name"
-    Friend Const StarType = "StarType"
-    Friend Const LocationType = "LocationType"
-    Friend Const DestinationFlag = "DestinationFlag"
-    Friend Const Tutorial = "Tutorial"
-    Friend Const PlanetType = "PlanetType"
-    Friend Const SatelliteType = "SatelliteType"
-    Friend Const Identifier = "Identifier"
-    Friend Const PlaceType = "PlaceType"
+    Friend ReadOnly ActorType As String = NameOf(ActorType)
+    Friend ReadOnly Costume As String = NameOf(Costume)
+    Friend ReadOnly Identifier As String = NameOf(Identifier)
+    Friend ReadOnly LocationType As String = NameOf(LocationType)
+    Friend ReadOnly MapType As String = NameOf(MapType)
+    Friend ReadOnly Name As String = NameOf(Name)
+    Friend ReadOnly PlaceType As String = NameOf(PlaceType)
+    Friend ReadOnly PlanetType As String = NameOf(PlanetType)
+    Friend ReadOnly SatelliteType As String = NameOf(SatelliteType)
+    Friend ReadOnly StarType As String = NameOf(StarType)
+    Friend ReadOnly Tutorial As String = NameOf(Tutorial)
+
 End Module

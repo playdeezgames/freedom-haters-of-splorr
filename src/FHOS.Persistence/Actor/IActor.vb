@@ -4,6 +4,7 @@
     Property Location As ILocation
     Property Facing As Integer
     Property Name As String
+    Property Costume As String
 
     Property LifeSupport As IStore
 

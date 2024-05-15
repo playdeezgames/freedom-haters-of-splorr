@@ -268,4 +268,13 @@ Friend Class Actor
             SetStatistic(StatisticTypes.WalletId, value?.Id)
         End Set
     End Property
+
+    Public Property Costume As String Implements IActor.Costume
+        Get
+            Return GetMetadata(MetadataTypes.Costume)
+        End Get
+        Set(value As String)
+            SetMetadata(MetadataTypes.Costume, value)
+        End Set
+    End Property
 End Class
