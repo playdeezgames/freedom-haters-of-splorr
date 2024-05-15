@@ -13,7 +13,7 @@ Friend Class AvatarVerbsModel
         New Dictionary(Of String, (isAvailable As Func(Of Boolean), perform As Action)) From
         {
             {VerbTypes.Status, (Function() True, Sub() Return)},
-            {VerbTypes.KnownPlaces, (Function() KnowsPlaces, Sub() Return)},
+            {VerbTypes.KnownPlaces, (Function() avatar.KnowsPlaces, Sub() Return)},
             {VerbTypes.RefillOxygen, (Function() CanRefillOxygen, AddressOf RefillOxygen)},
             {VerbTypes.Refuel, (Function() CanRefillFuel, AddressOf Refuel)},
             {VerbTypes.EnterWormhole, (Function() CanEnterWormhole, AddressOf EnterWormhole)},
@@ -27,21 +27,9 @@ Friend Class AvatarVerbsModel
             {VerbTypes.MoveDown, (Function() CanMove, Sub() Move(Facing.Down))},
             {VerbTypes.MoveLeft, (Function() CanMove, Sub() Move(Facing.Left))},
             {VerbTypes.SPLORRPedia, (Function() True, Sub() Return)},
-            {VerbTypes.Crew, (Function() HasCrew, Sub() Return)},
-            {VerbTypes.Vessel, (Function() HasVessel, Sub() Return)}
+            {VerbTypes.Crew, (Function() avatar.HasCrew, Sub() Return)},
+            {VerbTypes.Vessel, (Function() avatar.Vessel IsNot Nothing, Sub() Return)}
         }
-
-    Private ReadOnly Property HasCrew As Boolean
-        Get
-            Return avatar.HasCrew
-        End Get
-    End Property
-
-    Private ReadOnly Property HasVessel As Boolean
-        Get
-            Return avatar.Vessel IsNot Nothing
-        End Get
-    End Property
 
     Private Sub Move(facing As Integer)
         avatar.Facing = facing
@@ -125,6 +113,7 @@ Friend Class AvatarVerbsModel
             End With
         End If
     End Sub
+
     Private ReadOnly Property CanRefillFuel As Boolean
         Get
             Return avatar.Location.Place?.PlaceType = PlaceTypes.Star
@@ -136,12 +125,6 @@ Friend Class AvatarVerbsModel
             avatar.Fuel = avatar.MaximumFuel
         End If
     End Sub
-
-    Private ReadOnly Property KnowsPlaces As Boolean
-        Get
-            Return avatar.KnowsPlaces
-        End Get
-    End Property
 
     Private Sub RefillOxygen()
         If CanRefillOxygen Then
@@ -169,12 +152,14 @@ Friend Class AvatarVerbsModel
 
     Public ReadOnly Property HasVerbs As Boolean Implements IAvatarVerbsModel.HasVerbs
         Get
-            Throw New NotImplementedException()
+            Return AvailableVerbs.Any
         End Get
     End Property
 
     Public Sub DoVerb(verbType As String) Implements IAvatarVerbsModel.DoVerb
-        Throw New NotImplementedException()
+        If verbTable(verbType).isAvailable() Then
+            verbTable(verbType).perform()
+        End If
     End Sub
 
     Friend Shared Function FromAvatar(avatar As IActor) As IAvatarVerbsModel
