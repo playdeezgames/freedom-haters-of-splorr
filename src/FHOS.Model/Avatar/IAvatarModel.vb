@@ -8,12 +8,10 @@
     ReadOnly Property State As IAvatarStateModel
     ReadOnly Property Wallet As IAvatarWalletModel
     ReadOnly Property Interaction As IAvatarInteractionModel
+    'ReadOnly Property Vessel As IAvatarVesselModel
 
     'Vessel
     ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel))
     ReadOnly Property OxygenPercent As Integer
     ReadOnly Property FuelPercent As Integer
-
-    ReadOnly Property Jools As Integer
-    ReadOnly Property MinimumJools As Integer
 End Interface

@@ -33,18 +33,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Jools As Integer Implements IAvatarModel.Jools
-        Get
-            Return avatar.Jools
-        End Get
-    End Property
-
-    Public ReadOnly Property MinimumJools As Integer Implements IAvatarModel.MinimumJools
-        Get
-            Return avatar.MinimumJools
-        End Get
-    End Property
-
     Public ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel)) Implements IAvatarModel.AvailableCrew
         Get
             Return avatar.Crew.Select(Function(x) (x.Name, ActorModel.FromActor(x)))
