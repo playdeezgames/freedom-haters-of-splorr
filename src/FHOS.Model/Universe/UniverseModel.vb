@@ -64,6 +64,7 @@ Public Class UniverseModel
 
     Public Sub Embark() Implements IUniverseModel.Embark
         universeData = New UniverseData()
+        Universe.Turn = 1
         Initializer.Start(Universe, EmbarkSettings)
     End Sub
 
@@ -147,6 +148,12 @@ Public Class UniverseModel
                 GetPlacesOfType(PlaceTypes.Satellite).
                 OrderBy(Function(x) x.Name).
                 Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
+        End Get
+    End Property
+
+    Public ReadOnly Property Turn As Integer Implements IUniverseModel.Turn
+        Get
+            Return Universe.Turn
         End Get
     End Property
 

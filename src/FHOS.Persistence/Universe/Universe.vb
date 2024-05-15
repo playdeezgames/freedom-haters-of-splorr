@@ -53,6 +53,15 @@ Public Class Universe
         End Get
     End Property
 
+    Public Property Turn As Integer Implements IUniverse.Turn
+        Get
+            Return UniverseData.Statistics(StatisticTypes.Turn)
+        End Get
+        Set(value As Integer)
+            UniverseData.Statistics(StatisticTypes.Turn) = value
+        End Set
+    End Property
+
     Public Sub PushAvatar(avatar As IActor) Implements IUniverse.PushAvatar
         UniverseData.Avatars.Push(avatar.Id)
     End Sub

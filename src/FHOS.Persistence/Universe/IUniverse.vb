@@ -27,4 +27,5 @@ Public Interface IUniverse
     Function CreateStore(value As Integer, Optional minimum As Integer? = Nothing, Optional maximum As Integer? = Nothing) As IStore
     ReadOnly Property Factions As IEnumerable(Of IFaction)
     ReadOnly Property Actors As IEnumerable(Of IActor)
+    Property Turn As Integer
 End Interface
