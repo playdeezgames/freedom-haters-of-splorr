@@ -17,8 +17,8 @@ Friend Class KnownPlanetDetailsState
     Protected Overrides ReadOnly Property Details As IEnumerable(Of (Text As String, Hue As Integer))
         Get
             Return {
-                    ($"Type: {Place.PlanetType}", Hue.Black),
-                    ($"System: {Place.Parent.Parent.Name}", Hue.Black)
+                    ($"Type: {Place.PlanetType}", Hues.Black),
+                    ($"System: {Place.Parent.Parent.Name}", Hues.Black)
                 }
         End Get
     End Property

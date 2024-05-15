@@ -16,7 +16,7 @@ Friend Class GameOverState
     End Sub
 
     Protected Overrides Function MessageHue() As Integer
-        Return Hue.Red
+        Return Hues.Red
     End Function
 
     Protected Overrides Function MessageText() As String

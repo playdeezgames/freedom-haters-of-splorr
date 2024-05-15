@@ -17,9 +17,9 @@ Friend Class KnownStarSystemDetailsState
     Protected Overrides ReadOnly Property Details As IEnumerable(Of (Text As String, Hue As Integer))
         Get
             Return {
-                    ($"Type: {Place.StarType}", Hue.Black),
-                    ($"Planets: {Place.PlanetVicinityCount}", Hue.Black),
-                    ($"Galaxy Position: ({Place.X},{Place.Y})", Hue.Black)
+                    ($"Type: {Place.StarType}", Hues.Black),
+                    ($"Planets: {Place.PlanetVicinityCount}", Hues.Black),
+                    ($"Galaxy Position: ({Place.X},{Place.Y})", Hues.Black)
                 }
         End Get
     End Property

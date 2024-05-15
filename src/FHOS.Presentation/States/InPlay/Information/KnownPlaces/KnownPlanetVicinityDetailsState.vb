@@ -17,10 +17,10 @@ Friend Class KnownPlanetVicinityDetailsState
     Protected Overrides ReadOnly Property Details As IEnumerable(Of (Text As String, Hue As Integer))
         Get
             Return {
-                    ($"Type: {Place.PlanetType}", Hue.Black),
-                    ($"Satellites: {Place.SatelliteCount}", Hue.Black),
-                    ($"System: {Place.Parent.Name}", Hue.Black),
-                    ($"System Position: ({Place.X},{Place.Y})", Hue.Black)
+                    ($"Type: {Place.PlanetType}", Hues.Black),
+                    ($"Satellites: {Place.SatelliteCount}", Hues.Black),
+                    ($"System: {Place.Parent.Name}", Hues.Black),
+                    ($"System Position: ({Place.X},{Place.Y})", Hues.Black)
                 }
         End Get
     End Property

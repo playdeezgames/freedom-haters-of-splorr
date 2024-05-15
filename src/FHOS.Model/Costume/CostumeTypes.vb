@@ -4,7 +4,11 @@
     Friend ReadOnly Person As String = NameOf(Person)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, CostumeTypeDescriptor) =
-        New List(Of CostumeTypeDescriptor) From
+        GenerateDescriptors().
+        ToDictionary(Function(x) x.Name, Function(x) x)
+
+    Private Function GenerateDescriptors() As IReadOnlyList(Of CostumeTypeDescriptor)
+        Return New List(Of CostumeTypeDescriptor) From
         {
             New CostumeTypeDescriptor(
                 MerchantVessel,
@@ -18,5 +22,6 @@
                 Person,
                 {ChrW(160), ChrW(160), ChrW(160), ChrW(160)},
                 LightGray)
-        }.ToDictionary(Function(x) x.Name, Function(x) x)
+        }
+    End Function
 End Module

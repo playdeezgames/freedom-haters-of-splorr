@@ -1,4 +1,4 @@
-﻿Public Module Hue
+﻿Public Module Hues
     Public Const Black As Integer = 0
     Public Const Blue As Integer = 1
     Public Const Green As Integer = 2
@@ -15,4 +15,5 @@
     Public Const Tan As Integer = 13
     Public Const Yellow As Integer = 14
     Public Const White As Integer = 15
+
 End Module

@@ -37,12 +37,12 @@ Friend Class AvatarModel
     Public ReadOnly Property OxygenHue As Integer Implements IAvatarModel.OxygenHue
         Get
             If OxygenPercent <= 33 Then
-                Return Hue.Red
+                Return Hues.Red
             End If
             If OxygenPercent <= 66 Then
-                Return Hue.Yellow
+                Return Hues.Yellow
             End If
-            Return Hue.Green
+            Return Hues.Green
         End Get
     End Property
 
@@ -74,12 +74,12 @@ Friend Class AvatarModel
     Public ReadOnly Property FuelHue As Integer Implements IAvatarModel.FuelHue
         Get
             If FuelPercent <= 33 Then
-                Return Hue.Red
+                Return Hues.Red
             End If
             If FuelPercent <= 66 Then
-                Return Hue.Yellow
+                Return Hues.Yellow
             End If
-            Return Hue.Green
+            Return Hues.Green
         End Get
     End Property
 
@@ -168,8 +168,8 @@ Friend Class AvatarModel
         avatar.Jools -= fuelAdded * fuelPrice
         avatar.AddMessage(
             "Emergency Refuel",
-            ($"Added {fuelAdded} fuel!", Hue.Black),
-            ($"Price {price} jools!", Hue.Black))
+            ($"Added {fuelAdded} fuel!", Hues.Black),
+            ($"Price {price} jools!", Hues.Black))
     End Sub
 
     Public Sub DoVerb(verbType As String) Implements IAvatarModel.DoVerb

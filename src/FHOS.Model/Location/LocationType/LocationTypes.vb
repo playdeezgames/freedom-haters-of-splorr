@@ -54,12 +54,12 @@
     Private ReadOnly satelliteHueTable As IReadOnlyDictionary(Of String, Integer) =
         New Dictionary(Of String, Integer) From
         {
-            {SatelliteTypes.Radiated, Hue.Cyan},
-            {SatelliteTypes.Volcanic, Hue.Orange},
-            {SatelliteTypes.Barren, Hue.DarkGray},
-            {SatelliteTypes.Inferno, Hue.Red},
-            {SatelliteTypes.Cavernous, Hue.LightGray},
-            {SatelliteTypes.Ice, Hue.White}
+            {SatelliteTypes.Radiated, Hues.Cyan},
+            {SatelliteTypes.Volcanic, Hues.Orange},
+            {SatelliteTypes.Barren, Hues.DarkGray},
+            {SatelliteTypes.Inferno, Hues.Red},
+            {SatelliteTypes.Cavernous, Hues.LightGray},
+            {SatelliteTypes.Ice, Hues.White}
         }
 
     Friend ReadOnly Wormhole As String = NameOf(Wormhole)
@@ -67,21 +67,21 @@
     Private ReadOnly planetHueTable As IReadOnlyDictionary(Of String, Integer) =
         New Dictionary(Of String, Integer) From
         {
-            {PlanetTypes.Radiated, Hue.Yellow},
-            {Toxic, Hue.Purple},
-            {PlanetTypes.Volcanic, Hue.Orange},
-            {PlanetTypes.Barren, Hue.DarkGray},
-            {Desert, Hue.Brown},
-            {Tundra, Hue.White},
-            {Arid, Hue.Tan},
-            {Ocean, Hue.Blue},
-            {Terran, Hue.Green},
-            {PlanetTypes.Inferno, Hue.Red},
-            {Tropical, Hue.LightBlue},
-            {Grassland, Hue.LightGreen},
-            {PlanetTypes.Cavernous, Hue.LightGray},
-            {Gaia, Hue.Pink},
-            {Swamp, Hue.Cyan}
+            {PlanetTypes.Radiated, Hues.Yellow},
+            {Toxic, Hues.Purple},
+            {PlanetTypes.Volcanic, Hues.Orange},
+            {PlanetTypes.Barren, Hues.DarkGray},
+            {Desert, Hues.Brown},
+            {Tundra, Hues.White},
+            {Arid, Hues.Tan},
+            {Ocean, Hues.Blue},
+            {Terran, Hues.Green},
+            {PlanetTypes.Inferno, Hues.Red},
+            {Tropical, Hues.LightBlue},
+            {Grassland, Hues.LightGreen},
+            {PlanetTypes.Cavernous, Hues.LightGray},
+            {Gaia, Hues.Pink},
+            {Swamp, Hues.Cyan}
         }
     Private ReadOnly planet3x3SectionTable As IReadOnlyDictionary(Of String, Char) =
         New Dictionary(Of String, Char) From
@@ -164,12 +164,12 @@
             {MakeVoidArrow(ArrowSouthWest), New LocationTypeDescriptor("Empty Space", ChrW(21), DarkGray, Black)},
             {MakeVoidArrow(ArrowWest), New LocationTypeDescriptor("Empty Space", ChrW(22), DarkGray, Black)},
             {MakeVoidArrow(ArrowNorthWest), New LocationTypeDescriptor("Empty Space", ChrW(23), DarkGray, Black)},
-            {MakeStar(StarTypes.Blue), New LocationTypeDescriptor("Blue Star", ChrW(224), Hue.Blue, Black)},
-            {MakeStar(StarTypes.BlueWhite), New LocationTypeDescriptor("Blue-White Star", ChrW(224), Hue.LightBlue, Black)},
-            {MakeStar(StarTypes.Yellow), New LocationTypeDescriptor("Yellow Star", ChrW(224), Hue.Yellow, Black)},
-            {MakeStar(StarTypes.Orange), New LocationTypeDescriptor("Orange Star", ChrW(224), Hue.Orange, Black)},
-            {MakeStar(StarTypes.Red), New LocationTypeDescriptor("Red Star", ChrW(224), Hue.Red, Black)},
-            {Wormhole, New LocationTypeDescriptor("Wormhole", ChrW(228), Hue.Purple, Black)}
+            {MakeStar(StarTypes.Blue), New LocationTypeDescriptor("Blue Star", ChrW(224), Hues.Blue, Black)},
+            {MakeStar(StarTypes.BlueWhite), New LocationTypeDescriptor("Blue-White Star", ChrW(224), Hues.LightBlue, Black)},
+            {MakeStar(StarTypes.Yellow), New LocationTypeDescriptor("Yellow Star", ChrW(224), Hues.Yellow, Black)},
+            {MakeStar(StarTypes.Orange), New LocationTypeDescriptor("Orange Star", ChrW(224), Hues.Orange, Black)},
+            {MakeStar(StarTypes.Red), New LocationTypeDescriptor("Red Star", ChrW(224), Hues.Red, Black)},
+            {Wormhole, New LocationTypeDescriptor("Wormhole", ChrW(228), Hues.Purple, Black)}
         }
         For Each satelliteHue In satelliteHueTable
             result(MakeSatelliteLocationType(satelliteHue.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", ChrW(226), satelliteHue.Value, Black)

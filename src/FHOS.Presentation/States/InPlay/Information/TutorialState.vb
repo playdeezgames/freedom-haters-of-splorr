@@ -36,11 +36,11 @@ Friend Class TutorialState
                 New TutorialDetail(
                     "Entering Star Systems",
                     {
-                        New TutorialDetailLine("You have reached a star system!", Hue.Black),
-                        New TutorialDetailLine("", Hue.Black),
-                        New TutorialDetailLine("To enter it,", Hue.Black),
-                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
-                        New TutorialDetailLine("then choose 'Enter Star System'", Hue.Black)
+                        New TutorialDetailLine("You have reached a star system!", Hues.Black),
+                        New TutorialDetailLine("", Hues.Black),
+                        New TutorialDetailLine("To enter it,", Hues.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
+                        New TutorialDetailLine("then choose 'Enter Star System'", Hues.Black)
                     })
             },
             {
@@ -48,11 +48,11 @@ Friend Class TutorialState
                 New TutorialDetail(
                     "Approaching Star",
                     {
-                        New TutorialDetailLine("You have reached a star!", Hue.Black),
-                        New TutorialDetailLine("", Hue.Black),
-                        New TutorialDetailLine("To approach it,", Hue.Black),
-                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
-                        New TutorialDetailLine("then choose 'Approach Star'", Hue.Black)
+                        New TutorialDetailLine("You have reached a star!", Hues.Black),
+                        New TutorialDetailLine("", Hues.Black),
+                        New TutorialDetailLine("To approach it,", Hues.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
+                        New TutorialDetailLine("then choose 'Approach Star'", Hues.Black)
                     })
             },
             {
@@ -60,11 +60,11 @@ Friend Class TutorialState
                 New TutorialDetail(
                     "Approaching Planet",
                     {
-                        New TutorialDetailLine("You are near a planet!", Hue.Black),
-                        New TutorialDetailLine("", Hue.Black),
-                        New TutorialDetailLine("To approach it,", Hue.Black),
-                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
-                        New TutorialDetailLine("then choose 'Approach Planet'", Hue.Black)
+                        New TutorialDetailLine("You are near a planet!", Hues.Black),
+                        New TutorialDetailLine("", Hues.Black),
+                        New TutorialDetailLine("To approach it,", Hues.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
+                        New TutorialDetailLine("then choose 'Approach Planet'", Hues.Black)
                     })
             },
             {
@@ -72,11 +72,11 @@ Friend Class TutorialState
                 New TutorialDetail(
                     "Approaching Satellite",
                     {
-                        New TutorialDetailLine("You have reached a Satellite!", Hue.Black),
-                        New TutorialDetailLine("", Hue.Black),
-                        New TutorialDetailLine("To enter its orbit,", Hue.Black),
-                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
-                        New TutorialDetailLine("then choose 'Enter Orbit'", Hue.Black)
+                        New TutorialDetailLine("You have reached a Satellite!", Hues.Black),
+                        New TutorialDetailLine("", Hues.Black),
+                        New TutorialDetailLine("To enter its orbit,", Hues.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
+                        New TutorialDetailLine("then choose 'Enter Orbit'", Hues.Black)
                     })
             },
             {
@@ -84,11 +84,11 @@ Friend Class TutorialState
                 New TutorialDetail(
                     "Planet Orbit",
                     {
-                        New TutorialDetailLine("You have reached a planet!", Hue.Black),
-                        New TutorialDetailLine("", Hue.Black),
-                        New TutorialDetailLine("To enter its orbit,", Hue.Black),
-                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
-                        New TutorialDetailLine("then choose 'Enter Orbit'", Hue.Black)
+                        New TutorialDetailLine("You have reached a planet!", Hues.Black),
+                        New TutorialDetailLine("", Hues.Black),
+                        New TutorialDetailLine("To enter its orbit,", Hues.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
+                        New TutorialDetailLine("then choose 'Enter Orbit'", Hues.Black)
                     })
             },
             {
@@ -96,11 +96,11 @@ Friend Class TutorialState
                 New TutorialDetail(
                     "Refuel at Star",
                     {
-                        New TutorialDetailLine("You have reached a star!", Hue.Black),
-                        New TutorialDetailLine("", Hue.Black),
-                        New TutorialDetailLine("To refuel,", Hue.Black),
-                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
-                        New TutorialDetailLine("then choose 'Refuel'", Hue.Black)
+                        New TutorialDetailLine("You have reached a star!", Hues.Black),
+                        New TutorialDetailLine("", Hues.Black),
+                        New TutorialDetailLine("To refuel,", Hues.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
+                        New TutorialDetailLine("then choose 'Refuel'", Hues.Black)
                     })
             },
             {
@@ -108,11 +108,11 @@ Friend Class TutorialState
                 New TutorialDetail(
                     "Out of Fuel!",
                     {
-                        New TutorialDetailLine("You are out of fuel!", Hue.Black),
-                        New TutorialDetailLine("", Hue.Black),
-                        New TutorialDetailLine("To send a distress signal,", Hue.Black),
-                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
-                        New TutorialDetailLine("then choose 'Distress Signal'", Hue.Black)
+                        New TutorialDetailLine("You are out of fuel!", Hues.Black),
+                        New TutorialDetailLine("", Hues.Black),
+                        New TutorialDetailLine("To send a distress signal,", Hues.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
+                        New TutorialDetailLine("then choose 'Distress Signal'", Hues.Black)
                     })
             },
             {
@@ -120,11 +120,11 @@ Friend Class TutorialState
                 New TutorialDetail(
                     "Wormhole!",
                     {
-                        New TutorialDetailLine("You have reached a wormhole!", Hue.Black),
-                        New TutorialDetailLine("", Hue.Black),
-                        New TutorialDetailLine("To enter it,", Hue.Black),
-                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hue.Black),
-                        New TutorialDetailLine("then choose 'Enter Wormhole'", Hue.Black)
+                        New TutorialDetailLine("You have reached a wormhole!", Hues.Black),
+                        New TutorialDetailLine("", Hues.Black),
+                        New TutorialDetailLine("To enter it,", Hues.Black),
+                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
+                        New TutorialDetailLine("then choose 'Enter Wormhole'", Hues.Black)
                     })
             }
         }

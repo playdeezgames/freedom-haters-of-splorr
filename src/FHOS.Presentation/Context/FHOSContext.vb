@@ -64,10 +64,10 @@ Public Class FHOSContext
 
     Private Sub ShowLogo(displayBuffer As IPixelSink, position As (X As Integer, Y As Integer))
         Dim font = Me.Font("Sigmo")
-        font.WriteLeftText(displayBuffer, position, ChrW(0), Hue.Black)
-        font.WriteLeftText(displayBuffer, position, ChrW(1), Hue.Brown)
-        font.WriteLeftText(displayBuffer, position, ChrW(2), Hue.Pink)
-        font.WriteLeftText(displayBuffer, position, ChrW(3), Hue.White)
+        font.WriteLeftText(displayBuffer, position, ChrW(0), Hues.Black)
+        font.WriteLeftText(displayBuffer, position, ChrW(1), Hues.Brown)
+        font.WriteLeftText(displayBuffer, position, ChrW(2), Hues.Pink)
+        font.WriteLeftText(displayBuffer, position, ChrW(3), Hues.White)
     End Sub
 
     Private Sub ShowControls(displayBuffer As IPixelSink)
@@ -75,7 +75,7 @@ Public Class FHOSContext
         Dim controls = Me.KeyBindings.KeysTable.GroupBy(Function(x) x.Value)
         Dim y = 0
         For Each control In controls
-            tinyFont.WriteRightText(displayBuffer, (ViewSize.Width, y), $"{control.Key}: {String.Join(", ", control.Select(Function(z) z.Key))}", Hue.LightGray)
+            tinyFont.WriteRightText(displayBuffer, (ViewSize.Width, y), $"{control.Key}: {String.Join(", ", control.Select(Function(z) z.Key))}", Hues.LightGray)
             y += tinyFont.Height
         Next
     End Sub
