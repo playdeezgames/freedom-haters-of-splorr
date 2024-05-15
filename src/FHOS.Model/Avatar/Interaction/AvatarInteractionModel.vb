@@ -8,13 +8,13 @@ Friend Class AvatarInteractionModel
         MyBase.New(avatar)
     End Sub
 
-    Public ReadOnly Property IsInteracting As Boolean Implements IAvatarInteractionModel.IsInteracting
+    Public ReadOnly Property IsActive As Boolean Implements IAvatarInteractionModel.IsActive
         Get
             Return avatar.Interactor IsNot Nothing
         End Get
     End Property
 
-    Public Sub LeaveInteraction() Implements IAvatarInteractionModel.LeaveInteraction
+    Public Sub Leave() Implements IAvatarInteractionModel.Leave
         avatar.Interactor = Nothing
     End Sub
 

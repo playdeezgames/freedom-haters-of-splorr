@@ -16,7 +16,7 @@ Friend Class LeaveInteractionState
     End Sub
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.Interaction.LeaveInteraction()
+        Context.Model.Avatar.Interaction.Leave()
         SetState(BoilerplateState.Neutral)
     End Sub
 

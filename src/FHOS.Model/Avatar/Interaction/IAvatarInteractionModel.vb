@@ -1,4 +1,4 @@
 ﻿Public Interface IAvatarInteractionModel
-    Sub LeaveInteraction()
-    ReadOnly Property IsInteracting As Boolean
+    Sub Leave()
+    ReadOnly Property IsActive As Boolean
 End Interface
