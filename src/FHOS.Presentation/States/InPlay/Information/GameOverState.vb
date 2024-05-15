@@ -20,9 +20,9 @@ Friend Class GameOverState
     End Function
 
     Protected Overrides Function MessageText() As String
-        If Context.Model.Avatar.IsDead Then
+        If Context.Model.Avatar.Status.IsDead Then
             Return "Yer Dead!"
-        ElseIf Context.Model.Avatar.IsBankrupt Then
+        ElseIf Context.Model.Avatar.Status.IsBankrupt Then
             Return "Yer Bankrupt!"
         End If
         Throw New NotImplementedException

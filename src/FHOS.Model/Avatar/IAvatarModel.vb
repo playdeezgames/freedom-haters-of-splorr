@@ -10,10 +10,6 @@
     ReadOnly Property MapName As String
     ReadOnly Property CurrentPlace As IPlaceModel
 
-    ReadOnly Property IsGameOver As Boolean
-    ReadOnly Property IsDead As Boolean
-    ReadOnly Property IsBankrupt As Boolean
-
     'Vessel
     ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel))
     ReadOnly Property OxygenPercent As Integer

@@ -75,12 +75,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property IsGameOver As Boolean Implements IAvatarModel.IsGameOver
-        Get
-            Return IsDead OrElse IsBankrupt
-        End Get
-    End Property
-
     Public ReadOnly Property Turn As Integer Implements IAvatarModel.Turn
         Get
             Return avatar.Turn
@@ -96,18 +90,6 @@ Friend Class AvatarModel
     Public ReadOnly Property MinimumJools As Integer Implements IAvatarModel.MinimumJools
         Get
             Return avatar.MinimumJools
-        End Get
-    End Property
-
-    Public ReadOnly Property IsDead As Boolean Implements IAvatarModel.IsDead
-        Get
-            Return avatar.LifeSupport.CurrentValue = avatar.LifeSupport.MinimumValue.Value
-        End Get
-    End Property
-
-    Public ReadOnly Property IsBankrupt As Boolean Implements IAvatarModel.IsBankrupt
-        Get
-            Return avatar.Jools < avatar.MinimumJools
         End Get
     End Property
 
