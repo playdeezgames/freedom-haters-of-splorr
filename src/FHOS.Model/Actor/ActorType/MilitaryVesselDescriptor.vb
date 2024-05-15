@@ -7,16 +7,13 @@ Friend Class MilitaryVesselDescriptor
     Public Sub New()
         MyBase.New(
             MilitaryShip,
-            {
-                ChrW(132),
-                ChrW(133),
-                ChrW(134),
-                ChrW(135)
-            },
-            DarkGray,
             New Dictionary(Of String, Integer) From
             {
-                {CostumeTypes.MakeCostume(CostumeTypes.MilitaryVessel, Hues.DarkGray), 1}
+                {CostumeTypes.MakeCostume(CostumeTypes.MilitaryVessel, Hues.DarkGray), 1},
+                {CostumeTypes.MakeCostume(CostumeTypes.MilitaryVessel, Hues.LightGray), 1},
+                {CostumeTypes.MakeCostume(CostumeTypes.MilitaryVessel, Hues.White), 1},
+                {CostumeTypes.MakeCostume(CostumeTypes.MilitaryVessel, Hues.Tan), 1},
+                {CostumeTypes.MakeCostume(CostumeTypes.MilitaryVessel, Hues.Brown), 1}
             },
             maximumFuel:=100,
             spawnCount:=25,

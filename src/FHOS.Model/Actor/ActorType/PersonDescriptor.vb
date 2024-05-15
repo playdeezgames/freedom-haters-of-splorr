@@ -6,13 +6,6 @@ Friend Class PersonDescriptor
     Public Sub New()
         MyBase.New(
             ActorTypes.Person,
-            {
-                ChrW(160),
-                ChrW(160),
-                ChrW(160),
-                ChrW(160)
-            },
-            LightGray,
             New Dictionary(Of String, Integer) From
             {
                 {CostumeTypes.MakeCostume(CostumeTypes.Person, Hues.LightGray), 1}

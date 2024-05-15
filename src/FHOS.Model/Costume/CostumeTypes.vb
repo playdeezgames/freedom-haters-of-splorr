@@ -10,8 +10,8 @@
     Private ReadOnly glyphsTable As IReadOnlyDictionary(Of String, Char()) =
         New Dictionary(Of String, Char()) From
         {
-            {MerchantVessel, {ChrW(132), ChrW(133), ChrW(134), ChrW(135)}},
-            {MilitaryVessel, {ChrW(128), ChrW(129), ChrW(130), ChrW(131)}},
+            {MilitaryVessel, {ChrW(132), ChrW(133), ChrW(134), ChrW(135)}},
+            {MerchantVessel, {ChrW(128), ChrW(129), ChrW(130), ChrW(131)}},
             {Person, {ChrW(160), ChrW(160), ChrW(160), ChrW(160)}}
         }
 

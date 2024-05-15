@@ -2,8 +2,6 @@
 Imports SPLORR.Game
 
 Friend Class ActorTypeDescriptor
-    ReadOnly Property Glyphs As Char()
-    ReadOnly Property Hue As Integer
     ReadOnly Property MaximumFuel As Integer
     ReadOnly Property CanSpawn As Func(Of ILocation, Boolean)
     ReadOnly Property SpawnCount As Integer
@@ -12,16 +10,12 @@ Friend Class ActorTypeDescriptor
     ReadOnly Property Initializer As Action(Of IActor)
     Sub New(
            actorType As String,
-           glyphs As Char(),
-           hue As Integer,
            costumeGenerator As IReadOnlyDictionary(Of String, Integer),
            Optional maximumFuel As Integer = 0,
            Optional spawnCount As Integer = 0,
            Optional canSpawn As Func(Of ILocation, Boolean) = Nothing,
            Optional initializer As Action(Of IActor) = Nothing)
         Me.ActorType = actorType
-        Me.Glyphs = glyphs
-        Me.Hue = hue
         Me.CostumeGenerator = costumeGenerator
         Me.MaximumFuel = maximumFuel
         If canSpawn Is Nothing Then

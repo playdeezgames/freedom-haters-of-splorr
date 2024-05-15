@@ -7,13 +7,6 @@ Friend Class PlayerShipDescriptor
     Public Sub New()
         MyBase.New(
             PlayerShip,
-            {
-                ChrW(128),
-                ChrW(129),
-                ChrW(130),
-                ChrW(131)
-            },
-            LightGray,
             New Dictionary(Of String, Integer) From
             {
                 {CostumeTypes.MakeCostume(CostumeTypes.MerchantVessel, Hues.LightGray), 1}
