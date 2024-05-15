@@ -114,8 +114,7 @@ Friend Class Location
                                     .Statistics = New Dictionary(Of String, Integer) From
                                     {
                                         {StatisticTypes.LocationId, Id},
-                                        {StatisticTypes.Facing, 1},
-                                        {StatisticTypes.Turn, 1},
+                                        {StatisticTypes.Facing, 0},
                                         {StatisticTypes.Jools, 0}
                                     },
                                     .Metadatas = New Dictionary(Of String, String) From

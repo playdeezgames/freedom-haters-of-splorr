@@ -59,7 +59,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property Turn As Integer Implements IAvatarModel.Turn
         Get
-            Return avatar.Turn
+            Return avatar.Universe.Turn
         End Get
     End Property
 

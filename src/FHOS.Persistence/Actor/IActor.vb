@@ -24,7 +24,6 @@
     Function GetKnownPlacesOfType(placeType As String) As IEnumerable(Of IPlace)
     Sub AddKnownPlace(place As IPlace)
 
-    Property Turn As Integer
     Property Jools As Integer
     Property MinimumJools As Integer
     Property Wallet As IStore

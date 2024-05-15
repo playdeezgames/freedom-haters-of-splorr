@@ -44,9 +44,9 @@ Friend Class Actor
 
     Public Sub AddKnownPlace(place As IPlace) Implements IActor.AddKnownPlace
         If Not EntityData.Places.Discovered.ContainsKey(place.Id) Then
-            EntityData.Places.Discovered(place.Id) = Turn
+            EntityData.Places.Discovered(place.Id) = Universe.Turn
         End If
-        EntityData.Places.Visited(place.Id) = Turn
+        EntityData.Places.Visited(place.Id) = Universe.Turn
     End Sub
 
     Public Sub AddMessage(header As String, ParamArray lines() As (Text As String, Hue As Integer)) Implements IActor.AddMessage
@@ -128,15 +128,6 @@ Friend Class Actor
         Get
             Return EntityData.Places.Discovered.Select(Function(x) Place.FromId(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
         End Get
-    End Property
-
-    Public Property Turn As Integer Implements IActor.Turn
-        Get
-            Return EntityData.Statistics(StatisticTypes.Turn)
-        End Get
-        Set(value As Integer)
-            EntityData.Statistics(StatisticTypes.Turn) = value
-        End Set
     End Property
 
     Public Property Jools As Integer Implements IActor.Jools
