@@ -6,6 +6,7 @@
     ReadOnly Property Stack As IAvatarStackModel
     ReadOnly Property Status As IAvatarStatusModel
     ReadOnly Property State As IAvatarStateModel
+    ReadOnly Property Wallet As IAvatarWalletModel
 
     'Vessel
     ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel))
