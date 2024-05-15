@@ -15,18 +15,6 @@ Friend Class AvatarModel
         Return New AvatarModel(actor)
     End Function
 
-    Public ReadOnly Property OxygenHue As Integer Implements IAvatarModel.OxygenHue
-        Get
-            If OxygenPercent <= 33 Then
-                Return Hues.Red
-            End If
-            If OxygenPercent <= 66 Then
-                Return Hues.Yellow
-            End If
-            Return Hues.Green
-        End Get
-    End Property
-
     Public ReadOnly Property OxygenPercent As Integer Implements IAvatarModel.OxygenPercent
         Get
             Return avatar.LifeSupport.CurrentValue * 100 \ avatar.LifeSupport.MaximumValue.Value
@@ -42,18 +30,6 @@ Friend Class AvatarModel
     Public ReadOnly Property FuelPercent As Integer Implements IAvatarModel.FuelPercent
         Get
             Return avatar.Fuel * 100 \ avatar.MaximumFuel
-        End Get
-    End Property
-
-    Public ReadOnly Property FuelHue As Integer Implements IAvatarModel.FuelHue
-        Get
-            If FuelPercent <= 33 Then
-                Return Hues.Red
-            End If
-            If FuelPercent <= 66 Then
-                Return Hues.Yellow
-            End If
-            Return Hues.Green
         End Get
     End Property
 

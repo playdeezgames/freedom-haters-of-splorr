@@ -40,4 +40,7 @@
                 New HueDescriptor(White, "White")
             }
     End Function
+    Public Function ForPercentage(percent As Integer) As Integer
+        Return {Red, Yellow, Green}(Math.Clamp(percent, 0, 98) \ 33)
+    End Function
 End Module

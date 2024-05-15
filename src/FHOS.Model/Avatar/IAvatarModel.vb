@@ -11,9 +11,7 @@
     'Vessel
     ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel))
     ReadOnly Property OxygenPercent As Integer
-    ReadOnly Property OxygenHue As Integer
     ReadOnly Property FuelPercent As Integer
-    ReadOnly Property FuelHue As Integer
 
     ReadOnly Property Jools As Integer
     ReadOnly Property MinimumJools As Integer

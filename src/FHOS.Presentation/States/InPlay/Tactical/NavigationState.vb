@@ -60,8 +60,8 @@ Friend Class NavigationState
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"{ .State.MapName} ({ .State.Position.X},{ .State.Position.Y})", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Turn: { Context.Model.Turn}", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Jools: { .Jools}", Black)
-            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"O2: { .OxygenPercent}%", .OxygenHue)
-            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Fuel: { .FuelPercent}%", .FuelHue)
+            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"O2: { .OxygenPercent}%", Hues.ForPercentage(.OxygenPercent))
+            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Fuel: { .FuelPercent}%", Hues.ForPercentage(.FuelPercent))
             If .State.CurrentPlace IsNot Nothing Then
                 position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .State.CurrentPlace.Name, Black)
             End If
