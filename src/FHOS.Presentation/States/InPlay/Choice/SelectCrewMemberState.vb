@@ -18,7 +18,7 @@ Friend Class SelectCrewMemberState
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IActorModel))
-        Context.Model.Avatar.Push(value.Item)
+        Context.Model.Avatar.Stack.Push(value.Item)
         SetState(BoilerplateState.Neutral)
     End Sub
 

@@ -18,7 +18,7 @@ Friend Class SelectVesselState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.Pop()
+        Context.Model.Avatar.Stack.Pop()
         SetState(Neutral)
     End Sub
 End Class

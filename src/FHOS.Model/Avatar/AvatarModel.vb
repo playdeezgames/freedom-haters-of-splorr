@@ -165,12 +165,4 @@ Friend Class AvatarModel
     Public Sub LeaveInteraction() Implements IAvatarModel.LeaveInteraction
         avatar.Interactor = Nothing
     End Sub
-
-    Public Sub Push(actor As IActorModel) Implements IAvatarModel.Push
-        avatar.Universe.PushAvatar(ActorModel.GetActor(actor))
-    End Sub
-
-    Public Sub Pop() Implements IAvatarModel.Pop
-        avatar.Universe.PopAvatar()
-    End Sub
 End Class

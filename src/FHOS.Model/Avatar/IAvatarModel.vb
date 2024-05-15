@@ -26,7 +26,4 @@
     Sub LeaveInteraction()
     ReadOnly Property IsInteracting As Boolean
 
-    Sub Push(actor As IActorModel)
-    Sub Pop()
-
 End Interface
