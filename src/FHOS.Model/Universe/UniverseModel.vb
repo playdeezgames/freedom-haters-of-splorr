@@ -157,6 +157,12 @@ Public Class UniverseModel
         End Get
     End Property
 
+    Public ReadOnly Property Generator As IUniverseGeneratorModel Implements IUniverseModel.Generator
+        Get
+            Return UniverseGeneratorModel.FromUniverse(Universe)
+        End Get
+    End Property
+
     Const EmbarkSettingsFilename = "embark-settings.json"
     Private Shared _embarkSettings As EmbarkSettings
 End Class

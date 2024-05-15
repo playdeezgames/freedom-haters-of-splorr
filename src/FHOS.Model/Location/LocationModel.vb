@@ -1,6 +1,4 @@
-﻿Imports FHOS.Persistence
-
-Friend Class LocationModel
+﻿Friend Class LocationModel
     Implements ILocationModel
 
     Private ReadOnly location As Persistence.ILocation
