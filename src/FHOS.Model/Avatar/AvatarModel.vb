@@ -353,6 +353,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IAvatarModel.Position
+        Get
+            Return (X, Y)
+        End Get
+    End Property
+
     Private Sub RefillOxygen()
         If CanRefillOxygen Then
             avatar.LifeSupport.CurrentValue = avatar.LifeSupport.MaximumValue.Value
