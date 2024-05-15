@@ -137,12 +137,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property KnowsPlaces As Boolean Implements IAvatarModel.KnowsPlaces
-        Get
-            Return avatar.KnowsPlaces
-        End Get
-    End Property
-
     Public ReadOnly Property CurrentPlace As IPlaceModel Implements IAvatarModel.CurrentPlace
         Get
             If avatar.Location.Place IsNot Nothing Then
@@ -350,6 +344,17 @@ Friend Class AvatarModel
     Public ReadOnly Property Bio As IAvatarBioModel Implements IAvatarModel.Bio
         Get
             Return AvatarBioModel.FromAvatar(avatar)
+        End Get
+    End Property
+
+    Public ReadOnly Property Verbs As IAvatarVerbsModel Implements IAvatarModel.Verbs
+        Get
+            Return AvatarVerbsModel.FromAvatar(avatar)
+        End Get
+    End Property
+    Public ReadOnly Property KnowsPlaces As Boolean Implements IAvatarModel.KnowsPlaces
+        Get
+            Return avatar.KnowsPlaces
         End Get
     End Property
 

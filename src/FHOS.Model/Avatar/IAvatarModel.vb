@@ -1,6 +1,6 @@
 ﻿Public Interface IAvatarModel
     ReadOnly Property Bio As IAvatarBioModel
-    'ReadOnly Property Verbs As IAvatarVerbsModel
+    ReadOnly Property Verbs As IAvatarVerbsModel
 
     ReadOnly Property AvailableVerbs As IEnumerable(Of (Text As String, VerbType As String))
     ReadOnly Property HasVerbs As Boolean
