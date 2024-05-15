@@ -1,5 +1,5 @@
 ﻿Public Interface IAvatarStatusModel
-    ReadOnly Property IsGameOver As Boolean
-    ReadOnly Property IsDead As Boolean
-    ReadOnly Property IsBankrupt As Boolean
+    ReadOnly Property GameOver As Boolean
+    ReadOnly Property Dead As Boolean
+    ReadOnly Property Bankrupt As Boolean
 End Interface

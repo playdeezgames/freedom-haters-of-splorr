@@ -8,19 +8,19 @@ Friend Class AvatarStatusModel
         MyBase.New(avatar)
     End Sub
 
-    Public ReadOnly Property IsGameOver As Boolean Implements IAvatarStatusModel.IsGameOver
+    Public ReadOnly Property GameOver As Boolean Implements IAvatarStatusModel.GameOver
         Get
-            Return IsDead OrElse IsBankrupt
+            Return Dead OrElse Bankrupt
         End Get
     End Property
 
-    Public ReadOnly Property IsDead As Boolean Implements IAvatarStatusModel.IsDead
+    Public ReadOnly Property Dead As Boolean Implements IAvatarStatusModel.Dead
         Get
             Return avatar.LifeSupport.CurrentValue = avatar.LifeSupport.MinimumValue.Value
         End Get
     End Property
 
-    Public ReadOnly Property IsBankrupt As Boolean Implements IAvatarStatusModel.IsBankrupt
+    Public ReadOnly Property Bankrupt As Boolean Implements IAvatarStatusModel.Bankrupt
         Get
             Return avatar.Jools < avatar.MinimumJools
         End Get

@@ -23,7 +23,7 @@ Friend Class NeutralState
                 SetState(GameState.Generate)
             ElseIf .Messages.HasAny Then
                 SetState(GameState.Message)
-            ElseIf .Avatar.Status.IsGameOver Then
+            ElseIf .Avatar.Status.GameOver Then
                 SetState(GameState.GameOver)
             ElseIf .Avatar.Tutorial.HasAny Then
                 SetState(GameState.Tutorial)
