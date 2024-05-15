@@ -58,7 +58,7 @@ Friend Class NavigationState
         With Context.Model.Avatar
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"NAV SCREEN", Purple)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"{ .State.MapName} ({ .State.Position.X},{ .State.Position.Y})", Black)
-            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Turn: { .Turn}", Black)
+            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Turn: { Context.Model.Turn}", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Jools: { .Jools}", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"O2: { .OxygenPercent}%", .OxygenHue)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Fuel: { .FuelPercent}%", .FuelHue)

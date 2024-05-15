@@ -57,12 +57,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Turn As Integer Implements IAvatarModel.Turn
-        Get
-            Return avatar.Universe.Turn
-        End Get
-    End Property
-
     Public ReadOnly Property Jools As Integer Implements IAvatarModel.Jools
         Get
             Return avatar.Jools

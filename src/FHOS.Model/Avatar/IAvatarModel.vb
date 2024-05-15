@@ -14,7 +14,6 @@
     ReadOnly Property FuelPercent As Integer
     ReadOnly Property FuelHue As Integer
 
-    ReadOnly Property Turn As Integer
     ReadOnly Property Jools As Integer
     ReadOnly Property MinimumJools As Integer
 
