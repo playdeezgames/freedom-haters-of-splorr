@@ -40,6 +40,12 @@ Friend Class ActorModel
         End Get
     End Property
 
+    Public ReadOnly Property Sprite As (Glyph As Char, Hue As Integer) Implements IActorModel.Sprite
+        Get
+            Return (Glyph, Hue)
+        End Get
+    End Property
+
     Friend Shared Function GetActor(model As IActorModel) As IActor
         Return CType(model, ActorModel).actor
     End Function
