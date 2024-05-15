@@ -26,7 +26,7 @@ Friend Class NavigationState
             Case Command.Select
                 SetState(GameState.Scanner)
             Case Command.A
-                If Context.Model.Avatar.Verbs.HasVerbs Then
+                If Context.Model.Avatar.Verbs.HasAny Then
                     SetState(GameState.ActionMenu)
                 End If
         End Select
@@ -47,7 +47,7 @@ Friend Class NavigationState
             displayBuffer,
             uiFont,
             Context.ControlsText(
-                aButton:=If(Context.Model.Avatar.Verbs.HasVerbs, "Actions", Nothing),
+                aButton:=If(Context.Model.Avatar.Verbs.HasAny, "Actions", Nothing),
                 selectButton:="Scanner"),
             Black,
             DarkGray)

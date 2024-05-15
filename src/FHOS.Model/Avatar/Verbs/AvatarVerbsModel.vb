@@ -142,7 +142,7 @@ Friend Class AvatarVerbsModel
         End Get
     End Property
 
-    Public ReadOnly Property AvailableVerbs As IEnumerable(Of (Text As String, VerbType As String)) Implements IAvatarVerbsModel.AvailableVerbs
+    Public ReadOnly Property Available As IEnumerable(Of (Text As String, VerbType As String)) Implements IAvatarVerbsModel.Available
         Get
             Return verbTable.
                 Where(Function(x) VerbTypes.Descriptors(x.Key).Visible AndAlso x.Value.isAvailable.Invoke()).
@@ -150,13 +150,13 @@ Friend Class AvatarVerbsModel
         End Get
     End Property
 
-    Public ReadOnly Property HasVerbs As Boolean Implements IAvatarVerbsModel.HasVerbs
+    Public ReadOnly Property HasAny As Boolean Implements IAvatarVerbsModel.HasAny
         Get
-            Return AvailableVerbs.Any
+            Return Available.Any
         End Get
     End Property
 
-    Public Sub DoVerb(verbType As String) Implements IAvatarVerbsModel.DoVerb
+    Public Sub Perform(verbType As String) Implements IAvatarVerbsModel.Perform
         If verbTable(verbType).isAvailable() Then
             verbTable(verbType).perform()
         End If

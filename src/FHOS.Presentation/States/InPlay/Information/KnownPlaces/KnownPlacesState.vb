@@ -40,19 +40,19 @@ Friend Class KnownPlacesState
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
         Dim result As New List(Of (Text As String, Item As String))
         With Context.Model.Avatar
-            If .KnowsPlacesOfType(PlaceTypes.StarSystem) Then
+            If .KnownPlaces.HasAnyOfType(PlaceTypes.StarSystem) Then
                 result.Add((StarSystemListText, StarSystemListText))
             End If
-            If .KnowsPlacesOfType(PlaceTypes.StarVicinity) Then
+            If .KnownPlaces.HasAnyOfType(PlaceTypes.StarVicinity) Then
                 result.Add((StarVicinityListText, StarVicinityListText))
             End If
-            If .KnowsPlacesOfType(PlaceTypes.PlanetVicinity) Then
+            If .KnownPlaces.HasAnyOfType(PlaceTypes.PlanetVicinity) Then
                 result.Add((PlanetVicinityListText, PlanetVicinityListText))
             End If
-            If .KnowsPlacesOfType(PlaceTypes.Planet) Then
+            If .KnownPlaces.HasAnyOfType(PlaceTypes.Planet) Then
                 result.Add((PlanetListText, PlanetListText))
             End If
-            If .KnowsPlacesOfType(PlaceTypes.Satellite) Then
+            If .KnownPlaces.HasAnyOfType(PlaceTypes.Satellite) Then
                 result.Add((SatelliteListText, SatelliteListText))
             End If
         End With

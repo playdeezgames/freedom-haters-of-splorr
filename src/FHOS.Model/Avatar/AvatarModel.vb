@@ -1,5 +1,4 @@
 ﻿Imports FHOS.Persistence
-Imports SPLORR.Game
 
 Friend Class AvatarModel
     Inherits BaseAvatarModel
@@ -151,19 +150,11 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property KnowsPlaces As Boolean Implements IAvatarModel.KnowsPlaces
+    Public ReadOnly Property KnownPlaces As IAvatarKnownPlacesModel Implements IAvatarModel.KnownPlaces
         Get
-            Return avatar.KnowsPlaces
+            Return AvatarKnownPlacesModel.FromAvatar(avatar)
         End Get
     End Property
-
-    Public Function KnowsPlacesOfType(placeType As String) As Boolean Implements IAvatarModel.KnowsPlacesOfType
-        Return avatar.KnowsPlacesOfType(placeType)
-    End Function
-
-    Public Function GetKnownPlacesOfType(placeType As String) As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarModel.GetKnownPlacesOfType
-        Return avatar.GetKnownPlacesOfType(placeType).Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
-    End Function
 
     Public Sub LeaveInteraction() Implements IAvatarModel.LeaveInteraction
         avatar.Interactor = Nothing

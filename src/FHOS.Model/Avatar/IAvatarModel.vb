@@ -1,6 +1,7 @@
 ﻿Public Interface IAvatarModel
     ReadOnly Property Bio As IAvatarBioModel
     ReadOnly Property Verbs As IAvatarVerbsModel
+    ReadOnly Property KnownPlaces As IAvatarKnownPlacesModel
 
     ReadOnly Property Position As (X As Integer, Y As Integer)
     ReadOnly Property MapName As String
@@ -19,10 +20,6 @@
     ReadOnly Property OxygenHue As Integer
     ReadOnly Property FuelPercent As Integer
     ReadOnly Property FuelHue As Integer
-
-    ReadOnly Property KnowsPlaces As Boolean
-    Function KnowsPlacesOfType(placeType As String) As Boolean
-    Function GetKnownPlacesOfType(placeType As String) As IEnumerable(Of (Text As String, Item As IPlaceModel))
 
     Sub LeaveInteraction()
     ReadOnly Property IsInteracting As Boolean
