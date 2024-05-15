@@ -57,13 +57,13 @@ Friend Class NavigationState
         Dim textWidth = Context.ViewSize.Width - position.X
         With Context.Model.Avatar
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"NAV SCREEN", Purple)
-            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"{ .MapName} ({ .Position.X},{ .Position.Y})", Black)
+            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"{ .State.MapName} ({ .State.Position.X},{ .State.Position.Y})", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Turn: { .Turn}", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Jools: { .Jools}", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"O2: { .OxygenPercent}%", .OxygenHue)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Fuel: { .FuelPercent}%", .FuelHue)
-            If .CurrentPlace IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .CurrentPlace.Name, Black)
+            If .State.CurrentPlace IsNot Nothing Then
+                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .State.CurrentPlace.Name, Black)
             End If
         End With
     End Sub
