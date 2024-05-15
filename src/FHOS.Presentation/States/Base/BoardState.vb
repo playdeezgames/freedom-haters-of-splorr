@@ -48,7 +48,8 @@ Friend MustInherit Class BoardState
 
         Dim actorModel = locationModel.Actor
         If actorModel IsNot Nothing Then
-            uiFont.WriteLeftText(displayBuffer, plotPosition, actorModel.Glyph, actorModel.Hue)
+            Dim sprite = actorModel.Sprite
+            uiFont.WriteLeftText(displayBuffer, plotPosition, sprite.Glyph, sprite.Hue)
         End If
     End Sub
 End Class

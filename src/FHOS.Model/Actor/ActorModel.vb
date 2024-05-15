@@ -16,13 +16,13 @@ Friend Class ActorModel
         Return New ActorModel(actor)
     End Function
 
-    Public ReadOnly Property Glyph As Char Implements IActorModel.Glyph
+    Private ReadOnly Property Glyph As Char
         Get
             Return CostumeTypes.Descriptors(actor.Costume).Glyphs(actor.Facing)
         End Get
     End Property
 
-    Public ReadOnly Property Hue As Integer Implements IActorModel.Hue
+    Private ReadOnly Property Hue As Integer
         Get
             Return CostumeTypes.Descriptors(actor.Costume).Hue
         End Get
