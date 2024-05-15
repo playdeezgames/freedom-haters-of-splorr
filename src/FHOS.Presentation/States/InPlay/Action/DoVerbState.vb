@@ -23,7 +23,7 @@ Friend Class DoVerbState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Avatar.DoVerb(verbType)
+        Context.Model.Avatar.Verbs.DoVerb(verbType)
         SetState(BoilerplateState.Neutral)
     End Sub
 End Class

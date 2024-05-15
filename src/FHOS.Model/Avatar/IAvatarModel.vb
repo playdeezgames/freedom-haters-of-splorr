@@ -2,10 +2,6 @@
     ReadOnly Property Bio As IAvatarBioModel
     ReadOnly Property Verbs As IAvatarVerbsModel
 
-    ReadOnly Property AvailableVerbs As IEnumerable(Of (Text As String, VerbType As String))
-    ReadOnly Property HasVerbs As Boolean
-    Sub DoVerb(verbType As String)
-
     ReadOnly Property Position As (X As Integer, Y As Integer)
     ReadOnly Property MapName As String
     ReadOnly Property Tutorial As IAvatarTutorialModel

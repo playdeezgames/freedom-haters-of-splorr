@@ -52,13 +52,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property HasVerbs As Boolean Implements IAvatarModel.HasVerbs
-        Get
-            Return AvailableVerbs.Any OrElse
-                KnowsPlaces
-        End Get
-    End Property
-
     Public ReadOnly Property Tutorial As IAvatarTutorialModel Implements IAvatarModel.Tutorial
         Get
             Return New AvatarTutorialModel(avatar)
@@ -146,14 +139,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property AvailableVerbs As IEnumerable(Of (Text As String, VerbType As String)) Implements IAvatarModel.AvailableVerbs
-        Get
-            Return verbTable.
-                Where(Function(x) VerbTypes.Descriptors(x.Key).Visible AndAlso x.Value.isAvailable.Invoke()).
-                Select(Function(x) (VerbTypes.Descriptors(x.Key).Text, x.Key))
-        End Get
-    End Property
-
     Private Sub DistressSignal()
         Dim fuelAdded = avatar.MaximumFuel - avatar.Fuel
         Dim fuelPrice = 1 'TODO: don't just pick a magic number!
@@ -164,12 +149,6 @@ Friend Class AvatarModel
             "Emergency Refuel",
             ($"Added {fuelAdded} fuel!", Hues.Black),
             ($"Price {price} jools!", Hues.Black))
-    End Sub
-
-    Public Sub DoVerb(verbType As String) Implements IAvatarModel.DoVerb
-        If verbTable(verbType).isAvailable() Then
-            verbTable(verbType).perform()
-        End If
     End Sub
 
     Private ReadOnly verbTable As IReadOnlyDictionary(Of String, (isAvailable As Func(Of Boolean), perform As Action)) =
