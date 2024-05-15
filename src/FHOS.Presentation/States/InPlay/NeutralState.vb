@@ -27,7 +27,7 @@ Friend Class NeutralState
                 SetState(GameState.GameOver)
             ElseIf .Avatar.Tutorial.HasAny Then
                 SetState(GameState.Tutorial)
-            ElseIf .Avatar.IsInteracting Then
+            ElseIf .Avatar.Interaction.IsInteracting Then
                 SetState(GameState.Interaction)
             Else
                 SetState(GameState.Navigation)

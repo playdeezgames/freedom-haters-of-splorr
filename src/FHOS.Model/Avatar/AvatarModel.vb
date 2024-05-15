@@ -45,12 +45,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property IsInteracting As Boolean Implements IAvatarModel.IsInteracting
-        Get
-            Return avatar.Interactor IsNot Nothing
-        End Get
-    End Property
-
     Public ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel)) Implements IAvatarModel.AvailableCrew
         Get
             Return avatar.Crew.Select(Function(x) (x.Name, ActorModel.FromActor(x)))
@@ -99,7 +93,9 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public Sub LeaveInteraction() Implements IAvatarModel.LeaveInteraction
-        avatar.Interactor = Nothing
-    End Sub
+    Public ReadOnly Property Interaction As IAvatarInteractionModel Implements IAvatarModel.Interaction
+        Get
+            Return AvatarInteractionModel.FromActor(avatar)
+        End Get
+    End Property
 End Class

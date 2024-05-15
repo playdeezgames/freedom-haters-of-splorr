@@ -7,6 +7,7 @@
     ReadOnly Property Status As IAvatarStatusModel
     ReadOnly Property State As IAvatarStateModel
     ReadOnly Property Wallet As IAvatarWalletModel
+    ReadOnly Property Interaction As IAvatarInteractionModel
 
     'Vessel
     ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel))
@@ -15,7 +16,4 @@
 
     ReadOnly Property Jools As Integer
     ReadOnly Property MinimumJools As Integer
-
-    Sub LeaveInteraction()
-    ReadOnly Property IsInteracting As Boolean
 End Interface
