@@ -23,6 +23,6 @@ Friend Class SelectCrewMemberState
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IActorModel))
-        Return Context.Model.Avatar.AvailableCrew.ToList
+        Return Context.Model.Avatar.Vessel.AvailableCrew.ToList
     End Function
 End Class

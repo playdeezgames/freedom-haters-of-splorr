@@ -80,7 +80,7 @@ Friend Class AvatarVerbsModel
 
     Private ReadOnly Property CanMove As Boolean
         Get
-            Return Not avatar.ConsumesFuel OrElse AvatarModel.FromActor(avatar).FuelPercent > 0
+            Return Not avatar.ConsumesFuel OrElse AvatarModel.FromActor(avatar).Vessel.FuelPercent > 0
         End Get
     End Property
 

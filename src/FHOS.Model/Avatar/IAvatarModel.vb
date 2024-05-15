@@ -1,17 +1,12 @@
 ﻿Public Interface IAvatarModel
     ReadOnly Property Bio As IAvatarBioModel
-    ReadOnly Property Verbs As IAvatarVerbsModel
-    ReadOnly Property KnownPlaces As IAvatarKnownPlacesModel
-    ReadOnly Property Tutorial As IAvatarTutorialModel
-    ReadOnly Property Stack As IAvatarStackModel
-    ReadOnly Property Status As IAvatarStatusModel
-    ReadOnly Property State As IAvatarStateModel
-    ReadOnly Property Wallet As IAvatarWalletModel
     ReadOnly Property Interaction As IAvatarInteractionModel
-    'ReadOnly Property Vessel As IAvatarVesselModel
-
-    'Vessel
-    ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel))
-    ReadOnly Property OxygenPercent As Integer
-    ReadOnly Property FuelPercent As Integer
+    ReadOnly Property KnownPlaces As IAvatarKnownPlacesModel
+    ReadOnly Property Stack As IAvatarStackModel
+    ReadOnly Property State As IAvatarStateModel
+    ReadOnly Property Status As IAvatarStatusModel
+    ReadOnly Property Tutorial As IAvatarTutorialModel
+    ReadOnly Property Verbs As IAvatarVerbsModel
+    ReadOnly Property Vessel As IAvatarVesselModel
+    ReadOnly Property Wallet As IAvatarWalletModel
 End Interface

@@ -15,27 +15,9 @@ Friend Class AvatarModel
         Return New AvatarModel(actor)
     End Function
 
-    Public ReadOnly Property OxygenPercent As Integer Implements IAvatarModel.OxygenPercent
-        Get
-            Return avatar.LifeSupport.CurrentValue * 100 \ avatar.LifeSupport.MaximumValue.Value
-        End Get
-    End Property
-
     Public ReadOnly Property Tutorial As IAvatarTutorialModel Implements IAvatarModel.Tutorial
         Get
             Return New AvatarTutorialModel(avatar)
-        End Get
-    End Property
-
-    Public ReadOnly Property FuelPercent As Integer Implements IAvatarModel.FuelPercent
-        Get
-            Return avatar.Fuel * 100 \ avatar.MaximumFuel
-        End Get
-    End Property
-
-    Public ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel)) Implements IAvatarModel.AvailableCrew
-        Get
-            Return avatar.Crew.Select(Function(x) (x.Name, ActorModel.FromActor(x)))
         End Get
     End Property
 
@@ -84,6 +66,12 @@ Friend Class AvatarModel
     Public ReadOnly Property Interaction As IAvatarInteractionModel Implements IAvatarModel.Interaction
         Get
             Return AvatarInteractionModel.FromActor(avatar)
+        End Get
+    End Property
+
+    Public ReadOnly Property Vessel As IAvatarVesselModel Implements IAvatarModel.Vessel
+        Get
+            Return AvatarVesselModel.FromActor(avatar)
         End Get
     End Property
 End Class

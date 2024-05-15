@@ -30,8 +30,8 @@ Friend Class StatusState
                 .UIPalette.Header,
                 .UIPalette.Background)
             Dim position = (.ViewCenter.X, font.Height)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"O2: {avatar.OxygenPercent}%", Hues.ForPercentage(avatar.OxygenPercent))
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Fuel: {avatar.FuelPercent}%", Hues.ForPercentage(avatar.FuelPercent))
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"O2: {avatar.Vessel.OxygenPercent}%", Hues.ForPercentage(avatar.Vessel.OxygenPercent))
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Fuel: {avatar.Vessel.FuelPercent}%", Hues.ForPercentage(avatar.Vessel.FuelPercent))
             position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Faction: {avatar.Bio.Faction.Name}", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Home Planet: {avatar.Bio.HomePlanet.Name}", Hues.Black)
             .ShowStatusBar(
