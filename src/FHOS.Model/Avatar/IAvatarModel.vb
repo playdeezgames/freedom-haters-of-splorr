@@ -5,6 +5,7 @@
     ReadOnly Property Tutorial As IAvatarTutorialModel
     ReadOnly Property Stack As IAvatarStackModel
     ReadOnly Property Status As IAvatarStatusModel
+    ReadOnly Property State As IAvatarStateModel
 
     ReadOnly Property Position As (X As Integer, Y As Integer)
     ReadOnly Property MapName As String

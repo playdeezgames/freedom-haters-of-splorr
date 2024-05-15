@@ -150,6 +150,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property State As IAvatarStateModel Implements IAvatarModel.State
+        Get
+            Return AvatarStateModel.FromActor(avatar)
+        End Get
+    End Property
+
     Public Sub LeaveInteraction() Implements IAvatarModel.LeaveInteraction
         avatar.Interactor = Nothing
     End Sub
