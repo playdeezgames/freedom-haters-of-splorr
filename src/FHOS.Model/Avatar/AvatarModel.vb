@@ -16,13 +16,13 @@ Friend Class AvatarModel
         Return New AvatarModel(actor)
     End Function
 
-    Public ReadOnly Property X As Integer Implements IAvatarModel.X
+    Private ReadOnly Property X As Integer
         Get
             Return avatar.Location.Column
         End Get
     End Property
 
-    Public ReadOnly Property Y As Integer Implements IAvatarModel.Y
+    Private ReadOnly Property Y As Integer
         Get
             Return avatar.Location.Row
         End Get

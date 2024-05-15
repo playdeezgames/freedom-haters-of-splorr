@@ -1,6 +1,4 @@
 ﻿Public Interface IAvatarModel
-    ReadOnly Property X As Integer
-    ReadOnly Property Y As Integer
     ReadOnly Property Position As (X As Integer, Y As Integer)
 
     ReadOnly Property MapName As String

@@ -57,7 +57,7 @@ Friend Class NavigationState
         Dim textWidth = Context.ViewSize.Width - position.X
         With Context.Model.Avatar
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"NAV SCREEN", Purple)
-            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"{ .MapName} ({ .X},{ .Y})", Black)
+            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"{ .MapName} ({ .Position.X},{ .Position.Y})", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Turn: { .Turn}", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Jools: { .Jools}", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"O2: { .OxygenPercent}%", .OxygenHue)
