@@ -13,6 +13,10 @@ Friend Class PersonDescriptor
                 ChrW(160)
             },
             LightGray,
+            New Dictionary(Of String, Integer) From
+            {
+                {CostumeTypes.MakeCostume(CostumeTypes.Person, Hues.LightGray), 1}
+            },
             maximumFuel:=100,
             spawnCount:=25,
             canSpawn:=Function(x) x.LocationType = LocationTypes.Air AndAlso x.Actor Is Nothing,

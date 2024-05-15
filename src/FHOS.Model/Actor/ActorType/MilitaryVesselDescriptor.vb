@@ -14,6 +14,10 @@ Friend Class MilitaryVesselDescriptor
                 ChrW(135)
             },
             DarkGray,
+            New Dictionary(Of String, Integer) From
+            {
+                {CostumeTypes.MakeCostume(CostumeTypes.MilitaryVessel, Hues.DarkGray), 1}
+            },
             maximumFuel:=100,
             spawnCount:=25,
             canSpawn:=Function(x) x.LocationType = Void AndAlso x.Actor Is Nothing,

@@ -8,11 +8,13 @@ Friend Class ActorTypeDescriptor
     ReadOnly Property CanSpawn As Func(Of ILocation, Boolean)
     ReadOnly Property SpawnCount As Integer
     ReadOnly Property ActorType As String
+    ReadOnly Property CostumeGenerator As IReadOnlyDictionary(Of String, Integer)
     ReadOnly Property Initializer As Action(Of IActor)
     Sub New(
            actorType As String,
            glyphs As Char(),
            hue As Integer,
+           costumeGenerator As IReadOnlyDictionary(Of String, Integer),
            Optional maximumFuel As Integer = 0,
            Optional spawnCount As Integer = 0,
            Optional canSpawn As Func(Of ILocation, Boolean) = Nothing,
@@ -20,6 +22,7 @@ Friend Class ActorTypeDescriptor
         Me.ActorType = actorType
         Me.Glyphs = glyphs
         Me.Hue = hue
+        Me.CostumeGenerator = costumeGenerator
         Me.MaximumFuel = maximumFuel
         If canSpawn Is Nothing Then
             canSpawn = Function(x) True
