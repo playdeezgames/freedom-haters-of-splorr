@@ -2,7 +2,6 @@ Public Interface IUniverseModel
     Sub Save(filename As String)
     Sub Load(filename As String)
     Sub Abandon()
-    ReadOnly Property Generator As IUniverseGeneratorModel
 
     'TODO: generator
     Sub Embark()
