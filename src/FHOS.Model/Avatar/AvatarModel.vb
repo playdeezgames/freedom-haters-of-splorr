@@ -162,6 +162,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property Status As IAvatarStatusModel Implements IAvatarModel.Status
+        Get
+            Return AvatarStatusModel.FromActor(avatar)
+        End Get
+    End Property
+
     Public Sub LeaveInteraction() Implements IAvatarModel.LeaveInteraction
         avatar.Interactor = Nothing
     End Sub
