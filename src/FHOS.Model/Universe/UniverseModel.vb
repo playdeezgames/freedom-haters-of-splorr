@@ -5,7 +5,6 @@ Imports FHOS.Persistence
 
 Public Class UniverseModel
     Implements IUniverseModel
-    Implements IUniverseStateModel
 
     Private UniverseData As UniverseData = Nothing
 
@@ -15,29 +14,11 @@ Public Class UniverseModel
         End Get
     End Property
 
-    Public ReadOnly Property Board As IBoardModel Implements IUniverseStateModel.Board
-        Get
-            Return BoardModel.FromUniverse(Universe)
-        End Get
-    End Property
-
-    Public ReadOnly Property Avatar As IAvatarModel Implements IUniverseStateModel.Avatar
-        Get
-            Return AvatarModel.FromActor(Universe.Avatar)
-        End Get
-    End Property
-
     Private Shared Sub PersistEmbarkSettings()
         File.WriteAllText(
             EmbarkSettingsFilename,
             JsonSerializer.Serialize(EmbarkSettings))
     End Sub
-
-    Public ReadOnly Property Messages As IMessagesModel Implements IUniverseStateModel.Messages
-        Get
-            Return MessagesModel.FromUniverse(Universe)
-        End Get
-    End Property
 
     Public Sub Save(filename As String) Implements IUniverseModel.Save
         File.WriteAllText(filename, JsonSerializer.Serialize(UniverseData))
@@ -97,12 +78,6 @@ Public Class UniverseModel
         End Get
     End Property
 
-    Public ReadOnly Property Turn As Integer Implements IUniverseStateModel.Turn
-        Get
-            Return Universe.Turn
-        End Get
-    End Property
-
     Public ReadOnly Property Generator As IUniverseGeneratorModel Implements IUniverseModel.Generator
         Get
             Return UniverseGeneratorModel.MakeGenerator(
@@ -120,7 +95,7 @@ Public Class UniverseModel
 
     Public ReadOnly Property State As IUniverseStateModel Implements IUniverseModel.State
         Get
-            Return Me
+            Return UniverseStateModel.FromUniverse(Universe)
         End Get
     End Property
 
