@@ -134,7 +134,6 @@ Public Class Universe
     Public Function CreateFaction(
                                  factionName As String,
                                  minimumPlanetCount As Integer,
-                                 flags As IEnumerable(Of String),
                                  authority As Integer,
                                  standards As Integer,
                                  conviction As Integer) As IFaction Implements IUniverse.CreateFaction
@@ -144,7 +143,6 @@ Public Class Universe
                 {
                     {MetadataTypes.Name, factionName}
                 },
-                .Flags = New HashSet(Of String)(flags),
                 .Statistics = New Dictionary(Of String, Integer) From
                 {
                     {StatisticTypes.MinimumPlanetCount, minimumPlanetCount},

@@ -20,7 +20,6 @@ Public Interface IUniverse
     Function CreateFaction(
                           factionName As String,
                           minimumPlanetCount As Integer,
-                          flags As IEnumerable(Of String),
                           authority As Integer,
                           standards As Integer,
                           conviction As Integer) As IFaction

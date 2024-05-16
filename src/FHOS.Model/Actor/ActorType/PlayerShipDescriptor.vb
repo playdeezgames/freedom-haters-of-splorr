@@ -20,8 +20,10 @@ Friend Class PlayerShipDescriptor
 
 
     Private Shared Sub InitializePlayerShip(ship As Persistence.IActor)
-        ship.SetFlag(FlagTypes.IsAvatar)
-        ship.Faction = ship.Universe.Factions.Single(Function(x) x.HasFlag(FlagTypes.LovesFreedom))
+        If ship.Universe.Avatar Is Nothing Then
+            ship.Universe.PushAvatar(ship)
+        End If
+        ship.Faction = ship.Universe.Factions.Single(Function(x) x.Authority = 100 AndAlso x.Standards = 100 AndAlso x.Conviction = 100)
         ship.HomePlanet = RNG.FromEnumerable(ship.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = ship.Faction.Id))
         ship.Name = "(yer ship)"
         ship.Wallet = ship.Universe.CreateStore(0, minimum:=0)
