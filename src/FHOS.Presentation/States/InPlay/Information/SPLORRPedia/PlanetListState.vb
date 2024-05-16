@@ -23,6 +23,6 @@ Friend Class PlanetListState
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IPlaceModel))
-        Return Context.Model.Planets.ToList
+        Return Context.Model.Pedia.Planets.ToList
     End Function
 End Class

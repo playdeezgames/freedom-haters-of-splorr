@@ -24,6 +24,6 @@ Friend Class FactionListState
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IFactionModel))
-        Return Context.Model.FactionList.ToList
+        Return Context.Model.Pedia.FactionList.ToList
     End Function
 End Class

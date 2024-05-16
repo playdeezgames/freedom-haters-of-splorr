@@ -46,13 +46,13 @@ Public Class UniverseModel
         End Get
     End Property
 
-    Public ReadOnly Property FactionList As IEnumerable(Of (Text As String, Faction As IFactionModel)) Implements IUniverseModel.FactionList
+    Public ReadOnly Property FactionList As IEnumerable(Of (Text As String, Faction As IFactionModel)) Implements IUniversePediaModel.FactionList
         Get
             Return Universe.Factions.Select(Function(x) (x.Name, FactionModel.FromFaction(x)))
         End Get
     End Property
 
-    Public ReadOnly Property StarSystems As IEnumerable(Of (Text As String, Place As IPlaceModel)) Implements IUniverseModel.StarSystems
+    Public ReadOnly Property StarSystems As IEnumerable(Of (Text As String, Place As IPlaceModel)) Implements IUniversePediaModel.StarSystems
         Get
             Return Universe.
                 GetPlacesOfType(PlaceTypes.StarSystem).
@@ -61,7 +61,7 @@ Public Class UniverseModel
         End Get
     End Property
 
-    Public ReadOnly Property Planets As IEnumerable(Of (Text As String, Place As IPlaceModel)) Implements IUniverseModel.Planets
+    Public ReadOnly Property Planets As IEnumerable(Of (Text As String, Place As IPlaceModel)) Implements IUniversePediaModel.Planets
         Get
             Return Universe.
                 GetPlacesOfType(PlaceTypes.Planet).
@@ -70,7 +70,7 @@ Public Class UniverseModel
         End Get
     End Property
 
-    Public ReadOnly Property Satellites As IEnumerable(Of (Text As String, Place As IPlaceModel)) Implements IUniverseModel.Satellites
+    Public ReadOnly Property Satellites As IEnumerable(Of (Text As String, Place As IPlaceModel)) Implements IUniversePediaModel.Satellites
         Get
             Return Universe.
                 GetPlacesOfType(PlaceTypes.Satellite).

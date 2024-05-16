@@ -23,6 +23,6 @@ Friend Class StarSystemListState
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IPlaceModel))
-        Return Context.Model.StarSystems.ToList
+        Return Context.Model.Pedia.StarSystems.ToList
     End Function
 End Class
