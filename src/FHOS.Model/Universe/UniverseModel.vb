@@ -5,7 +5,6 @@ Imports FHOS.Persistence
 
 Public Class UniverseModel
     Implements IUniverseModel
-    Implements IUniverseSettingsModel
 
     Private UniverseData As UniverseData = Nothing
 
@@ -27,23 +26,11 @@ Public Class UniverseModel
         End Get
     End Property
 
-    Public ReadOnly Property GalacticAge As IGalacticAgeModel Implements IUniverseSettingsModel.GalacticAge
-        Get
-            Return GalacticAgeModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
-        End Get
-    End Property
-
     Private Shared Sub PersistEmbarkSettings()
         File.WriteAllText(
             EmbarkSettingsFilename,
             JsonSerializer.Serialize(EmbarkSettings))
     End Sub
-
-    Public ReadOnly Property GalacticDensity As IGalacticDensityModel Implements IUniverseSettingsModel.GalacticDensity
-        Get
-            Return GalacticDensityModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
-        End Get
-    End Property
 
     Public ReadOnly Property Messages As IMessagesModel Implements IUniverseModel.Messages
         Get
@@ -73,18 +60,6 @@ Public Class UniverseModel
                 End Try
             End If
             Return _embarkSettings
-        End Get
-    End Property
-
-    Public ReadOnly Property StartingWealth As IStartingWealthLevelModel Implements IUniverseSettingsModel.StartingWealth
-        Get
-            Return StartingWealthLevelModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
-        End Get
-    End Property
-
-    Public ReadOnly Property FactionCount As IFactionCountModel Implements IUniverseSettingsModel.FactionCount
-        Get
-            Return FactionCountModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
         End Get
     End Property
 
@@ -138,7 +113,7 @@ Public Class UniverseModel
 
     Public ReadOnly Property Settings As IUniverseSettingsModel Implements IUniverseModel.Settings
         Get
-            Return Me
+            Return UniverseSettingsModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
         End Get
     End Property
 
