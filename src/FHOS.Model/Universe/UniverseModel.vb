@@ -5,6 +5,7 @@ Imports FHOS.Persistence
 
 Public Class UniverseModel
     Implements IUniverseModel
+    Implements IUniversePediaModel
 
     Private UniverseData As UniverseData = Nothing
 
@@ -96,6 +97,12 @@ Public Class UniverseModel
     Public ReadOnly Property State As IUniverseStateModel Implements IUniverseModel.State
         Get
             Return UniverseStateModel.FromUniverse(Universe)
+        End Get
+    End Property
+
+    Public ReadOnly Property Pedia As IUniversePediaModel Implements IUniverseModel.Pedia
+        Get
+            Return Me
         End Get
     End Property
 

@@ -5,6 +5,7 @@ Public Interface IUniverseModel
     ReadOnly Property Generator As IUniverseGeneratorModel
     ReadOnly Property Settings As IUniverseSettingsModel
     ReadOnly Property State As IUniverseStateModel
+    ReadOnly Property Pedia As IUniversePediaModel
 
     'TODO: Pedia
     ReadOnly Property FactionList As IEnumerable(Of (Text As String, Faction As IFactionModel))
