@@ -1,25 +1,25 @@
 ﻿Imports FHOS.Persistence
 
 Friend Class BaseAvatarModel
-    Protected ReadOnly avatar As IActor
+    Protected ReadOnly actor As IActor
     Protected Sub DoTurn()
-        avatar.Universe.Turn += 1
-        avatar.LifeSupport.CurrentValue -= 1
+        actor.Universe.Turn += 1
+        actor.LifeSupport.CurrentValue -= 1
     End Sub
-    Protected Sub New(avatar As IActor)
-        Me.avatar = avatar
+    Protected Sub New(actor As IActor)
+        Me.actor = actor
     End Sub
     Protected Sub SetLocation(location As ILocation)
-        Dim isDifferentMap = location.Map.Id <> avatar.Location.Map.Id
+        Dim isDifferentMap = location.Map.Id <> actor.Location.Map.Id
         If isDifferentMap Then
-            HandleMapExit(avatar.Location.Map)
+            HandleMapExit(actor.Location.Map)
         End If
-        Me.avatar.Location = location
+        Me.actor.Location = location
         If location.Place IsNot Nothing Then
-            avatar.AddKnownPlace(location.Place)
+            actor.AddKnownPlace(location.Place)
         End If
         If isDifferentMap Then
-            HandleMapEntry(avatar.Location.Map)
+            HandleMapEntry(actor.Location.Map)
         End If
     End Sub
 

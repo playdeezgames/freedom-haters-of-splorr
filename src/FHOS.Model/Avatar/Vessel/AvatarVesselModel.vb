@@ -4,29 +4,29 @@ Friend Class AvatarVesselModel
     Inherits BaseAvatarModel
     Implements IAvatarVesselModel
 
-    Protected Sub New(avatar As IActor)
-        MyBase.New(avatar)
+    Protected Sub New(actor As IActor)
+        MyBase.New(actor)
     End Sub
 
     Public ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel)) Implements IAvatarVesselModel.AvailableCrew
         Get
-            Return avatar.Crew.Select(Function(x) (x.Name, ActorModel.FromActor(x)))
+            Return actor.Crew.Select(Function(x) (x.Name, ActorModel.FromActor(x)))
         End Get
     End Property
 
     Public ReadOnly Property OxygenPercent As Integer Implements IAvatarVesselModel.OxygenPercent
         Get
-            Return avatar.LifeSupport.CurrentValue * 100 \ avatar.LifeSupport.MaximumValue.Value
+            Return actor.LifeSupport.CurrentValue * 100 \ actor.LifeSupport.MaximumValue.Value
         End Get
     End Property
 
     Public ReadOnly Property FuelPercent As Integer Implements IAvatarVesselModel.FuelPercent
         Get
-            Return avatar.Fuel * 100 \ avatar.MaximumFuel
+            Return actor.Fuel * 100 \ actor.MaximumFuel
         End Get
     End Property
 
-    Friend Shared Function FromActor(avatar As IActor) As IAvatarVesselModel
-        Return New AvatarVesselModel(avatar)
+    Friend Shared Function FromActor(actor As IActor) As IAvatarVesselModel
+        Return New AvatarVesselModel(actor)
     End Function
 End Class

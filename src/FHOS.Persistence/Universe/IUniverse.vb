@@ -23,7 +23,6 @@ Public Interface IUniverse
                         Optional minimum As Integer? = Nothing,
                         Optional maximum As Integer? = Nothing) As IStore
 
-    'avatar
     ReadOnly Property Avatar As IAvatar
 
     Property Turn As Integer

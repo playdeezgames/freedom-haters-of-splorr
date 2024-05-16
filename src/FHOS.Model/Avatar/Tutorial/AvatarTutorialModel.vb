@@ -3,26 +3,26 @@
 Friend Class AvatarTutorialModel
     Implements IAvatarTutorialModel
 
-    Private avatar As IActor
+    Private actor As IActor
 
-    Public Sub New(avatar As IActor)
-        Me.avatar = avatar
+    Public Sub New(actor As IActor)
+        Me.actor = actor
     End Sub
     Public Sub Dismiss() Implements IAvatarTutorialModel.Dismiss
-        Dim descriptor = TutorialTypes.Descriptors(avatar.CurrentTutorial)
+        Dim descriptor = TutorialTypes.Descriptors(actor.CurrentTutorial)
         If descriptor.HasIgnoreFlag Then
-            avatar.SetFlag(descriptor.IgnoreFlag)
+            actor.SetFlag(descriptor.IgnoreFlag)
         End If
-        avatar.DismissTutorial()
+        actor.DismissTutorial()
     End Sub
     Public ReadOnly Property Current As String Implements IAvatarTutorialModel.Current
         Get
-            Return avatar.CurrentTutorial
+            Return actor.CurrentTutorial
         End Get
     End Property
     Public ReadOnly Property HasAny As Boolean Implements IAvatarTutorialModel.HasAny
         Get
-            Return avatar.HasTutorial
+            Return actor.HasTutorial
         End Get
     End Property
 
@@ -33,7 +33,7 @@ Friend Class AvatarTutorialModel
             End If
             Dim descriptor = TutorialTypes.Descriptors(Current)
             If descriptor.HasIgnoreFlag Then
-                Return avatar.HasFlag(descriptor.IgnoreFlag)
+                Return actor.HasFlag(descriptor.IgnoreFlag)
             End If
             Return False
         End Get

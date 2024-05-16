@@ -4,19 +4,19 @@ Friend Class AvatarStackModel
     Inherits BaseAvatarModel
     Implements IAvatarStackModel
 
-    Protected Sub New(avatar As IActor)
-        MyBase.New(avatar)
+    Protected Sub New(actor As IActor)
+        MyBase.New(actor)
     End Sub
 
     Public Sub Push(actor As IActorModel) Implements IAvatarStackModel.Push
-        avatar.Universe.Avatar.PushAvatar(ActorModel.GetActor(actor))
+        MyBase.actor.Universe.Avatar.Push(ActorModel.GetActor(actor))
     End Sub
 
     Public Sub Pop() Implements IAvatarStackModel.Pop
-        avatar.Universe.Avatar.PopAvatar()
+        actor.Universe.Avatar.Pop()
     End Sub
 
-    Friend Shared Function FromActor(avatar As IActor) As IAvatarStackModel
-        Return New AvatarStackModel(avatar)
+    Friend Shared Function FromActor(actor As IActor) As IAvatarStackModel
+        Return New AvatarStackModel(actor)
     End Function
 End Class
