@@ -10,7 +10,7 @@ Friend Class AvatarInitializationStep
         Me.embarkSettings = embarkSettings
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        Dim actor = universe.AvatarActor
+        Dim actor = universe.Avatar.AvatarActor
         actor.Jools = StartingWealthLevels.Descriptors(embarkSettings.StartingWealthLevel).GenerateJools
         actor.MinimumJools = StartingWealthLevels.Descriptors(embarkSettings.StartingWealthLevel).MinimumJools
     End Sub

@@ -21,7 +21,7 @@ Friend Class UniverseStateModel
 
     Public ReadOnly Property Avatar As IAvatarModel Implements IUniverseStateModel.Avatar
         Get
-            Return AvatarModel.FromActor(universe.AvatarActor)
+            Return AvatarModel.FromActor(universe.Avatar.AvatarActor)
         End Get
     End Property
 

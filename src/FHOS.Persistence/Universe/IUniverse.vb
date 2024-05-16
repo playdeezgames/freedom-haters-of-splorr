@@ -24,9 +24,7 @@ Public Interface IUniverse
                         Optional maximum As Integer? = Nothing) As IStore
 
     'avatar
-    Sub PushAvatar(avatar As IActor)
-    Function PopAvatar() As IActor
-    ReadOnly Property AvatarActor As IActor
+    ReadOnly Property Avatar As IAvatar
 
     Property Turn As Integer
 

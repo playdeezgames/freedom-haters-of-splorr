@@ -20,8 +20,8 @@ Friend Class PlayerShipDescriptor
 
 
     Private Shared Sub InitializePlayerShip(ship As Persistence.IActor)
-        If ship.Universe.AvatarActor Is Nothing Then
-            ship.Universe.PushAvatar(ship)
+        If ship.Universe.Avatar.AvatarActor Is Nothing Then
+            ship.Universe.Avatar.PushAvatar(ship)
         End If
         ship.Faction = ship.Universe.Factions.Single(Function(x) x.Authority = 100 AndAlso x.Standards = 100 AndAlso x.Conviction = 100)
         ship.HomePlanet = RNG.FromEnumerable(ship.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = ship.Faction.Id))

@@ -3,6 +3,7 @@
 Public Class Universe
     Inherits UniverseDataClient
     Implements IUniverse
+    Implements IAvatar
     Sub New(universeData As UniverseData)
         MyBase.New(universeData)
     End Sub
@@ -43,7 +44,7 @@ Public Class Universe
         End Get
     End Property
 
-    Public ReadOnly Property AvatarActor As IActor Implements IUniverse.AvatarActor
+    Public ReadOnly Property AvatarActor As IActor Implements IAvatar.AvatarActor
         Get
             Dim avatarId As Integer
             If UniverseData.Avatars.TryPeek(avatarId) Then
@@ -62,11 +63,17 @@ Public Class Universe
         End Set
     End Property
 
-    Public Sub PushAvatar(avatar As IActor) Implements IUniverse.PushAvatar
+    Public ReadOnly Property Avatar As IAvatar Implements IUniverse.Avatar
+        Get
+            Return Me
+        End Get
+    End Property
+
+    Public Sub PushAvatar(avatar As IActor) Implements IAvatar.PushAvatar
         UniverseData.Avatars.Push(avatar.Id)
     End Sub
 
-    Public Function PopAvatar() As IActor Implements IUniverse.PopAvatar
+    Public Function PopAvatar() As IActor Implements IAvatar.PopAvatar
         Return Actor.FromId(UniverseData, UniverseData.Avatars.Pop())
     End Function
 
