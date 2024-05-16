@@ -43,7 +43,7 @@ Public Class Universe
         End Get
     End Property
 
-    Public ReadOnly Property Avatar As IActor Implements IUniverse.Avatar
+    Public ReadOnly Property AvatarActor As IActor Implements IUniverse.AvatarActor
         Get
             Dim avatarId As Integer
             If UniverseData.Avatars.TryPeek(avatarId) Then

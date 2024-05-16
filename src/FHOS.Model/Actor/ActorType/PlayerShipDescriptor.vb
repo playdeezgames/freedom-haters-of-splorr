@@ -20,7 +20,7 @@ Friend Class PlayerShipDescriptor
 
 
     Private Shared Sub InitializePlayerShip(ship As Persistence.IActor)
-        If ship.Universe.Avatar Is Nothing Then
+        If ship.Universe.AvatarActor Is Nothing Then
             ship.Universe.PushAvatar(ship)
         End If
         ship.Faction = ship.Universe.Factions.Single(Function(x) x.Authority = 100 AndAlso x.Standards = 100 AndAlso x.Conviction = 100)

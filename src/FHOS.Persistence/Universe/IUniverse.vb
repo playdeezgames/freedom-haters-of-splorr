@@ -1,4 +1,5 @@
 Public Interface IUniverse
+    'Creation
     Function CreateMap(
                       mapType As String,
                       mapName As String,
@@ -11,20 +12,28 @@ Public Interface IUniverse
                              x As Integer,
                              y As Integer) As IPlace
     Function CreateWormhole(wormholeName As String) As IPlace
-    Sub PushAvatar(avatar As IActor)
-    Function PopAvatar() As IActor
-    ReadOnly Property Avatar As IActor
-    ReadOnly Property Messages As IMessages
-    ReadOnly Property Places As IEnumerable(Of IPlace)
-    Function GetPlacesOfType(placeType As String) As IEnumerable(Of IPlace)
     Function CreateFaction(
                           factionName As String,
                           minimumPlanetCount As Integer,
                           authority As Integer,
                           standards As Integer,
                           conviction As Integer) As IFaction
-    Function CreateStore(value As Integer, Optional minimum As Integer? = Nothing, Optional maximum As Integer? = Nothing) As IStore
+    Function CreateStore(
+                        value As Integer,
+                        Optional minimum As Integer? = Nothing,
+                        Optional maximum As Integer? = Nothing) As IStore
+
+    'avatar
+    Sub PushAvatar(avatar As IActor)
+    Function PopAvatar() As IActor
+    ReadOnly Property AvatarActor As IActor
+
+    Property Turn As Integer
+
+    'repositories
+    ReadOnly Property Messages As IMessages
+    ReadOnly Property Places As IEnumerable(Of IPlace)
+    Function GetPlacesOfType(placeType As String) As IEnumerable(Of IPlace)
     ReadOnly Property Factions As IEnumerable(Of IFaction)
     ReadOnly Property Actors As IEnumerable(Of IActor)
-    Property Turn As Integer
 End Interface
