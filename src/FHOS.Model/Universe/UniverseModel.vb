@@ -15,13 +15,13 @@ Public Class UniverseModel
         End Get
     End Property
 
-    Public ReadOnly Property Board As IBoardModel Implements IUniverseModel.Board
+    Public ReadOnly Property Board As IBoardModel Implements IUniverseStateModel.Board
         Get
             Return BoardModel.FromUniverse(Universe)
         End Get
     End Property
 
-    Public ReadOnly Property Avatar As IAvatarModel Implements IUniverseModel.Avatar
+    Public ReadOnly Property Avatar As IAvatarModel Implements IUniverseStateModel.Avatar
         Get
             Return AvatarModel.FromActor(Universe.Avatar)
         End Get
@@ -33,7 +33,7 @@ Public Class UniverseModel
             JsonSerializer.Serialize(EmbarkSettings))
     End Sub
 
-    Public ReadOnly Property Messages As IMessagesModel Implements IUniverseModel.Messages
+    Public ReadOnly Property Messages As IMessagesModel Implements IUniverseStateModel.Messages
         Get
             Return MessagesModel.FromUniverse(Universe)
         End Get
@@ -97,7 +97,7 @@ Public Class UniverseModel
         End Get
     End Property
 
-    Public ReadOnly Property Turn As Integer Implements IUniverseModel.Turn
+    Public ReadOnly Property Turn As Integer Implements IUniverseStateModel.Turn
         Get
             Return Universe.Turn
         End Get

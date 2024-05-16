@@ -20,7 +20,7 @@ Friend Class StatusState
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
-        Dim avatar = Context.Model.Avatar
+        Dim avatar = Context.Model.State.Avatar
         With Context
             Dim font = .Font(UIFontName)
             .ShowHeader(

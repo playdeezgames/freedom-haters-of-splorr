@@ -45,7 +45,7 @@ Friend Class ActionMenuState
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
         Dim result As New List(Of (Text As String, Item As String))
-        With Context.Model.Avatar
+        With Context.Model.State.Avatar
             For Each verb In .Verbs.Available
                 result.Add((verb.Text, verb.VerbType))
             Next

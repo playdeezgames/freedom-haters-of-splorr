@@ -21,13 +21,13 @@ Friend Class NeutralState
         With Context.Model
             If Not .Generator.Done Then
                 SetState(GameState.Generate)
-            ElseIf .Messages.HasAny Then
+            ElseIf .State.Messages.HasAny Then
                 SetState(GameState.Message)
-            ElseIf .Avatar.Status.GameOver Then
+            ElseIf .State.Avatar.Status.GameOver Then
                 SetState(GameState.GameOver)
-            ElseIf .Avatar.Tutorial.HasAny Then
+            ElseIf .State.Avatar.Tutorial.HasAny Then
                 SetState(GameState.Tutorial)
-            ElseIf .Avatar.Interaction.IsActive Then
+            ElseIf .State.Avatar.Interaction.IsActive Then
                 SetState(GameState.Interaction)
             Else
                 SetState(GameState.Navigation)

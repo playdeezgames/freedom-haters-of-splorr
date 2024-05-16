@@ -33,6 +33,6 @@ Public Class KnownPlaceListState
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IPlaceModel))
-        Return Context.Model.Avatar.KnownPlaces.OfType(placeType).ToList
+        Return Context.Model.State.Avatar.KnownPlaces.OfType(placeType).ToList
     End Function
 End Class

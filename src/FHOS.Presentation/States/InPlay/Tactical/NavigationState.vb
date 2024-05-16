@@ -26,7 +26,7 @@ Friend Class NavigationState
             Case Command.Select
                 SetState(GameState.Scanner)
             Case Command.A
-                If Context.Model.Avatar.Verbs.HasAny Then
+                If Context.Model.State.Avatar.Verbs.HasAny Then
                     SetState(GameState.ActionMenu)
                 End If
         End Select
@@ -47,7 +47,7 @@ Friend Class NavigationState
             displayBuffer,
             uiFont,
             Context.ControlsText(
-                aButton:=If(Context.Model.Avatar.Verbs.HasAny, "Actions", Nothing),
+                aButton:=If(Context.Model.State.Avatar.Verbs.HasAny, "Actions", Nothing),
                 selectButton:="Scanner"),
             Black,
             DarkGray)
@@ -55,10 +55,10 @@ Friend Class NavigationState
 
     Private Sub RenderStatistics(displayBuffer As IPixelSink, uiFont As Font, position As (X As Integer, Y As Integer))
         Dim textWidth = Context.ViewSize.Width - position.X
-        With Context.Model.Avatar
+        With Context.Model.State.Avatar
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"NAV SCREEN", Purple)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"{ .State.MapName} ({ .State.Position.X},{ .State.Position.Y})", Black)
-            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Turn: { Context.Model.Turn}", Black)
+            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Turn: { Context.Model.State.Turn}", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Jools: { .Wallet.Jools}", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"O2: { .Vessel.OxygenPercent}%", Hues.ForPercentage(.Vessel.OxygenPercent))
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Fuel: { .Vessel.FuelPercent}%", Hues.ForPercentage(.Vessel.FuelPercent))

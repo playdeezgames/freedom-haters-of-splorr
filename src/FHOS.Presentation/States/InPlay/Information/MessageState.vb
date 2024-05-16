@@ -15,7 +15,7 @@ Friend Class MessageState
 
     Public Overrides Sub HandleCommand(cmd As String)
         If cmd = Command.A Then
-            Context.Model.Messages.Dismiss()
+            Context.Model.State.Messages.Dismiss()
             SetState(BoilerplateState.Neutral)
         End If
     End Sub
@@ -23,7 +23,7 @@ Friend Class MessageState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFontName)
-        With Context.Model.Messages.Current
+        With Context.Model.State.Messages.Current
             Context.ShowHeader(displayBuffer, font, .Header, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim lines = .Lines
             Dim position As (X As Integer, Y As Integer) = (Context.ViewCenter.X, Context.ViewCenter.Y - lines.Count * font.HalfHeight)

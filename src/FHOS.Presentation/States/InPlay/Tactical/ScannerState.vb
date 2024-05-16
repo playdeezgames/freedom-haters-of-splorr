@@ -64,7 +64,7 @@ Friend Class ScannerState
 
     Private ReadOnly Property TargetLocation As ILocationModel
         Get
-            Return Context.Model.Board.GetLocation(target)
+            Return Context.Model.State.Board.GetLocation(target)
         End Get
     End Property
 

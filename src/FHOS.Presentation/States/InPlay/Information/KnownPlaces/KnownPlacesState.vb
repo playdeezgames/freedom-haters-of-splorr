@@ -39,7 +39,7 @@ Friend Class KnownPlacesState
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
         Dim result As New List(Of (Text As String, Item As String))
-        With Context.Model.Avatar
+        With Context.Model.State.Avatar
             If .KnownPlaces.HasAnyOfType(PlaceTypes.StarSystem) Then
                 result.Add((StarSystemListText, StarSystemListText))
             End If
