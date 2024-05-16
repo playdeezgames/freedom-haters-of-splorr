@@ -5,7 +5,6 @@ Imports FHOS.Persistence
 
 Public Class UniverseModel
     Implements IUniverseModel
-    Implements IUniversePediaModel
 
     Private UniverseData As UniverseData = Nothing
 
@@ -46,39 +45,6 @@ Public Class UniverseModel
         End Get
     End Property
 
-    Public ReadOnly Property FactionList As IEnumerable(Of (Text As String, Faction As IFactionModel)) Implements IUniversePediaModel.FactionList
-        Get
-            Return Universe.Factions.Select(Function(x) (x.Name, FactionModel.FromFaction(x)))
-        End Get
-    End Property
-
-    Public ReadOnly Property StarSystems As IEnumerable(Of (Text As String, Place As IPlaceModel)) Implements IUniversePediaModel.StarSystems
-        Get
-            Return Universe.
-                GetPlacesOfType(PlaceTypes.StarSystem).
-                OrderBy(Function(x) x.Name).
-                Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
-        End Get
-    End Property
-
-    Public ReadOnly Property Planets As IEnumerable(Of (Text As String, Place As IPlaceModel)) Implements IUniversePediaModel.Planets
-        Get
-            Return Universe.
-                GetPlacesOfType(PlaceTypes.Planet).
-                OrderBy(Function(x) x.Name).
-                Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
-        End Get
-    End Property
-
-    Public ReadOnly Property Satellites As IEnumerable(Of (Text As String, Place As IPlaceModel)) Implements IUniversePediaModel.Satellites
-        Get
-            Return Universe.
-                GetPlacesOfType(PlaceTypes.Satellite).
-                OrderBy(Function(x) x.Name).
-                Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
-        End Get
-    End Property
-
     Public ReadOnly Property Generator As IUniverseGeneratorModel Implements IUniverseModel.Generator
         Get
             Return UniverseGeneratorModel.MakeGenerator(
@@ -102,7 +68,7 @@ Public Class UniverseModel
 
     Public ReadOnly Property Pedia As IUniversePediaModel Implements IUniverseModel.Pedia
         Get
-            Return Me
+            Return UniversePediaModel.FromUniverse(Universe)
         End Get
     End Property
 
