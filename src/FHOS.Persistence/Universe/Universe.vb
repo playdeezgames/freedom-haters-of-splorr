@@ -3,7 +3,6 @@
 Public Class Universe
     Inherits UniverseDataClient
     Implements IUniverse
-    Implements IAvatar
     Sub New(universeData As UniverseData)
         MyBase.New(universeData)
     End Sub
@@ -44,16 +43,6 @@ Public Class Universe
         End Get
     End Property
 
-    Public ReadOnly Property AvatarActor As IActor Implements IAvatar.AvatarActor
-        Get
-            Dim avatarId As Integer
-            If UniverseData.Avatars.TryPeek(avatarId) Then
-                Return Actor.FromId(UniverseData, avatarId)
-            End If
-            Return Nothing
-        End Get
-    End Property
-
     Public Property Turn As Integer Implements IUniverse.Turn
         Get
             Return UniverseData.Statistics(StatisticTypes.Turn)
@@ -63,19 +52,6 @@ Public Class Universe
         End Set
     End Property
 
-    Public ReadOnly Property Avatar As IAvatar Implements IUniverse.Avatar
-        Get
-            Return Me
-        End Get
-    End Property
-
-    Public Sub PushAvatar(avatar As IActor) Implements IAvatar.PushAvatar
-        UniverseData.Avatars.Push(avatar.Id)
-    End Sub
-
-    Public Function PopAvatar() As IActor Implements IAvatar.PopAvatar
-        Return Actor.FromId(UniverseData, UniverseData.Avatars.Pop())
-    End Function
 
     Public Function CreateMap(mapType As String, mapName As String, columns As Integer, rows As Integer, locationType As String) As IMap Implements IUniverse.CreateMap
         Dim mapData = New MapData With
@@ -99,6 +75,12 @@ Public Class Universe
                             Select(Function(x) map.CreateLocation(locationType, x Mod rows, x \ rows).Id).ToList
         Return map
     End Function
+
+    Public ReadOnly Property Avatar As IAvatar Implements IUniverse.Avatar
+        Get
+            Return Persistence.Avatar.FromData(UniverseData)
+        End Get
+    End Property
 
     Public Function CreateStarSystem(
                                     starSystemName As String,
