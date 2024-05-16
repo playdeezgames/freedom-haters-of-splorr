@@ -5,6 +5,7 @@ Imports FHOS.Persistence
 
 Public Class UniverseModel
     Implements IUniverseModel
+    Implements IUniverseStateModel
 
     Private UniverseData As UniverseData = Nothing
 
@@ -114,6 +115,12 @@ Public Class UniverseModel
     Public ReadOnly Property Settings As IUniverseSettingsModel Implements IUniverseModel.Settings
         Get
             Return UniverseSettingsModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
+        End Get
+    End Property
+
+    Public ReadOnly Property State As IUniverseStateModel Implements IUniverseModel.State
+        Get
+            Return Me
         End Get
     End Property
 

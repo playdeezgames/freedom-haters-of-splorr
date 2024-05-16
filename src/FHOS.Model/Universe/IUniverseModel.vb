@@ -4,6 +4,7 @@ Public Interface IUniverseModel
     Sub Abandon()
     ReadOnly Property Generator As IUniverseGeneratorModel
     ReadOnly Property Settings As IUniverseSettingsModel
+    ReadOnly Property State As IUniverseStateModel
 
     'TODO: state
     ReadOnly Property Board As IBoardModel
