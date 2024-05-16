@@ -5,12 +5,13 @@ Imports FHOS.Persistence
 
 Public Class UniverseModel
     Implements IUniverseModel
+    Implements IUniverseSettingsModel
 
-    Private universeData As UniverseData = Nothing
+    Private UniverseData As UniverseData = Nothing
 
     Private ReadOnly Property Universe As IUniverse
         Get
-            Return New Universe(universeData)
+            Return New Universe(UniverseData)
         End Get
     End Property
 
@@ -26,7 +27,7 @@ Public Class UniverseModel
         End Get
     End Property
 
-    Public ReadOnly Property GalacticAge As IGalacticAgeModel Implements IUniverseModel.GalacticAge
+    Public ReadOnly Property GalacticAge As IGalacticAgeModel Implements IUniverseSettingsModel.GalacticAge
         Get
             Return GalacticAgeModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
         End Get
@@ -38,7 +39,7 @@ Public Class UniverseModel
             JsonSerializer.Serialize(EmbarkSettings))
     End Sub
 
-    Public ReadOnly Property GalacticDensity As IGalacticDensityModel Implements IUniverseModel.GalacticDensity
+    Public ReadOnly Property GalacticDensity As IGalacticDensityModel Implements IUniverseSettingsModel.GalacticDensity
         Get
             Return GalacticDensityModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
         End Get
@@ -51,28 +52,15 @@ Public Class UniverseModel
     End Property
 
     Public Sub Save(filename As String) Implements IUniverseModel.Save
-        File.WriteAllText(filename, JsonSerializer.Serialize(universeData))
+        File.WriteAllText(filename, JsonSerializer.Serialize(UniverseData))
     End Sub
 
     Public Sub Load(filename As String) Implements IUniverseModel.Load
-        universeData = JsonSerializer.Deserialize(Of UniverseData)(File.ReadAllText(filename))
+        UniverseData = JsonSerializer.Deserialize(Of UniverseData)(File.ReadAllText(filename))
     End Sub
 
     Public Sub Abandon() Implements IUniverseModel.Abandon
-        universeData = Nothing
-    End Sub
-
-    Public Sub Embark() Implements IUniverseModel.Embark
-        universeData = New UniverseData()
-        Universe.Turn = 1
-        Initializer.Start(Universe, EmbarkSettings)
-    End Sub
-
-    Public Sub Generate() Implements IUniverseModel.Generate
-        Dim endTime = DateTimeOffset.Now.AddSeconds(0.01)
-        Do
-            Initializer.Execute()
-        Loop Until DateTimeOffset.Now >= endTime
+        UniverseData = Nothing
     End Sub
 
     Private Shared ReadOnly Property EmbarkSettings As EmbarkSettings
@@ -88,31 +76,13 @@ Public Class UniverseModel
         End Get
     End Property
 
-    Public ReadOnly Property StartingWealth As IStartingWealthLevelModel Implements IUniverseModel.StartingWealth
+    Public ReadOnly Property StartingWealth As IStartingWealthLevelModel Implements IUniverseSettingsModel.StartingWealth
         Get
             Return StartingWealthLevelModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
         End Get
     End Property
 
-    Public ReadOnly Property GenerationStepsRemaining As Integer Implements IUniverseModel.GenerationStepsRemaining
-        Get
-            Return Initializer.StepsRemaining
-        End Get
-    End Property
-
-    Public ReadOnly Property GenerationStepsCompleted As Integer Implements IUniverseModel.GenerationStepsCompleted
-        Get
-            Return Initializer.StepsDone
-        End Get
-    End Property
-
-    Public ReadOnly Property DoneGenerating As Boolean Implements IUniverseModel.DoneGenerating
-        Get
-            Return Initializer.StepsRemaining = 0
-        End Get
-    End Property
-
-    Public ReadOnly Property FactionCount As IFactionCountModel Implements IUniverseModel.FactionCount
+    Public ReadOnly Property FactionCount As IFactionCountModel Implements IUniverseSettingsModel.FactionCount
         Get
             Return FactionCountModel.FromSettings(EmbarkSettings, AddressOf PersistEmbarkSettings)
         End Get
@@ -154,6 +124,21 @@ Public Class UniverseModel
     Public ReadOnly Property Turn As Integer Implements IUniverseModel.Turn
         Get
             Return Universe.Turn
+        End Get
+    End Property
+
+    Public ReadOnly Property Generator As IUniverseGeneratorModel Implements IUniverseModel.Generator
+        Get
+            Return UniverseGeneratorModel.MakeGenerator(
+                Sub() UniverseData = New UniverseData,
+                Function() Universe,
+                EmbarkSettings)
+        End Get
+    End Property
+
+    Public ReadOnly Property Settings As IUniverseSettingsModel Implements IUniverseModel.Settings
+        Get
+            Return Me
         End Get
     End Property
 

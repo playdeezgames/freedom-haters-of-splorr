@@ -19,7 +19,7 @@ Friend Class NeutralState
     Public Overrides Sub OnStart()
         MyBase.OnStart()
         With Context.Model
-            If Not .DoneGenerating Then
+            If Not .Generator.Done Then
                 SetState(GameState.Generate)
             ElseIf .Messages.HasAny Then
                 SetState(GameState.Message)

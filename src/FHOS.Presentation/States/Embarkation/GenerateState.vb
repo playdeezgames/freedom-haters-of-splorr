@@ -21,11 +21,11 @@ Friend Class GenerateState
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFontName)
         Context.ShowHeader(displayBuffer, font, "Generating...", Context.UIPalette.Header, Context.UIPalette.Background)
-        font.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, Context.ViewCenter.Y - font.HalfHeight * 3), $"Steps Completed: {Context.Model.GenerationStepsCompleted}", Context.UIPalette.MenuItem)
-        font.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, Context.ViewCenter.Y - font.HalfHeight), $"Steps To Go: {Context.Model.GenerationStepsRemaining}", Context.UIPalette.MenuItem)
+        font.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, Context.ViewCenter.Y - font.HalfHeight * 3), $"Steps Completed: {Context.Model.Generator.StepsCompleted}", Context.UIPalette.MenuItem)
+        font.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, Context.ViewCenter.Y - font.HalfHeight), $"Steps To Go: {Context.Model.Generator.StepsRemaining}", Context.UIPalette.MenuItem)
         font.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, Context.ViewCenter.Y + font.HalfHeight), $"Time Taken: {(DateTimeOffset.Now - _timeStart).TotalSeconds:f1}s", Context.UIPalette.MenuItem)
-        Context.Model.Generate()
-        If Context.Model.DoneGenerating Then
+        Context.Model.Generator.Generate()
+        If Context.Model.Generator.Done Then
             SetState(BoilerplateState.Neutral)
         End If
     End Sub

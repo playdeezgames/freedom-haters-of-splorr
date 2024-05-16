@@ -25,7 +25,7 @@ Friend Class EmbarkState
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
         Select Case value.Item
             Case GoText
-                Context.Model.Embark()
+                Context.Model.Generator.Start()
                 SetState(BoilerplateState.Neutral)
             Case AgeText
                 SetState(GameState.ChangeGalacticAge)
@@ -52,9 +52,9 @@ Friend Class EmbarkState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         MyBase.Render(displayBuffer)
         Dim uiFont = Context.Font(UIFontName)
-        uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height), $"Galactic Age: {Context.Model.GalacticAge.CurrentName}", Black)
-        uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height * 2), $"Galactic Density: {Context.Model.GalacticDensity.CurrentName}", Black)
-        uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height * 3), $"Starting Wealth: {Context.Model.StartingWealth.CurrentName}", Black)
-        uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height * 4), $"Faction Count: {Context.Model.FactionCount.CurrentName}", Black)
+        uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height), $"Galactic Age: {Context.Model.Settings.GalacticAge.CurrentName}", Black)
+        uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height * 2), $"Galactic Density: {Context.Model.Settings.GalacticDensity.CurrentName}", Black)
+        uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height * 3), $"Starting Wealth: {Context.Model.Settings.StartingWealth.CurrentName}", Black)
+        uiFont.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, uiFont.Height * 4), $"Faction Count: {Context.Model.Settings.FactionCount.CurrentName}", Black)
     End Sub
 End Class

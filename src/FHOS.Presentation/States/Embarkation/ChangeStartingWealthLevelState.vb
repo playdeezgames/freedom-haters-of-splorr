@@ -24,7 +24,7 @@ Friend Class ChangeStartingWealthLevelState
             Case NeverMindText
                 SetState(BoilerplateState.Embark)
             Case Else
-                Context.Model.StartingWealth.SetWealthLevel(value.Item)
+                Context.Model.Settings.StartingWealth.SetWealthLevel(value.Item)
                 SetState(BoilerplateState.Embark)
         End Select
     End Sub
@@ -35,8 +35,8 @@ Friend Class ChangeStartingWealthLevelState
                 ("No Change", NeverMindText)
             }
         result.AddRange(
-            Context.Model.StartingWealth.Options.Select(
-                Function(x) (If(x.Item = Context.Model.StartingWealth.Current, $"** {x.Text} **", x.Text), x.Item)))
+            Context.Model.Settings.StartingWealth.Options.Select(
+                Function(x) (If(x.Item = Context.Model.Settings.StartingWealth.Current, $"** {x.Text} **", x.Text), x.Item)))
         Return result
     End Function
 End Class

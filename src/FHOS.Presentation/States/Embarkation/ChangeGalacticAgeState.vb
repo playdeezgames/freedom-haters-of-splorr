@@ -24,7 +24,7 @@ Friend Class ChangeGalacticAgeState
             Case NeverMindText
                 SetState(BoilerplateState.Embark)
             Case Else
-                Context.Model.GalacticAge.SetAge(value.Item)
+                Context.Model.Settings.GalacticAge.SetAge(value.Item)
                 SetState(BoilerplateState.Embark)
         End Select
     End Sub
@@ -35,8 +35,8 @@ Friend Class ChangeGalacticAgeState
                 ("No Change", NeverMindText)
             }
         result.AddRange(
-            Context.Model.GalacticAge.Options.Select(
-                Function(x) (If(x.Item = Context.Model.GalacticAge.Current, $"** {x.Text} **", x.Text), x.Item)))
+            Context.Model.Settings.GalacticAge.Options.Select(
+                Function(x) (If(x.Item = Context.Model.Settings.GalacticAge.Current, $"** {x.Text} **", x.Text), x.Item)))
         Return result
     End Function
 End Class

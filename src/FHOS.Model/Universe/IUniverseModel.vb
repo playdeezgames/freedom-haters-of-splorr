@@ -2,19 +2,8 @@ Public Interface IUniverseModel
     Sub Save(filename As String)
     Sub Load(filename As String)
     Sub Abandon()
-
-    'TODO: generator
-    Sub Embark()
-    Sub Generate()
-    ReadOnly Property GenerationStepsRemaining As Integer
-    ReadOnly Property GenerationStepsCompleted As Integer
-    ReadOnly Property DoneGenerating As Boolean
-
-    'TODO: settings
-    ReadOnly Property GalacticAge As IGalacticAgeModel
-    ReadOnly Property GalacticDensity As IGalacticDensityModel
-    ReadOnly Property StartingWealth As IStartingWealthLevelModel
-    ReadOnly Property FactionCount As IFactionCountModel
+    ReadOnly Property Generator As IUniverseGeneratorModel
+    ReadOnly Property Settings As IUniverseSettingsModel
 
     'TODO: state
     ReadOnly Property Board As IBoardModel

@@ -18,15 +18,15 @@ Friend Class ChangeFactionCountState
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As Integer))
-        Context.Model.FactionCount.SetFactionCount(value.Item)
+        Context.Model.Settings.FactionCount.SetFactionCount(value.Item)
         SetState(BoilerplateState.Embark)
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As Integer))
         Dim result As New List(Of (Text As String, Item As Integer))
         result.AddRange(
-            Context.Model.FactionCount.Options.Select(
-                Function(x) (If(x.Item = Context.Model.FactionCount.Current, $"** {x.Text} **", x.Text), x.Item)))
+            Context.Model.Settings.FactionCount.Options.Select(
+                Function(x) (If(x.Item = Context.Model.Settings.FactionCount.Current, $"** {x.Text} **", x.Text), x.Item)))
         Return result
     End Function
 End Class
