@@ -1,11 +1,7 @@
 Public Interface IUniverse
     ReadOnly Property Factory As IUniverseFactory
-
     ReadOnly Property Avatar As IAvatar
-
     Property Turn As Integer
-
-    'repositories
     ReadOnly Property Messages As IMessages
     ReadOnly Property Places As IEnumerable(Of IPlace)
     Function GetPlacesOfType(placeType As String) As IEnumerable(Of IPlace)
