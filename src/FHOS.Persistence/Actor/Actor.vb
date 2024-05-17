@@ -122,28 +122,10 @@ Friend Class Actor
         End Get
     End Property
 
-    Public Property Jools As Integer Implements IActor.Jools
-        Get
-            Return GetStatistic(StatisticTypes.Jools).Value
-        End Get
-        Set(value As Integer)
-            SetStatistic(StatisticTypes.Jools, value)
-        End Set
-    End Property
-
     Public ReadOnly Property HasFuel As Boolean Implements IActor.HasFuel
         Get
             Return Fuel > 0
         End Get
-    End Property
-
-    Public Property MinimumJools As Integer Implements IActor.MinimumJools
-        Get
-            Return EntityData.Statistics(StatisticTypes.MinimumJools)
-        End Get
-        Set(value As Integer)
-            EntityData.Statistics(StatisticTypes.MinimumJools) = value
-        End Set
     End Property
 
     Public Property Faction As IFaction Implements IActor.Faction

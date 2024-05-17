@@ -71,7 +71,7 @@ Friend Class AvatarVerbsModel
         Dim fuelPrice = 1 'TODO: don't just pick a magic number!
         Dim price = fuelPrice * fuelAdded
         actor.Fuel = actor.MaximumFuel
-        actor.Jools -= fuelAdded * fuelPrice
+        actor.Wallet.CurrentValue -= fuelAdded * fuelPrice
         actor.Universe.Messages.Add(
             "Emergency Refuel",
             ($"Added {fuelAdded} fuel!", Hues.Black),

@@ -27,11 +27,6 @@
     ReadOnly Property Crew As IEnumerable(Of IActor)
     Property LifeSupport As IStore
 
-    'Money
-    Property Jools As Integer
-    Property MinimumJools As Integer
-    Property Wallet As IStore
-
     'Status
     ReadOnly Property ActorType As String
     Property Name As String
@@ -39,6 +34,7 @@
     Property HomePlanet As IPlace
 
     'State
+    Property Wallet As IStore
     Property Location As ILocation
     Property Facing As Integer
     Property Costume As String
