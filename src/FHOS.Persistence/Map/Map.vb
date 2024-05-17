@@ -36,6 +36,12 @@ Friend Class Map
         End Get
     End Property
 
+    Public ReadOnly Property MapType As String Implements IMap.MapType
+        Get
+            Return EntityData.Metadatas(MetadataTypes.MapType)
+        End Get
+    End Property
+
     Public Function GetLocation(column As Integer, row As Integer) As ILocation Implements IMap.GetLocation
         If column < 0 OrElse row < 0 OrElse column >= EntityData.Statistics(StatisticTypes.Columns) OrElse row >= EntityData.Statistics(StatisticTypes.Rows) Then
             Return Nothing

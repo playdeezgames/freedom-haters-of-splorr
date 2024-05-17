@@ -10,7 +10,6 @@ Friend Class PersonDescriptor
             {
                 {CostumeTypes.MakeCostume(CostumeTypes.Person, Hues.LightGray), 1}
             },
-            spawnCount:=0,
             canSpawn:=Function(x) x.LocationType = LocationTypes.Air AndAlso x.Actor Is Nothing,
             initializer:=AddressOf InitializePerson)
     End Sub

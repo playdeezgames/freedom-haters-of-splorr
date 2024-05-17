@@ -14,7 +14,7 @@ Friend Class NexusInitializationStep
     End Sub
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        Dim nexusMap = MapTypes.Descriptors(MapTypes.Galaxy).CreateMap(
+        Dim nexusMap = MapTypes.Descriptors(MapTypes.Nexus).CreateMap(
             NexusName,
             universe)
         Dim wormholes As New List(Of (Column As Integer, Row As Integer))

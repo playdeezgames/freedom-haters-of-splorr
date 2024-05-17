@@ -1,5 +1,6 @@
 ﻿Public Interface IMap
     Inherits IEntity
+    ReadOnly Property MapType As String
     Function GetLocation(column As Integer, row As Integer) As ILocation
     ReadOnly Property Locations As IEnumerable(Of ILocation)
     Property Name As String

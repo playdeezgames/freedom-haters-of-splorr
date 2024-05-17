@@ -1,5 +1,6 @@
 ﻿Friend Module MapTypes
     Friend ReadOnly Galaxy As String = NameOf(Galaxy)
+    Friend ReadOnly Nexus As String = NameOf(Nexus)
     Friend ReadOnly StarSystem As String = NameOf(StarSystem)
     Friend ReadOnly StarVicinity As String = NameOf(StarVicinity)
     Friend ReadOnly PlanetVicinity As String = NameOf(PlanetVicinity)
@@ -10,6 +11,7 @@
         New List(Of MapTypeDescriptor) From
         {
             New MapTypeDescriptor(Galaxy, (63, 63), LocationTypes.Void),
+            New MapTypeDescriptor(Nexus, (63, 63), LocationTypes.Void),
             New MapTypeDescriptor(StarSystem, (31, 31), LocationTypes.Void),
             New MapTypeDescriptor(StarVicinity, (15, 15), LocationTypes.Void),
             New MapTypeDescriptor(PlanetVicinity, (15, 15), LocationTypes.Void),

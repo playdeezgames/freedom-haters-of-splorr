@@ -11,7 +11,10 @@ Friend Class PlayerShipDescriptor
             {
                 {CostumeTypes.MakeCostume(CostumeTypes.MerchantVessel, Hues.LightGray), 1}
             },
-            spawnCount:=1,
+            spawnCounts:=New Dictionary(Of String, Integer) From
+            {
+                {MapTypes.Galaxy, 1}
+            },
             canSpawn:=Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing,
             initializer:=AddressOf InitializePlayerShip)
     End Sub
