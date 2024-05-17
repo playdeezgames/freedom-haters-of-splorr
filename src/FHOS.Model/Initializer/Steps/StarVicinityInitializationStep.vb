@@ -20,7 +20,7 @@ Friend Class StarVicinityInitializationStep
         Dim location = starVicinity.Properties.Map.GetLocation(starColumn, starRow)
         With location
             .LocationType = locationType
-            .Place = starVicinity.CreateStar()
+            .Place = starVicinity.Factory.CreateStar()
             .Tutorial = TutorialTypes.RefuelAtStar
             'TODO: initialize further down?
         End With

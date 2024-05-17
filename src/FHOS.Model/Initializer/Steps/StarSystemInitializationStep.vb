@@ -42,7 +42,7 @@ Friend Class StarSystemInitializationStep
                 location.Tutorial = TutorialTypes.PlanetVicinityApproach
                 Dim planetName = nameGenerator.GenerateUnusedName
                 index += 1
-                location.Place = starSystem.CreatePlanetVicinity(planetName, planetType, column, row)
+                location.Place = starSystem.Factory.CreatePlanetVicinity(planetName, planetType, column, row)
                 addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
                 planetCount += 1
                 tries = 0
@@ -60,7 +60,7 @@ Friend Class StarSystemInitializationStep
         Dim location = starSystem.Properties.Map.GetLocation(starColumn, starRow)
         With location
             .LocationType = locationType
-            .Place = starSystem.CreateStarVicinity(starColumn, starRow)
+            .Place = starSystem.Factory.CreateStarVicinity(starColumn, starRow)
             .Tutorial = TutorialTypes.StarVicinityApproach
             addStep(New StarVicinityInitializationStep(location), False)
         End With

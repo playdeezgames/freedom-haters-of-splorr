@@ -37,7 +37,7 @@ Friend Class PlanetVicinityInitializationStep
                 location.LocationType = SatelliteTypes.Descriptors(satelliteType).LocationType
                 location.Tutorial = TutorialTypes.EnterSatelliteOrbit
                 Dim satelliteName = nameGenerator.GenerateUnusedName
-                location.Place = planetVicinity.CreateSatellite(satelliteName, satelliteType)
+                location.Place = planetVicinity.Factory.CreateSatellite(satelliteName, satelliteType)
                 addStep(New SatelliteInitializationStep(location), False)
                 satelliteCount += 1
                 tries = 0
@@ -63,7 +63,7 @@ Friend Class PlanetVicinityInitializationStep
     Private Sub PlacePlanet(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean))
         Dim planetCenterColumn = planetVicinity.Properties.Map.Size.Columns \ 2
         Dim planetCenterRow = planetVicinity.Properties.Map.Size.Rows \ 2
-        Dim planet = planetVicinity.CreatePlanet()
+        Dim planet = planetVicinity.Factory.CreatePlanet()
         For Each delta In planetSectionDeltas
             PlacePlanetSection(planet, planetVicinity.Properties.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
         Next
