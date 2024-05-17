@@ -1,5 +1,4 @@
-﻿Imports System.Numerics
-Imports FHOS.Persistence
+﻿Imports FHOS.Persistence
 Imports SPLORR.Game
 
 Friend Class PlayerShipDescriptor
@@ -36,31 +35,30 @@ Friend Class PlayerShipDescriptor
     Private Shared Sub InitializePlayerShipCrew(ship As IActor)
         Dim location = ship.
             Interior.
-            GetLocation(PlayerShipInteriorColumns \ 2, PlayerShipInteriorRows \ 2)
+            GetLocation(ship.Interior.Size.Columns \ 2, ship.Interior.Size.Rows \ 2)
         Dim actor = ActorTypes.Descriptors(ActorTypes.Person).CreateActor(location)
         actor.Wallet = ship.Wallet
         actor.LifeSupport = ship.LifeSupport
         ship.AddCrew(actor)
     End Sub
 
-    Private Const PlayerShipInteriorColumns = 5
-    Private Const PlayerShipInteriorRows = 5
     Private Const PlayerShipMaximumOxygen = 100
     Private Shared Sub InitializePlayerShipInterior(ship As IActor)
+        Dim descriptor = MapTypes.Descriptors(MapTypes.Vessel)
         Dim map = ship.Universe.CreateMap(
             "Yer ship's interior",
-            MapTypes.Vessel,
-            PlayerShipInteriorColumns,
-            PlayerShipInteriorRows,
+            descriptor.MapType,
+            descriptor.Size.Columns,
+            descriptor.Size.Rows,
             LocationTypes.Air)
         ship.Interior = map
-        For Each x In Enumerable.Range(0, PlayerShipInteriorColumns)
+        For Each x In Enumerable.Range(0, descriptor.Size.Columns)
             map.GetLocation(x, 0).LocationType = LocationTypes.Bulkhead
-            map.GetLocation(x, PlayerShipInteriorRows - 1).LocationType = LocationTypes.Bulkhead
+            map.GetLocation(x, descriptor.Size.Rows - 1).LocationType = LocationTypes.Bulkhead
         Next
-        For Each y In Enumerable.Range(1, PlayerShipInteriorRows - 2)
+        For Each y In Enumerable.Range(1, descriptor.Size.Rows - 2)
             map.GetLocation(0, y).LocationType = LocationTypes.Bulkhead
-            map.GetLocation(PlayerShipInteriorColumns - 1, y).LocationType = LocationTypes.Bulkhead
+            map.GetLocation(descriptor.Size.Columns - 1, y).LocationType = LocationTypes.Bulkhead
         Next
     End Sub
 End Class
