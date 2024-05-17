@@ -31,7 +31,7 @@ Friend Class Actor
 
     Public Sub AddCrew(crew As IActor) Implements IActor.AddCrew
         EntityData.Crew.Add(crew.Id)
-        crew.Vessel = Me
+        crew.Parent = Me
     End Sub
 
     Public ReadOnly Property ActorType As String Implements IActor.ActorType
@@ -112,12 +112,12 @@ Friend Class Actor
         End Set
     End Property
 
-    Public Property Vessel As IActor Implements IActor.Vessel
+    Public Property Parent As IActor Implements IActor.Parent
         Get
-            Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.VesselId))
+            Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.ParentId))
         End Get
         Set(value As IActor)
-            SetStatistic(StatisticTypes.VesselId, value?.Id)
+            SetStatistic(StatisticTypes.ParentId, value?.Id)
         End Set
     End Property
 
@@ -127,7 +127,7 @@ Friend Class Actor
         End Get
     End Property
 
-    Public ReadOnly Property Crew As IEnumerable(Of IActor) Implements IActor.Crew
+    Public ReadOnly Property AllCrew As IEnumerable(Of IActor) Implements IActor.AllCrew
         Get
             Return EntityData.Crew.Select(Function(x) Actor.FromId(UniverseData, x))
         End Get

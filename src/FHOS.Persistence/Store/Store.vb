@@ -29,6 +29,17 @@ Friend Class Store
         End Get
     End Property
 
+    Public ReadOnly Property Percent As Integer? Implements IStore.Percent
+        Get
+            Dim minimum = MinimumValue
+            Dim maximum = MaximumValue
+            If minimum.HasValue AndAlso maximum.HasValue Then
+                Return (CurrentValue - minimum.Value) * 100 \ (maximum.Value - minimum.Value)
+            End If
+            Return Nothing
+        End Get
+    End Property
+
     Friend Shared Function FromId(universeData As UniverseData, storeId As Integer?) As IStore
         If storeId.HasValue Then
             Return New Store(universeData, storeId.Value)

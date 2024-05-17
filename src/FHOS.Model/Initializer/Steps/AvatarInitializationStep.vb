@@ -13,7 +13,7 @@ Friend Class AvatarInitializationStep
         actor.Wallet = universe.Factory.CreateStore(
             StartingWealthLevels.Descriptors(embarkSettings.StartingWealthLevel).GenerateJools,
             minimum:=StartingWealthLevels.Descriptors(embarkSettings.StartingWealthLevel).MinimumJools)
-        For Each crewMember In actor.Crew
+        For Each crewMember In actor.AllCrew
             crewMember.Wallet = actor.Wallet
         Next
     End Sub

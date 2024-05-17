@@ -26,7 +26,6 @@
     Friend ReadOnly Standards As String = NameOf(Standards)
     Friend ReadOnly TargetLocationId As String = NameOf(TargetLocationId)
     Friend ReadOnly Turn As String = NameOf(Turn)
-    Friend ReadOnly VesselId As String = NameOf(VesselId)
     Friend ReadOnly WalletId As String = NameOf(WalletId)
     Friend ReadOnly WormholeDestinationId As String = NameOf(WormholeDestinationId)
     Friend ReadOnly X As String = NameOf(X)

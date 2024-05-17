@@ -10,22 +10,19 @@ Friend Class AvatarVesselModel
 
     Public ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel)) Implements IAvatarVesselModel.AvailableCrew
         Get
-            Return actor.Crew.Select(Function(x) (x.Name, ActorModel.FromActor(x)))
+            Return actor.AllCrew.Select(Function(x) (x.Name, ActorModel.FromActor(x)))
         End Get
     End Property
 
     Public ReadOnly Property OxygenPercent As Integer Implements IAvatarVesselModel.OxygenPercent
         Get
-            Return actor.LifeSupport.CurrentValue * 100 \ actor.LifeSupport.MaximumValue.Value
+            Return actor.LifeSupport.Percent.Value
         End Get
     End Property
 
     Public ReadOnly Property FuelPercent As Integer? Implements IAvatarVesselModel.FuelPercent
         Get
-            If actor.FuelTank Is Nothing Then
-                Return Nothing
-            End If
-            Return actor.FuelTank.CurrentValue * 100 \ actor.FuelTank.MaximumValue.Value
+            Return actor.FuelTank?.Percent
         End Get
     End Property
 

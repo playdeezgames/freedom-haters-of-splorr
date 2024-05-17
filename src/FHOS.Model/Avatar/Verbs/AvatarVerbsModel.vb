@@ -28,7 +28,7 @@ Friend Class AvatarVerbsModel
             {VerbTypes.MoveLeft, (Function() CanMove, Sub() Move(Facing.Left))},
             {VerbTypes.SPLORRPedia, (Function() True, Sub() Return)},
             {VerbTypes.Crew, (Function() actor.HasCrew, Sub() Return)},
-            {VerbTypes.Vessel, (Function() actor.Vessel IsNot Nothing, Sub() Return)}
+            {VerbTypes.Vessel, (Function() actor.Parent IsNot Nothing, Sub() Return)}
         }
 
     Private Sub Move(facing As Integer)

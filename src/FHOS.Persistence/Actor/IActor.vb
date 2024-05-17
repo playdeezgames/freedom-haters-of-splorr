@@ -3,17 +3,15 @@
     ReadOnly Property KnownPlaces As IActorKnownPlaces
     ReadOnly Property Tutorial As IActorTutorial
 
-    'Vessel
-    Property Interior As IMap
+    'Crew
     Sub AddCrew(crew As IActor)
-    Property Vessel As IActor
     ReadOnly Property HasCrew As Boolean
-    ReadOnly Property Crew As IEnumerable(Of IActor)
-    Property LifeSupport As IStore
-    Property FuelTank As IStore
+    ReadOnly Property AllCrew As IEnumerable(Of IActor)
+    Property Parent As IActor
 
 
     'Low Volatility Properties
+    Property Interior As IMap
     ReadOnly Property ActorType As String
     Property Name As String
     Property Faction As IFaction
@@ -21,6 +19,8 @@
     Property Costume As String
 
     'High Volatility Properties
+    Property LifeSupport As IStore
+    Property FuelTank As IStore
     Property Wallet As IStore
     Property Location As ILocation
     Property Facing As Integer
