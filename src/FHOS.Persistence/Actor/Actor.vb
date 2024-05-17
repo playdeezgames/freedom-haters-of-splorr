@@ -3,6 +3,8 @@
 Friend Class Actor
     Inherits ActorDataClient
     Implements IActor
+    Implements IActorFamily
+
     Protected Sub New(universeData As Data.UniverseData, actorId As Integer)
         MyBase.New(universeData, actorId)
     End Sub
@@ -29,9 +31,9 @@ Friend Class Actor
     End Property
 
 
-    Public Sub AddCrew(crew As IActor) Implements IActor.AddCrew
-        EntityData.Crew.Add(crew.Id)
-        crew.Parent = Me
+    Public Sub AddChild(crew As IActor) Implements IActorFamily.AddChild
+        EntityData.Children.Add(crew.Id)
+        crew.Family.Parent = Me
     End Sub
 
     Public ReadOnly Property ActorType As String Implements IActor.ActorType
@@ -112,7 +114,7 @@ Friend Class Actor
         End Set
     End Property
 
-    Public Property Parent As IActor Implements IActor.Parent
+    Public Property Parent As IActor Implements IActorFamily.Parent
         Get
             Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.ParentId))
         End Get
@@ -121,15 +123,15 @@ Friend Class Actor
         End Set
     End Property
 
-    Public ReadOnly Property HasCrew As Boolean Implements IActor.HasCrew
+    Public ReadOnly Property HasChildren As Boolean Implements IActorFamily.HasChildren
         Get
-            Return EntityData.Crew.Any
+            Return EntityData.Children.Any
         End Get
     End Property
 
-    Public ReadOnly Property AllCrew As IEnumerable(Of IActor) Implements IActor.AllCrew
+    Public ReadOnly Property Children As IEnumerable(Of IActor) Implements IActorFamily.Children
         Get
-            Return EntityData.Crew.Select(Function(x) Actor.FromId(UniverseData, x))
+            Return EntityData.Children.Select(Function(x) Actor.FromId(UniverseData, x))
         End Get
     End Property
 
@@ -178,6 +180,12 @@ Friend Class Actor
     Public ReadOnly Property Tutorial As IActorTutorial Implements IActor.Tutorial
         Get
             Return ActorTutorial.FromId(UniverseData, Id)
+        End Get
+    End Property
+
+    Public ReadOnly Property Family As IActorFamily Implements IActor.Family
+        Get
+            Return Me
         End Get
     End Property
 End Class

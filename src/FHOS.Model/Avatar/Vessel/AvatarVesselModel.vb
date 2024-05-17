@@ -10,7 +10,7 @@ Friend Class AvatarVesselModel
 
     Public ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel)) Implements IAvatarVesselModel.AvailableCrew
         Get
-            Return actor.AllCrew.Select(Function(x) (x.Name, ActorModel.FromActor(x)))
+            Return actor.Family.Children.Select(Function(x) (x.Name, ActorModel.FromActor(x)))
         End Get
     End Property
 

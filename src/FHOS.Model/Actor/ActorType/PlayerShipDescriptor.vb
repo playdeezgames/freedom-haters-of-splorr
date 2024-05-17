@@ -36,7 +36,7 @@ Friend Class PlayerShipDescriptor
             GetLocation(ship.Interior.Size.Columns \ 2, ship.Interior.Size.Rows \ 2)
         Dim actor = ActorTypes.Descriptors(ActorTypes.Person).CreateActor(location)
         actor.LifeSupport = ship.LifeSupport
-        ship.AddCrew(actor)
+        ship.Family.AddChild(actor)
     End Sub
 
     Private Const PlayerShipMaximumOxygen = 100
