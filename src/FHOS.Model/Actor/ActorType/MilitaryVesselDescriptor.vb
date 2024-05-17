@@ -20,8 +20,8 @@ Friend Class MilitaryVesselDescriptor
             initializer:=AddressOf InitializeMilitaryShip)
     End Sub
     Private Shared Sub InitializeMilitaryShip(actor As Persistence.IActor)
-        actor.Faction = RNG.FromGenerator(actor.Universe.Factions.ToDictionary(Function(x) x, Function(x) x.PlanetCount))
-        actor.HomePlanet = RNG.FromEnumerable(actor.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = actor.Faction.Id))
-        actor.Name = $"{actor.Faction.Name} Military Vessel"
+        actor.Properties.Faction = RNG.FromGenerator(actor.Universe.Factions.ToDictionary(Function(x) x, Function(x) x.PlanetCount))
+        actor.Properties.HomePlanet = RNG.FromEnumerable(actor.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = actor.Properties.Faction.Id))
+        actor.Properties.Name = $"{actor.Properties.Faction.Name} Military Vessel"
     End Sub
 End Class

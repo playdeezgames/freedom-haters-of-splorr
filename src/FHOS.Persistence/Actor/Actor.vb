@@ -44,66 +44,12 @@ Friend Class Actor
         End Set
     End Property
 
-
-
-    Public Property Faction As IFaction Implements IActor.Faction
-        Get
-            Dim id = GetStatistic(StatisticTypes.FactionId)
-            If id.HasValue Then
-                Return Persistence.Faction.FromId(UniverseData, id.Value)
-            End If
-            Return Nothing
-        End Get
-        Set(value As IFaction)
-            If value IsNot Nothing Then
-                EntityData.Statistics(StatisticTypes.FactionId) = value.Id
-            Else
-                EntityData.Statistics.Remove(StatisticTypes.FactionId)
-            End If
-        End Set
-    End Property
-
-    Public Property HomePlanet As IPlace Implements IActor.HomePlanet
-        Get
-            Dim id = 0
-            If EntityData.Statistics.TryGetValue(StatisticTypes.HomePlanetId, id) Then
-                Return Place.FromId(UniverseData, id)
-            End If
-            Return Nothing
-        End Get
-        Set(value As IPlace)
-            If value IsNot Nothing Then
-                EntityData.Statistics(StatisticTypes.HomePlanetId) = value.Id
-            Else
-                EntityData.Statistics.Remove(StatisticTypes.HomePlanetId)
-            End If
-        End Set
-    End Property
-
     Public Property Interactor As IActor Implements IActor.Interactor
         Get
             Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.InteractorId))
         End Get
         Set(value As IActor)
             SetStatistic(StatisticTypes.InteractorId, value?.Id)
-        End Set
-    End Property
-
-    Public Property Name As String Implements IActor.Name
-        Get
-            Return GetMetadata(MetadataTypes.Name)
-        End Get
-        Set(value As String)
-            SetMetadata(MetadataTypes.Name, value)
-        End Set
-    End Property
-
-    Public Property Interior As IMap Implements IActor.Interior
-        Get
-            Return Map.FromId(UniverseData, GetStatistic(StatisticTypes.MapId))
-        End Get
-        Set(value As IMap)
-            SetStatistic(StatisticTypes.MapId, value?.Id)
         End Set
     End Property
 
@@ -122,15 +68,6 @@ Friend Class Actor
         End Get
         Set(value As IStore)
             SetStatistic(StatisticTypes.WalletId, value?.Id)
-        End Set
-    End Property
-
-    Public Property CostumeType As String Implements IActor.CostumeType
-        Get
-            Return GetMetadata(MetadataTypes.Costume)
-        End Get
-        Set(value As String)
-            SetMetadata(MetadataTypes.Costume, value)
         End Set
     End Property
 
@@ -158,6 +95,12 @@ Friend Class Actor
     Public ReadOnly Property Family As IActorFamily Implements IActor.Family
         Get
             Return ActorFamily.FromId(UniverseData, Id)
+        End Get
+    End Property
+
+    Public ReadOnly Property Properties As IActorProperties Implements IActor.Properties
+        Get
+            Return ActorProperties.FromId(UniverseData, Id)
         End Get
     End Property
 End Class

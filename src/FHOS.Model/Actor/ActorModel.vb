@@ -18,25 +18,25 @@ Friend Class ActorModel
 
     Private ReadOnly Property Glyph As Char
         Get
-            Return CostumeTypes.Descriptors(actor.CostumeType).Glyphs(actor.Facing)
+            Return CostumeTypes.Descriptors(actor.Properties.CostumeType).Glyphs(actor.Facing)
         End Get
     End Property
 
     Private ReadOnly Property Hue As Integer
         Get
-            Return CostumeTypes.Descriptors(actor.CostumeType).Hue
+            Return CostumeTypes.Descriptors(actor.Properties.CostumeType).Hue
         End Get
     End Property
 
     Public ReadOnly Property Name As String Implements IActorModel.Name
         Get
-            Return actor.Name
+            Return actor.Properties.Name
         End Get
     End Property
 
     Public ReadOnly Property Faction As IFactionModel Implements IActorModel.Faction
         Get
-            Return FactionModel.FromFaction(actor.Faction)
+            Return FactionModel.FromFaction(actor.Properties.Faction)
         End Get
     End Property
 

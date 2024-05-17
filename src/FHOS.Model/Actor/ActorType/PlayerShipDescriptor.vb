@@ -21,9 +21,9 @@ Friend Class PlayerShipDescriptor
         If ship.Universe.Avatar.Actor Is Nothing Then
             ship.Universe.Avatar.Push(ship)
         End If
-        ship.Faction = ship.Universe.Factions.Single(Function(x) x.Authority = 100 AndAlso x.Standards = 100 AndAlso x.Conviction = 100)
-        ship.HomePlanet = RNG.FromEnumerable(ship.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = ship.Faction.Id))
-        ship.Name = "(yer ship)"
+        ship.Properties.Faction = ship.Universe.Factions.Single(Function(x) x.Authority = 100 AndAlso x.Standards = 100 AndAlso x.Conviction = 100)
+        ship.Properties.HomePlanet = RNG.FromEnumerable(ship.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = ship.Properties.Faction.Id))
+        ship.Properties.Name = "(yer ship)"
         ship.LifeSupport = ship.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
         ship.FuelTank = ship.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
         InitializePlayerShipInterior(ship)
@@ -32,8 +32,9 @@ Friend Class PlayerShipDescriptor
 
     Private Shared Sub InitializePlayerShipCrew(ship As IActor)
         Dim location = ship.
+            Properties.
             Interior.
-            GetLocation(ship.Interior.Size.Columns \ 2, ship.Interior.Size.Rows \ 2)
+            GetLocation(ship.Properties.Interior.Size.Columns \ 2, ship.Properties.Interior.Size.Rows \ 2)
         Dim actor = ActorTypes.Descriptors(ActorTypes.Person).CreateActor(location)
         actor.LifeSupport = ship.LifeSupport
         ship.Family.AddChild(actor)
@@ -46,7 +47,7 @@ Friend Class PlayerShipDescriptor
         Dim map = descriptor.CreateMap(
             "Yer ship's interior",
             ship.Universe)
-        ship.Interior = map
+        ship.Properties.Interior = map
         For Each x In Enumerable.Range(0, descriptor.Size.Columns)
             map.GetLocation(x, 0).LocationType = LocationTypes.Bulkhead
             map.GetLocation(x, descriptor.Size.Rows - 1).LocationType = LocationTypes.Bulkhead

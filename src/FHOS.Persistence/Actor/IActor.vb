@@ -4,15 +4,9 @@
     ReadOnly Property Tutorial As IActorTutorial
     ReadOnly Property Family As IActorFamily
     ReadOnly Property ActorType As String
+    ReadOnly Property Properties As IActorProperties
 
-    'Low Volatility Properties
-    Property Interior As IMap
-    Property Name As String
-    Property Faction As IFaction
-    Property HomePlanet As IPlace
-    Property CostumeType As String
-
-    'High Volatility Properties
+    'IActorState
     Property LifeSupport As IStore
     Property FuelTank As IStore
     Property Wallet As IStore
