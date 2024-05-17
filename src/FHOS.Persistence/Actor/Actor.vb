@@ -42,21 +42,6 @@ Friend Class Actor
         End If
     End Sub
 
-    Public Sub AddKnownPlace(place As IPlace) Implements IActor.AddKnownPlace
-        If Not EntityData.Places.Discovered.ContainsKey(place.Id) Then
-            EntityData.Places.Discovered(place.Id) = Universe.Turn
-        End If
-        EntityData.Places.Visited(place.Id) = Universe.Turn
-    End Sub
-
-    Public Function KnowsPlacesOfType(placeType As String) As Boolean Implements IActor.KnowsPlacesOfType
-        Return KnownPlaces.Any(Function(x) x.PlaceType = placeType)
-    End Function
-
-    Public Function GetKnownPlacesOfType(placeType As String) As IEnumerable(Of IPlace) Implements IActor.GetKnownPlacesOfType
-        Return KnownPlaces.Where(Function(x) x.PlaceType = placeType)
-    End Function
-
     Public Sub AddCrew(crew As IActor) Implements IActor.AddCrew
         EntityData.Crew.Add(crew.Id)
         crew.Vessel = Me
@@ -92,17 +77,6 @@ Friend Class Actor
         End Get
     End Property
 
-    Public ReadOnly Property KnowsPlaces As Boolean Implements IActor.KnowsPlaces
-        Get
-            Return EntityData.Places.Discovered.Any
-        End Get
-    End Property
-
-    Public ReadOnly Property KnownPlaces As IEnumerable(Of IPlace) Implements IActor.KnownPlaces
-        Get
-            Return EntityData.Places.Discovered.Select(Function(x) Place.FromId(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
-        End Get
-    End Property
 
     Public Property Faction As IFaction Implements IActor.Faction
         Get
@@ -220,5 +194,11 @@ Friend Class Actor
         Set(value As IStore)
             SetStatistic(StatisticTypes.FuelTankId, value?.Id)
         End Set
+    End Property
+
+    Public ReadOnly Property KnownPlaces As IActorKnownPlaces Implements IActor.KnownPlaces
+        Get
+            Return ActorKnownPlaces.FromId(UniverseData, Id)
+        End Get
     End Property
 End Class
