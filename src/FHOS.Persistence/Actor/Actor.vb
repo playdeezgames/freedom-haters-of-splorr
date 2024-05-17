@@ -49,14 +49,6 @@ Friend Class Actor
         EntityData.Places.Visited(place.Id) = Universe.Turn
     End Sub
 
-    Public Sub AddMessage(header As String, ParamArray lines() As (Text As String, Hue As Integer)) Implements IActor.AddMessage
-        UniverseData.Messages.Enqueue(New MessageData With
-                                  {
-                                    .Header = header,
-                                    .Lines = lines.Select(Function(x) New MessageLineData With {.Text = x.Text, .Hue = x.Hue}).ToList
-                                  })
-    End Sub
-
     Public Function KnowsPlacesOfType(placeType As String) As Boolean Implements IActor.KnowsPlacesOfType
         Return KnownPlaces.Any(Function(x) x.PlaceType = placeType)
     End Function

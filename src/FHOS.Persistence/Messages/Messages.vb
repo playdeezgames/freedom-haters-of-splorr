@@ -24,4 +24,12 @@ Friend Class Messages
     Public Sub Dismiss() Implements IMessages.Dismiss
         messages.Dequeue()
     End Sub
+
+    Public Sub Add(header As String, ParamArray lines() As (Text As String, Hue As Integer)) Implements IMessages.Add
+        messages.Enqueue(New MessageData With
+                                  {
+                                    .Header = header,
+                                    .Lines = lines.Select(Function(x) New MessageLineData With {.Text = x.Text, .Hue = x.Hue}).ToList
+                                  })
+    End Sub
 End Class

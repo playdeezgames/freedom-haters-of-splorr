@@ -72,7 +72,7 @@ Friend Class AvatarVerbsModel
         Dim price = fuelPrice * fuelAdded
         actor.Fuel = actor.MaximumFuel
         actor.Jools -= fuelAdded * fuelPrice
-        actor.AddMessage(
+        actor.Universe.Messages.Add(
             "Emergency Refuel",
             ($"Added {fuelAdded} fuel!", Hues.Black),
             ($"Price {price} jools!", Hues.Black))
