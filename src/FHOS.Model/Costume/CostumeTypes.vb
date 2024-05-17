@@ -3,6 +3,9 @@
     Friend ReadOnly MilitaryVessel As String = NameOf(MilitaryVessel)
     Friend ReadOnly Person As String = NameOf(Person)
     Friend ReadOnly TradingPost As String = NameOf(TradingPost)
+    Friend ReadOnly StarDock As String = NameOf(StarDock)
+    Friend ReadOnly Shipyard As String = NameOf(Shipyard)
+    Friend ReadOnly StarGate As String = NameOf(StarGate)
 
     Friend Function MakeCostume(costumeType As String, hue As Integer) As String
         Return $"{costumeType}{hue}"
@@ -14,7 +17,10 @@
             {MilitaryVessel, {ChrW(132), ChrW(133), ChrW(134), ChrW(135)}},
             {MerchantVessel, {ChrW(128), ChrW(129), ChrW(130), ChrW(131)}},
             {Person, {ChrW(160), ChrW(160), ChrW(160), ChrW(160)}},
-            {TradingPost, {ChrW(248), ChrW(248), ChrW(248), ChrW(248)}}
+            {TradingPost, {ChrW(248), ChrW(248), ChrW(248), ChrW(248)}},
+            {StarDock, {ChrW(249), ChrW(249), ChrW(249), ChrW(249)}},
+            {Shipyard, {ChrW(250), ChrW(250), ChrW(250), ChrW(250)}},
+            {StarGate, {ChrW(251), ChrW(251), ChrW(251), ChrW(251)}}
         }
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, CostumeTypeDescriptor) =
