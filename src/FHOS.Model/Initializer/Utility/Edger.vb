@@ -42,7 +42,7 @@ Friend Module Edger
         Next
         For Each edge In GetEdges(columns, rows)
             PlaceBoundary(place.Map.GetLocation(edge.X, edge.Y), edge.LocationType, targetLocation)
-            place.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).SetFlag(identifier)
+            place.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).Flags(identifier) = True
         Next
     End Sub
 End Module

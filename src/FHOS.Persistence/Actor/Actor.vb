@@ -274,11 +274,7 @@ Friend Class Actor
             Return HasFlag(FlagTypes.ConsumesFuel)
         End Get
         Set(value As Boolean)
-            If value Then
-                SetFlag(FlagTypes.ConsumesFuel)
-            Else
-                Flags(FlagTypes.ConsumesFuel) = False
-            End If
+            Flags(FlagTypes.ConsumesFuel) = value
         End Set
     End Property
 End Class

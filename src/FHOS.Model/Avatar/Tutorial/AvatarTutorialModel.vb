@@ -11,7 +11,7 @@ Friend Class AvatarTutorialModel
     Public Sub Dismiss() Implements IAvatarTutorialModel.Dismiss
         Dim descriptor = TutorialTypes.Descriptors(actor.CurrentTutorial)
         If descriptor.HasIgnoreFlag Then
-            actor.SetFlag(descriptor.IgnoreFlag)
+            actor.Flags(descriptor.IgnoreFlag) = True
         End If
         actor.DismissTutorial()
     End Sub
