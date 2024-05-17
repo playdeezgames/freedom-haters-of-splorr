@@ -16,8 +16,8 @@ Friend Class StarSystemInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim starSystem = starLocation.Place
         starSystem.Map = starSystem.Universe.CreateMap(
-            MapTypes.StarSystem,
             $"{starSystem.Name} System",
+            MapTypes.StarSystem,
             SystemMapColumns,
             SystemMapRows,
 LocationTypes.Void)

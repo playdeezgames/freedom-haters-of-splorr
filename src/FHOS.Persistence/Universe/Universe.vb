@@ -53,7 +53,12 @@ Public Class Universe
     End Property
 
 
-    Public Function CreateMap(mapType As String, mapName As String, columns As Integer, rows As Integer, locationType As String) As IMap Implements IUniverse.CreateMap
+    Public Function CreateMap(
+                             mapName As String,
+                             mapType As String,
+                             columns As Integer,
+                             rows As Integer,
+                             locationType As String) As IMap Implements IUniverse.CreateMap
         Dim mapData = New MapData With
             {
                 .Locations = Nothing,

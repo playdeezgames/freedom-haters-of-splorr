@@ -15,7 +15,12 @@ Friend Class GalaxyInitializationStep
         Me.nameGenerator = nameGenerator
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        Dim starMap = universe.CreateMap(MapTypes.Galaxy, GalaxyName, GalaxyColumns, GalaxyRows, LocationTypes.Void)
+        Dim starMap = universe.CreateMap(
+            GalaxyName,
+            MapTypes.Galaxy,
+            GalaxyColumns,
+            GalaxyRows,
+            LocationTypes.Void)
         Dim stars As New List(Of (Column As Integer, Row As Integer))
         Dim tries As Integer = 0
         Const MaximumTries = 5000

@@ -13,8 +13,8 @@ Friend Class SatelliteInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim satellite = location.Place
         satellite.Map = satellite.Universe.CreateMap(
-            MapTypes.SatelliteOrbit,
             $"{satellite.Name} Orbit",
+            MapTypes.SatelliteOrbit,
             SatelliteOrbitColumns,
             SatelliteOrbitRows,
             LocationTypes.Void)

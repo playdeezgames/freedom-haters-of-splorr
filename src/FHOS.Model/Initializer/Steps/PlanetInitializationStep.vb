@@ -11,8 +11,8 @@ Friend Class PlanetInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planet = location.Place
         planet.Map = planet.Universe.CreateMap(
-            MapTypes.PlanetOrbit,
             $"{planet.Name} Orbit",
+            MapTypes.PlanetOrbit,
             PlanetOrbitColumns,
             PlanetOrbitRows,
             LocationTypes.Void)

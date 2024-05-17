@@ -48,8 +48,8 @@ Friend Class PlayerShipDescriptor
     Private Const PlayerShipMaximumOxygen = 100
     Private Shared Sub InitializePlayerShipInterior(ship As IActor)
         Dim map = ship.Universe.CreateMap(
-            MapTypes.Vessel,
             "Yer ship's interior",
+            MapTypes.Vessel,
             PlayerShipInteriorColumns,
             PlayerShipInteriorRows,
             LocationTypes.Air)

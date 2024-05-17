@@ -1,8 +1,8 @@
 Public Interface IUniverse
     'Creation
     Function CreateMap(
-                      mapType As String,
                       mapName As String,
+                      mapType As String,
                       columns As Integer,
                       rows As Integer,
                       locationType As String) As IMap
