@@ -16,7 +16,7 @@ Friend Class StarSystemInitializationStep
         starSystem.Map = descriptor.CreateMap($"{starSystem.Name} System", starSystem.Universe)
         PlaceBoundaries(starSystem, starLocation, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(starSystem, addStep)
-        starSystem.PlanetVicinityCount = PlacePlanets(starSystem, addStep)
+        starSystem.PlanetCount = PlacePlanets(starSystem, addStep)
     End Sub
 
     Private Function PlacePlanets(starSystem As IPlace, addStep As Action(Of InitializationStep, Boolean)) As Integer

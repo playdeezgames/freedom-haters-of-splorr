@@ -224,16 +224,12 @@ Friend Class Place
         End Set
     End Property
 
-    Public Property PlanetVicinityCount As Integer Implements IPlace.PlanetVicinityCount
+    Public Property PlanetCount As Integer Implements IPlace.PlanetCount
         Get
-            Dim result = 0
-            If EntityData.Statistics.TryGetValue(StatisticTypes.PlanetVicinityCount, result) Then
-                Return result
-            End If
-            Return 0
+            Return If(GetStatistic(StatisticTypes.PlanetCount), 0)
         End Get
         Set(value As Integer)
-            EntityData.Statistics(StatisticTypes.PlanetVicinityCount) = value
+            EntityData.Statistics(StatisticTypes.PlanetCount) = value
         End Set
     End Property
 

@@ -1,13 +1,13 @@
 ﻿Public Interface IPlace
     Inherits IEntity
     ReadOnly Property PlaceType As String
-
-    'counts
-    Property PlanetVicinityCount As Integer
-    Property SatelliteCount As Integer
-
-    'subtype
     ReadOnly Property Subtype As String
+
+    'family
+    Property PlanetCount As Integer
+    Property SatelliteCount As Integer
+    ReadOnly Property Parent As IPlace
+
 
     'properties
     Property Name As String
@@ -16,7 +16,6 @@
     Property WormholeDestination As ILocation
     Property Faction As IFaction
     ReadOnly Property Position As (X As Integer, Y As Integer)
-    ReadOnly Property Parent As IPlace
 
     'factory
     Function CreateStarVicinity(

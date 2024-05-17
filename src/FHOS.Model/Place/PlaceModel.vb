@@ -30,7 +30,7 @@ Friend Class PlaceModel
         End Get
     End Property
 
-    Public ReadOnly Property StarType As String Implements IPlaceModel.StarType
+    Public ReadOnly Property Subtype As String Implements IPlaceModel.Subtype
         Get
             Return place.Subtype
         End Get
@@ -38,7 +38,7 @@ Friend Class PlaceModel
 
     Public ReadOnly Property PlanetVicinityCount As Integer Implements IPlaceModel.PlanetVicinityCount
         Get
-            Return place.PlanetVicinityCount
+            Return place.PlanetCount
         End Get
     End Property
 
@@ -57,12 +57,6 @@ Friend Class PlaceModel
     Public ReadOnly Property SatelliteCount As Integer Implements IPlaceModel.SatelliteCount
         Get
             Return place.SatelliteCount
-        End Get
-    End Property
-
-    Public ReadOnly Property PlanetType As String Implements IPlaceModel.PlanetType
-        Get
-            Return place.Subtype
         End Get
     End Property
 

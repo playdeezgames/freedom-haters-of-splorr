@@ -17,7 +17,7 @@ Friend Class KnownPlanetVicinityDetailsState
     Protected Overrides ReadOnly Property Details As IEnumerable(Of (Text As String, Hue As Integer))
         Get
             Return {
-                    ($"Type: {Place.PlanetType}", Hues.Black),
+                    ($"Type: {Place.Subtype}", Hues.Black),
                     ($"Satellites: {Place.SatelliteCount}", Hues.Black),
                     ($"System: {Place.Parent.Name}", Hues.Black),
                     ($"System Position: ({Place.X},{Place.Y})", Hues.Black)

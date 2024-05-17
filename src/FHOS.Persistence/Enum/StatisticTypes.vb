@@ -19,7 +19,6 @@
     Friend ReadOnly ParentId As String = NameOf(ParentId)
     Friend ReadOnly PlaceId As String = NameOf(PlaceId)
     Friend ReadOnly PlanetCount As String = NameOf(PlanetCount)
-    Friend ReadOnly PlanetVicinityCount As String = NameOf(PlanetVicinityCount)
     Friend ReadOnly Row As String = NameOf(Row)
     Friend ReadOnly Rows As String = NameOf(Rows)
     Friend ReadOnly SatelliteCount As String = NameOf(SatelliteCount)
