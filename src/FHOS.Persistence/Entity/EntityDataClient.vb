@@ -17,6 +17,19 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         End Get
     End Property
 
+    Public Property Flags(flag As String) As Boolean Implements IEntity.Flags
+        Get
+            Return HasFlag(flag)
+        End Get
+        Set(value As Boolean)
+            If value Then
+                SetFlag(flag)
+            Else
+                ClearFlag(flag)
+            End If
+        End Set
+    End Property
+
     Public Sub New(universeData As Data.UniverseData, entityId As Integer, entityDataFetcher As Func(Of UniverseData, Integer, TEntityData))
         MyBase.New(universeData)
         Me.entityId = entityId
