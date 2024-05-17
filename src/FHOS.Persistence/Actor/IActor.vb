@@ -5,12 +5,5 @@
     ReadOnly Property Family As IActorFamily
     ReadOnly Property ActorType As String
     ReadOnly Property Properties As IActorProperties
-
-    'IActorState
-    Property LifeSupport As IStore
-    Property FuelTank As IStore
-    Property Wallet As IStore
-    Property Location As ILocation
-    Property Facing As Integer
-    Property Interactor As IActor
+    ReadOnly Property State As IActorState
 End Interface

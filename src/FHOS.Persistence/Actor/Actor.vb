@@ -3,7 +3,7 @@
 Friend Class Actor
     Inherits ActorDataClient
     Implements IActor
-
+    Implements IActorState
     Protected Sub New(universeData As Data.UniverseData, actorId As Integer)
         MyBase.New(universeData, actorId)
     End Sub
@@ -15,7 +15,7 @@ Friend Class Actor
         Return Nothing
     End Function
 
-    Public Property Location As ILocation Implements IActor.Location
+    Public Property Location As ILocation Implements IActorState.Location
         Get
             Return Persistence.Location.FromId(UniverseData, EntityData.Statistics(StatisticTypes.LocationId))
         End Get
@@ -35,7 +35,7 @@ Friend Class Actor
         End Get
     End Property
 
-    Public Property Facing As Integer Implements IActor.Facing
+    Public Property Facing As Integer Implements IActorState.Facing
         Get
             Return EntityData.Statistics(StatisticTypes.Facing)
         End Get
@@ -44,7 +44,7 @@ Friend Class Actor
         End Set
     End Property
 
-    Public Property Interactor As IActor Implements IActor.Interactor
+    Public Property Interactor As IActor Implements IActorState.Interactor
         Get
             Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.InteractorId))
         End Get
@@ -53,7 +53,7 @@ Friend Class Actor
         End Set
     End Property
 
-    Public Property LifeSupport As IStore Implements IActor.LifeSupport
+    Public Property LifeSupport As IStore Implements IActorState.LifeSupport
         Get
             Return Store.FromId(UniverseData, GetStatistic(StatisticTypes.LifeSupportId))
         End Get
@@ -62,7 +62,7 @@ Friend Class Actor
         End Set
     End Property
 
-    Public Property Wallet As IStore Implements IActor.Wallet
+    Public Property Wallet As IStore Implements IActorState.Wallet
         Get
             Return Store.FromId(UniverseData, GetStatistic(StatisticTypes.WalletId))
         End Get
@@ -71,7 +71,7 @@ Friend Class Actor
         End Set
     End Property
 
-    Public Property FuelTank As IStore Implements IActor.FuelTank
+    Public Property FuelTank As IStore Implements IActorState.FuelTank
         Get
             Return Store.FromId(UniverseData, GetStatistic(StatisticTypes.FuelTankId))
         End Get
@@ -101,6 +101,12 @@ Friend Class Actor
     Public ReadOnly Property Properties As IActorProperties Implements IActor.Properties
         Get
             Return ActorProperties.FromId(UniverseData, Id)
+        End Get
+    End Property
+
+    Public ReadOnly Property State As IActorState Implements IActor.State
+        Get
+            Throw New NotImplementedException()
         End Get
     End Property
 End Class

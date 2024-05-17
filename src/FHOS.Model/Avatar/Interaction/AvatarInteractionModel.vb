@@ -10,12 +10,12 @@ Friend Class AvatarInteractionModel
 
     Public ReadOnly Property IsActive As Boolean Implements IAvatarInteractionModel.IsActive
         Get
-            Return actor.Interactor IsNot Nothing
+            Return actor.State.Interactor IsNot Nothing
         End Get
     End Property
 
     Public Sub Leave() Implements IAvatarInteractionModel.Leave
-        actor.Interactor = Nothing
+        actor.State.Interactor = Nothing
     End Sub
 
     Friend Shared Function FromActor(actor As IActor) As IAvatarInteractionModel

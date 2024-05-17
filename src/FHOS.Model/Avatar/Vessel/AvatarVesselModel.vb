@@ -16,13 +16,13 @@ Friend Class AvatarVesselModel
 
     Public ReadOnly Property OxygenPercent As Integer Implements IAvatarVesselModel.OxygenPercent
         Get
-            Return actor.LifeSupport.Percent.Value
+            Return actor.State.LifeSupport.Percent.Value
         End Get
     End Property
 
     Public ReadOnly Property FuelPercent As Integer? Implements IAvatarVesselModel.FuelPercent
         Get
-            Return actor.FuelTank?.Percent
+            Return actor.State.FuelTank?.Percent
         End Get
     End Property
 

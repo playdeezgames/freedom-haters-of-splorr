@@ -4,22 +4,22 @@ Friend Class BaseAvatarModel
     Protected ReadOnly actor As IActor
     Protected Sub DoTurn()
         actor.Universe.Turn += 1
-        actor.LifeSupport.CurrentValue -= 1
+        actor.State.LifeSupport.CurrentValue -= 1
     End Sub
     Protected Sub New(actor As IActor)
         Me.actor = actor
     End Sub
     Protected Sub SetLocation(location As ILocation)
-        Dim isDifferentMap = location.Map.Id <> actor.Location.Map.Id
+        Dim isDifferentMap = location.Map.Id <> actor.State.Location.Map.Id
         If isDifferentMap Then
-            HandleMapExit(actor.Location.Map)
+            HandleMapExit(actor.State.Location.Map)
         End If
-        Me.actor.Location = location
+        Me.actor.State.Location = location
         If location.Place IsNot Nothing Then
             actor.KnownPlaces.Add(location.Place)
         End If
         If isDifferentMap Then
-            HandleMapEntry(actor.Location.Map)
+            HandleMapEntry(actor.State.Location.Map)
         End If
     End Sub
 

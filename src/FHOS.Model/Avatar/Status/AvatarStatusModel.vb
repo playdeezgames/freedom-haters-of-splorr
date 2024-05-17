@@ -16,13 +16,13 @@ Friend Class AvatarStatusModel
 
     Public ReadOnly Property Dead As Boolean Implements IAvatarStatusModel.Dead
         Get
-            Return actor.LifeSupport.CurrentValue = actor.LifeSupport.MinimumValue.Value
+            Return actor.State.LifeSupport.CurrentValue = actor.State.LifeSupport.MinimumValue.Value
         End Get
     End Property
 
     Public ReadOnly Property Bankrupt As Boolean Implements IAvatarStatusModel.Bankrupt
         Get
-            Return If(actor.Wallet.CurrentValue = actor.Wallet.MinimumValue, False)
+            Return If(actor.State.Wallet.CurrentValue = actor.State.Wallet.MinimumValue, False)
         End Get
     End Property
 

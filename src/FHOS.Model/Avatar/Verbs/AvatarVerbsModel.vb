@@ -32,14 +32,14 @@ Friend Class AvatarVerbsModel
         }
 
     Private Sub Move(facing As Integer)
-        actor.Facing = facing
+        actor.State.Facing = facing
         Dim delta = Persistence.Facing.Deltas(facing)
         If Not CanMove Then
             Return
         End If
         DoTurn()
         DoFuelConsumption()
-        Dim location = actor.Location
+        Dim location = actor.State.Location
         Dim nextColumn = location.Column + delta.X
         Dim nextRow = location.Row + delta.Y
         Dim map = location.Map
@@ -48,7 +48,7 @@ Friend Class AvatarVerbsModel
             Return
         End If
         If nextLocation.Actor IsNot Nothing Then
-            actor.Interactor = nextLocation.Actor
+            actor.State.Interactor = nextLocation.Actor
             Return
         End If
         If nextLocation.HasTargetLocation Then
@@ -58,20 +58,20 @@ Friend Class AvatarVerbsModel
     End Sub
 
     Private Sub DoFuelConsumption()
-        If actor.FuelTank IsNot Nothing Then
-            actor.FuelTank.CurrentValue -= 1
-            If actor.FuelTank.CurrentValue = actor.FuelTank.MinimumValue.Value Then
+        If actor.State.FuelTank IsNot Nothing Then
+            actor.State.FuelTank.CurrentValue -= 1
+            If actor.State.FuelTank.CurrentValue = actor.State.FuelTank.MinimumValue.Value Then
                 actor.Tutorial.Add(TutorialTypes.OutOfFuel)
             End If
         End If
     End Sub
 
     Private Sub DistressSignal()
-        Dim fuelAdded = actor.FuelTank.MaximumValue.Value - actor.FuelTank.CurrentValue
+        Dim fuelAdded = actor.State.FuelTank.MaximumValue.Value - actor.State.FuelTank.CurrentValue
         Dim fuelPrice = 1 'TODO: don't just pick a magic number!
         Dim price = fuelPrice * fuelAdded
-        actor.FuelTank.CurrentValue = actor.FuelTank.MaximumValue.Value
-        actor.Wallet.CurrentValue -= fuelAdded * fuelPrice
+        actor.State.FuelTank.CurrentValue = actor.State.FuelTank.MaximumValue.Value
+        actor.State.Wallet.CurrentValue -= fuelAdded * fuelPrice
         actor.Universe.Messages.Add(
             "Emergency Refuel",
             ($"Added {fuelAdded} fuel!", Hues.Black),
@@ -80,21 +80,21 @@ Friend Class AvatarVerbsModel
 
     Private ReadOnly Property CanMove As Boolean
         Get
-            Return actor.FuelTank Is Nothing OrElse
+            Return actor.State.FuelTank Is Nothing OrElse
                 AvatarModel.FromActor(actor).Vessel.FuelPercent.Value > 0
         End Get
     End Property
 
     Private ReadOnly Property CanApproachStarVicinity As Boolean
         Get
-            Return actor.Location.Place?.PlaceType = PlaceTypes.StarVicinity
+            Return actor.State.Location.Place?.PlaceType = PlaceTypes.StarVicinity
         End Get
     End Property
 
     Private Sub ApproachStarVicinity()
         If CanApproachStarVicinity Then
             DoTurn()
-            With actor.Location.Place
+            With actor.State.Location.Place
                 SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.Flags(.Identifier))))
             End With
         End If
@@ -102,14 +102,14 @@ Friend Class AvatarVerbsModel
 
     Private ReadOnly Property CanApproachPlanetVicinity As Boolean
         Get
-            Return actor.Location.Place?.PlaceType = PlaceTypes.PlanetVicinity
+            Return actor.State.Location.Place?.PlaceType = PlaceTypes.PlanetVicinity
         End Get
     End Property
 
     Private Sub ApproachPlanetVicinity()
         If CanApproachPlanetVicinity Then
             DoTurn()
-            With actor.Location.Place
+            With actor.State.Location.Place
                 SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.Flags(.Identifier))))
             End With
         End If
@@ -117,29 +117,29 @@ Friend Class AvatarVerbsModel
 
     Private ReadOnly Property CanRefillFuel As Boolean
         Get
-            Return actor.Location.Place?.PlaceType = PlaceTypes.Star
+            Return actor.State.Location.Place?.PlaceType = PlaceTypes.Star
         End Get
     End Property
 
     Private Sub Refuel()
         If CanRefillFuel Then
-            actor.FuelTank.CurrentValue = actor.FuelTank.MaximumValue.Value
+            actor.State.FuelTank.CurrentValue = actor.State.FuelTank.MaximumValue.Value
         End If
     End Sub
 
     Private Sub RefillOxygen()
         If CanRefillOxygen Then
-            actor.LifeSupport.CurrentValue = actor.LifeSupport.MaximumValue.Value
+            actor.State.LifeSupport.CurrentValue = actor.State.LifeSupport.MaximumValue.Value
         End If
     End Sub
 
     Private ReadOnly Property CanRefillOxygen As Boolean
         Get
-            Dim placeType = actor.Location.Place?.PlaceType
+            Dim placeType = actor.State.Location.Place?.PlaceType
             If placeType <> PlaceTypes.Planet Then
                 Return False
             End If
-            Return PlanetTypes.Descriptors(actor.Location.Place.PlanetType).CanRefillOxygen
+            Return PlanetTypes.Descriptors(actor.State.Location.Place.PlanetType).CanRefillOxygen
         End Get
     End Property
 
@@ -169,26 +169,26 @@ Friend Class AvatarVerbsModel
 
     Private ReadOnly Property CanEnterStarSystem As Boolean
         Get
-            Return actor.Location.Place?.PlaceType = PlaceTypes.StarSystem
+            Return actor.State.Location.Place?.PlaceType = PlaceTypes.StarSystem
         End Get
     End Property
 
     Private ReadOnly Property CanEnterWormhole As Boolean
         Get
-            Return actor.Location.Place?.PlaceType = PlaceTypes.Wormhole
+            Return actor.State.Location.Place?.PlaceType = PlaceTypes.Wormhole
         End Get
     End Property
 
     Private ReadOnly Property CanEnterOrbit As Boolean
         Get
-            Return actor.Location.Place?.PlaceType = PlaceTypes.Planet OrElse actor.Location.Place?.PlaceType = PlaceTypes.Satellite
+            Return actor.State.Location.Place?.PlaceType = PlaceTypes.Planet OrElse actor.State.Location.Place?.PlaceType = PlaceTypes.Satellite
         End Get
     End Property
 
     Private Sub EnterStarSystem()
         If CanEnterStarSystem Then
             DoTurn()
-            With actor.Location.Place
+            With actor.State.Location.Place
                 SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.Flags(.Identifier))))
             End With
         End If
@@ -196,7 +196,7 @@ Friend Class AvatarVerbsModel
     Private Sub EnterOrbit()
         If CanEnterOrbit Then
             DoTurn()
-            With actor.Location.Place
+            With actor.State.Location.Place
                 SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.Flags(.Identifier))))
             End With
         End If
@@ -204,7 +204,7 @@ Friend Class AvatarVerbsModel
     Private Sub EnterWormhole()
         If CanEnterWormhole Then
             DoTurn()
-            With actor.Location.Place
+            With actor.State.Location.Place
                 SetLocation(.WormholeDestination)
             End With
         End If

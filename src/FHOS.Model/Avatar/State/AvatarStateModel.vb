@@ -10,7 +10,7 @@ Friend Class AvatarStateModel
 
     Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IAvatarStateModel.Position
         Get
-            With actor.Location
+            With actor.State.Location
                 Return (.Column, .Row)
             End With
         End Get
@@ -18,14 +18,14 @@ Friend Class AvatarStateModel
 
     Public ReadOnly Property MapName As String Implements IAvatarStateModel.MapName
         Get
-            Return actor.Location.Map.Name
+            Return actor.State.Location.Map.Name
         End Get
     End Property
 
     Public ReadOnly Property CurrentPlace As IPlaceModel Implements IAvatarStateModel.CurrentPlace
         Get
-            If actor.Location.Place IsNot Nothing Then
-                Return PlaceModel.FromPlace(actor.Location.Place)
+            If actor.State.Location.Place IsNot Nothing Then
+                Return PlaceModel.FromPlace(actor.State.Location.Place)
             End If
             Return Nothing
         End Get

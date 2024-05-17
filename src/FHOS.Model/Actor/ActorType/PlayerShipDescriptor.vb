@@ -24,8 +24,8 @@ Friend Class PlayerShipDescriptor
         ship.Properties.Faction = ship.Universe.Factions.Single(Function(x) x.Authority = 100 AndAlso x.Standards = 100 AndAlso x.Conviction = 100)
         ship.Properties.HomePlanet = RNG.FromEnumerable(ship.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = ship.Properties.Faction.Id))
         ship.Properties.Name = "(yer ship)"
-        ship.LifeSupport = ship.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
-        ship.FuelTank = ship.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
+        ship.State.LifeSupport = ship.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
+        ship.State.FuelTank = ship.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
         InitializePlayerShipInterior(ship)
         InitializePlayerShipCrew(ship)
     End Sub
@@ -36,7 +36,7 @@ Friend Class PlayerShipDescriptor
             Interior.
             GetLocation(ship.Properties.Interior.Size.Columns \ 2, ship.Properties.Interior.Size.Rows \ 2)
         Dim actor = ActorTypes.Descriptors(ActorTypes.Person).CreateActor(location)
-        actor.LifeSupport = ship.LifeSupport
+        actor.State.LifeSupport = ship.State.LifeSupport
         ship.Family.AddChild(actor)
     End Sub
 
