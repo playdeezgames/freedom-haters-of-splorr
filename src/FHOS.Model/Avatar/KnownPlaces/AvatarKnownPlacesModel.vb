@@ -13,10 +13,10 @@ Friend Class AvatarKnownPlacesModel
     End Function
 
     Public Function HasAnyOfType(placeType As String) As Boolean Implements IAvatarKnownPlacesModel.HasAnyOfType
-        Return actor.KnownPlaces.LegacyKnowsPlacesOfType(placeType)
+        Return actor.KnownPlaces.HasPlacesOfType(placeType)
     End Function
 
     Public Function OfType(placeType As String) As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarKnownPlacesModel.OfType
-        Return actor.KnownPlaces.LegacyGetKnownPlacesOfType(placeType).Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
+        Return actor.KnownPlaces.PlacesOfType(placeType).Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
     End Function
 End Class

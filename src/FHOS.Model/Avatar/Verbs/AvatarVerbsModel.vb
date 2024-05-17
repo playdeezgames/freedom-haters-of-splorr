@@ -13,7 +13,7 @@ Friend Class AvatarVerbsModel
         New Dictionary(Of String, (isAvailable As Func(Of Boolean), perform As Action)) From
         {
             {VerbTypes.Status, (Function() True, Sub() Return)},
-            {VerbTypes.KnownPlaces, (Function() actor.KnownPlaces.LegacyKnowsPlaces, Sub() Return)},
+            {VerbTypes.KnownPlaces, (Function() actor.KnownPlaces.HasAny, Sub() Return)},
             {VerbTypes.RefillOxygen, (Function() CanRefillOxygen, AddressOf RefillOxygen)},
             {VerbTypes.Refuel, (Function() CanRefillFuel, AddressOf Refuel)},
             {VerbTypes.EnterWormhole, (Function() CanEnterWormhole, AddressOf EnterWormhole)},

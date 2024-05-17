@@ -10,27 +10,27 @@
         Return New ActorKnownPlaces(universeData, id)
     End Function
 
-    Public Sub LegacyAddKnownPlace(place As IPlace) Implements IActorKnownPlaces.LegacyAddKnownPlace
+    Public Sub Add(place As IPlace) Implements IActorKnownPlaces.Add
         If Not EntityData.Places.Discovered.ContainsKey(place.Id) Then
             EntityData.Places.Discovered(place.Id) = Universe.Turn
         End If
         EntityData.Places.Visited(place.Id) = Universe.Turn
     End Sub
 
-    Public Function LegacyKnowsPlacesOfType(placeType As String) As Boolean Implements IActorKnownPlaces.LegacyKnowsPlacesOfType
-        Return LegacyKnownPlaces.Any(Function(x) x.PlaceType = placeType)
+    Public Function HasPlacesOfType(placeType As String) As Boolean Implements IActorKnownPlaces.HasPlacesOfType
+        Return All.Any(Function(x) x.PlaceType = placeType)
     End Function
 
-    Public Function LegacyGetKnownPlacesOfType(placeType As String) As IEnumerable(Of IPlace) Implements IActorKnownPlaces.LegacyGetKnownPlacesOfType
-        Return LegacyKnownPlaces.Where(Function(x) x.PlaceType = placeType)
+    Public Function PlacesOfType(placeType As String) As IEnumerable(Of IPlace) Implements IActorKnownPlaces.PlacesOfType
+        Return All.Where(Function(x) x.PlaceType = placeType)
     End Function
-    Public ReadOnly Property LegacyKnowsPlaces As Boolean Implements IActorKnownPlaces.LegacyKnowsPlaces
+    Public ReadOnly Property HasAny As Boolean Implements IActorKnownPlaces.HasAny
         Get
             Return EntityData.Places.Discovered.Any
         End Get
     End Property
 
-    Public ReadOnly Property LegacyKnownPlaces As IEnumerable(Of IPlace) Implements IActorKnownPlaces.LegacyKnownPlaces
+    Public ReadOnly Property All As IEnumerable(Of IPlace) Implements IActorKnownPlaces.All
         Get
             Return EntityData.Places.Discovered.Select(Function(x) Place.FromId(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
         End Get
