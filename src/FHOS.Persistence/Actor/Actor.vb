@@ -171,12 +171,6 @@ Friend Class Actor
         End Set
     End Property
 
-    Public ReadOnly Property Universe As IUniverse Implements IActor.Universe
-        Get
-            Return New Universe(UniverseData)
-        End Get
-    End Property
-
     Public Property HomePlanet As IPlace Implements IActor.HomePlanet
         Get
             Dim id = 0

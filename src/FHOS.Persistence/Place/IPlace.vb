@@ -1,6 +1,5 @@
 ﻿Public Interface IPlace
     Inherits IEntity
-    ReadOnly Property Universe As IUniverse
     Property Name As String
     Property Map As IMap
     ReadOnly Property Identifier As String

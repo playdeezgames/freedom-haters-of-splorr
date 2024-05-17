@@ -26,7 +26,6 @@
                   header As String,
                   ParamArray lines As (Text As String, Hue As Integer)())
     Property Faction As IFaction
-    ReadOnly Property Universe As IUniverse
     Property HomePlanet As IPlace
     Property Interactor As IActor
     Property Interior As IMap

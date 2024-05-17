@@ -30,6 +30,12 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         End Set
     End Property
 
+    Public ReadOnly Property Universe As IUniverse Implements IEntity.Universe
+        Get
+            Return New Universe(UniverseData)
+        End Get
+    End Property
+
     Public Sub New(universeData As Data.UniverseData, entityId As Integer, entityDataFetcher As Func(Of UniverseData, Integer, TEntityData))
         MyBase.New(universeData)
         Me.entityId = entityId

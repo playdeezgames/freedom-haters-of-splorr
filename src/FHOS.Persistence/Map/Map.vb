@@ -15,12 +15,6 @@ Friend Class Map
         Return Nothing
     End Function
 
-    Public ReadOnly Property Universe As IUniverse Implements IMap.Universe
-        Get
-            Return New Universe(UniverseData)
-        End Get
-    End Property
-
     Public Property Name As String Implements IMap.Name
         Get
             Return EntityData.Metadatas(MetadataTypes.Name)
