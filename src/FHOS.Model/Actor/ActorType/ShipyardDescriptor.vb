@@ -8,9 +8,9 @@
             {
                 {CostumeTypes.MakeCostume(CostumeTypes.Shipyard, Hues.Orange), 1}
             },
-            New Dictionary(Of String, Integer) From
+            spawnRolls:=New Dictionary(Of String, String) From
             {
-                {MapTypes.PlanetOrbit, 1}
+                {MapTypes.PlanetOrbit, "1d4/4"}
             },
             Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing,
             AddressOf InitializeShipyard)

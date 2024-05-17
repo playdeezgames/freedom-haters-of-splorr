@@ -11,8 +11,9 @@ Friend Class EncounterInitializationStep
     End Sub
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        For Each descriptor In ActorTypes.Descriptors.Where(Function(x) x.Value.SpawnCounts.ContainsKey(map.MapType))
-            For Each dummy In Enumerable.Range(0, descriptor.Value.SpawnCounts(map.MapType))
+        For Each descriptor In ActorTypes.Descriptors.Where(Function(x) x.Value.SpawnRolls.ContainsKey(map.MapType))
+            Dim spawnCount = RNG.RollDice(descriptor.Value.SpawnRolls(map.MapType))
+            For Each dummy In Enumerable.Range(0, spawnCount)
                 SpawnActor(descriptor.Value)
             Next
         Next

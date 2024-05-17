@@ -15,9 +15,9 @@ Friend Class MilitaryVesselDescriptor
                 {CostumeTypes.MakeCostume(CostumeTypes.MilitaryVessel, Hues.Tan), 1},
                 {CostumeTypes.MakeCostume(CostumeTypes.MilitaryVessel, Hues.Brown), 1}
             },
-            spawnCounts:=New Dictionary(Of String, Integer) From
+            spawnRolls:=New Dictionary(Of String, String) From
             {
-                {MapTypes.Galaxy, 25}
+                {MapTypes.Galaxy, "25d1"}
             },
             canSpawn:=Function(x) x.LocationType = Void AndAlso x.Actor Is Nothing,
             initializer:=AddressOf InitializeMilitaryShip)

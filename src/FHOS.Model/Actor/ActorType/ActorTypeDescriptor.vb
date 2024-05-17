@@ -3,14 +3,14 @@ Imports SPLORR.Game
 
 Friend Class ActorTypeDescriptor
     ReadOnly Property CanSpawn As Func(Of ILocation, Boolean)
-    ReadOnly Property SpawnCounts As IReadOnlyDictionary(Of String, Integer)
+    ReadOnly Property SpawnRolls As IReadOnlyDictionary(Of String, String)
     ReadOnly Property ActorType As String
     ReadOnly Property CostumeGenerator As IReadOnlyDictionary(Of String, Integer)
     ReadOnly Property Initializer As Action(Of IActor)
     Sub New(
            actorType As String,
            costumeGenerator As IReadOnlyDictionary(Of String, Integer),
-           Optional spawnCounts As IReadOnlyDictionary(Of String, Integer) = Nothing,
+           Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing,
            Optional canSpawn As Func(Of ILocation, Boolean) = Nothing,
            Optional initializer As Action(Of IActor) = Nothing)
         Me.ActorType = actorType
@@ -19,7 +19,7 @@ Friend Class ActorTypeDescriptor
             canSpawn = Function(x) True
         End If
         Me.CanSpawn = canSpawn
-        Me.SpawnCounts = If(spawnCounts, New Dictionary(Of String, Integer))
+        Me.SpawnRolls = If(spawnRolls, New Dictionary(Of String, String))
         If initializer Is Nothing Then
             initializer = Sub(x) Return
         End If
