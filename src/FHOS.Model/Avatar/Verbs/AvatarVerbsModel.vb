@@ -59,18 +59,18 @@ Friend Class AvatarVerbsModel
 
     Private Sub DoFuelConsumption()
         If actor.ConsumesFuel Then
-            actor.Fuel -= 1
-            If Not actor.HasFuel Then
+            actor.FuelTank.CurrentValue -= 1
+            If actor.FuelTank.CurrentValue = actor.FuelTank.MinimumValue.Value Then
                 actor.TriggerTutorial(TutorialTypes.OutOfFuel)
             End If
         End If
     End Sub
 
     Private Sub DistressSignal()
-        Dim fuelAdded = actor.MaximumFuel - actor.Fuel
+        Dim fuelAdded = actor.FuelTank.MaximumValue.Value - actor.FuelTank.CurrentValue
         Dim fuelPrice = 1 'TODO: don't just pick a magic number!
         Dim price = fuelPrice * fuelAdded
-        actor.Fuel = actor.MaximumFuel
+        actor.FuelTank.CurrentValue = actor.FuelTank.MaximumValue.Value
         actor.Wallet.CurrentValue -= fuelAdded * fuelPrice
         actor.Universe.Messages.Add(
             "Emergency Refuel",
@@ -122,7 +122,7 @@ Friend Class AvatarVerbsModel
 
     Private Sub Refuel()
         If CanRefillFuel Then
-            actor.Fuel = actor.MaximumFuel
+            actor.FuelTank.CurrentValue = actor.FuelTank.MaximumValue.Value
         End If
     End Sub
 

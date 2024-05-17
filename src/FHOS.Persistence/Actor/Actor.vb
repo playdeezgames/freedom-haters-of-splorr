@@ -92,24 +92,6 @@ Friend Class Actor
         End Get
     End Property
 
-    Public Property MaximumFuel As Integer Implements IActor.MaximumFuel
-        Get
-            Return Math.Max(0, EntityData.Statistics(StatisticTypes.MaximumFuel))
-        End Get
-        Set(value As Integer)
-            EntityData.Statistics(StatisticTypes.MaximumFuel) = Math.Max(0, value)
-        End Set
-    End Property
-
-    Public Property Fuel As Integer Implements IActor.Fuel
-        Get
-            Return Math.Clamp(EntityData.Statistics(StatisticTypes.Fuel), 0, MaximumFuel)
-        End Get
-        Set(value As Integer)
-            EntityData.Statistics(StatisticTypes.Fuel) = Math.Clamp(value, 0, MaximumFuel)
-        End Set
-    End Property
-
     Public ReadOnly Property KnowsPlaces As Boolean Implements IActor.KnowsPlaces
         Get
             Return EntityData.Places.Discovered.Any
@@ -119,12 +101,6 @@ Friend Class Actor
     Public ReadOnly Property KnownPlaces As IEnumerable(Of IPlace) Implements IActor.KnownPlaces
         Get
             Return EntityData.Places.Discovered.Select(Function(x) Place.FromId(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
-        End Get
-    End Property
-
-    Public ReadOnly Property HasFuel As Boolean Implements IActor.HasFuel
-        Get
-            Return Fuel > 0
         End Get
     End Property
 
@@ -237,12 +213,18 @@ Friend Class Actor
         End Set
     End Property
 
-    Public Property ConsumesFuel As Boolean Implements IActor.ConsumesFuel
+    Public ReadOnly Property ConsumesFuel As Boolean Implements IActor.ConsumesFuel
         Get
-            Return Flags(FlagTypes.ConsumesFuel)
+            Return FuelTank IsNot Nothing
         End Get
-        Set(value As Boolean)
-            Flags(FlagTypes.ConsumesFuel) = value
+    End Property
+
+    Public Property FuelTank As IStore Implements IActor.FuelTank
+        Get
+            Return Store.FromId(UniverseData, GetStatistic(StatisticTypes.FuelTankId))
+        End Get
+        Set(value As IStore)
+            SetStatistic(StatisticTypes.FuelTankId, value?.Id)
         End Set
     End Property
 End Class

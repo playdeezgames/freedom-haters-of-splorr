@@ -1,10 +1,7 @@
 ﻿Public Interface IActor
     Inherits IEntity
     'Fuel
-    Property MaximumFuel As Integer
-    Property Fuel As Integer
-    ReadOnly Property HasFuel As Boolean
-    Property ConsumesFuel As Boolean
+    ReadOnly Property ConsumesFuel As Boolean
 
     'Tutorial
     ReadOnly Property HasTutorial As Boolean
@@ -26,6 +23,8 @@
     ReadOnly Property HasCrew As Boolean
     ReadOnly Property Crew As IEnumerable(Of IActor)
     Property LifeSupport As IStore
+    Property FuelTank As IStore
+
 
     'Low Volatility Properties
     ReadOnly Property ActorType As String

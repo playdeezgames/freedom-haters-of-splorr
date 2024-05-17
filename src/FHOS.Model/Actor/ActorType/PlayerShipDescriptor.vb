@@ -11,7 +11,6 @@ Friend Class PlayerShipDescriptor
             {
                 {CostumeTypes.MakeCostume(CostumeTypes.MerchantVessel, Hues.LightGray), 1}
             },
-            maximumFuel:=100,
             spawnCount:=1,
             canSpawn:=Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing,
             initializer:=AddressOf InitializePlayerShip)
@@ -26,7 +25,7 @@ Friend Class PlayerShipDescriptor
         ship.HomePlanet = RNG.FromEnumerable(ship.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = ship.Faction.Id))
         ship.Name = "(yer ship)"
         ship.LifeSupport = ship.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
-        ship.ConsumesFuel = True
+        ship.FuelTank = ship.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
         InitializePlayerShipInterior(ship)
         InitializePlayerShipCrew(ship)
     End Sub
@@ -42,6 +41,7 @@ Friend Class PlayerShipDescriptor
     End Sub
 
     Private Const PlayerShipMaximumOxygen = 100
+    Private Const PlayerShipMaximumFuel = 100
     Private Shared Sub InitializePlayerShipInterior(ship As IActor)
         Dim descriptor = MapTypes.Descriptors(MapTypes.Vessel)
         Dim map = descriptor.CreateMap(
