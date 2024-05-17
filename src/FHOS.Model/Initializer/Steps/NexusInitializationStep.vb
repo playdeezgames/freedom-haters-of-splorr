@@ -16,12 +16,9 @@ Friend Class NexusInitializationStep
     End Sub
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        Dim nexusMap = universe.CreateMap(
+        Dim nexusMap = MapTypes.Descriptors(MapTypes.Galaxy).CreateMap(
             NexusName,
-            MapTypes.Galaxy,
-            NexusColumns,
-            NexusRows,
-            LocationTypes.Void)
+            universe)
         Dim wormholes As New List(Of (Column As Integer, Row As Integer))
         Dim tries As Integer = 0
         Const MaximumTries = 5000

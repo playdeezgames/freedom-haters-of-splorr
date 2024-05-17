@@ -45,12 +45,9 @@ Friend Class PlayerShipDescriptor
     Private Const PlayerShipMaximumOxygen = 100
     Private Shared Sub InitializePlayerShipInterior(ship As IActor)
         Dim descriptor = MapTypes.Descriptors(MapTypes.Vessel)
-        Dim map = ship.Universe.CreateMap(
+        Dim map = descriptor.CreateMap(
             "Yer ship's interior",
-            descriptor.MapType,
-            descriptor.Size.Columns,
-            descriptor.Size.Rows,
-            LocationTypes.Air)
+            ship.Universe)
         ship.Interior = map
         For Each x In Enumerable.Range(0, descriptor.Size.Columns)
             map.GetLocation(x, 0).LocationType = LocationTypes.Bulkhead

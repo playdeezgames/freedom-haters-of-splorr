@@ -10,12 +10,7 @@ Friend Class PlanetInitializationStep
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planet = location.Place
-        planet.Map = planet.Universe.CreateMap(
-            $"{planet.Name} Orbit",
-            MapTypes.PlanetOrbit,
-            PlanetOrbitColumns,
-            PlanetOrbitRows,
-            LocationTypes.Void)
+        planet.Map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.Name} Orbit", planet.Universe)
         PlaceBoundaries(planet, location, PlanetOrbitColumns, PlanetOrbitRows)
         PlacePlanet(planet)
     End Sub

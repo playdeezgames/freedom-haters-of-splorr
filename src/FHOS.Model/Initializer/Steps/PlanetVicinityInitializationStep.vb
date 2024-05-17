@@ -13,12 +13,7 @@ Friend Class PlanetVicinityInitializationStep
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planetVicinity = planetVicinityLocation.Place
-        planetVicinity.Map = planetVicinity.Universe.CreateMap(
-            $"{planetVicinity.Name} Vicinity",
-            MapTypes.PlanetVicinity,
-            PlanetVicinityColumns,
-            PlanetVicinityRows,
-            LocationTypes.Void)
+        planetVicinity.Map = MapTypes.Descriptors(MapTypes.PlanetVicinity).CreateMap($"{planetVicinity.Name} Vicinity", planetVicinity.Universe)
         PlaceBoundaries(planetVicinity, planetVicinityLocation, PlanetVicinityColumns, PlanetVicinityRows)
         PlacePlanet(planetVicinity, addStep)
         planetVicinity.SatelliteCount = PlaceSatellites(planetVicinity, addStep)

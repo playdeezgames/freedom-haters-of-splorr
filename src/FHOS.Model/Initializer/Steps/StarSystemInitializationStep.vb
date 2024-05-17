@@ -1,11 +1,8 @@
-﻿Imports System.Text
-Imports FHOS.Persistence
+﻿Imports FHOS.Persistence
 Imports SPLORR.Game
 
 Friend Class StarSystemInitializationStep
     Inherits InitializationStep
-    Private Const SystemMapColumns = 31
-    Private Const SystemMapRows = 31
     Private ReadOnly starLocation As ILocation
     Private ReadOnly nameGenerator As NameGenerator
     Sub New(location As ILocation, nameGenerator As NameGenerator)
@@ -14,14 +11,10 @@ Friend Class StarSystemInitializationStep
     End Sub
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
+        Dim descriptor = MapTypes.Descriptors(MapTypes.StarSystem)
         Dim starSystem = starLocation.Place
-        starSystem.Map = starSystem.Universe.CreateMap(
-            $"{starSystem.Name} System",
-            MapTypes.StarSystem,
-            SystemMapColumns,
-            SystemMapRows,
-LocationTypes.Void)
-        PlaceBoundaries(starSystem, starLocation, SystemMapColumns, SystemMapRows)
+        starSystem.Map = descriptor.CreateMap($"{starSystem.Name} System", starSystem.Universe)
+        PlaceBoundaries(starSystem, starLocation, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(starSystem, addStep)
         starSystem.PlanetVicinityCount = PlacePlanets(starSystem, addStep)
     End Sub
@@ -29,7 +22,7 @@ LocationTypes.Void)
     Private Function PlacePlanets(starSystem As IPlace, addStep As Action(Of InitializationStep, Boolean)) As Integer
         Dim planets As New List(Of (Column As Integer, Row As Integer)) From
             {
-                (SystemMapColumns \ 2, SystemMapRows \ 2)
+                (starSystem.Map.Size.Columns \ 2, starSystem.Map.Size.Rows \ 2)
             }
         Dim tries As Integer = 0
         Const MaximumTries = 5000
@@ -39,8 +32,8 @@ LocationTypes.Void)
         Dim maximumPlanetCount As Integer = starType.GenerateMaximumPlanetCount()
         Dim planetCount = 0
         While planetCount < maximumPlanetCount AndAlso tries < MaximumTries
-            Dim column = RNG.FromRange(1, SystemMapColumns - 3)
-            Dim row = RNG.FromRange(1, SystemMapRows - 3)
+            Dim column = RNG.FromRange(1, starSystem.Map.Size.Columns - 3)
+            Dim row = RNG.FromRange(1, starSystem.Map.Size.Rows - 3)
             If planets.All(Function(planet) (column - planet.Column) * (column - planet.Column) + (row - planet.Row) * (row - planet.Row) >= MinimumDistance * MinimumDistance) Then
                 Dim planetType = starType.GeneratePlanetType()
                 planets.Add((column, row))
@@ -61,8 +54,8 @@ LocationTypes.Void)
     End Function
 
     Private Sub PlaceStar(starSystem As IPlace, addStep As Action(Of InitializationStep, Boolean))
-        Dim starColumn = SystemMapColumns \ 2
-        Dim starRow = SystemMapRows \ 2
+        Dim starColumn = starSystem.Map.Size.Columns \ 2
+        Dim starRow = starSystem.Map.Size.Rows \ 2
         Dim locationType = StarTypes.Descriptors(starSystem.StarType).LocationType
         Dim location = starSystem.Map.GetLocation(starColumn, starRow)
         With location

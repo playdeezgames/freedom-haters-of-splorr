@@ -1,7 +1,12 @@
-﻿Friend Class MapTypeDescriptor
+﻿Imports FHOS.Persistence
+
+Friend Class MapTypeDescriptor
     ReadOnly Property MapType As String
     ReadOnly Property Size As (Columns As Integer, Rows As Integer)
     ReadOnly Property DefaultLocationType As String
+    Function CreateMap(mapName As String, universe As IUniverse) As IMap
+        Return universe.CreateMap(mapName, MapType, Size.Columns, Size.Rows, DefaultLocationType)
+    End Function
     Sub New(
            mapType As String,
            size As (Columns As Integer, Rows As Integer),
