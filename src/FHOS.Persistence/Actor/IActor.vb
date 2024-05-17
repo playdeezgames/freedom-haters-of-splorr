@@ -1,12 +1,7 @@
 ﻿Public Interface IActor
     Inherits IEntity
     ReadOnly Property KnownPlaces As IActorKnownPlaces
-
-    'Tutorial
-    ReadOnly Property HasTutorial As Boolean
-    ReadOnly Property CurrentTutorial As String
-    Sub DismissTutorial()
-    Sub TriggerTutorial(tutorial As String)
+    ReadOnly Property Tutorial As IActorTutorial
 
     'Vessel
     Property Interior As IMap

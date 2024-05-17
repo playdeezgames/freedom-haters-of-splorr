@@ -3,7 +3,6 @@
 Friend Class Actor
     Inherits ActorDataClient
     Implements IActor
-
     Protected Sub New(universeData As Data.UniverseData, actorId As Integer)
         MyBase.New(universeData, actorId)
     End Sub
@@ -24,23 +23,11 @@ Friend Class Actor
                 Location.Actor = Nothing
                 EntityData.Statistics(StatisticTypes.LocationId) = value.Id
                 value.Actor = Me
-                TriggerTutorial(value.Tutorial)
+                Tutorial.Add(value.Tutorial)
             End If
         End Set
     End Property
 
-    Public Sub TriggerTutorial(tutorial As String) Implements IActor.TriggerTutorial
-        If tutorial Is Nothing Then
-            Return
-        End If
-        EntityData.Tutorials.Enqueue(tutorial)
-    End Sub
-
-    Public Sub DismissTutorial() Implements IActor.DismissTutorial
-        If HasTutorial Then
-            EntityData.Tutorials.Dequeue()
-        End If
-    End Sub
 
     Public Sub AddCrew(crew As IActor) Implements IActor.AddCrew
         EntityData.Crew.Add(crew.Id)
@@ -62,20 +49,6 @@ Friend Class Actor
         End Set
     End Property
 
-    Public ReadOnly Property HasTutorial As Boolean Implements IActor.HasTutorial
-        Get
-            Return EntityData.Tutorials.Any
-        End Get
-    End Property
-
-    Public ReadOnly Property CurrentTutorial As String Implements IActor.CurrentTutorial
-        Get
-            If HasTutorial Then
-                Return EntityData.Tutorials.Peek
-            End If
-            Return Nothing
-        End Get
-    End Property
 
 
     Public Property Faction As IFaction Implements IActor.Faction
@@ -199,6 +172,12 @@ Friend Class Actor
     Public ReadOnly Property KnownPlaces As IActorKnownPlaces Implements IActor.KnownPlaces
         Get
             Return ActorKnownPlaces.FromId(UniverseData, Id)
+        End Get
+    End Property
+
+    Public ReadOnly Property Tutorial As IActorTutorial Implements IActor.Tutorial
+        Get
+            Return ActorTutorial.FromId(UniverseData, Id)
         End Get
     End Property
 End Class

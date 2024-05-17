@@ -9,20 +9,20 @@ Friend Class AvatarTutorialModel
         Me.actor = actor
     End Sub
     Public Sub Dismiss() Implements IAvatarTutorialModel.Dismiss
-        Dim descriptor = TutorialTypes.Descriptors(actor.CurrentTutorial)
+        Dim descriptor = TutorialTypes.Descriptors(actor.Tutorial.Current)
         If descriptor.HasIgnoreFlag Then
             actor.Flags(descriptor.IgnoreFlag) = True
         End If
-        actor.DismissTutorial()
+        actor.Tutorial.Dismiss()
     End Sub
     Public ReadOnly Property Current As String Implements IAvatarTutorialModel.Current
         Get
-            Return actor.CurrentTutorial
+            Return actor.Tutorial.Current
         End Get
     End Property
     Public ReadOnly Property HasAny As Boolean Implements IAvatarTutorialModel.HasAny
         Get
-            Return actor.HasTutorial
+            Return actor.Tutorial.HasAny
         End Get
     End Property
 

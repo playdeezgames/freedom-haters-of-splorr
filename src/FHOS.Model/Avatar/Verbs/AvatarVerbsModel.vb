@@ -61,7 +61,7 @@ Friend Class AvatarVerbsModel
         If actor.FuelTank IsNot Nothing Then
             actor.FuelTank.CurrentValue -= 1
             If actor.FuelTank.CurrentValue = actor.FuelTank.MinimumValue.Value Then
-                actor.TriggerTutorial(TutorialTypes.OutOfFuel)
+                actor.Tutorial.Add(TutorialTypes.OutOfFuel)
             End If
         End If
     End Sub
