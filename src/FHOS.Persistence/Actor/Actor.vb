@@ -3,7 +3,6 @@
 Friend Class Actor
     Inherits ActorDataClient
     Implements IActor
-    Implements IActorFamily
 
     Protected Sub New(universeData As Data.UniverseData, actorId As Integer)
         MyBase.New(universeData, actorId)
@@ -29,12 +28,6 @@ Friend Class Actor
             End If
         End Set
     End Property
-
-
-    Public Sub AddChild(crew As IActor) Implements IActorFamily.AddChild
-        EntityData.Children.Add(crew.Id)
-        crew.Family.Parent = Me
-    End Sub
 
     Public ReadOnly Property ActorType As String Implements IActor.ActorType
         Get
@@ -114,27 +107,6 @@ Friend Class Actor
         End Set
     End Property
 
-    Public Property Parent As IActor Implements IActorFamily.Parent
-        Get
-            Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.ParentId))
-        End Get
-        Set(value As IActor)
-            SetStatistic(StatisticTypes.ParentId, value?.Id)
-        End Set
-    End Property
-
-    Public ReadOnly Property HasChildren As Boolean Implements IActorFamily.HasChildren
-        Get
-            Return EntityData.Children.Any
-        End Get
-    End Property
-
-    Public ReadOnly Property Children As IEnumerable(Of IActor) Implements IActorFamily.Children
-        Get
-            Return EntityData.Children.Select(Function(x) Actor.FromId(UniverseData, x))
-        End Get
-    End Property
-
     Public Property LifeSupport As IStore Implements IActor.LifeSupport
         Get
             Return Store.FromId(UniverseData, GetStatistic(StatisticTypes.LifeSupportId))
@@ -153,7 +125,7 @@ Friend Class Actor
         End Set
     End Property
 
-    Public Property Costume As String Implements IActor.Costume
+    Public Property CostumeType As String Implements IActor.CostumeType
         Get
             Return GetMetadata(MetadataTypes.Costume)
         End Get
@@ -185,7 +157,7 @@ Friend Class Actor
 
     Public ReadOnly Property Family As IActorFamily Implements IActor.Family
         Get
-            Return Me
+            Return ActorFamily.FromId(UniverseData, Id)
         End Get
     End Property
 End Class

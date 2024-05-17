@@ -3,15 +3,14 @@
     ReadOnly Property KnownPlaces As IActorKnownPlaces
     ReadOnly Property Tutorial As IActorTutorial
     ReadOnly Property Family As IActorFamily
-
+    ReadOnly Property ActorType As String
 
     'Low Volatility Properties
     Property Interior As IMap
-    ReadOnly Property ActorType As String
     Property Name As String
     Property Faction As IFaction
     Property HomePlanet As IPlace
-    Property Costume As String
+    Property CostumeType As String
 
     'High Volatility Properties
     Property LifeSupport As IStore

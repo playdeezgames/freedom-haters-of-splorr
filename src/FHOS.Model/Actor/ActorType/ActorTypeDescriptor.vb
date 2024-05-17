@@ -31,7 +31,7 @@ Friend Class ActorTypeDescriptor
         End If
         Dim actor = location.CreateActor(ActorType)
         actor.Facing = RNG.FromRange(0, Facing.Deltas.Length - 1)
-        actor.Costume = RNG.FromGenerator(CostumeGenerator)
+        actor.CostumeType = RNG.FromGenerator(CostumeGenerator)
         actor.Name = ActorType
         Initializer.Invoke(actor)
         Return actor

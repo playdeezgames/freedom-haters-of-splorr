@@ -18,13 +18,13 @@ Friend Class ActorModel
 
     Private ReadOnly Property Glyph As Char
         Get
-            Return CostumeTypes.Descriptors(actor.Costume).Glyphs(actor.Facing)
+            Return CostumeTypes.Descriptors(actor.CostumeType).Glyphs(actor.Facing)
         End Get
     End Property
 
     Private ReadOnly Property Hue As Integer
         Get
-            Return CostumeTypes.Descriptors(actor.Costume).Hue
+            Return CostumeTypes.Descriptors(actor.CostumeType).Hue
         End Get
     End Property
 
