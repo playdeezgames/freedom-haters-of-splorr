@@ -25,8 +25,8 @@ Friend Class PlayerShipDescriptor
         ship.Faction = ship.Universe.Factions.Single(Function(x) x.Authority = 100 AndAlso x.Standards = 100 AndAlso x.Conviction = 100)
         ship.HomePlanet = RNG.FromEnumerable(ship.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = ship.Faction.Id))
         ship.Name = "(yer ship)"
-        ship.Wallet = ship.Universe.CreateStore(0, minimum:=0)
-        ship.LifeSupport = ship.Universe.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
+        ship.Wallet = ship.Universe.Factory.CreateStore(0, minimum:=0)
+        ship.LifeSupport = ship.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
         ship.ConsumesFuel = True
         InitializePlayerShipInterior(ship)
         InitializePlayerShipCrew(ship)

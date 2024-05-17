@@ -5,7 +5,7 @@ Friend Class MapTypeDescriptor
     ReadOnly Property Size As (Columns As Integer, Rows As Integer)
     ReadOnly Property DefaultLocationType As String
     Function CreateMap(mapName As String, universe As IUniverse) As IMap
-        Return universe.CreateMap(mapName, MapType, Size.Columns, Size.Rows, DefaultLocationType)
+        Return universe.Factory.CreateMap(mapName, MapType, Size.Columns, Size.Rows, DefaultLocationType)
     End Function
     Sub New(
            mapType As String,

@@ -3,6 +3,7 @@
 Public Class Universe
     Inherits UniverseDataClient
     Implements IUniverse
+    Implements IUniverseFactory
     Sub New(universeData As UniverseData)
         MyBase.New(universeData)
     End Sub
@@ -58,7 +59,7 @@ Public Class Universe
                              mapType As String,
                              columns As Integer,
                              rows As Integer,
-                             locationType As String) As IMap Implements IUniverse.CreateMap
+                             locationType As String) As IMap Implements IUniverseFactory.CreateMap
         Dim mapData = New MapData With
             {
                 .Locations = Nothing,
@@ -87,11 +88,17 @@ Public Class Universe
         End Get
     End Property
 
+    Public ReadOnly Property Factory As IUniverseFactory Implements IUniverse.Factory
+        Get
+            Return Me
+        End Get
+    End Property
+
     Public Function CreateStarSystem(
                                     starSystemName As String,
                                     starType As String,
                                     x As Integer,
-                                    y As Integer) As IPlace Implements IUniverse.CreateStarSystem
+                                    y As Integer) As IPlace Implements IUniverseFactory.CreateStarSystem
         Dim placeData = New PlaceData With
             {
                 .Metadatas = New Dictionary(Of String, String) From
@@ -111,7 +118,7 @@ Public Class Universe
         Return Place.FromId(UniverseData, starSystemId)
     End Function
 
-    Public Function CreateWormhole(wormholeName As String) As IPlace Implements IUniverse.CreateWormhole
+    Public Function CreateWormhole(wormholeName As String) As IPlace Implements IUniverseFactory.CreateWormhole
         Dim placeData = New PlaceData With
             {
                 .Metadatas = New Dictionary(Of String, String) From
@@ -130,7 +137,7 @@ Public Class Universe
                                  minimumPlanetCount As Integer,
                                  authority As Integer,
                                  standards As Integer,
-                                 conviction As Integer) As IFaction Implements IUniverse.CreateFaction
+                                 conviction As Integer) As IFaction Implements IUniverseFactory.CreateFaction
         Dim factionData = New FactionData With
             {
                 .Metadatas = New Dictionary(Of String, String) From
@@ -152,7 +159,10 @@ Public Class Universe
         Return Places.Where(Function(x) x.PlaceType = placeType)
     End Function
 
-    Public Function CreateStore(value As Integer, Optional minimum As Integer? = Nothing, Optional maximum As Integer? = Nothing) As IStore Implements IUniverse.CreateStore
+    Public Function CreateStore(
+                               value As Integer,
+                               Optional minimum As Integer? = Nothing,
+                               Optional maximum As Integer? = Nothing) As IStore Implements IUniverseFactory.CreateStore
         Dim storeData = New StoreData With
             {
                 .Statistics = New Dictionary(Of String, Integer) From

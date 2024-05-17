@@ -17,7 +17,7 @@ Friend Class WormholeInitializationStep
         wormhole.WormholeDestination = destinationLocation
         destinationLocation.LocationType = LocationTypes.Wormhole
         destinationLocation.Tutorial = TutorialTypes.WormholeEntry
-        destinationLocation.Place = wormhole.Universe.CreateWormhole("Nexus Wormhole")
+        destinationLocation.Place = wormhole.Universe.Factory.CreateWormhole("Nexus Wormhole")
         destinationLocation.Place.WormholeDestination = startLocation
     End Sub
 End Class

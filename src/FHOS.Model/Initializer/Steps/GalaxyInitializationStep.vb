@@ -30,7 +30,7 @@ Friend Class GalaxyInitializationStep
                 location.LocationType = StarTypes.Descriptors(starType).LocationType
                 location.Tutorial = TutorialTypes.StarSystemEntry
                 Dim starSystemName As String = nameGenerator.GenerateUnusedName
-                location.Place = universe.CreateStarSystem(starSystemName, starType, column, row)
+                location.Place = universe.Factory.CreateStarSystem(starSystemName, starType, column, row)
                 addStep(New StarSystemInitializationStep(location, nameGenerator), False)
                 tries = 0
             Else
