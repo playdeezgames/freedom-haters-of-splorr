@@ -35,10 +35,6 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         Me.entityId = entityId
         Me.entityDataFetcher = entityDataFetcher
     End Sub
-
-    Public Function HasFlag(flag As String) As Boolean Implements IEntity.HasFlag
-        Return EntityData.Flags.Contains(flag)
-    End Function
     Protected Sub SetStatistic(statisticType As String, value As Integer?)
         If value.HasValue Then
             EntityData.Statistics(statisticType) = value.Value

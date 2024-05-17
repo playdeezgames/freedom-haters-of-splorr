@@ -33,7 +33,7 @@ Friend Class AvatarTutorialModel
             End If
             Dim descriptor = TutorialTypes.Descriptors(Current)
             If descriptor.HasIgnoreFlag Then
-                Return actor.HasFlag(descriptor.IgnoreFlag)
+                Return actor.Flags(descriptor.IgnoreFlag)
             End If
             Return False
         End Get

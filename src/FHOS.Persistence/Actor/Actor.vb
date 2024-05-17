@@ -271,7 +271,7 @@ Friend Class Actor
 
     Public Property ConsumesFuel As Boolean Implements IActor.ConsumesFuel
         Get
-            Return HasFlag(FlagTypes.ConsumesFuel)
+            Return Flags(FlagTypes.ConsumesFuel)
         End Get
         Set(value As Boolean)
             Flags(FlagTypes.ConsumesFuel) = value

@@ -94,7 +94,7 @@ Friend Class AvatarVerbsModel
         If CanApproachStarVicinity Then
             DoTurn()
             With actor.Location.Place
-                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
+                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.Flags(.Identifier))))
             End With
         End If
     End Sub
@@ -109,7 +109,7 @@ Friend Class AvatarVerbsModel
         If CanApproachPlanetVicinity Then
             DoTurn()
             With actor.Location.Place
-                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
+                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.Flags(.Identifier))))
             End With
         End If
     End Sub
@@ -188,7 +188,7 @@ Friend Class AvatarVerbsModel
         If CanEnterStarSystem Then
             DoTurn()
             With actor.Location.Place
-                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
+                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.Flags(.Identifier))))
             End With
         End If
     End Sub
@@ -196,7 +196,7 @@ Friend Class AvatarVerbsModel
         If CanEnterOrbit Then
             DoTurn()
             With actor.Location.Place
-                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.HasFlag(.Identifier))))
+                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.Flags(.Identifier))))
             End With
         End If
     End Sub
