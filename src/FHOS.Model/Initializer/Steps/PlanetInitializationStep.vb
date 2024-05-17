@@ -8,8 +8,8 @@ Friend Class PlanetInitializationStep
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planet = location.Place
-        planet.Map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.Name} Orbit", planet.Universe)
-        PlaceBoundaries(planet, location, planet.Map.Size.Columns, planet.Map.Size.Rows)
+        planet.Properties.Map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.Properties.Name} Orbit", planet.Universe)
+        PlaceBoundaries(planet, location, planet.Properties.Map.Size.Columns, planet.Properties.Map.Size.Rows)
         PlacePlanet(planet)
     End Sub
     Private ReadOnly planetSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
@@ -42,10 +42,10 @@ Friend Class PlanetInitializationStep
             (2, 2, LocationTypes.C5R5)
         }
     Private Sub PlacePlanet(planet As IPlace)
-        Dim planetCenterColumn = planet.Map.Size.Columns \ 2
-        Dim planetCenterRow = planet.Map.Size.Rows \ 2
+        Dim planetCenterColumn = planet.Properties.Map.Size.Columns \ 2
+        Dim planetCenterRow = planet.Properties.Map.Size.Rows \ 2
         For Each delta In planetSectionDeltas
-            PlacePlanetSection(planet.Subtype, planet.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
+            PlacePlanetSection(planet.Subtype, planet.Properties.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
         Next
     End Sub
     Private Shared Sub PlacePlanetSection(planetType As String, location As ILocation, sectionName As String)

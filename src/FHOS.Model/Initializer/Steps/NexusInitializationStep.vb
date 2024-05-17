@@ -31,7 +31,7 @@ Friend Class NexusInitializationStep
                 location.LocationType = LocationTypes.Wormhole
                 location.Tutorial = TutorialTypes.WormholeEntry
                 Dim starSystem = RNG.FromEnumerable(starSystems)
-                location.Place = universe.Factory.CreateWormhole($"{starSystem.Name} Wormhole")
+                location.Place = universe.Factory.CreateWormhole($"{starSystem.Properties.Name} Wormhole")
                 addStep(New WormholeInitializationStep(location, StarSystem), False)
                 tries = 0
             Else

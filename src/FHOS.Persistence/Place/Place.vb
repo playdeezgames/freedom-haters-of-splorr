@@ -18,7 +18,7 @@ Friend Class Place
         Return Nothing
     End Function
 
-    Public Property Name As String Implements IPlace.Name
+    Public Property Name As String Implements IPlaceProperties.Name
         Get
             Return EntityData.Metadatas(MetadataTypes.Name)
         End Get
@@ -27,7 +27,7 @@ Friend Class Place
         End Set
     End Property
 
-    Public Property Map As IMap Implements IPlace.Map
+    Public Property Map As IMap Implements IPlaceProperties.Map
         Get
             Dim mapId As Integer
             If EntityData.Statistics.TryGetValue(StatisticTypes.MapId, mapId) Then
@@ -44,7 +44,7 @@ Friend Class Place
         End Set
     End Property
 
-    Public ReadOnly Property Identifier As String Implements IPlace.Identifier
+    Public ReadOnly Property Identifier As String Implements IPlaceProperties.Identifier
         Get
             Return EntityData.Metadatas(MetadataTypes.Identifier)
         End Get
@@ -197,7 +197,7 @@ Friend Class Place
         EntityData.Descendants.Add(satellite.Id)
     End Sub
 
-    Public Property WormholeDestination As ILocation Implements IPlace.WormholeDestination
+    Public Property WormholeDestination As ILocation Implements IPlaceProperties.WormholeDestination
         Get
             Dim locationId As Integer
             If EntityData.Statistics.TryGetValue(StatisticTypes.WormholeDestinationId, locationId) Then
@@ -214,7 +214,7 @@ Friend Class Place
         End Set
     End Property
 
-    Public Property Faction As IFaction Implements IPlace.Faction
+    Public Property Faction As IFaction Implements IPlaceProperties.Faction
         Get
             Return Persistence.Faction.FromId(UniverseData, GetStatistic(StatisticTypes.FactionId))
         End Get
@@ -257,7 +257,7 @@ Friend Class Place
         End Set
     End Property
 
-    Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IPlace.Position
+    Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IPlaceProperties.Position
         Get
             Return (X, Y)
         End Get

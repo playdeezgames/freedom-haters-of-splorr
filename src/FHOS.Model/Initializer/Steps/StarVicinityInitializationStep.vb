@@ -9,15 +9,15 @@ Friend Class StarVicinityInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim descriptor = MapTypes.Descriptors(MapTypes.StarVicinity)
         Dim starVicinity = starLocation.Place
-        starVicinity.Map = descriptor.CreateMap($"{starVicinity.Name} Vicinity", starVicinity.Universe)
+        starVicinity.Properties.Map = descriptor.CreateMap($"{starVicinity.Properties.Name} Vicinity", starVicinity.Universe)
         PlaceBoundaries(starVicinity, starLocation, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(starVicinity)
     End Sub
     Private Sub PlaceStar(starVicinity As IPlace)
-        Dim starColumn = starVicinity.Map.Size.Columns \ 2
-        Dim starRow = starVicinity.Map.Size.Rows \ 2
+        Dim starColumn = starVicinity.Properties.Map.Size.Columns \ 2
+        Dim starRow = starVicinity.Properties.Map.Size.Rows \ 2
         Dim locationType = StarTypes.Descriptors(starVicinity.Subtype).LocationType
-        Dim location = starVicinity.Map.GetLocation(starColumn, starRow)
+        Dim location = starVicinity.Properties.Map.GetLocation(starColumn, starRow)
         With location
             .LocationType = locationType
             .Place = starVicinity.CreateStar()

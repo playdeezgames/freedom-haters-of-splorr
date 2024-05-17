@@ -22,7 +22,7 @@ Friend Class PlayerShipDescriptor
             ship.Universe.Avatar.Push(ship)
         End If
         ship.Properties.Faction = ship.Universe.Factions.Single(Function(x) x.Authority = 100 AndAlso x.Standards = 100 AndAlso x.Conviction = 100)
-        ship.Properties.HomePlanet = RNG.FromEnumerable(ship.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Faction.Id = ship.Properties.Faction.Id))
+        ship.Properties.HomePlanet = RNG.FromEnumerable(ship.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Properties.Faction.Id = ship.Properties.Faction.Id))
         ship.Properties.Name = "(yer ship)"
         ship.State.LifeSupport = ship.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
         ship.State.FuelTank = ship.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)

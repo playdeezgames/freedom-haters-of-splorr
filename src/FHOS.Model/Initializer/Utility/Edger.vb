@@ -36,13 +36,13 @@ Friend Module Edger
         End With
     End Sub
     Friend Sub PlaceBoundaries(place As IPlace, targetLocation As ILocation, columns As Integer, rows As Integer)
-        Dim identifier = place.Identifier
+        Dim identifier = place.Properties.Identifier
         For Each corner In GetCorners(columns, rows)
-            PlaceBoundary(place.Map.GetLocation(corner.X, corner.Y), corner.LocationType, targetLocation)
+            PlaceBoundary(place.Properties.Map.GetLocation(corner.X, corner.Y), corner.LocationType, targetLocation)
         Next
         For Each edge In GetEdges(columns, rows)
-            PlaceBoundary(place.Map.GetLocation(edge.X, edge.Y), edge.LocationType, targetLocation)
-            place.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).Flags(identifier) = True
+            PlaceBoundary(place.Properties.Map.GetLocation(edge.X, edge.Y), edge.LocationType, targetLocation)
+            place.Properties.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).Flags(identifier) = True
         Next
     End Sub
 End Module

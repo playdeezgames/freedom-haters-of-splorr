@@ -11,15 +11,15 @@ Friend Class PlanetVicinityInitializationStep
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planetVicinity = planetVicinityLocation.Place
-        planetVicinity.Map = MapTypes.Descriptors(MapTypes.PlanetVicinity).CreateMap($"{planetVicinity.Name} Vicinity", planetVicinity.Universe)
-        PlaceBoundaries(planetVicinity, planetVicinityLocation, planetVicinity.Map.Size.Columns, planetVicinity.Map.Size.Rows)
+        planetVicinity.Properties.Map = MapTypes.Descriptors(MapTypes.PlanetVicinity).CreateMap($"{planetVicinity.Properties.Name} Vicinity", planetVicinity.Universe)
+        PlaceBoundaries(planetVicinity, planetVicinityLocation, planetVicinity.Properties.Map.Size.Columns, planetVicinity.Properties.Map.Size.Rows)
         PlacePlanet(planetVicinity, addStep)
         planetVicinity.Family.SatelliteCount = PlaceSatellites(planetVicinity, addStep)
     End Sub
     Private Function PlaceSatellites(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean)) As Integer
         Dim satellites As List(Of (Column As Integer, Row As Integer)) =
             planetSectionDeltas.
-            Select(Function(x) (x.DeltaX + planetVicinity.Map.Size.Columns \ 2, x.DeltaY + planetVicinity.Map.Size.Rows \ 2)).
+            Select(Function(x) (x.DeltaX + planetVicinity.Properties.Map.Size.Columns \ 2, x.DeltaY + planetVicinity.Properties.Map.Size.Rows \ 2)).
             ToList
         Dim tries As Integer = 0
         Const MaximumTries = 5000
@@ -28,12 +28,12 @@ Friend Class PlanetVicinityInitializationStep
         Dim maximumSatelliteCount As Integer = planetType.GenerateMaximumSatelliteCount()
         Dim satelliteCount = 0
         While satelliteCount < maximumSatelliteCount AndAlso tries < MaximumTries
-            Dim column = RNG.FromRange(1, planetVicinity.Map.Size.Columns - 3)
-            Dim row = RNG.FromRange(1, planetVicinity.Map.Size.Rows - 3)
+            Dim column = RNG.FromRange(1, planetVicinity.Properties.Map.Size.Columns - 3)
+            Dim row = RNG.FromRange(1, planetVicinity.Properties.Map.Size.Rows - 3)
             If satellites.All(Function(satellite) (column - satellite.Column) * (column - satellite.Column) + (row - satellite.Row) * (row - satellite.Row) >= MinimumDistance * MinimumDistance) Then
                 Dim satelliteType As String = planetType.GenerateSatelliteType()
                 satellites.Add((column, row))
-                Dim location = planetVicinity.Map.GetLocation(column, row)
+                Dim location = planetVicinity.Properties.Map.GetLocation(column, row)
                 location.LocationType = SatelliteTypes.Descriptors(satelliteType).LocationType
                 location.Tutorial = TutorialTypes.EnterSatelliteOrbit
                 Dim satelliteName = nameGenerator.GenerateUnusedName
@@ -61,13 +61,13 @@ Friend Class PlanetVicinityInitializationStep
             (1, 1, LocationTypes.BottomRight)
         }
     Private Sub PlacePlanet(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean))
-        Dim planetCenterColumn = planetVicinity.Map.Size.Columns \ 2
-        Dim planetCenterRow = planetVicinity.Map.Size.Rows \ 2
+        Dim planetCenterColumn = planetVicinity.Properties.Map.Size.Columns \ 2
+        Dim planetCenterRow = planetVicinity.Properties.Map.Size.Rows \ 2
         Dim planet = planetVicinity.CreatePlanet()
         For Each delta In planetSectionDeltas
-            PlacePlanetSection(planet, planetVicinity.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
+            PlacePlanetSection(planet, planetVicinity.Properties.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
         Next
-        addStep(New PlanetInitializationStep(planetVicinity.Map.GetLocation(planetCenterColumn, planetCenterRow)), False)
+        addStep(New PlanetInitializationStep(planetVicinity.Properties.Map.GetLocation(planetCenterColumn, planetCenterRow)), False)
     End Sub
 
     Private Shared Sub PlacePlanetSection(planet As IPlace, location As ILocation, sectionName As String)

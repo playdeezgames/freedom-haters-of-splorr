@@ -95,7 +95,7 @@ Friend Class AvatarVerbsModel
         If CanApproachStarVicinity Then
             DoTurn()
             With actor.State.Location.Place
-                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.Flags(.Identifier))))
+                SetLocation(RNG.FromEnumerable(.Properties.Map.Locations.Where(Function(x) x.Flags(.Properties.Identifier))))
             End With
         End If
     End Sub
@@ -110,7 +110,7 @@ Friend Class AvatarVerbsModel
         If CanApproachPlanetVicinity Then
             DoTurn()
             With actor.State.Location.Place
-                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.Flags(.Identifier))))
+                SetLocation(RNG.FromEnumerable(.Properties.Map.Locations.Where(Function(x) x.Flags(.Properties.Identifier))))
             End With
         End If
     End Sub
@@ -189,7 +189,7 @@ Friend Class AvatarVerbsModel
         If CanEnterStarSystem Then
             DoTurn()
             With actor.State.Location.Place
-                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.Flags(.Identifier))))
+                SetLocation(RNG.FromEnumerable(.Properties.Map.Locations.Where(Function(x) x.Flags(.Properties.Identifier))))
             End With
         End If
     End Sub
@@ -197,7 +197,7 @@ Friend Class AvatarVerbsModel
         If CanEnterOrbit Then
             DoTurn()
             With actor.State.Location.Place
-                SetLocation(RNG.FromEnumerable(.Map.Locations.Where(Function(x) x.Flags(.Identifier))))
+                SetLocation(RNG.FromEnumerable(.Properties.Map.Locations.Where(Function(x) x.Flags(.Properties.Identifier))))
             End With
         End If
     End Sub
@@ -205,7 +205,7 @@ Friend Class AvatarVerbsModel
         If CanEnterWormhole Then
             DoTurn()
             With actor.State.Location.Place
-                SetLocation(.WormholeDestination)
+                SetLocation(.Properties.WormholeDestination)
             End With
         End If
     End Sub

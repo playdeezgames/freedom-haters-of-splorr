@@ -6,14 +6,6 @@
     ReadOnly Property Properties As IPlaceProperties
     ReadOnly Property Factory As IPlaceFactory
 
-    'properties
-    Property Name As String
-    Property Map As IMap
-    ReadOnly Property Identifier As String
-    Property WormholeDestination As ILocation
-    Property Faction As IFaction
-    ReadOnly Property Position As (X As Integer, Y As Integer)
-
     'factory
     Function CreateStarVicinity(
                                x As Integer,

@@ -17,6 +17,6 @@ Friend Class AvatarKnownPlacesModel
     End Function
 
     Public Function OfType(placeType As String) As IEnumerable(Of (Text As String, Item As IPlaceModel)) Implements IAvatarKnownPlacesModel.OfType
-        Return actor.KnownPlaces.PlacesOfType(placeType).Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
+        Return actor.KnownPlaces.PlacesOfType(placeType).Select(Function(x) (x.Properties.Name, PlaceModel.FromPlace(x)))
     End Function
 End Class

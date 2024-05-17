@@ -23,8 +23,8 @@ Friend Class UniversePediaModel
         Get
             Return universe.
                 GetPlacesOfType(PlaceTypes.StarSystem).
-                OrderBy(Function(x) x.Name).
-                Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
+                OrderBy(Function(x) x.Properties.Name).
+                Select(Function(x) (x.Properties.Name, PlaceModel.FromPlace(x)))
         End Get
     End Property
 
@@ -32,8 +32,8 @@ Friend Class UniversePediaModel
         Get
             Return universe.
                 GetPlacesOfType(PlaceTypes.Planet).
-                OrderBy(Function(x) x.Name).
-                Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
+                OrderBy(Function(x) x.Properties.Name).
+                Select(Function(x) (x.Properties.Name, PlaceModel.FromPlace(x)))
         End Get
     End Property
 
@@ -41,8 +41,8 @@ Friend Class UniversePediaModel
         Get
             Return universe.
                 GetPlacesOfType(PlaceTypes.Satellite).
-                OrderBy(Function(x) x.Name).
-                Select(Function(x) (x.Name, PlaceModel.FromPlace(x)))
+                OrderBy(Function(x) x.Properties.Name).
+                Select(Function(x) (x.Properties.Name, PlaceModel.FromPlace(x)))
         End Get
     End Property
 End Class

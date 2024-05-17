@@ -32,7 +32,7 @@
 
     Public ReadOnly Property All As IEnumerable(Of IPlace) Implements IActorKnownPlaces.All
         Get
-            Return EntityData.Places.Discovered.Select(Function(x) Place.FromId(UniverseData, x.Key)).OrderBy(Function(x) x.Name)
+            Return EntityData.Places.Discovered.Select(Function(x) Place.FromId(UniverseData, x.Key)).OrderBy(Function(x) x.Properties.Name)
         End Get
     End Property
 End Class
