@@ -56,5 +56,6 @@ Friend Class PlayerShipDescriptor
             map.GetLocation(0, y).LocationType = LocationTypes.Bulkhead
             map.GetLocation(descriptor.Size.Columns - 1, y).LocationType = LocationTypes.Bulkhead
         Next
+        map.GetLocation(descriptor.Size.Columns \ 2, 0).LocationType = LocationTypes.MakeDoor(LocationTypes.North, LocationTypes.Shut)
     End Sub
 End Class

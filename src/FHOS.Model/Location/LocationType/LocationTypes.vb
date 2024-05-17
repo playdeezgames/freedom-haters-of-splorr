@@ -1,20 +1,49 @@
 ﻿Friend Module LocationTypes
 
-    Friend ReadOnly ArrowNorth As String = NameOf(ArrowNorth)
-    Friend ReadOnly ArrowNorthEast As String = NameOf(ArrowNorthEast)
-    Friend ReadOnly ArrowEast As String = NameOf(ArrowEast)
-    Friend ReadOnly ArrowSouthEast As String = NameOf(ArrowSouthEast)
-    Friend ReadOnly ArrowSouth As String = NameOf(ArrowSouth)
-    Friend ReadOnly ArrowSouthWest As String = NameOf(ArrowSouthWest)
-    Friend ReadOnly ArrowWest As String = NameOf(ArrowWest)
-    Friend ReadOnly ArrowNorthWest As String = NameOf(ArrowNorthWest)
+    Friend ReadOnly North As String = NameOf(North)
+    Friend ReadOnly NorthEast As String = NameOf(NorthEast)
+    Friend ReadOnly East As String = NameOf(East)
+    Friend ReadOnly SouthEast As String = NameOf(SouthEast)
+    Friend ReadOnly South As String = NameOf(South)
+    Friend ReadOnly SouthWest As String = NameOf(SouthWest)
+    Friend ReadOnly West As String = NameOf(West)
+    Friend ReadOnly NorthWest As String = NameOf(NorthWest)
+
+    Friend ReadOnly OrdinalDirections As IReadOnlyList(Of String) =
+        New List(Of String) From
+        {
+            North,
+            NorthEast,
+            East,
+            SouthEast,
+            South,
+            SouthWest,
+            West,
+            NorthWest
+        }
+
+    Friend ReadOnly CardinalDirections As IReadOnlyList(Of String) =
+        New List(Of String) From
+        {
+            North,
+            East,
+            South,
+            West
+        }
 
     Friend ReadOnly Void As String = NameOf(Void)
     Friend ReadOnly Air As String = NameOf(Air)
     Friend ReadOnly Bulkhead As String = NameOf(Bulkhead)
+    Friend ReadOnly Door As String = NameOf(Door)
+    Friend ReadOnly Open As String = NameOf(Open)
+    Friend ReadOnly Shut As String = NameOf(Shut)
 
-    Friend Function MakeVoidArrow(arrowType As String) As String
-        Return $"{Void}{arrowType}"
+    Friend Function MakeDoor(direction As String, doorState As String) As String
+        Return $"{Door}{doorState}{direction}"
+    End Function
+
+    Friend Function MakeVoidArrow(direction As String) As String
+        Return $"{Void}{direction}"
     End Function
 
     Friend Function MakeStar(starType As String) As String
@@ -156,20 +185,28 @@
             {Void, New LocationTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black, canPlaceWormhole:=True)},
             {Air, New LocationTypeDescriptor("Air", ChrW(0), DarkGray, Black)},
             {Bulkhead, New LocationTypeDescriptor("Bulkhead", ChrW(230), DarkGray, Black, isEnterable:=False)},
-            {MakeVoidArrow(ArrowNorth), New LocationTypeDescriptor("Empty Space", ChrW(16), DarkGray, Black)},
-            {MakeVoidArrow(ArrowNorthEast), New LocationTypeDescriptor("Empty Space", ChrW(17), DarkGray, Black)},
-            {MakeVoidArrow(ArrowEast), New LocationTypeDescriptor("Empty Space", ChrW(18), DarkGray, Black)},
-            {MakeVoidArrow(ArrowSouthEast), New LocationTypeDescriptor("Empty Space", ChrW(19), DarkGray, Black)},
-            {MakeVoidArrow(ArrowSouth), New LocationTypeDescriptor("Empty Space", ChrW(20), DarkGray, Black)},
-            {MakeVoidArrow(ArrowSouthWest), New LocationTypeDescriptor("Empty Space", ChrW(21), DarkGray, Black)},
-            {MakeVoidArrow(ArrowWest), New LocationTypeDescriptor("Empty Space", ChrW(22), DarkGray, Black)},
-            {MakeVoidArrow(ArrowNorthWest), New LocationTypeDescriptor("Empty Space", ChrW(23), DarkGray, Black)},
+            {MakeVoidArrow(North), New LocationTypeDescriptor("Empty Space", ChrW(16), DarkGray, Black)},
+            {MakeVoidArrow(NorthEast), New LocationTypeDescriptor("Empty Space", ChrW(17), DarkGray, Black)},
+            {MakeVoidArrow(East), New LocationTypeDescriptor("Empty Space", ChrW(18), DarkGray, Black)},
+            {MakeVoidArrow(SouthEast), New LocationTypeDescriptor("Empty Space", ChrW(19), DarkGray, Black)},
+            {MakeVoidArrow(South), New LocationTypeDescriptor("Empty Space", ChrW(20), DarkGray, Black)},
+            {MakeVoidArrow(SouthWest), New LocationTypeDescriptor("Empty Space", ChrW(21), DarkGray, Black)},
+            {MakeVoidArrow(West), New LocationTypeDescriptor("Empty Space", ChrW(22), DarkGray, Black)},
+            {MakeVoidArrow(NorthWest), New LocationTypeDescriptor("Empty Space", ChrW(23), DarkGray, Black)},
             {MakeStar(StarTypes.Blue), New LocationTypeDescriptor("Blue Star", ChrW(224), Hues.Blue, Black)},
             {MakeStar(StarTypes.BlueWhite), New LocationTypeDescriptor("Blue-White Star", ChrW(224), Hues.LightBlue, Black)},
             {MakeStar(StarTypes.Yellow), New LocationTypeDescriptor("Yellow Star", ChrW(224), Hues.Yellow, Black)},
             {MakeStar(StarTypes.Orange), New LocationTypeDescriptor("Orange Star", ChrW(224), Hues.Orange, Black)},
             {MakeStar(StarTypes.Red), New LocationTypeDescriptor("Red Star", ChrW(224), Hues.Red, Black)},
-            {Wormhole, New LocationTypeDescriptor("Wormhole", ChrW(228), Hues.Purple, Black)}
+            {Wormhole, New LocationTypeDescriptor("Wormhole", ChrW(228), Hues.Purple, Black)},
+            {MakeDoor(North, Open), New LocationTypeDescriptor("Open Door", ChrW(24), Hues.DarkGray, Black)},
+            {MakeDoor(North, Shut), New LocationTypeDescriptor("Shut Door", ChrW(25), Hues.DarkGray, Black, isEnterable:=False)},
+            {MakeDoor(East, Open), New LocationTypeDescriptor("Open Door", ChrW(26), Hues.DarkGray, Black)},
+            {MakeDoor(East, Shut), New LocationTypeDescriptor("Shut Door", ChrW(27), Hues.DarkGray, Black, isEnterable:=False)},
+            {MakeDoor(South, Open), New LocationTypeDescriptor("Open Door", ChrW(28), Hues.DarkGray, Black)},
+            {MakeDoor(South, Shut), New LocationTypeDescriptor("Shut Door", ChrW(29), Hues.DarkGray, Black, isEnterable:=False)},
+            {MakeDoor(West, Open), New LocationTypeDescriptor("Open Door", ChrW(30), Hues.DarkGray, Black)},
+            {MakeDoor(West, Shut), New LocationTypeDescriptor("Shut Door", ChrW(31), Hues.DarkGray, Black, isEnterable:=False)}
         }
         For Each satelliteHue In satelliteHueTable
             result(MakeSatelliteLocationType(satelliteHue.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", ChrW(226), satelliteHue.Value, Black)
