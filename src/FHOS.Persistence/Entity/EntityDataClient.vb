@@ -19,13 +19,13 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
 
     Public Property Flags(flag As String) As Boolean Implements IEntity.Flags
         Get
-            Return HasFlag(flag)
+            Return EntityData.Flags.Contains(flag)
         End Get
         Set(value As Boolean)
             If value Then
-                SetFlag(flag)
+                EntityData.Flags.Add(flag)
             Else
-                ClearFlag(flag)
+                EntityData.Flags.Remove(flag)
             End If
         End Set
     End Property
@@ -71,8 +71,4 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         End If
         Return Nothing
     End Function
-
-    Public Sub ClearFlag(flag As String) Implements IEntity.ClearFlag
-        EntityData.Flags.Remove(flag)
-    End Sub
 End Class

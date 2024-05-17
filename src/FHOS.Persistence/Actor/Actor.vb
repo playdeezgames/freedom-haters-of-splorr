@@ -277,7 +277,7 @@ Friend Class Actor
             If value Then
                 SetFlag(FlagTypes.ConsumesFuel)
             Else
-                ClearFlag(FlagTypes.ConsumesFuel)
+                Flags(FlagTypes.ConsumesFuel) = False
             End If
         End Set
     End Property
