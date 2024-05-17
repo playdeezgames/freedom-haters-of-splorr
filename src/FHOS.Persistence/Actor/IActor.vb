@@ -1,7 +1,5 @@
 ﻿Public Interface IActor
     Inherits IEntity
-    'Fuel
-    ReadOnly Property ConsumesFuel As Boolean
 
     'Tutorial
     ReadOnly Property HasTutorial As Boolean

@@ -58,7 +58,7 @@ Friend Class AvatarVerbsModel
     End Sub
 
     Private Sub DoFuelConsumption()
-        If actor.ConsumesFuel Then
+        If actor.FuelTank IsNot Nothing Then
             actor.FuelTank.CurrentValue -= 1
             If actor.FuelTank.CurrentValue = actor.FuelTank.MinimumValue.Value Then
                 actor.TriggerTutorial(TutorialTypes.OutOfFuel)
@@ -80,7 +80,8 @@ Friend Class AvatarVerbsModel
 
     Private ReadOnly Property CanMove As Boolean
         Get
-            Return Not actor.ConsumesFuel OrElse AvatarModel.FromActor(actor).Vessel.FuelPercent > 0
+            Return actor.FuelTank Is Nothing OrElse
+                AvatarModel.FromActor(actor).Vessel.FuelPercent.Value > 0
         End Get
     End Property
 

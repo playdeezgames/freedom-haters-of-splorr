@@ -35,7 +35,6 @@ Friend Class PlayerShipDescriptor
             Interior.
             GetLocation(ship.Interior.Size.Columns \ 2, ship.Interior.Size.Rows \ 2)
         Dim actor = ActorTypes.Descriptors(ActorTypes.Person).CreateActor(location)
-        actor.Wallet = ship.Wallet
         actor.LifeSupport = ship.LifeSupport
         ship.AddCrew(actor)
     End Sub

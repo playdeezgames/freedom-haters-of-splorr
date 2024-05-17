@@ -20,8 +20,11 @@ Friend Class AvatarVesselModel
         End Get
     End Property
 
-    Public ReadOnly Property FuelPercent As Integer Implements IAvatarVesselModel.FuelPercent
+    Public ReadOnly Property FuelPercent As Integer? Implements IAvatarVesselModel.FuelPercent
         Get
+            If actor.FuelTank Is Nothing Then
+                Return Nothing
+            End If
             Return actor.FuelTank.CurrentValue * 100 \ actor.FuelTank.MaximumValue.Value
         End Get
     End Property

@@ -213,12 +213,6 @@ Friend Class Actor
         End Set
     End Property
 
-    Public ReadOnly Property ConsumesFuel As Boolean Implements IActor.ConsumesFuel
-        Get
-            Return FuelTank IsNot Nothing
-        End Get
-    End Property
-
     Public Property FuelTank As IStore Implements IActor.FuelTank
         Get
             Return Store.FromId(UniverseData, GetStatistic(StatisticTypes.FuelTankId))

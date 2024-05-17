@@ -61,7 +61,10 @@ Friend Class NavigationState
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Turn: { Context.Model.State.Turn}", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Jools: { .Wallet.Jools}", Black)
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"O2: { .Vessel.OxygenPercent}%", Hues.ForPercentage(.Vessel.OxygenPercent))
-            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Fuel: { .Vessel.FuelPercent}%", Hues.ForPercentage(.Vessel.FuelPercent))
+            Dim fuel = .Vessel.FuelPercent
+            If fuel.HasValue Then
+                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Fuel: { fuel.Value}%", Hues.ForPercentage(fuel.Value))
+            End If
             If .State.CurrentPlace IsNot Nothing Then
                 position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .State.CurrentPlace.Name, Black)
             End If
