@@ -3,8 +3,6 @@ Imports SPLORR.Game
 
 Friend Class PlanetVicinityInitializationStep
     Inherits InitializationStep
-    Private Const PlanetVicinityColumns = 15
-    Private Const PlanetVicinityRows = 15
     Private ReadOnly planetVicinityLocation As ILocation
     Private ReadOnly nameGenerator As NameGenerator
     Sub New(location As ILocation, nameGenerator As NameGenerator)
@@ -14,14 +12,14 @@ Friend Class PlanetVicinityInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planetVicinity = planetVicinityLocation.Place
         planetVicinity.Map = MapTypes.Descriptors(MapTypes.PlanetVicinity).CreateMap($"{planetVicinity.Name} Vicinity", planetVicinity.Universe)
-        PlaceBoundaries(planetVicinity, planetVicinityLocation, PlanetVicinityColumns, PlanetVicinityRows)
+        PlaceBoundaries(planetVicinity, planetVicinityLocation, planetVicinity.Map.Size.Columns, planetVicinity.Map.Size.Rows)
         PlacePlanet(planetVicinity, addStep)
         planetVicinity.SatelliteCount = PlaceSatellites(planetVicinity, addStep)
     End Sub
     Private Function PlaceSatellites(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean)) As Integer
         Dim satellites As List(Of (Column As Integer, Row As Integer)) =
             planetSectionDeltas.
-            Select(Function(x) (x.DeltaX + PlanetVicinityColumns \ 2, x.DeltaY + PlanetVicinityRows \ 2)).
+            Select(Function(x) (x.DeltaX + planetVicinity.Map.Size.Columns \ 2, x.DeltaY + planetVicinity.Map.Size.Rows \ 2)).
             ToList
         Dim tries As Integer = 0
         Const MaximumTries = 5000
@@ -30,8 +28,8 @@ Friend Class PlanetVicinityInitializationStep
         Dim maximumSatelliteCount As Integer = planetType.GenerateMaximumSatelliteCount()
         Dim satelliteCount = 0
         While satelliteCount < maximumSatelliteCount AndAlso tries < MaximumTries
-            Dim column = RNG.FromRange(1, PlanetVicinityColumns - 3)
-            Dim row = RNG.FromRange(1, PlanetVicinityRows - 3)
+            Dim column = RNG.FromRange(1, planetVicinity.Map.Size.Columns - 3)
+            Dim row = RNG.FromRange(1, planetVicinity.Map.Size.Rows - 3)
             If satellites.All(Function(satellite) (column - satellite.Column) * (column - satellite.Column) + (row - satellite.Row) * (row - satellite.Row) >= MinimumDistance * MinimumDistance) Then
                 Dim satelliteType As String = planetType.GenerateSatelliteType()
                 satellites.Add((column, row))
@@ -63,8 +61,8 @@ Friend Class PlanetVicinityInitializationStep
             (1, 1, LocationTypes.BottomRight)
         }
     Private Sub PlacePlanet(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean))
-        Dim planetCenterColumn = PlanetVicinityColumns \ 2
-        Dim planetCenterRow = PlanetVicinityRows \ 2
+        Dim planetCenterColumn = planetVicinity.Map.Size.Columns \ 2
+        Dim planetCenterRow = planetVicinity.Map.Size.Rows \ 2
         Dim planet = planetVicinity.CreatePlanet()
         For Each delta In planetSectionDeltas
             PlacePlanetSection(planet, planetVicinity.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)

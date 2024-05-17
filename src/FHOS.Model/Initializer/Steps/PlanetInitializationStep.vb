@@ -2,8 +2,6 @@
 
 Friend Class PlanetInitializationStep
     Inherits InitializationStep
-    Private Const PlanetOrbitColumns = 11
-    Private Const PlanetOrbitRows = 11
     Private ReadOnly location As Persistence.ILocation
     Public Sub New(location As Persistence.ILocation)
         Me.location = location
@@ -11,7 +9,7 @@ Friend Class PlanetInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planet = location.Place
         planet.Map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.Name} Orbit", planet.Universe)
-        PlaceBoundaries(planet, location, PlanetOrbitColumns, PlanetOrbitRows)
+        PlaceBoundaries(planet, location, planet.Map.Size.Columns, planet.Map.Size.Rows)
         PlacePlanet(planet)
     End Sub
     Private ReadOnly planetSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
@@ -44,8 +42,8 @@ Friend Class PlanetInitializationStep
             (2, 2, LocationTypes.C5R5)
         }
     Private Sub PlacePlanet(planet As IPlace)
-        Dim planetCenterColumn = PlanetOrbitColumns \ 2
-        Dim planetCenterRow = PlanetOrbitRows \ 2
+        Dim planetCenterColumn = planet.Map.Size.Columns \ 2
+        Dim planetCenterRow = planet.Map.Size.Rows \ 2
         For Each delta In planetSectionDeltas
             PlacePlanetSection(planet.PlanetType, planet.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
         Next

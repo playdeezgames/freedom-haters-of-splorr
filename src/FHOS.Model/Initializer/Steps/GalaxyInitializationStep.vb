@@ -3,8 +3,6 @@ Imports SPLORR.Game
 
 Friend Class GalaxyInitializationStep
     Inherits InitializationStep
-    Private Const GalaxyColumns = 63
-    Private Const GalaxyRows = 63
     Private Const GalaxyName = "Galaxy Map"
     Private ReadOnly universe As IUniverse
     Private ReadOnly embarkSettings As EmbarkSettings
@@ -23,8 +21,8 @@ Friend Class GalaxyInitializationStep
         Const MaximumTries = 5000
         Dim MinimumDistance = GalacticDensities.Descriptors(embarkSettings.GalacticDensity).MinimumDistance
         While tries < MaximumTries
-            Dim column = RNG.FromRange(0, GalaxyColumns - 1)
-            Dim row = RNG.FromRange(0, GalaxyRows - 1)
+            Dim column = RNG.FromRange(0, starMap.Size.Columns - 1)
+            Dim row = RNG.FromRange(0, starMap.Size.Rows - 1)
             If stars.All(Function(star) (column - star.Column) * (column - star.Column) + (row - star.Row) * (row - star.Row) >= MinimumDistance * MinimumDistance) Then
                 Dim starType = GalacticAges.Descriptors(embarkSettings.GalacticAge).GenerateStarType()
                 stars.Add((column, row))

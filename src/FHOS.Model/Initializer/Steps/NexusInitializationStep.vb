@@ -4,8 +4,6 @@ Imports SPLORR.Game
 Friend Class NexusInitializationStep
     Inherits InitializationStep
     Const NexusName = "Nexus"
-    Const NexusColumns = 63
-    Const NexusRows = 63
 
     Private ReadOnly universe As IUniverse
     Private ReadOnly embarkSettings As EmbarkSettings

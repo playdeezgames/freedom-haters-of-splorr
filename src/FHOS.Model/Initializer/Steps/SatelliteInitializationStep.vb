@@ -2,8 +2,6 @@
 
 Friend Class SatelliteInitializationStep
     Inherits InitializationStep
-    Private Const SatelliteOrbitColumns = 9
-    Private Const SatelliteOrbitRows = 9
     Private ReadOnly location As Persistence.ILocation
 
     Public Sub New(location As Persistence.ILocation)
@@ -13,7 +11,7 @@ Friend Class SatelliteInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim satellite = location.Place
         satellite.Map = MapTypes.Descriptors(MapTypes.SatelliteOrbit).CreateMap($"{satellite.Name} Orbit", satellite.Universe)
-        PlaceBoundaries(satellite, location, SatelliteOrbitColumns, SatelliteOrbitRows)
+        PlaceBoundaries(satellite, location, satellite.Map.Size.Columns, satellite.Map.Size.Rows)
         PlaceSatellite(satellite)
     End Sub
     Private ReadOnly satelliteSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
@@ -31,8 +29,8 @@ Friend Class SatelliteInitializationStep
         }
 
     Private Sub PlaceSatellite(satellite As IPlace)
-        Dim planetCenterColumn = SatelliteOrbitColumns \ 2
-        Dim planetCenterRow = SatelliteOrbitRows \ 2
+        Dim planetCenterColumn = satellite.Map.Size.Columns \ 2
+        Dim planetCenterRow = satellite.Map.Size.Rows \ 2
         For Each delta In satelliteSectionDeltas
             PlaceSatelliteSection(satellite.SatelliteType, satellite.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
         Next
