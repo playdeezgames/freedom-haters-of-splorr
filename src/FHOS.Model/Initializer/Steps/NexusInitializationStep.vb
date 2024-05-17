@@ -38,5 +38,6 @@ Friend Class NexusInitializationStep
                 tries += 1
             End If
         End While
+        addStep(New EncounterInitializationStep(nexusMap), True)
     End Sub
 End Class

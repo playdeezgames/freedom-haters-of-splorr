@@ -17,6 +17,7 @@ Friend Class StarSystemInitializationStep
         PlaceBoundaries(starSystem, starLocation, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(starSystem, addStep)
         starSystem.Family.PlanetCount = PlacePlanets(starSystem, addStep)
+        addStep(New EncounterInitializationStep(starSystem.Properties.Map), True)
     End Sub
 
     Private Function PlacePlanets(starSystem As IPlace, addStep As Action(Of InitializationStep, Boolean)) As Integer

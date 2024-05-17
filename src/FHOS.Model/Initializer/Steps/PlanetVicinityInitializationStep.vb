@@ -15,6 +15,7 @@ Friend Class PlanetVicinityInitializationStep
         PlaceBoundaries(planetVicinity, planetVicinityLocation, planetVicinity.Properties.Map.Size.Columns, planetVicinity.Properties.Map.Size.Rows)
         PlacePlanet(planetVicinity, addStep)
         planetVicinity.Family.SatelliteCount = PlaceSatellites(planetVicinity, addStep)
+        addStep(New EncounterInitializationStep(planetVicinity.Properties.Map), True)
     End Sub
     Private Function PlaceSatellites(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean)) As Integer
         Dim satellites As List(Of (Column As Integer, Row As Integer)) =

@@ -11,6 +11,7 @@ Friend Class PlanetInitializationStep
         planet.Properties.Map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.Properties.Name} Orbit", planet.Universe)
         PlaceBoundaries(planet, location, planet.Properties.Map.Size.Columns, planet.Properties.Map.Size.Rows)
         PlacePlanet(planet)
+        addStep(New EncounterInitializationStep(planet.Properties.Map), True)
     End Sub
     Private ReadOnly planetSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
         New List(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) From

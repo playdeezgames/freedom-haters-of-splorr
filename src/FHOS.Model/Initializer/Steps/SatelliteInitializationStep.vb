@@ -13,6 +13,7 @@ Friend Class SatelliteInitializationStep
         satellite.Properties.Map = MapTypes.Descriptors(MapTypes.SatelliteOrbit).CreateMap($"{satellite.Properties.Name} Orbit", satellite.Universe)
         PlaceBoundaries(satellite, location, satellite.Properties.Map.Size.Columns, satellite.Properties.Map.Size.Rows)
         PlaceSatellite(satellite)
+        addStep(New EncounterInitializationStep(satellite.Properties.Map), True)
     End Sub
     Private ReadOnly satelliteSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
         New List(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) From

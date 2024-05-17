@@ -12,6 +12,7 @@ Friend Class StarVicinityInitializationStep
         starVicinity.Properties.Map = descriptor.CreateMap($"{starVicinity.Properties.Name} Vicinity", starVicinity.Universe)
         PlaceBoundaries(starVicinity, starLocation, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(starVicinity)
+        addStep(New EncounterInitializationStep(starVicinity.Properties.Map), True)
     End Sub
     Private Sub PlaceStar(starVicinity As IPlace)
         Dim starColumn = starVicinity.Properties.Map.Size.Columns \ 2
