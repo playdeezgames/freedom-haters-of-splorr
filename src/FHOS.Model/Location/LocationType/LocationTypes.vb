@@ -155,7 +155,7 @@
         {
             {Void, New LocationTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black, canPlaceWormhole:=True)},
             {Air, New LocationTypeDescriptor("Air", ChrW(0), DarkGray, Black)},
-            {Bulkhead, New LocationTypeDescriptor("Bulkhead", ChrW(230), DarkGray, Black)},
+            {Bulkhead, New LocationTypeDescriptor("Bulkhead", ChrW(230), DarkGray, Black, isEnterable:=False)},
             {MakeVoidArrow(ArrowNorth), New LocationTypeDescriptor("Empty Space", ChrW(16), DarkGray, Black)},
             {MakeVoidArrow(ArrowNorthEast), New LocationTypeDescriptor("Empty Space", ChrW(17), DarkGray, Black)},
             {MakeVoidArrow(ArrowEast), New LocationTypeDescriptor("Empty Space", ChrW(18), DarkGray, Black)},

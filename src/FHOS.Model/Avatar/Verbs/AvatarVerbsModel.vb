@@ -54,8 +54,16 @@ Friend Class AvatarVerbsModel
         If nextLocation.HasTargetLocation Then
             nextLocation = nextLocation.TargetLocation
         End If
+        If Not CanEnterLocation(nextLocation, actor) Then
+            Return
+        End If
         SetLocation(nextLocation)
     End Sub
+
+    Private Function CanEnterLocation(nextLocation As ILocation, actor As IActor) As Boolean
+        Dim descriptor = LocationTypes.Descriptors(nextLocation.LocationType)
+        Return descriptor.IsEnterable
+    End Function
 
     Private Sub DoFuelConsumption()
         If actor.State.FuelTank IsNot Nothing Then
