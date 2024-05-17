@@ -27,17 +27,16 @@
     ReadOnly Property Crew As IEnumerable(Of IActor)
     Property LifeSupport As IStore
 
-    'Status
+    'Low Volatility Properties
     ReadOnly Property ActorType As String
     Property Name As String
     Property Faction As IFaction
     Property HomePlanet As IPlace
+    Property Costume As String
 
-    'State
+    'High Volatility Properties
     Property Wallet As IStore
     Property Location As ILocation
     Property Facing As Integer
-    Property Costume As String
     Property Interactor As IActor
-
 End Interface
