@@ -44,13 +44,13 @@ Friend Class PlaceModel
 
     Public ReadOnly Property X As Integer Implements IPlaceModel.X
         Get
-            Return place.X
+            Return place.Position.X
         End Get
     End Property
 
     Public ReadOnly Property Y As Integer Implements IPlaceModel.Y
         Get
-            Return place.Y
+            Return place.Position.Y
         End Get
     End Property
 

@@ -1,12 +1,26 @@
 ﻿Public Interface IPlace
     Inherits IEntity
+    ReadOnly Property PlaceType As String
+
+    'counts
+    Property PlanetVicinityCount As Integer
+    Property SatelliteCount As Integer
+
+    'subtype
+    ReadOnly Property StarType As String
+    ReadOnly Property SatelliteType As String
+    ReadOnly Property PlanetType As String
+
+    'properties
     Property Name As String
     Property Map As IMap
     ReadOnly Property Identifier As String
-    ReadOnly Property PlaceType As String
+    Property WormholeDestination As ILocation
+    Property Faction As IFaction
+    ReadOnly Property Position As (X As Integer, Y As Integer)
     ReadOnly Property Parent As IPlace
-    ReadOnly Property StarType As String
-    ReadOnly Property SatelliteType As String
+
+    'factory
     Function CreateStarVicinity(
                                x As Integer,
                                y As Integer) As IPlace
@@ -20,11 +34,4 @@
     Function CreateSatellite(
                             satelliteName As String,
                             satelliteType As String) As IPlace
-    ReadOnly Property PlanetType As String
-    Property WormholeDestination As ILocation
-    Property Faction As IFaction
-    Property PlanetVicinityCount As Integer
-    ReadOnly Property X As Integer
-    ReadOnly Property Y As Integer
-    Property SatelliteCount As Integer
 End Interface

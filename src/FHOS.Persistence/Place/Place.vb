@@ -257,36 +257,30 @@ Friend Class Place
         End Set
     End Property
 
-    Public ReadOnly Property X As Integer Implements IPlace.X
+    Private ReadOnly Property X As Integer
         Get
-            Dim result = 0
-            If EntityData.Statistics.TryGetValue(StatisticTypes.X, result) Then
-                Return result
-            End If
-            Return 0
+            Return If(GetStatistic(StatisticTypes.X), 0)
         End Get
     End Property
 
-    Public ReadOnly Property Y As Integer Implements IPlace.Y
+    Private ReadOnly Property Y As Integer
         Get
-            Dim result = 0
-            If EntityData.Statistics.TryGetValue(StatisticTypes.Y, result) Then
-                Return result
-            End If
-            Return 0
+            Return If(GetStatistic(StatisticTypes.Y), 0)
         End Get
     End Property
 
     Public Property SatelliteCount As Integer Implements IPlace.SatelliteCount
         Get
-            Dim result = 0
-            If EntityData.Statistics.TryGetValue(StatisticTypes.SatelliteCount, result) Then
-                Return result
-            End If
-            Return 0
+            Return If(GetStatistic(StatisticTypes.SatelliteCount), 0)
         End Get
         Set(value As Integer)
             EntityData.Statistics(StatisticTypes.SatelliteCount) = value
         End Set
+    End Property
+
+    Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IPlace.Position
+        Get
+            Return (X, Y)
+        End Get
     End Property
 End Class
