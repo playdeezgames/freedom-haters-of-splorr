@@ -16,7 +16,7 @@ Friend Class AvatarInteractionModel
 
     Public ReadOnly Property AvailableChoices As List(Of (Text As String, Item As IInteractionModel)) Implements IAvatarInteractionModel.AvailableChoices
         Get
-            Return {("Good-bye", CType(Nothing, IInteractionModel))}.ToList
+            Return InteractionTypes.Descriptors.Where(Function(x) x.Value.IsAvailable(actor)).Select(Function(x) (x.Value.Text, x.Value.ToInteraction(actor))).ToList
         End Get
     End Property
 
