@@ -139,7 +139,7 @@ Friend Class AvatarVerbsModel
             If placeType <> PlaceTypes.Planet Then
                 Return False
             End If
-            Return PlanetTypes.Descriptors(actor.State.Location.Place.PlanetType).CanRefillOxygen
+            Return PlanetTypes.Descriptors(actor.State.Location.Place.Subtype).CanRefillOxygen
         End Get
     End Property
 

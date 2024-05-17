@@ -67,9 +67,9 @@ Friend Class Place
         EntityData.Descendants.Add(place.Id)
     End Sub
 
-    Public ReadOnly Property StarType As String Implements IPlace.StarType
+    Public ReadOnly Property Subtype As String Implements IPlace.Subtype
         Get
-            Return EntityData.Metadatas(MetadataTypes.StarType)
+            Return EntityData.Metadatas(MetadataTypes.Subtype)
         End Get
     End Property
 
@@ -82,7 +82,7 @@ Friend Class Place
                     .Metadatas = New Dictionary(Of String, String) From
                     {
                         {MetadataTypes.Name, Name},
-                        {MetadataTypes.StarType, StarType},
+                        {MetadataTypes.Subtype, Subtype},
                         {MetadataTypes.Identifier, Guid.NewGuid.ToString},
                         {MetadataTypes.PlaceType, PlaceTypes.StarVicinity}
                     },
@@ -110,7 +110,7 @@ Friend Class Place
                     .Metadatas = New Dictionary(Of String, String) From
                     {
                         {MetadataTypes.Name, planetName},
-                        {MetadataTypes.PlanetType, planetType},
+                        {MetadataTypes.Subtype, planetType},
                         {MetadataTypes.Identifier, Guid.NewGuid.ToString},
                         {MetadataTypes.PlaceType, PlaceTypes.PlanetVicinity}
                     },
@@ -135,7 +135,7 @@ Friend Class Place
                     {
                         {MetadataTypes.Name, Name},
                         {MetadataTypes.PlaceType, PlaceTypes.Star},
-                        {MetadataTypes.StarType, StarType}
+                        {MetadataTypes.Subtype, Subtype}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
@@ -156,7 +156,7 @@ Friend Class Place
                     {
                         {MetadataTypes.Name, Name},
                         {MetadataTypes.PlaceType, PlaceTypes.Planet},
-                        {MetadataTypes.PlanetType, PlanetType},
+                        {MetadataTypes.Subtype, Subtype},
                         {MetadataTypes.Identifier, Guid.NewGuid.ToString}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
@@ -178,7 +178,7 @@ Friend Class Place
                     {
                         {MetadataTypes.Name, satelliteName},
                         {MetadataTypes.PlaceType, PlaceTypes.Satellite},
-                        {MetadataTypes.SatelliteType, satelliteType},
+                        {MetadataTypes.Subtype, satelliteType},
                         {MetadataTypes.Identifier, Guid.NewGuid.ToString}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
@@ -193,16 +193,6 @@ Friend Class Place
     Private Sub AddSatellite(satellite As IPlace)
         EntityData.Descendants.Add(satellite.Id)
     End Sub
-
-    Public ReadOnly Property PlanetType As String Implements IPlace.PlanetType
-        Get
-            Dim result = String.Empty
-            If EntityData.Metadatas.TryGetValue(MetadataTypes.PlanetType, result) Then
-                Return result
-            End If
-            Return Nothing
-        End Get
-    End Property
 
     Public Property WormholeDestination As ILocation Implements IPlace.WormholeDestination
         Get
@@ -219,16 +209,6 @@ Friend Class Place
             End If
             EntityData.Statistics(StatisticTypes.WormholeDestinationId) = value.Id
         End Set
-    End Property
-
-    Public ReadOnly Property SatelliteType As String Implements IPlace.SatelliteType
-        Get
-            Dim result = String.Empty
-            If EntityData.Metadatas.TryGetValue(MetadataTypes.SatelliteType, result) Then
-                Return result
-            End If
-            Return Nothing
-        End Get
     End Property
 
     Public Property Faction As IFaction Implements IPlace.Faction

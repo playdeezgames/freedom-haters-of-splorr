@@ -16,7 +16,7 @@ Friend Class StarVicinityInitializationStep
     Private Sub PlaceStar(starVicinity As IPlace)
         Dim starColumn = starVicinity.Map.Size.Columns \ 2
         Dim starRow = starVicinity.Map.Size.Rows \ 2
-        Dim locationType = StarTypes.Descriptors(starVicinity.StarType).LocationType
+        Dim locationType = StarTypes.Descriptors(starVicinity.Subtype).LocationType
         Dim location = starVicinity.Map.GetLocation(starColumn, starRow)
         With location
             .LocationType = locationType

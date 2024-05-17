@@ -32,7 +32,7 @@ Friend Class SatelliteInitializationStep
         Dim planetCenterColumn = satellite.Map.Size.Columns \ 2
         Dim planetCenterRow = satellite.Map.Size.Rows \ 2
         For Each delta In satelliteSectionDeltas
-            PlaceSatelliteSection(satellite.SatelliteType, satellite.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
+            PlaceSatelliteSection(satellite.Subtype, satellite.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
         Next
     End Sub
 

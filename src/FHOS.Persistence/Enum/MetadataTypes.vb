@@ -6,9 +6,7 @@
     Friend ReadOnly MapType As String = NameOf(MapType)
     Friend ReadOnly Name As String = NameOf(Name)
     Friend ReadOnly PlaceType As String = NameOf(PlaceType)
-    Friend ReadOnly PlanetType As String = NameOf(PlanetType)
-    Friend ReadOnly SatelliteType As String = NameOf(SatelliteType)
-    Friend ReadOnly StarType As String = NameOf(StarType)
+    Friend ReadOnly Subtype As String = NameOf(Subtype)
     Friend ReadOnly Tutorial As String = NameOf(Tutorial)
 
 End Module

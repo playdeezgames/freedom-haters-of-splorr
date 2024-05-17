@@ -23,16 +23,16 @@ Friend Class PlaceModel
 
     Public ReadOnly Property CanRefillOxygen As Boolean Implements IPlaceModel.CanRefillOxygen
         Get
-            If place.PlanetType Is Nothing OrElse place.PlaceType <> PlaceTypes.Planet Then
+            If place.Subtype Is Nothing OrElse place.PlaceType <> PlaceTypes.Planet Then
                 Return False
             End If
-            Return PlanetTypes.Descriptors(place.PlanetType).CanRefillOxygen
+            Return PlanetTypes.Descriptors(place.Subtype).CanRefillOxygen
         End Get
     End Property
 
     Public ReadOnly Property StarType As String Implements IPlaceModel.StarType
         Get
-            Return place.StarType
+            Return place.Subtype
         End Get
     End Property
 
@@ -62,7 +62,7 @@ Friend Class PlaceModel
 
     Public ReadOnly Property PlanetType As String Implements IPlaceModel.PlanetType
         Get
-            Return place.PlanetType
+            Return place.Subtype
         End Get
     End Property
 

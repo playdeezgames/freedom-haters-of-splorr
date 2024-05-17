@@ -45,7 +45,7 @@ Friend Class PlanetInitializationStep
         Dim planetCenterColumn = planet.Map.Size.Columns \ 2
         Dim planetCenterRow = planet.Map.Size.Rows \ 2
         For Each delta In planetSectionDeltas
-            PlacePlanetSection(planet.PlanetType, planet.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
+            PlacePlanetSection(planet.Subtype, planet.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
         Next
     End Sub
     Private Shared Sub PlacePlanetSection(planetType As String, location As ILocation, sectionName As String)

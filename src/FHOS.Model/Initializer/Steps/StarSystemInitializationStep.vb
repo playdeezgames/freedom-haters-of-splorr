@@ -26,7 +26,7 @@ Friend Class StarSystemInitializationStep
             }
         Dim tries As Integer = 0
         Const MaximumTries = 5000
-        Dim starType = StarTypes.Descriptors(starSystem.StarType)
+        Dim starType = StarTypes.Descriptors(starSystem.Subtype)
         Dim MinimumDistance = starType.MinimumPlanetaryDistance
         Dim index = 1
         Dim maximumPlanetCount As Integer = starType.GenerateMaximumPlanetCount()
@@ -56,7 +56,7 @@ Friend Class StarSystemInitializationStep
     Private Sub PlaceStar(starSystem As IPlace, addStep As Action(Of InitializationStep, Boolean))
         Dim starColumn = starSystem.Map.Size.Columns \ 2
         Dim starRow = starSystem.Map.Size.Rows \ 2
-        Dim locationType = StarTypes.Descriptors(starSystem.StarType).LocationType
+        Dim locationType = StarTypes.Descriptors(starSystem.Subtype).LocationType
         Dim location = starSystem.Map.GetLocation(starColumn, starRow)
         With location
             .LocationType = locationType

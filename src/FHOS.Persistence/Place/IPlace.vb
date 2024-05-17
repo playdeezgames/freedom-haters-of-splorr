@@ -7,9 +7,7 @@
     Property SatelliteCount As Integer
 
     'subtype
-    ReadOnly Property StarType As String
-    ReadOnly Property SatelliteType As String
-    ReadOnly Property PlanetType As String
+    ReadOnly Property Subtype As String
 
     'properties
     Property Name As String

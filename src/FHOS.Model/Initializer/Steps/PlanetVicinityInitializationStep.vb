@@ -23,7 +23,7 @@ Friend Class PlanetVicinityInitializationStep
             ToList
         Dim tries As Integer = 0
         Const MaximumTries = 5000
-        Dim planetType = PlanetTypes.Descriptors(planetVicinity.PlanetType)
+        Dim planetType = PlanetTypes.Descriptors(planetVicinity.Subtype)
         Dim MinimumDistance = planetType.MinimumSatelliteDistance
         Dim maximumSatelliteCount As Integer = planetType.GenerateMaximumSatelliteCount()
         Dim satelliteCount = 0
@@ -71,7 +71,7 @@ Friend Class PlanetVicinityInitializationStep
     End Sub
 
     Private Shared Sub PlacePlanetSection(planet As IPlace, location As ILocation, sectionName As String)
-        Dim locationType = PlanetTypes.Descriptors(planet.PlanetType).SectionLocationType(sectionName)
+        Dim locationType = PlanetTypes.Descriptors(planet.Subtype).SectionLocationType(sectionName)
         With location
             .LocationType = locationType
             .Tutorial = TutorialTypes.EnterPlanetOrbit

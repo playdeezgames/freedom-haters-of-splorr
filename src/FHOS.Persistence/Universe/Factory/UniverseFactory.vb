@@ -50,7 +50,7 @@ Friend Class UniverseFactory
                 .Metadatas = New Dictionary(Of String, String) From
                 {
                     {MetadataTypes.Name, starSystemName},
-                    {MetadataTypes.StarType, starType},
+                    {MetadataTypes.Subtype, starType},
                     {MetadataTypes.Identifier, Guid.NewGuid.ToString},
                     {MetadataTypes.PlaceType, PlaceTypes.StarSystem}
                 },
