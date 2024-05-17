@@ -87,6 +87,6 @@
     End Property
 
     Friend Shared Function FromId(universeData As Data.UniverseData, id As Integer) As IPlaceProperties
-        Throw New NotImplementedException()
+        Return New PlaceProperties(universeData, id)
     End Function
 End Class

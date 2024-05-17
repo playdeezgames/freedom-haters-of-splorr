@@ -9,7 +9,7 @@ Friend Class PlaceFactory
     End Sub
 
     Friend Shared Function FromId(universeData As UniverseData, id As Integer) As IPlaceFactory
-        Throw New NotImplementedException()
+        Return New PlaceFactory(universeData, id)
     End Function
 
     Public Function CreateStarVicinity(x As Integer, y As Integer) As IPlace Implements IPlaceFactory.CreateStarVicinity
@@ -21,7 +21,7 @@ Friend Class PlaceFactory
                     .Metadatas = New Dictionary(Of String, String) From
                     {
                         {MetadataTypes.Name, Name},
-                        {MetadataTypes.Subtype, Subtype},
+                        {MetadataTypes.Subtype, Place.FromId(UniverseData, Id).Subtype},
                         {MetadataTypes.Identifier, Guid.NewGuid.ToString},
                         {MetadataTypes.PlaceType, PlaceTypes.StarVicinity}
                     },
@@ -74,7 +74,7 @@ Friend Class PlaceFactory
                     {
                         {MetadataTypes.Name, Name},
                         {MetadataTypes.PlaceType, PlaceTypes.Star},
-                        {MetadataTypes.Subtype, Subtype}
+                        {MetadataTypes.Subtype, Place.FromId(UniverseData, Id).Subtype}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From
                     {
@@ -95,7 +95,7 @@ Friend Class PlaceFactory
                     {
                         {MetadataTypes.Name, Name},
                         {MetadataTypes.PlaceType, PlaceTypes.Planet},
-                        {MetadataTypes.Subtype, Subtype},
+                        {MetadataTypes.Subtype, Place.FromId(UniverseData, Id).Subtype},
                         {MetadataTypes.Identifier, Guid.NewGuid.ToString}
                     },
                     .Statistics = New Dictionary(Of String, Integer) From

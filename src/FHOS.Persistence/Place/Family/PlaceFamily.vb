@@ -35,6 +35,6 @@
     End Property
 
     Friend Shared Function FromId(universeData As Data.UniverseData, id As Integer) As IPlaceFamily
-        Throw New NotImplementedException()
+        Return New PlaceFamily(universeData, id)
     End Function
 End Class
