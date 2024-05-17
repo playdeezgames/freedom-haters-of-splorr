@@ -1,7 +1,8 @@
-﻿Imports SPLORR.UI
+﻿Imports FHOS.Model
+Imports SPLORR.UI
 
 Friend Class InteractionState
-    Inherits BasePickerState(Of Model.IUniverseModel, String)
+    Inherits BasePickerState(Of Model.IUniverseModel, IInteractionModel)
     Private Const GoodbyeText = "Good-bye"
 
     Public Sub New(
@@ -17,19 +18,16 @@ Friend Class InteractionState
             GameState.LeaveInteraction)
     End Sub
 
-    Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
-        Select Case value.Item
-            Case GoodbyeText
-                SetState(GameState.LeaveInteraction)
-            Case Else
-                Throw New NotImplementedException
-        End Select
+    Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IInteractionModel))
+        If value.Item Is Nothing Then
+            SetState(GameState.LeaveInteraction)
+            Return
+        End If
+        Throw New NotImplementedException
     End Sub
 
-    Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
-        Return {
-            (GoodbyeText, GoodbyeText)
-            }.ToList
+    Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IInteractionModel))
+        Return Context.Model.State.Avatar.Interaction.AvailableChoices
     End Function
 
     Protected Overrides Function GetCenterY() As Integer

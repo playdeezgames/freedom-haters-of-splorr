@@ -14,6 +14,12 @@ Friend Class AvatarInteractionModel
         End Get
     End Property
 
+    Public ReadOnly Property AvailableChoices As List(Of (Text As String, Item As IInteractionModel)) Implements IAvatarInteractionModel.AvailableChoices
+        Get
+            Return {("Good-bye", CType(Nothing, IInteractionModel))}.ToList
+        End Get
+    End Property
+
     Public Sub Leave() Implements IAvatarInteractionModel.Leave
         actor.State.Interactor = Nothing
     End Sub
