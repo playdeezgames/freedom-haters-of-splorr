@@ -3,6 +3,9 @@
 Friend Class Place
     Inherits PlaceDataClient
     Implements IPlace
+    Implements IPlaceFactory
+    Implements IPlaceFamily
+    Implements IPlaceProperties
 
     Protected Sub New(universeData As Data.UniverseData, placeId As Integer)
         MyBase.New(universeData, placeId)
@@ -53,7 +56,7 @@ Friend Class Place
         End Get
     End Property
 
-    Public ReadOnly Property Parent As IPlace Implements IPlace.Parent
+    Public ReadOnly Property Parent As IPlace Implements IPlaceFamily.Parent
         Get
             Dim parentId As Integer
             If EntityData.Statistics.TryGetValue(StatisticTypes.ParentId, parentId) Then
@@ -224,7 +227,7 @@ Friend Class Place
         End Set
     End Property
 
-    Public Property PlanetCount As Integer Implements IPlace.PlanetCount
+    Public Property PlanetCount As Integer Implements IPlaceFamily.PlanetCount
         Get
             Return If(GetStatistic(StatisticTypes.PlanetCount), 0)
         End Get
@@ -245,7 +248,7 @@ Friend Class Place
         End Get
     End Property
 
-    Public Property SatelliteCount As Integer Implements IPlace.SatelliteCount
+    Public Property SatelliteCount As Integer Implements IPlaceFamily.SatelliteCount
         Get
             Return If(GetStatistic(StatisticTypes.SatelliteCount), 0)
         End Get
@@ -257,6 +260,24 @@ Friend Class Place
     Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IPlace.Position
         Get
             Return (X, Y)
+        End Get
+    End Property
+
+    Public ReadOnly Property Family As IPlaceFamily Implements IPlace.Family
+        Get
+            Return Me
+        End Get
+    End Property
+
+    Public ReadOnly Property Properties As IPlaceProperties Implements IPlace.Properties
+        Get
+            Return Me
+        End Get
+    End Property
+
+    Public ReadOnly Property Factory As IPlaceFactory Implements IPlace.Factory
+        Get
+            Return Me
         End Get
     End Property
 End Class

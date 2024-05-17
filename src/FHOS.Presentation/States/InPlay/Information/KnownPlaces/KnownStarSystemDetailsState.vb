@@ -18,7 +18,7 @@ Friend Class KnownStarSystemDetailsState
         Get
             Return {
                     ($"Type: {Place.Subtype}", Hues.Black),
-                    ($"Planets: {Place.PlanetVicinityCount}", Hues.Black),
+                    ($"Planets: {Place.PlanetCount}", Hues.Black),
                     ($"Galaxy Position: ({Place.X},{Place.Y})", Hues.Black)
                 }
         End Get

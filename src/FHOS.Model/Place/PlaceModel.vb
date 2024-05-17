@@ -36,9 +36,9 @@ Friend Class PlaceModel
         End Get
     End Property
 
-    Public ReadOnly Property PlanetVicinityCount As Integer Implements IPlaceModel.PlanetVicinityCount
+    Public ReadOnly Property PlanetCount As Integer Implements IPlaceModel.PlanetCount
         Get
-            Return place.PlanetCount
+            Return place.Family.PlanetCount
         End Get
     End Property
 
@@ -56,13 +56,13 @@ Friend Class PlaceModel
 
     Public ReadOnly Property SatelliteCount As Integer Implements IPlaceModel.SatelliteCount
         Get
-            Return place.SatelliteCount
+            Return place.Family.SatelliteCount
         End Get
     End Property
 
     Public ReadOnly Property Parent As IPlaceModel Implements IPlaceModel.Parent
         Get
-            Dim parentPlace = place.Parent
+            Dim parentPlace = place.Family.Parent
             If parentPlace IsNot Nothing Then
                 Return New PlaceModel(parentPlace)
             End If

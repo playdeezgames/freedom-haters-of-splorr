@@ -2,12 +2,9 @@
     Inherits IEntity
     ReadOnly Property PlaceType As String
     ReadOnly Property Subtype As String
-
-    'family
-    Property PlanetCount As Integer
-    Property SatelliteCount As Integer
-    ReadOnly Property Parent As IPlace
-
+    ReadOnly Property Family As IPlaceFamily
+    ReadOnly Property Properties As IPlaceProperties
+    ReadOnly Property Factory As IPlaceFactory
 
     'properties
     Property Name As String

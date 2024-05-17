@@ -2,7 +2,7 @@
     ReadOnly Property Name As String
     ReadOnly Property CanRefillOxygen As Boolean
     ReadOnly Property Subtype As String
-    ReadOnly Property PlanetVicinityCount As Integer
+    ReadOnly Property PlanetCount As Integer
     ReadOnly Property SatelliteCount As Integer
     ReadOnly Property X As Integer
     ReadOnly Property Y As Integer
