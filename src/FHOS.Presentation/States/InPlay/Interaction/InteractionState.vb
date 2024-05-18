@@ -3,7 +3,6 @@ Imports SPLORR.UI
 
 Friend Class InteractionState
     Inherits BasePickerState(Of Model.IUniverseModel, IInteractionModel)
-    Private Const GoodbyeText = "Good-bye"
 
     Public Sub New(
                   parent As IGameController,
@@ -19,10 +18,6 @@ Friend Class InteractionState
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IInteractionModel))
-        If value.Item Is Nothing Then
-            SetState(GameState.LeaveInteraction)
-            Return
-        End If
         value.Item.Perform()
         SetState(BoilerplateState.Neutral)
     End Sub
