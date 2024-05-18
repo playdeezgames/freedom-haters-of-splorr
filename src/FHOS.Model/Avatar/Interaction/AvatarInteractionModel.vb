@@ -20,6 +20,18 @@ Friend Class AvatarInteractionModel
         End Get
     End Property
 
+    Public ReadOnly Property Lines As IEnumerable(Of (Text As String, Hue As Integer)) Implements IAvatarInteractionModel.Lines
+        Get
+            Dim result As New List(Of (Text As String, Hue As Integer))
+            Dim interactor = actor.State.Interactor
+            result.Add((interactor.Properties.Name, Hues.LightGray))
+            If interactor.Properties.Faction IsNot Nothing Then
+                result.Add(($"Faction: {interactor.Properties.Faction.Name}", Hues.Black))
+            End If
+            Return result
+        End Get
+    End Property
+
     Public Sub Leave() Implements IAvatarInteractionModel.Leave
         actor.State.Interactor = Nothing
     End Sub
