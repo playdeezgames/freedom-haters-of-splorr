@@ -43,8 +43,8 @@ Friend Class PlayerShipDescriptor
         ship.Family.AddChild(actor)
     End Sub
 
-    Private Const PlayerShipMaximumOxygen = 100
-    Private Const PlayerShipMaximumFuel = 100
+    Private Const PlayerShipMaximumOxygen = 1000
+    Private Const PlayerShipMaximumFuel = 1000
     Private Shared Sub InitializePlayerShipInterior(ship As IActor)
         Dim descriptor = MapTypes.Descriptors(MapTypes.Vessel)
         Dim map = descriptor.CreateMap(
