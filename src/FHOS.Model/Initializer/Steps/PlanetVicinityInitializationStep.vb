@@ -68,7 +68,7 @@ Friend Class PlanetVicinityInitializationStep
         For Each delta In planetSectionDeltas
             PlacePlanetSection(planet, planetVicinity.Properties.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
         Next
-        addStep(New PlanetInitializationStep(planetVicinity.Properties.Map.GetLocation(planetCenterColumn, planetCenterRow)), False)
+        addStep(New PlanetOrbitInitializationStep(planetVicinity.Properties.Map.GetLocation(planetCenterColumn, planetCenterRow)), False)
     End Sub
 
     Private Shared Sub PlacePlanetSection(planet As IPlace, location As ILocation, sectionName As String)

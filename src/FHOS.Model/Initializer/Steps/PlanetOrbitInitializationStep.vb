@@ -1,6 +1,6 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class PlanetInitializationStep
+Friend Class PlanetOrbitInitializationStep
     Inherits InitializationStep
     Private ReadOnly location As Persistence.ILocation
     Public Sub New(location As Persistence.ILocation)
@@ -46,13 +46,14 @@ Friend Class PlanetInitializationStep
         Dim planetCenterColumn = planet.Properties.Map.Size.Columns \ 2
         Dim planetCenterRow = planet.Properties.Map.Size.Rows \ 2
         For Each delta In planetSectionDeltas
-            PlacePlanetSection(planet.Subtype, planet.Properties.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
+            PlacePlanetSection(planet, planet.Properties.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
         Next
     End Sub
-    Private Shared Sub PlacePlanetSection(planetType As String, location As ILocation, sectionName As String)
-        Dim locationType = PlanetTypes.Descriptors(planetType).SectionLocationType(sectionName)
+    Private Shared Sub PlacePlanetSection(place As IPlace, location As ILocation, sectionName As String)
+        Dim locationType = PlanetTypes.Descriptors(place.Subtype).SectionLocationType(sectionName)
         With location
             .LocationType = locationType
+            .Place = place
         End With
     End Sub
 End Class

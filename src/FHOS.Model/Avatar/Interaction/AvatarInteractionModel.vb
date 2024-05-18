@@ -25,9 +25,7 @@ Friend Class AvatarInteractionModel
             Dim result As New List(Of (Text As String, Hue As Integer))
             Dim interactor = actor.State.Interactor
             result.Add((interactor.Properties.Name, Hues.LightGray))
-            If interactor.Properties.Faction IsNot Nothing Then
-                result.Add(($"Faction: {interactor.Properties.Faction.Name}", Hues.Black))
-            End If
+            result.AddRange(ActorTypes.Descriptors(interactor.ActorType).DescribeInteractor(interactor))
             Return result
         End Get
     End Property

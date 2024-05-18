@@ -33,6 +33,10 @@ Friend Class InteractionState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         MyBase.Render(displayBuffer)
         displayBuffer.Fill((0, 0), (Context.ViewSize.Width, Context.ViewSize.Height * 3 \ 4), Context.UIPalette.Background)
+        RenderLines(displayBuffer)
+    End Sub
+
+    Private Sub RenderLines(displayBuffer As IPixelSink)
         Dim position = (Context.ViewCenter.X, 0)
         Dim uiFont = Context.Font(UIFontName)
         For Each line In Context.Model.State.Avatar.Interaction.Lines
