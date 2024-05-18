@@ -7,10 +7,10 @@
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of Integer, FactionCountDescriptor) =
         New Dictionary(Of Integer, FactionCountDescriptor) From
         {
-            {Two, New FactionCountDescriptor(2, "Two")},
-            {Three, New FactionCountDescriptor(2, "Three")},
-            {Four, New FactionCountDescriptor(2, "Four")},
-            {Five, New FactionCountDescriptor(2, "Five")},
-            {Six, New FactionCountDescriptor(2, "Six")}
+            {Two, New FactionCountDescriptor(Two, "Two")},
+            {Three, New FactionCountDescriptor(Three, "Three")},
+            {Four, New FactionCountDescriptor(Four, "Four")},
+            {Five, New FactionCountDescriptor(Five, "Five")},
+            {Six, New FactionCountDescriptor(Six, "Six")}
         }
 End Module

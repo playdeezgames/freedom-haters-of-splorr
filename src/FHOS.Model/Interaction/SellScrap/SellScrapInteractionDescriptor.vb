@@ -1,11 +1,10 @@
 ﻿Imports FHOS.Persistence
-Imports SPLORR.Game
 
 Friend Class SellScrapInteractionDescriptor
     Inherits InteractionDescriptor
 
     Public Sub New()
-        MyBase.New(InteractionTypes.SellScrap, "Sell Scrap")
+        MyBase.New(InteractionTypes.SellScrap)
     End Sub
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
@@ -14,5 +13,9 @@ Friend Class SellScrapInteractionDescriptor
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
         Return New SellScrapInteractionModel(actor)
+    End Function
+
+    Friend Overrides Function GetText(actor As IActor) As String
+        Return "Sell Scrap"
     End Function
 End Class

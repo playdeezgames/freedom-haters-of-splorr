@@ -1,4 +1,6 @@
-﻿Friend Class DebrisDescriptor
+﻿Imports SPLORR.Game
+
+Friend Class DebrisDescriptor
     Inherits ActorTypeDescriptor
 
     Public Sub New()
@@ -18,5 +20,6 @@
 
     Private Shared Sub InitializeDebris(actor As Persistence.IActor)
         actor.Properties.CanSalvage = True
+        actor.State.Scrap = RNG.RollDice("4d6")
     End Sub
 End Class

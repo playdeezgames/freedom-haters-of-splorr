@@ -1,12 +1,11 @@
 ﻿Imports FHOS.Persistence
 
 Friend MustInherit Class InteractionDescriptor
-    ReadOnly Property InteractionType As String
-    ReadOnly Property Text As String
-    Sub New(interactionType As String, text As String)
+    Friend ReadOnly Property InteractionType As String
+    Sub New(interactionType As String)
         Me.InteractionType = interactionType
-        Me.Text = text
     End Sub
+    Friend MustOverride Function GetText(actor As IActor) As String
 
     Friend MustOverride Function IsAvailable(actor As IActor) As Boolean
 
