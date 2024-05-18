@@ -7,4 +7,5 @@
     Property CanSalvage As Boolean
     Property CanRefillOxygen As Boolean
     Property BuysScrap As Boolean
+    Property CanRefuel As Boolean
 End Interface

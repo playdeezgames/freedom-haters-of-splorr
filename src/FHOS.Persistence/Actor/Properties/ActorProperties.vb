@@ -97,4 +97,13 @@
             Flags(FlagTypes.BuysScrap) = value
         End Set
     End Property
+
+    Public Property CanRefuel As Boolean Implements IActorProperties.CanRefuel
+        Get
+            Return Flags(FlagTypes.CanRefuel)
+        End Get
+        Set(value As Boolean)
+            Flags(FlagTypes.CanRefuel) = value
+        End Set
+    End Property
 End Class
