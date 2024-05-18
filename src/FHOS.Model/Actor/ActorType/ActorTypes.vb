@@ -6,6 +6,7 @@
     Friend ReadOnly StarDock As String = NameOf(StarDock)
     Friend ReadOnly Shipyard As String = NameOf(Shipyard)
     Friend ReadOnly StarGate As String = NameOf(StarGate)
+    Friend ReadOnly Debris As String = NameOf(Debris)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, ActorTypeDescriptor) =
         New List(Of ActorTypeDescriptor) From
@@ -16,7 +17,8 @@
             New TradingPostDescriptor(),
             New StarDockDescriptor(),
             New ShipyardDescriptor(),
-            New StarGateDescriptor()
+            New StarGateDescriptor(),
+            New DebrisDescriptor()
         }.
         ToDictionary(Function(x) x.ActorType, Function(x) x)
 End Module

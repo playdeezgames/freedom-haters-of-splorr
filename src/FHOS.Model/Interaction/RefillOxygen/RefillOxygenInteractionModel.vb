@@ -1,7 +1,7 @@
 ﻿Friend Class RefillOxygenInteractionModel
     Implements IInteractionModel
 
-    Private actor As Persistence.IActor
+    Private ReadOnly actor As Persistence.IActor
 
     Public Sub New(actor As Persistence.IActor)
         Me.actor = actor
