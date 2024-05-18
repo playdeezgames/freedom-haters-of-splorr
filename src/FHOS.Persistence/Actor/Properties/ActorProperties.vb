@@ -88,4 +88,13 @@
             Flags(FlagTypes.CanSalvage) = value
         End Set
     End Property
+
+    Public Property BuysScrap As Boolean Implements IActorProperties.BuysScrap
+        Get
+            Return Flags(FlagTypes.BuysScrap)
+        End Get
+        Set(value As Boolean)
+            Flags(FlagTypes.BuysScrap) = value
+        End Set
+    End Property
 End Class

@@ -9,6 +9,7 @@
 
     Public Sub Perform() Implements IInteractionModel.Perform
         actor.State.LifeSupport.CurrentValue = actor.State.LifeSupport.MaximumValue.Value
-        actor.Universe.Messages.Add("Oxygen Refilled!", ("You refill yer oxygen!", Black))
+        actor.State.Wallet.CurrentValue -= 1
+        actor.Universe.Messages.Add("Oxygen Refilled!", ("You refill yer oxygen!", Black), ("Cost: 1 Jools!", Black))
     End Sub
 End Class

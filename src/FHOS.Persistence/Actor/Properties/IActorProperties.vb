@@ -6,4 +6,5 @@
     Property CostumeType As String
     Property CanSalvage As Boolean
     Property CanRefillOxygen As Boolean
+    Property BuysScrap As Boolean
 End Interface

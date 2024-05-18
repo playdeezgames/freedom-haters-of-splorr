@@ -18,5 +18,6 @@
 
     Private Shared Sub InitializeStarDock(actor As Persistence.IActor)
         actor.Properties.CanRefillOxygen = True
+        actor.Properties.BuysScrap = True
     End Sub
 End Class
