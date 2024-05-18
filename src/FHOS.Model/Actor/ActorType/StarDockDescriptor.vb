@@ -17,5 +17,6 @@
     End Sub
 
     Private Shared Sub InitializeStarDock(actor As Persistence.IActor)
+        actor.CanRefillOxygen = True
     End Sub
 End Class

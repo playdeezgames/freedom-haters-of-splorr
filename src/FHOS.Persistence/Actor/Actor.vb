@@ -49,4 +49,13 @@ Friend Class Actor
             Return ActorState.FromId(UniverseData, Id)
         End Get
     End Property
+
+    Public Property CanRefillOxygen As Boolean Implements IActor.CanRefillOxygen
+        Get
+            Return Flags(FlagTypes.CanRefillOxygen)
+        End Get
+        Set(value As Boolean)
+            Flags(FlagTypes.CanRefillOxygen) = value
+        End Set
+    End Property
 End Class

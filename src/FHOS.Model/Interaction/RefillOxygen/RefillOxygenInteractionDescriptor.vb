@@ -1,17 +1,17 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class GoodByeInteractionDescriptor
+Friend Class RefillOxygenInteractionDescriptor
     Inherits InteractionDescriptor
 
     Public Sub New()
-        MyBase.New(InteractionTypes.GoodBye, "Good-Bye")
+        MyBase.New(InteractionTypes.RefillOxygen, "Refill Oxygen")
     End Sub
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return True
+        Return actor.State.Interactor.CanRefillOxygen
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
-        Return Nothing
+        Return New RefillOxygenInteractionModel(actor)
     End Function
 End Class

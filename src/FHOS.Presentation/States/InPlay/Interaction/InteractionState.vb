@@ -23,7 +23,8 @@ Friend Class InteractionState
             SetState(GameState.LeaveInteraction)
             Return
         End If
-        Throw New NotImplementedException
+        value.Item.Perform()
+        SetState(BoilerplateState.Neutral)
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IInteractionModel))
