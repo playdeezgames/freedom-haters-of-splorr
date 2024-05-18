@@ -5,4 +5,5 @@
     Property Location As ILocation
     Property Facing As Integer
     Property Interactor As IActor
+    Property Scrap As Integer
 End Interface

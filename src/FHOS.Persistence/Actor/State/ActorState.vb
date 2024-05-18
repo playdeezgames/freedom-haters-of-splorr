@@ -65,6 +65,15 @@
         End Set
     End Property
 
+    Public Property Scrap As Integer Implements IActorState.Scrap
+        Get
+            Return If(GetStatistic(StatisticTypes.Scrap), 0)
+        End Get
+        Set(value As Integer)
+            SetStatistic(StatisticTypes.Scrap, value)
+        End Set
+    End Property
+
     Friend Shared Function FromId(universeData As Data.UniverseData, id As Integer) As IActorState
         Return New ActorState(universeData, id)
     End Function

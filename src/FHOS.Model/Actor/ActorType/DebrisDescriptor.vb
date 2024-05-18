@@ -10,12 +10,13 @@
             },
             spawnRolls:=New Dictionary(Of String, String) From
             {
-                {MapTypes.StarSystem, "1d6/6+1d6/6+1d6/6+1d6/6+1d6/6+1d6/6+1d6/6+1d6/6+1d6/6+1d6/6"}
+                {MapTypes.StarSystem, "12d6/6"}
             },
             canSpawn:=Function(x) x.LocationType = Void AndAlso x.Actor Is Nothing,
             initializer:=AddressOf InitializeDebris)
     End Sub
 
     Private Shared Sub InitializeDebris(actor As Persistence.IActor)
+        actor.Properties.CanSalvage = True
     End Sub
 End Class

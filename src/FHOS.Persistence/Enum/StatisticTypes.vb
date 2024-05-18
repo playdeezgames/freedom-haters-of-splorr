@@ -22,6 +22,7 @@
     Friend ReadOnly Row As String = NameOf(Row)
     Friend ReadOnly Rows As String = NameOf(Rows)
     Friend ReadOnly SatelliteCount As String = NameOf(SatelliteCount)
+    Friend ReadOnly Scrap As String = NameOf(Scrap)
     Friend ReadOnly Standards As String = NameOf(Standards)
     Friend ReadOnly TargetLocationId As String = NameOf(TargetLocationId)
     Friend ReadOnly Turn As String = NameOf(Turn)

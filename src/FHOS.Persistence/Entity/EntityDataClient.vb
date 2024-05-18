@@ -5,6 +5,7 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
     Implements IEntity
     Private ReadOnly entityId As Integer
     Private ReadOnly entityDataFetcher As Func(Of UniverseData, Integer, TEntityData)
+    Private ReadOnly entityDataRecycler As Action(Of UniverseData, Integer)
     Protected ReadOnly Property EntityData As TEntityData
         Get
             Return entityDataFetcher(UniverseData, entityId)
@@ -36,10 +37,15 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         End Get
     End Property
 
-    Public Sub New(universeData As Data.UniverseData, entityId As Integer, entityDataFetcher As Func(Of UniverseData, Integer, TEntityData))
+    Public Sub New(
+                  universeData As Data.UniverseData,
+                  entityId As Integer,
+                  entityDataFetcher As Func(Of UniverseData, Integer, TEntityData),
+                  entityDataRecycler As Action(Of UniverseData, Integer))
         MyBase.New(universeData)
         Me.entityId = entityId
         Me.entityDataFetcher = entityDataFetcher
+        Me.entityDataRecycler = entityDataRecycler
     End Sub
     Protected Sub SetStatistic(statisticType As String, value As Integer?)
         If value.HasValue Then
@@ -69,4 +75,11 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         End If
         Return Nothing
     End Function
+
+    Public Overridable Sub Recycle() Implements IEntity.Recycle
+        EntityData.Flags.Clear()
+        EntityData.Statistics.Clear()
+        EntityData.Metadatas.Clear()
+        entityDataRecycler(UniverseData, Id)
+    End Sub
 End Class

@@ -6,5 +6,4 @@
     ReadOnly Property ActorType As String
     ReadOnly Property Properties As IActorProperties
     ReadOnly Property State As IActorState
-    Property CanRefillOxygen As Boolean
 End Interface

@@ -2,7 +2,13 @@
 
 Friend Class FactionDataClient
     Inherits EntityDataClient(Of FactionData)
-    Public Sub New(universeData As Data.UniverseData, factionId As Integer)
-        MyBase.New(universeData, factionId, Function(u, i) u.Factions.Entities(i))
+    Public Sub New(
+                  universeData As Data.UniverseData,
+                  factionId As Integer)
+        MyBase.New(
+            universeData,
+            factionId,
+            Function(u, i) u.Factions.Entities(i),
+            Sub(u, i) u.Factions.Recycled.Add(i))
     End Sub
 End Class
