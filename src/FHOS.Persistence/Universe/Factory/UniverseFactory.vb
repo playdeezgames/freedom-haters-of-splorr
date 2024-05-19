@@ -120,4 +120,15 @@ Friend Class UniverseFactory
         End If
         Return Store.FromId(UniverseData, UniverseData.Stores.CreateOrRecycle(storeData))
     End Function
+
+    Public Function CreateItem(itemType As String) As IItem Implements IUniverseFactory.CreateItem
+        Dim itemData = New ItemData With
+            {
+                .Metadatas = New Dictionary(Of String, String) From
+                {
+                    {MetadataTypes.ItemType, itemType}
+                }
+            }
+        Return Item.FromId(UniverseData, UniverseData.Items.CreateOrRecycle(itemData))
+    End Function
 End Class

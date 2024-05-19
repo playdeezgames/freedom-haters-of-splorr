@@ -21,4 +21,5 @@
                         value As Integer,
                         Optional minimum As Integer? = Nothing,
                         Optional maximum As Integer? = Nothing) As IStore
+    Function CreateItem(itemType As String) As IItem
 End Interface

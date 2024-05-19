@@ -6,8 +6,6 @@ Friend MustInherit Class InteractionDescriptor
         Me.InteractionType = interactionType
     End Sub
     Friend MustOverride Function GetText(actor As IActor) As String
-
     Friend MustOverride Function IsAvailable(actor As IActor) As Boolean
-
     Friend MustOverride Function ToInteraction(actor As IActor) As IInteractionModel
 End Class
