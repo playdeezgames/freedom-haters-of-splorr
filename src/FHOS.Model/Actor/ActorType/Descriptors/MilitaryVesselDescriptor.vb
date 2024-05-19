@@ -27,4 +27,8 @@ Friend Class MilitaryVesselDescriptor
         actor.Properties.HomePlanet = RNG.FromEnumerable(actor.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Properties.Faction.Id = actor.Properties.Faction.Id))
         actor.Properties.Name = $"{actor.Properties.Faction.Name} Military Vessel"
     End Sub
+
+    Friend Overrides Function CanSpawn(location As ILocation) As Boolean
+        Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing
+    End Function
 End Class

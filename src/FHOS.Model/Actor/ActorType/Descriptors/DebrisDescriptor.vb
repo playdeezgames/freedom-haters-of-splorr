@@ -22,4 +22,8 @@ Friend Class DebrisDescriptor
         actor.Properties.CanSalvage = True
         actor.State.Scrap = RNG.RollDice("4d6")
     End Sub
+
+    Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
+        Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing
+    End Function
 End Class

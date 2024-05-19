@@ -17,4 +17,8 @@ Friend Class PersonDescriptor
     Private Shared Sub InitializePerson(actor As IActor)
         'TODO
     End Sub
+
+    Friend Overrides Function CanSpawn(location As ILocation) As Boolean
+        Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing
+    End Function
 End Class

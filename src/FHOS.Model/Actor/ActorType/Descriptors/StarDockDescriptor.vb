@@ -32,4 +32,8 @@
             actor.Properties.Faction = place.Properties.Faction
         End If
     End Sub
+
+    Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
+        Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing
+    End Function
 End Class
