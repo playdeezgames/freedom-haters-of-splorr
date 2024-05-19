@@ -18,6 +18,10 @@
     Private Shared Sub InitializeShipyard(actor As Persistence.IActor)
     End Sub
 
+    Protected Overrides Sub Initialize(actor As Persistence.IActor)
+        LegacyInitializer.Invoke(actor)
+    End Sub
+
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
         Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing
     End Function
