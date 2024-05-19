@@ -11,15 +11,8 @@
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.PlanetOrbit, "1d1"}
-            },
-            AddressOf DescribeStarDock)
+            })
     End Sub
-
-    Private Shared Function DescribeStarDock(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
-        Return {
-            ($"Faction: {actor.Properties.Faction.Name}", Hues.Black)
-            }
-    End Function
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
         Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing
@@ -37,6 +30,8 @@
     End Sub
 
     Friend Overrides Function Describe(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
-        Return DescribeInteractor(actor)
+        Return {
+            ($"Faction: {actor.Properties.Faction.Name}", Hues.Black)
+            }
     End Function
 End Class

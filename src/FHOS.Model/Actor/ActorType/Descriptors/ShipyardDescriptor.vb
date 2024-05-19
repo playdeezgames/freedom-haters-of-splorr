@@ -22,6 +22,6 @@
     End Function
 
     Friend Overrides Function Describe(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
-        Return DescribeInteractor(actor)
+        Return Array.Empty(Of (Text As String, Hue As Integer))
     End Function
 End Class
