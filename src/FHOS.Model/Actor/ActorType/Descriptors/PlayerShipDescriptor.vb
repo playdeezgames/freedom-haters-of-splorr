@@ -62,4 +62,8 @@ Friend Class PlayerShipDescriptor
         InitializePlayerShipInterior(actor)
         InitializePlayerShipCrew(actor)
     End Sub
+
+    Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
+        Return DescribeInteractor(actor)
+    End Function
 End Class

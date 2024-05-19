@@ -7,6 +7,7 @@ Friend MustInherit Class ActorTypeDescriptor
     Friend MustOverride Function CanSpawn(location As ILocation) As Boolean
     Friend ReadOnly Property CostumeGenerator As IReadOnlyDictionary(Of String, Integer)
     Protected MustOverride Sub Initialize(actor As IActor)
+    Friend MustOverride Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
 
     Friend ReadOnly Property DescribeInteractor As Func(Of IActor, IEnumerable(Of (Text As String, Hue As Integer)))
     Friend Sub New(

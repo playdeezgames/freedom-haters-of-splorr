@@ -30,4 +30,8 @@ Friend Class MilitaryVesselDescriptor
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean
         Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing
     End Function
+
+    Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
+        Return DescribeInteractor(actor)
+    End Function
 End Class

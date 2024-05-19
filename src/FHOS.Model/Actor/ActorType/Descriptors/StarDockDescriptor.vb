@@ -35,4 +35,8 @@
             actor.Properties.Faction = place.Properties.Faction
         End If
     End Sub
+
+    Friend Overrides Function Describe(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
+        Return DescribeInteractor(actor)
+    End Function
 End Class
