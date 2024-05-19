@@ -15,7 +15,6 @@ Friend Class PlayerShipDescriptor
             {
                 {MapTypes.Galaxy, "1d1"}
             },
-            canSpawn:=Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing,
             initializer:=AddressOf InitializePlayerShip)
     End Sub
 

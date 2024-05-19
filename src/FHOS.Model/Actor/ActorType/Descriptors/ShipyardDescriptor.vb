@@ -12,7 +12,6 @@
             {
                 {MapTypes.PlanetOrbit, "1d4/4"}
             },
-            Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing,
             AddressOf InitializeShipyard)
     End Sub
 

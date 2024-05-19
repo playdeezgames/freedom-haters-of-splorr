@@ -12,8 +12,8 @@
             {
                 {MapTypes.PlanetOrbit, "1d1"}
             },
-            Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing,
-            AddressOf InitializeStarDock, AddressOf DescribeStarDock)
+            AddressOf InitializeStarDock,
+            AddressOf DescribeStarDock)
     End Sub
 
     Private Shared Function DescribeStarDock(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))

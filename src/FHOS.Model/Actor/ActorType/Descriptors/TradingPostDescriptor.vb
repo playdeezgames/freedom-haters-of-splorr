@@ -12,7 +12,6 @@
             {
                 {MapTypes.PlanetOrbit, "1d2/2"}
             },
-            Function(x) x.LocationType = LocationTypes.Void AndAlso x.Actor Is Nothing,
             AddressOf InitializeTradingPost)
     End Sub
 

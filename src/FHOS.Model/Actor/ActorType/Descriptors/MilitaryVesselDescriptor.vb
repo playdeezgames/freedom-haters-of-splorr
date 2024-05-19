@@ -19,7 +19,6 @@ Friend Class MilitaryVesselDescriptor
             {
                 {MapTypes.Galaxy, "25d1"}
             },
-            canSpawn:=Function(x) x.LocationType = Void AndAlso x.Actor Is Nothing,
             initializer:=AddressOf InitializeMilitaryShip)
     End Sub
     Private Shared Sub InitializeMilitaryShip(actor As Persistence.IActor)

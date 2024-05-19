@@ -14,7 +14,6 @@ Friend Class DebrisDescriptor
             {
                 {MapTypes.StarSystem, "12d6/6"}
             },
-            canSpawn:=Function(x) x.LocationType = Void AndAlso x.Actor Is Nothing,
             initializer:=AddressOf InitializeDebris)
     End Sub
 
