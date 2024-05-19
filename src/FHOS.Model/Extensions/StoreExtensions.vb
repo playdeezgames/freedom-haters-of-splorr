@@ -14,6 +14,6 @@ Module StoreExtensions
         If Not store.MaximumValue.HasValue Then
             Return Nothing
         End If
-        Return store.MinimumValue.Value - store.CurrentValue
+        Return store.MaximumValue.Value - store.CurrentValue
     End Function
 End Module

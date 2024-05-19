@@ -78,7 +78,10 @@ Public Module VerbTypes
                                                                    Return actor.State.Location.Place?.PlaceType = PlaceTypes.Planet OrElse actor.State.Location.Place?.PlaceType = PlaceTypes.Satellite
                                                                End Function,
                 Sub(actor)
-
+                    DoTurn(actor)
+                    With actor.State.Location.Place
+                        SetLocation(actor, RNG.FromEnumerable(.Properties.Map.Locations.Where(Function(x) x.Flags(.Properties.Identifier) AndAlso x.Actor Is Nothing)))
+                    End With
                 End Sub)},
             {KnownPlaces, New VerbTypeDescriptor("Known Places...", Function(actor)
                                                                         Return actor.KnownPlaces.HasAny
