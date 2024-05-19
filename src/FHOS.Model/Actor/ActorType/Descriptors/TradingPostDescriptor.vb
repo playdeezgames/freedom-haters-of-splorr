@@ -11,15 +11,10 @@
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.PlanetOrbit, "1d2/2"}
-            },
-            AddressOf InitializeTradingPost)
-    End Sub
-
-    Private Shared Sub InitializeTradingPost(actor As Persistence.IActor)
+            })
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
-        LegacyInitializer.Invoke(actor)
     End Sub
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean

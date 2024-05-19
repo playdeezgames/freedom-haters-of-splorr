@@ -12,7 +12,6 @@
             {
                 {MapTypes.PlanetOrbit, "1d1"}
             },
-            AddressOf InitializeStarDock,
             AddressOf DescribeStarDock)
     End Sub
 
@@ -22,7 +21,11 @@
             }
     End Function
 
-    Private Shared Sub InitializeStarDock(actor As Persistence.IActor)
+    Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
+        Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing
+    End Function
+
+    Protected Overrides Sub Initialize(actor As Persistence.IActor)
         actor.Properties.CanRefillOxygen = True
         actor.Properties.BuysScrap = True
         actor.Properties.CanRefuel = True
@@ -31,13 +34,5 @@
         If place IsNot Nothing Then
             actor.Properties.Faction = place.Properties.Faction
         End If
-    End Sub
-
-    Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
-        Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing
-    End Function
-
-    Protected Overrides Sub Initialize(actor As Persistence.IActor)
-        LegacyInitializer.Invoke(actor)
     End Sub
 End Class

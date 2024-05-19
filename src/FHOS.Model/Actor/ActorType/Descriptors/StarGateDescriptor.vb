@@ -11,15 +11,10 @@
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.PlanetOrbit, "1d10/10"}
-            },
-            AddressOf InitializeStarGate)
-    End Sub
-
-    Private Shared Sub InitializeStarGate(actor As Persistence.IActor)
+            })
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
-        LegacyInitializer.Invoke(actor)
     End Sub
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean

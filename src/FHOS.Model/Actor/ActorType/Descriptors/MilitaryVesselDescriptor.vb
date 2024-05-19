@@ -18,17 +18,13 @@ Friend Class MilitaryVesselDescriptor
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.Galaxy, "25d1"}
-            },
-            initializer:=AddressOf InitializeMilitaryShip)
-    End Sub
-    Private Shared Sub InitializeMilitaryShip(actor As Persistence.IActor)
-        actor.Properties.Faction = RNG.FromGenerator(actor.Universe.Factions.ToDictionary(Function(x) x, Function(x) x.PlanetCount))
-        actor.Properties.HomePlanet = RNG.FromEnumerable(actor.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Properties.Faction.Id = actor.Properties.Faction.Id))
-        actor.Properties.Name = $"{actor.Properties.Faction.Name} Military Vessel"
+            })
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
-        LegacyInitializer.Invoke(actor)
+        actor.Properties.Faction = RNG.FromGenerator(actor.Universe.Factions.ToDictionary(Function(x) x, Function(x) x.PlanetCount))
+        actor.Properties.HomePlanet = RNG.FromEnumerable(actor.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Properties.Faction.Id = actor.Properties.Faction.Id))
+        actor.Properties.Name = $"{actor.Properties.Faction.Name} Military Vessel"
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean

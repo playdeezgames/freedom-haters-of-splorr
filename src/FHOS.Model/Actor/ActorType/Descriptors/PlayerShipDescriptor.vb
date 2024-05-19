@@ -14,22 +14,7 @@ Friend Class PlayerShipDescriptor
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.Galaxy, "1d1"}
-            },
-            initializer:=AddressOf InitializePlayerShip)
-    End Sub
-
-
-    Private Shared Sub InitializePlayerShip(ship As Persistence.IActor)
-        If ship.Universe.Avatar.Actor Is Nothing Then
-            ship.Universe.Avatar.Push(ship)
-        End If
-        ship.Properties.Faction = ship.Universe.Factions.Single(Function(x) x.Authority = 100 AndAlso x.Standards = 100 AndAlso x.Conviction = 100)
-        ship.Properties.HomePlanet = RNG.FromEnumerable(ship.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Properties.Faction.Id = ship.Properties.Faction.Id))
-        ship.Properties.Name = "(yer ship)"
-        ship.State.LifeSupport = ship.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
-        ship.State.FuelTank = ship.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
-        InitializePlayerShipInterior(ship)
-        InitializePlayerShipCrew(ship)
+            })
     End Sub
 
     Private Shared Sub InitializePlayerShipCrew(ship As IActor)
@@ -66,6 +51,15 @@ Friend Class PlayerShipDescriptor
     End Function
 
     Protected Overrides Sub Initialize(actor As IActor)
-        LegacyInitializer.Invoke(actor)
+        If actor.Universe.Avatar.Actor Is Nothing Then
+            actor.Universe.Avatar.Push(actor)
+        End If
+        actor.Properties.Faction = actor.Universe.Factions.Single(Function(x) x.Authority = 100 AndAlso x.Standards = 100 AndAlso x.Conviction = 100)
+        actor.Properties.HomePlanet = RNG.FromEnumerable(actor.Universe.GetPlacesOfType(PlaceTypes.Planet).Where(Function(x) x.Properties.Faction.Id = actor.Properties.Faction.Id))
+        actor.Properties.Name = "(yer ship)"
+        actor.State.LifeSupport = actor.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
+        actor.State.FuelTank = actor.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
+        InitializePlayerShipInterior(actor)
+        InitializePlayerShipCrew(actor)
     End Sub
 End Class

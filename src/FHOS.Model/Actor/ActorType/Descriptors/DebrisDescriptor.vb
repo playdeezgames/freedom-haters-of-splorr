@@ -13,17 +13,12 @@ Friend Class DebrisDescriptor
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.StarSystem, "12d6/6"}
-            },
-            initializer:=AddressOf InitializeDebris)
-    End Sub
-
-    Private Shared Sub InitializeDebris(actor As Persistence.IActor)
-        actor.Properties.CanSalvage = True
-        actor.State.Scrap = RNG.RollDice("4d6")
+            })
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
-        LegacyInitializer.Invoke(actor)
+        actor.Properties.CanSalvage = True
+        actor.State.Scrap = RNG.RollDice("4d6")
     End Sub
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
