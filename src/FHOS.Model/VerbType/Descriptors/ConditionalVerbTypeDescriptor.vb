@@ -10,7 +10,7 @@ Friend Class ConditionalVerbTypeDescriptor
         Me.checkAvailability = checkAvailability
     End Sub
 
-    Friend Overrides Sub Perform(actor As IActor)
+    Protected Overrides Sub OnPerform(actor As IActor)
         'Do Nothing
     End Sub
 

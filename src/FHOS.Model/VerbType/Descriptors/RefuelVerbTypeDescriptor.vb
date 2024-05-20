@@ -1,5 +1,4 @@
-﻿Imports System.Numerics
-Imports FHOS.Persistence
+﻿Imports FHOS.Persistence
 
 Friend Class RefuelVerbTypeDescriptor
     Inherits VerbTypeDescriptor
@@ -10,7 +9,7 @@ Friend Class RefuelVerbTypeDescriptor
             "Refuel")
     End Sub
 
-    Friend Overrides Sub Perform(actor As IActor)
+    Protected Overrides Sub OnPerform(actor As IActor)
         actor.State.FuelTank.CurrentValue = actor.State.FuelTank.MaximumValue.Value
     End Sub
 

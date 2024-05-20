@@ -12,7 +12,7 @@ Friend Class MoveVerbTypeDescriptor
         Me.facing = facing
     End Sub
 
-    Friend Overrides Sub Perform(actor As Persistence.IActor)
+    Protected Overrides Sub OnPerform(actor As IActor)
         Move(actor, facing)
     End Sub
 

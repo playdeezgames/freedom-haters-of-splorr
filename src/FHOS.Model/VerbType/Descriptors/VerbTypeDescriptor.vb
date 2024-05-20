@@ -13,5 +13,11 @@ Friend MustInherit Class VerbTypeDescriptor
         Me.Visible = visible
     End Sub
     Friend MustOverride Function IsAvailable(actor As IActor) As Boolean
-    Friend MustOverride Sub Perform(actor As IActor)
+    Friend Sub Perform(actor As IActor)
+        If IsAvailable(actor) Then
+            OnPerform(actor)
+        End If
+    End Sub
+
+    Protected MustOverride Sub OnPerform(actor As IActor)
 End Class

@@ -7,7 +7,7 @@ Friend Class DistressSignalVerbTypeDescriptor
         MyBase.New(DistressSignal, "Signal Distress")
     End Sub
 
-    Friend Overrides Sub Perform(actor As IActor)
+    Protected Overrides Sub OnPerform(actor As IActor)
         Dim fuelAdded = actor.State.FuelTank.MaximumValue.Value - actor.State.FuelTank.CurrentValue
         Dim fuelPrice = 1 'TODO: don't just pick a magic number!
         Dim price = fuelPrice * fuelAdded

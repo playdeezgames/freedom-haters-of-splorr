@@ -13,7 +13,7 @@ Friend Class ApproachVerbTypeDescriptor
         Me.placeType = placeType
     End Sub
 
-    Friend Overrides Sub Perform(actor As Persistence.IActor)
+    Protected Overrides Sub OnPerform(actor As IActor)
         DoTurn(actor)
         With actor.State.Location.Place
             SetLocation(actor, RNG.FromEnumerable(.Properties.Map.Locations.Where(Function(x) x.Flags(.Properties.Identifier) AndAlso x.Actor Is Nothing)))

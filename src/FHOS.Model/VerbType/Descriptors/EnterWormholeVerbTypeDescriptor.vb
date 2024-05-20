@@ -7,7 +7,7 @@ Friend Class EnterWormholeVerbTypeDescriptor
         MyBase.New(VerbTypes.EnterWormhole, "Enter Wormhole")
     End Sub
 
-    Friend Overrides Sub Perform(actor As IActor)
+    Protected Overrides Sub OnPerform(actor As IActor)
         DoTurn(actor)
         With actor.State.Location.Place
             SetLocation(actor, .Properties.WormholeDestination)

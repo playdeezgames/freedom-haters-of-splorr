@@ -7,7 +7,7 @@ Friend Class RefillOxygenVerbTypeDescriptor
         MyBase.New(VerbTypes.RefillOxygen, "Refill Oxygen")
     End Sub
 
-    Friend Overrides Sub Perform(actor As IActor)
+    Protected Overrides Sub OnPerform(actor As IActor)
         actor.State.LifeSupport.CurrentValue = actor.State.LifeSupport.MaximumValue.Value
     End Sub
 
