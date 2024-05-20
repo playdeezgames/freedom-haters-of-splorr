@@ -3,7 +3,6 @@
     Friend ReadOnly Void As String = NameOf(Void)
     Friend ReadOnly Air As String = NameOf(Air)
     Friend ReadOnly Bulkhead As String = NameOf(Bulkhead)
-    Friend ReadOnly Door As String = NameOf(Door)
     Friend ReadOnly Open As String = NameOf(Open)
     Friend ReadOnly Shut As String = NameOf(Shut)
     Friend ReadOnly Star As String = NameOf(Star)
@@ -11,7 +10,7 @@
     Friend ReadOnly Moon As String = NameOf(Moon)
 
     Friend Function MakeDoor(direction As String, doorState As String) As String
-        Return $"{Door}{doorState}{direction}"
+        Return $"Door{doorState}{direction}"
     End Function
 
     Friend Function MakeVoidArrow(direction As String) As String
@@ -27,8 +26,6 @@
     Friend ReadOnly OrangeStar As String = NameOf(OrangeStar)
     Friend ReadOnly RedStar As String = NameOf(RedStar)
 
-
-
     Friend Function MakePlanetLocationType(planetType As String) As String
         Return $"{planetType}{Planet}"
     End Function
@@ -41,18 +38,6 @@
     Friend Function MakeSatelliteSectionLocationType(satelliteType As String, sectionName As String) As String
         Return $"{MakeSatelliteLocationType(satelliteType)}{sectionName}"
     End Function
-
-
-    Private ReadOnly satelliteHueTable As IReadOnlyDictionary(Of String, Integer) =
-        New Dictionary(Of String, Integer) From
-        {
-            {SatelliteTypes.Radiated, Hues.Cyan},
-            {SatelliteTypes.Volcanic, Hues.Orange},
-            {SatelliteTypes.Barren, Hues.DarkGray},
-            {SatelliteTypes.Inferno, Hues.Red},
-            {SatelliteTypes.Cavernous, Hues.LightGray},
-            {SatelliteTypes.Ice, Hues.White}
-        }
 
     Friend ReadOnly WormholeExit As String = NameOf(WormholeExit)
 
@@ -146,10 +131,10 @@
             {MakeDoor(CardinalDirections.West, Open), New LocationTypeDescriptor("Open Door", ChrW(30), Hues.DarkGray, Black)},
             {MakeDoor(CardinalDirections.West, Shut), New LocationTypeDescriptor("Shut Door", ChrW(31), Hues.DarkGray, Black, isEnterable:=False)}
         }
-        For Each satelliteHue In satelliteHueTable
-            result(MakeSatelliteLocationType(satelliteHue.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", ChrW(226), satelliteHue.Value, Black)
+        For Each satelliteHue In SatelliteTypes.Descriptors
+            result(MakeSatelliteLocationType(satelliteHue.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", ChrW(226), satelliteHue.Value.Hue, Black)
             For Each satelliteSection In planet3x3SectionTable
-                result(MakeSatelliteSectionLocationType(satelliteHue.Key, satelliteSection.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", satelliteSection.Value, satelliteHue.Value, Black)
+                result(MakeSatelliteSectionLocationType(satelliteHue.Key, satelliteSection.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", satelliteSection.Value, satelliteHue.Value.Hue, Black)
             Next
         Next
         For Each planetHue In planetHueTable

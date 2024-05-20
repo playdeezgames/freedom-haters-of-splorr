@@ -11,27 +11,27 @@
         {
             {
                 Radiated,
-                New SatelliteTypeDescriptor(Radiated)
+                New SatelliteTypeDescriptor(Radiated, Hues.Cyan)
             },
             {
                 Volcanic,
-                New SatelliteTypeDescriptor(Volcanic)
+                New SatelliteTypeDescriptor(Volcanic, Hues.Orange)
             },
             {
                 Barren,
-                New SatelliteTypeDescriptor(Barren)
+                New SatelliteTypeDescriptor(Barren, Hues.DarkGray)
             },
             {
                 Inferno,
-                New SatelliteTypeDescriptor(Inferno)
+                New SatelliteTypeDescriptor(Inferno, Hues.Red)
             },
             {
                 Cavernous,
-                New SatelliteTypeDescriptor(Cavernous)
+                New SatelliteTypeDescriptor(Cavernous, Hues.LightGray)
             },
             {
                 Ice,
-                New SatelliteTypeDescriptor(Ice)
+                New SatelliteTypeDescriptor(Ice, Hues.White)
             }
         }
 End Module
