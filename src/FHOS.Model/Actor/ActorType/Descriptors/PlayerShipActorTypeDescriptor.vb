@@ -43,7 +43,7 @@ Friend Class PlayerShipActorTypeDescriptor
             map.GetLocation(0, y).LocationType = LocationTypes.Bulkhead
             map.GetLocation(descriptor.Size.Columns - 1, y).LocationType = LocationTypes.Bulkhead
         Next
-        map.GetLocation(descriptor.Size.Columns \ 2, 0).LocationType = LocationTypes.MakeDoor(LocationTypes.North, LocationTypes.Shut)
+        map.GetLocation(descriptor.Size.Columns \ 2, 0).LocationType = LocationTypes.MakeDoor(CardinalDirections.North, LocationTypes.Shut)
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean

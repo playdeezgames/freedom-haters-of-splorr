@@ -16,10 +16,10 @@ Friend Module Edger
                               columns As Integer,
                               rows As Integer) As IReadOnlyList(Of (X As Integer, Y As Integer, LocationType As String, DeltaX As Integer, DeltaY As Integer))
         Return {
-            Enumerable.Range(1, columns - 2).Select(Function(x) (x, 0, MakeVoidArrow(North), 0, 1)),
-            Enumerable.Range(1, rows - 2).Select(Function(x) (columns - 1, x, MakeVoidArrow(East), -1, 0)),
-            Enumerable.Range(1, columns - 2).Select(Function(x) (x, rows - 1, MakeVoidArrow(South), 0, -1)),
-            Enumerable.Range(1, rows - 2).Select(Function(x) (0, x, MakeVoidArrow(West), 1, 0))
+            Enumerable.Range(1, columns - 2).Select(Function(x) (x, 0, MakeVoidArrow(OrdinalDirections.North), 0, 1)),
+            Enumerable.Range(1, rows - 2).Select(Function(x) (columns - 1, x, MakeVoidArrow(OrdinalDirections.East), -1, 0)),
+            Enumerable.Range(1, columns - 2).Select(Function(x) (x, rows - 1, MakeVoidArrow(OrdinalDirections.South), 0, -1)),
+            Enumerable.Range(1, rows - 2).Select(Function(x) (0, x, MakeVoidArrow(OrdinalDirections.West), 1, 0))
         }.Aggregate(
             New List(Of (X As Integer, Y As Integer, LocationType As String, DeltaX As Integer, DeltaY As Integer)),
             Function(a, x)
