@@ -20,7 +20,7 @@ Friend Class PlaceFactory
                 {
                     .Metadatas = New Dictionary(Of String, String) From
                     {
-                        {MetadataTypes.Name, Name},
+                        {MetadataTypes.Name, Place.FromId(UniverseData, Id).Properties.Name},
                         {MetadataTypes.Subtype, Place.FromId(UniverseData, Id).Subtype},
                         {MetadataTypes.Identifier, Guid.NewGuid.ToString},
                         {MetadataTypes.PlaceType, PlaceTypes.StarVicinity}

@@ -76,7 +76,7 @@ Friend Class TutorialState
                         New TutorialDetailLine("", Hues.Black),
                         New TutorialDetailLine("To enter its orbit,", Hues.Black),
                         New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
-                        New TutorialDetailLine("then choose 'Enter Orbit'", Hues.Black)
+                        New TutorialDetailLine("then choose 'Enter Satellite Orbit'", Hues.Black)
                     })
             },
             {
@@ -88,7 +88,7 @@ Friend Class TutorialState
                         New TutorialDetailLine("", Hues.Black),
                         New TutorialDetailLine("To enter its orbit,", Hues.Black),
                         New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
-                        New TutorialDetailLine("then choose 'Enter Orbit'", Hues.Black)
+                        New TutorialDetailLine("then choose 'Enter Planet Orbit'", Hues.Black)
                     })
             },
             {
@@ -100,7 +100,8 @@ Friend Class TutorialState
                         New TutorialDetailLine("", Hues.Black),
                         New TutorialDetailLine("To refuel,", Hues.Black),
                         New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
-                        New TutorialDetailLine("then choose 'Refuel'", Hues.Black)
+                        New TutorialDetailLine("then choose 'Refuel'", Hues.Black),
+                        New TutorialDetailLine("(requires Fuel Scoop)", Hues.Black)
                     })
             },
             {

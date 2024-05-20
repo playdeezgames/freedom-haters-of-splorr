@@ -15,6 +15,15 @@
         End Set
     End Property
 
+    Public Property CanRefillOxygen As Boolean Implements IItemProperties.CanRefillOxygen
+        Get
+            Return Flags(FlagTypes.CanRefillOxygen)
+        End Get
+        Set(value As Boolean)
+            Flags(FlagTypes.CanRefillOxygen) = value
+        End Set
+    End Property
+
     Friend Shared Function FromId(universeData As Data.UniverseData, id As Integer) As IItemProperties
         Return New ItemProperties(universeData, id)
     End Function

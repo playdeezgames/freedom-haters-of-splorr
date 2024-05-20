@@ -59,7 +59,6 @@ Friend Class PlayerShipDescriptor
         actor.Properties.Name = "(yer ship)"
         actor.State.LifeSupport = actor.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
         actor.State.FuelTank = actor.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
-        actor.Equipment.Equip(ItemTypes.Descriptors(ItemTypes.FuelScoop).CreateItem(actor.Universe))
         InitializePlayerShipInterior(actor)
         InitializePlayerShipCrew(actor)
     End Sub

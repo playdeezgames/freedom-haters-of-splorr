@@ -16,6 +16,9 @@ Friend Class RefillOxygenVerbTypeDescriptor
         If placeType <> PlaceTypes.Planet Then
             Return False
         End If
-        Return PlanetTypes.Descriptors(actor.State.Location.Place.Subtype).CanRefillOxygen
+        If Not PlanetTypes.Descriptors(actor.State.Location.Place.Subtype).CanRefillOxygen Then
+            Return False
+        End If
+        Return actor.Equipment.All.Any(Function(x) x.Properties.CanRefillOxygen)
     End Function
 End Class
