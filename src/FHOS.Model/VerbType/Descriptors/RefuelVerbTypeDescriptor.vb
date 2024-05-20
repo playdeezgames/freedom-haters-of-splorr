@@ -14,6 +14,7 @@ Friend Class RefuelVerbTypeDescriptor
     End Sub
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.State.Location.Place?.PlaceType = PlaceTypes.Star
+        Return actor.State.Location.Place?.PlaceType = PlaceTypes.Star AndAlso
+            actor.Equipment.All.Any(Function(x) x.Properties.CanRefuel)
     End Function
 End Class

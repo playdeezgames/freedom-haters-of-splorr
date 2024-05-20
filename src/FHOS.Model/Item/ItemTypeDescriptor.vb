@@ -6,6 +6,9 @@ Friend MustInherit Class ItemTypeDescriptor
         Me.ItemType = itemType
     End Sub
     Function CreateItem(universe As IUniverse) As IItem
-        Return universe.Factory.CreateItem(ItemType)
+        Dim item = universe.Factory.CreateItem(ItemType)
+        Initialize(item)
+        Return item
     End Function
+    Protected MustOverride Sub Initialize(item As IItem)
 End Class
