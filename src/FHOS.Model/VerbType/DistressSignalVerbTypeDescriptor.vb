@@ -4,7 +4,7 @@ Friend Class DistressSignalVerbTypeDescriptor
     Inherits VerbTypeDescriptor
 
     Friend Sub New()
-        MyBase.New(DistressSignal, "Signal Distress", Function(Actor) Actor.State.FuelTank IsNot Nothing AndAlso AvatarModel.FromActor(Actor).Vessel.FuelPercent.Value = 0)
+        MyBase.New(DistressSignal, "Signal Distress")
     End Sub
 
     Friend Overrides Sub Perform(actor As IActor)
@@ -18,4 +18,8 @@ Friend Class DistressSignalVerbTypeDescriptor
                         ($"Added {fuelAdded} fuel!", Hues.Black),
                         ($"Price {price} jools!", Hues.Black))
     End Sub
+
+    Friend Overrides Function IsAvailable(actor As IActor) As Boolean
+        Return actor.State.FuelTank IsNot Nothing AndAlso AvatarModel.FromActor(actor).Vessel.FuelPercent.Value = 0
+    End Function
 End Class

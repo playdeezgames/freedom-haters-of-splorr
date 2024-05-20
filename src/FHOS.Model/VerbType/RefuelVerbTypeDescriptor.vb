@@ -7,13 +7,14 @@ Friend Class RefuelVerbTypeDescriptor
     Friend Sub New()
         MyBase.New(
             VerbTypes.Refuel,
-            "Refuel",
-            Function(Actor)
-                Return Actor.State.Location.Place?.PlaceType = PlaceTypes.Star
-            End Function)
+            "Refuel")
     End Sub
 
     Friend Overrides Sub Perform(actor As IActor)
         actor.State.FuelTank.CurrentValue = actor.State.FuelTank.MaximumValue.Value
     End Sub
+
+    Friend Overrides Function IsAvailable(actor As IActor) As Boolean
+        Return actor.State.Location.Place?.PlaceType = PlaceTypes.Star
+    End Function
 End Class

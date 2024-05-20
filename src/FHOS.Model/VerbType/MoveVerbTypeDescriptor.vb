@@ -8,14 +8,15 @@ Friend Class MoveVerbTypeDescriptor
         MyBase.New(
             verbType,
             text,
-            Function(Actor)
-                Return CanMove(Actor)
-            End Function,
             False)
         Me.facing = facing
     End Sub
 
     Friend Overrides Sub Perform(actor As Persistence.IActor)
-        Move(actor, Facing)
+        Move(actor, facing)
     End Sub
+
+    Friend Overrides Function IsAvailable(actor As IActor) As Boolean
+        Return CanMove(actor)
+    End Function
 End Class

@@ -1,15 +1,16 @@
-﻿Imports SPLORR.Game
+﻿Imports FHOS.Persistence
+Imports SPLORR.Game
 
 Friend Class ApproachVerbTypeDescriptor
     Inherits VerbTypeDescriptor
 
+    Private ReadOnly placeType As String
+
     Friend Sub New(verbType As String, text As String, placeType As String)
         MyBase.New(
             verbType,
-            text,
-            Function(Actor)
-                Return Actor.State.Location.Place?.PlaceType = placeType
-            End Function)
+            text)
+        Me.placeType = placeType
     End Sub
 
     Friend Overrides Sub Perform(actor As Persistence.IActor)
@@ -18,4 +19,8 @@ Friend Class ApproachVerbTypeDescriptor
             SetLocation(actor, RNG.FromEnumerable(.Properties.Map.Locations.Where(Function(x) x.Flags(.Properties.Identifier) AndAlso x.Actor Is Nothing)))
         End With
     End Sub
+
+    Friend Overrides Function IsAvailable(actor As Persistence.IActor) As Boolean
+        Return actor.State.Location.Place?.PlaceType = PlaceType
+    End Function
 End Class

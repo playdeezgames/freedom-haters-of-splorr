@@ -4,9 +4,7 @@ Friend Class EnterWormholeVerbTypeDescriptor
     Inherits VerbTypeDescriptor
 
     Friend Sub New()
-        MyBase.New(VerbTypes.EnterWormhole, "Enter Wormhole", Function(Actor)
-                                                                  Return Actor.State.Location.Place?.PlaceType = PlaceTypes.Wormhole
-                                                              End Function)
+        MyBase.New(VerbTypes.EnterWormhole, "Enter Wormhole")
     End Sub
 
     Friend Overrides Sub Perform(actor As IActor)
@@ -15,4 +13,8 @@ Friend Class EnterWormholeVerbTypeDescriptor
             SetLocation(actor, .Properties.WormholeDestination)
         End With
     End Sub
+
+    Friend Overrides Function IsAvailable(actor As IActor) As Boolean
+        Return actor.State.Location.Place?.PlaceType = PlaceTypes.Wormhole
+    End Function
 End Class
