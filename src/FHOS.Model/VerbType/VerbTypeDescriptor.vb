@@ -1,6 +1,6 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class VerbTypeDescriptor
+Friend MustInherit Class VerbTypeDescriptor
     Friend ReadOnly Property VerbType As String
     Friend ReadOnly Property Text As String
     Friend ReadOnly Property Visible As Boolean
