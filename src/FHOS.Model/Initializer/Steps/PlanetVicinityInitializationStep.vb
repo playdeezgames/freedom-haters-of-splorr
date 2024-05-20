@@ -51,15 +51,15 @@ Friend Class PlanetVicinityInitializationStep
     Private ReadOnly planetSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
         New List(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) From
         {
-            (-1, -1, LocationTypes.TopLeft),
-            (0, -1, LocationTypes.TopCenter),
-            (1, -1, LocationTypes.TopRight),
-            (-1, 0, LocationTypes.CenterLeft),
-            (0, 0, LocationTypes.Center),
-            (1, 0, LocationTypes.CenterRight),
-            (-1, 1, LocationTypes.BottomLeft),
-            (0, 1, LocationTypes.BottomCenter),
-            (1, 1, LocationTypes.BottomRight)
+            (-1, -1, Grid3x3.TopLeft),
+            (0, -1, Grid3x3.TopCenter),
+            (1, -1, Grid3x3.TopRight),
+            (-1, 0, Grid3x3.CenterLeft),
+            (0, 0, Grid3x3.Center),
+            (1, 0, Grid3x3.CenterRight),
+            (-1, 1, Grid3x3.BottomLeft),
+            (0, 1, Grid3x3.BottomCenter),
+            (1, 1, Grid3x3.BottomRight)
         }
     Private Sub PlacePlanet(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean))
         Dim planetCenterColumn = planetVicinity.Properties.Map.Size.Columns \ 2

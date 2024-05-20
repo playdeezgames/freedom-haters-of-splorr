@@ -27,15 +27,6 @@
     Friend ReadOnly OrangeStar As String = NameOf(OrangeStar)
     Friend ReadOnly RedStar As String = NameOf(RedStar)
 
-    Friend ReadOnly TopLeft As String = NameOf(TopLeft)
-    Friend ReadOnly TopCenter As String = NameOf(TopCenter)
-    Friend ReadOnly TopRight As String = NameOf(TopRight)
-    Friend ReadOnly CenterLeft As String = NameOf(CenterLeft)
-    Friend ReadOnly Center As String = NameOf(Center)
-    Friend ReadOnly CenterRight As String = NameOf(CenterRight)
-    Friend ReadOnly BottomLeft As String = NameOf(BottomLeft)
-    Friend ReadOnly BottomCenter As String = NameOf(BottomCenter)
-    Friend ReadOnly BottomRight As String = NameOf(BottomRight)
 
 
     Friend Function MakePlanetLocationType(planetType As String) As String
@@ -97,31 +88,6 @@
             {BottomCenter, ChrW(234)},
             {BottomRight, ChrW(235)}
         }
-    Friend ReadOnly C1R1 As String = NameOf(C1R1)
-    Friend ReadOnly C1R2 As String = NameOf(C1R2)
-    Friend ReadOnly C1R3 As String = NameOf(C1R3)
-    Friend ReadOnly C1R4 As String = NameOf(C1R4)
-    Friend ReadOnly C1R5 As String = NameOf(C1R5)
-    Friend ReadOnly C2R1 As String = NameOf(C2R1)
-    Friend ReadOnly C2R2 As String = NameOf(C2R2)
-    Friend ReadOnly C2R3 As String = NameOf(C2R3)
-    Friend ReadOnly C2R4 As String = NameOf(C2R4)
-    Friend ReadOnly C2R5 As String = NameOf(C2R5)
-    Friend ReadOnly C3R1 As String = NameOf(C3R1)
-    Friend ReadOnly C3R2 As String = NameOf(C3R2)
-    Friend ReadOnly C3R3 As String = NameOf(C3R3)
-    Friend ReadOnly C3R4 As String = NameOf(C3R4)
-    Friend ReadOnly C3R5 As String = NameOf(C3R5)
-    Friend ReadOnly C4R1 As String = NameOf(C4R1)
-    Friend ReadOnly C4R2 As String = NameOf(C4R2)
-    Friend ReadOnly C4R3 As String = NameOf(C4R3)
-    Friend ReadOnly C4R4 As String = NameOf(C4R4)
-    Friend ReadOnly C4R5 As String = NameOf(C4R5)
-    Friend ReadOnly C5R1 As String = NameOf(C5R1)
-    Friend ReadOnly C5R2 As String = NameOf(C5R2)
-    Friend ReadOnly C5R3 As String = NameOf(C5R3)
-    Friend ReadOnly C5R4 As String = NameOf(C5R4)
-    Friend ReadOnly C5R5 As String = NameOf(C5R5)
     Private ReadOnly planet5x5SectionTable As IReadOnlyDictionary(Of String, Char) =
         New Dictionary(Of String, Char) From
         {
