@@ -38,23 +38,6 @@
         End Get
     End Property
 
-    Public Property WormholeDestination As ILocation Implements IPlaceProperties.WormholeDestination
-        Get
-            Dim locationId As Integer
-            If EntityData.Statistics.TryGetValue(StatisticTypes.WormholeDestinationId, locationId) Then
-                Return Location.FromId(UniverseData, locationId)
-            End If
-            Return Nothing
-        End Get
-        Set(value As ILocation)
-            If value Is Nothing Then
-                EntityData.Statistics.Remove(StatisticTypes.WormholeDestinationId)
-                Return
-            End If
-            EntityData.Statistics(StatisticTypes.WormholeDestinationId) = value.Id
-        End Set
-    End Property
-
     Public Property Faction As IFaction Implements IPlaceProperties.Faction
         Get
             Return Persistence.Faction.FromId(UniverseData, GetStatistic(StatisticTypes.FactionId))

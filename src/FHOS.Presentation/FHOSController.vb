@@ -94,7 +94,6 @@ Public Class FHOSController
         New Dictionary(Of String, String) From
         {
             {GameState.EnterStarSystem, VerbTypes.EnterStarSystem},
-            {GameState.EnterWormhole, VerbTypes.EnterWormhole},
             {GameState.ApproachStar, VerbTypes.ApproachStarVicinity},
             {GameState.ApproachPlanet, VerbTypes.ApproachPlanetVicinity},
             {GameState.RefillOxygen, VerbTypes.RefillOxygen},

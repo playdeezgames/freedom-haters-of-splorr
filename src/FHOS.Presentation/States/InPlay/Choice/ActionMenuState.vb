@@ -25,7 +25,6 @@ Friend Class ActionMenuState
             {VerbTypes.ApproachStarVicinity, GameState.ApproachStar},
             {VerbTypes.RefillOxygen, GameState.RefillOxygen},
             {VerbTypes.Refuel, GameState.Refuel},
-            {VerbTypes.EnterWormhole, GameState.EnterWormhole},
             {VerbTypes.DistressSignal, GameState.SignalDistress},
             {VerbTypes.KnownPlaces, GameState.KnownPlaces},
             {VerbTypes.EnterPlanetOrbit, GameState.EnterPlanetOrbit},

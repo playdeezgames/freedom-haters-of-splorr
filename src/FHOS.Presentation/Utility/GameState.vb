@@ -9,7 +9,6 @@
     Friend ReadOnly EnterPlanetOrbit As String = NameOf(EnterPlanetOrbit)
     Friend ReadOnly EnterSatelliteOrbit As String = NameOf(EnterSatelliteOrbit)
     Friend ReadOnly EnterStarSystem As String = NameOf(EnterStarSystem)
-    Friend ReadOnly EnterWormhole As String = NameOf(EnterWormhole)
     Friend ReadOnly FactionDetails As String = NameOf(FactionDetails)
     Friend ReadOnly FactionList As String = NameOf(FactionList)
     Friend ReadOnly GameOver As String = NameOf(GameOver)
