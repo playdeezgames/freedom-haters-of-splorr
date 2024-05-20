@@ -10,7 +10,10 @@
     Friend ReadOnly Wormhole As String = NameOf(Wormhole)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, ActorTypeDescriptor) =
-        New List(Of ActorTypeDescriptor) From
+        CreateDescriptors()
+
+    Private Function CreateDescriptors() As IReadOnlyDictionary(Of String, ActorTypeDescriptor)
+        Return New List(Of ActorTypeDescriptor) From
         {
             New PlayerShipActorTypeDescriptor(),
             New MilitaryVesselActorTypeDescriptor(),
@@ -23,4 +26,5 @@
             New WormholeActorTypeDescriptor()
         }.
         ToDictionary(Function(x) x.ActorType, Function(x) x)
+    End Function
 End Module
