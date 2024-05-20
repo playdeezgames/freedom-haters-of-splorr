@@ -10,10 +10,10 @@ Friend Class RefillOxygenVerbTypeDescriptor
                                                                     Return False
                                                                 End If
                                                                 Return PlanetTypes.Descriptors(Actor.State.Location.Place.Subtype).CanRefillOxygen
-                                                            End Function,
-                Sub(actor)
-                    actor.State.LifeSupport.CurrentValue = actor.State.LifeSupport.MaximumValue.Value
+                                                            End Function)
+    End Sub
 
-                End Sub)
+    Friend Overrides Sub Perform(actor As IActor)
+        actor.State.LifeSupport.CurrentValue = actor.State.LifeSupport.MaximumValue.Value
     End Sub
 End Class

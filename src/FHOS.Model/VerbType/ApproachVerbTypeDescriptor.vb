@@ -9,12 +9,13 @@ Friend Class ApproachVerbTypeDescriptor
             text,
             Function(Actor)
                 Return Actor.State.Location.Place?.PlaceType = placeType
-            End Function,
-            Sub(actor)
-                DoTurn(actor)
-                With actor.State.Location.Place
-                    SetLocation(actor, RNG.FromEnumerable(.Properties.Map.Locations.Where(Function(x) x.Flags(.Properties.Identifier) AndAlso x.Actor Is Nothing)))
-                End With
-            End Sub)
+            End Function)
+    End Sub
+
+    Friend Overrides Sub Perform(actor As Persistence.IActor)
+        DoTurn(actor)
+        With actor.State.Location.Place
+            SetLocation(actor, RNG.FromEnumerable(.Properties.Map.Locations.Where(Function(x) x.Flags(.Properties.Identifier) AndAlso x.Actor Is Nothing)))
+        End With
     End Sub
 End Class

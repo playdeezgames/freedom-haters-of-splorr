@@ -10,9 +10,10 @@ Friend Class RefuelVerbTypeDescriptor
             "Refuel",
             Function(Actor)
                 Return Actor.State.Location.Place?.PlaceType = PlaceTypes.Star
-            End Function,
-            Sub(actor)
-                actor.State.FuelTank.CurrentValue = actor.State.FuelTank.MaximumValue.Value
-            End Sub)
+            End Function)
+    End Sub
+
+    Friend Overrides Sub Perform(actor As IActor)
+        actor.State.FuelTank.CurrentValue = actor.State.FuelTank.MaximumValue.Value
     End Sub
 End Class
