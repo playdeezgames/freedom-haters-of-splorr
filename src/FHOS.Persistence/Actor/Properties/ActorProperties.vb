@@ -106,4 +106,22 @@
             Flags(FlagTypes.CanRefuel) = value
         End Set
     End Property
+
+    Public Property WormholeExit As ILocation Implements IActorProperties.WormholeExit
+        Get
+            Return Location.FromId(UniverseData, GetStatistic(StatisticTypes.WormholeExit))
+        End Get
+        Set(value As ILocation)
+            SetStatistic(StatisticTypes.WormholeExit, value?.Id)
+        End Set
+    End Property
+
+    Public Property OtherWormhole As IActor Implements IActorProperties.OtherWormhole
+        Get
+            Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.OtherWormhole))
+        End Get
+        Set(value As IActor)
+            SetStatistic(StatisticTypes.OtherWormhole, value?.Id)
+        End Set
+    End Property
 End Class

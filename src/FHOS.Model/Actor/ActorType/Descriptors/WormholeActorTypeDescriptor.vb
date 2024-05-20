@@ -16,8 +16,9 @@ Friend Class WormholeActorTypeDescriptor
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
-        Dim entrance = RNG.FromEnumerable(actor.State.Location.GetNeighbors().Where(Function(n) n.LocationType = LocationTypes.Void AndAlso n.Actor Is Nothing))
-        entrance.LocationType = LocationTypes.WormholeExit
+        Dim wormholeExit = RNG.FromEnumerable(actor.State.Location.GetNeighbors().Where(Function(n) n.LocationType = LocationTypes.Void AndAlso n.Actor Is Nothing))
+        wormholeExit.LocationType = LocationTypes.WormholeExit
+        actor.Properties.WormholeExit = wormholeExit
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean

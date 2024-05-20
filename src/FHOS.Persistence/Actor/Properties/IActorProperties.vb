@@ -8,4 +8,6 @@
     Property CanRefillOxygen As Boolean
     Property BuysScrap As Boolean
     Property CanRefuel As Boolean
+    Property WormholeExit As ILocation
+    Property OtherWormhole As IActor
 End Interface
