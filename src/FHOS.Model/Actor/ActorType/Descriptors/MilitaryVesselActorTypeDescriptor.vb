@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Persistence
 Imports SPLORR.Game
 
-Friend Class MilitaryVesselDescriptor
+Friend Class MilitaryVesselActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
     Public Sub New()

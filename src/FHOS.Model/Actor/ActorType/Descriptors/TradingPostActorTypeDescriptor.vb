@@ -1,4 +1,4 @@
-﻿Friend Class TradingPostDescriptor
+﻿Friend Class TradingPostActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
     Public Sub New()

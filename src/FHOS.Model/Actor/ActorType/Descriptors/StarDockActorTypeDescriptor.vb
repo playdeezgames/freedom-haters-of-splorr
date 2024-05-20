@@ -1,4 +1,4 @@
-﻿Friend Class StarDockDescriptor
+﻿Friend Class StarDockActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
     Public Sub New()

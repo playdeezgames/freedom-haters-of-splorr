@@ -1,4 +1,4 @@
-﻿Friend Class StarGateDescriptor
+﻿Friend Class StarGateActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
     Public Sub New()

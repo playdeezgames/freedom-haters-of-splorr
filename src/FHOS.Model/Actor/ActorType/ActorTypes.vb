@@ -11,14 +11,14 @@
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, ActorTypeDescriptor) =
         New List(Of ActorTypeDescriptor) From
         {
-            New PlayerShipDescriptor(),
-            New MilitaryVesselDescriptor(),
-            New PersonDescriptor(),
-            New TradingPostDescriptor(),
-            New StarDockDescriptor(),
-            New ShipyardDescriptor(),
-            New StarGateDescriptor(),
-            New DebrisDescriptor()
+            New PlayerShipActorTypeDescriptor(),
+            New MilitaryVesselActorTypeDescriptor(),
+            New PersonActorTypeDescriptor(),
+            New TradingPostActorTypeDescriptor(),
+            New StarDockActorTypeDescriptor(),
+            New ShipyardActorTypeDescriptor(),
+            New StarGateActorTypeDescriptor(),
+            New DebrisActorTypeDescriptor()
         }.
         ToDictionary(Function(x) x.ActorType, Function(x) x)
 End Module

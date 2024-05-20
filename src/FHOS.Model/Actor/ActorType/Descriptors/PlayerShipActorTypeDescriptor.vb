@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Persistence
 Imports SPLORR.Game
 
-Friend Class PlayerShipDescriptor
+Friend Class PlayerShipActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
     Public Sub New()

@@ -1,6 +1,6 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class PersonDescriptor
+Friend Class PersonActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
     Public Sub New()

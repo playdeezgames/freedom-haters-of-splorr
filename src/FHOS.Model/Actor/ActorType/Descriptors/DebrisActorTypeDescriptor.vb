@@ -1,20 +1,24 @@
-﻿Friend Class ShipyardDescriptor
+﻿Imports SPLORR.Game
+
+Friend Class DebrisActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
     Public Sub New()
         MyBase.New(
-            ActorTypes.Shipyard,
+            ActorTypes.Debris,
             New Dictionary(Of String, Integer) From
             {
-                {CostumeTypes.MakeCostume(CostumeTypes.Shipyard, Hues.Orange), 1}
+                {CostumeTypes.MakeCostume(CostumeTypes.Debris, Hues.DarkGray), 1}
             },
             spawnRolls:=New Dictionary(Of String, String) From
             {
-                {MapTypes.PlanetOrbit, "1d4/4"}
+                {MapTypes.StarSystem, "12d6/6"}
             })
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
+        actor.Properties.CanSalvage = True
+        actor.State.Scrap = RNG.RollDice("4d6")
     End Sub
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
