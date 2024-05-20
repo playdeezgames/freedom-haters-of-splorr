@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class RefillOxygenInteractionDescriptor
-    Inherits InteractionDescriptor
+Friend Class RefillOxygenInteractionTypeDescriptor
+    Inherits InteractionTypeDescriptor
 
     Public Sub New()
         MyBase.New(InteractionTypes.RefillOxygen)

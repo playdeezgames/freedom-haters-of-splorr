@@ -1,6 +1,6 @@
 ﻿Imports FHOS.Persistence
 
-Friend MustInherit Class InteractionDescriptor
+Friend MustInherit Class InteractionTypeDescriptor
     Friend ReadOnly Property InteractionType As String
     Sub New(interactionType As String)
         Me.InteractionType = interactionType

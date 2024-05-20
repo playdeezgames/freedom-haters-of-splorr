@@ -4,14 +4,16 @@
     Friend ReadOnly Refuel As String = NameOf(Refuel)
     Friend ReadOnly SalvageScrap As String = NameOf(SalvageScrap)
     Friend ReadOnly SellScrap As String = NameOf(SellScrap)
+    Friend ReadOnly EnterWormhole As String = NameOf(EnterWormhole)
 
-    Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, InteractionDescriptor) =
-        New List(Of InteractionDescriptor) From
+    Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, InteractionTypeDescriptor) =
+        New List(Of InteractionTypeDescriptor) From
         {
-            New GoodByeInteractionDescriptor(),
-            New RefillOxygenInteractionDescriptor(),
-            New SalvageScrapInteractionDescriptor(),
-            New SellScrapInteractionDescriptor(),
-            New RefuelInteractionDescriptor()
+            New GoodByeInteractionTypeDescriptor(),
+            New RefillOxygenInteractionTypeDescriptor(),
+            New SalvageScrapInteractionTypeDescriptor(),
+            New SellScrapInteractionTypeDescriptor(),
+            New RefuelInteractionTypeDescriptor(),
+            New EnterWormholeInteractionTypeDescriptor()
         }.ToDictionary(Function(x) x.InteractionType, Function(x) x)
 End Module

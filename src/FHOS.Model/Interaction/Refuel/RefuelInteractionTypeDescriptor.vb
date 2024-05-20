@@ -1,21 +1,21 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class SellScrapInteractionDescriptor
-    Inherits InteractionDescriptor
+Friend Class RefuelInteractionTypeDescriptor
+    Inherits InteractionTypeDescriptor
 
     Public Sub New()
-        MyBase.New(InteractionTypes.SellScrap)
+        MyBase.New(InteractionTypes.Refuel)
     End Sub
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.State.Scrap > 0 AndAlso actor.State.Interactor.Properties.BuysScrap
+        Return actor.State.Interactor.Properties.CanRefuel
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
-        Return New SellScrapInteractionModel(actor)
+        Return New RefuelInteractionModel(actor)
     End Function
 
     Friend Overrides Function GetText(actor As IActor) As String
-        Return "Sell Scrap"
+        Return "Refuel"
     End Function
 End Class
