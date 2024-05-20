@@ -13,11 +13,13 @@ Friend Class WormholeInitializationStep
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim wormhole = startLocation.Place
-        Dim destinationLocation = RNG.FromEnumerable(starSystem.Properties.Map.Locations.Where(Function(x) LocationTypes.Descriptors(x.LocationType).CanPlaceWormhole))
+        Dim actorDescriptor = ActorTypes.Descriptors(ActorTypes.Wormhole)
+        Dim destinationLocation = RNG.FromEnumerable(starSystem.Properties.Map.Locations.Where(Function(x) actorDescriptor.CanSpawn(x)))
         wormhole.Properties.WormholeDestination = destinationLocation
         destinationLocation.LocationType = LocationTypes.Wormhole
         destinationLocation.Tutorial = TutorialTypes.WormholeEntry
         destinationLocation.Place = wormhole.Universe.Factory.CreateWormhole("Nexus Wormhole")
         destinationLocation.Place.Properties.WormholeDestination = startLocation
+        destinationLocation.Actor = actorDescriptor.CreateActor(destinationLocation)
     End Sub
 End Class

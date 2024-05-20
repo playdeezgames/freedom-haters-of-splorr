@@ -3,6 +3,7 @@
     Public Const Right = 1
     Public Const Down = 2
     Public Const Left = 3
+    Public ReadOnly All As IEnumerable(Of Integer) = {Up, Right, Down, Left}
     Public ReadOnly Deltas As (X As Integer, Y As Integer)() =
         {
             (0, -1),

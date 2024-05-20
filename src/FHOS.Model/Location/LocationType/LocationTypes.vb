@@ -92,6 +92,7 @@
         }
 
     Friend ReadOnly Wormhole As String = NameOf(Wormhole)
+    Friend ReadOnly WormholeExit As String = NameOf(WormholeExit)
 
     Private ReadOnly planetHueTable As IReadOnlyDictionary(Of String, Integer) =
         New Dictionary(Of String, Integer) From
@@ -199,6 +200,7 @@
             {MakeStar(StarTypes.Orange), New LocationTypeDescriptor("Orange Star", ChrW(224), Hues.Orange, Black)},
             {MakeStar(StarTypes.Red), New LocationTypeDescriptor("Red Star", ChrW(224), Hues.Red, Black)},
             {Wormhole, New LocationTypeDescriptor("Wormhole", ChrW(228), Hues.Purple, Black)},
+            {WormholeExit, New LocationTypeDescriptor("Wormhole Exit", ChrW(0), Hues.DarkGray, Hues.Black)},
             {MakeDoor(North, Open), New LocationTypeDescriptor("Open Door", ChrW(24), Hues.DarkGray, Black)},
             {MakeDoor(North, Shut), New LocationTypeDescriptor("Shut Door", ChrW(25), Hues.DarkGray, Black, isEnterable:=False)},
             {MakeDoor(East, Open), New LocationTypeDescriptor("Open Door", ChrW(26), Hues.DarkGray, Black)},
