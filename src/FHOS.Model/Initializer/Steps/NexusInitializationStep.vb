@@ -28,10 +28,7 @@ Friend Class NexusInitializationStep
             If wormholes.All(Function(wormhole) (column - wormhole.Column) * (column - wormhole.Column) + (row - wormhole.Row) * (row - wormhole.Row) >= MinimumDistance * MinimumDistance) Then
                 wormholes.Add((column, row))
                 Dim location = nexusMap.GetLocation(column, row)
-                location.LocationType = LocationTypes.Wormhole
-                location.Tutorial = TutorialTypes.WormholeEntry
                 Dim starSystem = RNG.FromEnumerable(starSystems)
-                location.Place = universe.Factory.CreateWormhole($"{starSystem.Properties.Name} Wormhole")
                 location.Actor = ActorTypes.Descriptors(ActorTypes.Wormhole).CreateActor(location)
                 addStep(New WormholeInitializationStep(location, StarSystem), False)
                 tries = 0

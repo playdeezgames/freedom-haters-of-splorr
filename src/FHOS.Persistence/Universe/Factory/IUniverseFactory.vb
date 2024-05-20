@@ -10,7 +10,6 @@
                              starType As String,
                              x As Integer,
                              y As Integer) As IPlace
-    Function CreateWormhole(wormholeName As String) As IPlace
     Function CreateFaction(
                           factionName As String,
                           minimumPlanetCount As Integer,

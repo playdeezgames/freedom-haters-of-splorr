@@ -1,5 +1,4 @@
 ﻿Imports FHOS.Persistence
-Imports SPLORR.Game
 
 Public Module VerbTypes
     Public ReadOnly ApproachPlanetVicinity As String = NameOf(ApproachPlanetVicinity)
@@ -8,7 +7,6 @@ Public Module VerbTypes
     Public ReadOnly EnterPlanetOrbit As String = NameOf(EnterPlanetOrbit)
     Public ReadOnly EnterSatelliteOrbit As String = NameOf(EnterSatelliteOrbit)
     Public ReadOnly EnterStarSystem As String = NameOf(EnterStarSystem)
-    Public ReadOnly EnterWormhole As String = NameOf(EnterWormhole)
     Public ReadOnly KnownPlaces As String = NameOf(KnownPlaces)
     Public ReadOnly MoveRight As String = NameOf(MoveRight)
     Public ReadOnly MoveUp As String = NameOf(MoveUp)
@@ -35,7 +33,6 @@ Public Module VerbTypes
             New ApproachVerbTypeDescriptor(EnterSatelliteOrbit, "Enter Satellite Orbit", PlaceTypes.Satellite),
             New RefillOxygenVerbTypeDescriptor(),
             New RefuelVerbTypeDescriptor(),
-            New EnterWormholeVerbTypeDescriptor(),
             New ConditionalVerbTypeDescriptor(KnownPlaces, "Known Places...", Function(Actor) Actor.KnownPlaces.HasAny),
             New DistressSignalVerbTypeDescriptor(),
             New AlwaysAvailableVerbTypeDescriptor(Status, "Status"),

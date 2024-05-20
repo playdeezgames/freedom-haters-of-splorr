@@ -64,20 +64,6 @@ Friend Class UniverseFactory
         Return Place.FromId(UniverseData, starSystemId)
     End Function
 
-    Public Function CreateWormhole(wormholeName As String) As IPlace Implements IUniverseFactory.CreateWormhole
-        Dim placeData = New PlaceData With
-            {
-                .Metadatas = New Dictionary(Of String, String) From
-                {
-                    {MetadataTypes.Name, wormholeName},
-                    {MetadataTypes.Identifier, Guid.NewGuid.ToString},
-                    {MetadataTypes.PlaceType, PlaceTypes.Wormhole}
-                }
-            }
-        Dim starSystemId As Integer = UniverseData.Places.CreateOrRecycle(placeData)
-        Return Place.FromId(UniverseData, starSystemId)
-    End Function
-
     Public Function CreateFaction(
                                  factionName As String,
                                  minimumPlanetCount As Integer,
