@@ -45,22 +45,22 @@ Friend Module StarTypes
         {
             {
                 StarTypes.Blue,
-                New StarTypeDescriptor("Blue Star", LocationTypes.MakeStar(StarTypes.Blue), 1, 6, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
+                New StarTypeDescriptor("Blue Star", Hues.Blue, 1, 6, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
             },
             {
                 StarTypes.BlueWhite,
-                New StarTypeDescriptor("Blue-White Star", LocationTypes.MakeStar(StarTypes.BlueWhite), 1, 8, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
+                New StarTypeDescriptor("Blue-White Star", Hues.LightBlue, 1, 8, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
             },
             {
                 StarTypes.Yellow,
-                New StarTypeDescriptor("Yellow Star", LocationTypes.MakeStar(StarTypes.Yellow), 1, 10, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
+                New StarTypeDescriptor("Yellow Star", Hues.Yellow, 1, 10, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
             },
             {
                 StarTypes.Orange,
-                New StarTypeDescriptor("Orange Star", LocationTypes.MakeStar(StarTypes.Orange), 1, 12, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
+                New StarTypeDescriptor("Orange Star", Hues.Orange, 1, 12, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
             },
             {
-                StarTypes.Red, New StarTypeDescriptor("Red Star", LocationTypes.MakeStar(StarTypes.Red), 1, 14, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
+                StarTypes.Red, New StarTypeDescriptor("Red Star", Hues.Red, 1, 14, defaultPlanetTypeGenerator, defaultPlanetCountGenerator)
             }
         }
     Private ReadOnly starTypeGenerator As IReadOnlyDictionary(Of String, Integer) =

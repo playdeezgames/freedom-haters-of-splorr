@@ -57,7 +57,7 @@ Friend Class StarSystemInitializationStep
     Private Sub PlaceStar(starSystem As IPlace, addStep As Action(Of InitializationStep, Boolean))
         Dim starColumn = starSystem.Properties.Map.Size.Columns \ 2
         Dim starRow = starSystem.Properties.Map.Size.Rows \ 2
-        Dim locationType = StarTypes.Descriptors(starSystem.Subtype).LocationType
+        Dim locationType = LocationTypes.MakeStar(starSystem.Subtype)
         Dim location = starSystem.Properties.Map.GetLocation(starColumn, starRow)
         With location
             .LocationType = locationType

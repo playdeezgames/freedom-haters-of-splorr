@@ -3,29 +3,26 @@
     Friend ReadOnly Void As String = NameOf(Void)
     Friend ReadOnly Air As String = NameOf(Air)
     Friend ReadOnly Bulkhead As String = NameOf(Bulkhead)
-    Friend ReadOnly Open As String = NameOf(Open)
-    Friend ReadOnly Shut As String = NameOf(Shut)
-    Friend ReadOnly Star As String = NameOf(Star)
-    Friend ReadOnly Planet As String = NameOf(Planet)
-    Friend ReadOnly Moon As String = NameOf(Moon)
+    Private ReadOnly Open As String = NameOf(Open)
+    Private ReadOnly Shut As String = NameOf(Shut)
 
-    Friend Function MakeDoor(direction As String, doorState As String) As String
-        Return $"Door{doorState}{direction}"
+    Friend Function MakeDoor(direction As String, doorState As Boolean) As String
+        Return $"Door{If(doorState, Open, Shut)}{direction}"
     End Function
 
     Friend Function MakeVoidArrow(direction As String) As String
-        Return $"{Void}{direction}"
+        Return $"{Void}{direction}Arrow"
     End Function
 
     Friend Function MakeStar(starType As String) As String
-        Return $"{starType}{Star}"
+        Return $"{starType}Star"
     End Function
 
     Friend Function MakePlanetLocationType(planetType As String) As String
-        Return $"{planetType}{Planet}"
+        Return $"{planetType}Planet"
     End Function
     Friend Function MakeSatelliteLocationType(satelliteType As String) As String
-        Return $"{satelliteType}{Moon}"
+        Return $"{satelliteType}Moon"
     End Function
     Friend Function MakePlanetSectionLocationType(planetType As String, sectionName As String) As String
         Return $"{MakePlanetLocationType(planetType)}{sectionName}"
@@ -52,14 +49,14 @@
             {MakeStar(StarTypes.Yellow), New LocationTypeDescriptor("Yellow Star", ChrW(224), Hues.Yellow, Black)},
             {MakeStar(StarTypes.Orange), New LocationTypeDescriptor("Orange Star", ChrW(224), Hues.Orange, Black)},
             {MakeStar(StarTypes.Red), New LocationTypeDescriptor("Red Star", ChrW(224), Hues.Red, Black)},
-            {MakeDoor(CardinalDirections.North, Open), New LocationTypeDescriptor("Open Door", ChrW(24), Hues.DarkGray, Black)},
-            {MakeDoor(CardinalDirections.North, Shut), New LocationTypeDescriptor("Shut Door", ChrW(25), Hues.DarkGray, Black, isEnterable:=False)},
-            {MakeDoor(CardinalDirections.East, Open), New LocationTypeDescriptor("Open Door", ChrW(26), Hues.DarkGray, Black)},
-            {MakeDoor(CardinalDirections.East, Shut), New LocationTypeDescriptor("Shut Door", ChrW(27), Hues.DarkGray, Black, isEnterable:=False)},
-            {MakeDoor(CardinalDirections.South, Open), New LocationTypeDescriptor("Open Door", ChrW(28), Hues.DarkGray, Black)},
-            {MakeDoor(CardinalDirections.South, Shut), New LocationTypeDescriptor("Shut Door", ChrW(29), Hues.DarkGray, Black, isEnterable:=False)},
-            {MakeDoor(CardinalDirections.West, Open), New LocationTypeDescriptor("Open Door", ChrW(30), Hues.DarkGray, Black)},
-            {MakeDoor(CardinalDirections.West, Shut), New LocationTypeDescriptor("Shut Door", ChrW(31), Hues.DarkGray, Black, isEnterable:=False)}
+            {MakeDoor(CardinalDirections.North, True), New LocationTypeDescriptor("Open Door", ChrW(24), Hues.DarkGray, Black)},
+            {MakeDoor(CardinalDirections.North, False), New LocationTypeDescriptor("Shut Door", ChrW(25), Hues.DarkGray, Black, isEnterable:=False)},
+            {MakeDoor(CardinalDirections.East, True), New LocationTypeDescriptor("Open Door", ChrW(26), Hues.DarkGray, Black)},
+            {MakeDoor(CardinalDirections.East, False), New LocationTypeDescriptor("Shut Door", ChrW(27), Hues.DarkGray, Black, isEnterable:=False)},
+            {MakeDoor(CardinalDirections.South, True), New LocationTypeDescriptor("Open Door", ChrW(28), Hues.DarkGray, Black)},
+            {MakeDoor(CardinalDirections.South, False), New LocationTypeDescriptor("Shut Door", ChrW(29), Hues.DarkGray, Black, isEnterable:=False)},
+            {MakeDoor(CardinalDirections.West, True), New LocationTypeDescriptor("Open Door", ChrW(30), Hues.DarkGray, Black)},
+            {MakeDoor(CardinalDirections.West, False), New LocationTypeDescriptor("Shut Door", ChrW(31), Hues.DarkGray, Black, isEnterable:=False)}
         }
         For Each satelliteHue In SatelliteTypes.Descriptors
             result(MakeSatelliteLocationType(satelliteHue.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", ChrW(226), satelliteHue.Value.Hue, Black)
