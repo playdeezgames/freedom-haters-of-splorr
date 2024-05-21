@@ -21,11 +21,6 @@
         Return $"{starType}{Star}"
     End Function
 
-    Friend ReadOnly BlueWhiteStar As String = NameOf(BlueWhiteStar)
-    Friend ReadOnly YellowStar As String = NameOf(YellowStar)
-    Friend ReadOnly OrangeStar As String = NameOf(OrangeStar)
-    Friend ReadOnly RedStar As String = NameOf(RedStar)
-
     Friend Function MakePlanetLocationType(planetType As String) As String
         Return $"{planetType}{Planet}"
     End Function
@@ -38,35 +33,6 @@
     Friend Function MakeSatelliteSectionLocationType(satelliteType As String, sectionName As String) As String
         Return $"{MakeSatelliteLocationType(satelliteType)}{sectionName}"
     End Function
-    Private ReadOnly planet5x5SectionTable As IReadOnlyDictionary(Of String, Char) =
-        New Dictionary(Of String, Char) From
-        {
-            {C1R1, ChrW(236)},
-            {C2R1, ChrW(237)},
-            {C3R1, ChrW(230)},
-            {C4R1, ChrW(238)},
-            {C5R1, ChrW(239)},
-            {C1R2, ChrW(240)},
-            {C2R2, ChrW(230)},
-            {C3R2, ChrW(230)},
-            {C4R2, ChrW(230)},
-            {C5R2, ChrW(241)},
-            {C1R3, ChrW(230)},
-            {C2R3, ChrW(230)},
-            {C3R3, ChrW(230)},
-            {C4R3, ChrW(230)},
-            {C5R3, ChrW(232)},
-            {C1R4, ChrW(242)},
-            {C2R4, ChrW(230)},
-            {C3R4, ChrW(230)},
-            {C4R4, ChrW(230)},
-            {C5R4, ChrW(243)},
-            {C1R5, ChrW(244)},
-            {C2R5, ChrW(245)},
-            {C3R5, ChrW(234)},
-            {C4R5, ChrW(246)},
-            {C5R5, ChrW(247)}
-        }
     Private Function GenerateLocationTypes() As IReadOnlyDictionary(Of String, LocationTypeDescriptor)
         Dim result = New Dictionary(Of String, LocationTypeDescriptor) From
         {
@@ -106,8 +72,8 @@
             For Each planetSection In Grid3x3.Descriptors
                 result(MakePlanetSectionLocationType(planetHue.Key, planetSection.Key)) = New LocationTypeDescriptor($"{planetHue.Key} Planet", planetSection.Value.Glyph, planetHue.Value.Hue, Black)
             Next
-            For Each planetSection In planet5x5SectionTable
-                result(MakePlanetSectionLocationType(planetHue.Key, planetSection.Key)) = New LocationTypeDescriptor($"{planetHue.Key} Planet", planetSection.Value, planetHue.Value.Hue, Black)
+            For Each planetSection In Grid5x5.Descriptors
+                result(MakePlanetSectionLocationType(planetHue.Key, planetSection.Key)) = New LocationTypeDescriptor($"{planetHue.Key} Planet", planetSection.Value.Glyph, planetHue.Value.Hue, Black)
             Next
         Next
         Return result
