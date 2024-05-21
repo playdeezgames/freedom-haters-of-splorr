@@ -36,14 +36,6 @@
             {Void, New LocationTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black, canPlaceWormhole:=True)},
             {Air, New LocationTypeDescriptor("Air", ChrW(0), DarkGray, Black)},
             {Bulkhead, New LocationTypeDescriptor("Bulkhead", ChrW(230), DarkGray, Black, isEnterable:=False)},
-            {MakeVoidArrow(OrdinalDirections.North), New LocationTypeDescriptor("Empty Space", ChrW(16), DarkGray, Black)},
-            {MakeVoidArrow(OrdinalDirections.NorthEast), New LocationTypeDescriptor("Empty Space", ChrW(17), DarkGray, Black)},
-            {MakeVoidArrow(OrdinalDirections.East), New LocationTypeDescriptor("Empty Space", ChrW(18), DarkGray, Black)},
-            {MakeVoidArrow(OrdinalDirections.SouthEast), New LocationTypeDescriptor("Empty Space", ChrW(19), DarkGray, Black)},
-            {MakeVoidArrow(OrdinalDirections.South), New LocationTypeDescriptor("Empty Space", ChrW(20), DarkGray, Black)},
-            {MakeVoidArrow(OrdinalDirections.SouthWest), New LocationTypeDescriptor("Empty Space", ChrW(21), DarkGray, Black)},
-            {MakeVoidArrow(OrdinalDirections.West), New LocationTypeDescriptor("Empty Space", ChrW(22), DarkGray, Black)},
-            {MakeVoidArrow(OrdinalDirections.NorthWest), New LocationTypeDescriptor("Empty Space", ChrW(23), DarkGray, Black)},
             {MakeDoor(CardinalDirections.North, True), New LocationTypeDescriptor("Open Door", ChrW(24), Hues.DarkGray, Black)},
             {MakeDoor(CardinalDirections.North, False), New LocationTypeDescriptor("Shut Door", ChrW(25), Hues.DarkGray, Black, isEnterable:=False)},
             {MakeDoor(CardinalDirections.East, True), New LocationTypeDescriptor("Open Door", ChrW(26), Hues.DarkGray, Black)},
@@ -53,6 +45,9 @@
             {MakeDoor(CardinalDirections.West, True), New LocationTypeDescriptor("Open Door", ChrW(30), Hues.DarkGray, Black)},
             {MakeDoor(CardinalDirections.West, False), New LocationTypeDescriptor("Shut Door", ChrW(31), Hues.DarkGray, Black, isEnterable:=False)}
         }
+        For Each ordinalDirection In OrdinalDirections.Descriptors
+            result(MakeVoidArrow(ordinalDirection.Key)) = New LocationTypeDescriptor("Empty Space", ordinalDirection.Value.Glyph, DarkGray, Black)
+        Next
         For Each starType In StarTypes.Descriptors
             result(MakeStar(starType.Key)) = New LocationTypeDescriptor(starType.Value.StarTypeName, ChrW(224), starType.Value.Hue, Black)
         Next
