@@ -16,7 +16,7 @@ Friend Class ApproachVerbTypeDescriptor
     Protected Overrides Sub OnPerform(actor As IActor)
         DoTurn(actor)
         With actor.State.Location.Place
-            SetLocation(actor, RNG.FromEnumerable(.Properties.Map.Locations.Where(Function(x) x.Flags(.Properties.Identifier) AndAlso x.Actor Is Nothing)))
+            SetLocation(actor, RNG.FromEnumerable(.Properties.Map.Locations.Where(Function(x) x.IsEdge AndAlso x.Actor Is Nothing)))
         End With
     End Sub
 

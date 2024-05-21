@@ -10,4 +10,5 @@
     Function CreateActor(actorType As String) As IActor
     Property TargetLocation As ILocation
     ReadOnly Property HasTargetLocation As Boolean
+    Property IsEdge As Boolean
 End Interface

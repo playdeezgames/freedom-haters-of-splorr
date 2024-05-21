@@ -74,7 +74,7 @@ Friend Module Edger
         Next
         For Each edge In GetEdges(columns, rows)
             PlaceBoundary(place.Properties.Map.GetLocation(edge.X, edge.Y), edge.LocationType, targetLocation)
-            place.Properties.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).Flags(identifier) = True
+            place.Properties.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).IsEdge = True
         Next
     End Sub
     Friend Sub PlaceBoundaryActors(place As IPlace, targetActor As IActor, columns As Integer, rows As Integer)
@@ -84,7 +84,7 @@ Friend Module Edger
         Next
         For Each edge In GetEdgeActors(columns, rows)
             PlaceBoundaryActor(place.Properties.Map.GetLocation(edge.X, edge.Y), edge.ActorType, targetActor)
-            place.Properties.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).Flags(identifier) = True
+            place.Properties.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).IsEdge = True
         Next
     End Sub
 End Module
