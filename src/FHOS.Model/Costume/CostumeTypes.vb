@@ -13,6 +13,10 @@
         Return $"{costumeType}{hue}"
     End Function
 
+    Friend Function MakeArrow(directionName As String) As String
+        Return MakeCostume($"Arrow{directionName}", Hues.DarkGray)
+    End Function
+
     Private ReadOnly glyphsTable As IReadOnlyDictionary(Of String, Char()) =
         New Dictionary(Of String, Char()) From
         {
@@ -33,10 +37,16 @@
 
     Private Function GenerateDescriptors() As IReadOnlyList(Of CostumeTypeDescriptor)
         Dim result = New List(Of CostumeTypeDescriptor)
-        For Each glyph In glyphsTable
-            For Each hue In Hues.Descriptors.Keys
+        For Each hue In Hues.Descriptors.Keys
+            For Each glyph In glyphsTable
                 result.Add(New CostumeTypeDescriptor(MakeCostume(glyph.Key, hue), glyph.Value, hue))
             Next
+        Next
+        For Each ordinalDirection In OrdinalDirections.Descriptors
+            result.Add(New CostumeTypeDescriptor(
+                               MakeArrow(ordinalDirection.Key),
+                               Enumerable.Range(0, 4).Select(Function(x) ordinalDirection.Value.Glyph).ToArray,
+                               Hues.DarkGray))
         Next
         Return result
     End Function

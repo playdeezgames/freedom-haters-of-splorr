@@ -7,7 +7,7 @@ Friend Module LocationExtensions
         Dim delta = Persistence.Facing.Deltas(facing)
         Dim nextColumn = location.Column + delta.X
         Dim nextRow = location.Row + delta.Y
-        Return location.Map.Locations.SingleOrDefault(Function(x) x.Column = nextColumn AndAlso x.Row = nextRow)
+        Return location.Map.GetLocation(nextColumn, nextRow)
     End Function
     <Extension>
     Friend Function GetNeighbors(location As ILocation) As IEnumerable(Of ILocation)

@@ -13,7 +13,7 @@
         CreateDescriptors()
 
     Private Function CreateDescriptors() As IReadOnlyDictionary(Of String, ActorTypeDescriptor)
-        Return New List(Of ActorTypeDescriptor) From
+        Dim descriptorList = New List(Of ActorTypeDescriptor) From
         {
             New PlayerShipActorTypeDescriptor(),
             New MilitaryVesselActorTypeDescriptor(),
@@ -24,7 +24,11 @@
             New StarGateActorTypeDescriptor(),
             New DebrisActorTypeDescriptor(),
             New WormholeActorTypeDescriptor()
-        }.
-        ToDictionary(Function(x) x.ActorType, Function(x) x)
+        }
+        For Each ordinalDirection In OrdinalDirections.Descriptors
+            descriptorList.Add(New ArrowActorDescriptor(ordinalDirection.Key))
+        Next
+        Return descriptorList.
+            ToDictionary(Function(x) x.ActorType, Function(x) x)
     End Function
 End Module
