@@ -42,7 +42,7 @@ Friend Module Edger
     End Function
     Friend Function GetEdgeActors(
                               columns As Integer,
-                              rows As Integer) As IReadOnlyList(Of (X As Integer, Y As Integer, LocationType As String, DeltaX As Integer, DeltaY As Integer))
+                              rows As Integer) As IReadOnlyList(Of (X As Integer, Y As Integer, ActorType As String, DeltaX As Integer, DeltaY As Integer))
         Return {
             Enumerable.Range(1, columns - 2).Select(Function(x) (x, 0, ActorTypes.MakeArrow(OrdinalDirections.North), 0, 1)),
             Enumerable.Range(1, rows - 2).Select(Function(x) (columns - 1, x, ActorTypes.MakeArrow(OrdinalDirections.East), -1, 0)),
@@ -63,11 +63,9 @@ Friend Module Edger
             .TargetLocation = targetLocation
         End With
     End Sub
-    Friend Sub PlaceBoundaryActor(location As ILocation, locationType As String, targetLocation As ILocation)
-        With location
-            .LocationType = locationType
-            .TargetLocation = targetLocation
-        End With
+    Friend Sub PlaceBoundaryActor(location As ILocation, actorType As String, targetActor As IActor)
+        Dim actor = ActorTypes.Descriptors(actorType).CreateActor(location)
+        actor.Properties.TargetActor = targetActor
     End Sub
     Friend Sub PlaceBoundaries(place As IPlace, targetLocation As ILocation, columns As Integer, rows As Integer)
         Dim identifier = place.Properties.Identifier
@@ -79,13 +77,13 @@ Friend Module Edger
             place.Properties.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).Flags(identifier) = True
         Next
     End Sub
-    Friend Sub PlaceBoundaryActors(place As IPlace, targetLocation As ILocation, columns As Integer, rows As Integer)
+    Friend Sub PlaceBoundaryActors(place As IPlace, targetActor As IActor, columns As Integer, rows As Integer)
         Dim identifier = place.Properties.Identifier
-        For Each corner In GetCorners(columns, rows)
-            PlaceBoundaryActor(place.Properties.Map.GetLocation(corner.X, corner.Y), corner.LocationType, targetLocation)
+        For Each corner In GetCornerActors(columns, rows)
+            PlaceBoundaryActor(place.Properties.Map.GetLocation(corner.X, corner.Y), corner.ActorType, targetActor)
         Next
-        For Each edge In GetEdges(columns, rows)
-            PlaceBoundaryActor(place.Properties.Map.GetLocation(edge.X, edge.Y), edge.LocationType, targetLocation)
+        For Each edge In GetEdgeActors(columns, rows)
+            PlaceBoundaryActor(place.Properties.Map.GetLocation(edge.X, edge.Y), edge.ActorType, targetActor)
             place.Properties.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).Flags(identifier) = True
         Next
     End Sub
