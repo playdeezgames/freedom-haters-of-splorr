@@ -1,4 +1,6 @@
-﻿Friend Class EnterWormholeInteractionModel
+﻿Imports SPLORR.Game
+
+Friend Class EnterWormholeInteractionModel
     Inherits InteractionModel
 
     Public Sub New(actor As Persistence.IActor)
@@ -6,12 +8,13 @@
     End Sub
 
     Public Overrides Sub Perform()
-        Dim destination = actor.State.Interactor.Properties.OtherWormhole.Properties.WormholeExit
-        If destination.Actor IsNot Nothing Then
+        Dim destinations = actor.State.Interactor.Properties.TargetActor.State.Location.GetNeighbors().Where(Function(x) x.Actor Is Nothing)
+        If Not destinations.Any Then
             actor.Universe.Messages.Add("Destination Blocked!", ("Other end of the wormhole is blocked!", Hues.Black))
             actor.State.Interactor = Nothing
             Return
         End If
+        Dim destination = RNG.FromEnumerable(destinations)
         SetLocation(actor, destination)
         actor.State.Interactor = Nothing
     End Sub

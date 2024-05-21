@@ -16,7 +16,7 @@
     Friend ReadOnly MaximumValue As String = NameOf(MaximumValue)
     Friend ReadOnly MinimumPlanetCount As String = NameOf(MinimumPlanetCount)
     Friend ReadOnly MinimumValue As String = NameOf(MinimumValue)
-    Friend ReadOnly OtherWormhole As String = NameOf(OtherWormhole)
+    Friend ReadOnly TargetActor As String = NameOf(TargetActor)
     Friend ReadOnly ParentId As String = NameOf(ParentId)
     Friend ReadOnly PlaceId As String = NameOf(PlaceId)
     Friend ReadOnly PlanetCount As String = NameOf(PlanetCount)
@@ -28,7 +28,6 @@
     Friend ReadOnly TargetLocationId As String = NameOf(TargetLocationId)
     Friend ReadOnly Turn As String = NameOf(Turn)
     Friend ReadOnly WalletId As String = NameOf(WalletId)
-    Friend ReadOnly WormholeExit As String = NameOf(WormholeExit)
     Friend ReadOnly X As String = NameOf(X)
     Friend ReadOnly Y As String = NameOf(Y)
 

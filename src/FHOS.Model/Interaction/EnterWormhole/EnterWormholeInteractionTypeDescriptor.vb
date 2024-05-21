@@ -8,7 +8,7 @@ Friend Class EnterWormholeInteractionTypeDescriptor
     End Sub
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.State.Interactor.Properties.OtherWormhole IsNot Nothing
+        Return actor.State.Interactor.Properties.TargetActor IsNot Nothing
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
