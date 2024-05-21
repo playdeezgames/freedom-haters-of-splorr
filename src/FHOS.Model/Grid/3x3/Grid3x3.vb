@@ -12,14 +12,14 @@
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, Grid3x3Descriptor) =
         New List(Of Grid3x3Descriptor) From
         {
-            New Grid3x3Descriptor(TopLeft, ChrW(229)),
-            New Grid3x3Descriptor(TopCenter, ChrW(230)),
-            New Grid3x3Descriptor(TopRight, ChrW(231)),
-            New Grid3x3Descriptor(CenterLeft, ChrW(230)),
-            New Grid3x3Descriptor(Center, ChrW(230)),
-            New Grid3x3Descriptor(CenterRight, ChrW(232)),
-            New Grid3x3Descriptor(BottomLeft, ChrW(233)),
-            New Grid3x3Descriptor(BottomCenter, ChrW(234)),
-            New Grid3x3Descriptor(BottomRight, ChrW(235))
+            New Grid3x3Descriptor(TopLeft, ChrW(229), (-1, -1)),
+            New Grid3x3Descriptor(TopCenter, ChrW(230), (0, -1)),
+            New Grid3x3Descriptor(TopRight, ChrW(231), (1, -1)),
+            New Grid3x3Descriptor(CenterLeft, ChrW(230), (-1, 0)),
+            New Grid3x3Descriptor(Center, ChrW(230), (0, 0)),
+            New Grid3x3Descriptor(CenterRight, ChrW(232), (1, 0)),
+            New Grid3x3Descriptor(BottomLeft, ChrW(233), (-1, 1)),
+            New Grid3x3Descriptor(BottomCenter, ChrW(234), (0, 1)),
+            New Grid3x3Descriptor(BottomRight, ChrW(235), (1, 1))
         }.ToDictionary(Function(x) x.SectionName, Function(x) x)
 End Module

@@ -5,20 +5,21 @@ Friend Class ArrowActorDescriptor
 
     Public Sub New(directionName As String)
         MyBase.New(
-            $"Arrow{directionName}",
+            ActorTypes.MakeArrow(directionName),
             New Dictionary(Of String, Integer) From {{CostumeTypes.MakeArrow(directionName), 1}},
             New Dictionary(Of String, String))
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
-        Throw New NotImplementedException()
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean
-        Throw New NotImplementedException()
+        Return True
     End Function
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
-        Throw New NotImplementedException()
+        Return {
+            ("It's an arrow. It points.", Hues.Black)
+            }
     End Function
 End Class

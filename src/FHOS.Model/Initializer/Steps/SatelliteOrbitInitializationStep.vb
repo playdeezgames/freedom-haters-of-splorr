@@ -1,6 +1,6 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class SatelliteInitializationStep
+Friend Class SatelliteOrbitInitializationStep
     Inherits InitializationStep
     Private ReadOnly location As Persistence.ILocation
 
@@ -15,25 +15,12 @@ Friend Class SatelliteInitializationStep
         PlaceSatellite(satellite)
         addStep(New EncounterInitializationStep(satellite.Properties.Map), True)
     End Sub
-    Private ReadOnly satelliteSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
-        New List(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) From
-        {
-            (-1, -1, Grid3x3.TopLeft),
-            (0, -1, Grid3x3.TopCenter),
-            (1, -1, Grid3x3.TopRight),
-            (-1, 0, Grid3x3.CenterLeft),
-            (0, 0, Grid3x3.Center),
-            (1, 0, Grid3x3.CenterRight),
-            (-1, 1, Grid3x3.BottomLeft),
-            (0, 1, Grid3x3.BottomCenter),
-            (1, 1, Grid3x3.BottomRight)
-        }
 
     Private Sub PlaceSatellite(satellite As IPlace)
         Dim planetCenterColumn = satellite.Properties.Map.Size.Columns \ 2
         Dim planetCenterRow = satellite.Properties.Map.Size.Rows \ 2
-        For Each delta In satelliteSectionDeltas
-            PlaceSatelliteSection(satellite.Subtype, satellite.Properties.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
+        For Each delta In Grid3x3.Descriptors
+            PlaceSatelliteSection(satellite.Subtype, satellite.Properties.Map.GetLocation(planetCenterColumn + delta.Value.Delta.X, planetCenterRow + delta.Value.Delta.Y), delta.Key)
         Next
     End Sub
 

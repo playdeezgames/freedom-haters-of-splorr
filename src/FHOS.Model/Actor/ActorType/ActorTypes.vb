@@ -9,6 +9,10 @@
     Friend ReadOnly Debris As String = NameOf(Debris)
     Friend ReadOnly Wormhole As String = NameOf(Wormhole)
 
+    Friend Function MakeArrow(directionName As String) As String
+        Return $"Arrow{directionName}"
+    End Function
+
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, ActorTypeDescriptor) =
         CreateDescriptors()
 
