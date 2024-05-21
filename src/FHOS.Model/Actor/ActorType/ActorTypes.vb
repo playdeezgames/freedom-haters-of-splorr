@@ -13,6 +13,10 @@
         Return $"Arrow{directionName}"
     End Function
 
+    Friend Function MakeSatellite(satelliteType As String) As String
+        Return $"{satelliteType}Moon"
+    End Function
+
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, ActorTypeDescriptor) =
         CreateDescriptors()
 
@@ -29,6 +33,9 @@
             New DebrisActorTypeDescriptor(),
             New WormholeActorTypeDescriptor()
         }
+        For Each satelliteType In SatelliteTypes.Descriptors
+            descriptorList.Add(New SatelliteActorType(satelliteType.Key))
+        Next
         For Each ordinalDirection In OrdinalDirections.Descriptors
             descriptorList.Add(New ArrowActorDescriptor(ordinalDirection.Key))
         Next

@@ -17,6 +17,11 @@
         Return MakeCostume($"Arrow{directionName}", Hues.DarkGray)
     End Function
 
+    Friend Function MakeSatellite(satelliteType As String) As String
+        Dim descriptor = SatelliteTypes.Descriptors(satelliteType)
+        Return MakeCostume($"{satelliteType}Moon", descriptor.Hue)
+    End Function
+
     Private ReadOnly glyphsTable As IReadOnlyDictionary(Of String, Char()) =
         New Dictionary(Of String, Char()) From
         {
@@ -47,6 +52,12 @@
                                MakeArrow(ordinalDirection.Key),
                                Enumerable.Range(0, 4).Select(Function(x) ordinalDirection.Value.Glyph).ToArray,
                                Hues.DarkGray))
+        Next
+        For Each satelliteType In SatelliteTypes.Descriptors
+            result.Add(New CostumeTypeDescriptor(
+                       MakeSatellite(satelliteType.Key),
+                       Enumerable.Range(0, 4).Select(Function(x) ChrW(226)).ToArray,
+                       satelliteType.Value.Hue))
         Next
         Return result
     End Function
