@@ -115,4 +115,13 @@
             SetStatistic(StatisticTypes.TargetActor, value?.Id)
         End Set
     End Property
+
+    Public Property IsSatellite As Boolean Implements IActorProperties.IsSatellite
+        Get
+            Return Flags(FlagTypes.IsSatellite)
+        End Get
+        Set(value As Boolean)
+            Flags(FlagTypes.IsSatellite) = value
+        End Set
+    End Property
 End Class

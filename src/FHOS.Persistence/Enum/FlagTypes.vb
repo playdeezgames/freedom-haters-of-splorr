@@ -4,4 +4,5 @@
     Friend ReadOnly CanRefuel As String = NameOf(CanRefuel)
     Friend ReadOnly CanSalvage As String = NameOf(CanSalvage)
     Friend ReadOnly IsEdge As String = NameOf(IsEdge)
+    Friend ReadOnly IsSatellite As String = NameOf(IsSatellite)
 End Module

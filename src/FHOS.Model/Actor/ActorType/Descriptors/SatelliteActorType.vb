@@ -9,6 +9,7 @@ Friend Class SatelliteActorType
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
+        actor.Properties.IsSatellite = True
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean

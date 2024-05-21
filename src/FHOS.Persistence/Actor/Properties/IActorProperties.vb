@@ -9,4 +9,5 @@
     Property BuysScrap As Boolean
     Property CanRefuel As Boolean
     Property TargetActor As IActor
+    Property IsSatellite As Boolean
 End Interface
