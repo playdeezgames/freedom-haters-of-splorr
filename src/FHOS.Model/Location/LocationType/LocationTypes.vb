@@ -39,8 +39,6 @@
         Return $"{MakeSatelliteLocationType(satelliteType)}{sectionName}"
     End Function
 
-    Friend ReadOnly WormholeExit As String = NameOf(WormholeExit)
-
     Private ReadOnly planetHueTable As IReadOnlyDictionary(Of String, Integer) =
         New Dictionary(Of String, Integer) From
         {
@@ -59,19 +57,6 @@
             {PlanetTypes.Cavernous, Hues.LightGray},
             {Gaia, Hues.Pink},
             {Swamp, Hues.Cyan}
-        }
-    Private ReadOnly planet3x3SectionTable As IReadOnlyDictionary(Of String, Char) =
-        New Dictionary(Of String, Char) From
-        {
-            {TopLeft, ChrW(229)},
-            {TopCenter, ChrW(230)},
-            {TopRight, ChrW(231)},
-            {CenterLeft, ChrW(230)},
-            {Center, ChrW(230)},
-            {CenterRight, ChrW(232)},
-            {BottomLeft, ChrW(233)},
-            {BottomCenter, ChrW(234)},
-            {BottomRight, ChrW(235)}
         }
     Private ReadOnly planet5x5SectionTable As IReadOnlyDictionary(Of String, Char) =
         New Dictionary(Of String, Char) From
@@ -121,7 +106,6 @@
             {MakeStar(StarTypes.Yellow), New LocationTypeDescriptor("Yellow Star", ChrW(224), Hues.Yellow, Black)},
             {MakeStar(StarTypes.Orange), New LocationTypeDescriptor("Orange Star", ChrW(224), Hues.Orange, Black)},
             {MakeStar(StarTypes.Red), New LocationTypeDescriptor("Red Star", ChrW(224), Hues.Red, Black)},
-            {WormholeExit, New LocationTypeDescriptor("Wormhole Exit", ChrW(0), Hues.DarkGray, Hues.Black)},
             {MakeDoor(CardinalDirections.North, Open), New LocationTypeDescriptor("Open Door", ChrW(24), Hues.DarkGray, Black)},
             {MakeDoor(CardinalDirections.North, Shut), New LocationTypeDescriptor("Shut Door", ChrW(25), Hues.DarkGray, Black, isEnterable:=False)},
             {MakeDoor(CardinalDirections.East, Open), New LocationTypeDescriptor("Open Door", ChrW(26), Hues.DarkGray, Black)},
@@ -133,14 +117,14 @@
         }
         For Each satelliteHue In SatelliteTypes.Descriptors
             result(MakeSatelliteLocationType(satelliteHue.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", ChrW(226), satelliteHue.Value.Hue, Black)
-            For Each satelliteSection In planet3x3SectionTable
-                result(MakeSatelliteSectionLocationType(satelliteHue.Key, satelliteSection.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", satelliteSection.Value, satelliteHue.Value.Hue, Black)
+            For Each satelliteSection In Grid3x3.Descriptors
+                result(MakeSatelliteSectionLocationType(satelliteHue.Key, satelliteSection.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", satelliteSection.Value.Glyph, satelliteHue.Value.Hue, Black)
             Next
         Next
         For Each planetHue In planetHueTable
             result(MakePlanetLocationType(planetHue.Key)) = New LocationTypeDescriptor($"{planetHue.Key} Planet", ChrW(225), planetHue.Value, Black)
-            For Each planetSection In planet3x3SectionTable
-                result(MakePlanetSectionLocationType(planetHue.Key, planetSection.Key)) = New LocationTypeDescriptor($"{planetHue.Key} Planet", planetSection.Value, planetHue.Value, Black)
+            For Each planetSection In Grid3x3.Descriptors
+                result(MakePlanetSectionLocationType(planetHue.Key, planetSection.Key)) = New LocationTypeDescriptor($"{planetHue.Key} Planet", planetSection.Value.Glyph, planetHue.Value, Black)
             Next
             For Each planetSection In planet5x5SectionTable
                 result(MakePlanetSectionLocationType(planetHue.Key, planetSection.Key)) = New LocationTypeDescriptor($"{planetHue.Key} Planet", planetSection.Value, planetHue.Value, Black)
