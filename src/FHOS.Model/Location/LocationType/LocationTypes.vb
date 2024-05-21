@@ -44,11 +44,6 @@
             {MakeVoidArrow(OrdinalDirections.SouthWest), New LocationTypeDescriptor("Empty Space", ChrW(21), DarkGray, Black)},
             {MakeVoidArrow(OrdinalDirections.West), New LocationTypeDescriptor("Empty Space", ChrW(22), DarkGray, Black)},
             {MakeVoidArrow(OrdinalDirections.NorthWest), New LocationTypeDescriptor("Empty Space", ChrW(23), DarkGray, Black)},
-            {MakeStar(StarTypes.Blue), New LocationTypeDescriptor("Blue Star", ChrW(224), Hues.Blue, Black)},
-            {MakeStar(StarTypes.BlueWhite), New LocationTypeDescriptor("Blue-White Star", ChrW(224), Hues.LightBlue, Black)},
-            {MakeStar(StarTypes.Yellow), New LocationTypeDescriptor("Yellow Star", ChrW(224), Hues.Yellow, Black)},
-            {MakeStar(StarTypes.Orange), New LocationTypeDescriptor("Orange Star", ChrW(224), Hues.Orange, Black)},
-            {MakeStar(StarTypes.Red), New LocationTypeDescriptor("Red Star", ChrW(224), Hues.Red, Black)},
             {MakeDoor(CardinalDirections.North, True), New LocationTypeDescriptor("Open Door", ChrW(24), Hues.DarkGray, Black)},
             {MakeDoor(CardinalDirections.North, False), New LocationTypeDescriptor("Shut Door", ChrW(25), Hues.DarkGray, Black, isEnterable:=False)},
             {MakeDoor(CardinalDirections.East, True), New LocationTypeDescriptor("Open Door", ChrW(26), Hues.DarkGray, Black)},
@@ -58,6 +53,9 @@
             {MakeDoor(CardinalDirections.West, True), New LocationTypeDescriptor("Open Door", ChrW(30), Hues.DarkGray, Black)},
             {MakeDoor(CardinalDirections.West, False), New LocationTypeDescriptor("Shut Door", ChrW(31), Hues.DarkGray, Black, isEnterable:=False)}
         }
+        For Each starType In StarTypes.Descriptors
+            result(MakeStar(starType.Key)) = New LocationTypeDescriptor(starType.Value.StarTypeName, ChrW(224), starType.Value.Hue, Black)
+        Next
         For Each satelliteHue In SatelliteTypes.Descriptors
             result(MakeSatelliteLocationType(satelliteHue.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", ChrW(226), satelliteHue.Value.Hue, Black)
             For Each satelliteSection In Grid3x3.Descriptors
