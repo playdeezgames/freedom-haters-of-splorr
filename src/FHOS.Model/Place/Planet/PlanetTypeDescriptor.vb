@@ -11,14 +11,17 @@ Friend Class PlanetTypeDescriptor
     End Function
     Friend ReadOnly Property MinimumSatelliteDistance As Integer
     Friend ReadOnly Property CanRefillOxygen As Boolean
-    Private ReadOnly Property PlanetType As String
+    Friend ReadOnly Property PlanetType As String
+    Friend ReadOnly Property Hue As Integer
 
     Sub New(
            planetType As String,
+           hue As Integer,
            minimumSatelliteDistance As Integer,
            satelliteTypeTable As IReadOnlyDictionary(Of String, Integer),
            satelliteCountTable As IReadOnlyDictionary(Of Integer, Integer),
            Optional canRefillOxygen As Boolean = False)
+        Me.Hue = hue
         Me.PlanetType = planetType
         Me.MinimumSatelliteDistance = minimumSatelliteDistance
         Me.satelliteTypeTable = satelliteTypeTable

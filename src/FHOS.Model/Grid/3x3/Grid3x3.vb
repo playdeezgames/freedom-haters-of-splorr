@@ -9,9 +9,6 @@
     Friend ReadOnly BottomCenter As String = NameOf(BottomCenter)
     Friend ReadOnly BottomRight As String = NameOf(BottomRight)
 
-    Friend ReadOnly All As IReadOnlyList(Of String) =
-        Descriptors.Keys.ToList
-
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, Grid3x3Descriptor) =
         New List(Of Grid3x3Descriptor) From
         {

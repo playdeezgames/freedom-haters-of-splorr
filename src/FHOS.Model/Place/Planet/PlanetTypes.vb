@@ -59,7 +59,7 @@
             {
                 Radiated,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Radiated,
+                    PlanetTypes.Radiated, Hues.Yellow,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator)
@@ -67,7 +67,7 @@
             {
                 Toxic,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Toxic,
+                    PlanetTypes.Toxic, Hues.Purple,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator)
@@ -75,7 +75,7 @@
             {
                 Volcanic,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Volcanic,
+                    PlanetTypes.Volcanic, Hues.Orange,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator)
@@ -83,7 +83,7 @@
             {
                 Barren,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Barren,
+                    PlanetTypes.Barren, Hues.DarkGray,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator)
@@ -91,7 +91,7 @@
             {
                 Desert,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Desert,
+                    PlanetTypes.Desert, Hues.Brown,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -100,7 +100,7 @@
             {
                 Tundra,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Tundra,
+                    PlanetTypes.Tundra, Hues.White,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -109,7 +109,7 @@
             {
                 Arid,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Arid,
+                    PlanetTypes.Arid, Hues.Tan,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -118,7 +118,7 @@
             {
                 Ocean,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Ocean,
+                    PlanetTypes.Ocean, Hues.Blue,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -127,7 +127,7 @@
             {
                 Terran,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Terran,
+                    PlanetTypes.Terran, Hues.Green,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -136,7 +136,7 @@
             {
                 Inferno,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Inferno,
+                    PlanetTypes.Inferno, Hues.Red,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator)
@@ -144,7 +144,7 @@
             {
                 Tropical,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Tropical,
+                    PlanetTypes.Tropical, Hues.LightBlue,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -153,7 +153,7 @@
             {
                 Grassland,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Grassland,
+                    PlanetTypes.Grassland, Hues.LightGreen,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -162,7 +162,7 @@
             {
                 Cavernous,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Cavernous,
+                    PlanetTypes.Cavernous, Hues.LightGray,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator)
@@ -170,7 +170,7 @@
             {
                 Gaia,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Gaia,
+                    PlanetTypes.Gaia, Hues.Pink,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
@@ -179,7 +179,7 @@
             {
                 Swamp,
                 New PlanetTypeDescriptor(
-                    PlanetTypes.Swamp,
+                    PlanetTypes.Swamp, Hues.Cyan,
                     DefaultSatelliteDistance,
                     defaultSatelliteTypeGenerator,
                     defaultSatelliteCountGenerator,
