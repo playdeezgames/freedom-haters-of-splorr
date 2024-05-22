@@ -142,4 +142,13 @@
             SetMetadata(MetadataTypes.Subtype, value)
         End Set
     End Property
+
+    Public Property IsPlanet As Boolean Implements IActorProperties.IsPlanet
+        Get
+            Return Flags(FlagTypes.IsPlanet)
+        End Get
+        Set(value As Boolean)
+            Flags(FlagTypes.IsPlanet) = value
+        End Set
+    End Property
 End Class

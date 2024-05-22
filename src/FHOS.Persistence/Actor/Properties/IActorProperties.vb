@@ -12,4 +12,5 @@
     Property IsSatellite As Boolean
     Property IsWormhole As Boolean
     Property Subtype As String
+    Property IsPlanet As Boolean
 End Interface

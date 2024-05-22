@@ -17,7 +17,7 @@
             New SellScrapInteractionTypeDescriptor(),
             New RefuelInteractionTypeDescriptor(),
             New TransportInteractionTypeDescriptor(EnterWormhole, "Enter Wormhole", Function(x) x.Properties.IsWormhole),
-            New TransportInteractionTypeDescriptor(LeaveOrbit, "Leave Orbit", Function(x) x.Properties.TargetActor.Properties.IsSatellite),
-            New EnterInteriorInteractionTypeDescriptor(EnterOrbit, "Enter Orbit", Function(x) x.Properties.IsSatellite)
+            New TransportInteractionTypeDescriptor(LeaveOrbit, "Leave Orbit", Function(x) x.Properties.TargetActor.Properties.IsSatellite OrElse x.Properties.TargetActor.Properties.IsPlanet),
+            New EnterInteriorInteractionTypeDescriptor(EnterOrbit, "Enter Orbit", Function(x) x.Properties.IsSatellite OrElse x.Properties.IsPlanet)
         }.ToDictionary(Function(x) x.InteractionType, Function(x) x)
 End Module
