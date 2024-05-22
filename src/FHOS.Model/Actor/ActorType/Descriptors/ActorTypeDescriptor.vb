@@ -16,8 +16,8 @@ Friend MustInherit Class ActorTypeDescriptor
         Me.CostumeGenerator = costumeGenerator
         Me.SpawnRolls = If(spawnRolls, New Dictionary(Of String, String))
     End Sub
-    Friend Function CreateActor(location As ILocation) As IActor
-        Dim actor = location.CreateActor(ActorType)
+    Friend Function CreateActor(location As ILocation, name As String) As IActor
+        Dim actor = location.CreateActor(ActorType, name)
         actor.State.Facing = RNG.FromRange(0, Facing.Deltas.Length - 1)
         actor.Properties.CostumeType = RNG.FromGenerator(CostumeGenerator)
         actor.Properties.Name = ActorType

@@ -15,7 +15,7 @@ Friend Class WormholeInitializationStep
         Dim wormhole = startLocation.Place
         Dim actorDescriptor = ActorTypes.Descriptors(ActorTypes.Wormhole)
         Dim destinationLocation = RNG.FromEnumerable(starSystem.Properties.Map.Locations.Where(Function(x) actorDescriptor.CanSpawn(x)))
-        destinationLocation.Actor = actorDescriptor.CreateActor(destinationLocation)
+        destinationLocation.Actor = actorDescriptor.CreateActor(destinationLocation, "Wormhole")
         startLocation.Actor.Properties.TargetActor = destinationLocation.Actor
         destinationLocation.Actor.Properties.TargetActor = startLocation.Actor
     End Sub

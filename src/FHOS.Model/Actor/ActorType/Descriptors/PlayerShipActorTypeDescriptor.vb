@@ -22,7 +22,7 @@ Friend Class PlayerShipActorTypeDescriptor
             Properties.
             Interior.
             GetLocation(ship.Properties.Interior.Size.Columns \ 2, ship.Properties.Interior.Size.Rows \ 2)
-        Dim actor = ActorTypes.Descriptors(ActorTypes.Person).CreateActor(location)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.Person).CreateActor(location, "(you)")
         actor.State.LifeSupport = ship.State.LifeSupport
         ship.Family.AddChild(actor)
     End Sub

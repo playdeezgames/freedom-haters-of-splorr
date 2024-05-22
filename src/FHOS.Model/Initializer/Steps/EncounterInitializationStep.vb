@@ -22,7 +22,7 @@ Friend Class EncounterInitializationStep
     Private Sub SpawnActor(descriptor As ActorTypeDescriptor)
         Dim locations = map.Locations.Where(Function(x) descriptor.CanSpawn(x) AndAlso x.Actor Is Nothing)
         If locations.Any Then
-            descriptor.CreateActor(RNG.FromEnumerable(locations))
+            descriptor.CreateActor(RNG.FromEnumerable(locations), descriptor.ActorType)
         End If
     End Sub
 End Class

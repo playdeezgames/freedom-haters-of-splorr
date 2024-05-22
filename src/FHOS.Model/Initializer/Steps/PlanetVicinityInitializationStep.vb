@@ -36,7 +36,7 @@ Friend Class PlanetVicinityInitializationStep
                 satellites.Add((column, row))
                 Dim location = planetVicinity.Properties.Map.GetLocation(column, row)
                 Dim satelliteName = nameGenerator.GenerateUnusedName
-                Dim actor = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location)
+                Dim actor = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, satelliteName)
                 actor.Properties.Name = satelliteName
                 addStep(New SatelliteOrbitInitializationStep(location), False)
                 satelliteCount += 1
@@ -81,6 +81,6 @@ Friend Class PlanetVicinityInitializationStep
     End Sub
     Private Shared Sub PlacePlanetSectionActor(location As ILocation, planetType As String, sectionName As String)
         Dim descriptor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(planetType, sectionName))
-        descriptor.CreateActor(location)
+        descriptor.CreateActor(location, "Planet")
     End Sub
 End Class

@@ -64,7 +64,7 @@ Friend Module Edger
         End With
     End Sub
     Friend Sub PlaceBoundaryActor(location As ILocation, actorType As String, targetActor As IActor)
-        Dim actor = ActorTypes.Descriptors(actorType).CreateActor(location)
+        Dim actor = ActorTypes.Descriptors(actorType).CreateActor(location, "Leave Area")
         actor.Properties.TargetActor = targetActor
     End Sub
     Friend Sub PlaceBoundaries(place As IPlace, targetLocation As ILocation, columns As Integer, rows As Integer)

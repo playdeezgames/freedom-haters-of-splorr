@@ -117,7 +117,7 @@ Friend Class Location
         End Set
     End Property
 
-    Public Function CreateActor(actorType As String) As IActor Implements ILocation.CreateActor
+    Public Function CreateActor(actorType As String, name As String) As IActor Implements ILocation.CreateActor
         Dim actorData = New ActorData With
                                  {
                                     .Statistics = New Dictionary(Of String, Integer) From
@@ -127,7 +127,8 @@ Friend Class Location
                                     },
                                     .Metadatas = New Dictionary(Of String, String) From
                                     {
-                                        {MetadataTypes.ActorType, actorType}
+                                        {MetadataTypes.ActorType, actorType},
+                                        {MetadataTypes.Name, name}
                                     }
                                  }
         Dim actorId As Integer = UniverseData.Actors.CreateOrRecycle(actorData)
