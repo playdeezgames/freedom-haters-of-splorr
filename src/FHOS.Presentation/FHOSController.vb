@@ -36,7 +36,6 @@ Public Class FHOSController
         SetState(GameState.SPLORRPedia, New SPLORRPediaState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.FactionList, New FactionListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.FactionDetails, New FactionDetailState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.StarSystemList, New StarSystemListState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private Sub CreateExplorationStates(context As IUIContext(Of IUniverseModel))
