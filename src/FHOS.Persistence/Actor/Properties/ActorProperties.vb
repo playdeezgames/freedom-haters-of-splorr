@@ -27,23 +27,6 @@
         End Set
     End Property
 
-    Public Property LegacyHomePlanet As IPlace Implements IActorProperties.LegacyHomePlanet
-        Get
-            Dim id = 0
-            If EntityData.Statistics.TryGetValue(StatisticTypes.LegacyHomePlanetId, id) Then
-                Return Place.FromId(UniverseData, id)
-            End If
-            Return Nothing
-        End Get
-        Set(value As IPlace)
-            If value IsNot Nothing Then
-                EntityData.Statistics(StatisticTypes.LegacyHomePlanetId) = value.Id
-            Else
-                EntityData.Statistics.Remove(StatisticTypes.LegacyHomePlanetId)
-            End If
-        End Set
-    End Property
-
     Public Property Name As String Implements IActorProperties.Name
         Get
             Return GetMetadata(MetadataTypes.Name)
