@@ -1,6 +1,6 @@
 ﻿Imports SPLORR.Game
 
-Friend Class EnterOrbitInteractionModel
+Friend Class EnterInteriorInteractionModel
     Implements IInteractionModel
 
     Private actor As Persistence.IActor

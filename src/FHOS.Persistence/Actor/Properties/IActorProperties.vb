@@ -10,4 +10,5 @@
     Property CanRefuel As Boolean
     Property TargetActor As IActor
     Property IsSatellite As Boolean
+    Property IsWormhole As Boolean
 End Interface

@@ -14,6 +14,13 @@ Freedom Haters of SPLORR!!
 
 "Freedom Haters of SPLORR!!" Dev. Rule #1: Love FREEDOM! Rule #2: Live FREE or DIE! #satire
 
+## Properties of Good Code
+
+  - Elegance
+  - Minimal
+  - 
+
+
 ## Music
 https://pernyblom.github.io/abundant-music/index.html
 

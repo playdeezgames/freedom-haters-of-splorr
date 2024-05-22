@@ -6,6 +6,7 @@
     Friend ReadOnly SellScrap As String = NameOf(SellScrap)
     Friend ReadOnly EnterWormhole As String = NameOf(EnterWormhole)
     Friend ReadOnly EnterOrbit As String = NameOf(EnterOrbit)
+    Friend ReadOnly LeaveOrbit As String = NameOf(LeaveOrbit)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, InteractionTypeDescriptor) =
         New List(Of InteractionTypeDescriptor) From
@@ -15,7 +16,8 @@
             New SalvageScrapInteractionTypeDescriptor(),
             New SellScrapInteractionTypeDescriptor(),
             New RefuelInteractionTypeDescriptor(),
-            New EnterWormholeInteractionTypeDescriptor(),
-            New EnterOrbitInteractionTypeDescriptor()
+            New TransportInteractionTypeDescriptor(EnterWormhole, "Enter Wormhole", Function(x) x.Properties.IsWormhole),
+            New TransportInteractionTypeDescriptor(LeaveOrbit, "Leave Orbit", Function(x) x.Properties.TargetActor.Properties.IsSatellite),
+            New EnterInteriorInteractionTypeDescriptor(EnterOrbit, "Enter Orbit", Function(x) x.Properties.IsSatellite)
         }.ToDictionary(Function(x) x.InteractionType, Function(x) x)
 End Module
