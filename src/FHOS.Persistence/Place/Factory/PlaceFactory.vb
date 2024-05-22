@@ -85,28 +85,6 @@ Friend Class PlaceFactory
         Return star
     End Function
 
-    Public Function CreatePlanet() As IPlace Implements IPlaceFactory.CreatePlanet
-        Dim planet As IPlace = Place.FromId(
-            UniverseData,
-                UniverseData.Places.CreateOrRecycle(
-                New PlaceData With
-                {
-                    .Metadatas = New Dictionary(Of String, String) From
-                    {
-                        {MetadataTypes.Name, Place.FromId(UniverseData, Id).Properties.Name},
-                        {MetadataTypes.PlaceType, PlaceTypes.Planet},
-                        {MetadataTypes.Subtype, Place.FromId(UniverseData, Id).Subtype},
-                        {MetadataTypes.Identifier, Guid.NewGuid.ToString}
-                    },
-                    .Statistics = New Dictionary(Of String, Integer) From
-                    {
-                        {StatisticTypes.ParentId, Id}
-                    }
-                }))
-        AddPlace(planet)
-        Return planet
-    End Function
-
     Protected Sub AddPlace(place As IPlace)
         EntityData.Descendants.Add(place.Id)
     End Sub

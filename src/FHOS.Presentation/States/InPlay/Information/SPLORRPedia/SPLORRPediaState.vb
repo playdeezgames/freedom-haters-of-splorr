@@ -5,7 +5,6 @@ Friend Class SPLORRPediaState
     Inherits BasePickerState(Of IUniverseModel, String)
     Private Const FactionListText = "Factions..."
     Private Const StarSystemListText = "Star Systems..."
-    Private Const PlanetListText = "Planets..."
 
     Public Sub New(
                   parent As IGameController,
@@ -24,8 +23,7 @@ Friend Class SPLORRPediaState
         New Dictionary(Of String, String) From
         {
             {FactionListText, GameState.FactionList},
-            {StarSystemListText, GameState.StarSystemList},
-            {PlanetListText, GameState.PlanetList}
+            {StarSystemListText, GameState.StarSystemList}
         }
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
@@ -36,8 +34,7 @@ Friend Class SPLORRPediaState
         Return New List(Of (Text As String, Item As String)) From
             {
                 (FactionListText, FactionListText),
-                (StarSystemListText, StarSystemListText),
-                (PlanetListText, PlanetListText)
+                (StarSystemListText, StarSystemListText)
             }
     End Function
 End Class

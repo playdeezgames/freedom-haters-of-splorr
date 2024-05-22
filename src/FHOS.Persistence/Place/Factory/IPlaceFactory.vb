@@ -8,5 +8,4 @@
                                  x As Integer,
                                  y As Integer) As IPlace
     Function CreateStar() As IPlace
-    Function CreatePlanet() As IPlace
 End Interface

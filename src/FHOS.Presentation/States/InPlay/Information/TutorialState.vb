@@ -68,18 +68,6 @@ Friend Class TutorialState
                     })
             },
             {
-                TutorialTypes.EnterPlanetOrbit,
-                New TutorialDetail(
-                    "Planet Orbit",
-                    {
-                        New TutorialDetailLine("You have reached a planet!", Hues.Black),
-                        New TutorialDetailLine("", Hues.Black),
-                        New TutorialDetailLine("To enter its orbit,", Hues.Black),
-                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
-                        New TutorialDetailLine("then choose 'Enter Planet Orbit'", Hues.Black)
-                    })
-            },
-            {
                 TutorialTypes.RefuelAtStar,
                 New TutorialDetail(
                     "Refuel at Star",

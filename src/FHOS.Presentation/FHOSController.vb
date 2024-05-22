@@ -37,7 +37,6 @@ Public Class FHOSController
         SetState(GameState.FactionList, New FactionListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.FactionDetails, New FactionDetailState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.StarSystemList, New StarSystemListState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.PlanetList, New PlanetListState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private Sub CreateExplorationStates(context As IUIContext(Of IUniverseModel))
@@ -69,15 +68,6 @@ Public Class FHOSController
                      PlaceTypes.StarVicinity,
                      GameState.KnownStarVicinityDetails))
         SetState(GameState.KnownStarVicinityDetails, New KnownStarVicinityDetailsState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.KnownPlanetList,
-                 New KnownPlaceListState(
-                     Me,
-                     AddressOf SetCurrentState, context,
-                     "Known Planets",
-                     GameState.KnownPlaces,
-                     PlaceTypes.Planet,
-                     GameState.KnownPlanetDetails))
-        SetState(GameState.KnownPlanetDetails, New KnownPlanetDetailsState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private ReadOnly doVerbStates As IReadOnlyDictionary(Of String, String) =
@@ -86,9 +76,7 @@ Public Class FHOSController
             {GameState.EnterStarSystem, VerbTypes.EnterStarSystem},
             {GameState.ApproachStar, VerbTypes.ApproachStarVicinity},
             {GameState.ApproachPlanet, VerbTypes.ApproachPlanetVicinity},
-            {GameState.RefillOxygen, VerbTypes.RefillOxygen},
             {GameState.Refuel, VerbTypes.Refuel},
-            {GameState.EnterPlanetOrbit, VerbTypes.EnterPlanetOrbit},
             {GameState.MoveDown, VerbTypes.MoveDown},
             {GameState.MoveUp, VerbTypes.MoveUp},
             {GameState.MoveLeft, VerbTypes.MoveLeft},

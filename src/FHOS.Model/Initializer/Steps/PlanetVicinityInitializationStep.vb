@@ -63,22 +63,12 @@ Friend Class PlanetVicinityInitializationStep
     Private Sub PlacePlanet(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean), planetType As String)
         Dim planetCenterColumn = planetVicinity.Properties.Map.Size.Columns \ 2
         Dim planetCenterRow = planetVicinity.Properties.Map.Size.Rows \ 2
-        Dim planet = planetVicinity.Factory.CreatePlanet()
         For Each delta In planetSectionDeltas
-            PlacePlanetSection(planet, planetVicinity.Properties.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
             PlacePlanetSectionActor(planetVicinity.Properties.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), planetType, delta.SectionName)
         Next
         addStep(New PlanetOrbitInitializationStep(planetVicinity.Properties.Map.GetLocation(planetCenterColumn, planetCenterRow)), False)
     End Sub
 
-    Private Shared Sub PlacePlanetSection(planet As IPlace, location As ILocation, sectionName As String)
-        Dim locationType = PlanetTypes.Descriptors(planet.Subtype).SectionLocationType(sectionName)
-        With location
-            .LocationType = locationType
-            .Tutorial = TutorialTypes.EnterPlanetOrbit
-            .Place = planet
-        End With
-    End Sub
     Private Shared Sub PlacePlanetSectionActor(location As ILocation, planetType As String, sectionName As String)
         Dim descriptor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(planetType, sectionName))
         descriptor.CreateActor(location, "Planet")
