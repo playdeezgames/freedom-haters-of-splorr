@@ -10,7 +10,7 @@ Friend Class AvatarBioModel
 
     Public ReadOnly Property HomePlanet As IPlaceModel Implements IAvatarBioModel.HomePlanet
         Get
-            Return PlaceModel.FromPlace(actor.Properties.HomePlanet)
+            Return PlaceModel.FromPlace(actor.Properties.LegacyHomePlanet)
         End Get
     End Property
 

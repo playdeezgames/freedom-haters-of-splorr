@@ -27,7 +27,7 @@
         End Set
     End Property
 
-    Public Property HomePlanet As IPlace Implements IActorProperties.HomePlanet
+    Public Property LegacyHomePlanet As IPlace Implements IActorProperties.LegacyHomePlanet
         Get
             Dim id = 0
             If EntityData.Statistics.TryGetValue(StatisticTypes.HomePlanetId, id) Then
