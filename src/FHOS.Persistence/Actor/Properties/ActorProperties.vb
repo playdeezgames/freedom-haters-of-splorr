@@ -30,16 +30,16 @@
     Public Property LegacyHomePlanet As IPlace Implements IActorProperties.LegacyHomePlanet
         Get
             Dim id = 0
-            If EntityData.Statistics.TryGetValue(StatisticTypes.HomePlanetId, id) Then
+            If EntityData.Statistics.TryGetValue(StatisticTypes.LegacyHomePlanetId, id) Then
                 Return Place.FromId(UniverseData, id)
             End If
             Return Nothing
         End Get
         Set(value As IPlace)
             If value IsNot Nothing Then
-                EntityData.Statistics(StatisticTypes.HomePlanetId) = value.Id
+                EntityData.Statistics(StatisticTypes.LegacyHomePlanetId) = value.Id
             Else
-                EntityData.Statistics.Remove(StatisticTypes.HomePlanetId)
+                EntityData.Statistics.Remove(StatisticTypes.LegacyHomePlanetId)
             End If
         End Set
     End Property
@@ -158,6 +158,15 @@
         End Get
         Set(value As String)
             SetMetadata(MetadataTypes.Sectionname, value)
+        End Set
+    End Property
+
+    Public Property HomePlanet As IActor Implements IActorProperties.HomePlanet
+        Get
+            Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.HomePlanetActorId))
+        End Get
+        Set(value As IActor)
+            SetStatistic(StatisticTypes.HomePlanetActorId, value?.Id)
         End Set
     End Property
 End Class

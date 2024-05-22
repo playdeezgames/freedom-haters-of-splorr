@@ -3,6 +3,7 @@
     Property Name As String
     Property Faction As IFaction
     Property LegacyHomePlanet As IPlace
+    Property HomePlanet As IActor
     Property CostumeType As String
     Property CanSalvage As Boolean
     Property CanRefillOxygen As Boolean
