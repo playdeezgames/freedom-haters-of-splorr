@@ -1,24 +1,24 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class SatelliteActorType
+Friend Class PlanetSectionActorType
     Inherits ActorTypeDescriptor
 
-    Private subtype As String
+    Private ReadOnly subtype As String
 
-    Public Sub New(satelliteType As String)
+    Public Sub New(planetType As String, sectionName As String)
         MyBase.New(
-            ActorTypes.MakeSatellite(satelliteType),
+            ActorTypes.MakePlanetSection(planetType, sectionName),
             New Dictionary(Of String, Integer) From
             {
-                {CostumeTypes.MakeSatellite(satelliteType), 1}
+                {CostumeTypes.MakePlanetSection(planetType, sectionName), 1}
             },
             New Dictionary(Of String, String))
-        Me.subtype = satelliteType
+        Me.subtype = planetType
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
-        actor.Properties.IsSatellite = True
-        actor.Properties.Subtype = Subtype
+        actor.Properties.IsPlanet = True
+        actor.Properties.Subtype = subtype
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean
@@ -26,6 +26,6 @@ Friend Class SatelliteActorType
     End Function
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
-        Return {("That's no moon. It's a space station!", Hues.Black)}
+        Return {("It's a planet! It's real big!", Hues.Black)}
     End Function
 End Class

@@ -54,11 +54,26 @@
                                Hues.DarkGray))
         Next
         For Each satelliteType In SatelliteTypes.Descriptors
-            result.Add(New CostumeTypeDescriptor(
+            result.Add(
+                New CostumeTypeDescriptor(
                        MakeSatellite(satelliteType.Key),
                        Enumerable.Range(0, 4).Select(Function(x) ChrW(226)).ToArray,
                        satelliteType.Value.Hue))
         Next
+        For Each planetType In PlanetTypes.Descriptors
+            For Each section In Grid3x3.Descriptors
+                result.Add(
+                    New CostumeTypeDescriptor(
+                        MakePlanetSection(planetType.Key, section.Key),
+                        Enumerable.Range(0, 4).Select(Function(x) section.Value.Glyph).ToArray,
+                        planetType.Value.Hue))
+            Next
+        Next
         Return result
+    End Function
+
+    Friend Function MakePlanetSection(planetType As String, sectionName As String) As String
+        Dim descriptor = PlanetTypes.Descriptors(planetType)
+        Return MakeCostume($"{planetType}Planet{sectionName}", descriptor.Hue)
     End Function
 End Module

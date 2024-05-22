@@ -36,10 +36,19 @@
         For Each satelliteType In SatelliteTypes.Descriptors
             descriptorList.Add(New SatelliteActorType(satelliteType.Key))
         Next
+        For Each planetType In PlanetTypes.Descriptors
+            For Each section In Grid3x3.Descriptors
+                descriptorList.Add(New PlanetSectionActorType(planetType.Key, section.Key))
+            Next
+        Next
         For Each ordinalDirection In OrdinalDirections.Descriptors
             descriptorList.Add(New ArrowActorDescriptor(ordinalDirection.Key))
         Next
         Return descriptorList.
             ToDictionary(Function(x) x.ActorType, Function(x) x)
+    End Function
+
+    Friend Function MakePlanetSection(planetType As String, sectionName As String) As String
+        Return $"{planetType}Planet{sectionName}"
     End Function
 End Module

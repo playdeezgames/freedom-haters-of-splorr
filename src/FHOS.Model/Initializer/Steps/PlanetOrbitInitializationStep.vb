@@ -8,7 +8,14 @@ Friend Class PlanetOrbitInitializationStep
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planet = location.Place
-        planet.Properties.Map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.Properties.Name} Orbit", planet.Universe)
+        Dim actors = location.Map.Locations.Where(Function(x) If(x.Actor?.Properties?.IsPlanet, False)).Select(Function(x) x.Actor)
+        Dim map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.Properties.Name} Orbit", planet.Universe)
+        planet.Properties.Map = map
+        For Each actor In actors
+            actor.Properties.Interior = map
+        Next
+        Dim targetActor = actors.OrderBy(Function(x) x.State.Location.Column).ThenBy(Function(x) x.State.Location.Row).First()
+        PlaceBoundaryActors(targetActor, planet.Properties.Map.Size.Columns, planet.Properties.Map.Size.Rows)
         PlaceBoundaries(planet, location, planet.Properties.Map.Size.Columns, planet.Properties.Map.Size.Rows)
         PlacePlanet(planet)
         addStep(New EncounterInitializationStep(planet.Properties.Map), True)
