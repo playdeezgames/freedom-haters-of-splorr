@@ -7,18 +7,17 @@ Friend Class PlanetOrbitInitializationStep
         Me.location = location
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        Dim planet = location.Place
+        Dim planet = location.Actor
         Dim actors = location.Map.Locations.Where(Function(x) If(x.Actor?.Properties?.IsPlanet, False)).Select(Function(x) x.Actor)
         Dim map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.Properties.Name} Orbit", planet.Universe)
-        planet.Properties.Map = map
+        planet.Properties.Interior = map
         For Each actor In actors
             actor.Properties.Interior = map
         Next
         Dim targetActor = actors.OrderBy(Function(x) x.State.Location.Column).ThenBy(Function(x) x.State.Location.Row).First()
-        PlaceBoundaryActors(targetActor, planet.Properties.Map.Size.Columns, planet.Properties.Map.Size.Rows)
-        PlaceBoundaries(planet, location, planet.Properties.Map.Size.Columns, planet.Properties.Map.Size.Rows)
+        PlaceBoundaryActors(targetActor, planet.Properties.Interior.Size.Columns, planet.Properties.Interior.Size.Rows)
         PlacePlanet(planet)
-        addStep(New EncounterInitializationStep(planet.Properties.Map), True)
+        addStep(New EncounterInitializationStep(planet.Properties.Interior), True)
     End Sub
     Private ReadOnly planetSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
         New List(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) From
@@ -49,18 +48,17 @@ Friend Class PlanetOrbitInitializationStep
             (1, 2, Grid5x5.C4R5),
             (2, 2, Grid5x5.C5R5)
         }
-    Private Sub PlacePlanet(planet As IPlace)
-        Dim planetCenterColumn = planet.Properties.Map.Size.Columns \ 2
-        Dim planetCenterRow = planet.Properties.Map.Size.Rows \ 2
+    Private Sub PlacePlanet(planet As IActor)
+        Dim planetCenterColumn = planet.Properties.Interior.Size.Columns \ 2
+        Dim planetCenterRow = planet.Properties.Interior.Size.Rows \ 2
         For Each delta In planetSectionDeltas
-            PlacePlanetSection(planet, planet.Properties.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
+            PlacePlanetSection(planet, planet.Properties.Interior.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), delta.SectionName)
         Next
     End Sub
-    Private Shared Sub PlacePlanetSection(place As IPlace, location As ILocation, sectionName As String)
-        Dim locationType = PlanetTypes.Descriptors(place.Subtype).SectionLocationType(sectionName)
+    Private Shared Sub PlacePlanetSection(place As IActor, location As ILocation, sectionName As String)
+        Dim locationType = PlanetTypes.Descriptors(place.Properties.Subtype).SectionLocationType(sectionName)
         With location
             .LocationType = locationType
-            .Place = place
         End With
     End Sub
 End Class

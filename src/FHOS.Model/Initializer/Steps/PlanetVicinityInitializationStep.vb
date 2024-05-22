@@ -10,17 +10,17 @@ Friend Class PlanetVicinityInitializationStep
         Me.nameGenerator = nameGenerator
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        Dim planetVicinity = planetVicinityLocation.Place
-        planetVicinity.Properties.Map = MapTypes.Descriptors(MapTypes.PlanetVicinity).CreateMap($"{planetVicinity.Properties.Name} Vicinity", planetVicinity.Universe)
-        PlaceBoundaries(planetVicinity, planetVicinityLocation, planetVicinity.Properties.Map.Size.Columns, planetVicinity.Properties.Map.Size.Rows)
-        PlacePlanet(planetVicinity, addStep, planetVicinity.Subtype)
-        planetVicinity.Family.SatelliteCount = PlaceSatellites(planetVicinity, addStep)
-        addStep(New EncounterInitializationStep(planetVicinity.Properties.Map), True)
+        Dim place = planetVicinityLocation.Place
+        place.Properties.Map = MapTypes.Descriptors(MapTypes.PlanetVicinity).CreateMap($"{place.Properties.Name} Vicinity", place.Universe)
+        PlaceBoundaries(place, planetVicinityLocation, place.Properties.Map.Size.Columns, place.Properties.Map.Size.Rows)
+        PlacePlanet(place, addStep, place.Subtype)
+        place.Family.SatelliteCount = PlaceSatellites(place, addStep)
+        addStep(New EncounterInitializationStep(place.Properties.Map), True)
     End Sub
     Private Function PlaceSatellites(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean)) As Integer
         Dim satellites As List(Of (Column As Integer, Row As Integer)) =
-            planetSectionDeltas.
-            Select(Function(x) (x.DeltaX + planetVicinity.Properties.Map.Size.Columns \ 2, x.DeltaY + planetVicinity.Properties.Map.Size.Rows \ 2)).
+            Grid3x3.Descriptors.
+            Select(Function(x) (x.Value.Delta.X + planetVicinity.Properties.Map.Size.Columns \ 2, x.Value.Delta.Y + planetVicinity.Properties.Map.Size.Rows \ 2)).
             ToList
         Dim tries As Integer = 0
         Const MaximumTries = 5000
@@ -47,30 +47,17 @@ Friend Class PlanetVicinityInitializationStep
         End While
         Return satelliteCount
     End Function
-    Private ReadOnly planetSectionDeltas As IReadOnlyList(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) =
-        New List(Of (DeltaX As Integer, DeltaY As Integer, SectionName As String)) From
-        {
-            (-1, -1, Grid3x3.TopLeft),
-            (0, -1, Grid3x3.TopCenter),
-            (1, -1, Grid3x3.TopRight),
-            (-1, 0, Grid3x3.CenterLeft),
-            (0, 0, Grid3x3.Center),
-            (1, 0, Grid3x3.CenterRight),
-            (-1, 1, Grid3x3.BottomLeft),
-            (0, 1, Grid3x3.BottomCenter),
-            (1, 1, Grid3x3.BottomRight)
-        }
-    Private Sub PlacePlanet(planetVicinity As IPlace, addStep As Action(Of InitializationStep, Boolean), planetType As String)
-        Dim planetCenterColumn = planetVicinity.Properties.Map.Size.Columns \ 2
-        Dim planetCenterRow = planetVicinity.Properties.Map.Size.Rows \ 2
-        For Each delta In planetSectionDeltas
-            PlacePlanetSectionActor(planetVicinity.Properties.Map.GetLocation(planetCenterColumn + delta.DeltaX, planetCenterRow + delta.DeltaY), planetType, delta.SectionName)
+    Private Sub PlacePlanet(place As IPlace, addStep As Action(Of InitializationStep, Boolean), subType As String)
+        Dim centerColumn = place.Properties.Map.Size.Columns \ 2
+        Dim centerRow = place.Properties.Map.Size.Rows \ 2
+        For Each delta In Grid3x3.Descriptors
+            PlacePlanetSectionActor(place.Properties.Map.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y), subType, delta.Value.SectionName)
         Next
-        addStep(New PlanetOrbitInitializationStep(planetVicinity.Properties.Map.GetLocation(planetCenterColumn, planetCenterRow)), False)
+        addStep(New PlanetOrbitInitializationStep(place.Properties.Map.GetLocation(centerColumn, centerRow)), False)
     End Sub
 
-    Private Shared Sub PlacePlanetSectionActor(location As ILocation, planetType As String, sectionName As String)
-        Dim descriptor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(planetType, sectionName))
+    Private Shared Sub PlacePlanetSectionActor(location As ILocation, subType As String, sectionName As String)
+        Dim descriptor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(subType, sectionName))
         descriptor.CreateActor(location, "Planet")
     End Sub
 End Class

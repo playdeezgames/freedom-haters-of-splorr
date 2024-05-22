@@ -1,27 +1,21 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class PlanetSectionActorType
+Friend Class PlanetVicinityActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
-    Private ReadOnly subtype As String
-    Private ReadOnly sectionName As String
+    Private ReadOnly planetType As String
 
-    Public Sub New(planetType As String, sectionName As String)
-        MyBase.New(
-            ActorTypes.MakePlanetSection(planetType, sectionName),
+    Public Sub New(planetType As String)
+        MyBase.New(ActorTypes.MakePlanetVicinity(planetType),
             New Dictionary(Of String, Integer) From
             {
-                {CostumeTypes.MakePlanetSection(planetType, sectionName), 1}
+                {CostumeTypes.MakePlanetVicinity(planetType), 1}
             },
             New Dictionary(Of String, String))
-        Me.subtype = planetType
-        Me.sectionName = sectionName
+        Me.planetType = planetType
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
-        actor.Properties.IsPlanet = True
-        actor.Properties.Subtype = subtype
-        actor.Properties.SectionName = sectionName
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean

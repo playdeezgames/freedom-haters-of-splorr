@@ -34,11 +34,12 @@
             New WormholeActorTypeDescriptor()
         }
         For Each satelliteType In SatelliteTypes.Descriptors
-            descriptorList.Add(New SatelliteActorType(satelliteType.Key))
+            descriptorList.Add(New SatelliteActorTypeDescriptor(satelliteType.Key))
         Next
         For Each planetType In PlanetTypes.Descriptors
+            descriptorList.Add(New PlanetVicinityActorTypeDescriptor(planetType.Key))
             For Each section In Grid3x3.Descriptors
-                descriptorList.Add(New PlanetSectionActorType(planetType.Key, section.Key))
+                descriptorList.Add(New PlanetSectionActorTypeDescriptor(planetType.Key, section.Key))
             Next
         Next
         For Each ordinalDirection In OrdinalDirections.Descriptors
@@ -50,5 +51,9 @@
 
     Friend Function MakePlanetSection(planetType As String, sectionName As String) As String
         Return $"{planetType}Planet{sectionName}"
+    End Function
+
+    Friend Function MakePlanetVicinity(planetType As String) As String
+        Return $"{planetType}PlanetVicinity"
     End Function
 End Module

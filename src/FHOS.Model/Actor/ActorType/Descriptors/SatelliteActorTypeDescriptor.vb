@@ -1,6 +1,6 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class SatelliteActorType
+Friend Class SatelliteActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
     Private subtype As String

@@ -9,6 +9,10 @@
     Friend ReadOnly Debris As String = NameOf(Debris)
     Friend ReadOnly Wormhole As String = NameOf(Wormhole)
 
+    Friend Function MakePlanetVicinity(planetType As String) As String
+        Return MakeCostume($"{planetType}PlanetVicinity", PlanetTypes.Descriptors(planetType).Hue)
+    End Function
+
     Friend Function MakeCostume(costumeType As String, hue As Integer) As String
         Return $"{costumeType}{hue}"
     End Function
@@ -61,6 +65,11 @@
                        satelliteType.Value.Hue))
         Next
         For Each planetType In PlanetTypes.Descriptors
+            result.Add(
+                New CostumeTypeDescriptor(
+                       MakePlanetVicinity(planetType.Key),
+                       Enumerable.Range(0, 4).Select(Function(x) ChrW(226)).ToArray,
+                       planetType.Value.Hue))
             For Each section In Grid3x3.Descriptors
                 result.Add(
                     New CostumeTypeDescriptor(
