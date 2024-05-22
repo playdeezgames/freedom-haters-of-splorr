@@ -1,5 +1,5 @@
 ﻿Friend Module InteractionTypes
-    Friend ReadOnly GoodBye As String = NameOf(GoodBye)
+    Friend ReadOnly Cancel As String = NameOf(Cancel)
     Friend ReadOnly RefillOxygen As String = NameOf(RefillOxygen)
     Friend ReadOnly Refuel As String = NameOf(Refuel)
     Friend ReadOnly SalvageScrap As String = NameOf(SalvageScrap)
@@ -11,7 +11,7 @@
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, InteractionTypeDescriptor) =
         New List(Of InteractionTypeDescriptor) From
         {
-            New GoodByeInteractionTypeDescriptor(),
+            New CancelInteractionTypeDescriptor(),
             New RefillOxygenInteractionTypeDescriptor(),
             New SalvageScrapInteractionTypeDescriptor(),
             New SellScrapInteractionTypeDescriptor(),

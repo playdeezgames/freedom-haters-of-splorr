@@ -9,7 +9,4 @@
                                  y As Integer) As IPlace
     Function CreateStar() As IPlace
     Function CreatePlanet() As IPlace
-    Function CreateSatellite(
-                            satelliteName As String,
-                            satelliteType As String) As IPlace
 End Interface

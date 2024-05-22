@@ -133,4 +133,13 @@
             Flags(FlagTypes.IsWormhole) = value
         End Set
     End Property
+
+    Public Property Subtype As String Implements IActorProperties.Subtype
+        Get
+            Return GetMetadata(MetadataTypes.Subtype)
+        End Get
+        Set(value As String)
+            SetMetadata(MetadataTypes.Subtype, value)
+        End Set
+    End Property
 End Class

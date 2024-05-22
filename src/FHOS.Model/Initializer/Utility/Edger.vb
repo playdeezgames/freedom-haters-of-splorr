@@ -77,14 +77,14 @@ Friend Module Edger
             place.Properties.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).IsEdge = True
         Next
     End Sub
-    Friend Sub PlaceBoundaryActors(place As IPlace, targetActor As IActor, columns As Integer, rows As Integer)
-        Dim identifier = place.Properties.Identifier
+    Friend Sub PlaceBoundaryActors(targetActor As IActor, columns As Integer, rows As Integer)
+        Dim map = targetActor.Properties.Interior
         For Each corner In GetCornerActors(columns, rows)
-            PlaceBoundaryActor(place.Properties.Map.GetLocation(corner.X, corner.Y), corner.ActorType, targetActor)
+            PlaceBoundaryActor(map.GetLocation(corner.X, corner.Y), corner.ActorType, targetActor)
         Next
         For Each edge In GetEdgeActors(columns, rows)
-            PlaceBoundaryActor(place.Properties.Map.GetLocation(edge.X, edge.Y), edge.ActorType, targetActor)
-            place.Properties.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).IsEdge = True
+            PlaceBoundaryActor(map.GetLocation(edge.X, edge.Y), edge.ActorType, targetActor)
+            map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).IsEdge = True
         Next
     End Sub
 End Module

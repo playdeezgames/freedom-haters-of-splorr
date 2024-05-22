@@ -3,7 +3,6 @@
     Public ReadOnly PlanetVicinityApproach As String = NameOf(PlanetVicinityApproach)
     Public ReadOnly StarVicinityApproach As String = NameOf(StarVicinityApproach)
     Public ReadOnly EnterPlanetOrbit As String = NameOf(EnterPlanetOrbit)
-    Public ReadOnly EnterSatelliteOrbit As String = NameOf(EnterSatelliteOrbit)
     Public ReadOnly RefuelAtStar As String = NameOf(RefuelAtStar)
     Public ReadOnly OutOfFuel As String = NameOf(OutOfFuel)
 
@@ -14,7 +13,6 @@
             {PlanetVicinityApproach, New TutorialTypeDescriptor(ignoreFlag:=$"IgnoreTutorial{PlanetVicinityApproach}")},
             {StarVicinityApproach, New TutorialTypeDescriptor(ignoreFlag:=$"IgnoreTutorial{StarVicinityApproach}")},
             {EnterPlanetOrbit, New TutorialTypeDescriptor(ignoreFlag:=$"IgnoreTutorial{EnterPlanetOrbit}")},
-            {EnterSatelliteOrbit, New TutorialTypeDescriptor(ignoreFlag:=$"IgnoreTutorial{EnterSatelliteOrbit}")},
             {RefuelAtStar, New TutorialTypeDescriptor(ignoreFlag:=$"IgnoreTutorial{RefuelAtStar}")},
             {OutOfFuel, New TutorialTypeDescriptor(ignoreFlag:=$"IgnoreTutorial{OutOfFuel}")}
         }

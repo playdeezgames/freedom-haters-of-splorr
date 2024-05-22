@@ -38,7 +38,6 @@ Public Class FHOSController
         SetState(GameState.FactionDetails, New FactionDetailState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.StarSystemList, New StarSystemListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.PlanetList, New PlanetListState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.SatelliteList, New SatelliteListState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private Sub CreateExplorationStates(context As IUIContext(Of IUniverseModel))
@@ -79,15 +78,6 @@ Public Class FHOSController
                      PlaceTypes.Planet,
                      GameState.KnownPlanetDetails))
         SetState(GameState.KnownPlanetDetails, New KnownPlanetDetailsState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.KnownSatelliteList,
-                 New KnownPlaceListState(
-                     Me,
-                     AddressOf SetCurrentState, context,
-                     "Known Satellites",
-                     GameState.KnownPlaces,
-                     PlaceTypes.Satellite,
-                     GameState.KnownSatelliteDetails))
-        SetState(GameState.KnownSatelliteDetails, New KnownSatelliteDetailsState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private ReadOnly doVerbStates As IReadOnlyDictionary(Of String, String) =
@@ -99,7 +89,6 @@ Public Class FHOSController
             {GameState.RefillOxygen, VerbTypes.RefillOxygen},
             {GameState.Refuel, VerbTypes.Refuel},
             {GameState.EnterPlanetOrbit, VerbTypes.EnterPlanetOrbit},
-            {GameState.EnterSatelliteOrbit, VerbTypes.EnterSatelliteOrbit},
             {GameState.MoveDown, VerbTypes.MoveDown},
             {GameState.MoveUp, VerbTypes.MoveUp},
             {GameState.MoveLeft, VerbTypes.MoveLeft},

@@ -107,28 +107,6 @@ Friend Class PlaceFactory
         Return planet
     End Function
 
-    Public Function CreateSatellite(satelliteName As String, satelliteType As String) As IPlace Implements IPlaceFactory.CreateSatellite
-        Dim satellite As IPlace = Place.FromId(
-            UniverseData,
-                UniverseData.Places.CreateOrRecycle(
-                New PlaceData With
-                {
-                    .Metadatas = New Dictionary(Of String, String) From
-                    {
-                        {MetadataTypes.Name, satelliteName},
-                        {MetadataTypes.PlaceType, PlaceTypes.Satellite},
-                        {MetadataTypes.Subtype, satelliteType},
-                        {MetadataTypes.Identifier, Guid.NewGuid.ToString}
-                    },
-                    .Statistics = New Dictionary(Of String, Integer) From
-                    {
-                        {StatisticTypes.ParentId, Id}
-                    }
-                }))
-        AddPlace(satellite)
-        Return satellite
-    End Function
-
     Protected Sub AddPlace(place As IPlace)
         EntityData.Descendants.Add(place.Id)
     End Sub

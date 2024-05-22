@@ -1,4 +1,4 @@
-﻿Friend Class GoodByeInteractionModel
+﻿Friend Class CancelInteractionModel
     Inherits InteractionModel
 
     Public Sub New(actor As Persistence.IActor)

@@ -36,13 +36,4 @@ Friend Class UniversePediaModel
                 Select(Function(x) (x.Properties.Name, PlaceModel.FromPlace(x)))
         End Get
     End Property
-
-    Public ReadOnly Property Satellites As IEnumerable(Of (Text As String, Place As IPlaceModel)) Implements IUniversePediaModel.Satellites
-        Get
-            Return universe.
-                GetPlacesOfType(PlaceTypes.Satellite).
-                OrderBy(Function(x) x.Properties.Name).
-                Select(Function(x) (x.Properties.Name, PlaceModel.FromPlace(x)))
-        End Get
-    End Property
 End Class

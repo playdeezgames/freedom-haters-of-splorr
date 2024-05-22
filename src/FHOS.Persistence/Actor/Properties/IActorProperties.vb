@@ -11,4 +11,5 @@
     Property TargetActor As IActor
     Property IsSatellite As Boolean
     Property IsWormhole As Boolean
+    Property Subtype As String
 End Interface

@@ -29,8 +29,7 @@ Friend Class KnownPlacesState
             {StarSystemListText, GameState.KnownStarSystemList},
             {PlanetVicinityListText, GameState.KnownPlanetVicinityList},
             {StarVicinityListText, GameState.KnownStarVicinityList},
-            {PlanetListText, GameState.KnownPlanetList},
-            {SatelliteListText, GameState.KnownSatelliteList}
+            {PlanetListText, GameState.KnownPlanetList}
         }
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
@@ -51,9 +50,6 @@ Friend Class KnownPlacesState
             End If
             If .KnownPlaces.HasAnyOfType(PlaceTypes.Planet) Then
                 result.Add((PlanetListText, PlanetListText))
-            End If
-            If .KnownPlaces.HasAnyOfType(PlaceTypes.Satellite) Then
-                result.Add((SatelliteListText, SatelliteListText))
             End If
         End With
         Return result

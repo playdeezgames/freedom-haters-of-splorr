@@ -35,11 +35,9 @@ Friend Class PlanetVicinityInitializationStep
                 Dim satelliteType As String = planetType.GenerateSatelliteType()
                 satellites.Add((column, row))
                 Dim location = planetVicinity.Properties.Map.GetLocation(column, row)
-                location.LocationType = SatelliteTypes.Descriptors(satelliteType).LocationType
-                location.Tutorial = TutorialTypes.EnterSatelliteOrbit
                 Dim satelliteName = nameGenerator.GenerateUnusedName
-                location.Place = planetVicinity.Factory.CreateSatellite(satelliteName, satelliteType)
-                ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location)
+                Dim actor = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location)
+                actor.Properties.Subtype = satelliteType
                 addStep(New SatelliteOrbitInitializationStep(location), False)
                 satelliteCount += 1
                 tries = 0

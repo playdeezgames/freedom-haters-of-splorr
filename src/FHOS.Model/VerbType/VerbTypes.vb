@@ -5,7 +5,6 @@ Public Module VerbTypes
     Public ReadOnly ApproachStarVicinity As String = NameOf(ApproachStarVicinity)
     Public ReadOnly DistressSignal As String = NameOf(DistressSignal)
     Public ReadOnly EnterPlanetOrbit As String = NameOf(EnterPlanetOrbit)
-    Public ReadOnly EnterSatelliteOrbit As String = NameOf(EnterSatelliteOrbit)
     Public ReadOnly EnterStarSystem As String = NameOf(EnterStarSystem)
     Public ReadOnly KnownPlaces As String = NameOf(KnownPlaces)
     Public ReadOnly MoveRight As String = NameOf(MoveRight)
@@ -30,7 +29,6 @@ Public Module VerbTypes
             New ApproachVerbTypeDescriptor(ApproachPlanetVicinity, "Approach Planet", PlaceTypes.PlanetVicinity),
             New ApproachVerbTypeDescriptor(ApproachStarVicinity, "Approach Star", PlaceTypes.StarVicinity),
             New ApproachVerbTypeDescriptor(EnterPlanetOrbit, "Enter Planet Orbit", PlaceTypes.Planet),
-            New ApproachVerbTypeDescriptor(EnterSatelliteOrbit, "Enter Satellite Orbit", PlaceTypes.Satellite),
             New RefillOxygenVerbTypeDescriptor(),
             New RefuelVerbTypeDescriptor(),
             New ConditionalVerbTypeDescriptor(KnownPlaces, "Known Places...", Function(Actor) Actor.KnownPlaces.HasAny),

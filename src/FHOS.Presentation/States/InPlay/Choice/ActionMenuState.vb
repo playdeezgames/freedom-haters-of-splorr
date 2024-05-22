@@ -28,7 +28,6 @@ Friend Class ActionMenuState
             {VerbTypes.DistressSignal, GameState.SignalDistress},
             {VerbTypes.KnownPlaces, GameState.KnownPlaces},
             {VerbTypes.EnterPlanetOrbit, GameState.EnterPlanetOrbit},
-            {VerbTypes.EnterSatelliteOrbit, GameState.EnterSatelliteOrbit},
             {VerbTypes.Status, GameState.Status},
             {VerbTypes.SPLORRPedia, GameState.SPLORRPedia},
             {VerbTypes.MoveRight, GameState.MoveRight},
