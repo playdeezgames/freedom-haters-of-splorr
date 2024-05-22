@@ -151,4 +151,13 @@
             Flags(FlagTypes.IsPlanet) = value
         End Set
     End Property
+
+    Public Property SectionName As String Implements IActorProperties.SectionName
+        Get
+            Return GetMetadata(MetadataTypes.SectionName)
+        End Get
+        Set(value As String)
+            SetMetadata(MetadataTypes.Sectionname, value)
+        End Set
+    End Property
 End Class

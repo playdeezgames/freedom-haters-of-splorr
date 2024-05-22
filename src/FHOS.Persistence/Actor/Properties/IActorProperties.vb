@@ -13,4 +13,5 @@
     Property IsWormhole As Boolean
     Property Subtype As String
     Property IsPlanet As Boolean
+    Property SectionName As String
 End Interface

@@ -4,6 +4,7 @@ Friend Class PlanetSectionActorType
     Inherits ActorTypeDescriptor
 
     Private ReadOnly subtype As String
+    Private ReadOnly sectionName As String
 
     Public Sub New(planetType As String, sectionName As String)
         MyBase.New(
@@ -14,11 +15,13 @@ Friend Class PlanetSectionActorType
             },
             New Dictionary(Of String, String))
         Me.subtype = planetType
+        Me.sectionName = sectionName
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
         actor.Properties.IsPlanet = True
         actor.Properties.Subtype = subtype
+        actor.Properties.SectionName = sectionName
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean
