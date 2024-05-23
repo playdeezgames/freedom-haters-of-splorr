@@ -36,6 +36,9 @@
         For Each satelliteType In SatelliteTypes.Descriptors
             descriptorList.Add(New SatelliteActorTypeDescriptor(satelliteType.Key))
         Next
+        For Each starType In StarTypes.Descriptors
+            descriptorList.Add(New StarVicinityActorTypeDescriptor(starType.Key))
+        Next
         For Each planetType In PlanetTypes.Descriptors
             descriptorList.Add(New PlanetVicinityActorTypeDescriptor(planetType.Key))
             For Each section In Grid3x3.Descriptors
@@ -58,5 +61,9 @@
 
     Friend Function MakePlanetVicinity(planetType As String) As String
         Return $"{planetType}PlanetVicinity"
+    End Function
+
+    Friend Function MakeStarVicinity(starType As String) As String
+        Return $"{starType}StarVicinity"
     End Function
 End Module

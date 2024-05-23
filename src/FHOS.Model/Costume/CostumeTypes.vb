@@ -13,6 +13,10 @@
         Return MakeCostume($"{planetType}PlanetVicinity", PlanetTypes.Descriptors(planetType).Hue)
     End Function
 
+    Friend Function MakeStarVicinity(starType As String) As String
+        Return MakeCostume($"{starType}StarVicinity", StarTypes.Descriptors(starType).Hue)
+    End Function
+
     Friend Function MakeCostume(costumeType As String, hue As Integer) As String
         Return $"{costumeType}{hue}"
     End Function
@@ -56,6 +60,13 @@
                                MakeArrow(ordinalDirection.Key),
                                Enumerable.Range(0, 4).Select(Function(x) ordinalDirection.Value.Glyph).ToArray,
                                Hues.DarkGray))
+        Next
+        For Each starType In StarTypes.Descriptors
+            result.Add(
+                New CostumeTypeDescriptor(
+                       MakeStarVicinity(starType.Key),
+                       Enumerable.Range(0, 4).Select(Function(x) ChrW(224)).ToArray,
+                       starType.Value.Hue))
         Next
         For Each satelliteType In SatelliteTypes.Descriptors
             result.Add(

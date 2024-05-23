@@ -44,30 +44,6 @@ Friend Class TutorialState
                     })
             },
             {
-                TutorialTypes.StarVicinityApproach,
-                New TutorialDetail(
-                    "Approaching Star",
-                    {
-                        New TutorialDetailLine("You have reached a star!", Hues.Black),
-                        New TutorialDetailLine("", Hues.Black),
-                        New TutorialDetailLine("To approach it,", Hues.Black),
-                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
-                        New TutorialDetailLine("then choose 'Approach Star'", Hues.Black)
-                    })
-            },
-            {
-                TutorialTypes.PlanetVicinityApproach,
-                New TutorialDetail(
-                    "Approaching Planet",
-                    {
-                        New TutorialDetailLine("You are near a planet!", Hues.Black),
-                        New TutorialDetailLine("", Hues.Black),
-                        New TutorialDetailLine("To approach it,", Hues.Black),
-                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
-                        New TutorialDetailLine("then choose 'Approach Planet'", Hues.Black)
-                    })
-            },
-            {
                 TutorialTypes.RefuelAtStar,
                 New TutorialDetail(
                     "Refuel at Star",

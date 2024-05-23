@@ -170,4 +170,13 @@
             SetStatistic(StatisticTypes.SatelliteCount, value)
         End Set
     End Property
+
+    Public Property PlanetCount As Integer Implements IActorProperties.PlanetCount
+        Get
+            Return If(GetStatistic(StatisticTypes.PlanetCount), 0)
+        End Get
+        Set(value As Integer)
+            SetStatistic(StatisticTypes.PlanetCount, value)
+        End Set
+    End Property
 End Class
