@@ -1,6 +1,5 @@
 ﻿Friend Module GameState
     Friend ReadOnly ActionMenu As String = NameOf(ActionMenu)
-    Friend ReadOnly ApproachPlanet As String = NameOf(ApproachPlanet)
     Friend ReadOnly ApproachStar As String = NameOf(ApproachStar)
     Friend ReadOnly ChangeFactionCount As String = NameOf(ChangeFactionCount)
     Friend ReadOnly ChangeGalacticAge As String = NameOf(ChangeGalacticAge)
@@ -13,8 +12,6 @@
     Friend ReadOnly Generate As String = NameOf(Generate)
     Friend ReadOnly Interaction As String = NameOf(Interaction)
     Friend ReadOnly KnownPlaces As String = NameOf(KnownPlaces)
-    Friend ReadOnly KnownPlanetVicinityDetails As String = NameOf(KnownPlanetVicinityDetails)
-    Friend ReadOnly KnownPlanetVicinityList As String = NameOf(KnownPlanetVicinityList)
     Friend ReadOnly KnownStarSystemDetails As String = NameOf(KnownStarSystemDetails)
     Friend ReadOnly KnownStarSystemList As String = NameOf(KnownStarSystemList)
     Friend ReadOnly KnownStarVicinityDetails As String = NameOf(KnownStarVicinityDetails)

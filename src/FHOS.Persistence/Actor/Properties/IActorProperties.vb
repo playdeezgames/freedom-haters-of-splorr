@@ -15,4 +15,5 @@
     Property IsPlanet As Boolean
     Property SectionName As String
     Property IsPlanetVicinity As Boolean
+    Property SatelliteCount As Integer
 End Interface

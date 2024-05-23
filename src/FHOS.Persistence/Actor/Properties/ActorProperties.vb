@@ -161,4 +161,13 @@
             Flags(FlagTypes.IsPlanetVicinity) = value
         End Set
     End Property
+
+    Public Property SatelliteCount As Integer Implements IActorProperties.SatelliteCount
+        Get
+            Return If(GetStatistic(StatisticTypes.SatelliteCount), 0)
+        End Get
+        Set(value As Integer)
+            SetStatistic(StatisticTypes.SatelliteCount, value)
+        End Set
+    End Property
 End Class

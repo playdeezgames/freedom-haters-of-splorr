@@ -1,7 +1,6 @@
 ﻿Imports FHOS.Persistence
 
 Public Module VerbTypes
-    Public ReadOnly ApproachPlanetVicinity As String = NameOf(ApproachPlanetVicinity)
     Public ReadOnly ApproachStarVicinity As String = NameOf(ApproachStarVicinity)
     Public ReadOnly DistressSignal As String = NameOf(DistressSignal)
     Public ReadOnly EnterStarSystem As String = NameOf(EnterStarSystem)
@@ -24,7 +23,6 @@ Public Module VerbTypes
             New MoveVerbTypeDescriptor(MoveDown, "Move Down", Facing.Down),
             New MoveVerbTypeDescriptor(MoveLeft, "Move Left", Facing.Left),
             New ApproachVerbTypeDescriptor(EnterStarSystem, "Enter Star System", PlaceTypes.StarSystem),
-            New ApproachVerbTypeDescriptor(ApproachPlanetVicinity, "Approach Planet", PlaceTypes.PlanetVicinity),
             New ApproachVerbTypeDescriptor(ApproachStarVicinity, "Approach Star", PlaceTypes.StarVicinity),
             New RefuelVerbTypeDescriptor(),
             New ConditionalVerbTypeDescriptor(KnownPlaces, "Known Places...", Function(Actor) Actor.KnownPlaces.HasAny),

@@ -43,8 +43,8 @@ Friend Class StarSystemInitializationStep
                 location.Tutorial = TutorialTypes.PlanetVicinityApproach
                 Dim planetName = nameGenerator.GenerateUnusedName
                 index += 1
-                location.Place = starSystem.Factory.CreatePlanetVicinity(planetName, planetType, column, row)
                 ActorTypes.Descriptors(ActorTypes.MakePlanetVicinity(planetType)).CreateActor(location, planetType)
+                location.Actor.Properties.Subtype = planetType
                 addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
                 planetCount += 1
                 tries = 0

@@ -2,10 +2,5 @@
     Function CreateStarVicinity(
                                x As Integer,
                                y As Integer) As IPlace
-    Function CreatePlanetVicinity(
-                                 planetName As String,
-                                 planetType As String,
-                                 x As Integer,
-                                 y As Integer) As IPlace
     Function CreateStar() As IPlace
 End Interface

@@ -36,34 +36,6 @@ Friend Class PlaceFactory
         Return starVicinity
     End Function
 
-    Public Function CreatePlanetVicinity(
-                                        planetName As String,
-                                        planetType As String,
-                                        x As Integer,
-                                        y As Integer) As IPlace Implements IPlaceFactory.CreatePlanetVicinity
-        Dim planetVicinity = Place.FromId(
-            UniverseData,
-                UniverseData.Places.CreateOrRecycle(
-                New PlaceData With
-                {
-                    .Metadatas = New Dictionary(Of String, String) From
-                    {
-                        {MetadataTypes.Name, planetName},
-                        {MetadataTypes.Subtype, planetType},
-                        {MetadataTypes.Identifier, Guid.NewGuid.ToString},
-                        {MetadataTypes.PlaceType, PlaceTypes.PlanetVicinity}
-                    },
-                    .Statistics = New Dictionary(Of String, Integer) From
-                    {
-                        {StatisticTypes.ParentId, Id},
-                        {StatisticTypes.X, x},
-                        {StatisticTypes.Y, y}
-                    }
-                }))
-        AddPlace(planetVicinity)
-        Return planetVicinity
-    End Function
-
     Public Function CreateStar() As IPlace Implements IPlaceFactory.CreateStar
         Dim star = Place.FromId(
             UniverseData,

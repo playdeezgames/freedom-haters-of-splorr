@@ -49,15 +49,6 @@ Public Class FHOSController
                      PlaceTypes.StarSystem,
                      GameState.KnownStarSystemDetails))
         SetState(GameState.KnownStarSystemDetails, New KnownStarSystemDetailsState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.KnownPlanetVicinityList,
-                 New KnownPlaceListState(
-                     Me,
-                     AddressOf SetCurrentState, context,
-                     "Known Planet Vicinities",
-                     GameState.KnownPlaces,
-                     PlaceTypes.PlanetVicinity,
-                     GameState.KnownPlanetVicinityDetails))
-        SetState(GameState.KnownPlanetVicinityDetails, New KnownPlanetVicinityDetailsState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.KnownStarVicinityList,
                  New KnownPlaceListState(
                      Me,
@@ -74,7 +65,6 @@ Public Class FHOSController
         {
             {GameState.EnterStarSystem, VerbTypes.EnterStarSystem},
             {GameState.ApproachStar, VerbTypes.ApproachStarVicinity},
-            {GameState.ApproachPlanet, VerbTypes.ApproachPlanetVicinity},
             {GameState.Refuel, VerbTypes.Refuel},
             {GameState.MoveDown, VerbTypes.MoveDown},
             {GameState.MoveUp, VerbTypes.MoveUp},

@@ -21,7 +21,6 @@ Friend Class ActionMenuState
         New Dictionary(Of String, String) From
         {
             {VerbTypes.EnterStarSystem, GameState.EnterStarSystem},
-            {VerbTypes.ApproachPlanetVicinity, GameState.ApproachPlanet},
             {VerbTypes.ApproachStarVicinity, GameState.ApproachStar},
             {VerbTypes.Refuel, GameState.Refuel},
             {VerbTypes.DistressSignal, GameState.SignalDistress},
