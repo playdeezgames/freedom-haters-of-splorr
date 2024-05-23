@@ -5,7 +5,6 @@ Public Class UniverseData
     Property Actors As New BucketData(Of ActorData)
     Property Locations As New BucketData(Of LocationData)
     Property Maps As New BucketData(Of MapData)
-    Property Places As New BucketData(Of PlaceData)
     Property Factions As New BucketData(Of FactionData)
     Property Stores As New BucketData(Of StoreData)
     Property Items As New BucketData(Of ItemData)

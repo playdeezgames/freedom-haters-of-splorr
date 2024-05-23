@@ -5,11 +5,6 @@
                       columns As Integer,
                       rows As Integer,
                       defaultLocationType As String) As IMap
-    Function CreateStarSystem(
-                             starSystemName As String,
-                             starType As String,
-                             x As Integer,
-                             y As Integer) As IPlace
     Function CreateFaction(
                           factionName As String,
                           minimumPlanetCount As Integer,

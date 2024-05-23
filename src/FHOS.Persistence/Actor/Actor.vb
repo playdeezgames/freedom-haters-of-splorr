@@ -20,12 +20,6 @@ Friend Class Actor
         End Get
     End Property
 
-    Public ReadOnly Property KnownPlaces As IActorKnownPlaces Implements IActor.KnownPlaces
-        Get
-            Return ActorKnownPlaces.FromId(UniverseData, Id)
-        End Get
-    End Property
-
     Public ReadOnly Property Tutorial As IActorTutorial Implements IActor.Tutorial
         Get
             Return ActorTutorial.FromId(UniverseData, Id)

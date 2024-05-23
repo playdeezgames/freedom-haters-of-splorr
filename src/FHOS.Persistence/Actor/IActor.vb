@@ -1,7 +1,6 @@
 ﻿Public Interface IActor
     Inherits IEntity
     ReadOnly Property ActorType As String
-    ReadOnly Property KnownPlaces As IActorKnownPlaces
     ReadOnly Property Tutorial As IActorTutorial
     ReadOnly Property Family As IActorFamily
     ReadOnly Property Properties As IActorProperties

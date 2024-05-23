@@ -13,16 +13,6 @@ Public Class Universe
         End Get
     End Property
 
-    Public ReadOnly Property Places As IEnumerable(Of IPlace) Implements IUniverse.Places
-        Get
-            Dim placeIds = New HashSet(Of Integer)(Enumerable.Range(0, UniverseData.Places.Entities.Count))
-            For Each recycledId In UniverseData.Places.Recycled
-                placeIds.Remove(recycledId)
-            Next
-            Return placeIds.Select(Function(x) Place.FromId(UniverseData, x))
-        End Get
-    End Property
-
     Public ReadOnly Property Factions As IEnumerable(Of IFaction) Implements IUniverse.Factions
         Get
             Dim factionIds = New HashSet(Of Integer)(Enumerable.Range(0, UniverseData.Factions.Entities.Count))
@@ -64,8 +54,4 @@ Public Class Universe
             Return UniverseFactory.FromData(UniverseData)
         End Get
     End Property
-
-    Public Function GetPlacesOfType(placeType As String) As IEnumerable(Of IPlace) Implements IUniverse.GetPlacesOfType
-        Return Places.Where(Function(x) x.PlaceType = placeType)
-    End Function
 End Class

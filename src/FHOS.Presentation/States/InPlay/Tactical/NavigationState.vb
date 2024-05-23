@@ -66,9 +66,6 @@ Friend Class NavigationState
             If fuel.HasValue Then
                 position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Fuel: { fuel.Value}%", Hues.ForPercentage(fuel.Value))
             End If
-            If .State.CurrentPlace IsNot Nothing Then
-                position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, .State.CurrentPlace.Name, Black)
-            End If
         End With
     End Sub
 End Class

@@ -33,12 +33,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property KnownPlaces As IAvatarKnownPlacesModel Implements IAvatarModel.KnownPlaces
-        Get
-            Return AvatarKnownPlacesModel.FromActor(actor)
-        End Get
-    End Property
-
     Public ReadOnly Property Stack As IAvatarStackModel Implements IAvatarModel.Stack
         Get
             Return AvatarStackModel.FromActor(actor)

@@ -22,15 +22,6 @@ Friend Class AvatarStateModel
         End Get
     End Property
 
-    Public ReadOnly Property CurrentPlace As IPlaceModel Implements IAvatarStateModel.CurrentPlace
-        Get
-            If actor.State.Location.Place IsNot Nothing Then
-                Return PlaceModel.FromPlace(actor.State.Location.Place)
-            End If
-            Return Nothing
-        End Get
-    End Property
-
     Public ReadOnly Property Scrap As Integer Implements IAvatarStateModel.Scrap
         Get
             Return actor.State.Scrap

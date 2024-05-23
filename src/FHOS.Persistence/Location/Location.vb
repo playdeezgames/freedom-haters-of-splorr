@@ -76,23 +76,6 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property Place As IPlace Implements ILocation.Place
-        Get
-            Dim starSystemId As Integer
-            If EntityData.Statistics.TryGetValue(StatisticTypes.PlaceId, starSystemId) Then
-                Return Persistence.Place.FromId(UniverseData, starSystemId)
-            End If
-            Return Nothing
-        End Get
-        Set(value As IPlace)
-            If value IsNot Nothing Then
-                EntityData.Statistics(StatisticTypes.PlaceId) = value.Id
-            Else
-                EntityData.Statistics.Remove(StatisticTypes.PlaceId)
-            End If
-        End Set
-    End Property
-
     Public Property TargetLocation As ILocation Implements ILocation.TargetLocation
         Get
             Return Location.FromId(UniverseData, GetStatistic(StatisticTypes.TargetLocationId))

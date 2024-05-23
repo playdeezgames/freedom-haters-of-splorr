@@ -62,9 +62,6 @@ Friend Module ActorExtensions
     <Extension>
     Sub SetLocation(actor As IActor, location As ILocation)
         actor.State.Location = location
-        If location.Place IsNot Nothing Then
-            actor.KnownPlaces.Add(location.Place)
-        End If
     End Sub
 
     <Extension>

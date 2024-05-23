@@ -29,7 +29,6 @@ Friend Class GalaxyInitializationStep
                 Dim location = starMap.GetLocation(column, row)
                 location.LocationType = LocationTypes.MakeStar(starType)
                 Dim starSystemName As String = nameGenerator.GenerateUnusedName
-                location.Place = universe.Factory.CreateStarSystem(starSystemName, starType, column, row)
                 ActorTypes.Descriptors(ActorTypes.MakeStarSystem(starType)).CreateActor(location, $"{starSystemName} System")
                 addStep(New StarSystemInitializationStep(location, nameGenerator), False)
                 tries = 0

@@ -40,30 +40,6 @@ Friend Class UniverseFactory
         Return map
     End Function
 
-    Public Function CreateStarSystem(
-                                    starSystemName As String,
-                                    starType As String,
-                                    x As Integer,
-                                    y As Integer) As IPlace Implements IUniverseFactory.CreateStarSystem
-        Dim placeData = New PlaceData With
-            {
-                .Metadatas = New Dictionary(Of String, String) From
-                {
-                    {MetadataTypes.Name, starSystemName},
-                    {MetadataTypes.Subtype, starType},
-                    {MetadataTypes.Identifier, Guid.NewGuid.ToString},
-                    {MetadataTypes.PlaceType, PlaceTypes.StarSystem}
-                },
-                .Statistics = New Dictionary(Of String, Integer) From
-                {
-                    {StatisticTypes.X, x},
-                    {StatisticTypes.Y, y}
-                }
-            }
-        Dim starSystemId As Integer = UniverseData.Places.CreateOrRecycle(placeData)
-        Return Place.FromId(UniverseData, starSystemId)
-    End Function
-
     Public Function CreateFaction(
                                  factionName As String,
                                  minimumPlanetCount As Integer,

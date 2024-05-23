@@ -74,10 +74,6 @@ Friend Class ScannerState
         End If
         Dim textWidth = Context.ViewSize.Width - position.X
         position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, TargetLocation.LocationType.Name, Black)
-        Dim place = TargetLocation.Place
-        If place IsNot Nothing Then
-            position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"Place: {place.Name}", Black)
-        End If
         Dim actor = TargetLocation.Actor
         If actor IsNot Nothing Then
             position = uiFont.WriteLeftTextLines(displayBuffer, position, textWidth, $"{actor.Name}", Black)

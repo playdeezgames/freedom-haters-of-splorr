@@ -20,11 +20,7 @@ Friend Class ActionMenuState
     Private ReadOnly actionMap As IReadOnlyDictionary(Of String, String) =
         New Dictionary(Of String, String) From
         {
-            {VerbTypes.EnterStarSystem, GameState.EnterStarSystem},
-            {VerbTypes.ApproachStarVicinity, GameState.ApproachStar},
-            {VerbTypes.Refuel, GameState.Refuel},
             {VerbTypes.DistressSignal, GameState.SignalDistress},
-            {VerbTypes.KnownPlaces, GameState.KnownPlaces},
             {VerbTypes.Status, GameState.Status},
             {VerbTypes.SPLORRPedia, GameState.SPLORRPedia},
             {VerbTypes.MoveRight, GameState.MoveRight},

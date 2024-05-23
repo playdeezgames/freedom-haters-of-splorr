@@ -18,13 +18,4 @@ Friend Class UniversePediaModel
             Return universe.Factions.Select(Function(x) (x.Name, FactionModel.FromFaction(x)))
         End Get
     End Property
-
-    Public ReadOnly Property StarSystems As IEnumerable(Of (Text As String, Place As IPlaceModel)) Implements IUniversePediaModel.StarSystems
-        Get
-            Return universe.
-                GetPlacesOfType(PlaceTypes.StarSystem).
-                OrderBy(Function(x) x.Properties.Name).
-                Select(Function(x) (x.Properties.Name, PlaceModel.FromPlace(x)))
-        End Get
-    End Property
 End Class

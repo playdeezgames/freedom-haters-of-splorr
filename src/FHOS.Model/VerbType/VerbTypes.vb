@@ -1,15 +1,11 @@
 ﻿Imports FHOS.Persistence
 
 Public Module VerbTypes
-    Public ReadOnly ApproachStarVicinity As String = NameOf(ApproachStarVicinity)
     Public ReadOnly DistressSignal As String = NameOf(DistressSignal)
-    Public ReadOnly EnterStarSystem As String = NameOf(EnterStarSystem)
-    Public ReadOnly KnownPlaces As String = NameOf(KnownPlaces)
     Public ReadOnly MoveRight As String = NameOf(MoveRight)
     Public ReadOnly MoveUp As String = NameOf(MoveUp)
     Public ReadOnly MoveDown As String = NameOf(MoveDown)
     Public ReadOnly MoveLeft As String = NameOf(MoveLeft)
-    Public ReadOnly Refuel As String = NameOf(Refuel)
     Public ReadOnly SPLORRPedia As String = NameOf(SPLORRPedia)
     Public ReadOnly Status As String = NameOf(Status)
     Public ReadOnly Crew As String = NameOf(Crew)
@@ -22,10 +18,6 @@ Public Module VerbTypes
             New MoveVerbTypeDescriptor(MoveRight, "Move Right", Facing.Right),
             New MoveVerbTypeDescriptor(MoveDown, "Move Down", Facing.Down),
             New MoveVerbTypeDescriptor(MoveLeft, "Move Left", Facing.Left),
-            New ApproachVerbTypeDescriptor(EnterStarSystem, "Enter Star System", PlaceTypes.StarSystem),
-            New ApproachVerbTypeDescriptor(ApproachStarVicinity, "Approach Star", PlaceTypes.StarVicinity),
-            New RefuelVerbTypeDescriptor(),
-            New ConditionalVerbTypeDescriptor(KnownPlaces, "Known Places...", Function(Actor) Actor.KnownPlaces.HasAny),
             New DistressSignalVerbTypeDescriptor(),
             New AlwaysAvailableVerbTypeDescriptor(Status, "Status"),
             New AlwaysAvailableVerbTypeDescriptor(SPLORRPedia, "SPLORR!!Pedia"),

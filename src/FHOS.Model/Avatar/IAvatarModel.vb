@@ -1,7 +1,6 @@
 ﻿Public Interface IAvatarModel
     ReadOnly Property Bio As IAvatarBioModel
     ReadOnly Property Interaction As IAvatarInteractionModel
-    ReadOnly Property KnownPlaces As IAvatarKnownPlacesModel
     ReadOnly Property Stack As IAvatarStackModel
     ReadOnly Property State As IAvatarStateModel
     ReadOnly Property Status As IAvatarStatusModel

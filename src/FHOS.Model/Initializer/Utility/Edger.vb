@@ -67,16 +67,6 @@ Friend Module Edger
         Dim actor = ActorTypes.Descriptors(actorType).CreateActor(location, "Leave Area")
         actor.Properties.TargetActor = targetActor
     End Sub
-    Friend Sub PlaceBoundaries(place As IPlace, targetLocation As ILocation, columns As Integer, rows As Integer)
-        Dim identifier = place.Properties.Identifier
-        For Each corner In GetCorners(columns, rows)
-            PlaceBoundary(place.Properties.Map.GetLocation(corner.X, corner.Y), corner.LocationType, targetLocation)
-        Next
-        For Each edge In GetEdges(columns, rows)
-            PlaceBoundary(place.Properties.Map.GetLocation(edge.X, edge.Y), edge.LocationType, targetLocation)
-            place.Properties.Map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).IsEdge = True
-        Next
-    End Sub
     Friend Sub PlaceBoundaryActors(targetActor As IActor, columns As Integer, rows As Integer)
         Dim map = targetActor.Properties.Interior
         For Each corner In GetCornerActors(columns, rows)

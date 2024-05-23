@@ -39,19 +39,9 @@
         End Get
     End Property
 
-    Public ReadOnly Property Place As IPlaceModel Implements ILocationModel.Place
-        Get
-            Dim locationStarSystem = location.Place
-            If locationStarSystem Is Nothing Then
-                Return Nothing
-            End If
-            Return PlaceModel.FromPlace(locationStarSystem)
-        End Get
-    End Property
-
     Public ReadOnly Property HasDetails As Boolean Implements ILocationModel.HasDetails
         Get
-            Return Place IsNot Nothing OrElse Actor IsNot Nothing
+            Return Actor IsNot Nothing
         End Get
     End Property
 End Class

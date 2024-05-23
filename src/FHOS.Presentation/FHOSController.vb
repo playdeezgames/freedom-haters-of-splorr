@@ -16,8 +16,6 @@ Public Class FHOSController
 
         CreateActionStates(context)
 
-        CreateExplorationStates(context)
-
         SetState(GameState.Tutorial, New TutorialState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Message, New MessageState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.GameOver, New GameOverState(Me, AddressOf SetCurrentState, context))
@@ -38,34 +36,9 @@ Public Class FHOSController
         SetState(GameState.FactionDetails, New FactionDetailState(Me, AddressOf SetCurrentState, context))
     End Sub
 
-    Private Sub CreateExplorationStates(context As IUIContext(Of IUniverseModel))
-        SetState(GameState.KnownPlaces, New KnownPlacesState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.KnownStarSystemList,
-                 New KnownPlaceListState(
-                     Me,
-                     AddressOf SetCurrentState, context,
-                     "Known Star Systems",
-                     GameState.KnownPlaces,
-                     PlaceTypes.StarSystem,
-                     GameState.KnownStarSystemDetails))
-        SetState(GameState.KnownStarSystemDetails, New KnownStarSystemDetailsState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.KnownStarVicinityList,
-                 New KnownPlaceListState(
-                     Me,
-                     AddressOf SetCurrentState, context,
-                     "Known Star Vicinities",
-                     GameState.KnownPlaces,
-                     PlaceTypes.StarVicinity,
-                     GameState.KnownStarVicinityDetails))
-        SetState(GameState.KnownStarVicinityDetails, New KnownStarVicinityDetailsState(Me, AddressOf SetCurrentState, context))
-    End Sub
-
     Private ReadOnly doVerbStates As IReadOnlyDictionary(Of String, String) =
         New Dictionary(Of String, String) From
         {
-            {GameState.EnterStarSystem, VerbTypes.EnterStarSystem},
-            {GameState.ApproachStar, VerbTypes.ApproachStarVicinity},
-            {GameState.Refuel, VerbTypes.Refuel},
             {GameState.MoveDown, VerbTypes.MoveDown},
             {GameState.MoveUp, VerbTypes.MoveUp},
             {GameState.MoveLeft, VerbTypes.MoveLeft},
