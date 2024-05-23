@@ -1,7 +1,7 @@
 ﻿Public Interface IActorProperties
     Property Interior As IMap
     Property Name As String
-    Property Faction As IFaction
+    Property Group As IGroup
     Property HomePlanet As IActor
     Property CostumeType As String
     Property CanSalvage As Boolean

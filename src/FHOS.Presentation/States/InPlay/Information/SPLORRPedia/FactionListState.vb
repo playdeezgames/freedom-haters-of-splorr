@@ -2,8 +2,8 @@
 Imports SPLORR.UI
 
 Friend Class FactionListState
-    Inherits BasePickerState(Of Model.IUniverseModel, IFactionModel)
-    Friend Shared SelectedFaction As IFactionModel
+    Inherits BasePickerState(Of Model.IUniverseModel, IGroupModel)
+    Friend Shared SelectedFaction As IGroupModel
 
     Public Sub New(
                   parent As IGameController,
@@ -18,12 +18,12 @@ Friend Class FactionListState
             GameState.SPLORRPedia)
     End Sub
 
-    Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IFactionModel))
+    Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IGroupModel))
         SelectedFaction = value.Item
         SetState(GameState.FactionDetails)
     End Sub
 
-    Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IFactionModel))
+    Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IGroupModel))
         Return Context.Model.Pedia.FactionList.ToList
     End Function
 End Class

@@ -1,4 +1,4 @@
 ﻿Public Interface IAvatarBioModel
     ReadOnly Property HomePlanet As IActorModel
-    ReadOnly Property Faction As IFactionModel
+    ReadOnly Property Group As IGroupModel
 End Interface

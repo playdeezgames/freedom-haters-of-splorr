@@ -10,15 +10,15 @@
         Return New ActorProperties(universeData, id)
     End Function
 
-    Public Property Faction As IFaction Implements IActorProperties.Faction
+    Public Property Group As IGroup Implements IActorProperties.Group
         Get
             Dim id = GetStatistic(StatisticTypes.FactionId)
             If id.HasValue Then
-                Return Persistence.Faction.FromId(UniverseData, id.Value)
+                Return Persistence.Group.FromId(UniverseData, id.Value)
             End If
             Return Nothing
         End Get
-        Set(value As IFaction)
+        Set(value As IGroup)
             If value IsNot Nothing Then
                 EntityData.Statistics(StatisticTypes.FactionId) = value.Id
             Else

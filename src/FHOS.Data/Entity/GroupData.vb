@@ -1,3 +1,3 @@
-﻿Public Class FactionData
+﻿Public Class GroupData
     Inherits EntityData
 End Class

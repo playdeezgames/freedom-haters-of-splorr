@@ -14,9 +14,9 @@ Friend Class AvatarBioModel
         End Get
     End Property
 
-    Public ReadOnly Property Faction As IFactionModel Implements IAvatarBioModel.Faction
+    Public ReadOnly Property Group As IGroupModel Implements IAvatarBioModel.Group
         Get
-            Return FactionModel.FromFaction(actor.Properties.Faction)
+            Return GroupModel.FromGroup(actor.Properties.Group)
         End Get
     End Property
 

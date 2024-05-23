@@ -34,9 +34,9 @@ Friend Class ActorModel
         End Get
     End Property
 
-    Public ReadOnly Property Faction As IFactionModel Implements IActorModel.Faction
+    Public ReadOnly Property Group As IGroupModel Implements IActorModel.Group
         Get
-            Return FactionModel.FromFaction(actor.Properties.Faction)
+            Return GroupModel.FromGroup(actor.Properties.Group)
         End Get
     End Property
 

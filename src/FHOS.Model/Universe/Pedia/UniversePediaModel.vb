@@ -13,9 +13,9 @@ Friend Class UniversePediaModel
         Return New UniversePediaModel(universe)
     End Function
 
-    Public ReadOnly Property FactionList As IEnumerable(Of (Text As String, Faction As IFactionModel)) Implements IUniversePediaModel.FactionList
+    Public ReadOnly Property FactionList As IEnumerable(Of (Text As String, Faction As IGroupModel)) Implements IUniversePediaModel.FactionList
         Get
-            Return universe.Factions.Select(Function(x) (x.Name, FactionModel.FromFaction(x)))
+            Return universe.Groups.Select(Function(x) (x.Name, GroupModel.FromGroup(x)))
         End Get
     End Property
 End Class

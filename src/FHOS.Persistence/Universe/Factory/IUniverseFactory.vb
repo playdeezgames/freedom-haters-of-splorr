@@ -5,12 +5,12 @@
                       columns As Integer,
                       rows As Integer,
                       defaultLocationType As String) As IMap
-    Function CreateFaction(
+    Function CreateGroup(
                           factionName As String,
                           minimumPlanetCount As Integer,
                           authority As Integer,
                           standards As Integer,
-                          conviction As Integer) As IFaction
+                          conviction As Integer) As IGroup
     Function CreateStore(
                         value As Integer,
                         Optional minimum As Integer? = Nothing,

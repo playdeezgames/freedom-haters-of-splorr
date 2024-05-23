@@ -1,4 +1,4 @@
-﻿Public Interface IFaction
+﻿Public Interface IGroup
     Inherits IEntity
     ReadOnly Property MinimumPlanetCount As Integer
     ReadOnly Property Name As String

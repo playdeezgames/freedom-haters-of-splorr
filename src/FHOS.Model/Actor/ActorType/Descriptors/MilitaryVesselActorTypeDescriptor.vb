@@ -22,9 +22,9 @@ Friend Class MilitaryVesselActorTypeDescriptor
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
-        actor.Properties.Faction = RNG.FromGenerator(actor.Universe.Factions.ToDictionary(Function(x) x, Function(x) x.PlanetCount))
-        actor.Properties.HomePlanet = RNG.FromEnumerable(actor.Universe.Actors.Where(Function(x) x.Properties.IsPlanet AndAlso x.Properties.SectionName = Grid3x3.Center AndAlso x.Properties.Faction.Id = actor.Properties.Faction.Id))
-        actor.Properties.Name = $"{actor.Properties.Faction.Name} Military Vessel"
+        actor.Properties.Group = RNG.FromGenerator(actor.Universe.Groups.ToDictionary(Function(x) x, Function(x) x.PlanetCount))
+        actor.Properties.HomePlanet = RNG.FromEnumerable(actor.Universe.Actors.Where(Function(x) x.Properties.IsPlanet AndAlso x.Properties.SectionName = Grid3x3.Center AndAlso x.Properties.Group.Id = actor.Properties.Group.Id))
+        actor.Properties.Name = $"{actor.Properties.Group.Name} Military Vessel"
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean

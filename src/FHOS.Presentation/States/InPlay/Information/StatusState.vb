@@ -35,7 +35,7 @@ Friend Class StatusState
             If fuel.HasValue Then
                 position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Fuel: {fuel.Value}%", Hues.ForPercentage(fuel.Value))
             End If
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Faction: {avatar.Bio.Faction.Name}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Faction: {avatar.Bio.Group.Name}", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Home Planet: {avatar.Bio.HomePlanet.Name}", Hues.Black)
             .ShowStatusBar(
                 displayBuffer,

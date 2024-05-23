@@ -40,13 +40,13 @@ Friend Class UniverseFactory
         Return map
     End Function
 
-    Public Function CreateFaction(
+    Public Function CreateGroup(
                                  factionName As String,
                                  minimumPlanetCount As Integer,
                                  authority As Integer,
                                  standards As Integer,
-                                 conviction As Integer) As IFaction Implements IUniverseFactory.CreateFaction
-        Dim factionData = New FactionData With
+                                 conviction As Integer) As IGroup Implements IUniverseFactory.CreateGroup
+        Dim factionData = New GroupData With
             {
                 .Metadatas = New Dictionary(Of String, String) From
                 {
@@ -60,7 +60,7 @@ Friend Class UniverseFactory
                     {StatisticTypes.Conviction, conviction}
                 }
             }
-        Return Faction.FromId(UniverseData, UniverseData.Factions.CreateOrRecycle(factionData))
+        Return Group.FromId(UniverseData, UniverseData.Groups.CreateOrRecycle(factionData))
     End Function
 
     Public Function CreateStore(
