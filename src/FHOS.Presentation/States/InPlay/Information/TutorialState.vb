@@ -32,31 +32,6 @@ Friend Class TutorialState
         New Dictionary(Of String, TutorialDetail) From
         {
             {
-                TutorialTypes.StarSystemEntry,
-                New TutorialDetail(
-                    "Entering Star Systems",
-                    {
-                        New TutorialDetailLine("You have reached a star system!", Hues.Black),
-                        New TutorialDetailLine("", Hues.Black),
-                        New TutorialDetailLine("To enter it,", Hues.Black),
-                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
-                        New TutorialDetailLine("then choose 'Enter Star System'", Hues.Black)
-                    })
-            },
-            {
-                TutorialTypes.RefuelAtStar,
-                New TutorialDetail(
-                    "Refuel at Star",
-                    {
-                        New TutorialDetailLine("You have reached a star!", Hues.Black),
-                        New TutorialDetailLine("", Hues.Black),
-                        New TutorialDetailLine("To refuel,", Hues.Black),
-                        New TutorialDetailLine("press [A] from the NAV SCREEN", Hues.Black),
-                        New TutorialDetailLine("then choose 'Refuel'", Hues.Black),
-                        New TutorialDetailLine("(requires Fuel Scoop)", Hues.Black)
-                    })
-            },
-            {
                 TutorialTypes.OutOfFuel,
                 New TutorialDetail(
                     "Out of Fuel!",

@@ -28,7 +28,6 @@ Friend Class GalaxyInitializationStep
                 stars.Add((column, row))
                 Dim location = starMap.GetLocation(column, row)
                 location.LocationType = LocationTypes.MakeStar(starType)
-                location.Tutorial = TutorialTypes.StarSystemEntry
                 Dim starSystemName As String = nameGenerator.GenerateUnusedName
                 location.Place = universe.Factory.CreateStarSystem(starSystemName, starType, column, row)
                 ActorTypes.Descriptors(ActorTypes.MakeStarSystem(starType)).CreateActor(location, $"{starSystemName} System")

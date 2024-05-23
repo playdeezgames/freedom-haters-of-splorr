@@ -31,7 +31,7 @@
 
     Friend Overrides Function Describe(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
         Return {
-            ($"Faction: {actor.Properties.Faction.Name}", Hues.Black)
+            ($"Faction: ???", Hues.Black)
             }
     End Function
 End Class

@@ -9,6 +9,8 @@
     Friend ReadOnly LeaveOrbit As String = NameOf(LeaveOrbit)
     Friend ReadOnly Approach As String = NameOf(Approach)
     Friend ReadOnly LeavePlanetVicinity As String = NameOf(LeavePlanetVicinity)
+    Friend ReadOnly LeaveStarVicinity As String = NameOf(LeaveStarVicinity)
+    Friend ReadOnly LeaveStarSystem As String = NameOf(LeaveStarSystem)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, InteractionTypeDescriptor) =
         New List(Of InteractionTypeDescriptor) From
@@ -21,7 +23,9 @@
             New TransportInteractionTypeDescriptor(EnterWormhole, "Enter Wormhole", Function(x) x.Properties.IsWormhole),
             New TransportInteractionTypeDescriptor(LeaveOrbit, "Leave Orbit", Function(x) x.Properties.TargetActor.Properties.IsSatellite OrElse x.Properties.TargetActor.Properties.IsPlanet),
             New TransportInteractionTypeDescriptor(LeavePlanetVicinity, "Leave Planet Vicinity", Function(x) x.Properties.TargetActor.Properties.IsPlanetVicinity),
+            New TransportInteractionTypeDescriptor(LeaveStarSystem, "Leave Star System", Function(x) x.Properties.TargetActor.Properties.IsStarSystem),
+            New TransportInteractionTypeDescriptor(LeaveStarVicinity, "Leave Star Vicinity", Function(x) x.Properties.TargetActor.Properties.IsStarVicinity),
             New EnterInteriorInteractionTypeDescriptor(EnterOrbit, "Enter Orbit", Function(x) x.Properties.IsSatellite OrElse x.Properties.IsPlanet),
-            New EnterInteriorInteractionTypeDescriptor(Approach, "Approach", Function(x) x.Properties.IsPlanetVicinity)
+            New EnterInteriorInteractionTypeDescriptor(Approach, "Approach", Function(x) x.Properties.IsPlanetVicinity OrElse x.Properties.IsStarSystem OrElse x.Properties.IsStarVicinity)
         }.ToDictionary(Function(x) x.InteractionType, Function(x) x)
 End Module
