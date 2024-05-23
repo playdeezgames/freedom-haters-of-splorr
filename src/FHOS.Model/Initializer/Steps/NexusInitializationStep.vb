@@ -30,7 +30,7 @@ Friend Class NexusInitializationStep
                 Dim location = nexusMap.GetLocation(column, row)
                 Dim starSystem = RNG.FromEnumerable(starSystems)
                 location.Actor = ActorTypes.Descriptors(ActorTypes.Wormhole).CreateActor(location, "Wormhole")
-                addStep(New WormholeInitializationStep(location, StarSystem), False)
+                addStep(New WormholeInitializationStep(location, location.Actor), False)
                 tries = 0
             Else
                 tries += 1

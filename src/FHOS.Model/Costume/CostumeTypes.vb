@@ -17,6 +17,14 @@
         Return MakeCostume($"{starType}StarVicinity", StarTypes.Descriptors(starType).Hue)
     End Function
 
+    Friend Function MakeStarSystem(starType As String) As String
+        Return MakeCostume($"{starType}StarSystem", StarTypes.Descriptors(starType).Hue)
+    End Function
+
+    Friend Function MakeStar(starType As String) As String
+        Return MakeCostume($"{starType}Star", StarTypes.Descriptors(starType).Hue)
+    End Function
+
     Friend Function MakeCostume(costumeType As String, hue As Integer) As String
         Return $"{costumeType}{hue}"
     End Function
@@ -64,7 +72,17 @@
         For Each starType In StarTypes.Descriptors
             result.Add(
                 New CostumeTypeDescriptor(
+                       MakeStarSystem(starType.Key),
+                       Enumerable.Range(0, 4).Select(Function(x) ChrW(224)).ToArray,
+                       starType.Value.Hue))
+            result.Add(
+                New CostumeTypeDescriptor(
                        MakeStarVicinity(starType.Key),
+                       Enumerable.Range(0, 4).Select(Function(x) ChrW(224)).ToArray,
+                       starType.Value.Hue))
+            result.Add(
+                New CostumeTypeDescriptor(
+                       MakeStar(starType.Key),
                        Enumerable.Range(0, 4).Select(Function(x) ChrW(224)).ToArray,
                        starType.Value.Hue))
         Next

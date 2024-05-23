@@ -38,6 +38,8 @@
         Next
         For Each starType In StarTypes.Descriptors
             descriptorList.Add(New StarVicinityActorTypeDescriptor(starType.Key))
+            descriptorList.Add(New StarSystemActorTypeDescriptor(starType.Key))
+            descriptorList.Add(New StarActorTypeDescriptor(starType.Key))
         Next
         For Each planetType In PlanetTypes.Descriptors
             descriptorList.Add(New PlanetVicinityActorTypeDescriptor(planetType.Key))
@@ -65,5 +67,13 @@
 
     Friend Function MakeStarVicinity(starType As String) As String
         Return $"{starType}StarVicinity"
+    End Function
+
+    Friend Function MakeStarSystem(starType As String) As String
+        Return $"{starType}StarSystem"
+    End Function
+
+    Friend Function MakeStar(starType As String) As String
+        Return $"{starType}Star"
     End Function
 End Module

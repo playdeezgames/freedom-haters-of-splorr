@@ -179,4 +179,31 @@
             SetStatistic(StatisticTypes.PlanetCount, value)
         End Set
     End Property
+
+    Public Property IsStarSystem As Boolean Implements IActorProperties.IsStarSystem
+        Get
+            Return Flags(FlagTypes.IsStarSystem)
+        End Get
+        Set(value As Boolean)
+            Flags(FlagTypes.IsStarSystem) = value
+        End Set
+    End Property
+
+    Public Property IsStar As Boolean Implements IActorProperties.IsStar
+        Get
+            Return Flags(FlagTypes.IsStar)
+        End Get
+        Set(value As Boolean)
+            Flags(FlagTypes.IsStar) = value
+        End Set
+    End Property
+
+    Public Property IsStarVicinity As Boolean Implements IActorProperties.IsStarVicinity
+        Get
+            Return Flags(FlagTypes.IsStarVicinity)
+        End Get
+        Set(value As Boolean)
+            Flags(FlagTypes.IsStarVicinity) = value
+        End Set
+    End Property
 End Class

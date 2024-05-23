@@ -1,16 +1,15 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class StarVicinityActorTypeDescriptor
+Friend Class StarSystemActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
     Private starType As String
 
     Public Sub New(starType As String)
-        MyBase.New(
-            ActorTypes.MakeStarVicinity(starType),
+        MyBase.New(ActorTypes.MakeStarSystem(starType),
             New Dictionary(Of String, Integer) From
             {
-                {CostumeTypes.MakeStarVicinity(starType), 1}
+                {CostumeTypes.MakeStarSystem(starType), 1}
             },
             New Dictionary(Of String, String))
         Me.starType = starType
@@ -18,7 +17,7 @@ Friend Class StarVicinityActorTypeDescriptor
 
     Protected Overrides Sub Initialize(actor As IActor)
         actor.Properties.Subtype = starType
-        actor.Properties.IsStarVicinity = True
+        actor.Properties.IsStarSystem = True
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean

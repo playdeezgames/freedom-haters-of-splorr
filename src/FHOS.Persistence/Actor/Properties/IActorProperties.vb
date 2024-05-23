@@ -17,4 +17,7 @@
     Property IsPlanetVicinity As Boolean
     Property SatelliteCount As Integer
     Property PlanetCount As Integer
+    Property IsStarSystem As Boolean
+    Property IsStar As Boolean
+    Property IsStarVicinity As Boolean
 End Interface
