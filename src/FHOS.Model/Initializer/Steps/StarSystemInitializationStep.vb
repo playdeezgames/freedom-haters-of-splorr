@@ -3,42 +3,42 @@ Imports SPLORR.Game
 
 Friend Class StarSystemInitializationStep
     Inherits InitializationStep
-    Private ReadOnly starLocation As ILocation
+    Private ReadOnly location As ILocation
     Private ReadOnly nameGenerator As NameGenerator
     Sub New(location As ILocation, nameGenerator As NameGenerator)
-        Me.starLocation = location
+        Me.location = location
         Me.nameGenerator = nameGenerator
     End Sub
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim descriptor = MapTypes.Descriptors(MapTypes.StarSystem)
-        Dim starSystem = starLocation.Place
-        starSystem.Properties.Map = descriptor.CreateMap($"{starSystem.Properties.Name} System", starSystem.Universe)
-        PlaceBoundaries(starSystem, starLocation, descriptor.Size.Columns, descriptor.Size.Rows)
-        PlaceStar(starSystem, addStep)
-        starSystem.Family.PlanetCount = PlacePlanets(starSystem, addStep)
-        addStep(New EncounterInitializationStep(starSystem.Properties.Map), True)
+        Dim place = location.Place
+        place.Properties.Map = descriptor.CreateMap($"{place.Properties.Name} System", place.Universe)
+        PlaceBoundaries(place, location, descriptor.Size.Columns, descriptor.Size.Rows)
+        PlaceStar(place, addStep)
+        place.Family.PlanetCount = PlacePlanets(place, addStep)
+        addStep(New EncounterInitializationStep(place.Properties.Map), True)
     End Sub
 
-    Private Function PlacePlanets(starSystem As IPlace, addStep As Action(Of InitializationStep, Boolean)) As Integer
+    Private Function PlacePlanets(place As IPlace, addStep As Action(Of InitializationStep, Boolean)) As Integer
         Dim planets As New List(Of (Column As Integer, Row As Integer)) From
             {
-                (starSystem.Properties.Map.Size.Columns \ 2, starSystem.Properties.Map.Size.Rows \ 2)
+                (place.Properties.Map.Size.Columns \ 2, place.Properties.Map.Size.Rows \ 2)
             }
         Dim tries As Integer = 0
         Const MaximumTries = 5000
-        Dim starType = StarTypes.Descriptors(starSystem.Subtype)
+        Dim starType = StarTypes.Descriptors(place.Subtype)
         Dim MinimumDistance = starType.MinimumPlanetaryDistance
         Dim index = 1
         Dim maximumPlanetCount As Integer = starType.GenerateMaximumPlanetCount()
         Dim planetCount = 0
         While planetCount < maximumPlanetCount AndAlso tries < MaximumTries
-            Dim column = RNG.FromRange(1, starSystem.Properties.Map.Size.Columns - 3)
-            Dim row = RNG.FromRange(1, starSystem.Properties.Map.Size.Rows - 3)
+            Dim column = RNG.FromRange(1, place.Properties.Map.Size.Columns - 3)
+            Dim row = RNG.FromRange(1, place.Properties.Map.Size.Rows - 3)
             If planets.All(Function(planet) (column - planet.Column) * (column - planet.Column) + (row - planet.Row) * (row - planet.Row) >= MinimumDistance * MinimumDistance) Then
                 Dim planetType = starType.GeneratePlanetType()
                 planets.Add((column, row))
-                Dim location = starSystem.Properties.Map.GetLocation(column, row)
+                Dim location = place.Properties.Map.GetLocation(column, row)
                 location.LocationType = PlanetTypes.Descriptors(planetType).LocationType
                 location.Tutorial = TutorialTypes.PlanetVicinityApproach
                 Dim planetName = nameGenerator.GenerateUnusedName
@@ -55,14 +55,14 @@ Friend Class StarSystemInitializationStep
         Return planetCount
     End Function
 
-    Private Sub PlaceStar(starSystem As IPlace, addStep As Action(Of InitializationStep, Boolean))
-        Dim starColumn = starSystem.Properties.Map.Size.Columns \ 2
-        Dim starRow = starSystem.Properties.Map.Size.Rows \ 2
-        Dim locationType = LocationTypes.MakeStar(starSystem.Subtype)
-        Dim location = starSystem.Properties.Map.GetLocation(starColumn, starRow)
+    Private Sub PlaceStar(place As IPlace, addStep As Action(Of InitializationStep, Boolean))
+        Dim starColumn = place.Properties.Map.Size.Columns \ 2
+        Dim starRow = place.Properties.Map.Size.Rows \ 2
+        Dim locationType = LocationTypes.MakeStar(place.Subtype)
+        Dim location = place.Properties.Map.GetLocation(starColumn, starRow)
         With location
             .LocationType = locationType
-            .Place = starSystem.Factory.CreateStarVicinity(starColumn, starRow)
+            .Place = place.Factory.CreateStarVicinity(starColumn, starRow)
             .Tutorial = TutorialTypes.StarVicinityApproach
             addStep(New StarVicinityInitializationStep(location), False)
         End With
