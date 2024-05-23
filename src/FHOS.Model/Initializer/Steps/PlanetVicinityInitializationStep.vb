@@ -3,16 +3,20 @@ Imports SPLORR.Game
 
 Friend Class PlanetVicinityInitializationStep
     Inherits InitializationStep
-    Private ReadOnly planetVicinityLocation As ILocation
+    Private ReadOnly location As ILocation
     Private ReadOnly nameGenerator As NameGenerator
     Sub New(location As ILocation, nameGenerator As NameGenerator)
-        Me.planetVicinityLocation = location
+        Me.location = location
         Me.nameGenerator = nameGenerator
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        Dim place = planetVicinityLocation.Place
-        place.Properties.Map = MapTypes.Descriptors(MapTypes.PlanetVicinity).CreateMap($"{place.Properties.Name} Vicinity", place.Universe)
-        PlaceBoundaries(place, planetVicinityLocation, place.Properties.Map.Size.Columns, place.Properties.Map.Size.Rows)
+        Dim place = location.Place
+        Dim actor = location.Actor
+        Dim map = MapTypes.Descriptors(MapTypes.PlanetVicinity).CreateMap($"{place.Properties.Name} Vicinity", place.Universe)
+        place.Properties.Map = map
+        actor.Properties.Interior = map
+        PlaceBoundaries(place, location, place.Properties.Map.Size.Columns, place.Properties.Map.Size.Rows)
+        PlaceBoundaryActors(actor, actor.Properties.Interior.Size.Columns, actor.Properties.Interior.Size.Rows)
         PlacePlanet(place, addStep, place.Subtype)
         place.Family.SatelliteCount = PlaceSatellites(place, addStep)
         addStep(New EncounterInitializationStep(place.Properties.Map), True)

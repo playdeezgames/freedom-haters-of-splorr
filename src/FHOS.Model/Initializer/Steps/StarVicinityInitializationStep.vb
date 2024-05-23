@@ -2,17 +2,20 @@
 
 Friend Class StarVicinityInitializationStep
     Inherits InitializationStep
-    Private ReadOnly starLocation As ILocation
+    Private ReadOnly location As ILocation
     Sub New(location As ILocation)
-        Me.starLocation = location
+        Me.location = location
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim descriptor = MapTypes.Descriptors(MapTypes.StarVicinity)
-        Dim starVicinity = starLocation.Place
-        starVicinity.Properties.Map = descriptor.CreateMap($"{starVicinity.Properties.Name} Vicinity", starVicinity.Universe)
-        PlaceBoundaries(starVicinity, starLocation, descriptor.Size.Columns, descriptor.Size.Rows)
-        PlaceStar(starVicinity)
-        addStep(New EncounterInitializationStep(starVicinity.Properties.Map), True)
+        Dim place = location.Place
+        'Dim actor = location.Actor
+        Dim map = descriptor.CreateMap($"{place.Properties.Name} Vicinity", place.Universe)
+        place.Properties.Map = map
+        'actor.Properties.Interior = map
+        PlaceBoundaries(place, location, descriptor.Size.Columns, descriptor.Size.Rows)
+        PlaceStar(place)
+        addStep(New EncounterInitializationStep(place.Properties.Map), True)
     End Sub
     Private Sub PlaceStar(starVicinity As IPlace)
         Dim starColumn = starVicinity.Properties.Map.Size.Columns \ 2

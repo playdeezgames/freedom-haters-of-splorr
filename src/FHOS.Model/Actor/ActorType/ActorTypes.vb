@@ -41,6 +41,9 @@
             For Each section In Grid3x3.Descriptors
                 descriptorList.Add(New PlanetSectionActorTypeDescriptor(planetType.Key, section.Key))
             Next
+            For Each section In Grid5x5.Descriptors
+                descriptorList.Add(New PlanetSectionActorTypeDescriptor(planetType.Key, section.Key))
+            Next
         Next
         For Each ordinalDirection In OrdinalDirections.Descriptors
             descriptorList.Add(New ArrowActorDescriptor(ordinalDirection.Key))

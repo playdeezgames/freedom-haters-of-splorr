@@ -14,4 +14,5 @@
     Property Subtype As String
     Property IsPlanet As Boolean
     Property SectionName As String
+    Property IsPlanetVicinity As Boolean
 End Interface

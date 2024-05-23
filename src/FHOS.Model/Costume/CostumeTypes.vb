@@ -77,6 +77,13 @@
                         Enumerable.Range(0, 4).Select(Function(x) section.Value.Glyph).ToArray,
                         planetType.Value.Hue))
             Next
+            For Each section In Grid5x5.Descriptors
+                result.Add(
+                    New CostumeTypeDescriptor(
+                        MakePlanetSection(planetType.Key, section.Key),
+                        Enumerable.Range(0, 4).Select(Function(x) section.Value.Glyph).ToArray,
+                        planetType.Value.Hue))
+            Next
         Next
         Return result
     End Function

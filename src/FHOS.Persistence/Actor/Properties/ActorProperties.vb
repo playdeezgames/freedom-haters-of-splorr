@@ -152,4 +152,13 @@
             SetStatistic(StatisticTypes.HomePlanetActorId, value?.Id)
         End Set
     End Property
+
+    Public Property IsPlanetVicinity As Boolean Implements IActorProperties.IsPlanetVicinity
+        Get
+            Return Flags(FlagTypes.IsPlanetVicinity)
+        End Get
+        Set(value As Boolean)
+            Flags(FlagTypes.IsPlanetVicinity) = value
+        End Set
+    End Property
 End Class
