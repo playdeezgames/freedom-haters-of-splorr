@@ -17,11 +17,11 @@ Friend Class FactionizeGalaxyStep
 
     Private Sub FactionizeActors(factions As IEnumerable(Of IGroup))
         Dim planets = New HashSet(Of IActor)(universe.Actors.Where(Function(x) x.Properties.IsPlanet AndAlso x.Properties.SectionName = Grid3x3.Center))
-        For Each faction In factions
-            For Each dummy In Enumerable.Range(0, faction.MinimumPlanetCount)
+        For Each group In factions
+            For Each dummy In Enumerable.Range(0, group.MinimumPlanetCount)
                 Dim planet = RNG.FromEnumerable(planets)
-                planet.Properties.Group = faction
-                faction.PlanetCount += 1
+                planet.Properties.Group = group
+                group.PlanetCount += 1
                 planets.Remove(planet)
             Next
         Next
