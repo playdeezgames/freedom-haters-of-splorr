@@ -16,12 +16,12 @@ Friend Class FactionInitializationStep
         Dim names As New HashSet(Of String)
         For Each dummy In Enumerable.Range(0, embarkSettings.FactionCount)
             Dim name As String = GenerateName(names)
-            universe.Factory.CreateGroup(GroupTypes.Faction, name, 0, RNG.RollDice("10d11+-10d1"), RNG.RollDice("10d11+-10d1"), RNG.RollDice("10d11+-10d1"))
+            universe.Factory.CreateFaction(name, 0, RNG.RollDice("10d11+-10d1"), RNG.RollDice("10d11+-10d1"), RNG.RollDice("10d11+-10d1"))
         Next
     End Sub
 
     Private Sub CreateSIGFED()
-        Dim sigfed = universe.Factory.CreateGroup(GroupTypes.Faction, "SIGMO Federation", 1, 100, 100, 100)
+        Dim sigfed = universe.Factory.CreateFaction("SIGMO Federation", 1, 100, 100, 100)
     End Sub
 
     Private ReadOnly firstParts As IReadOnlyList(Of String) =
