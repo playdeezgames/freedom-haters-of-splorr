@@ -10,6 +10,13 @@ Friend Module UniverseFactoryExtensions
                         authority As Integer,
                         standards As Integer,
                         conviction As Integer) As IGroup
-        Return universeFactory.CreateGroup(GroupTypes.Faction, factionName, minimumPlanetCount, authority, standards, conviction)
+        Dim faction = universeFactory.CreateGroup(
+            GroupTypes.Faction,
+            factionName)
+        faction.MinimumPlanetCount = minimumPlanetCount
+        faction.Authority = authority
+        faction.Standards = standards
+        faction.Conviction = conviction
+        Return faction
     End Function
 End Module

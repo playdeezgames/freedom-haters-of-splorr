@@ -21,7 +21,7 @@ Friend Class FactionInitializationStep
     End Sub
 
     Private Sub CreateSIGFED()
-        Dim sigfed = universe.Factory.CreateFaction("SIGMO Federation", 1, 100, 100, 100)
+        universe.Factory.CreateFaction("SIGMO Federation", 1, 100, 100, 100)
     End Sub
 
     Private ReadOnly firstParts As IReadOnlyList(Of String) =

@@ -42,24 +42,13 @@ Friend Class UniverseFactory
 
     Public Function CreateGroup(
                                 groupType As String,
-                                groupName As String,
-                                MinimumPlanetCount As Integer,
-                                authority As Integer,
-                                standards As Integer,
-                                conviction As Integer) As IGroup Implements IUniverseFactory.CreateGroup
+                                groupName As String) As IGroup Implements IUniverseFactory.CreateGroup
         Dim factionData = New GroupData With
             {
                 .Metadatas = New Dictionary(Of String, String) From
                 {
                     {MetadataTypes.GroupType, groupType},
                     {MetadataTypes.Name, groupName}
-                },
-                .Statistics = New Dictionary(Of String, Integer) From
-                {
-                    {StatisticTypes.MinimumPlanetCount, MinimumPlanetCount},
-                    {StatisticTypes.Authority, authority},
-                    {StatisticTypes.Standards, standards},
-                    {StatisticTypes.Conviction, conviction}
                 }
             }
         Return Group.FromId(UniverseData, UniverseData.Groups.CreateOrRecycle(factionData))

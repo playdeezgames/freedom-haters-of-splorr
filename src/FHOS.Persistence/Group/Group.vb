@@ -11,10 +11,13 @@ Friend Class Group
         MyBase.New(universeData, factionId)
     End Sub
 
-    Public ReadOnly Property MinimumPlanetCount As Integer Implements IGroup.MinimumPlanetCount
+    Public Property MinimumPlanetCount As Integer Implements IGroup.MinimumPlanetCount
         Get
-            Return EntityData.Statistics(StatisticTypes.MinimumPlanetCount)
+            Return GetStatistic(StatisticTypes.MinimumPlanetCount).Value
         End Get
+        Set(value As Integer)
+            SetStatistic(StatisticTypes.MinimumPlanetCount, value)
+        End Set
     End Property
 
     Public ReadOnly Property Name As String Implements IGroup.Name
@@ -32,22 +35,31 @@ Friend Class Group
         End Set
     End Property
 
-    Public ReadOnly Property Authority As Integer Implements IGroup.Authority
+    Public Property Authority As Integer Implements IGroup.Authority
         Get
             Return GetStatistic(StatisticTypes.Authority).Value
         End Get
+        Set(value As Integer)
+            SetStatistic(StatisticTypes.Authority, value)
+        End Set
     End Property
 
-    Public ReadOnly Property Standards As Integer Implements IGroup.Standards
+    Public Property Standards As Integer Implements IGroup.Standards
         Get
             Return GetStatistic(StatisticTypes.Standards).Value
         End Get
+        Set(value As Integer)
+            SetStatistic(StatisticTypes.Standards, value)
+        End Set
     End Property
 
-    Public ReadOnly Property Conviction As Integer Implements IGroup.Conviction
+    Public Property Conviction As Integer Implements IGroup.Conviction
         Get
             Return GetStatistic(StatisticTypes.Conviction).Value
         End Get
+        Set(value As Integer)
+            SetStatistic(StatisticTypes.Conviction, value)
+        End Set
     End Property
 
     Public ReadOnly Property GroupType As String Implements IGroup.GroupType
