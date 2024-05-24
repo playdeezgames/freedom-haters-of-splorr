@@ -13,8 +13,14 @@ Friend Class PlanetVicinityInitializationStep
         Dim actor = location.Actor
         Dim map = MapTypes.Descriptors(MapTypes.PlanetVicinity).CreateMap($"{actor.Properties.Name} Vicinity", actor.Universe)
         actor.Properties.Interior = map
-        PlaceBoundaryActors(actor, actor.Properties.Interior.Size.Columns, actor.Properties.Interior.Size.Rows)
-        PlacePlanet(actor, addStep, actor.Properties.Subtype)
+        PlaceBoundaryActors(
+            actor,
+            actor.Properties.Interior.Size.Columns,
+            actor.Properties.Interior.Size.Rows)
+        PlacePlanet(
+            actor,
+            addStep,
+            actor.Properties.Subtype)
         actor.Properties.SatelliteCount = PlaceSatellites(actor, addStep)
         addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
     End Sub
@@ -33,13 +39,8 @@ Friend Class PlanetVicinityInitializationStep
             Dim column = RNG.FromRange(1, actor.Properties.Interior.Size.Columns - 3)
             Dim row = RNG.FromRange(1, actor.Properties.Interior.Size.Rows - 3)
             If satellites.All(Function(satellite) (column - satellite.Column) * (column - satellite.Column) + (row - satellite.Row) * (row - satellite.Row) >= MinimumDistance * MinimumDistance) Then
-                Dim satelliteType As String = planetType.GenerateSatelliteType()
                 satellites.Add((column, row))
-                Dim location = actor.Properties.Interior.GetLocation(column, row)
-                Dim satelliteName = nameGenerator.GenerateUnusedName
-                Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, satelliteName)
-                satellite.Properties.Name = satelliteName
-                addStep(New SatelliteOrbitInitializationStep(location), False)
+                MakeSatellite(actor, addStep, planetType, column, row)
                 satelliteCount += 1
                 tries = 0
             Else
@@ -48,17 +49,37 @@ Friend Class PlanetVicinityInitializationStep
         End While
         Return satelliteCount
     End Function
+
+    Private Sub MakeSatellite(actor As IActor, addStep As Action(Of InitializationStep, Boolean), planetType As PlanetTypeDescriptor, column As Integer, row As Integer)
+        Dim satelliteType As String = planetType.GenerateSatelliteType()
+        Dim location = actor.Properties.Interior.GetLocation(column, row)
+        Dim group = actor.Universe.Factory.CreateGroup(GroupTypes.Satellite, nameGenerator.GenerateUnusedName)
+        Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, group.Name)
+        satellite.Properties.Group = group
+        addStep(New SatelliteOrbitInitializationStep(location), False)
+    End Sub
+
     Private Sub PlacePlanet(actor As IActor, addStep As Action(Of InitializationStep, Boolean), subType As String)
         Dim centerColumn = actor.Properties.Interior.Size.Columns \ 2
         Dim centerRow = actor.Properties.Interior.Size.Rows \ 2
+        Dim group = actor.Universe.Factory.CreateGroup(GroupTypes.Planet, actor.Properties.Group.Name)
         For Each delta In Grid3x3.Descriptors
-            PlacePlanetSectionActor(actor.Properties.Interior.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y), subType, delta.Value.SectionName)
+            PlacePlanetSectionActor(
+                group,
+                actor.Properties.Interior.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y),
+                subType,
+                delta.Value.SectionName)
         Next
         addStep(New PlanetOrbitInitializationStep(actor.Properties.Interior.GetLocation(centerColumn, centerRow)), False)
     End Sub
 
-    Private Shared Sub PlacePlanetSectionActor(location As ILocation, subType As String, sectionName As String)
+    Private Shared Sub PlacePlanetSectionActor(
+                                              group As IGroup,
+                                              location As ILocation,
+                                              subType As String,
+                                              sectionName As String)
         Dim descriptor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(subType, sectionName))
-        descriptor.CreateActor(location, "Planet")
+        Dim actor = descriptor.CreateActor(location, group.Name)
+        actor.Properties.Group = group
     End Sub
 End Class
