@@ -24,13 +24,8 @@ Friend Class GalaxyInitializationStep
             Dim column = RNG.FromRange(0, starMap.Size.Columns - 1)
             Dim row = RNG.FromRange(0, starMap.Size.Rows - 1)
             If stars.All(Function(star) (column - star.Column) * (column - star.Column) + (row - star.Row) * (row - star.Row) >= MinimumDistance * MinimumDistance) Then
-                Dim starType = GalacticAges.Descriptors(embarkSettings.GalacticAge).GenerateStarType()
                 stars.Add((column, row))
-                Dim location = starMap.GetLocation(column, row)
-                location.LocationType = LocationTypes.MakeStar(starType)
-                Dim starSystemName As String = nameGenerator.GenerateUnusedName
-                ActorTypes.Descriptors(ActorTypes.MakeStarSystem(starType)).CreateActor(location, $"{starSystemName} System")
-                addStep(New StarSystemInitializationStep(location, nameGenerator), False)
+                AddStarSystem(addStep, starMap, column, row)
                 tries = 0
             Else
                 tries += 1
@@ -39,5 +34,14 @@ Friend Class GalaxyInitializationStep
         addStep(New NexusInitializationStep(universe, embarkSettings), True)
         addStep(New EncounterInitializationStep(starMap), True)
         addStep(New AvatarInitializationStep(universe, embarkSettings), True)
+    End Sub
+
+    Private Sub AddStarSystem(addStep As Action(Of InitializationStep, Boolean), map As IMap, column As Integer, row As Integer)
+        Dim starType = GalacticAges.Descriptors(embarkSettings.GalacticAge).GenerateStarType()
+        Dim location = map.GetLocation(column, row)
+        Dim group = map.Universe.Factory.CreateGroup(GroupTypes.StarSystem, nameGenerator.GenerateUnusedName)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarSystem(starType)).CreateActor(location, $"{group.Name} System")
+        actor.Properties.Group = group
+        addStep(New StarSystemInitializationStep(location, nameGenerator), False)
     End Sub
 End Class

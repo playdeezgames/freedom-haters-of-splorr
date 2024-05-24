@@ -14,10 +14,6 @@
         Return $"{Void}{direction}Arrow"
     End Function
 
-    Friend Function MakeStar(starType As String) As String
-        Return $"{starType}Star"
-    End Function
-
     Friend Function MakePlanetLocationType(planetType As String) As String
         Return $"{planetType}Planet"
     End Function
@@ -47,9 +43,6 @@
         }
         For Each ordinalDirection In OrdinalDirections.Descriptors
             result(MakeVoidArrow(ordinalDirection.Key)) = New LocationTypeDescriptor("Empty Space", ordinalDirection.Value.Glyph, DarkGray, Black)
-        Next
-        For Each starType In StarTypes.Descriptors
-            result(MakeStar(starType.Key)) = New LocationTypeDescriptor(starType.Value.StarTypeName, ChrW(224), starType.Value.Hue, Black)
         Next
         For Each satelliteHue In SatelliteTypes.Descriptors
             result(MakeSatelliteLocationType(satelliteHue.Key)) = New LocationTypeDescriptor($"{satelliteHue.Key} Moon", ChrW(226), satelliteHue.Value.Hue, Black)

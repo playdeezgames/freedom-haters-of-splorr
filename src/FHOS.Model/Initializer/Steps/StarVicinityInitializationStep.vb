@@ -18,7 +18,6 @@ Friend Class StarVicinityInitializationStep
     Private Sub PlaceStar(actor As IActor)
         Dim starColumn = actor.Properties.Interior.Size.Columns \ 2
         Dim starRow = actor.Properties.Interior.Size.Rows \ 2
-        Dim locationType = LocationTypes.MakeStar(actor.Properties.Subtype)
         Dim location = actor.Properties.Interior.GetLocation(starColumn, starRow)
         ActorTypes.Descriptors(ActorTypes.MakeStar(actor.Properties.Subtype)).CreateActor(location, actor.Properties.Name)
     End Sub

@@ -11,8 +11,7 @@ Friend Class FactionizeGalaxyStep
     End Sub
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        Dim factions = universe.Groups
-        FactionizeActors(factions)
+        FactionizeActors(universe.Groups.Where(Function(x) x.GroupType = GroupTypes.Faction))
     End Sub
 
     Private Sub FactionizeActors(factions As IEnumerable(Of IGroup))

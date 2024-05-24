@@ -20,7 +20,6 @@ Friend MustInherit Class ActorTypeDescriptor
         Dim actor = location.CreateActor(ActorType, name)
         actor.State.Facing = RNG.FromRange(0, Facing.Deltas.Length - 1)
         actor.Properties.CostumeType = RNG.FromGenerator(CostumeGenerator)
-        actor.Properties.Name = ActorType
         Initialize(actor)
         Return actor
     End Function
