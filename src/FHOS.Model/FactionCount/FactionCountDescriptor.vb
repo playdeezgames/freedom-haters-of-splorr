@@ -1,5 +1,5 @@
 ﻿Friend Class FactionCountDescriptor
-    Private ReadOnly factionCount As Integer
+    Friend ReadOnly FactionCount As Integer
     Friend ReadOnly Property Name As String
 
     Public Sub New(factionCount As Integer, name As String)

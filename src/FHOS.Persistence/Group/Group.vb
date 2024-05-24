@@ -49,4 +49,10 @@ Friend Class Group
             Return GetStatistic(StatisticTypes.Conviction).Value
         End Get
     End Property
+
+    Public ReadOnly Property GroupType As String Implements IGroup.GroupType
+        Get
+            Return GetMetadata(MetadataTypes.GroupType)
+        End Get
+    End Property
 End Class

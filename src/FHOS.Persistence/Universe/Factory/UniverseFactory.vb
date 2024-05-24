@@ -41,7 +41,7 @@ Friend Class UniverseFactory
     End Function
 
     Public Function CreateGroup(
-                                 factionName As String,
+                                 groupName As String,
                                  minimumPlanetCount As Integer,
                                  authority As Integer,
                                  standards As Integer,
@@ -50,7 +50,8 @@ Friend Class UniverseFactory
             {
                 .Metadatas = New Dictionary(Of String, String) From
                 {
-                    {MetadataTypes.Name, factionName}
+                    {MetadataTypes.GroupType, GroupTypes.Faction},
+                    {MetadataTypes.Name, groupName}
                 },
                 .Statistics = New Dictionary(Of String, Integer) From
                 {

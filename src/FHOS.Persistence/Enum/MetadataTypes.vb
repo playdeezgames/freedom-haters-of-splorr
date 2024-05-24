@@ -1,6 +1,7 @@
 ﻿Friend Module MetadataTypes
     Friend ReadOnly ActorType As String = NameOf(ActorType)
     Friend ReadOnly Costume As String = NameOf(Costume)
+    Friend ReadOnly GroupType As String = NameOf(GroupType)
     Friend ReadOnly Identifier As String = NameOf(Identifier)
     Friend ReadOnly ItemType As String = NameOf(ItemType)
     Friend ReadOnly LocationType As String = NameOf(LocationType)

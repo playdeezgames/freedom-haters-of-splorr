@@ -6,7 +6,7 @@
                       rows As Integer,
                       defaultLocationType As String) As IMap
     Function CreateGroup(
-                          factionName As String,
+                          groupName As String,
                           minimumPlanetCount As Integer,
                           authority As Integer,
                           standards As Integer,
