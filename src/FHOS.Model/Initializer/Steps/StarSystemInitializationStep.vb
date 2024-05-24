@@ -20,31 +20,23 @@ Friend Class StarSystemInitializationStep
         addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
     End Sub
 
-    Private Function PlacePlanets(place As IActor, addStep As Action(Of InitializationStep, Boolean)) As Integer
+    Private Function PlacePlanets(actor As IActor, addStep As Action(Of InitializationStep, Boolean)) As Integer
         Dim planets As New List(Of (Column As Integer, Row As Integer)) From
             {
-                (place.Properties.Interior.Size.Columns \ 2, place.Properties.Interior.Size.Rows \ 2)
+                (actor.Properties.Interior.Size.Columns \ 2, actor.Properties.Interior.Size.Rows \ 2)
             }
         Dim tries As Integer = 0
         Const MaximumTries = 5000
-        Dim starType = StarTypes.Descriptors(place.Properties.Subtype)
+        Dim starType = StarTypes.Descriptors(actor.Properties.Subtype)
         Dim MinimumDistance = starType.MinimumPlanetaryDistance
-        Dim index = 1
         Dim maximumPlanetCount As Integer = starType.GenerateMaximumPlanetCount()
         Dim planetCount = 0
         While planetCount < maximumPlanetCount AndAlso tries < MaximumTries
-            Dim column = RNG.FromRange(1, place.Properties.Interior.Size.Columns - 3)
-            Dim row = RNG.FromRange(1, place.Properties.Interior.Size.Rows - 3)
+            Dim column = RNG.FromRange(1, actor.Properties.Interior.Size.Columns - 3)
+            Dim row = RNG.FromRange(1, actor.Properties.Interior.Size.Rows - 3)
             If planets.All(Function(planet) (column - planet.Column) * (column - planet.Column) + (row - planet.Row) * (row - planet.Row) >= MinimumDistance * MinimumDistance) Then
-                Dim planetType = starType.GeneratePlanetType()
                 planets.Add((column, row))
-                Dim location = place.Properties.Interior.GetLocation(column, row)
-                location.LocationType = PlanetTypes.Descriptors(planetType).LocationType
-                Dim planetName = nameGenerator.GenerateUnusedName
-                index += 1
-                ActorTypes.Descriptors(ActorTypes.MakePlanetVicinity(planetType)).CreateActor(location, planetType)
-                location.Actor.Properties.Subtype = planetType
-                addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
+                CreatePlanetVicinity(actor, addStep, starType, column, row)
                 planetCount += 1
                 tries = 0
             Else
@@ -53,6 +45,16 @@ Friend Class StarSystemInitializationStep
         End While
         Return planetCount
     End Function
+
+    Private Sub CreatePlanetVicinity(actor As IActor, addStep As Action(Of InitializationStep, Boolean), starType As StarTypeDescriptor, column As Integer, row As Integer)
+        Dim planetType = starType.GeneratePlanetType()
+        Dim location = actor.Properties.Interior.GetLocation(column, row)
+        location.LocationType = PlanetTypes.Descriptors(planetType).LocationType
+        Dim group = location.Universe.Factory.CreateGroup(GroupTypes.PlanetVicinity, nameGenerator.GenerateUnusedName)
+        ActorTypes.Descriptors(ActorTypes.MakePlanetVicinity(planetType)).CreateActor(location, $"{group.Name} Vicinity")
+        location.Actor.Properties.Subtype = planetType
+        addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
+    End Sub
 
     Private Sub PlaceStar(actor As IActor, addStep As Action(Of InitializationStep, Boolean))
         Dim starColumn = actor.Properties.Interior.Size.Columns \ 2
