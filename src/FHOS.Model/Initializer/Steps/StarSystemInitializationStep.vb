@@ -46,12 +46,13 @@ Friend Class StarSystemInitializationStep
         Return planetCount
     End Function
 
-    Private Sub CreatePlanetVicinity(actor As IActor, addStep As Action(Of InitializationStep, Boolean), starType As StarTypeDescriptor, column As Integer, row As Integer)
+    Private Sub CreatePlanetVicinity(exteriorActor As IActor, addStep As Action(Of InitializationStep, Boolean), starType As StarTypeDescriptor, column As Integer, row As Integer)
         Dim planetType = starType.GeneratePlanetType()
-        Dim location = actor.Properties.Interior.GetLocation(column, row)
+        Dim location = exteriorActor.Properties.Interior.GetLocation(column, row)
         location.LocationType = PlanetTypes.Descriptors(planetType).LocationType
         Dim group = location.Universe.Factory.CreateGroup(GroupTypes.PlanetVicinity, nameGenerator.GenerateUnusedName)
-        ActorTypes.Descriptors(ActorTypes.MakePlanetVicinity(planetType)).CreateActor(location, $"{group.Name} Vicinity")
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetVicinity(planetType)).CreateActor(location, $"{group.Name} Vicinity")
+        actor.Properties.Group = group
         location.Actor.Properties.Subtype = planetType
         addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
     End Sub
