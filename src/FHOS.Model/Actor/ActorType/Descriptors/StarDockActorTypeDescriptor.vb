@@ -19,6 +19,10 @@
     End Function
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
+        Dim map = actor.State.Location.Map
+        Dim planet = map.GetCenterLocation().Actor
+        actor.Properties.Name = $"{planet.Properties.Group.Name} Star Dock"
+        actor.Properties.Group = planet.Properties.Group.Group
         actor.Properties.CanRefillOxygen = True
         actor.Properties.BuysScrap = True
         actor.Properties.CanRefuel = True
@@ -26,7 +30,7 @@
 
     Friend Overrides Function Describe(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
         Return {
-            ($"Faction: ???", Hues.Black)
+            ($"Faction: {actor.Properties.Group.Name}", Hues.Black)
             }
     End Function
 End Class

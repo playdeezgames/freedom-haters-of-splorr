@@ -1,4 +1,6 @@
-﻿Friend Class StarGateActorTypeDescriptor
+﻿Imports FHOS.Persistence
+
+Friend Class StarGateActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
     Public Sub New()
@@ -14,14 +16,17 @@
             })
     End Sub
 
-    Protected Overrides Sub Initialize(actor As Persistence.IActor)
+    Protected Overrides Sub Initialize(actor As IActor)
+        Dim planet = actor.State.Location.Map.GetCenterLocation().Actor
+        actor.Properties.Name = $"{planet.Properties.Group.Name} Star Gate"
+        actor.Properties.Group = planet.Properties.Group.Group
     End Sub
 
-    Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
+    Friend Overrides Function CanSpawn(location As ILocation) As Boolean
         Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing
     End Function
 
-    Friend Overrides Function Describe(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
+    Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
         Return Array.Empty(Of (Text As String, Hue As Integer))
     End Function
 End Class
