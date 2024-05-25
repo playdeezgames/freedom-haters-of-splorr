@@ -1,14 +1,6 @@
 ﻿Imports SPLORR.Game
 
 Friend Class PlanetTypeDescriptor
-    Friend ReadOnly Property LocationType As String
-        Get
-            Return LocationTypes.MakePlanetLocationType(PlanetType)
-        End Get
-    End Property
-    Friend Function SectionLocationType(sectionName As String) As String
-        Return LocationTypes.MakePlanetSectionLocationType(PlanetType, sectionName)
-    End Function
     Friend ReadOnly Property MinimumSatelliteDistance As Integer
     Friend ReadOnly Property CanRefillOxygen As Boolean
     Friend ReadOnly Property PlanetType As String
