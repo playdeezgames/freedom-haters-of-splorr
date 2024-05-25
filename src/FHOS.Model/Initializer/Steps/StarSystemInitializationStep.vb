@@ -57,12 +57,14 @@ Friend Class StarSystemInitializationStep
         addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
     End Sub
 
-    Private Sub PlaceStar(actor As IActor, addStep As Action(Of InitializationStep, Boolean))
-        Dim starColumn = actor.Properties.Interior.Size.Columns \ 2
-        Dim starRow = actor.Properties.Interior.Size.Rows \ 2
-        Dim location = actor.Properties.Interior.GetLocation(starColumn, starRow)
-        ActorTypes.Descriptors(ActorTypes.MakeStarVicinity(actor.Properties.Subtype)).CreateActor(location, "Star")
-        location.Actor.Properties.Subtype = actor.Properties.Subtype
+    Private Sub PlaceStar(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean))
+        Dim starColumn = externalActor.Properties.Interior.Size.Columns \ 2
+        Dim starRow = externalActor.Properties.Interior.Size.Rows \ 2
+        Dim location = externalActor.Properties.Interior.GetLocation(starColumn, starRow)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarVicinity(externalActor.Properties.Subtype)).CreateActor(location, externalActor.Properties.Group.Name)
+        actor.Properties.Group = externalActor.Properties.Group
+        location.LocationType = LocationTypes.StarVicinity
+        location.Actor.Properties.Subtype = externalActor.Properties.Subtype
         addStep(New StarVicinityInitializationStep(location), False)
     End Sub
 End Class
