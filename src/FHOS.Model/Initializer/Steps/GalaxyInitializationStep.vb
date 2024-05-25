@@ -40,7 +40,8 @@ Friend Class GalaxyInitializationStep
         Dim starType = GalacticAges.Descriptors(embarkSettings.GalacticAge).GenerateStarType()
         Dim location = map.GetLocation(column, row)
         Dim group = map.Universe.Factory.CreateGroup(GroupTypes.StarSystem, nameGenerator.GenerateUnusedName)
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarSystem(starType)).CreateActor(location, $"{group.Name} System")
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarSystem(starType)).CreateActor(location, $"{group.Name}")
+        location.LocationType = LocationTypes.StarSystem
         actor.Properties.Group = group
         addStep(New StarSystemInitializationStep(location, nameGenerator), False)
     End Sub
