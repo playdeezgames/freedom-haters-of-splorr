@@ -8,9 +8,9 @@ Friend Class AvatarBioModel
         MyBase.New(actor)
     End Sub
 
-    Public ReadOnly Property HomePlanet As IActorModel Implements IAvatarBioModel.HomePlanet
+    Public ReadOnly Property HomePlanet As IGroupModel Implements IAvatarBioModel.HomePlanet
         Get
-            Return ActorModel.FromActor(actor.Properties.HomePlanet)
+            Return GroupModel.FromGroup(actor.Properties.HomePlanet)
         End Get
     End Property
 

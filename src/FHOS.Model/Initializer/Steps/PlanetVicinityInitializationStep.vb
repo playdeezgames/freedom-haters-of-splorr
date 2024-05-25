@@ -56,6 +56,7 @@ Friend Class PlanetVicinityInitializationStep
         Dim group = actor.Universe.Factory.CreateGroup(GroupTypes.Satellite, nameGenerator.GenerateUnusedName)
         Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, group.Name)
         satellite.Properties.Group = group
+        location.LocationType = LocationTypes.Satellite
         addStep(New SatelliteOrbitInitializationStep(location), False)
     End Sub
 
@@ -79,6 +80,7 @@ Friend Class PlanetVicinityInitializationStep
                                               subType As String,
                                               sectionName As String)
         Dim descriptor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(subType, sectionName))
+        location.LocationType = LocationTypes.Planet
         Dim actor = descriptor.CreateActor(location, group.Name)
         actor.Properties.Group = group
     End Sub

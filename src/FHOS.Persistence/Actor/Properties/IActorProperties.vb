@@ -2,7 +2,7 @@
     Property Interior As IMap
     Property Name As String
     Property Group As IGroup
-    Property HomePlanet As IActor
+    Property HomePlanet As IGroup
     Property CostumeType As String
     Property CanSalvage As Boolean
     Property CanRefillOxygen As Boolean

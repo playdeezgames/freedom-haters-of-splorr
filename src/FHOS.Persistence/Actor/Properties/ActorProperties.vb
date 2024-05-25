@@ -12,7 +12,7 @@
 
     Public Property Group As IGroup Implements IActorProperties.Group
         Get
-            Dim id = GetStatistic(StatisticTypes.FactionId)
+            Dim id = GetStatistic(StatisticTypes.GroupId)
             If id.HasValue Then
                 Return Persistence.Group.FromId(UniverseData, id.Value)
             End If
@@ -20,9 +20,9 @@
         End Get
         Set(value As IGroup)
             If value IsNot Nothing Then
-                EntityData.Statistics(StatisticTypes.FactionId) = value.Id
+                EntityData.Statistics(StatisticTypes.GroupId) = value.Id
             Else
-                EntityData.Statistics.Remove(StatisticTypes.FactionId)
+                EntityData.Statistics.Remove(StatisticTypes.GroupId)
             End If
         End Set
     End Property
@@ -144,11 +144,11 @@
         End Set
     End Property
 
-    Public Property HomePlanet As IActor Implements IActorProperties.HomePlanet
+    Public Property HomePlanet As IGroup Implements IActorProperties.HomePlanet
         Get
-            Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.HomePlanetActorId))
+            Return Persistence.Group.FromId(UniverseData, GetStatistic(StatisticTypes.HomePlanetActorId))
         End Get
-        Set(value As IActor)
+        Set(value As IGroup)
             SetStatistic(StatisticTypes.HomePlanetActorId, value?.Id)
         End Set
     End Property

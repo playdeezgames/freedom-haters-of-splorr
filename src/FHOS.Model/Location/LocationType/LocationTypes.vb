@@ -7,6 +7,8 @@
     Friend ReadOnly StarSystem As String = NameOf(StarSystem)
     Friend ReadOnly StarVicinity As String = NameOf(StarVicinity)
     Friend ReadOnly Star As String = NameOf(Star)
+    Friend ReadOnly Planet As String = NameOf(Planet)
+    Friend ReadOnly Satellite As String = NameOf(Satellite)
     Private ReadOnly Open As String = NameOf(Open)
     Private ReadOnly Shut As String = NameOf(Shut)
 
@@ -25,6 +27,8 @@
             {StarSystem, New LocationTypeDescriptor("Star System", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
             {StarVicinity, New LocationTypeDescriptor("Star Vicinity", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
             {Star, New LocationTypeDescriptor("Star", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
+            {Planet, New LocationTypeDescriptor("Planet", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
+            {Satellite, New LocationTypeDescriptor("Satellite", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
             {Air, New LocationTypeDescriptor("Air", ChrW(0), DarkGray, Black)},
             {Bulkhead, New LocationTypeDescriptor("Bulkhead", ChrW(230), DarkGray, Black, isEnterable:=False)},
             {MakeDoor(CardinalDirections.North, True), New LocationTypeDescriptor("Open Door", ChrW(24), Hues.DarkGray, Black)},

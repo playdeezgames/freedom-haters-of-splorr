@@ -67,4 +67,13 @@ Friend Class Group
             Return GetMetadata(MetadataTypes.GroupType)
         End Get
     End Property
+
+    Private Property IGroup_Group As IGroup Implements IGroup.Group
+        Get
+            Return Group.FromId(UniverseData, GetStatistic(StatisticTypes.GroupId))
+        End Get
+        Set(value As IGroup)
+            SetStatistic(StatisticTypes.GroupId, value?.Id)
+        End Set
+    End Property
 End Class

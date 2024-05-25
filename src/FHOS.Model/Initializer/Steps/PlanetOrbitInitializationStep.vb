@@ -33,6 +33,7 @@ Friend Class PlanetOrbitInitializationStep
     End Sub
     Private Shared Sub PlacePlanetSection(planet As IActor, location As ILocation, sectionName As String)
         Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(planet.Properties.Subtype, sectionName)).CreateActor(location, planet.Properties.Group.Name)
+        location.LocationType = LocationTypes.Planet
         actor.Properties.Group = planet.Properties.Group
     End Sub
 End Class
