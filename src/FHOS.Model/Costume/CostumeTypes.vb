@@ -92,6 +92,13 @@
                        MakeSatellite(satelliteType.Key),
                        Enumerable.Range(0, 4).Select(Function(x) ChrW(226)).ToArray,
                        satelliteType.Value.Hue))
+            For Each section In Grid3x3.Descriptors
+                result.Add(
+                    New CostumeTypeDescriptor(
+                        MakeSatelliteSection(satelliteType.Key, section.Key),
+                        Enumerable.Range(0, 4).Select(Function(x) section.Value.Glyph).ToArray,
+                        satelliteType.Value.Hue))
+            Next
         Next
         For Each planetType In PlanetTypes.Descriptors
             result.Add(
@@ -120,5 +127,10 @@
     Friend Function MakePlanetSection(planetType As String, sectionName As String) As String
         Dim descriptor = PlanetTypes.Descriptors(planetType)
         Return MakeCostume($"{planetType}Planet{sectionName}", descriptor.Hue)
+    End Function
+
+    Friend Function MakeSatelliteSection(satelliteType As String, sectionName As String) As String
+        Dim descriptor = Model.SatelliteTypes.Descriptors(satelliteType)
+        Return MakeCostume($"{satelliteType}Moon{sectionName}", descriptor.Hue)
     End Function
 End Module

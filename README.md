@@ -1,6 +1,7 @@
 # Freedom Haters of SPLORR!!
 
-  - [ ] 20240524 - SIGMO FHOS Episode 39 - 
+  - [ ] 20240525 - SIGMO FHOS Episode 40 - 
+  - [x] 20240524 - SIGMO FHOS Episode 39 - 
   - [x] 20240523 - SIGMO FHOS Episode 38 - 
   - [x] 20240522 - SIGMO FHOS Episode 37 - 
   - [x] 20240521 - SIGMO FHOS Episode 36 - 
@@ -14,7 +15,10 @@ Freedom Haters of SPLORR!!
 
   - Elegance
   - Minimal
-  - 
+  - Readable
+  - Maintainable
+  - Simple
+  - Robust
 
 
 ## Music

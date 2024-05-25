@@ -35,6 +35,9 @@
         }
         For Each satelliteType In SatelliteTypes.Descriptors
             descriptorList.Add(New SatelliteActorTypeDescriptor(satelliteType.Key))
+            For Each section In Grid3x3.Descriptors
+                descriptorList.Add(New SatelliteSectionActorTypeDescriptor(satelliteType.Key, section.Key))
+            Next
         Next
         For Each starType In StarTypes.Descriptors
             descriptorList.Add(New StarVicinityActorTypeDescriptor(starType.Key))
@@ -55,6 +58,10 @@
         Next
         Return descriptorList.
             ToDictionary(Function(x) x.ActorType, Function(x) x)
+    End Function
+
+    Friend Function MakeSatelliteSection(satelliteType As String, sectionName As String) As String
+        Return $"{satelliteType}Moon{sectionName}"
     End Function
 
     Friend Function MakePlanetSection(planetType As String, sectionName As String) As String

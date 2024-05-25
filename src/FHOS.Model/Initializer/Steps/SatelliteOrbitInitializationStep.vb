@@ -21,14 +21,12 @@ Friend Class SatelliteOrbitInitializationStep
         Dim centerColumn = satellite.Properties.Interior.Size.Columns \ 2
         Dim centerRow = satellite.Properties.Interior.Size.Rows \ 2
         For Each delta In Grid3x3.Descriptors
-            PlaceSatelliteSection(satellite.Properties.Subtype, satellite.Properties.Interior.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y), delta.Key)
+            PlaceSatelliteSection(satellite.Properties.Subtype, satellite.Properties.Interior.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y), delta.Key, satellite.Properties.Group)
         Next
     End Sub
 
-    Private Sub PlaceSatelliteSection(satelliteType As String, location As ILocation, sectionName As String)
-        Dim locationType = SatelliteTypes.Descriptors(satelliteType).SectionLocationType(sectionName)
-        With location
-            .LocationType = locationType
-        End With
+    Private Sub PlaceSatelliteSection(satelliteType As String, location As ILocation, sectionName As String, group As IGroup)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeSatelliteSection(satelliteType, sectionName)).CreateActor(location, group.Name)
+        actor.Properties.Group = group
     End Sub
 End Class
