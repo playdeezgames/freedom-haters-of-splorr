@@ -206,4 +206,22 @@
             Flags(FlagTypes.IsStarVicinity) = value
         End Set
     End Property
+
+    Public Property IsSatelliteSection As Boolean Implements IActorProperties.IsSatelliteSection
+        Get
+            Return Flags(FlagTypes.IsSatelliteSection)
+        End Get
+        Set(value As Boolean)
+            Flags(FlagTypes.IsSatelliteSection) = value
+        End Set
+    End Property
+
+    Public Property IsPlanetSection As Boolean Implements IActorProperties.IsPlanetSection
+        Get
+            Return Flags(FlagTypes.IsPlanetSection)
+        End Get
+        Set(value As Boolean)
+            Flags(FlagTypes.IsPlanetSection) = value
+        End Set
+    End Property
 End Class

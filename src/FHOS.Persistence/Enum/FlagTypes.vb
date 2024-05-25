@@ -11,4 +11,6 @@
     Friend ReadOnly IsStar As String = NameOf(IsStar)
     Friend ReadOnly IsStarVicinity As String = NameOf(IsStarVicinity)
     Friend ReadOnly IsStarSystem As String = NameOf(IsStarSystem)
+    Friend ReadOnly IsSatelliteSection As String = NameOf(IsSatelliteSection)
+    Friend ReadOnly IsPlanetSection As String = NameOf(IsPlanetSection)
 End Module

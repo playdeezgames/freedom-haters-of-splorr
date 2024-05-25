@@ -20,4 +20,6 @@
     Property IsStarSystem As Boolean
     Property IsStar As Boolean
     Property IsStarVicinity As Boolean
+    Property IsSatelliteSection As Boolean
+    Property IsPlanetSection As Boolean
 End Interface

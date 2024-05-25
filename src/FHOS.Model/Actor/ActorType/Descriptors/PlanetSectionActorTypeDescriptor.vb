@@ -5,8 +5,9 @@ Friend Class PlanetSectionActorTypeDescriptor
 
     Private ReadOnly subtype As String
     Private ReadOnly sectionName As String
+    Private ReadOnly isPlanet As Boolean
 
-    Public Sub New(planetType As String, sectionName As String)
+    Public Sub New(planetType As String, sectionName As String, isPlanet As Boolean)
         MyBase.New(
             ActorTypes.MakePlanetSection(planetType, sectionName),
             New Dictionary(Of String, Integer) From
@@ -16,10 +17,12 @@ Friend Class PlanetSectionActorTypeDescriptor
             New Dictionary(Of String, String))
         Me.subtype = planetType
         Me.sectionName = sectionName
+        Me.isPlanet = isPlanet
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
-        actor.Properties.IsPlanet = True
+        actor.Properties.IsPlanet = isPlanet
+        actor.Properties.IsPlanetSection = Not isPlanet
         actor.Properties.Subtype = subtype
         actor.Properties.SectionName = sectionName
     End Sub

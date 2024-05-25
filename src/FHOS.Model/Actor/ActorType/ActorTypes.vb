@@ -47,10 +47,10 @@
         For Each planetType In PlanetTypes.Descriptors
             descriptorList.Add(New PlanetVicinityActorTypeDescriptor(planetType.Key))
             For Each section In Grid3x3.Descriptors
-                descriptorList.Add(New PlanetSectionActorTypeDescriptor(planetType.Key, section.Key))
+                descriptorList.Add(New PlanetSectionActorTypeDescriptor(planetType.Key, section.Key, True))
             Next
             For Each section In Grid5x5.Descriptors
-                descriptorList.Add(New PlanetSectionActorTypeDescriptor(planetType.Key, section.Key))
+                descriptorList.Add(New PlanetSectionActorTypeDescriptor(planetType.Key, section.Key, False))
             Next
         Next
         For Each ordinalDirection In OrdinalDirections.Descriptors

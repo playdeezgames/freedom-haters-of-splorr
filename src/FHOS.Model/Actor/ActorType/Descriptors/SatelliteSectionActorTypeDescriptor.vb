@@ -19,7 +19,7 @@ Friend Class SatelliteSectionActorTypeDescriptor
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
-        actor.Properties.IsSatellite = True
+        actor.Properties.IsSatelliteSection = True
         actor.Properties.Subtype = subtype
         actor.Properties.SectionName = sectionName
     End Sub
