@@ -24,7 +24,7 @@ Public Class FHOSController
         SetState(GameState.LeaveInteraction, New LeaveInteractionState(Me, AddressOf SetCurrentState, context))
 
         SetState(GameState.StarGate, New StarGateState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.LeaveInteraction, New LeaveStarGateState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.LeaveStarGate, New LeaveStarGateState(Me, AddressOf SetCurrentState, context))
 
         CreateSPLORRPediaStates(context)
 
