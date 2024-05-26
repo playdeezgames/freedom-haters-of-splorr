@@ -20,4 +20,12 @@ Friend Module LocationExtensions
         Next
         Return result
     End Function
+    <Extension>
+    Friend Function GetEmptyNeighborsOfType(location As ILocation, locationType As String) As IEnumerable(Of ILocation)
+        Return GetEmptyNeighbors(location).Where(Function(x) x.LocationType = locationType)
+    End Function
+    <Extension>
+    Friend Function GetEmptyNeighbors(location As ILocation) As IEnumerable(Of ILocation)
+        Return GetNeighbors(location).Where(Function(x) x.Actor Is Nothing)
+    End Function
 End Module

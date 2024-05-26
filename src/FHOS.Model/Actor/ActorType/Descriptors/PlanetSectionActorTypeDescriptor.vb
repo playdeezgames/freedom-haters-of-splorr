@@ -23,7 +23,7 @@ Friend Class PlanetSectionActorTypeDescriptor
     Protected Overrides Sub Initialize(actor As IActor)
         Dim location = actor.State.Location
         location.LocationType = LocationTypes.Planet
-        For Each neighbor In location.GetNeighbors().Where(Function(x) x.LocationType = LocationTypes.Void)
+        For Each neighbor In location.GetEmptyNeighborsOfType(LocationTypes.Void)
             neighbor.LocationType = LocationTypes.PlanetAdjacent
         Next
         actor.Properties.IsPlanet = isPlanet
