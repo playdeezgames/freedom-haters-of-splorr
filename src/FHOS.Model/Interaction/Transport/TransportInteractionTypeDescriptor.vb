@@ -1,6 +1,7 @@
-﻿Imports FHOS.Persistence
+﻿Imports System.Reflection
+Imports FHOS.Persistence
 
-Friend Class ActorTransportInteractionTypeDescriptor
+Friend Class TransportInteractionTypeDescriptor
     Inherits InteractionTypeDescriptor
 
     Private ReadOnly prompt As String
@@ -17,7 +18,10 @@ Friend Class ActorTransportInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
-        Return New ActorTransportInteractionModel(actor)
+        If actor.Properties.IsPlanet Then
+            Return New TransportToLocationTypeModel(actor, LocationTypes.PlanetAdjacent)
+        End If
+        Return New TransportToActorInteractionModel(actor)
     End Function
 
     Friend Overrides Function GetText(actor As IActor) As String
