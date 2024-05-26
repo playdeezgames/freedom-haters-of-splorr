@@ -1,6 +1,5 @@
 ﻿Imports System.Data
 Imports FHOS.Persistence
-Imports SPLORR.Game
 
 Friend Class WormholeActorTypeDescriptor
     Inherits ActorTypeDescriptor

@@ -26,16 +26,16 @@
     Private Function GenerateLocationTypes() As IReadOnlyDictionary(Of String, LocationTypeDescriptor)
         Dim result = New Dictionary(Of String, LocationTypeDescriptor) From
         {
-            {Void, New LocationTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black, canPlaceWormhole:=True)},
+            {Void, New LocationTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black)},
             {PlanetAdjacent, New LocationTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black)},
             {ActorAdjacent, New LocationTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black)},
-            {PlanetVicinity, New LocationTypeDescriptor("Planet Vicinity", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
+            {PlanetVicinity, New LocationTypeDescriptor("Planet Vicinity", ChrW(0), DarkGray, Black, isEnterable:=False)},
             {Wormhole, New LocationTypeDescriptor("Wormhole", ChrW(0), DarkGray, Black)},
-            {StarSystem, New LocationTypeDescriptor("Star System", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
-            {StarVicinity, New LocationTypeDescriptor("Star Vicinity", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
-            {Star, New LocationTypeDescriptor("Star", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
-            {Planet, New LocationTypeDescriptor("Planet", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
-            {Satellite, New LocationTypeDescriptor("Satellite", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
+            {StarSystem, New LocationTypeDescriptor("Star System", ChrW(0), DarkGray, Black, isEnterable:=False)},
+            {StarVicinity, New LocationTypeDescriptor("Star Vicinity", ChrW(0), DarkGray, Black, isEnterable:=False)},
+            {Star, New LocationTypeDescriptor("Star", ChrW(0), DarkGray, Black, isEnterable:=False)},
+            {Planet, New LocationTypeDescriptor("Planet", ChrW(0), DarkGray, Black, isEnterable:=False)},
+            {Satellite, New LocationTypeDescriptor("Satellite", ChrW(0), DarkGray, Black, isEnterable:=False)},
             {Air, New LocationTypeDescriptor("Air", ChrW(0), DarkGray, Black)},
             {Bulkhead, New LocationTypeDescriptor("Bulkhead", ChrW(230), DarkGray, Black, isEnterable:=False)},
             {MakeDoor(CardinalDirections.North, True), New LocationTypeDescriptor("Open Door", ChrW(24), Hues.DarkGray, Black)},

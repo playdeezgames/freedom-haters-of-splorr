@@ -4,13 +4,12 @@
            glyph As Char,
            foreground As Integer,
            background As Integer,
-           Optional canPlaceWormhole As Boolean = False,
            Optional isEnterable As Boolean = True)
         Me.Name = name
         Me.Glyph = glyph
         Me.Foreground = foreground
         Me.Background = background
-        Me.CanPlaceWormhole = canPlaceWormhole
+        Me.CanPlaceWormhole = CanPlaceWormhole
         Me.IsEnterable = isEnterable
     End Sub
     ReadOnly Property Name As String
