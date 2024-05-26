@@ -12,7 +12,7 @@ Friend Class StarGateActorTypeDescriptor
             },
             spawnRolls:=New Dictionary(Of String, String) From
             {
-                {MapTypes.PlanetOrbit, "1d10/10"}
+                {MapTypes.PlanetOrbit, "1d4/4"}
             })
     End Sub
 
@@ -20,6 +20,7 @@ Friend Class StarGateActorTypeDescriptor
         Dim planet = actor.State.Location.Map.GetCenterLocation().Actor
         actor.Properties.Name = $"{planet.Properties.Group.Name} Star Gate"
         actor.Properties.Group = planet.Properties.Group.Group
+        actor.Properties.IsStarGate = True
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean

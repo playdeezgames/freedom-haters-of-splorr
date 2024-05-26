@@ -74,6 +74,15 @@
         End Set
     End Property
 
+    Public Property StarGate As IActor Implements IActorState.StarGate
+        Get
+            Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.StarGateId))
+        End Get
+        Set(value As IActor)
+            SetStatistic(StatisticTypes.StarGateId, value?.Id)
+        End Set
+    End Property
+
     Friend Shared Function FromId(universeData As Data.UniverseData, id As Integer) As IActorState
         Return New ActorState(universeData, id)
     End Function

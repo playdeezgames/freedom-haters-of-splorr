@@ -10,6 +10,7 @@
     Friend ReadOnly Generate As String = NameOf(Generate)
     Friend ReadOnly Interaction As String = NameOf(Interaction)
     Friend ReadOnly LeaveInteraction As String = NameOf(LeaveInteraction)
+    Friend ReadOnly LeaveStarGate As String = NameOf(LeaveStarGate)
     Friend ReadOnly Message As String = NameOf(Message)
     Friend ReadOnly MoveDown As String = NameOf(MoveDown)
     Friend ReadOnly MoveLeft As String = NameOf(MoveLeft)
@@ -21,6 +22,7 @@
     Friend ReadOnly SelectVessel As String = NameOf(SelectVessel)
     Friend ReadOnly SignalDistress As String = NameOf(SignalDistress)
     Friend ReadOnly SPLORRPedia As String = NameOf(SPLORRPedia)
+    Friend ReadOnly StarGate As String = NameOf(StarGate)
     Friend ReadOnly Status As String = NameOf(Status)
     Friend ReadOnly Tutorial As String = NameOf(Tutorial)
 End Module

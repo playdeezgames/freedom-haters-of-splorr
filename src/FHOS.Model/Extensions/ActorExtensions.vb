@@ -1,5 +1,6 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports FHOS.Persistence
+Imports SPLORR.Game
 
 Friend Module ActorExtensions
     <Extension>
@@ -62,6 +63,18 @@ Friend Module ActorExtensions
     <Extension>
     Sub SetLocation(actor As IActor, location As ILocation)
         actor.State.Location = location
+    End Sub
+
+    <Extension>
+    Sub GoToOtherActor(actor As IActor, otherActor As IActor, postAction As Action(Of Boolean))
+        Dim destinations = otherActor.State.Location.GetNeighbors().Where(Function(x) x.Actor Is Nothing)
+        If Not destinations.Any Then
+            postAction(False)
+            Return
+        End If
+        Dim destination = RNG.FromEnumerable(destinations)
+        SetLocation(actor, destination)
+        postAction(True)
     End Sub
 
     <Extension>

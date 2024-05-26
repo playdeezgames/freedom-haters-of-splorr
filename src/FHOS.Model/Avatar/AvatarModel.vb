@@ -68,4 +68,10 @@ Friend Class AvatarModel
             Return AvatarVesselModel.FromActor(actor)
         End Get
     End Property
+
+    Public ReadOnly Property StarGate As IAvatarStarGateModel Implements IAvatarModel.StarGate
+        Get
+            Return AvatarStarGateModel.FromActor(actor)
+        End Get
+    End Property
 End Class

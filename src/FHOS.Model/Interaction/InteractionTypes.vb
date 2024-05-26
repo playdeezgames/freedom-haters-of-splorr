@@ -11,11 +11,13 @@
     Friend ReadOnly LeavePlanetVicinity As String = NameOf(LeavePlanetVicinity)
     Friend ReadOnly LeaveStarVicinity As String = NameOf(LeaveStarVicinity)
     Friend ReadOnly LeaveStarSystem As String = NameOf(LeaveStarSystem)
+    Friend ReadOnly EnterStarGate As String = NameOf(EnterStarGate)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, InteractionTypeDescriptor) =
         New List(Of InteractionTypeDescriptor) From
         {
             New CancelInteractionTypeDescriptor(),
+            New EnterStarGateInteractionTypeDescriptor(),
             New RefillOxygenInteractionTypeDescriptor(),
             New SalvageScrapInteractionTypeDescriptor(),
             New SellScrapInteractionTypeDescriptor(),

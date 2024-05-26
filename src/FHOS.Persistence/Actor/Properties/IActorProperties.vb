@@ -22,4 +22,5 @@
     Property IsStarVicinity As Boolean
     Property IsSatelliteSection As Boolean
     Property IsPlanetSection As Boolean
+    Property IsStarGate As Boolean
 End Interface

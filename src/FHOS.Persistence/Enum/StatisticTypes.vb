@@ -26,6 +26,7 @@
     Friend ReadOnly SatelliteCount As String = NameOf(SatelliteCount)
     Friend ReadOnly Scrap As String = NameOf(Scrap)
     Friend ReadOnly Standards As String = NameOf(Standards)
+    Friend ReadOnly StarGateId As String = NameOf(StarGateId)
     Friend ReadOnly TargetLocationId As String = NameOf(TargetLocationId)
     Friend ReadOnly Turn As String = NameOf(Turn)
     Friend ReadOnly WalletId As String = NameOf(WalletId)
