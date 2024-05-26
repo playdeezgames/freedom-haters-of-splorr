@@ -1,6 +1,6 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class TransportInteractionTypeDescriptor
+Friend Class ActorTransportInteractionTypeDescriptor
     Inherits InteractionTypeDescriptor
 
     Private ReadOnly prompt As String
@@ -17,7 +17,7 @@ Friend Class TransportInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
-        Return New TransportInteractionModel(actor)
+        Return New ActorTransportInteractionModel(actor)
     End Function
 
     Friend Overrides Function GetText(actor As IActor) As String

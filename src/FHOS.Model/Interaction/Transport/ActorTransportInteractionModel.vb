@@ -1,6 +1,6 @@
 ﻿Imports SPLORR.Game
 
-Friend Class TransportInteractionModel
+Friend Class ActorTransportInteractionModel
     Inherits InteractionModel
 
     Public Sub New(actor As Persistence.IActor)
