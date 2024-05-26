@@ -80,7 +80,6 @@ Friend Class PlanetVicinityInitializationStep
                                               subType As String,
                                               sectionName As String)
         Dim descriptor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(subType, sectionName))
-        location.LocationType = LocationTypes.Planet
         Dim actor = descriptor.CreateActor(location, group.Name)
         actor.Properties.Group = group
     End Sub

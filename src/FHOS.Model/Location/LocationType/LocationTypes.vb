@@ -9,6 +9,8 @@
     Friend ReadOnly Star As String = NameOf(Star)
     Friend ReadOnly Planet As String = NameOf(Planet)
     Friend ReadOnly Satellite As String = NameOf(Satellite)
+    Friend ReadOnly PlanetAdjacent As String = NameOf(PlanetAdjacent)
+
     Private ReadOnly Open As String = NameOf(Open)
     Private ReadOnly Shut As String = NameOf(Shut)
 
@@ -23,6 +25,7 @@
         Dim result = New Dictionary(Of String, LocationTypeDescriptor) From
         {
             {Void, New LocationTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black, canPlaceWormhole:=True)},
+            {PlanetAdjacent, New LocationTypeDescriptor("Empty Space", ChrW(0), DarkGray, Black)},
             {PlanetVicinity, New LocationTypeDescriptor("Planet Vicinity", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
             {StarSystem, New LocationTypeDescriptor("Star System", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
             {StarVicinity, New LocationTypeDescriptor("Star Vicinity", ChrW(0), DarkGray, Black, canPlaceWormhole:=False, isEnterable:=False)},
