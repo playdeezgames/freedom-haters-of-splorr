@@ -1,5 +1,4 @@
-﻿Imports System.Reflection
-Imports FHOS.Persistence
+﻿Imports FHOS.Persistence
 
 Friend Class TransportInteractionTypeDescriptor
     Inherits InteractionTypeDescriptor

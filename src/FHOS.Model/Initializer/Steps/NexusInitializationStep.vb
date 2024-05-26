@@ -28,7 +28,7 @@ Friend Class NexusInitializationStep
                 wormholes.Add((column, row))
                 Dim location = nexusMap.GetLocation(column, row)
                 location.Actor = ActorTypes.Descriptors(ActorTypes.Wormhole).CreateActor(location, "Wormhole")
-                addStep(New WormholeInitializationStep(location, location.Actor), False)
+                addStep(New WormholeInitializationStep(location), False)
                 tries = 0
             Else
                 tries += 1
