@@ -7,7 +7,6 @@
     Property TargetActor As IActor
 
     'push to actor type
-    Property SectionName As String
     Property CanSalvage As Boolean
     Property BuysScrap As Boolean
     Property CanRefuel As Boolean

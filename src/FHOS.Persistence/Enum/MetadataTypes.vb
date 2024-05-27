@@ -8,7 +8,6 @@
     Friend ReadOnly MapType As String = NameOf(MapType)
     Friend ReadOnly Name As String = NameOf(Name)
     Friend ReadOnly PlaceType As String = NameOf(PlaceType)
-    Friend ReadOnly SectionName As String = NameOf(SectionName)
     Friend ReadOnly Subtype As String = NameOf(Subtype)
     Friend ReadOnly Tutorial As String = NameOf(Tutorial)
 End Module

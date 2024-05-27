@@ -13,8 +13,7 @@ Friend Class PlanetSectionActorTypeDescriptor
             {
                 {CostumeTypes.MakePlanetSection(planetType, sectionName), 1}
             },
-            New Dictionary(Of String, String),
-            sectionName:=sectionName)
+            New Dictionary(Of String, String))
         Me.subtype = planetType
         Me.isPlanet = isPlanet
     End Sub
@@ -28,7 +27,6 @@ Friend Class PlanetSectionActorTypeDescriptor
         actor.Properties.IsPlanet = isPlanet
         actor.Properties.IsPlanetSection = Not isPlanet
         actor.Properties.Subtype = subtype
-        actor.Properties.SectionName = sectionName
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean
