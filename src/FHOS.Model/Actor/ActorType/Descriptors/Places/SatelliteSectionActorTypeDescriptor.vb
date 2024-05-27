@@ -4,7 +4,6 @@ Friend Class SatelliteSectionActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
     Private ReadOnly subType As String
-    Private ReadOnly sectionName As String
 
     Public Sub New(satelliteType As String, sectionName As String)
         MyBase.New(
@@ -13,9 +12,9 @@ Friend Class SatelliteSectionActorTypeDescriptor
             {
                 {CostumeTypes.MakeSatelliteSection(satelliteType, sectionName), 1}
             },
-            New Dictionary(Of String, String))
+            New Dictionary(Of String, String),
+            sectionName:=sectionName)
         Me.subType = satelliteType
-        Me.sectionName = sectionName
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)

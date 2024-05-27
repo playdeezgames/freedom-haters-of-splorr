@@ -4,7 +4,6 @@ Friend Class PlanetSectionActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
     Private ReadOnly subtype As String
-    Private ReadOnly sectionName As String
     Private ReadOnly isPlanet As Boolean
 
     Public Sub New(planetType As String, sectionName As String, isPlanet As Boolean)
@@ -14,9 +13,9 @@ Friend Class PlanetSectionActorTypeDescriptor
             {
                 {CostumeTypes.MakePlanetSection(planetType, sectionName), 1}
             },
-            New Dictionary(Of String, String))
+            New Dictionary(Of String, String),
+            sectionName:=sectionName)
         Me.subtype = planetType
-        Me.sectionName = sectionName
         Me.isPlanet = isPlanet
     End Sub
 
