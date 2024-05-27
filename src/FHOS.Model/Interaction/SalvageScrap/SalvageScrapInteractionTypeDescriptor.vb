@@ -9,7 +9,7 @@ Friend Class SalvageScrapInteractionTypeDescriptor
     End Sub
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.State.Interactor.Properties.CanSalvage
+        Return actor.State.Interactor.Descriptor.CanSalvage
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel

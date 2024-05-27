@@ -13,11 +13,11 @@ Friend Class DebrisActorTypeDescriptor
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.StarSystem, "12d6/6"}
-            })
+            },
+            canSalvage:=True)
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
-        actor.Properties.CanSalvage = True
         actor.State.Scrap = RNG.RollDice("4d6")
     End Sub
 

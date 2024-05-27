@@ -4,6 +4,11 @@ Imports SPLORR.Game
 
 Friend Module ActorExtensions
     <Extension>
+    Function Descriptor(actor As IActor) As ActorTypeDescriptor
+        Return ActorTypes.Descriptors(actor.ActorType)
+    End Function
+
+    <Extension>
     Function NeedsOxygen(actor As IActor) As Boolean
         Return actor.State.LifeSupport.NeedsTopOff
     End Function
