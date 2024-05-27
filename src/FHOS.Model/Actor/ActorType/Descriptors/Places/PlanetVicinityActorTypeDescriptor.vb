@@ -16,6 +16,7 @@ Friend Class PlanetVicinityActorTypeDescriptor
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
+        actor.Properties.Subtype = planetType
         actor.Properties.IsPlanetVicinity = True
     End Sub
 
