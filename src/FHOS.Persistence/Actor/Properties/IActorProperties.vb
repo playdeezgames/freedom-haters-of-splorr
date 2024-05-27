@@ -4,15 +4,18 @@
     Property Group As IGroup
     Property HomePlanet As IGroup
     Property CostumeType As String
+    Property TargetActor As IActor
+
+
+    'push to actor type
+    Property SectionName As String
     Property CanSalvage As Boolean
     Property BuysScrap As Boolean
     Property CanRefuel As Boolean
-    Property TargetActor As IActor
     Property IsSatellite As Boolean
     Property IsWormhole As Boolean
     Property Subtype As String
     Property IsPlanet As Boolean
-    Property SectionName As String
     Property IsPlanetVicinity As Boolean
     Property SatelliteCount As Integer
     Property PlanetCount As Integer
