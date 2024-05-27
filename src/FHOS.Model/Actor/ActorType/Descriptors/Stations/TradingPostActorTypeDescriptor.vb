@@ -1,21 +1,28 @@
-﻿Friend Class ShipyardActorTypeDescriptor
-    Inherits ActorTypeDescriptor
+﻿Friend Class TradingPostActorTypeDescriptor
+    Inherits StationActorTypeDescriptor
 
     Public Sub New()
         MyBase.New(
-            ActorTypes.Shipyard,
+            ActorTypes.TradingPost,
             New Dictionary(Of String, Integer) From
             {
-                {CostumeTypes.MakeCostume(CostumeTypes.Shipyard, Hues.Orange), 1}
+                {CostumeTypes.MakeCostume(CostumeTypes.TradingPost, Hues.Cyan), 1}
             },
             spawnRolls:=New Dictionary(Of String, String) From
             {
-                {MapTypes.PlanetOrbit, "1d4/4"}
+                {MapTypes.PlanetOrbit, "1d2/2"}
             })
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
+        MyBase.Initialize(actor)
+
+        actor.Properties.BuysScrap = True
     End Sub
+
+    Protected Overrides Function MakeName(planet As Persistence.IActor) As String
+        Return $"{planet.Properties.Name} Trading Post"
+    End Function
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
         Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing

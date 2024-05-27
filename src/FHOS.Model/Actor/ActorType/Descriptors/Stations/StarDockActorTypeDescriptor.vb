@@ -1,5 +1,5 @@
 ﻿Friend Class StarDockActorTypeDescriptor
-    Inherits ActorTypeDescriptor
+    Inherits StationActorTypeDescriptor
 
     Public Sub New()
         MyBase.New(
@@ -19,12 +19,9 @@
     End Function
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
-        Dim map = actor.State.Location.Map
-        Dim planet = map.GetCenterLocation().Actor
-        actor.Properties.Name = $"{planet.Properties.Group.Name} Star Dock"
-        actor.Properties.Group = planet.Properties.Group.Group
+        MyBase.Initialize(actor)
+
         actor.Properties.CanRefillOxygen = True
-        actor.Properties.BuysScrap = True
         actor.Properties.CanRefuel = True
     End Sub
 
@@ -32,5 +29,10 @@
         Return {
             ($"Faction: {actor.Properties.Group.Name}", Hues.Black)
             }
+    End Function
+
+    Protected Overrides Function MakeName(planet As Persistence.IActor) As String
+        Return $"{planet.Properties.Name} Star Dock"
+
     End Function
 End Class

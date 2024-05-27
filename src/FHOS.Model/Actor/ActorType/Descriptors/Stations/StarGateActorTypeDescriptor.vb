@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Persistence
 
 Friend Class StarGateActorTypeDescriptor
-    Inherits ActorTypeDescriptor
+    Inherits StationActorTypeDescriptor
 
     Public Sub New()
         MyBase.New(
@@ -17,11 +17,14 @@ Friend Class StarGateActorTypeDescriptor
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
-        Dim planet = actor.State.Location.Map.GetCenterLocation().Actor
-        actor.Properties.Name = $"{planet.Properties.Group.Name} Star Gate"
-        actor.Properties.Group = planet.Properties.Group.Group
+        MyBase.Initialize(actor)
+
         actor.Properties.IsStarGate = True
     End Sub
+
+    Protected Overrides Function MakeName(planet As IActor) As String
+        Return $"{planet.Properties.Name} Star Gate"
+    End Function
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean
         Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing
