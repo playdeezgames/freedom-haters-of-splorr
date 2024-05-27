@@ -215,13 +215,4 @@
             Flags(FlagTypes.IsPlanetSection) = value
         End Set
     End Property
-
-    Public Property IsStarGate As Boolean Implements IActorProperties.IsStarGate
-        Get
-            Return Flags(FlagTypes.IsStarGate)
-        End Get
-        Set(value As Boolean)
-            Flags(FlagTypes.IsStarGate) = value
-        End Set
-    End Property
 End Class

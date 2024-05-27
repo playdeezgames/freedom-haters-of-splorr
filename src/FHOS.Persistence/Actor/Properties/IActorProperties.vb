@@ -6,7 +6,6 @@
     Property CostumeType As String
     Property TargetActor As IActor
 
-
     'push to actor type
     Property SectionName As String
     Property CanSalvage As Boolean
@@ -24,5 +23,4 @@
     Property IsStarVicinity As Boolean
     Property IsSatelliteSection As Boolean
     Property IsPlanetSection As Boolean
-    Property IsStarGate As Boolean
 End Interface

@@ -3,8 +3,18 @@
 Friend MustInherit Class StationActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
-    Friend Sub New(actorType As String, costumeGenerator As IReadOnlyDictionary(Of String, Integer), Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing, Optional canRefillOxygen As Boolean = False)
-        MyBase.New(actorType, costumeGenerator, spawnRolls, canRefillOxygen:=canRefillOxygen)
+    Friend Sub New(
+                  actorType As String,
+                  costumeGenerator As IReadOnlyDictionary(Of String, Integer),
+                  Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing,
+                  Optional canRefillOxygen As Boolean = False,
+                  Optional isStarGate As Boolean = False)
+        MyBase.New(
+            actorType,
+            costumeGenerator,
+            spawnRolls,
+            canRefillOxygen:=canRefillOxygen,
+            isStarGate:=isStarGate)
     End Sub
 
     Protected MustOverride Function MakeName(planet As IActor) As String

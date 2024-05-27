@@ -5,6 +5,7 @@ Friend MustInherit Class ActorTypeDescriptor
     Friend ReadOnly Property ActorType As String
     Friend ReadOnly Property SpawnRolls As IReadOnlyDictionary(Of String, String)
     Friend ReadOnly Property CanRefillOxygen As Boolean
+    Friend ReadOnly Property IsStarGate As Boolean
     Friend MustOverride Function CanSpawn(location As ILocation) As Boolean
     Friend ReadOnly Property CostumeGenerator As IReadOnlyDictionary(Of String, Integer)
     Protected MustOverride Sub Initialize(actor As IActor)
@@ -13,11 +14,13 @@ Friend MustInherit Class ActorTypeDescriptor
            actorType As String,
            costumeGenerator As IReadOnlyDictionary(Of String, Integer),
            Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing,
-           Optional canRefillOxygen As Boolean = False)
+           Optional canRefillOxygen As Boolean = False,
+           Optional isStarGate As Boolean = False)
         Me.ActorType = actorType
         Me.CostumeGenerator = costumeGenerator
         Me.SpawnRolls = If(spawnRolls, New Dictionary(Of String, String))
         Me.CanRefillOxygen = canRefillOxygen
+        Me.IsStarGate = isStarGate
     End Sub
     Friend Function CreateActor(location As ILocation, name As String) As IActor
         Dim actor = location.CreateActor(ActorType, name)

@@ -12,7 +12,7 @@ Friend Class EnterStarGateInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.State.Interactor.Properties.IsStarGate
+        Return ActorTypes.Descriptors(actor.State.Interactor.ActorType).IsStarGate
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel

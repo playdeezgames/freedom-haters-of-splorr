@@ -13,13 +13,8 @@ Friend Class StarGateActorTypeDescriptor
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.PlanetOrbit, "1d4/4"}
-            })
-    End Sub
-
-    Protected Overrides Sub Initialize(actor As IActor)
-        MyBase.Initialize(actor)
-
-        actor.Properties.IsStarGate = True
+            },
+            isStarGate:=True)
     End Sub
 
     Protected Overrides Function MakeName(planet As IActor) As String

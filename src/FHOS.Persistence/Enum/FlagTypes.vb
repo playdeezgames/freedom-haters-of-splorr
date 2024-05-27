@@ -13,5 +13,4 @@
     Friend ReadOnly IsStarSystem As String = NameOf(IsStarSystem)
     Friend ReadOnly IsStarVicinity As String = NameOf(IsStarVicinity)
     Friend ReadOnly IsWormhole As String = NameOf(IsWormhole)
-    Friend ReadOnly IsStarGate As String = NameOf(IsStarGate)
 End Module

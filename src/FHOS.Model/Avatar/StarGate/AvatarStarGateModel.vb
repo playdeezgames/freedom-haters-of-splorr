@@ -17,7 +17,7 @@ Friend Class AvatarStarGateModel
     Public ReadOnly Property AvailableGates As IEnumerable(Of (Text As String, Item As IActorModel)) Implements IAvatarStarGateModel.AvailableGates
         Get
             Dim faction = actor.Properties.Group
-            Dim gates = actor.Universe.Actors.Where(Function(x) x.Properties.IsStarGate AndAlso x.Properties.Group.Id = faction.Id)
+            Dim gates = actor.Universe.Actors.Where(Function(x) ActorTypes.Descriptors(x.ActorType).IsStarGate AndAlso x.Properties.Group.Id = faction.Id)
             Return gates.Select(Function(x) (x.Properties.Name, ActorModel.FromActor(x)))
         End Get
     End Property
