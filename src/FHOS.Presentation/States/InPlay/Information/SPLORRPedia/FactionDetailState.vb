@@ -21,7 +21,6 @@ Friend Class FactionDetailState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFontName)
-        Dim avatarFaction = Context.Model.State.Avatar.Bio.Group
         With FactionListState.SelectedFaction
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
@@ -29,7 +28,10 @@ Friend Class FactionDetailState
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Standards: { .Standards.LevelName}({ .Standards.Value})", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Conviction: { .Conviction.LevelName}({ .Conviction.Value})", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planets: { .PlanetCount}", Hues.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Relation to {avatarFaction.Name}: { .RelationNameTo(avatarFaction)}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Other Faction Relationships:", Hues.Black)
+            For Each otherFaction In Context.Model.Pedia.FactionList.Where(Function(x) x.Text <> .Name)
+                position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"{otherFaction.Faction.Name}: { .RelationNameTo(otherFaction.Faction)}", Hues.Black)
+            Next
             Context.ShowStatusBar(
                 displayBuffer,
                 font,

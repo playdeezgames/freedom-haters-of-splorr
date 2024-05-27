@@ -29,6 +29,8 @@
     End Function
 
     Friend Overrides Function Describe(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
-        Return Array.Empty(Of (Text As String, Hue As Integer))
+        Return {
+            ($"Faction: {actor.Properties.Group.Name}", Hues.Black)
+            }
     End Function
 End Class
