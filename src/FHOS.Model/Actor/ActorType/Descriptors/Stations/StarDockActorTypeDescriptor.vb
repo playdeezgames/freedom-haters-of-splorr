@@ -11,7 +11,8 @@
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.PlanetOrbit, "1d1"}
-            })
+            },
+            canRefillOxygen:=True)
     End Sub
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
@@ -21,7 +22,6 @@
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
         MyBase.Initialize(actor)
 
-        actor.Properties.CanRefillOxygen = True
         actor.Properties.CanRefuel = True
     End Sub
 

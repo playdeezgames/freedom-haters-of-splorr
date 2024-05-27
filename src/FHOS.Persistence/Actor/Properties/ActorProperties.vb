@@ -54,15 +54,6 @@
         End Set
     End Property
 
-    Public Property CanRefillOxygen As Boolean Implements IActorProperties.CanRefillOxygen
-        Get
-            Return Flags(FlagTypes.CanRefillOxygen)
-        End Get
-        Set(value As Boolean)
-            Flags(FlagTypes.CanRefillOxygen) = value
-        End Set
-    End Property
-
     Public Property CanSalvage As Boolean Implements IActorProperties.CanSalvage
         Get
             Return Flags(FlagTypes.CanSalvage)
