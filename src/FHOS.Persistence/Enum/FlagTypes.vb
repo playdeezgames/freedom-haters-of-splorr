@@ -5,7 +5,6 @@
     Friend ReadOnly IsPlanet As String = NameOf(IsPlanet)
     Friend ReadOnly IsPlanetSection As String = NameOf(IsPlanetSection)
     Friend ReadOnly IsPlanetVicinity As String = NameOf(IsPlanetVicinity)
-    Friend ReadOnly IsSatellite As String = NameOf(IsSatellite)
     Friend ReadOnly IsSatelliteSection As String = NameOf(IsSatelliteSection)
     Friend ReadOnly IsWormhole As String = NameOf(IsWormhole)
 End Module

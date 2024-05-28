@@ -63,15 +63,6 @@
         End Set
     End Property
 
-    Public Property IsSatellite As Boolean Implements IActorProperties.IsSatellite
-        Get
-            Return Flags(FlagTypes.IsSatellite)
-        End Get
-        Set(value As Boolean)
-            Flags(FlagTypes.IsSatellite) = value
-        End Set
-    End Property
-
     Public Property IsWormhole As Boolean Implements IActorProperties.IsWormhole
         Get
             Return Flags(FlagTypes.IsWormhole)

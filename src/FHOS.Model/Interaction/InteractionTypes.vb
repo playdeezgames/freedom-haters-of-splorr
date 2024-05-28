@@ -23,11 +23,11 @@
             New SellScrapInteractionTypeDescriptor(),
             New RefuelInteractionTypeDescriptor(),
             New TransportInteractionTypeDescriptor(EnterWormhole, "Enter Wormhole", Function(x) x.Properties.IsWormhole),
-            New TransportInteractionTypeDescriptor(LeaveOrbit, "Leave Orbit", Function(x) x.Properties.TargetActor.Properties.IsSatellite OrElse x.Properties.TargetActor.Properties.IsPlanet),
+            New TransportInteractionTypeDescriptor(LeaveOrbit, "Leave Orbit", Function(x) x.Properties.TargetActor.Descriptor.IsSatellite OrElse x.Properties.TargetActor.Properties.IsPlanet),
             New TransportInteractionTypeDescriptor(LeavePlanetVicinity, "Leave Planet Vicinity", Function(x) x.Properties.TargetActor.Properties.IsPlanetVicinity),
             New TransportInteractionTypeDescriptor(LeaveStarSystem, "Leave Star System", Function(x) x.Properties.TargetActor.Descriptor.IsStarSystem),
             New TransportInteractionTypeDescriptor(LeaveStarVicinity, "Leave Star Vicinity", Function(x) x.Properties.TargetActor.Descriptor.IsStarVicinity),
-            New EnterInteriorInteractionTypeDescriptor(EnterOrbit, "Enter Orbit", Function(x) x.Properties.IsSatellite OrElse x.Properties.IsPlanet),
+            New EnterInteriorInteractionTypeDescriptor(EnterOrbit, "Enter Orbit", Function(x) x.Descriptor.IsSatellite OrElse x.Properties.IsPlanet),
             New EnterInteriorInteractionTypeDescriptor(Approach, "Approach", Function(x) x.Properties.IsPlanetVicinity OrElse x.Descriptor.IsStarSystem OrElse x.Descriptor.IsStarVicinity)
         }.ToDictionary(Function(x) x.InteractionType, Function(x) x)
 End Module
