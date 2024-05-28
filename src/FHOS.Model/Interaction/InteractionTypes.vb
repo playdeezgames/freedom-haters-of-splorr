@@ -22,7 +22,7 @@
             New SalvageScrapInteractionTypeDescriptor(),
             New SellScrapInteractionTypeDescriptor(),
             New RefuelInteractionTypeDescriptor(),
-            New TransportInteractionTypeDescriptor(EnterWormhole, "Enter Wormhole", Function(x) x.Properties.IsWormhole),
+            New TransportInteractionTypeDescriptor(EnterWormhole, "Enter Wormhole", Function(x) x.Descriptor.IsWormhole),
             New TransportInteractionTypeDescriptor(LeaveOrbit, "Leave Orbit", Function(x) x.Properties.TargetActor.Descriptor.IsSatellite OrElse x.Properties.TargetActor.Descriptor.IsPlanet),
             New TransportInteractionTypeDescriptor(LeavePlanetVicinity, "Leave Planet Vicinity", Function(x) x.Properties.TargetActor.Descriptor.IsPlanetVicinity),
             New TransportInteractionTypeDescriptor(LeaveStarSystem, "Leave Star System", Function(x) x.Properties.TargetActor.Descriptor.IsStarSystem),
