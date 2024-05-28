@@ -48,6 +48,9 @@ Friend Class ActorModel
 
     Public ReadOnly Property Subtype As String Implements IActorModel.Subtype
         Get
+            If IsStarSystem Then
+                Return StarTypes.Descriptors(actor.Descriptor.Subtype).StarTypeName
+            End If
             Return actor.Descriptor.Subtype
         End Get
     End Property

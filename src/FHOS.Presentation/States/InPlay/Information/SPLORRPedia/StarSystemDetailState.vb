@@ -25,9 +25,9 @@ Friend Class StarSystemDetailState
         With StarSystemListState.SelectedStarSystem
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
-            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Star Type: {actor.Subtype}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: {actor.Subtype}", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Location: ({actor.Position.X},{actor.Position.Y})", Hues.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planet Count: {actor.PlanetCount}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planets: {actor.PlanetCount}", Hues.Black)
             Context.ShowStatusBar(
                 displayBuffer,
                 font,

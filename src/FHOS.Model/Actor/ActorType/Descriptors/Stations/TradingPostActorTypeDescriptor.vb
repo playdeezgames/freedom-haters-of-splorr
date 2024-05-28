@@ -10,7 +10,10 @@
             },
             spawnRolls:=New Dictionary(Of String, String) From
             {
-                {MapTypes.PlanetOrbit, "1d2/2"}
+                {
+                    MapTypes.PlanetOrbit,
+                    "2d6/9"
+                }
             },
             buysScrap:=True)
     End Sub
