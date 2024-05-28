@@ -7,9 +7,6 @@
     Property TargetActor As IActor
 
     'push to actor type
-    Property IsPlanetVicinity As Boolean
-    Property IsPlanet As Boolean
-    Property IsPlanetSection As Boolean
     Property IsWormhole As Boolean
     Property Subtype As String
     Property SatelliteCount As Integer

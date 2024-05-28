@@ -23,11 +23,11 @@
             New SellScrapInteractionTypeDescriptor(),
             New RefuelInteractionTypeDescriptor(),
             New TransportInteractionTypeDescriptor(EnterWormhole, "Enter Wormhole", Function(x) x.Properties.IsWormhole),
-            New TransportInteractionTypeDescriptor(LeaveOrbit, "Leave Orbit", Function(x) x.Properties.TargetActor.Descriptor.IsSatellite OrElse x.Properties.TargetActor.Properties.IsPlanet),
-            New TransportInteractionTypeDescriptor(LeavePlanetVicinity, "Leave Planet Vicinity", Function(x) x.Properties.TargetActor.Properties.IsPlanetVicinity),
+            New TransportInteractionTypeDescriptor(LeaveOrbit, "Leave Orbit", Function(x) x.Properties.TargetActor.Descriptor.IsSatellite OrElse x.Properties.TargetActor.Descriptor.IsPlanet),
+            New TransportInteractionTypeDescriptor(LeavePlanetVicinity, "Leave Planet Vicinity", Function(x) x.Properties.TargetActor.Descriptor.IsPlanetVicinity),
             New TransportInteractionTypeDescriptor(LeaveStarSystem, "Leave Star System", Function(x) x.Properties.TargetActor.Descriptor.IsStarSystem),
             New TransportInteractionTypeDescriptor(LeaveStarVicinity, "Leave Star Vicinity", Function(x) x.Properties.TargetActor.Descriptor.IsStarVicinity),
-            New EnterInteriorInteractionTypeDescriptor(EnterOrbit, "Enter Orbit", Function(x) x.Descriptor.IsSatellite OrElse x.Properties.IsPlanet),
-            New EnterInteriorInteractionTypeDescriptor(Approach, "Approach", Function(x) x.Properties.IsPlanetVicinity OrElse x.Descriptor.IsStarSystem OrElse x.Descriptor.IsStarVicinity)
+            New EnterInteriorInteractionTypeDescriptor(EnterOrbit, "Enter Orbit", Function(x) x.Descriptor.IsSatellite OrElse x.Descriptor.IsPlanet),
+            New EnterInteriorInteractionTypeDescriptor(Approach, "Approach", Function(x) x.Descriptor.IsPlanetVicinity OrElse x.Descriptor.IsStarSystem OrElse x.Descriptor.IsStarVicinity)
         }.ToDictionary(Function(x) x.InteractionType, Function(x) x)
 End Module

@@ -24,8 +24,6 @@ Friend Class PlanetSectionActorTypeDescriptor
         For Each neighbor In location.GetEmptyNeighborsOfType(LocationTypes.Void)
             neighbor.LocationType = LocationTypes.PlanetAdjacent
         Next
-        actor.Properties.IsPlanet = IsPlanet
-        actor.Properties.IsPlanetSection = IsPlanetSection
         actor.Properties.Subtype = subtype
     End Sub
 

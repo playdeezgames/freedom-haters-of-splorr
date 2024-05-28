@@ -81,30 +81,12 @@
         End Set
     End Property
 
-    Public Property IsPlanet As Boolean Implements IActorProperties.IsPlanet
-        Get
-            Return Flags(FlagTypes.IsPlanet)
-        End Get
-        Set(value As Boolean)
-            Flags(FlagTypes.IsPlanet) = value
-        End Set
-    End Property
-
     Public Property HomePlanet As IGroup Implements IActorProperties.HomePlanet
         Get
             Return Persistence.Group.FromId(UniverseData, GetStatistic(StatisticTypes.HomePlanetActorId))
         End Get
         Set(value As IGroup)
             SetStatistic(StatisticTypes.HomePlanetActorId, value?.Id)
-        End Set
-    End Property
-
-    Public Property IsPlanetVicinity As Boolean Implements IActorProperties.IsPlanetVicinity
-        Get
-            Return Flags(FlagTypes.IsPlanetVicinity)
-        End Get
-        Set(value As Boolean)
-            Flags(FlagTypes.IsPlanetVicinity) = value
         End Set
     End Property
 
@@ -123,15 +105,6 @@
         End Get
         Set(value As Integer)
             SetStatistic(StatisticTypes.PlanetCount, value)
-        End Set
-    End Property
-
-    Public Property IsPlanetSection As Boolean Implements IActorProperties.IsPlanetSection
-        Get
-            Return Flags(FlagTypes.IsPlanetSection)
-        End Get
-        Set(value As Boolean)
-            Flags(FlagTypes.IsPlanetSection) = value
         End Set
     End Property
 End Class

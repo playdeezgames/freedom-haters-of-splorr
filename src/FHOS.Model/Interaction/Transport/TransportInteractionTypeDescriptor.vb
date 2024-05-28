@@ -17,7 +17,7 @@ Friend Class TransportInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
-        If actor.Properties.IsPlanet Then
+        If actor.Descriptor.IsPlanet Then
             Return New TransportToLocationTypeModel(actor, LocationTypes.PlanetAdjacent)
         End If
         Return New TransportToActorInteractionModel(actor)
