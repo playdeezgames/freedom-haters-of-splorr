@@ -12,13 +12,13 @@ Friend Class SatelliteSectionActorTypeDescriptor
             {
                 {CostumeTypes.MakeSatelliteSection(satelliteType, sectionName), 1}
             },
-            New Dictionary(Of String, String))
+            New Dictionary(Of String, String),
+            isSatelliteSection:=True)
         Me.subType = satelliteType
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
-        actor.Properties.IsSatelliteSection = True
-        actor.Properties.Subtype = subtype
+        actor.Properties.Subtype = subType
     End Sub
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
