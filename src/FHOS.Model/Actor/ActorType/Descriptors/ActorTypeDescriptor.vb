@@ -8,6 +8,14 @@ Friend MustInherit Class ActorTypeDescriptor
     Friend ReadOnly Property IsStarGate As Boolean
     Friend ReadOnly Property CanSalvage As Boolean
     Friend ReadOnly Property CanRefuel As Boolean
+    Friend ReadOnly Property IsStarSystem As Boolean
+    Friend ReadOnly Property IsStarVicinity As Boolean
+    Friend ReadOnly Property IsStar As Boolean
+    Friend ReadOnly Property IsSatellite As Boolean
+    Friend ReadOnly Property IsSatelliteSection As Boolean
+    Friend ReadOnly Property IsPlanetVicinity As Boolean
+    Friend ReadOnly Property IsPlanet As Boolean
+    Friend ReadOnly Property IsPlanetSection As Boolean
     Friend ReadOnly Property SpawnRolls As IReadOnlyDictionary(Of String, String)
     Friend MustOverride Function CanSpawn(location As ILocation) As Boolean
     Friend ReadOnly Property CostumeGenerator As IReadOnlyDictionary(Of String, Integer)
@@ -21,7 +29,15 @@ Friend MustInherit Class ActorTypeDescriptor
            Optional isStarGate As Boolean = False,
            Optional canSalvage As Boolean = False,
            Optional buysScrap As Boolean = False,
-           Optional canRefuel As Boolean = False)
+           Optional canRefuel As Boolean = False,
+           Optional isStarSystem As Boolean = False,
+           Optional isStarVicinity As Boolean = False,
+           Optional isStar As Boolean = False,
+           Optional isPlanetVicinity As Boolean = False,
+           Optional isPlanet As Boolean = False,
+           Optional isPlanetSection As Boolean = False,
+           Optional isSatellite As Boolean = False,
+           Optional isSatelliteSection As Boolean = False)
         Me.ActorType = actorType
         Me.CostumeGenerator = costumeGenerator
         Me.SpawnRolls = If(spawnRolls, New Dictionary(Of String, String))
@@ -30,6 +46,14 @@ Friend MustInherit Class ActorTypeDescriptor
         Me.CanSalvage = canSalvage
         Me.BuysScrap = buysScrap
         Me.CanRefuel = canRefuel
+        Me.IsStarSystem = isStarSystem
+        Me.IsStarVicinity = isStarVicinity
+        Me.IsStar = isStar
+        Me.IsPlanetVicinity = isPlanetVicinity
+        Me.IsPlanet = isPlanet
+        Me.IsPlanetSection = isPlanetSection
+        Me.IsSatellite = isSatellite
+        Me.IsSatelliteSection = isSatelliteSection
     End Sub
     Friend Function CreateActor(location As ILocation, name As String) As IActor
         Dim actor = location.CreateActor(ActorType, name)

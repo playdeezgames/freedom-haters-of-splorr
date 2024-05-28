@@ -4,7 +4,6 @@ Friend Class PlanetSectionActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
     Private ReadOnly subtype As String
-    Private ReadOnly isPlanet As Boolean
 
     Public Sub New(planetType As String, sectionName As String, isPlanet As Boolean)
         MyBase.New(
@@ -13,9 +12,10 @@ Friend Class PlanetSectionActorTypeDescriptor
             {
                 {CostumeTypes.MakePlanetSection(planetType, sectionName), 1}
             },
-            New Dictionary(Of String, String))
+            New Dictionary(Of String, String),
+            isPlanet:=isPlanet,
+            isPlanetSection:=Not isPlanet)
         Me.subtype = planetType
-        Me.isPlanet = isPlanet
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
@@ -24,8 +24,8 @@ Friend Class PlanetSectionActorTypeDescriptor
         For Each neighbor In location.GetEmptyNeighborsOfType(LocationTypes.Void)
             neighbor.LocationType = LocationTypes.PlanetAdjacent
         Next
-        actor.Properties.IsPlanet = isPlanet
-        actor.Properties.IsPlanetSection = Not isPlanet
+        actor.Properties.IsPlanet = IsPlanet
+        actor.Properties.IsPlanetSection = IsPlanetSection
         actor.Properties.Subtype = subtype
     End Sub
 
