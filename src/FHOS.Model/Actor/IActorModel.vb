@@ -5,4 +5,5 @@
     ReadOnly Property Subtype As String
     ReadOnly Property IsStarSystem As Boolean
     ReadOnly Property Position As (X As Integer, Y As Integer)
+    ReadOnly Property PlanetCount As Integer
 End Interface

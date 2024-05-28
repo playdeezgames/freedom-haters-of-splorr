@@ -15,7 +15,8 @@ Friend Class StarSystemListState
             context,
             "Star Systems",
             context.ChooseOrCancel,
-            Nothing)
+            Nothing,
+            pageSize:=20)
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IGroupModel))

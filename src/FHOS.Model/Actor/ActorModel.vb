@@ -66,6 +66,12 @@ Friend Class ActorModel
         End Get
     End Property
 
+    Public ReadOnly Property PlanetCount As Integer Implements IActorModel.PlanetCount
+        Get
+            Return actor.Properties.Group.PlanetCount
+        End Get
+    End Property
+
     Friend Shared Function GetActor(model As IActorModel) As IActor
         Return CType(model, ActorModel).actor
     End Function

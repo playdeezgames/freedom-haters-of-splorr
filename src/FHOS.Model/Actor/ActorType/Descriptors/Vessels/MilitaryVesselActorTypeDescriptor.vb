@@ -22,7 +22,7 @@ Friend Class MilitaryVesselActorTypeDescriptor
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
-        actor.Properties.Group = RNG.FromGenerator(actor.Universe.Groups.ToDictionary(Function(x) x, Function(x) x.PlanetCount))
+        actor.Properties.Group = RNG.FromGenerator(actor.Universe.Groups.Where(Function(x) x.GroupType = GroupTypes.Faction).ToDictionary(Function(x) x, Function(x) x.PlanetCount))
         actor.Properties.HomePlanet = RNG.FromEnumerable(actor.Universe.Groups.Where(Function(x) x.GroupType = GroupTypes.Planet AndAlso x.Group.Id = actor.Properties.Group.Id))
         actor.Properties.Name = $"{actor.Properties.Group.Name} Military Vessel"
     End Sub

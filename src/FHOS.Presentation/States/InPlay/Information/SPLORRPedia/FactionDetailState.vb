@@ -15,7 +15,7 @@ Friend Class FactionDetailState
     End Sub
 
     Public Overrides Sub HandleCommand(cmd As String)
-        PopState()
+        SetState(Nothing)
     End Sub
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)

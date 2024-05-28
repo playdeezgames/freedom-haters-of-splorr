@@ -13,9 +13,10 @@ Friend Class StarSystemDetailState
             setState,
             context)
     End Sub
+    Private actor As IActorModel = Nothing
 
     Public Overrides Sub HandleCommand(cmd As String)
-        PopState()
+        SetState(Nothing)
     End Sub
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
@@ -23,16 +24,20 @@ Friend Class StarSystemDetailState
         Dim font = Context.Font(UIFontName)
         With StarSystemListState.SelectedStarSystem
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
-            Dim actor = .Actors.Single(Function(x) x.IsStarSystem)
             Dim position = (Context.ViewCenter.X, font.Height)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Star Type: {actor.Subtype}", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Location: ({actor.Position.X},{actor.Position.Y})", Hues.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, "TODO: Planet Count", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planet Count: {actor.PlanetCount}", Hues.Black)
             Context.ShowStatusBar(
                 displayBuffer,
                 font,
                 Context.
                 ControlsText(bButton:="Go Back"), Context.UIPalette.Background, Context.UIPalette.Footer)
         End With
+    End Sub
+
+    Public Overrides Sub OnStart()
+        MyBase.OnStart()
+        actor = StarSystemListState.SelectedStarSystem.Actors.Single(Function(x) x.IsStarSystem)
     End Sub
 End Class
