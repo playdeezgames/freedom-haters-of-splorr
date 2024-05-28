@@ -3,8 +3,6 @@
 Friend Class StarSystemActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
-    Private starType As String
-
     Public Sub New(starType As String)
         MyBase.New(ActorTypes.MakeStarSystem(starType),
             New Dictionary(Of String, Integer) From
@@ -12,12 +10,11 @@ Friend Class StarSystemActorTypeDescriptor
                 {CostumeTypes.MakeStarSystem(starType), 1}
             },
             New Dictionary(Of String, String),
-            isStarSystem:=True)
-        Me.starType = starType
+            isStarSystem:=True,
+            subtype:=starType)
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
-        actor.Properties.Subtype = starType
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean

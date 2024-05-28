@@ -3,7 +3,6 @@
 Friend Class SatelliteActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
-    Private ReadOnly subtype As String
 
     Public Sub New(satelliteType As String)
         MyBase.New(
@@ -13,12 +12,11 @@ Friend Class SatelliteActorTypeDescriptor
                 {CostumeTypes.MakeSatellite(satelliteType), 1}
             },
             New Dictionary(Of String, String),
-            isSatellite:=True)
-        Me.subtype = satelliteType
+            isSatellite:=True,
+            subtype:=satelliteType)
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
-        actor.Properties.Subtype = subtype
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean

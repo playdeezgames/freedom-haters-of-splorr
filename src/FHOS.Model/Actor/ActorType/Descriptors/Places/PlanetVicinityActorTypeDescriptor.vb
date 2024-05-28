@@ -3,8 +3,6 @@
 Friend Class PlanetVicinityActorTypeDescriptor
     Inherits ActorTypeDescriptor
 
-    Private ReadOnly planetType As String
-
     Public Sub New(planetType As String)
         MyBase.New(ActorTypes.MakePlanetVicinity(planetType),
             New Dictionary(Of String, Integer) From
@@ -12,12 +10,11 @@ Friend Class PlanetVicinityActorTypeDescriptor
                 {CostumeTypes.MakePlanetVicinity(planetType), 1}
             },
             New Dictionary(Of String, String),
-            isPlanetVicinity:=True)
-        Me.planetType = planetType
+            isPlanetVicinity:=True,
+            subtype:=planetType)
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
-        actor.Properties.Subtype = planetType
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean

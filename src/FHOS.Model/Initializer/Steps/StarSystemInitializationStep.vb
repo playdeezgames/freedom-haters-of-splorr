@@ -27,7 +27,7 @@ Friend Class StarSystemInitializationStep
             }
         Dim tries As Integer = 0
         Const MaximumTries = 5000
-        Dim starType = StarTypes.Descriptors(actor.Properties.Subtype)
+        Dim starType = StarTypes.Descriptors(actor.Descriptor.Subtype)
         Dim MinimumDistance = starType.MinimumPlanetaryDistance
         Dim maximumPlanetCount As Integer = starType.GenerateMaximumPlanetCount()
         Dim planetCount = 0
@@ -53,7 +53,6 @@ Friend Class StarSystemInitializationStep
         Dim group = location.Universe.Factory.CreateGroup(GroupTypes.PlanetVicinity, nameGenerator.GenerateUnusedName)
         Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetVicinity(planetType)).CreateActor(location, $"{group.Name}")
         actor.Properties.Group = group
-        location.Actor.Properties.Subtype = planetType
         addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
     End Sub
 
@@ -61,10 +60,9 @@ Friend Class StarSystemInitializationStep
         Dim starColumn = externalActor.Properties.Interior.Size.Columns \ 2
         Dim starRow = externalActor.Properties.Interior.Size.Rows \ 2
         Dim location = externalActor.Properties.Interior.GetLocation(starColumn, starRow)
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarVicinity(externalActor.Properties.Subtype)).CreateActor(location, externalActor.Properties.Group.Name)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarVicinity(externalActor.Descriptor.Subtype)).CreateActor(location, externalActor.Properties.Group.Name)
         actor.Properties.Group = externalActor.Properties.Group
         location.LocationType = LocationTypes.StarVicinity
-        location.Actor.Properties.Subtype = externalActor.Properties.Subtype
         addStep(New StarVicinityInitializationStep(location), False)
     End Sub
 End Class

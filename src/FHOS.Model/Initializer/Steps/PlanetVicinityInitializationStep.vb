@@ -20,7 +20,7 @@ Friend Class PlanetVicinityInitializationStep
         PlacePlanet(
             actor,
             addStep,
-            actor.Properties.Subtype)
+            actor.Descriptor.Subtype)
         actor.Properties.SatelliteCount = PlaceSatellites(actor, addStep)
         addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
     End Sub
@@ -31,7 +31,7 @@ Friend Class PlanetVicinityInitializationStep
             ToList
         Dim tries As Integer = 0
         Const MaximumTries = 5000
-        Dim planetType = PlanetTypes.Descriptors(actor.Properties.Subtype)
+        Dim planetType = PlanetTypes.Descriptors(actor.Descriptor.Subtype)
         Dim MinimumDistance = planetType.MinimumSatelliteDistance
         Dim maximumSatelliteCount As Integer = planetType.GenerateMaximumSatelliteCount()
         Dim satelliteCount = 0

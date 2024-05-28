@@ -20,7 +20,7 @@ Friend Class StarVicinityInitializationStep
         Dim starRow = externalActor.Properties.Interior.Size.Rows \ 2
         Dim location = externalActor.Properties.Interior.GetLocation(starColumn, starRow)
         location.LocationType = LocationTypes.Star
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStar(externalActor.Properties.Subtype)).CreateActor(location, externalActor.Properties.Name)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStar(externalActor.Descriptor.Subtype)).CreateActor(location, externalActor.Properties.Name)
         actor.Properties.Group = externalActor.Properties.Group
     End Sub
 End Class
