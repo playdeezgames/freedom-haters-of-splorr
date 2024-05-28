@@ -16,6 +16,9 @@
     Protected Sub PopState()
         SetCurrentState(Nothing, False)
     End Sub
+    Protected Sub PushState(state As String)
+        SetCurrentState(state, True)
+    End Sub
     Protected Sub SetState(state As String)
         SetCurrentState(state, False)
     End Sub

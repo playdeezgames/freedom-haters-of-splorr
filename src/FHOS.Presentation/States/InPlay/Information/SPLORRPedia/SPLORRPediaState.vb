@@ -25,7 +25,7 @@ Friend Class SPLORRPediaState
         }
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
-        SetState(actionMap(value.Item))
+        PushState(actionMap(value.Item))
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))

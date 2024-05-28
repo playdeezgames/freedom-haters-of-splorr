@@ -15,12 +15,12 @@ Friend Class FactionListState
             context,
             "Galactic Factions",
             context.ChooseOrCancel,
-            GameState.SPLORRPedia)
+            Nothing)
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IGroupModel))
         SelectedFaction = value.Item
-        SetState(GameState.FactionDetails)
+        PushState(GameState.FactionDetails)
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IGroupModel))

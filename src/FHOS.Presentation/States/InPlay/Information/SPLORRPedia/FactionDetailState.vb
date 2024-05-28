@@ -15,7 +15,7 @@ Friend Class FactionDetailState
     End Sub
 
     Public Overrides Sub HandleCommand(cmd As String)
-        SetState(GameState.FactionList)
+        PopState()
     End Sub
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
