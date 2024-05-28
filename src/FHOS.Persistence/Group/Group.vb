@@ -35,6 +35,15 @@ Friend Class Group
         End Set
     End Property
 
+    Public Property SatelliteCount As Integer Implements IGroup.SatelliteCount
+        Get
+            Return If(GetStatistic(StatisticTypes.SatelliteCount), 0)
+        End Get
+        Set(value As Integer)
+            SetStatistic(StatisticTypes.SatelliteCount, value)
+        End Set
+    End Property
+
     Public Property Authority As Integer Implements IGroup.Authority
         Get
             Return GetStatistic(StatisticTypes.Authority).Value

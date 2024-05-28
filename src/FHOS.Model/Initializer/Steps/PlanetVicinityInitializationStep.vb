@@ -22,6 +22,7 @@ Friend Class PlanetVicinityInitializationStep
             addStep,
             actor.Descriptor.Subtype)
         actor.Properties.SatelliteCount = PlaceSatellites(actor, addStep)
+        actor.Properties.Group.SatelliteCount = actor.Properties.SatelliteCount
         addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
     End Sub
     Private Function PlaceSatellites(actor As IActor, addStep As Action(Of InitializationStep, Boolean)) As Integer
