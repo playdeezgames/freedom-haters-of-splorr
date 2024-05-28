@@ -24,4 +24,10 @@ Friend Class UniversePediaModel
             Return universe.Groups.Where(Function(x) x.GroupType = GroupTypes.StarSystem).Select(Function(x) GroupModel.FromGroup(x)).OrderBy(Function(x) x.Name)
         End Get
     End Property
+
+    Public ReadOnly Property PlanetList As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.PlanetList
+        Get
+            Return universe.Groups.Where(Function(x) x.GroupType = GroupTypes.Planet).Select(Function(x) GroupModel.FromGroup(x)).OrderBy(Function(x) x.Name)
+        End Get
+    End Property
 End Class

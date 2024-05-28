@@ -75,6 +75,18 @@ Friend Class ActorModel
         End Get
     End Property
 
+    Public ReadOnly Property IsPlanet As Boolean Implements IActorModel.IsPlanet
+        Get
+            Return actor.Descriptor.IsPlanet
+        End Get
+    End Property
+
+    Public ReadOnly Property IsPlanetVicinity As Boolean Implements IActorModel.IsPlanetVicinity
+        Get
+            Return actor.Descriptor.IsPlanetVicinity
+        End Get
+    End Property
+
     Friend Shared Function GetActor(model As IActorModel) As IActor
         Return CType(model, ActorModel).actor
     End Function

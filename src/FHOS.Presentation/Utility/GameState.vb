@@ -17,6 +17,8 @@
     Friend ReadOnly MoveRight As String = NameOf(MoveRight)
     Friend ReadOnly MoveUp As String = NameOf(MoveUp)
     Friend ReadOnly Navigation As String = NameOf(Navigation)
+    Friend ReadOnly PlanetDetails As String = NameOf(PlanetDetails)
+    Friend ReadOnly PlanetList As String = NameOf(PlanetList)
     Friend ReadOnly Scanner As String = NameOf(Scanner)
     Friend ReadOnly SelectCrewMember As String = NameOf(SelectCrewMember)
     Friend ReadOnly SelectVessel As String = NameOf(SelectVessel)
