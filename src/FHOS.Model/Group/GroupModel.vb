@@ -59,6 +59,12 @@ Friend Class GroupModel
         End Get
     End Property
 
+    Public ReadOnly Property Actors As IEnumerable(Of IActorModel) Implements IGroupModel.Actors
+        Get
+            Return group.Universe.Actors.Where(Function(x) x.Properties.Group IsNot Nothing AndAlso x.Properties.Group.Id = group.Id).Select(Function(x) ActorModel.FromActor(x))
+        End Get
+    End Property
+
     Public Function RelationNameTo(otherGroup As IGroupModel) As String Implements IGroupModel.RelationNameTo
         Dim deltaAuthority = otherGroup.Authority.Value - Authority.Value
         Dim deltaStandards = otherGroup.Standards.Value - Standards.Value

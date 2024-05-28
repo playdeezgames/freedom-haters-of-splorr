@@ -5,4 +5,5 @@
     ReadOnly Property Conviction As (LevelName As String, Value As Integer)
     ReadOnly Property PlanetCount As Integer
     Function RelationNameTo(otherGroup As IGroupModel) As String
+    ReadOnly Property Actors As IEnumerable(Of IActorModel)
 End Interface

@@ -17,6 +17,7 @@ Friend Class StarSystemInitializationStep
         PlaceBoundaryActors(actor, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(actor, addStep)
         actor.Properties.PlanetCount = PlacePlanets(actor, addStep)
+        actor.Properties.Group.PlanetCount = actor.Properties.PlanetCount
         addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
     End Sub
 

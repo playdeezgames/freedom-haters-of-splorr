@@ -46,6 +46,26 @@ Friend Class ActorModel
         End Get
     End Property
 
+    Public ReadOnly Property Subtype As String Implements IActorModel.Subtype
+        Get
+            Return actor.Descriptor.Subtype
+        End Get
+    End Property
+
+    Public ReadOnly Property IsStarSystem As Boolean Implements IActorModel.IsStarSystem
+        Get
+            Return actor.Descriptor.IsStarSystem
+        End Get
+    End Property
+
+    Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IActorModel.Position
+        Get
+            With actor.State.Location
+                Return (.Column, .Row)
+            End With
+        End Get
+    End Property
+
     Friend Shared Function GetActor(model As IActorModel) As IActor
         Return CType(model, ActorModel).actor
     End Function

@@ -29,8 +29,8 @@ Friend Class FactionDetailState
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Conviction: { .Conviction.LevelName}({ .Conviction.Value})", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planets: { .PlanetCount}", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Other Faction Relationships:", Hues.Black)
-            For Each otherFaction In Context.Model.Pedia.FactionList.Where(Function(x) x.Text <> .Name)
-                position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"{otherFaction.Faction.Name}: { .RelationNameTo(otherFaction.Faction)}", Hues.Black)
+            For Each otherFaction In Context.Model.Pedia.FactionList.Where(Function(x) x.Name <> .Name)
+                position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"{otherFaction.Name}: { .RelationNameTo(otherFaction)}", Hues.Black)
             Next
             Context.ShowStatusBar(
                 displayBuffer,

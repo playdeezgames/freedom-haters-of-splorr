@@ -23,6 +23,8 @@
     Friend ReadOnly SignalDistress As String = NameOf(SignalDistress)
     Friend ReadOnly SPLORRPedia As String = NameOf(SPLORRPedia)
     Friend ReadOnly StarGate As String = NameOf(StarGate)
+    Friend ReadOnly StarSystemDetails As String = NameOf(StarSystemDetails)
+    Friend ReadOnly StarSystemList As String = NameOf(StarSystemList)
     Friend ReadOnly Status As String = NameOf(Status)
     Friend ReadOnly Tutorial As String = NameOf(Tutorial)
 End Module
