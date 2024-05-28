@@ -12,18 +12,13 @@
             {
                 {MapTypes.PlanetOrbit, "1d1"}
             },
-            canRefillOxygen:=True)
+            canRefillOxygen:=True,
+            canRefuel:=True)
     End Sub
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
         Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing
     End Function
-
-    Protected Overrides Sub Initialize(actor As Persistence.IActor)
-        MyBase.Initialize(actor)
-
-        actor.Properties.CanRefuel = True
-    End Sub
 
     Friend Overrides Function Describe(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
         Return {

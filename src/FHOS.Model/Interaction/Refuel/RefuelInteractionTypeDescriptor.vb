@@ -8,7 +8,7 @@ Friend Class RefuelInteractionTypeDescriptor
     End Sub
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.State.Interactor.Properties.CanRefuel
+        Return actor.State.Interactor.Descriptor.CanRefuel
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel

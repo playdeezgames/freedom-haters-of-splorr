@@ -8,7 +8,7 @@ Friend Class SellScrapInteractionTypeDescriptor
     End Sub
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.State.Scrap > 0 AndAlso actor.State.Interactor.Properties.BuysScrap
+        Return actor.State.Scrap > 0 AndAlso actor.State.Interactor.Descriptor.BuysScrap
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel

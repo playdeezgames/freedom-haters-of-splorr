@@ -11,13 +11,8 @@
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.PlanetOrbit, "1d2/2"}
-            })
-    End Sub
-
-    Protected Overrides Sub Initialize(actor As Persistence.IActor)
-        MyBase.Initialize(actor)
-
-        actor.Properties.BuysScrap = True
+            },
+            buysScrap:=True)
     End Sub
 
     Protected Overrides Function MakeName(planet As Persistence.IActor) As String

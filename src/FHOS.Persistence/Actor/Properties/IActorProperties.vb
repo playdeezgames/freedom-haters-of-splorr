@@ -7,8 +7,6 @@
     Property TargetActor As IActor
 
     'push to actor type
-    Property BuysScrap As Boolean
-    Property CanRefuel As Boolean
     Property IsSatellite As Boolean
     Property IsWormhole As Boolean
     Property Subtype As String
