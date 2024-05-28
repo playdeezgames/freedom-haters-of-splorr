@@ -4,6 +4,10 @@ Imports SPLORR.Game
 
 Friend Module ActorExtensions
     <Extension>
+    Function CostumeDescriptor(actorProperties As IActorProperties) As CostumeTypeDescriptor
+        Return CostumeTypes.Descriptors(actorProperties.CostumeType)
+    End Function
+    <Extension>
     Function Descriptor(actor As IActor) As ActorTypeDescriptor
         Return ActorTypes.Descriptors(actor.ActorType)
     End Function
