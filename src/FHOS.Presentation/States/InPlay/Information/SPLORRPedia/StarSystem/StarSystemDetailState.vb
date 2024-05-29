@@ -16,7 +16,12 @@ Friend Class StarSystemDetailState
     Private actor As IActorModel = Nothing
 
     Public Overrides Sub HandleCommand(cmd As String)
-        SetState(Nothing)
+        Select Case cmd
+            Case Command.B
+                SetState(Nothing)
+            Case Command.A
+                PushState(GameState.StarSystemCrossReference)
+        End Select
     End Sub
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
@@ -32,7 +37,7 @@ Friend Class StarSystemDetailState
                 displayBuffer,
                 font,
                 Context.
-                ControlsText(bButton:="Go Back"), Context.UIPalette.Background, Context.UIPalette.Footer)
+                ControlsText(aButton:="Go To...", bButton:="Go Back"), Context.UIPalette.Background, Context.UIPalette.Footer)
         End With
     End Sub
 

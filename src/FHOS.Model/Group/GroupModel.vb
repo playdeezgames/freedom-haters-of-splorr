@@ -65,6 +65,28 @@ Friend Class GroupModel
         End Get
     End Property
 
+    Public ReadOnly Property PlanetList As IEnumerable(Of IGroupModel) Implements IGroupModel.PlanetList
+        Get
+            Select Case group.GroupType
+                Case GroupTypes.StarSystem
+                    Return Pedia.PlanetVicinityList.Where(Function(x) x.BelongsToStarSystem(Me))
+            End Select
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
+    Public ReadOnly Property SatelliteList As IEnumerable(Of IGroupModel) Implements IGroupModel.SatelliteList
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
+    Public ReadOnly Property Pedia As IUniversePediaModel Implements IGroupModel.Pedia
+        Get
+            Return UniversePediaModel.FromUniverse(group.Universe)
+        End Get
+    End Property
+
     Public Function RelationNameTo(otherGroup As IGroupModel) As String Implements IGroupModel.RelationNameTo
         Dim deltaAuthority = otherGroup.Authority.Value - Authority.Value
         Dim deltaStandards = otherGroup.Standards.Value - Standards.Value
@@ -78,4 +100,17 @@ Friend Class GroupModel
                 Return "Friendly"
         End Select
     End Function
+
+    Public Function BelongsToStarSystem(starSystem As IGroupModel) As Boolean Implements IGroupModel.BelongsToStarSystem
+        Select Case group.GroupType
+            Case GroupTypes.PlanetVicinity
+                Return ToGroup(Actors.Single(Function(x) x.IsPlanetVicinity).StarSystem).Id = ToGroup(starSystem).Id
+        End Select
+        Throw New NotImplementedException()
+    End Function
+
+    Private Shared Function ToGroup(group As IGroupModel) As IGroup
+        Return CType(group, GroupModel).group
+    End Function
+
 End Class

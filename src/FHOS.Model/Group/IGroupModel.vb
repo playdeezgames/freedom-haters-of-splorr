@@ -4,6 +4,10 @@
     ReadOnly Property Standards As (LevelName As String, Value As Integer)
     ReadOnly Property Conviction As (LevelName As String, Value As Integer)
     ReadOnly Property PlanetCount As Integer
+    ReadOnly Property PlanetList As IEnumerable(Of IGroupModel)
+    ReadOnly Property SatelliteList As IEnumerable(Of IGroupModel)
     Function RelationNameTo(otherGroup As IGroupModel) As String
     ReadOnly Property Actors As IEnumerable(Of IActorModel)
+    ReadOnly Property Pedia As IUniversePediaModel
+    Function BelongsToStarSystem(starSystem As IGroupModel) As Boolean
 End Interface
