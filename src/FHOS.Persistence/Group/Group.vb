@@ -11,6 +11,24 @@ Friend Class Group
         MyBase.New(universeData, factionId)
     End Sub
 
+    Public Sub AddParent(parent As IGroup) Implements IGroup.AddParent
+        If parent IsNot Nothing Then
+            If Not EntityData.Parents.Contains(parent.Id) Then
+                EntityData.Parents.Add(parent.Id)
+                CType(parent, Group).EntityData.Children.Add(Id)
+            End If
+        End If
+    End Sub
+
+    Public Sub RemoveParent(parent As IGroup) Implements IGroup.RemoveParent
+        If parent IsNot Nothing Then
+            If EntityData.Parents.Contains(parent.Id) Then
+                EntityData.Parents.Remove(parent.Id)
+                CType(parent, Group).EntityData.Children.Remove(Id)
+            End If
+        End If
+    End Sub
+
     Public Property MinimumPlanetCount As Integer Implements IGroup.MinimumPlanetCount
         Get
             Return GetStatistic(StatisticTypes.MinimumPlanetCount).Value
@@ -77,12 +95,24 @@ Friend Class Group
         End Get
     End Property
 
-    Private Property IGroup_Group As IGroup Implements IGroup.Group
+    Private Property IGroup_Group As IGroup Implements IGroup.LegacyGroup
         Get
-            Return Group.FromId(UniverseData, GetStatistic(StatisticTypes.GroupId))
+            Return Group.FromId(UniverseData, GetStatistic(StatisticTypes.LegacyGroupId))
         End Get
         Set(value As IGroup)
-            SetStatistic(StatisticTypes.GroupId, value?.Id)
+            SetStatistic(StatisticTypes.LegacyGroupId, value?.Id)
         End Set
+    End Property
+
+    Public ReadOnly Property Parents As IEnumerable(Of IGroup) Implements IGroup.Parents
+        Get
+            Return EntityData.Parents.Select(Function(x) Group.FromId(UniverseData, x))
+        End Get
+    End Property
+
+    Public ReadOnly Property Children As IEnumerable(Of IGroup) Implements IGroup.Children
+        Get
+            Return EntityData.Children.Select(Function(x) Group.FromId(UniverseData, x))
+        End Get
     End Property
 End Class

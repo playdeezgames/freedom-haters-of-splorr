@@ -11,6 +11,7 @@
     Friend ReadOnly HomePlanetActorId As String = NameOf(HomePlanetActorId)
     Friend ReadOnly LegacyHomePlanetId As String = NameOf(LegacyHomePlanetId)
     Friend ReadOnly InteractorId As String = NameOf(InteractorId)
+    Friend ReadOnly LegacyGroupId As String = NameOf(LegacyGroupId)
     Friend ReadOnly LifeSupportId As String = NameOf(LifeSupportId)
     Friend ReadOnly LocationId As String = NameOf(LocationId)
     Friend ReadOnly MapId As String = NameOf(MapId)

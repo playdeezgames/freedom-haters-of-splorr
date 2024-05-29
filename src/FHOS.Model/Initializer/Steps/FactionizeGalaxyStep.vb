@@ -19,14 +19,17 @@ Friend Class FactionizeGalaxyStep
         For Each group In factions
             For Each dummy In Enumerable.Range(0, group.MinimumPlanetCount)
                 Dim planet = RNG.FromEnumerable(planets)
-                planet.Group = group
+                planet.LegacyGroup = group
+                planet.AddParent(group)
                 group.PlanetCount += 1
                 planets.Remove(planet)
             Next
         Next
         For Each remainingPlanet In planets
-            remainingPlanet.Group = RNG.FromEnumerable(factions)
-            remainingPlanet.Group.PlanetCount += 1
+            Dim group = RNG.FromEnumerable(factions)
+            group.PlanetCount += 1
+            remainingPlanet.AddParent(group)
+            remainingPlanet.LegacyGroup = group
         Next
     End Sub
 End Class
