@@ -8,4 +8,6 @@
     ReadOnly Property IsPlanetVicinity As Boolean
     ReadOnly Property Position As (X As Integer, Y As Integer)
     ReadOnly Property PlanetCount As Integer
+    ReadOnly Property SatelliteCount As Integer
+    ReadOnly Property StarSystem As IGroupModel
 End Interface

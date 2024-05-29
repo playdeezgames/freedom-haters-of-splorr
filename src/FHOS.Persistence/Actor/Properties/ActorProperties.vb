@@ -71,4 +71,13 @@
             SetStatistic(StatisticTypes.HomePlanetActorId, value?.Id)
         End Set
     End Property
+
+    Public Property StarSystem As IGroup Implements IActorProperties.StarSystem
+        Get
+            Return Persistence.Group.FromId(UniverseData, GetStatistic(StatisticTypes.StarSystemId))
+        End Get
+        Set(value As IGroup)
+            SetStatistic(StatisticTypes.StarSystemId, value?.Id)
+        End Set
+    End Property
 End Class

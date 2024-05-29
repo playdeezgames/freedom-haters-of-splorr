@@ -25,9 +25,9 @@ Friend Class UniversePediaModel
         End Get
     End Property
 
-    Public ReadOnly Property PlanetList As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.PlanetList
+    Public ReadOnly Property PlanetVicinityList As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.PlanetVicinityList
         Get
-            Return universe.Groups.Where(Function(x) x.GroupType = GroupTypes.Planet).Select(Function(x) GroupModel.FromGroup(x)).OrderBy(Function(x) x.Name)
+            Return universe.Groups.Where(Function(x) x.GroupType = GroupTypes.PlanetVicinity).Select(Function(x) GroupModel.FromGroup(x)).OrderBy(Function(x) x.Name)
         End Get
     End Property
 End Class

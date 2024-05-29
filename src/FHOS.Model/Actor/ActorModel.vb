@@ -87,6 +87,18 @@ Friend Class ActorModel
         End Get
     End Property
 
+    Public ReadOnly Property StarSystem As IGroupModel Implements IActorModel.StarSystem
+        Get
+            Return GroupModel.FromGroup(actor.Properties.StarSystem)
+        End Get
+    End Property
+
+    Public ReadOnly Property SatelliteCount As Integer Implements IActorModel.SatelliteCount
+        Get
+            Return actor.Properties.Group.SatelliteCount
+        End Get
+    End Property
+
     Friend Shared Function GetActor(model As IActorModel) As IActor
         Return CType(model, ActorModel).actor
     End Function

@@ -53,6 +53,7 @@ Friend Class StarSystemInitializationStep
         Dim group = location.Universe.Factory.CreateGroup(GroupTypes.PlanetVicinity, nameGenerator.GenerateUnusedName)
         Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetVicinity(planetType)).CreateActor(location, $"{group.Name}")
         actor.Properties.Group = group
+        actor.Properties.StarSystem = exteriorActor.Properties.Group
         addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
     End Sub
 

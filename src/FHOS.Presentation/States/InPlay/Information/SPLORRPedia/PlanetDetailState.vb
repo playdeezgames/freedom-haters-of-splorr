@@ -25,9 +25,9 @@ Friend Class PlanetDetailState
         With PlanetListState.SelectedPlanet
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
-            'position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: {actor.Subtype}", Hues.Black)
-            'position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Location: ({actor.Position.X},{actor.Position.Y})", Hues.Black)
-            'position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planets: {actor.PlanetCount}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: {actor.Subtype}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Star System: {actor.StarSystem.Name}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Satellites: {actor.SatelliteCount}", Hues.Black)
             Context.ShowStatusBar(
                 displayBuffer,
                 font,
@@ -38,6 +38,6 @@ Friend Class PlanetDetailState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        'actor = PlanetListState.SelectedPlanet.Actors.Single(Function(x) x.IsPlanetVicinity)
+        actor = PlanetListState.SelectedPlanet.Actors.Single(Function(x) x.IsPlanetVicinity)
     End Sub
 End Class
