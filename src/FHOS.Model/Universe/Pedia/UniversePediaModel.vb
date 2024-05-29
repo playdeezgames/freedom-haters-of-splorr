@@ -30,4 +30,10 @@ Friend Class UniversePediaModel
             Return universe.Groups.Where(Function(x) x.GroupType = GroupTypes.PlanetVicinity).Select(Function(x) GroupModel.FromGroup(x)).OrderBy(Function(x) x.Name)
         End Get
     End Property
+
+    Public ReadOnly Property SatelliteList As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.SatelliteList
+        Get
+            Return universe.Groups.Where(Function(x) x.GroupType = GroupTypes.Satellite).Select(Function(x) GroupModel.FromGroup(x)).OrderBy(Function(x) x.Name)
+        End Get
+    End Property
 End Class

@@ -6,6 +6,7 @@ Friend Class SPLORRPediaState
     Private Const FactionListText = "Factions..."
     Private Const StarSystemListText = "Star Systems..."
     Private Const PlanetListText = "Planets..."
+    Private Const SatelliteListText = "Satellites..."
 
     Public Sub New(
                   parent As IGameController,
@@ -25,7 +26,8 @@ Friend Class SPLORRPediaState
         {
             {FactionListText, GameState.FactionList},
             {StarSystemListText, GameState.StarSystemList},
-            {PlanetListText, GameState.PlanetList}
+            {PlanetListText, GameState.PlanetList},
+            {SatelliteListText, GameState.SatelliteList}
         }
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
@@ -37,7 +39,8 @@ Friend Class SPLORRPediaState
             {
                 (FactionListText, FactionListText),
                 (StarSystemListText, StarSystemListText),
-                (PlanetListText, PlanetListText)
+                (PlanetListText, PlanetListText),
+                (SatelliteListText, SatelliteListText)
             }
     End Function
 End Class

@@ -81,6 +81,12 @@ Friend Class ActorModel
         End Get
     End Property
 
+    Public ReadOnly Property IsSatellite As Boolean Implements IActorModel.IsSatellite
+        Get
+            Return actor.Descriptor.IsSatellite
+        End Get
+    End Property
+
     Public ReadOnly Property IsPlanetVicinity As Boolean Implements IActorModel.IsPlanetVicinity
         Get
             Return actor.Descriptor.IsPlanetVicinity
@@ -96,6 +102,12 @@ Friend Class ActorModel
     Public ReadOnly Property SatelliteCount As Integer Implements IActorModel.SatelliteCount
         Get
             Return actor.Properties.Group.SatelliteCount
+        End Get
+    End Property
+
+    Public ReadOnly Property PlanetVicinity As IGroupModel Implements IActorModel.PlanetVicinity
+        Get
+            Return GroupModel.FromGroup(actor.Properties.PlanetVicinity)
         End Get
     End Property
 

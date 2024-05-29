@@ -24,23 +24,23 @@ Friend Class PlanetVicinityInitializationStep
         actor.Properties.Group.SatelliteCount = PlaceSatellites(actor, addStep)
         addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
     End Sub
-    Private Function PlaceSatellites(actor As IActor, addStep As Action(Of InitializationStep, Boolean)) As Integer
+    Private Function PlaceSatellites(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean)) As Integer
         Dim satellites As List(Of (Column As Integer, Row As Integer)) =
             Grid3x3.Descriptors.
-            Select(Function(x) (x.Value.Delta.X + actor.Properties.Interior.Size.Columns \ 2, x.Value.Delta.Y + actor.Properties.Interior.Size.Rows \ 2)).
+            Select(Function(x) (x.Value.Delta.X + externalActor.Properties.Interior.Size.Columns \ 2, x.Value.Delta.Y + externalActor.Properties.Interior.Size.Rows \ 2)).
             ToList
         Dim tries As Integer = 0
         Const MaximumTries = 5000
-        Dim planetType = PlanetTypes.Descriptors(actor.Descriptor.Subtype)
+        Dim planetType = PlanetTypes.Descriptors(externalActor.Descriptor.Subtype)
         Dim MinimumDistance = planetType.MinimumSatelliteDistance
         Dim maximumSatelliteCount As Integer = planetType.GenerateMaximumSatelliteCount()
         Dim satelliteCount = 0
         While satelliteCount < maximumSatelliteCount AndAlso tries < MaximumTries
-            Dim column = RNG.FromRange(1, actor.Properties.Interior.Size.Columns - 3)
-            Dim row = RNG.FromRange(1, actor.Properties.Interior.Size.Rows - 3)
+            Dim column = RNG.FromRange(1, externalActor.Properties.Interior.Size.Columns - 3)
+            Dim row = RNG.FromRange(1, externalActor.Properties.Interior.Size.Rows - 3)
             If satellites.All(Function(satellite) (column - satellite.Column) * (column - satellite.Column) + (row - satellite.Row) * (row - satellite.Row) >= MinimumDistance * MinimumDistance) Then
                 satellites.Add((column, row))
-                MakeSatellite(actor, addStep, planetType, column, row)
+                MakeSatellite(externalActor, addStep, planetType, column, row)
                 satelliteCount += 1
                 tries = 0
             Else
@@ -50,12 +50,14 @@ Friend Class PlanetVicinityInitializationStep
         Return satelliteCount
     End Function
 
-    Private Sub MakeSatellite(actor As IActor, addStep As Action(Of InitializationStep, Boolean), planetType As PlanetTypeDescriptor, column As Integer, row As Integer)
+    Private Sub MakeSatellite(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean), planetType As PlanetTypeDescriptor, column As Integer, row As Integer)
         Dim satelliteType As String = planetType.GenerateSatelliteType()
-        Dim location = actor.Properties.Interior.GetLocation(column, row)
-        Dim group = actor.Universe.Factory.CreateGroup(GroupTypes.Satellite, nameGenerator.GenerateUnusedName)
+        Dim location = externalActor.Properties.Interior.GetLocation(column, row)
+        Dim group = externalActor.Universe.Factory.CreateGroup(GroupTypes.Satellite, nameGenerator.GenerateUnusedName)
         Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, group.Name)
         satellite.Properties.Group = group
+        satellite.Properties.PlanetVicinity = externalActor.Properties.Group
+        satellite.Properties.StarSystem = externalActor.Properties.StarSystem
         location.LocationType = LocationTypes.Satellite
         addStep(New SatelliteOrbitInitializationStep(location), False)
     End Sub
