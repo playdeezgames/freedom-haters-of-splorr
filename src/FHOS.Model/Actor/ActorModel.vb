@@ -95,7 +95,7 @@ Friend Class ActorModel
 
     Public ReadOnly Property StarSystem As IGroupModel Implements IActorModel.StarSystem
         Get
-            Return GroupModel.FromGroup(actor.Properties.StarSystem)
+            Return GroupModel.FromGroup(actor.Properties.Group.Parents.Single(Function(x) x.GroupType = GroupTypes.StarSystem))
         End Get
     End Property
 
