@@ -29,9 +29,12 @@ Friend Class StarSystemCrossReferenceState
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
-        Return {
-                (PlanetsText, PlanetsText),
-                (SatellitesText, SatellitesText)
+        Dim items = {
+                (PlanetsText, PlanetsText)
             }.ToList
+        If StarSystemListState.SelectedStarSystem.Peek.SatelliteList.Any Then
+            items.Add((SatellitesText, SatellitesText))
+        End If
+        Return items
     End Function
 End Class
