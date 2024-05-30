@@ -89,6 +89,12 @@ Friend Class GroupModel
         End Get
     End Property
 
+    Public ReadOnly Property Planet As IGroupModel Implements IGroupModel.Planet
+        Get
+            Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.GroupType = GroupTypes.PlanetVicinity))
+        End Get
+    End Property
+
     Public Function RelationNameTo(otherGroup As IGroupModel) As String Implements IGroupModel.RelationNameTo
         Dim deltaAuthority = otherGroup.Authority.Value - Authority.Value
         Dim deltaStandards = otherGroup.Standards.Value - Standards.Value

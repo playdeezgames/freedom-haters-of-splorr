@@ -21,6 +21,7 @@
     Friend ReadOnly PlanetDetails As String = NameOf(PlanetDetails)
     Friend ReadOnly PlanetList As String = NameOf(PlanetList)
     Friend ReadOnly PlanetSatelliteList As String = NameOf(PlanetSatelliteList)
+    Friend ReadOnly SatelliteCrossReference As String = NameOf(SatelliteCrossReference)
     Friend ReadOnly SatelliteDetails As String = NameOf(SatelliteDetails)
     Friend ReadOnly SatelliteList As String = NameOf(SatelliteList)
     Friend ReadOnly Scanner As String = NameOf(Scanner)

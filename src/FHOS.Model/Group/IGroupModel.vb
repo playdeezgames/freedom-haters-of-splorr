@@ -10,4 +10,5 @@
     ReadOnly Property Actors As IEnumerable(Of IActorModel)
     ReadOnly Property Pedia As IUniversePediaModel
     ReadOnly Property StarSystem As IGroupModel
+    ReadOnly Property Planet As IGroupModel
 End Interface

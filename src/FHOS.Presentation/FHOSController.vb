@@ -48,6 +48,7 @@ Public Class FHOSController
         SetState(GameState.PlanetSatelliteList, New PlanetSatelliteListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.SatelliteList, New SatelliteListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.SatelliteDetails, New SatelliteDetailState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.SatelliteCrossReference, New SatelliteCrossReferenceState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private ReadOnly doVerbStates As IReadOnlyDictionary(Of String, String) =

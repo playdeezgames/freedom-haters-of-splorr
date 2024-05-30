@@ -20,6 +20,8 @@ Friend Class SatelliteDetailState
             Case Command.B
                 SatelliteListState.SelectedSatellite.Pop()
                 SetState(Nothing)
+            Case Command.A
+                SetState(GameState.SatelliteCrossReference)
         End Select
     End Sub
 
@@ -36,7 +38,7 @@ Friend Class SatelliteDetailState
                 displayBuffer,
                 font,
                 Context.
-                ControlsText(bButton:="Go Back"), Context.UIPalette.Background, Context.UIPalette.Footer)
+                ControlsText(aButton:="Go To...", bButton:="Go Back"), Context.UIPalette.Background, Context.UIPalette.Footer)
         End With
     End Sub
 
