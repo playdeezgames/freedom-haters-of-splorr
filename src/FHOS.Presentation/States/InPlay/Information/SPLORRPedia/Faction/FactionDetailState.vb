@@ -15,13 +15,14 @@ Friend Class FactionDetailState
     End Sub
 
     Public Overrides Sub HandleCommand(cmd As String)
+        FactionListState.SelectedFaction.Pop()
         SetState(Nothing)
     End Sub
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFontName)
-        With FactionListState.SelectedFaction
+        With FactionListState.SelectedFaction.Peek
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Authority: { .Authority.LevelName}({ .Authority.Value})", Hues.Black)
