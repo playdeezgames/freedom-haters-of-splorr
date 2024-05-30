@@ -67,17 +67,13 @@ Friend Class GroupModel
 
     Public ReadOnly Property PlanetList As IEnumerable(Of IGroupModel) Implements IGroupModel.PlanetList
         Get
-            Select Case group.GroupType
-                Case GroupTypes.StarSystem
-                    Return Pedia.PlanetVicinityList.Where(Function(x) x.BelongsToStarSystem(Me))
-            End Select
-            Throw New NotImplementedException()
+            Return group.Children.Where(Function(x) x.GroupType = GroupTypes.PlanetVicinity).Select(AddressOf GroupModel.FromGroup)
         End Get
     End Property
 
     Public ReadOnly Property SatelliteList As IEnumerable(Of IGroupModel) Implements IGroupModel.SatelliteList
         Get
-            Throw New NotImplementedException()
+            Return group.Children.Where(Function(x) x.GroupType = GroupTypes.Satellite).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
         End Get
     End Property
 
