@@ -107,7 +107,7 @@ Friend Class ActorModel
 
     Public ReadOnly Property PlanetVicinity As IGroupModel Implements IActorModel.PlanetVicinity
         Get
-            Return GroupModel.FromGroup(actor.Properties.PlanetVicinity)
+            Return GroupModel.FromGroup(actor.Properties.Group.Parents.Single(Function(x) x.GroupType = GroupTypes.PlanetVicinity))
         End Get
     End Property
 
