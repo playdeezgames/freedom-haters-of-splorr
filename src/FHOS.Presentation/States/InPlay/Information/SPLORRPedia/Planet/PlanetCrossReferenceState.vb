@@ -1,0 +1,40 @@
+﻿Imports FHOS.Model
+Imports SPLORR.UI
+
+Friend Class PlanetCrossReferenceState
+    Inherits BasePickerState(Of IUniverseModel, String)
+    Const FactionText = "Faction..."
+    Const StarSystemText = "Star System..."
+    Const SatellitesText = "Satellites..."
+
+    Public Sub New(
+                  parent As IGameController,
+                  setState As Action(Of String, Boolean),
+                  context As IUIContext(Of Model.IUniverseModel))
+        MyBase.New(
+            parent,
+            setState,
+            context,
+            "Go To...",
+            context.ChooseOrCancel,
+            Nothing)
+    End Sub
+
+    Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
+        Select Case value.Item
+            Case StarSystemText
+                StarSystemListState.SelectedStarSystem.Push(PlanetListState.SelectedPlanet.Peek.StarSystem)
+                SetState(GameState.StarSystemDetails)
+            Case SatellitesText
+                SetState(GameState.PlanetSatelliteList)
+        End Select
+    End Sub
+
+    Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
+        Return {
+                (FactionText, FactionText),
+                (StarSystemText, StarSystemText),
+                (SatellitesText, SatellitesText)
+            }.ToList
+    End Function
+End Class

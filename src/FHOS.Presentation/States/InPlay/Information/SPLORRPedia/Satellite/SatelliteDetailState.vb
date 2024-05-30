@@ -16,8 +16,11 @@ Friend Class SatelliteDetailState
     Private actor As IActorModel = Nothing
 
     Public Overrides Sub HandleCommand(cmd As String)
-        SatelliteListState.SelectedSatellite.Pop()
-        SetState(Nothing)
+        Select Case cmd
+            Case Command.B
+                SatelliteListState.SelectedSatellite.Pop()
+                SetState(Nothing)
+        End Select
     End Sub
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)

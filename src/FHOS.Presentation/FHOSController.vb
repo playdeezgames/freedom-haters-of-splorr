@@ -44,6 +44,8 @@ Public Class FHOSController
         SetState(GameState.StarSystemSatelliteList, New StarSystemSatelliteListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.PlanetList, New PlanetListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.PlanetDetails, New PlanetDetailState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.PlanetCrossReference, New PlanetCrossReferenceState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.PlanetSatelliteList, New PlanetSatelliteListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.SatelliteList, New SatelliteListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.SatelliteDetails, New SatelliteDetailState(Me, AddressOf SetCurrentState, context))
     End Sub

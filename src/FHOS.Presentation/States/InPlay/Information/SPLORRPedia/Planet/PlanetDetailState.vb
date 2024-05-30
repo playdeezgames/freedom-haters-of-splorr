@@ -16,8 +16,13 @@ Friend Class PlanetDetailState
     Private actor As IActorModel = Nothing
 
     Public Overrides Sub HandleCommand(cmd As String)
-        PlanetListState.SelectedPlanet.Pop()
-        SetState(Nothing)
+        Select Case cmd
+            Case Command.B
+                PlanetListState.SelectedPlanet.Pop()
+                SetState(Nothing)
+            Case Command.A
+                PushState(GameState.PlanetCrossReference)
+        End Select
     End Sub
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
@@ -33,7 +38,7 @@ Friend Class PlanetDetailState
                 displayBuffer,
                 font,
                 Context.
-                ControlsText(bButton:="Go Back"), Context.UIPalette.Background, Context.UIPalette.Footer)
+                ControlsText(aButton:="Go To...", bButton:="Go Back"), Context.UIPalette.Background, Context.UIPalette.Footer)
         End With
     End Sub
 
