@@ -62,18 +62,19 @@ Friend Class PlanetVicinityInitializationStep
         addStep(New SatelliteOrbitInitializationStep(location), False)
     End Sub
 
-    Private Sub PlacePlanet(actor As IActor, addStep As Action(Of InitializationStep, Boolean), subType As String)
-        Dim centerColumn = actor.Properties.Interior.Size.Columns \ 2
-        Dim centerRow = actor.Properties.Interior.Size.Rows \ 2
-        Dim group = actor.Universe.Factory.CreateGroup(GroupTypes.Planet, actor.Properties.Group.Name)
+    Private Sub PlacePlanet(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean), subType As String)
+        Dim centerColumn = externalActor.Properties.Interior.Size.Columns \ 2
+        Dim centerRow = externalActor.Properties.Interior.Size.Rows \ 2
+        Dim group = externalActor.Universe.Factory.CreateGroup(GroupTypes.Planet, externalActor.Properties.Group.Name)
+        group.AddParent(externalActor.Properties.Group)
         For Each delta In Grid3x3.Descriptors
             PlacePlanetSectionActor(
                 group,
-                actor.Properties.Interior.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y),
+                externalActor.Properties.Interior.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y),
                 subType,
                 delta.Value.SectionName)
         Next
-        addStep(New PlanetOrbitInitializationStep(actor.Properties.Interior.GetLocation(centerColumn, centerRow)), False)
+        addStep(New PlanetOrbitInitializationStep(externalActor.Properties.Interior.GetLocation(centerColumn, centerRow)), False)
     End Sub
 
     Private Shared Sub PlacePlanetSectionActor(
