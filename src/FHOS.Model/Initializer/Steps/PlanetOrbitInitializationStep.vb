@@ -19,21 +19,21 @@ Friend Class PlanetOrbitInitializationStep
         PlacePlanet(planet)
         addStep(New EncounterInitializationStep(planet.Properties.Interior), True)
     End Sub
-    Private Sub PlacePlanet(planet As IActor)
-        Dim planetCenterColumn = planet.Properties.Interior.Size.Columns \ 2
-        Dim planetCenterRow = planet.Properties.Interior.Size.Rows \ 2
+    Private Sub PlacePlanet(externalActor As IActor)
+        Dim planetCenterColumn = externalActor.Properties.Interior.Size.Columns \ 2
+        Dim planetCenterRow = externalActor.Properties.Interior.Size.Rows \ 2
         For Each delta In Grid5x5.Descriptors
             PlacePlanetSection(
-                planet,
-                planet.Properties.Interior.GetLocation(
+                externalActor,
+                externalActor.Properties.Interior.GetLocation(
                     planetCenterColumn + delta.Value.Delta.X,
                     planetCenterRow + delta.Value.Delta.Y),
                 delta.Key)
         Next
     End Sub
-    Private Shared Sub PlacePlanetSection(planet As IActor, location As ILocation, sectionName As String)
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(planet.Descriptor.Subtype, sectionName)).CreateActor(location, planet.Properties.Group.Name)
+    Private Shared Sub PlacePlanetSection(externalActor As IActor, location As ILocation, sectionName As String)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(externalActor.Descriptor.Subtype, sectionName)).CreateActor(location, externalActor.Properties.Group.Name)
         location.LocationType = LocationTypes.Planet
-        actor.Properties.Group = planet.Properties.Group
+        actor.Properties.Group = externalActor.Properties.Group
     End Sub
 End Class
