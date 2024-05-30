@@ -96,17 +96,4 @@ Friend Class GroupModel
                 Return "Friendly"
         End Select
     End Function
-
-    Public Function BelongsToStarSystem(starSystem As IGroupModel) As Boolean Implements IGroupModel.BelongsToStarSystem
-        Select Case group.GroupType
-            Case GroupTypes.PlanetVicinity
-                Return ToGroup(Actors.Single(Function(x) x.IsPlanetVicinity).StarSystem).Id = ToGroup(starSystem).Id
-        End Select
-        Throw New NotImplementedException()
-    End Function
-
-    Private Shared Function ToGroup(group As IGroupModel) As IGroup
-        Return CType(group, GroupModel).group
-    End Function
-
 End Class

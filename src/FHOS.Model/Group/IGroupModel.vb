@@ -9,5 +9,4 @@
     Function RelationNameTo(otherGroup As IGroupModel) As String
     ReadOnly Property Actors As IEnumerable(Of IActorModel)
     ReadOnly Property Pedia As IUniversePediaModel
-    Function BelongsToStarSystem(starSystem As IGroupModel) As Boolean
 End Interface
