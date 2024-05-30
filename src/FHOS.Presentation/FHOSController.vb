@@ -35,8 +35,9 @@ Public Class FHOSController
 
     Private Sub CreateSPLORRPediaStates(context As IUIContext(Of IUniverseModel))
         SetState(GameState.SPLORRPedia, New SPLORRPediaState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.FactionList, New FactionListState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.FactionPlanetList, New FactionPlanetListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.FactionDetails, New FactionDetailState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.FactionList, New FactionListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.StarSystemList, New StarSystemListState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.StarSystemDetails, New StarSystemDetailState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.StarSystemCrossReference, New StarSystemCrossReferenceState(Me, AddressOf SetCurrentState, context))

@@ -67,7 +67,7 @@ Friend Class GroupModel
 
     Public ReadOnly Property PlanetList As IEnumerable(Of IGroupModel) Implements IGroupModel.PlanetList
         Get
-            Return group.Children.Where(Function(x) x.GroupType = GroupTypes.PlanetVicinity).Select(AddressOf GroupModel.FromGroup)
+            Return group.Children.Where(Function(x) x.GroupType = GroupTypes.PlanetVicinity).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
         End Get
     End Property
 
@@ -92,6 +92,12 @@ Friend Class GroupModel
     Public ReadOnly Property Planet As IGroupModel Implements IGroupModel.Planet
         Get
             Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.GroupType = GroupTypes.PlanetVicinity))
+        End Get
+    End Property
+
+    Public ReadOnly Property Faction As IGroupModel Implements IGroupModel.Faction
+        Get
+            Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.GroupType = GroupTypes.Faction))
         End Get
     End Property
 

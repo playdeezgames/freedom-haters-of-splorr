@@ -11,5 +11,6 @@
     ReadOnly Property PlanetCount As Integer
     ReadOnly Property SatelliteCount As Integer
     ReadOnly Property StarSystem As IGroupModel
+    ReadOnly Property Faction As IGroupModel
     ReadOnly Property PlanetVicinity As IGroupModel
 End Interface

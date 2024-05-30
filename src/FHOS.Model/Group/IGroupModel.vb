@@ -11,4 +11,5 @@
     ReadOnly Property Pedia As IUniversePediaModel
     ReadOnly Property StarSystem As IGroupModel
     ReadOnly Property Planet As IGroupModel
+    ReadOnly Property Faction As IGroupModel
 End Interface

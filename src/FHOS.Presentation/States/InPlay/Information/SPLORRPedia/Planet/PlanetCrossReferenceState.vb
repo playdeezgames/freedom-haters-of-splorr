@@ -27,6 +27,9 @@ Friend Class PlanetCrossReferenceState
                 SetState(GameState.StarSystemDetails)
             Case SatellitesText
                 SetState(GameState.PlanetSatelliteList)
+            Case FactionText
+                FactionListState.SelectedFaction.Push(PlanetListState.SelectedPlanet.Peek.Faction)
+                SetState(GameState.FactionDetails)
         End Select
     End Sub
 

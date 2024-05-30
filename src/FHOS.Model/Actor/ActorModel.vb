@@ -111,6 +111,12 @@ Friend Class ActorModel
         End Get
     End Property
 
+    Public ReadOnly Property Faction As IGroupModel Implements IActorModel.Faction
+        Get
+            Return GroupModel.FromGroup(actor.Properties.Group.Parents.Single(Function(x) x.GroupType = GroupTypes.Faction))
+        End Get
+    End Property
+
     Friend Shared Function GetActor(model As IActorModel) As IActor
         Return CType(model, ActorModel).actor
     End Function

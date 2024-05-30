@@ -15,8 +15,13 @@ Friend Class FactionDetailState
     End Sub
 
     Public Overrides Sub HandleCommand(cmd As String)
-        FactionListState.SelectedFaction.Pop()
-        SetState(Nothing)
+        Select Case cmd
+            Case Command.B
+                FactionListState.SelectedFaction.Pop()
+                SetState(Nothing)
+            Case Command.A
+                SetState(GameState.FactionPlanetList)
+        End Select
     End Sub
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
@@ -37,7 +42,7 @@ Friend Class FactionDetailState
                 displayBuffer,
                 font,
                 Context.
-                ControlsText(bButton:="Go Back"), Context.UIPalette.Background, Context.UIPalette.Footer)
+                ControlsText(aButton:="Planets...", bButton:="Go Back"), Context.UIPalette.Background, Context.UIPalette.Footer)
         End With
     End Sub
 End Class

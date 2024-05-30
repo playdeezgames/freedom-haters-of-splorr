@@ -4,6 +4,7 @@
     Friend ReadOnly ChangeGalacticAge As String = NameOf(ChangeGalacticAge)
     Friend ReadOnly ChangeGalacticDensity As String = NameOf(ChangeGalacticDensity)
     Friend ReadOnly ChangeStartingWealthLevel As String = NameOf(ChangeStartingWealthLevel)
+    Friend ReadOnly FactionPlanetList As String = NameOf(FactionPlanetList)
     Friend ReadOnly FactionDetails As String = NameOf(FactionDetails)
     Friend ReadOnly FactionList As String = NameOf(FactionList)
     Friend ReadOnly GameOver As String = NameOf(GameOver)
