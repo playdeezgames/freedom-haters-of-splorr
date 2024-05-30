@@ -16,13 +16,14 @@ Friend Class PlanetDetailState
     Private actor As IActorModel = Nothing
 
     Public Overrides Sub HandleCommand(cmd As String)
+        PlanetListState.SelectedPlanet.Pop()
         SetState(Nothing)
     End Sub
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFontName)
-        With PlanetListState.SelectedPlanet
+        With PlanetListState.SelectedPlanet.Peek
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: {actor.Subtype}", Hues.Black)
@@ -38,6 +39,6 @@ Friend Class PlanetDetailState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        actor = PlanetListState.SelectedPlanet.Actors.Single(Function(x) x.IsPlanetVicinity)
+        actor = PlanetListState.SelectedPlanet.Peek.Actors.Single(Function(x) x.IsPlanetVicinity)
     End Sub
 End Class

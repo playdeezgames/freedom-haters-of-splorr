@@ -16,13 +16,14 @@ Friend Class SatelliteDetailState
     Private actor As IActorModel = Nothing
 
     Public Overrides Sub HandleCommand(cmd As String)
+        SatelliteListState.SelectedSatellite.Pop()
         SetState(Nothing)
     End Sub
 
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFontName)
-        With SatelliteListState.SelectedSatellite
+        With SatelliteListState.SelectedSatellite.Peek
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: {actor.Subtype}", Hues.Black)
@@ -38,6 +39,6 @@ Friend Class SatelliteDetailState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        actor = SatelliteListState.SelectedSatellite.Actors.Single(Function(x) x.IsSatellite)
+        actor = SatelliteListState.SelectedSatellite.Peek.Actors.Single(Function(x) x.IsSatellite)
     End Sub
 End Class
