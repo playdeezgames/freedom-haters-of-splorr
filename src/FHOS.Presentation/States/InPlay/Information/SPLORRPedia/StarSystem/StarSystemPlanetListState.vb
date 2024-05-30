@@ -23,6 +23,6 @@ Friend Class StarSystemPlanetListState
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IGroupModel))
-        Return StarSystemListState.SelectedStarSystem.PlanetList.Select(Function(x) (x.Name, x)).ToList
+        Return StarSystemListState.SelectedStarSystem.Peek.PlanetList.Select(Function(x) (x.Name, x)).ToList
     End Function
 End Class

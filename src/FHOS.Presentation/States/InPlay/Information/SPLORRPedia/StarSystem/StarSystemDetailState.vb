@@ -19,6 +19,7 @@ Friend Class StarSystemDetailState
         Select Case cmd
             Case Command.B
                 SetState(Nothing)
+                StarSystemListState.SelectedStarSystem.Pop()
             Case Command.A
                 PushState(GameState.StarSystemCrossReference)
         End Select
@@ -27,7 +28,7 @@ Friend Class StarSystemDetailState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFontName)
-        With StarSystemListState.SelectedStarSystem
+        With StarSystemListState.SelectedStarSystem.Peek
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: {actor.Subtype}", Hues.Black)
@@ -43,6 +44,6 @@ Friend Class StarSystemDetailState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        actor = StarSystemListState.SelectedStarSystem.Actors.Single(Function(x) x.IsStarSystem)
+        actor = StarSystemListState.SelectedStarSystem.Peek.Actors.Single(Function(x) x.IsStarSystem)
     End Sub
 End Class

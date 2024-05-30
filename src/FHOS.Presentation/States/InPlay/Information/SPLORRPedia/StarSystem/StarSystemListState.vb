@@ -3,7 +3,7 @@ Imports SPLORR.UI
 
 Friend Class StarSystemListState
     Inherits BasePickerState(Of IUniverseModel, IGroupModel)
-    Friend Shared SelectedStarSystem As IGroupModel
+    Friend Shared SelectedStarSystem As New Stack(Of IGroupModel)
 
     Public Sub New(
                   parent As IGameController,
@@ -20,7 +20,7 @@ Friend Class StarSystemListState
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IGroupModel))
-        SelectedStarSystem = value.Item
+        SelectedStarSystem.Push(value.Item)
         PushState(GameState.StarSystemDetails)
     End Sub
 
