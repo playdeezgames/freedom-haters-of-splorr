@@ -12,7 +12,7 @@
             {
                 {
                     MapTypes.PlanetOrbit,
-                    "2d6/9"
+                    "3d6/10"
                 }
             },
             buysScrap:=True)
