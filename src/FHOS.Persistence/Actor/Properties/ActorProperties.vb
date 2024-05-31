@@ -112,4 +112,21 @@
             EntityData.Groups("Satellite") = value.Id
         End Set
     End Property
+
+    Public Property Groups(groupType As String) As IGroup Implements IActorProperties.Groups
+        Get
+            Dim groupId As Integer
+            If EntityData.Groups.TryGetValue(groupType, groupId) Then
+                Return Persistence.Group.FromId(UniverseData, groupId)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IGroup)
+            If value IsNot Nothing Then
+                EntityData.Groups(groupType) = value.Id
+            Else
+                EntityData.Groups.Remove(groupType)
+            End If
+        End Set
+    End Property
 End Class

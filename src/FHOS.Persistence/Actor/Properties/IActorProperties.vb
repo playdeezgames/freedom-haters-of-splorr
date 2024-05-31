@@ -1,6 +1,7 @@
 ﻿Public Interface IActorProperties
     Property Interior As IMap
     Property Name As String
+    Property Groups(groupType As String) As IGroup
     Property Group As IGroup
     Property HomePlanet As IGroup
     Property StarSystem As IGroup
