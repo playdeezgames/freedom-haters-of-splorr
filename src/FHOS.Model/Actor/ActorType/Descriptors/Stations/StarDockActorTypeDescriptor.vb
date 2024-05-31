@@ -28,6 +28,5 @@
 
     Protected Overrides Function MakeName(planet As Persistence.IActor) As String
         Return $"{planet.Properties.Name} Star Dock"
-
     End Function
 End Class
