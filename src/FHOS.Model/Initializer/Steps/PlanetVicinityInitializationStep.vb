@@ -53,11 +53,11 @@ Friend Class PlanetVicinityInitializationStep
     Private Sub MakeSatellite(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean), planetType As PlanetTypeDescriptor, column As Integer, row As Integer)
         Dim satelliteType As String = planetType.GenerateSatelliteType()
         Dim location = externalActor.Properties.Interior.GetLocation(column, row)
-        Dim group = externalActor.Universe.Factory.CreateGroup(GroupTypes.Satellite, nameGenerator.GenerateUnusedName)
-        group.AddParent(externalActor.Properties.PlanetVicinity)
-        group.AddParent(externalActor.Properties.PlanetVicinity.Parents.Single(Function(x) x.GroupType = GroupTypes.StarSystem))
-        Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, group.Name)
-        satellite.Properties.Satellite = group
+        Dim satelliteGroup = externalActor.Universe.Factory.CreateGroup(GroupTypes.Satellite, nameGenerator.GenerateUnusedName)
+        satelliteGroup.AddParent(externalActor.Properties.PlanetVicinity)
+        satelliteGroup.AddParent(externalActor.Properties.PlanetVicinity.Parents.Single(Function(x) x.GroupType = GroupTypes.StarSystem))
+        Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, satelliteGroup.Name)
+        satellite.Properties.Groups(GroupTypes.Satellite) = satelliteGroup
         satellite.Properties.PlanetVicinity = externalActor.Properties.PlanetVicinity
         satellite.Properties.StarSystem = externalActor.Properties.StarSystem
         location.LocationType = LocationTypes.Satellite
