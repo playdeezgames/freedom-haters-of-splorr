@@ -11,6 +11,14 @@ Public Class Universe_should
         sut.Actors.ShouldBeEmpty
         Should.Throw(Of KeyNotFoundException)(Function() sut.Turn)
     End Sub
+    <Fact>
+    Sub set_and_retrieve_turn()
+        Dim data As New UniverseData
+        Dim sut As IUniverse = New Universe(data)
+        Const Turn = 1234
+        sut.Turn = Turn
+        sut.Turn.ShouldBe(Turn)
+    End Sub
 End Class
 
 
