@@ -1,8 +1,7 @@
 Public Class Universe_should
     <Fact>
     Sub have_default_values_upon_instantiation()
-        Dim data As New UniverseData
-        Dim sut As IUniverse = New Universe(data)
+        Dim sut As IUniverse = CreateUniverse()
         sut.ShouldNotBeNull
         sut.Factory.ShouldNotBeNull
         sut.Avatar.ShouldNotBeNull
@@ -13,8 +12,7 @@ Public Class Universe_should
     End Sub
     <Fact>
     Sub set_and_retrieve_turn()
-        Dim data As New UniverseData
-        Dim sut As IUniverse = New Universe(data)
+        Dim sut As IUniverse = CreateUniverse()
         Const Turn = 1234
         sut.Turn = Turn
         sut.Turn.ShouldBe(Turn)

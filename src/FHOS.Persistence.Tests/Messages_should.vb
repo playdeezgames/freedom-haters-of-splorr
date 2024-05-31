@@ -3,9 +3,7 @@
 Public Class Messages_should
     <Fact>
     Public Sub have_default_values_upon_instantiation()
-        Dim data As New UniverseData
-        Dim universe As New Universe(data)
-        Dim sut = universe.Messages
+        Dim sut = CreateMessages()
         sut.HasAny.ShouldBeFalse
         Should.Throw(Of InvalidOperationException)(Function() sut.Current)
         Should.Throw(Of InvalidOperationException)(Sub() sut.Dismiss())
@@ -13,9 +11,7 @@ Public Class Messages_should
     End Sub
     <Fact>
     Public Sub add_and_dismiss_message()
-        Dim data As New UniverseData
-        Dim universe As New Universe(data)
-        Dim sut = universe.Messages
+        Dim sut = CreateMessages()
 
         sut.HasAny.ShouldBeFalse
 

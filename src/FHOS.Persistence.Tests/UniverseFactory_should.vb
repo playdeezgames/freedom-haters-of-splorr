@@ -1,9 +1,8 @@
 ﻿Public Class UniverseFactory_should
     <Fact>
     Sub create_group()
-        Dim data As New UniverseData
-        Dim universe As New Universe(data)
-        Dim sut = universe.Factory
+        Dim universe = CreateUniverse()
+        Dim sut As IUniverseFactory = CreateUniverseFactory(universe)
         Const groupName = "group name"
         Const groupType = "group type"
         Dim group = sut.CreateGroup(groupType, groupName)
@@ -22,5 +21,21 @@
         group.Children.ShouldBeEmpty
         Should.Throw(Of NullReferenceException)(Sub() group.AddParent(Nothing))
         Should.NotThrow(Sub() group.RemoveParent(Nothing))
+    End Sub
+    <Fact>
+    Sub create_map()
+        Dim sut As IUniverseFactory = CreateUniverseFactory()
+        Const mapName = "map name"
+        Const mapType = "map type"
+        Const mapColumns = 2
+        Const mapRows = 3
+        Const defaultLocationType = "default location type"
+        Dim map = sut.CreateMap(mapName, mapType, mapColumns, mapRows, defaultLocationType)
+        map.MapType.ShouldBe(mapType)
+        map.Name.ShouldBe(mapName)
+        map.Locations.Count.ShouldBe(mapColumns * mapRows)
+        map.Locations.All(Function(x) x.LocationType = defaultLocationType).ShouldBeTrue
+        map.Size.Columns.ShouldBe(mapColumns)
+        map.Size.Rows.ShouldBe(mapRows)
     End Sub
 End Class
