@@ -36,9 +36,28 @@ Friend Class UniverseFactory
         Dim map = Persistence.Map.FromId(UniverseData, mapId)
         mapData.Locations = Enumerable.
                             Range(0, columns * rows).
-                            Select(Function(x) map.CreateLocation(locationType, x Mod rows, x \ rows).Id).ToList
+                            Select(Function(x) StaticCreateLocation(UniverseData, mapId, locationType, x Mod rows, x \ rows)).ToList
         Return map
     End Function
+
+
+    Private Shared Function StaticCreateLocation(universeData As UniverseData, mapId As Integer, locationType As String, column As Integer, row As Integer) As Integer
+        Dim locationData = New LocationData With
+                            {
+                                .Statistics = New Dictionary(Of String, Integer) From
+                                {
+                                    {StatisticTypes.MapId, mapId},
+                                    {StatisticTypes.Column, column},
+                                    {StatisticTypes.Row, row}
+                                },
+                                .Metadatas = New Dictionary(Of String, String) From
+                                {
+                                    {MetadataTypes.LocationType, locationType}
+                                }
+                            }
+        Return universeData.Locations.CreateOrRecycle(locationData)
+    End Function
+
 
     Public Function CreateGroup(
                                 groupType As String,
