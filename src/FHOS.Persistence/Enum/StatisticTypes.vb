@@ -1,4 +1,4 @@
-﻿Friend Module StatisticTypes
+﻿Public Module StatisticTypes
     Friend ReadOnly ActorId As String = NameOf(ActorId)
     Friend ReadOnly Authority As String = NameOf(Authority)
     Friend ReadOnly Column As String = NameOf(Column)
@@ -35,5 +35,4 @@
     Friend ReadOnly WalletId As String = NameOf(WalletId)
     Friend ReadOnly X As String = NameOf(X)
     Friend ReadOnly Y As String = NameOf(Y)
-
 End Module

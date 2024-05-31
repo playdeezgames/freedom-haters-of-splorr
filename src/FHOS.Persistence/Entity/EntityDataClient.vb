@@ -55,11 +55,7 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         End If
     End Sub
     Protected Function GetStatistic(statisticType As String) As Integer?
-        Dim result As Integer
-        If EntityData.Statistics.TryGetValue(statisticType, result) Then
-            Return result
-        End If
-        Return Nothing
+        Return TryGetStatistic(statisticType)
     End Function
     Protected Sub SetMetadata(metadataType As String, value As String)
         If value Is Nothing Then
@@ -82,4 +78,12 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         EntityData.Metadatas.Clear()
         entityDataRecycler(UniverseData, Id)
     End Sub
+
+    Public Function TryGetStatistic(statisticType As String) As Integer? Implements IEntity.TryGetStatistic
+        Dim result As Integer
+        If EntityData.Statistics.TryGetValue(statisticType, result) Then
+            Return result
+        End If
+        Return Nothing
+    End Function
 End Class

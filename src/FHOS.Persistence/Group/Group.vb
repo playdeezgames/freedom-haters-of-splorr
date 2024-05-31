@@ -93,15 +93,6 @@ Friend Class Group
         End Get
     End Property
 
-    Private Property IGroup_Group As IGroup Implements IGroup.LegacyGroup
-        Get
-            Return Group.FromId(UniverseData, GetStatistic(StatisticTypes.LegacyGroupId))
-        End Get
-        Set(value As IGroup)
-            SetStatistic(StatisticTypes.LegacyGroupId, value?.Id)
-        End Set
-    End Property
-
     Public ReadOnly Property Parents As IEnumerable(Of IGroup) Implements IGroup.Parents
         Get
             Return EntityData.Parents.Select(Function(x) Group.FromId(UniverseData, x))

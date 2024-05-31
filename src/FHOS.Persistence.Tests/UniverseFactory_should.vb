@@ -10,7 +10,6 @@
         group.GroupType.ShouldBe(groupType)
         group.Name.ShouldBe(groupName)
         universe.Groups.Count.ShouldBe(1)
-        group.LegacyGroup.ShouldBeNull
         Should.Throw(Of InvalidOperationException)(Function() group.MinimumPlanetCount)
         group.PlanetCount.ShouldBe(0)
         group.SatelliteCount.ShouldBe(0)

@@ -29,4 +29,10 @@
         sut.Universe.Groups.Count.ShouldBe(1)
         sut.Universe.Groups.First().Id.ShouldBe(sut.Id)
     End Sub
+    <Fact>
+    Sub have_statistics()
+        Dim sut = CreateSut()
+        Const statisticType = "statistic type"
+        sut.TryGetStatistic(statisticType).ShouldBeNull
+    End Sub
 End Class

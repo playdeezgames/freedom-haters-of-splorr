@@ -1,6 +1,5 @@
 ﻿Public Interface IGroup
     Inherits IEntity
-    Property LegacyGroup As IGroup
     ReadOnly Property GroupType As String
     Property MinimumPlanetCount As Integer
     ReadOnly Property Name As String
