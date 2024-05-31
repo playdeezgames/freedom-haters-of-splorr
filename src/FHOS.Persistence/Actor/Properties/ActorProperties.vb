@@ -86,15 +86,6 @@
         End Set
     End Property
 
-    Public Property PlanetVicinity As IGroup Implements IActorProperties.PlanetVicinity
-        Get
-            Return Persistence.Group.FromId(UniverseData, GetStatistic(StatisticTypes.PlanetVicinityId))
-        End Get
-        Set(value As IGroup)
-            SetStatistic(StatisticTypes.PlanetVicinityId, value?.Id)
-        End Set
-    End Property
-
     Public Property Groups(groupType As String) As IGroup Implements IActorProperties.Groups
         Get
             Dim groupId As Integer

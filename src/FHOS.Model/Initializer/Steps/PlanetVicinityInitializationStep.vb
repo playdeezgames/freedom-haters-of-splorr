@@ -21,7 +21,7 @@ Friend Class PlanetVicinityInitializationStep
             actor,
             addStep,
             actor.Descriptor.Subtype)
-        actor.Properties.PlanetVicinity.SatelliteCount = PlaceSatellites(actor, addStep)
+        actor.Properties.Groups(GroupTypes.PlanetVicinity).SatelliteCount = PlaceSatellites(actor, addStep)
         addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
     End Sub
     Private Function PlaceSatellites(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean)) As Integer
@@ -54,11 +54,11 @@ Friend Class PlanetVicinityInitializationStep
         Dim satelliteType As String = planetType.GenerateSatelliteType()
         Dim location = externalActor.Properties.Interior.GetLocation(column, row)
         Dim satelliteGroup = externalActor.Universe.Factory.CreateGroup(GroupTypes.Satellite, nameGenerator.GenerateUnusedName)
-        satelliteGroup.AddParent(externalActor.Properties.PlanetVicinity)
-        satelliteGroup.AddParent(externalActor.Properties.PlanetVicinity.Parents.Single(Function(x) x.GroupType = GroupTypes.StarSystem))
+        satelliteGroup.AddParent(externalActor.Properties.Groups(GroupTypes.PlanetVicinity))
+        satelliteGroup.AddParent(externalActor.Properties.Groups(GroupTypes.PlanetVicinity).Parents.Single(Function(x) x.GroupType = GroupTypes.StarSystem))
         Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, satelliteGroup.Name)
         satellite.Properties.Groups(GroupTypes.Satellite) = satelliteGroup
-        satellite.Properties.PlanetVicinity = externalActor.Properties.PlanetVicinity
+        satellite.Properties.Groups(GroupTypes.PlanetVicinity) = externalActor.Properties.Groups(GroupTypes.PlanetVicinity)
         satellite.Properties.StarSystem = externalActor.Properties.StarSystem
         location.LocationType = LocationTypes.Satellite
         addStep(New SatelliteOrbitInitializationStep(location), False)
@@ -67,8 +67,8 @@ Friend Class PlanetVicinityInitializationStep
     Private Sub PlacePlanet(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean), subType As String)
         Dim centerColumn = externalActor.Properties.Interior.Size.Columns \ 2
         Dim centerRow = externalActor.Properties.Interior.Size.Rows \ 2
-        Dim group = externalActor.Universe.Factory.CreateGroup(GroupTypes.Planet, externalActor.Properties.PlanetVicinity.Name)
-        group.AddParent(externalActor.Properties.PlanetVicinity)
+        Dim group = externalActor.Universe.Factory.CreateGroup(GroupTypes.Planet, externalActor.Properties.Groups(GroupTypes.PlanetVicinity).Name)
+        group.AddParent(externalActor.Properties.Groups(GroupTypes.PlanetVicinity))
         For Each delta In Grid3x3.Descriptors
             PlacePlanetSectionActor(
                 group,
