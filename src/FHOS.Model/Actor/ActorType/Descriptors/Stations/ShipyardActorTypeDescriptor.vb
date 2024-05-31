@@ -19,7 +19,7 @@
     End Sub
 
     Protected Overrides Function MakeName(planet As Persistence.IActor) As String
-        Return $"{planet.Properties.Planet.Name} Shipyard"
+        Return $"{planet.Properties.Groups(GroupTypes.Planet).Name} Shipyard"
     End Function
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
@@ -28,7 +28,7 @@
 
     Friend Overrides Function Describe(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
         Return {
-            ($"Planet: {actor.Properties.Planet.Name}", Hues.Black)
+            ($"Planet: {actor.Properties.Groups(GroupTypes.Planet).Name}", Hues.Black)
             }
     End Function
 End Class

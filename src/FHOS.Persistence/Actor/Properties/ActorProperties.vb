@@ -95,15 +95,6 @@
         End Set
     End Property
 
-    Public Property Planet As IGroup Implements IActorProperties.Planet
-        Get
-            Return Persistence.Group.FromId(UniverseData, EntityData.Groups("Planet"))
-        End Get
-        Set(value As IGroup)
-            EntityData.Groups("Planet") = value.Id
-        End Set
-    End Property
-
     Public Property Groups(groupType As String) As IGroup Implements IActorProperties.Groups
         Get
             Dim groupId As Integer

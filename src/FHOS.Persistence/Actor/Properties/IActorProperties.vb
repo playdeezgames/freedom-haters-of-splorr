@@ -6,7 +6,6 @@
     Property HomePlanet As IGroup
     Property StarSystem As IGroup
     Property PlanetVicinity As IGroup
-    Property Planet As IGroup
 
     Property CostumeType As String
     Property TargetActor As IActor
