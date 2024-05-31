@@ -36,7 +36,7 @@ Friend Class ActorModel
 
     Public ReadOnly Property Group As IGroupModel Implements IActorModel.Group
         Get
-            Return GroupModel.FromGroup(actor.Properties.Group)
+            Return GroupModel.FromGroup(actor.Properties.Groups(GroupTypes.Faction))
         End Get
     End Property
 
@@ -71,7 +71,7 @@ Friend Class ActorModel
 
     Public ReadOnly Property PlanetCount As Integer Implements IActorModel.PlanetCount
         Get
-            Return actor.Properties.Group.PlanetCount
+            Return actor.Properties.Groups(GroupTypes.Faction).PlanetCount
         End Get
     End Property
 
@@ -95,25 +95,25 @@ Friend Class ActorModel
 
     Public ReadOnly Property StarSystem As IGroupModel Implements IActorModel.StarSystem
         Get
-            Return GroupModel.FromGroup(actor.Properties.Group.Parents.Single(Function(x) x.GroupType = GroupTypes.StarSystem))
+            Return GroupModel.FromGroup(actor.Properties.Groups(GroupTypes.Faction).Parents.Single(Function(x) x.GroupType = GroupTypes.StarSystem))
         End Get
     End Property
 
     Public ReadOnly Property SatelliteCount As Integer Implements IActorModel.SatelliteCount
         Get
-            Return actor.Properties.Group.SatelliteCount
+            Return actor.Properties.Groups(GroupTypes.Faction).SatelliteCount
         End Get
     End Property
 
     Public ReadOnly Property PlanetVicinity As IGroupModel Implements IActorModel.PlanetVicinity
         Get
-            Return GroupModel.FromGroup(actor.Properties.Group.Parents.Single(Function(x) x.GroupType = GroupTypes.PlanetVicinity))
+            Return GroupModel.FromGroup(actor.Properties.Groups(GroupTypes.Faction).Parents.Single(Function(x) x.GroupType = GroupTypes.PlanetVicinity))
         End Get
     End Property
 
     Public ReadOnly Property Faction As IGroupModel Implements IActorModel.Faction
         Get
-            Return GroupModel.FromGroup(actor.Properties.Group.Parents.Single(Function(x) x.GroupType = GroupTypes.Faction))
+            Return GroupModel.FromGroup(actor.Properties.Groups(GroupTypes.Faction).Parents.Single(Function(x) x.GroupType = GroupTypes.Faction))
         End Get
     End Property
 

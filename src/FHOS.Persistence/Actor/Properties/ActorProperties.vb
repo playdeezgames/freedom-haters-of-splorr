@@ -10,28 +10,6 @@
         Return New ActorProperties(universeData, id)
     End Function
 
-    Public Property Group As IGroup Implements IActorProperties.Group
-        Get
-            Dim id = GetStatistic(StatisticTypes.GroupId)
-            If id.HasValue Then
-                Return Persistence.Group.FromId(UniverseData, id.Value)
-            End If
-            Return Nothing
-        End Get
-        Set(value As IGroup)
-            If value IsNot Nothing Then
-                Select Case value.GroupType
-                    Case "Faction"
-                        EntityData.Statistics(StatisticTypes.GroupId) = value.Id
-                    Case Else
-                        Throw New ArgumentException(value.GroupType)
-                End Select
-            Else
-                EntityData.Statistics.Remove(StatisticTypes.GroupId)
-            End If
-        End Set
-    End Property
-
     Public Property Name As String Implements IActorProperties.Name
         Get
             Return GetMetadata(MetadataTypes.Name)
