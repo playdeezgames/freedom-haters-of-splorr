@@ -20,7 +20,12 @@
         End Get
         Set(value As IGroup)
             If value IsNot Nothing Then
-                EntityData.Statistics(StatisticTypes.GroupId) = value.Id
+                Select Case value.GroupType
+                    Case "Faction"
+                        EntityData.Statistics(StatisticTypes.GroupId) = value.Id
+                    Case Else
+                        Throw New ArgumentException(value.GroupType)
+                End Select
             Else
                 EntityData.Statistics.Remove(StatisticTypes.GroupId)
             End If
@@ -87,6 +92,24 @@
         End Get
         Set(value As IGroup)
             SetStatistic(StatisticTypes.PlanetVicinityId, value?.Id)
+        End Set
+    End Property
+
+    Public Property Planet As IGroup Implements IActorProperties.Planet
+        Get
+            Return Persistence.Group.FromId(UniverseData, EntityData.Groups("Planet"))
+        End Get
+        Set(value As IGroup)
+            EntityData.Groups("Planet") = value.Id
+        End Set
+    End Property
+
+    Public Property Satellite As IGroup Implements IActorProperties.Satellite
+        Get
+            Return Persistence.Group.FromId(UniverseData, EntityData.Groups("Satellite"))
+        End Get
+        Set(value As IGroup)
+            EntityData.Groups("Satellite") = value.Id
         End Set
     End Property
 End Class

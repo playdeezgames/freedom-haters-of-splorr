@@ -8,6 +8,5 @@
     ReadOnly Property Equipment As IActorEquipment
     ReadOnly Property Groups As IEnumerable(Of IGroup)
     Sub AddGroup(group As IGroup)
-    Sub RemoveGroup(group As IGroup)
 
 End Interface

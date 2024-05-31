@@ -13,7 +13,6 @@ Friend Class SatelliteDetailState
             setState,
             context)
     End Sub
-    Private actor As IActorModel = Nothing
 
     Public Overrides Sub HandleCommand(cmd As String)
         Select Case cmd
@@ -31,9 +30,7 @@ Friend Class SatelliteDetailState
         With SatelliteListState.SelectedSatellite.Peek
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
-            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: {actor.Subtype}", Hues.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planet: {actor.PlanetVicinity.Name}", Hues.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Star: {actor.StarSystem.Name}", Hues.Black)
+            'position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: {actor.Subtype}", Hues.Black)
             Context.ShowStatusBar(
                 displayBuffer,
                 font,
@@ -44,6 +41,5 @@ Friend Class SatelliteDetailState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        actor = SatelliteListState.SelectedSatellite.Peek.Actors.Single(Function(x) x.IsSatellite)
     End Sub
 End Class

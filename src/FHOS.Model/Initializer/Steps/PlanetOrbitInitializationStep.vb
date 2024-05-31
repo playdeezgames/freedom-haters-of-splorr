@@ -9,7 +9,7 @@ Friend Class PlanetOrbitInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planet = location.Actor
         Dim actors = location.Map.Locations.Where(Function(x) If(x.Actor?.Descriptor?.IsPlanet, False)).Select(Function(x) x.Actor)
-        Dim map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.Properties.Group.Name} Orbit", planet.Universe)
+        Dim map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.Properties.Planet.Name} Orbit", planet.Universe)
         planet.Properties.Interior = map
         For Each actor In actors
             actor.Properties.Interior = map
@@ -32,8 +32,8 @@ Friend Class PlanetOrbitInitializationStep
         Next
     End Sub
     Private Shared Sub PlacePlanetSection(externalActor As IActor, location As ILocation, sectionName As String)
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(externalActor.Descriptor.Subtype, sectionName)).CreateActor(location, externalActor.Properties.Group.Name)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(externalActor.Descriptor.Subtype, sectionName)).CreateActor(location, externalActor.Properties.Planet.Name)
         location.LocationType = LocationTypes.Planet
-        actor.Properties.Group = externalActor.Properties.Group
+        actor.Properties.Planet = externalActor.Properties.Planet
     End Sub
 End Class

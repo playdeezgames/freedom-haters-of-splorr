@@ -59,12 +59,6 @@ Friend Class GroupModel
         End Get
     End Property
 
-    Public ReadOnly Property Actors As IEnumerable(Of IActorModel) Implements IGroupModel.Actors
-        Get
-            Return group.Universe.Actors.Where(Function(x) x.Properties.Group IsNot Nothing AndAlso x.Properties.Group.Id = group.Id).Select(Function(x) ActorModel.FromActor(x))
-        End Get
-    End Property
-
     Public ReadOnly Property PlanetList As IEnumerable(Of IGroupModel) Implements IGroupModel.PlanetList
         Get
             Return group.Children.Where(Function(x) x.GroupType = GroupTypes.PlanetVicinity).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)

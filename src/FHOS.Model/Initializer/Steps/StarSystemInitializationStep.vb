@@ -16,7 +16,7 @@ Friend Class StarSystemInitializationStep
         actor.Properties.Interior = descriptor.CreateMap($"{actor.Properties.Name} System", actor.Universe)
         PlaceBoundaryActors(actor, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(actor, addStep)
-        actor.Properties.Group.PlanetCount = PlacePlanets(actor, addStep)
+        actor.Properties.StarSystem.PlanetCount = PlacePlanets(actor, addStep)
         addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
     End Sub
 
@@ -51,10 +51,10 @@ Friend Class StarSystemInitializationStep
         Dim location = exteriorActor.Properties.Interior.GetLocation(column, row)
         location.LocationType = LocationTypes.PlanetVicinity
         Dim group = location.Universe.Factory.CreateGroup(GroupTypes.PlanetVicinity, nameGenerator.GenerateUnusedName)
-        group.AddParent(exteriorActor.Properties.Group)
+        group.AddParent(exteriorActor.Properties.StarSystem)
         Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetVicinity(planetType)).CreateActor(location, $"{group.Name}")
-        actor.Properties.Group = group
-        actor.Properties.StarSystem = exteriorActor.Properties.Group
+        actor.Properties.PlanetVicinity = group
+        actor.Properties.StarSystem = exteriorActor.Properties.StarSystem
         addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
     End Sub
 
@@ -62,7 +62,7 @@ Friend Class StarSystemInitializationStep
         Dim starColumn = externalActor.Properties.Interior.Size.Columns \ 2
         Dim starRow = externalActor.Properties.Interior.Size.Rows \ 2
         Dim location = externalActor.Properties.Interior.GetLocation(starColumn, starRow)
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarVicinity(externalActor.Descriptor.Subtype)).CreateActor(location, externalActor.Properties.Group.Name)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarVicinity(externalActor.Descriptor.Subtype)).CreateActor(location, externalActor.Properties.StarSystem.Name)
         actor.Properties.Group = externalActor.Properties.Group
         location.LocationType = LocationTypes.StarVicinity
         addStep(New StarVicinityInitializationStep(location), False)

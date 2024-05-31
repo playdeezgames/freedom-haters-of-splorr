@@ -13,7 +13,6 @@ Friend Class StarSystemDetailState
             setState,
             context)
     End Sub
-    Private actor As IActorModel = Nothing
 
     Public Overrides Sub HandleCommand(cmd As String)
         Select Case cmd
@@ -31,9 +30,7 @@ Friend Class StarSystemDetailState
         With StarSystemListState.SelectedStarSystem.Peek
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
-            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: {actor.Subtype}", Hues.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Location: ({actor.Position.X},{actor.Position.Y})", Hues.Black)
-            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planets: {actor.PlanetCount}", Hues.Black)
+            'position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: {actor.Subtype}", Hues.Black)
             Context.ShowStatusBar(
                 displayBuffer,
                 font,
@@ -44,6 +41,5 @@ Friend Class StarSystemDetailState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        actor = StarSystemListState.SelectedStarSystem.Peek.Actors.Single(Function(x) x.IsStarSystem)
     End Sub
 End Class

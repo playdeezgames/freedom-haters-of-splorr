@@ -16,13 +16,7 @@ Friend Class Actor
 
     Public Sub AddGroup(group As IGroup) Implements IActor.AddGroup
         If group IsNot Nothing Then
-            EntityData.Groups.Add(group.Id)
-        End If
-    End Sub
-
-    Public Sub RemoveGroup(group As IGroup) Implements IActor.RemoveGroup
-        If group IsNot Nothing Then
-            EntityData.Groups.Remove(group.Id)
+            EntityData.Groups(group.GroupType) = group.Id
         End If
     End Sub
 
@@ -64,7 +58,7 @@ Friend Class Actor
 
     Public ReadOnly Property Groups As IEnumerable(Of IGroup) Implements IActor.Groups
         Get
-            Return EntityData.Groups.Select(Function(x) Group.FromId(UniverseData, x))
+            Return EntityData.Groups.Values.Select(Function(x) Group.FromId(UniverseData, x))
         End Get
     End Property
 End Class

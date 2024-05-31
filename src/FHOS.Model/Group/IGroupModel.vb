@@ -7,7 +7,6 @@
     ReadOnly Property PlanetList As IEnumerable(Of IGroupModel)
     ReadOnly Property SatelliteList As IEnumerable(Of IGroupModel)
     Function RelationNameTo(otherGroup As IGroupModel) As String
-    ReadOnly Property Actors As IEnumerable(Of IActorModel)
     ReadOnly Property Pedia As IUniversePediaModel
     ReadOnly Property StarSystem As IGroupModel
     ReadOnly Property Planet As IGroupModel

@@ -12,11 +12,9 @@ Friend Class Group
     End Sub
 
     Public Sub AddParent(parent As IGroup) Implements IGroup.AddParent
-        If parent IsNot Nothing Then
-            If Not EntityData.Parents.Contains(parent.Id) Then
-                EntityData.Parents.Add(parent.Id)
-                CType(parent, Group).EntityData.Children.Add(Id)
-            End If
+        If Not EntityData.Parents.Contains(parent.Id) Then
+            EntityData.Parents.Add(parent.Id)
+            CType(parent, Group).EntityData.Children.Add(Id)
         End If
     End Sub
 
