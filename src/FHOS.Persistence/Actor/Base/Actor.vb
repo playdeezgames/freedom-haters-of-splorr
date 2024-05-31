@@ -14,6 +14,18 @@ Friend Class Actor
         Return Nothing
     End Function
 
+    Public Sub AddGroup(group As IGroup) Implements IActor.AddGroup
+        If group IsNot Nothing Then
+            EntityData.Groups.Add(group.Id)
+        End If
+    End Sub
+
+    Public Sub RemoveGroup(group As IGroup) Implements IActor.RemoveGroup
+        If group IsNot Nothing Then
+            EntityData.Groups.Remove(group.Id)
+        End If
+    End Sub
+
     Public ReadOnly Property ActorType As String Implements IActor.ActorType
         Get
             Return EntityData.Metadatas(MetadataTypes.ActorType)
@@ -47,6 +59,12 @@ Friend Class Actor
     Public ReadOnly Property Equipment As IActorEquipment Implements IActor.Equipment
         Get
             Return ActorEquipment.FromId(UniverseData, Id)
+        End Get
+    End Property
+
+    Public ReadOnly Property Groups As IEnumerable(Of IGroup) Implements IActor.Groups
+        Get
+            Return EntityData.Groups.Select(Function(x) Group.FromId(UniverseData, x))
         End Get
     End Property
 End Class
