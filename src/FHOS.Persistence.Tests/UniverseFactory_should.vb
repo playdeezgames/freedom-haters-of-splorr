@@ -37,5 +37,25 @@
         map.Locations.All(Function(x) x.LocationType = defaultLocationType).ShouldBeTrue
         map.Size.Columns.ShouldBe(mapColumns)
         map.Size.Rows.ShouldBe(mapRows)
+        map.Id.ShouldBe(0)
+    End Sub
+    <Fact>
+    Sub create_store()
+        Dim sut As IUniverseFactory = CreateUniverseFactory()
+        Const currentValue = 100
+        Dim store = sut.CreateStore(currentValue)
+        store.CurrentValue.ShouldBe(currentValue)
+        store.MaximumValue.ShouldBeNull
+        store.MinimumValue.ShouldBeNull
+        store.Percent.ShouldBeNull
+        store.Id.ShouldBe(0)
+    End Sub
+    <Fact>
+    Sub create_item()
+        Dim sut As IUniverseFactory = CreateUniverseFactory()
+        Const itemType = "item type"
+        Dim item = sut.CreateItem(itemType)
+        item.ShouldNotBeNull
+        item.Id.ShouldBe(0)
     End Sub
 End Class
