@@ -1,4 +1,4 @@
-﻿Public Class Universe_Avatar_should
+﻿Public Class Avatar_should
     <Fact>
     Sub have_default_values_upon_instantiation()
         Dim data As New UniverseData

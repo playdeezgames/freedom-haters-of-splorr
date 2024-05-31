@@ -1,6 +1,6 @@
 ﻿Imports System.Net.Http
 
-Public Class Universe_Messages_should
+Public Class Messages_should
     <Fact>
     Public Sub have_default_values_upon_instantiation()
         Dim data As New UniverseData
