@@ -36,4 +36,37 @@
         sut.CostumeType.ShouldBeNull
         sut.TargetActor.ShouldBeNull
     End Sub
+    <Fact>
+    Sub have_interior()
+        Dim universe = CreateUniverse()
+        Dim sut = CreateSut(universe:=universe)
+        Dim map = CreateMap("other map name", "other map type", 2, 3, "other location type", universe:=universe)
+        sut.Interior = map
+        sut.Interior.Id.ShouldBe(map.Id)
+    End Sub
+    <Fact>
+    Sub have_home_planet()
+        Dim universe = CreateUniverse()
+        Dim sut = CreateSut(universe:=universe)
+        Dim homePlanet = CreateGroup("other group type", "other group name", universe:=universe)
+        sut.HomePlanet = homePlanet
+        sut.HomePlanet.Id.ShouldBe(homePlanet.Id)
+    End Sub
+    <Fact>
+    Sub have_costume_type()
+        Const costumeType = "costume type"
+        Dim sut = CreateSut()
+        sut.CostumeType = costumeType
+        sut.CostumeType.ShouldBe(costumeType)
+    End Sub
+    <Fact>
+    Sub have_target_actor()
+        Dim universe = CreateUniverse()
+        Dim sut = CreateSut(universe:=universe)
+        Dim otherActor = CreateActor("other map name", "other map type", 3, 2, "other location type", 1, 1, "other actor type", "other actor name", universe:=universe)
+        sut.TargetActor = otherActor
+        sut.TargetActor.Id.ShouldBe(otherActor.Id)
+        sut.TargetActor = Nothing
+        sut.TargetActor.ShouldBe(Nothing)
+    End Sub
 End Class
