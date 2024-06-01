@@ -34,4 +34,10 @@
                                Optional data As UniverseData = Nothing) As IStore
         Return CreateUniverseFactory(universe, data).CreateStore(value, minimum, maximum)
     End Function
+    Friend Function CreateItem(
+                               itemType As String,
+                               Optional universe As IUniverse = Nothing,
+                               Optional data As UniverseData = Nothing) As IItem
+        Return CreateUniverseFactory(universe, data).CreateItem(itemType)
+    End Function
 End Module
