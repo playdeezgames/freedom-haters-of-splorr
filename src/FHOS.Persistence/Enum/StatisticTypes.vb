@@ -1,4 +1,4 @@
-﻿Public Module StatisticTypes
+﻿Friend Module StatisticTypes
     Friend ReadOnly ActorId As String = NameOf(ActorId)
     Friend ReadOnly Authority As String = NameOf(Authority)
     Friend ReadOnly Column As String = NameOf(Column)
@@ -16,7 +16,6 @@
     Friend ReadOnly LocationId As String = NameOf(LocationId)
     Friend ReadOnly MapId As String = NameOf(MapId)
     Friend ReadOnly MaximumValue As String = NameOf(MaximumValue)
-    Friend ReadOnly MinimumPlanetCount As String = NameOf(MinimumPlanetCount)
     Friend ReadOnly MinimumValue As String = NameOf(MinimumValue)
     Friend ReadOnly TargetActor As String = NameOf(TargetActor)
     Friend ReadOnly ParentId As String = NameOf(ParentId)
@@ -25,7 +24,6 @@
     Friend ReadOnly PlanetVicinityId As String = NameOf(PlanetVicinityId)
     Friend ReadOnly Row As String = NameOf(Row)
     Friend ReadOnly Rows As String = NameOf(Rows)
-    Friend ReadOnly SatelliteCount As String = NameOf(SatelliteCount)
     Friend ReadOnly Scrap As String = NameOf(Scrap)
     Friend ReadOnly Standards As String = NameOf(Standards)
     Friend ReadOnly StarGateId As String = NameOf(StarGateId)

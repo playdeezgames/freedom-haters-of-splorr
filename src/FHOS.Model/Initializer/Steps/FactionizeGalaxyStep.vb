@@ -17,7 +17,7 @@ Friend Class FactionizeGalaxyStep
     Private Sub FactionizePlanets(factions As IEnumerable(Of IGroup))
         Dim planets = New HashSet(Of IGroup)(universe.Groups.Where(Function(x) x.GroupType = GroupTypes.PlanetVicinity))
         For Each group In factions
-            For Each dummy In Enumerable.Range(0, group.MinimumPlanetCount)
+            For Each dummy In Enumerable.Range(0, group.Statistics(StatisticTypes.MinimumPlanetCount).Value)
                 Dim planet = RNG.FromEnumerable(planets)
                 planet.AddParent(group)
                 group.PlanetCount += 1

@@ -101,7 +101,7 @@ Friend Class ActorModel
 
     Public ReadOnly Property SatelliteCount As Integer Implements IActorModel.SatelliteCount
         Get
-            Return actor.Properties.Groups(GroupTypes.Faction).SatelliteCount
+            Return actor.Properties.Groups(GroupTypes.Faction).Statistics(StatisticTypes.SatelliteCount).Value
         End Get
     End Property
 

@@ -1,7 +1,5 @@
 ﻿Public Interface IGroup
     Inherits IEntity
-    Property MinimumPlanetCount As Integer
-    Property SatelliteCount As Integer
     Property Authority As Integer
     Property Standards As Integer
     Property Conviction As Integer

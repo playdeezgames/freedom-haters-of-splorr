@@ -13,7 +13,7 @@ Friend Module UniverseFactoryExtensions
         Dim faction = universeFactory.CreateGroup(
             GroupTypes.Faction,
             factionName)
-        faction.MinimumPlanetCount = minimumPlanetCount
+        faction.Statistics(StatisticTypes.MinimumPlanetCount) = minimumPlanetCount
         faction.Authority = authority
         faction.Standards = standards
         faction.Conviction = conviction

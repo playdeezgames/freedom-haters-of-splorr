@@ -27,15 +27,6 @@ Friend Class Group
         End If
     End Sub
 
-    Public Property MinimumPlanetCount As Integer Implements IGroup.MinimumPlanetCount
-        Get
-            Return GetStatistic(StatisticTypes.MinimumPlanetCount).Value
-        End Get
-        Set(value As Integer)
-            SetStatistic(StatisticTypes.MinimumPlanetCount, value)
-        End Set
-    End Property
-
     Public ReadOnly Property Name As String Implements IGroup.Name
         Get
             Return EntityData.Metadatas(MetadataTypes.Name)
@@ -48,15 +39,6 @@ Friend Class Group
         End Get
         Set(value As Integer)
             SetStatistic(StatisticTypes.PlanetCount, value)
-        End Set
-    End Property
-
-    Public Property SatelliteCount As Integer Implements IGroup.SatelliteCount
-        Get
-            Return If(GetStatistic(StatisticTypes.SatelliteCount), 0)
-        End Get
-        Set(value As Integer)
-            SetStatistic(StatisticTypes.SatelliteCount, value)
         End Set
     End Property
 
