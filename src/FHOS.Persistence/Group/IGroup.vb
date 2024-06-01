@@ -1,7 +1,5 @@
 ﻿Public Interface IGroup
     Inherits IEntity
-    Property Conviction As Integer
-    Property PlanetCount As Integer
 
     ReadOnly Property GroupType As String
     ReadOnly Property Name As String

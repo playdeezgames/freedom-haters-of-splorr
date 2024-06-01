@@ -49,13 +49,13 @@ Friend Class GroupModel
 
     Public ReadOnly Property Conviction As (LevelName As String, Value As Integer) Implements IGroupModel.Conviction
         Get
-            Return (ToLevelName(group.Conviction), group.Conviction)
+            Return (ToLevelName(group.Statistics(StatisticTypes.Conviction).Value), group.Statistics(StatisticTypes.Conviction).Value)
         End Get
     End Property
 
     Public ReadOnly Property PlanetCount As Integer Implements IGroupModel.PlanetCount
         Get
-            Return group.PlanetCount
+            Return group.Statistics(StatisticTypes.PlanetCount).Value
         End Get
     End Property
 

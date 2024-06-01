@@ -33,24 +33,6 @@ Friend Class Group
         End Get
     End Property
 
-    Public Property PlanetCount As Integer Implements IGroup.PlanetCount
-        Get
-            Return If(GetStatistic(StatisticTypes.PlanetCount), 0)
-        End Get
-        Set(value As Integer)
-            SetStatistic(StatisticTypes.PlanetCount, value)
-        End Set
-    End Property
-
-    Public Property Conviction As Integer Implements IGroup.Conviction
-        Get
-            Return GetStatistic(StatisticTypes.Conviction).Value
-        End Get
-        Set(value As Integer)
-            SetStatistic(StatisticTypes.Conviction, value)
-        End Set
-    End Property
-
     Public ReadOnly Property GroupType As String Implements IGroup.GroupType
         Get
             Return GetMetadata(MetadataTypes.GroupType)

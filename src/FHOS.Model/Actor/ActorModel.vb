@@ -71,7 +71,7 @@ Friend Class ActorModel
 
     Public ReadOnly Property PlanetCount As Integer Implements IActorModel.PlanetCount
         Get
-            Return actor.Properties.Groups(GroupTypes.Faction).PlanetCount
+            Return actor.Properties.Groups(GroupTypes.Faction).Statistics(StatisticTypes.PlanetCount).Value
         End Get
     End Property
 

@@ -10,8 +10,6 @@
         group.GroupType.ShouldBe(groupType)
         group.Name.ShouldBe(groupName)
         universe.Groups.Count.ShouldBe(1)
-        group.PlanetCount.ShouldBe(0)
-        Should.Throw(Of InvalidOperationException)(Function() group.Conviction)
         group.Parents.ShouldBeEmpty
         group.Children.ShouldBeEmpty
         Should.Throw(Of NullReferenceException)(Sub() group.AddParent(Nothing))

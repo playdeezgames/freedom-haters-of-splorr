@@ -16,7 +16,7 @@ Friend Class StarSystemInitializationStep
         actor.Properties.Interior = descriptor.CreateMap($"{actor.Properties.Name} System", actor.Universe)
         PlaceBoundaryActors(actor, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(actor, addStep)
-        actor.Properties.Groups(GroupTypes.StarSystem).PlanetCount = PlacePlanets(actor, addStep)
+        actor.Properties.Groups(GroupTypes.StarSystem).Statistics(StatisticTypes.PlanetCount) = PlacePlanets(actor, addStep)
         addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
     End Sub
 
