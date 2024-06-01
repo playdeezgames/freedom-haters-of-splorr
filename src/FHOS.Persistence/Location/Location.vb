@@ -91,15 +91,6 @@ Friend Class Location
         End Get
     End Property
 
-    Public Property IsEdge As Boolean Implements ILocation.IsEdge
-        Get
-            Return Flags(LegacyFlagTypes.IsEdge)
-        End Get
-        Set(value As Boolean)
-            Flags(LegacyFlagTypes.IsEdge) = value
-        End Set
-    End Property
-
     Public Function CreateActor(actorType As String, name As String) As IActor Implements ILocation.CreateActor
         Dim actorData = New ActorData With
                                  {

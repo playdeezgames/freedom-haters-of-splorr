@@ -33,6 +33,5 @@
         sut.Tutorial.ShouldBeNull
         sut.TargetLocation.ShouldBeNull
         sut.HasTargetLocation.ShouldBeFalse
-        sut.IsEdge.ShouldBeFalse
     End Sub
 End Class

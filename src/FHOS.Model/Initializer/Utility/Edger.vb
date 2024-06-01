@@ -74,7 +74,7 @@ Friend Module Edger
         Next
         For Each edge In GetEdgeActors(columns, rows)
             PlaceBoundaryActor(map.GetLocation(edge.X, edge.Y), edge.ActorType, targetActor)
-            map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).IsEdge = True
+            map.GetLocation(edge.X + edge.DeltaX, edge.Y + edge.DeltaY).Flags(FlagTypes.IsEdge) = True
         Next
     End Sub
 End Module

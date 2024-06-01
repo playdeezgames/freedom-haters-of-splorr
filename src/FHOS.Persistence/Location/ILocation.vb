@@ -9,6 +9,5 @@
 
     Property TargetLocation As ILocation
     ReadOnly Property HasTargetLocation As Boolean
-    Property IsEdge As Boolean
     Property Tutorial As String
 End Interface

@@ -12,7 +12,7 @@ Friend Class EnterInteriorInteractionModel
     Public Sub Perform() Implements IInteractionModel.Perform
         DoTurn(actor)
         With actor.State.Interactor.Properties.Interior
-            SetLocation(actor, RNG.FromEnumerable(.Locations.Where(Function(x) x.IsEdge AndAlso x.Actor Is Nothing)))
+            SetLocation(actor, RNG.FromEnumerable(.Locations.Where(Function(x) x.Flags(FlagTypes.IsEdge) AndAlso x.Actor Is Nothing)))
         End With
         actor.State.Interactor = Nothing
     End Sub
