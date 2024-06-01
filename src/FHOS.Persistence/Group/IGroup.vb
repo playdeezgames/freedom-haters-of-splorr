@@ -1,6 +1,5 @@
 ﻿Public Interface IGroup
     Inherits IEntity
-    Property Standards As Integer
     Property Conviction As Integer
     Property PlanetCount As Integer
 

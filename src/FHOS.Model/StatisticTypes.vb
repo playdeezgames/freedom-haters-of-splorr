@@ -2,4 +2,5 @@
     Friend ReadOnly Authority As String = NameOf(Authority)
     Friend ReadOnly MinimumPlanetCount As String = NameOf(MinimumPlanetCount)
     Friend ReadOnly SatelliteCount As String = NameOf(SatelliteCount)
+    Friend ReadOnly Standards As String = NameOf(Standards)
 End Module

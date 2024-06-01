@@ -43,7 +43,7 @@ Friend Class GroupModel
 
     Public ReadOnly Property Standards As (LevelName As String, Value As Integer) Implements IGroupModel.Standards
         Get
-            Return (ToLevelName(group.Standards), group.Standards)
+            Return (ToLevelName(group.Statistics(StatisticTypes.Standards).Value), group.Statistics(StatisticTypes.Standards).Value)
         End Get
     End Property
 

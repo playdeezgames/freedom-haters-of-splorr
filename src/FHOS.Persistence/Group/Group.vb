@@ -42,15 +42,6 @@ Friend Class Group
         End Set
     End Property
 
-    Public Property Standards As Integer Implements IGroup.Standards
-        Get
-            Return GetStatistic(StatisticTypes.Standards).Value
-        End Get
-        Set(value As Integer)
-            SetStatistic(StatisticTypes.Standards, value)
-        End Set
-    End Property
-
     Public Property Conviction As Integer Implements IGroup.Conviction
         Get
             Return GetStatistic(StatisticTypes.Conviction).Value
