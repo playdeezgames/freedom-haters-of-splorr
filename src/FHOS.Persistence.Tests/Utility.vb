@@ -40,4 +40,51 @@
                                Optional data As UniverseData = Nothing) As IItem
         Return CreateUniverseFactory(universe, data).CreateItem(itemType)
     End Function
+    Friend Function CreateLocation(
+                              mapName As String,
+                              mapType As String,
+                              mapColumns As Integer,
+                              mapRows As Integer,
+                              locationType As String,
+                              column As Integer,
+                              row As Integer,
+                              Optional universe As IUniverse = Nothing,
+                              Optional data As UniverseData = Nothing) As ILocation
+
+        Return CreateMap(
+            mapName,
+            mapType,
+            mapColumns,
+            mapRows,
+            locationType,
+            universe,
+            data).GetLocation(
+                column,
+                row)
+    End Function
+    Friend Function CreateActor(
+                              mapName As String,
+                              mapType As String,
+                              mapColumns As Integer,
+                              mapRows As Integer,
+                              locationType As String,
+                              column As Integer,
+                              row As Integer,
+                              actorType As String,
+                              actorName As String,
+                              Optional universe As IUniverse = Nothing,
+                              Optional data As UniverseData = Nothing) As IActor
+        Return CreateLocation(
+            mapName,
+            mapType,
+            mapColumns,
+            mapRows,
+            locationType,
+            column,
+            row,
+            universe,
+            data).CreateActor(
+                actorType,
+                actorName)
+    End Function
 End Module

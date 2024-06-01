@@ -16,7 +16,7 @@
                               Optional universe As IUniverse = Nothing,
                               Optional data As UniverseData = Nothing) As ILocation
 
-        Return CreateMap(mapName, mapType, mapColumns, mapRows, locationType, universe, data).GetLocation(column, row)
+        Return CreateLocation(mapName, mapType, mapColumns, mapRows, locationType, column, row, universe, data)
     End Function
 
     <Fact>
