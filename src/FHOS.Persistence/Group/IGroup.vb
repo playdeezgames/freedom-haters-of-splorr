@@ -1,13 +1,15 @@
 ﻿Public Interface IGroup
     Inherits IEntity
-    ReadOnly Property GroupType As String
     Property MinimumPlanetCount As Integer
-    ReadOnly Property Name As String
-    Property PlanetCount As Integer
     Property SatelliteCount As Integer
     Property Authority As Integer
     Property Standards As Integer
     Property Conviction As Integer
+    Property PlanetCount As Integer
+
+    ReadOnly Property GroupType As String
+    ReadOnly Property Name As String
+
     ReadOnly Property Parents As IEnumerable(Of IGroup)
     Sub AddParent(parent As IGroup)
     Sub RemoveParent(parent As IGroup)
