@@ -36,8 +36,9 @@ Public Class ActorFamily_should
     End Sub
     <Fact>
     Sub add_child()
-        Dim sut = CreateSut()
-        Dim child = CreateActor("other map name", "other map type", 3, 2, "other location type", 1, 1, "other actor type", "other actor name")
+        Dim universe = CreateUniverse()
+        Dim sut = CreateSut(universe:=universe)
+        Dim child = CreateActor("other map name", "other map type", 3, 2, "other location type", 1, 1, "other actor type", "other actor name", universe:=universe)
         sut.AddChild(child)
         sut.HasChildren.ShouldBeTrue
         sut.Children.Count.ShouldBe(1)
@@ -45,8 +46,9 @@ Public Class ActorFamily_should
     End Sub
     <Fact>
     Sub set_parent()
-        Dim sut = CreateSut()
-        Dim parent = CreateActor("other map name", "other map type", 3, 2, "other location type", 1, 1, "other actor type", "other actor name")
+        Dim universe = CreateUniverse()
+        Dim sut = CreateSut(universe:=universe)
+        Dim parent = CreateActor("other map name", "other map type", 3, 2, "other location type", 1, 1, "other actor type", "other actor name", universe:=universe)
         sut.Parent = parent
         sut.Parent.Id.ShouldBe(parent.Id)
     End Sub
