@@ -8,6 +8,6 @@ Friend Class AtmosphericConcentrator
     End Sub
 
     Protected Overrides Sub Initialize(item As IItem)
-        item.Properties.CanRefillOxygen = True
+        item.Flags(FlagTypes.CanRefillOxygen) = True
     End Sub
 End Class

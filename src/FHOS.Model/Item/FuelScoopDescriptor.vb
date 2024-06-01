@@ -8,6 +8,6 @@ Friend Class FuelScoopDescriptor
     End Sub
 
     Protected Overrides Sub Initialize(item As IItem)
-        item.Properties.CanRefuel = True
+        item.Flags(FlagTypes.CanRefuel) = True
     End Sub
 End Class
