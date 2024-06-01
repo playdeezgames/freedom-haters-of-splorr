@@ -24,8 +24,8 @@
         Const mapRows = 3
         Const defaultLocationType = "default location type"
         Dim map = sut.CreateMap(mapName, mapType, mapColumns, mapRows, defaultLocationType)
-        map.MapType.ShouldBe(mapType)
-        map.Name.ShouldBe(mapName)
+        map.EntityType.ShouldBe(mapType)
+        map.EntityName.ShouldBe(mapName)
         map.Locations.Count.ShouldBe(mapColumns * mapRows)
         map.Locations.All(Function(x) x.LocationType = defaultLocationType).ShouldBeTrue
         map.Size.Columns.ShouldBe(mapColumns)

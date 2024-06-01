@@ -16,4 +16,14 @@
     Friend Function CreateGroup(groupType As String, groupName As String, Optional universe As IUniverse = Nothing, Optional data As UniverseData = Nothing) As IGroup
         Return CreateUniverseFactory(universe, data).CreateGroup(groupType, groupName)
     End Function
+    Friend Function CreateMap(
+                             mapName As String,
+                             mapType As String,
+                             mapColumns As Integer,
+                             mapRows As Integer,
+                             locationType As String,
+                             Optional universe As IUniverse = Nothing,
+                             Optional data As UniverseData = Nothing) As IMap
+        Return CreateUniverseFactory(universe, data).CreateMap(mapName, mapType, mapColumns, mapRows, locationType)
+    End Function
 End Module

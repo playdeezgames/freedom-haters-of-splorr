@@ -36,7 +36,7 @@ Friend Class UniverseFactory
         Dim map = Persistence.Map.FromId(UniverseData, mapId)
         mapData.Locations = Enumerable.
                             Range(0, columns * rows).
-                            Select(Function(x) CreateLocation(mapId, locationType, x Mod rows, x \ rows)).ToList
+                            Select(Function(x) CreateLocation(mapId, locationType, x Mod columns, x \ columns)).ToList
         Return map
     End Function
 

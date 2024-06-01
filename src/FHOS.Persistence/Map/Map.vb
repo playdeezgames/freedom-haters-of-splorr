@@ -15,7 +15,7 @@ Friend Class Map
         Return Nothing
     End Function
 
-    Public Property Name As String Implements IMap.Name
+    Public Property EntityName As String Implements IMap.EntityName
         Get
             Return EntityData.Metadatas(LegacyMetadataTypes.Name)
         End Get
@@ -36,7 +36,7 @@ Friend Class Map
         End Get
     End Property
 
-    Public ReadOnly Property MapType As String Implements IMap.MapType
+    Public ReadOnly Property EntityType As String Implements IMap.EntityType
         Get
             Return EntityData.Metadatas(LegacyMetadataTypes.MapType)
         End Get

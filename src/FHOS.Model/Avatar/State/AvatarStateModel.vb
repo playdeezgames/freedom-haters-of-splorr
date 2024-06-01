@@ -18,7 +18,7 @@ Friend Class AvatarStateModel
 
     Public ReadOnly Property MapName As String Implements IAvatarStateModel.MapName
         Get
-            Return actor.State.Location.Map.Name
+            Return actor.State.Location.Map.EntityName
         End Get
     End Property
 
