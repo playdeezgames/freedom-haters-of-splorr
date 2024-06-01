@@ -13,6 +13,9 @@ Friend Class Store
             Return GetStatistic(LegacyStatisticTypes.CurrentValue).Value
         End Get
         Set(value As Integer)
+            If MinimumValue.HasValue Then
+                value = Math.Max(value, MinimumValue.Value)
+            End If
             SetStatistic(LegacyStatisticTypes.CurrentValue, value)
         End Set
     End Property

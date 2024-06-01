@@ -26,4 +26,12 @@
                              Optional data As UniverseData = Nothing) As IMap
         Return CreateUniverseFactory(universe, data).CreateMap(mapName, mapType, mapColumns, mapRows, locationType)
     End Function
+    Friend Function CreateStore(
+                               value As Integer,
+                               minimum As Integer?,
+                               maximum As Integer?,
+                               Optional universe As IUniverse = Nothing,
+                               Optional data As UniverseData = Nothing) As IStore
+        Return CreateUniverseFactory(universe, data).CreateStore(value, minimum, maximum)
+    End Function
 End Module
