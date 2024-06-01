@@ -17,14 +17,14 @@ Friend Class WormholeActorTypeDescriptor
 
     Protected Overrides Sub Initialize(actor As IActor)
         Dim location = actor.State.Location
-        location.LocationType = LocationTypes.Wormhole
+        location.EntityType = LocationTypes.Wormhole
         For Each neighbor In location.GetEmptyNeighborsOfType(LocationTypes.Void)
-            neighbor.LocationType = LocationTypes.ActorAdjacent
+            neighbor.EntityType = LocationTypes.ActorAdjacent
         Next
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean
-        Return location.LocationType = LocationTypes.Void AndAlso
+        Return location.EntityType = LocationTypes.Void AndAlso
             location.Actor Is Nothing AndAlso
             location.GetEmptyNeighborsOfType(LocationTypes.Void).Any
     End Function

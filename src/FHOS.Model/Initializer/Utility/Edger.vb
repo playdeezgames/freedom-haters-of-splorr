@@ -59,7 +59,7 @@ Friend Module Edger
     End Function
     Friend Sub PlaceBoundary(location As ILocation, locationType As String, targetLocation As ILocation)
         With location
-            .LocationType = locationType
+            .EntityType = locationType
             .TargetLocation = targetLocation
         End With
     End Sub

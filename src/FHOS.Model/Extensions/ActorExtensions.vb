@@ -49,7 +49,7 @@ Friend Module ActorExtensions
 
     <Extension>
     Function CanEnterLocation(nextLocation As ILocation, actor As IActor) As Boolean
-        Dim descriptor = LocationTypes.Descriptors(nextLocation.LocationType)
+        Dim descriptor = LocationTypes.Descriptors(nextLocation.EntityType)
         Return descriptor.IsEnterable
     End Function
 

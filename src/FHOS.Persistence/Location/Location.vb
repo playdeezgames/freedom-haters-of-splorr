@@ -33,7 +33,7 @@ Friend Class Location
         End Get
     End Property
 
-    Public Property LocationType As String Implements ILocation.LocationType
+    Public Property EntityType As String Implements ILocation.EntityType
         Get
             Return EntityData.Metadatas(LegacyMetadataTypes.LocationType)
         End Get

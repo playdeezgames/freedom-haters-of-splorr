@@ -22,7 +22,7 @@ Friend Class StarGateActorTypeDescriptor
     End Function
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean
-        Return location.LocationType = LocationTypes.Void AndAlso location.Actor Is Nothing
+        Return location.EntityType = LocationTypes.Void AndAlso location.Actor Is Nothing
     End Function
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))

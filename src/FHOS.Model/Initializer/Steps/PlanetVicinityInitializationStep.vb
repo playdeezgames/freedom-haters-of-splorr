@@ -60,7 +60,7 @@ Friend Class PlanetVicinityInitializationStep
         satellite.Properties.Groups(GroupTypes.Satellite) = satelliteGroup
         satellite.Properties.Groups(GroupTypes.PlanetVicinity) = externalActor.Properties.Groups(GroupTypes.PlanetVicinity)
         satellite.Properties.Groups(GroupTypes.StarSystem) = externalActor.Properties.Groups(GroupTypes.StarSystem)
-        location.LocationType = LocationTypes.Satellite
+        location.EntityType = LocationTypes.Satellite
         addStep(New SatelliteOrbitInitializationStep(location), False)
     End Sub
 

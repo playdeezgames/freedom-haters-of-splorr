@@ -19,9 +19,9 @@ Friend Class PlanetSectionActorTypeDescriptor
 
     Protected Overrides Sub Initialize(actor As IActor)
         Dim location = actor.State.Location
-        location.LocationType = LocationTypes.Planet
+        location.EntityType = LocationTypes.Planet
         For Each neighbor In location.GetEmptyNeighborsOfType(LocationTypes.Void)
-            neighbor.LocationType = LocationTypes.PlanetAdjacent
+            neighbor.EntityType = LocationTypes.PlanetAdjacent
         Next
     End Sub
 

@@ -22,7 +22,7 @@ Friend Module LocationExtensions
     End Function
     <Extension>
     Friend Function GetEmptyNeighborsOfType(location As ILocation, locationType As String) As IEnumerable(Of ILocation)
-        Return GetEmptyNeighbors(location).Where(Function(x) x.LocationType = locationType)
+        Return GetEmptyNeighbors(location).Where(Function(x) x.EntityType = locationType)
     End Function
     <Extension>
     Friend Function GetEmptyNeighbors(location As ILocation) As IEnumerable(Of ILocation)

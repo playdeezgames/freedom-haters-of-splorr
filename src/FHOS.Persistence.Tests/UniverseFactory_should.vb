@@ -27,7 +27,7 @@
         map.EntityType.ShouldBe(mapType)
         map.EntityName.ShouldBe(mapName)
         map.Locations.Count.ShouldBe(mapColumns * mapRows)
-        map.Locations.All(Function(x) x.LocationType = defaultLocationType).ShouldBeTrue
+        map.Locations.All(Function(x) x.EntityType = defaultLocationType).ShouldBeTrue
         map.Size.Columns.ShouldBe(mapColumns)
         map.Size.Rows.ShouldBe(mapRows)
         map.Id.ShouldBe(0)
