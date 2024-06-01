@@ -12,46 +12,46 @@
 
     Public Property Name As String Implements IActorProperties.Name
         Get
-            Return GetMetadata(MetadataTypes.Name)
+            Return GetMetadata(LegacyMetadataTypes.Name)
         End Get
         Set(value As String)
-            SetMetadata(MetadataTypes.Name, value)
+            SetMetadata(LegacyMetadataTypes.Name, value)
         End Set
     End Property
 
     Public Property Interior As IMap Implements IActorProperties.Interior
         Get
-            Return Map.FromId(UniverseData, GetStatistic(StatisticTypes.MapId))
+            Return Map.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.MapId))
         End Get
         Set(value As IMap)
-            SetStatistic(StatisticTypes.MapId, value?.Id)
+            SetStatistic(LegacyStatisticTypes.MapId, value?.Id)
         End Set
     End Property
 
     Public Property CostumeType As String Implements IActorProperties.CostumeType
         Get
-            Return GetMetadata(MetadataTypes.Costume)
+            Return GetMetadata(LegacyMetadataTypes.Costume)
         End Get
         Set(value As String)
-            SetMetadata(MetadataTypes.Costume, value)
+            SetMetadata(LegacyMetadataTypes.Costume, value)
         End Set
     End Property
 
     Public Property TargetActor As IActor Implements IActorProperties.TargetActor
         Get
-            Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.TargetActor))
+            Return Actor.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.TargetActor))
         End Get
         Set(value As IActor)
-            SetStatistic(StatisticTypes.TargetActor, value?.Id)
+            SetStatistic(LegacyStatisticTypes.TargetActor, value?.Id)
         End Set
     End Property
 
     Public Property HomePlanet As IGroup Implements IActorProperties.HomePlanet
         Get
-            Return Persistence.Group.FromId(UniverseData, GetStatistic(StatisticTypes.HomePlanetActorId))
+            Return Persistence.Group.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.HomePlanetActorId))
         End Get
         Set(value As IGroup)
-            SetStatistic(StatisticTypes.HomePlanetActorId, value?.Id)
+            SetStatistic(LegacyStatisticTypes.HomePlanetActorId, value?.Id)
         End Set
     End Property
 

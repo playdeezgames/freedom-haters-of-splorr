@@ -16,7 +16,7 @@ Friend Class Actor
 
     Public ReadOnly Property ActorType As String Implements IActor.ActorType
         Get
-            Return EntityData.Metadatas(MetadataTypes.ActorType)
+            Return EntityData.Metadatas(LegacyMetadataTypes.ActorType)
         End Get
     End Property
 

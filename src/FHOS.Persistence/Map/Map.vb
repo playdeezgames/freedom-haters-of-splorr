@@ -17,10 +17,10 @@ Friend Class Map
 
     Public Property Name As String Implements IMap.Name
         Get
-            Return EntityData.Metadatas(MetadataTypes.Name)
+            Return EntityData.Metadatas(LegacyMetadataTypes.Name)
         End Get
         Set(value As String)
-            EntityData.Metadatas(MetadataTypes.Name) = value
+            EntityData.Metadatas(LegacyMetadataTypes.Name) = value
         End Set
     End Property
 
@@ -32,20 +32,20 @@ Friend Class Map
 
     Public ReadOnly Property Size As (Columns As Integer, Rows As Integer) Implements IMap.Size
         Get
-            Return (EntityData.Statistics(StatisticTypes.Columns), EntityData.Statistics(StatisticTypes.Rows))
+            Return (EntityData.Statistics(LegacyStatisticTypes.Columns), EntityData.Statistics(LegacyStatisticTypes.Rows))
         End Get
     End Property
 
     Public ReadOnly Property MapType As String Implements IMap.MapType
         Get
-            Return EntityData.Metadatas(MetadataTypes.MapType)
+            Return EntityData.Metadatas(LegacyMetadataTypes.MapType)
         End Get
     End Property
 
     Public Function GetLocation(column As Integer, row As Integer) As ILocation Implements IMap.GetLocation
-        If column < 0 OrElse row < 0 OrElse column >= EntityData.Statistics(StatisticTypes.Columns) OrElse row >= EntityData.Statistics(StatisticTypes.Rows) Then
+        If column < 0 OrElse row < 0 OrElse column >= EntityData.Statistics(LegacyStatisticTypes.Columns) OrElse row >= EntityData.Statistics(LegacyStatisticTypes.Rows) Then
             Return Nothing
         End If
-        Return Location.FromId(UniverseData, EntityData.Locations(column + row * EntityData.Statistics(StatisticTypes.Columns)))
+        Return Location.FromId(UniverseData, EntityData.Locations(column + row * EntityData.Statistics(LegacyStatisticTypes.Columns)))
     End Function
 End Class

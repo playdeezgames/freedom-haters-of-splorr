@@ -35,10 +35,10 @@ Public Class Universe
 
     Public Property Turn As Integer Implements IUniverse.Turn
         Get
-            Return UniverseData.Statistics(StatisticTypes.Turn)
+            Return UniverseData.Statistics(LegacyStatisticTypes.Turn)
         End Get
         Set(value As Integer)
-            UniverseData.Statistics(StatisticTypes.Turn) = value
+            UniverseData.Statistics(LegacyStatisticTypes.Turn) = value
         End Set
     End Property
 

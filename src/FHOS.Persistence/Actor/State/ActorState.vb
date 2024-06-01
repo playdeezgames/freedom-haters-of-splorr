@@ -8,12 +8,12 @@
 
     Public Property Location As ILocation Implements IActorState.Location
         Get
-            Return Persistence.Location.FromId(UniverseData, EntityData.Statistics(StatisticTypes.LocationId))
+            Return Persistence.Location.FromId(UniverseData, EntityData.Statistics(LegacyStatisticTypes.LocationId))
         End Get
         Set(value As ILocation)
-            If value.Id <> EntityData.Statistics(StatisticTypes.LocationId) Then
+            If value.Id <> EntityData.Statistics(LegacyStatisticTypes.LocationId) Then
                 Location.Actor = Nothing
-                EntityData.Statistics(StatisticTypes.LocationId) = value.Id
+                EntityData.Statistics(LegacyStatisticTypes.LocationId) = value.Id
                 value.Actor = Actor.FromId(UniverseData, Id)
                 ActorTutorial.FromId(UniverseData, Id).Add(value.Tutorial)
             End If
@@ -22,64 +22,64 @@
 
     Public Property Facing As Integer Implements IActorState.Facing
         Get
-            Return EntityData.Statistics(StatisticTypes.Facing)
+            Return EntityData.Statistics(LegacyStatisticTypes.Facing)
         End Get
         Set(value As Integer)
-            EntityData.Statistics(StatisticTypes.Facing) = value
+            EntityData.Statistics(LegacyStatisticTypes.Facing) = value
         End Set
     End Property
 
     Public Property Interactor As IActor Implements IActorState.Interactor
         Get
-            Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.InteractorId))
+            Return Actor.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.InteractorId))
         End Get
         Set(value As IActor)
-            SetStatistic(StatisticTypes.InteractorId, value?.Id)
+            SetStatistic(LegacyStatisticTypes.InteractorId, value?.Id)
         End Set
     End Property
 
     Public Property LifeSupport As IStore Implements IActorState.LifeSupport
         Get
-            Return Store.FromId(UniverseData, GetStatistic(StatisticTypes.LifeSupportId))
+            Return Store.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.LifeSupportId))
         End Get
         Set(value As IStore)
-            SetStatistic(StatisticTypes.LifeSupportId, value?.Id)
+            SetStatistic(LegacyStatisticTypes.LifeSupportId, value?.Id)
         End Set
     End Property
 
     Public Property Wallet As IStore Implements IActorState.Wallet
         Get
-            Return Store.FromId(UniverseData, GetStatistic(StatisticTypes.WalletId))
+            Return Store.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.WalletId))
         End Get
         Set(value As IStore)
-            SetStatistic(StatisticTypes.WalletId, value?.Id)
+            SetStatistic(LegacyStatisticTypes.WalletId, value?.Id)
         End Set
     End Property
 
     Public Property FuelTank As IStore Implements IActorState.FuelTank
         Get
-            Return Store.FromId(UniverseData, GetStatistic(StatisticTypes.FuelTankId))
+            Return Store.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.FuelTankId))
         End Get
         Set(value As IStore)
-            SetStatistic(StatisticTypes.FuelTankId, value?.Id)
+            SetStatistic(LegacyStatisticTypes.FuelTankId, value?.Id)
         End Set
     End Property
 
     Public Property Scrap As Integer Implements IActorState.Scrap
         Get
-            Return If(GetStatistic(StatisticTypes.Scrap), 0)
+            Return If(GetStatistic(LegacyStatisticTypes.Scrap), 0)
         End Get
         Set(value As Integer)
-            SetStatistic(StatisticTypes.Scrap, value)
+            SetStatistic(LegacyStatisticTypes.Scrap, value)
         End Set
     End Property
 
     Public Property StarGate As IActor Implements IActorState.StarGate
         Get
-            Return Actor.FromId(UniverseData, GetStatistic(StatisticTypes.StarGateId))
+            Return Actor.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.StarGateId))
         End Get
         Set(value As IActor)
-            SetStatistic(StatisticTypes.StarGateId, value?.Id)
+            SetStatistic(LegacyStatisticTypes.StarGateId, value?.Id)
         End Set
     End Property
 

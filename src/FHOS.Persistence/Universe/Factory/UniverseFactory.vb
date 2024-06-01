@@ -23,13 +23,13 @@ Friend Class UniverseFactory
                 .Locations = Nothing,
                 .Statistics = New Dictionary(Of String, Integer) From
                 {
-                    {StatisticTypes.Columns, columns},
-                    {StatisticTypes.Rows, rows}
+                    {LegacyStatisticTypes.Columns, columns},
+                    {LegacyStatisticTypes.Rows, rows}
                 },
                 .Metadatas = New Dictionary(Of String, String) From
                 {
-                    {MetadataTypes.MapType, mapType},
-                    {MetadataTypes.Name, mapName}
+                    {LegacyMetadataTypes.MapType, mapType},
+                    {LegacyMetadataTypes.Name, mapName}
                 }
             }
         Dim mapId = UniverseData.Maps.CreateOrRecycle(mapData)
@@ -46,13 +46,13 @@ Friend Class UniverseFactory
                             {
                                 .Statistics = New Dictionary(Of String, Integer) From
                                 {
-                                    {StatisticTypes.MapId, mapId},
-                                    {StatisticTypes.Column, column},
-                                    {StatisticTypes.Row, row}
+                                    {LegacyStatisticTypes.MapId, mapId},
+                                    {LegacyStatisticTypes.Column, column},
+                                    {LegacyStatisticTypes.Row, row}
                                 },
                                 .Metadatas = New Dictionary(Of String, String) From
                                 {
-                                    {MetadataTypes.LocationType, locationType}
+                                    {LegacyMetadataTypes.LocationType, locationType}
                                 }
                             }
         Return UniverseData.Locations.CreateOrRecycle(locationData)
@@ -66,8 +66,8 @@ Friend Class UniverseFactory
             {
                 .Metadatas = New Dictionary(Of String, String) From
                 {
-                    {MetadataTypes.GroupType, groupType},
-                    {MetadataTypes.Name, groupName}
+                    {LegacyMetadataTypes.GroupType, groupType},
+                    {LegacyMetadataTypes.Name, groupName}
                 }
             }
         Return Group.FromId(UniverseData, UniverseData.Groups.CreateOrRecycle(factionData))
@@ -81,14 +81,14 @@ Friend Class UniverseFactory
             {
                 .Statistics = New Dictionary(Of String, Integer) From
                 {
-                    {StatisticTypes.CurrentValue, value}
+                    {LegacyStatisticTypes.CurrentValue, value}
                 }
             }
         If minimum.HasValue Then
-            storeData.Statistics(StatisticTypes.MinimumValue) = minimum.Value
+            storeData.Statistics(LegacyStatisticTypes.MinimumValue) = minimum.Value
         End If
         If maximum.HasValue Then
-            storeData.Statistics(StatisticTypes.MaximumValue) = maximum.Value
+            storeData.Statistics(LegacyStatisticTypes.MaximumValue) = maximum.Value
         End If
         Return Store.FromId(UniverseData, UniverseData.Stores.CreateOrRecycle(storeData))
     End Function
@@ -98,7 +98,7 @@ Friend Class UniverseFactory
             {
                 .Metadatas = New Dictionary(Of String, String) From
                 {
-                    {MetadataTypes.ItemType, itemType}
+                    {LegacyMetadataTypes.ItemType, itemType}
                 }
             }
         Return Item.FromId(UniverseData, UniverseData.Items.CreateOrRecycle(itemData))

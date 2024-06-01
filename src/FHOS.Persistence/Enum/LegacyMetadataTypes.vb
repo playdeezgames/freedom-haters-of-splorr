@@ -1,4 +1,4 @@
-﻿Friend Module MetadataTypes
+﻿Friend Module LegacyMetadataTypes
     Friend ReadOnly ActorType As String = NameOf(ActorType)
     Friend ReadOnly Costume As String = NameOf(Costume)
     Friend ReadOnly GroupType As String = NameOf(GroupType)

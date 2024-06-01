@@ -1,4 +1,4 @@
-﻿Friend Module StatisticTypes
+﻿Friend Module LegacyStatisticTypes
     Friend ReadOnly ActorId As String = NameOf(ActorId)
     Friend ReadOnly Authority As String = NameOf(Authority)
     Friend ReadOnly Column As String = NameOf(Column)

@@ -10,22 +10,22 @@ Friend Class Store
 
     Public Property CurrentValue As Integer Implements IStore.CurrentValue
         Get
-            Return GetStatistic(StatisticTypes.CurrentValue).Value
+            Return GetStatistic(LegacyStatisticTypes.CurrentValue).Value
         End Get
         Set(value As Integer)
-            SetStatistic(StatisticTypes.CurrentValue, value)
+            SetStatistic(LegacyStatisticTypes.CurrentValue, value)
         End Set
     End Property
 
     Public ReadOnly Property MaximumValue As Integer? Implements IStore.MaximumValue
         Get
-            Return GetStatistic(StatisticTypes.MaximumValue)
+            Return GetStatistic(LegacyStatisticTypes.MaximumValue)
         End Get
     End Property
 
     Public ReadOnly Property MinimumValue As Integer? Implements IStore.MinimumValue
         Get
-            Return GetStatistic(StatisticTypes.MinimumValue)
+            Return GetStatistic(LegacyStatisticTypes.MinimumValue)
         End Get
     End Property
 

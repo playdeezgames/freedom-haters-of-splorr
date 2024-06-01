@@ -17,86 +17,86 @@ Friend Class Location
 
     Public ReadOnly Property Map As IMap Implements ILocation.Map
         Get
-            Return Persistence.Map.FromId(UniverseData, EntityData.Statistics(StatisticTypes.MapId))
+            Return Persistence.Map.FromId(UniverseData, EntityData.Statistics(LegacyStatisticTypes.MapId))
         End Get
     End Property
 
     Public ReadOnly Property Column As Integer Implements ILocation.Column
         Get
-            Return EntityData.Statistics(StatisticTypes.Column)
+            Return EntityData.Statistics(LegacyStatisticTypes.Column)
         End Get
     End Property
 
     Public ReadOnly Property Row As Integer Implements ILocation.Row
         Get
-            Return EntityData.Statistics(StatisticTypes.Row)
+            Return EntityData.Statistics(LegacyStatisticTypes.Row)
         End Get
     End Property
 
     Public Property LocationType As String Implements ILocation.LocationType
         Get
-            Return EntityData.Metadatas(MetadataTypes.LocationType)
+            Return EntityData.Metadatas(LegacyMetadataTypes.LocationType)
         End Get
         Set(value As String)
-            EntityData.Metadatas(MetadataTypes.LocationType) = value
+            EntityData.Metadatas(LegacyMetadataTypes.LocationType) = value
         End Set
     End Property
 
     Public Property Actor As IActor Implements ILocation.Actor
         Get
             Dim actorId As Integer
-            If EntityData.Statistics.TryGetValue(StatisticTypes.ActorId, actorId) Then
+            If EntityData.Statistics.TryGetValue(LegacyStatisticTypes.ActorId, actorId) Then
                 Return Persistence.Actor.FromId(UniverseData, actorId)
             End If
             Return Nothing
         End Get
         Set(value As IActor)
             If value Is Nothing Then
-                EntityData.Statistics.Remove(StatisticTypes.ActorId)
+                EntityData.Statistics.Remove(LegacyStatisticTypes.ActorId)
                 Return
             End If
-            EntityData.Statistics(StatisticTypes.ActorId) = value.Id
+            EntityData.Statistics(LegacyStatisticTypes.ActorId) = value.Id
         End Set
     End Property
 
     Public Property Tutorial As String Implements ILocation.Tutorial
         Get
             Dim result As String = Nothing
-            If EntityData.Metadatas.TryGetValue(MetadataTypes.Tutorial, result) Then
+            If EntityData.Metadatas.TryGetValue(LegacyMetadataTypes.Tutorial, result) Then
                 Return result
             End If
             Return Nothing
         End Get
         Set(value As String)
             If value Is Nothing Then
-                EntityData.Metadatas.Remove(MetadataTypes.Tutorial)
+                EntityData.Metadatas.Remove(LegacyMetadataTypes.Tutorial)
             Else
-                EntityData.Metadatas(MetadataTypes.Tutorial) = value
+                EntityData.Metadatas(LegacyMetadataTypes.Tutorial) = value
             End If
         End Set
     End Property
 
     Public Property TargetLocation As ILocation Implements ILocation.TargetLocation
         Get
-            Return Location.FromId(UniverseData, GetStatistic(StatisticTypes.TargetLocationId))
+            Return Location.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.TargetLocationId))
         End Get
         Set(value As ILocation)
-            SetStatistic(StatisticTypes.TargetLocationId, value?.Id)
+            SetStatistic(LegacyStatisticTypes.TargetLocationId, value?.Id)
         End Set
     End Property
 
     Public ReadOnly Property HasTargetLocation As Boolean Implements ILocation.HasTargetLocation
         Get
-            Return EntityData.Statistics.ContainsKey(StatisticTypes.TargetLocationId)
+            Return EntityData.Statistics.ContainsKey(LegacyStatisticTypes.TargetLocationId)
         End Get
     End Property
 
     Public Property IsEdge As Boolean Implements ILocation.IsEdge
         Get
-            Return Flags(FlagTypes.IsEdge)
+            Return Flags(LegacyFlagTypes.IsEdge)
         End Get
         Set(value As Boolean)
-            Flags(FlagTypes.IsEdge) = value
+            Flags(LegacyFlagTypes.IsEdge) = value
         End Set
     End Property
 
@@ -105,13 +105,13 @@ Friend Class Location
                                  {
                                     .Statistics = New Dictionary(Of String, Integer) From
                                     {
-                                        {StatisticTypes.LocationId, Id},
-                                        {StatisticTypes.Facing, 0}
+                                        {LegacyStatisticTypes.LocationId, Id},
+                                        {LegacyStatisticTypes.Facing, 0}
                                     },
                                     .Metadatas = New Dictionary(Of String, String) From
                                     {
-                                        {MetadataTypes.ActorType, actorType},
-                                        {MetadataTypes.Name, name}
+                                        {LegacyMetadataTypes.ActorType, actorType},
+                                        {LegacyMetadataTypes.Name, name}
                                     }
                                  }
         Dim actorId As Integer = UniverseData.Actors.CreateOrRecycle(actorData)

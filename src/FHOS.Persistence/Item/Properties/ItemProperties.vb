@@ -8,19 +8,19 @@
 
     Public Property CanRefuel As Boolean Implements IItemProperties.CanRefuel
         Get
-            Return Flags(FlagTypes.CanRefuel)
+            Return Flags(LegacyFlagTypes.CanRefuel)
         End Get
         Set(value As Boolean)
-            Flags(FlagTypes.CanRefuel) = value
+            Flags(LegacyFlagTypes.CanRefuel) = value
         End Set
     End Property
 
     Public Property CanRefillOxygen As Boolean Implements IItemProperties.CanRefillOxygen
         Get
-            Return Flags(FlagTypes.CanRefillOxygen)
+            Return Flags(LegacyFlagTypes.CanRefillOxygen)
         End Get
         Set(value As Boolean)
-            Flags(FlagTypes.CanRefillOxygen) = value
+            Flags(LegacyFlagTypes.CanRefillOxygen) = value
         End Set
     End Property
 
