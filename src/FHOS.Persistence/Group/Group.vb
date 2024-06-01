@@ -42,15 +42,6 @@ Friend Class Group
         End Set
     End Property
 
-    Public Property Authority As Integer Implements IGroup.Authority
-        Get
-            Return GetStatistic(StatisticTypes.Authority).Value
-        End Get
-        Set(value As Integer)
-            SetStatistic(StatisticTypes.Authority, value)
-        End Set
-    End Property
-
     Public Property Standards As Integer Implements IGroup.Standards
         Get
             Return GetStatistic(StatisticTypes.Standards).Value

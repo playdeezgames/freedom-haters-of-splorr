@@ -54,7 +54,7 @@ Friend Class PlayerShipActorTypeDescriptor
         If actor.Universe.Avatar.Actor Is Nothing Then
             actor.Universe.Avatar.Push(actor)
         End If
-        actor.Properties.Groups(GroupTypes.Faction) = actor.Universe.Groups.Single(Function(x) x.GroupType = GroupTypes.Faction AndAlso x.Authority = 100 AndAlso x.Standards = 100 AndAlso x.Conviction = 100)
+        actor.Properties.Groups(GroupTypes.Faction) = actor.Universe.Groups.Single(Function(x) x.GroupType = GroupTypes.Faction AndAlso x.Statistics(StatisticTypes.Authority).Value = 100 AndAlso x.Standards = 100 AndAlso x.Conviction = 100)
         actor.Properties.HomePlanet = RNG.FromEnumerable(actor.Properties.Groups(GroupTypes.Faction).Children.Where(Function(x) x.GroupType = GroupTypes.PlanetVicinity))
         actor.Properties.Name = "(yer ship)"
         actor.State.LifeSupport = actor.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)

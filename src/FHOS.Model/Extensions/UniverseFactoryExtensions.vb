@@ -14,7 +14,7 @@ Friend Module UniverseFactoryExtensions
             GroupTypes.Faction,
             factionName)
         faction.Statistics(StatisticTypes.MinimumPlanetCount) = minimumPlanetCount
-        faction.Authority = authority
+        faction.Statistics(StatisticTypes.Authority) = authority
         faction.Standards = standards
         faction.Conviction = conviction
         Return faction

@@ -37,7 +37,7 @@ Friend Class GroupModel
 
     Public ReadOnly Property Authority As (LevelName As String, Value As Integer) Implements IGroupModel.Authority
         Get
-            Return (ToLevelName(group.Authority), group.Authority)
+            Return (ToLevelName(group.Statistics(StatisticTypes.Authority).Value), group.Statistics(StatisticTypes.Authority).Value)
         End Get
     End Property
 
