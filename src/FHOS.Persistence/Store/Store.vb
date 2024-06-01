@@ -16,6 +16,9 @@ Friend Class Store
             If MinimumValue.HasValue Then
                 value = Math.Max(value, MinimumValue.Value)
             End If
+            If MaximumValue.HasValue Then
+                value = Math.Min(value, MaximumValue.Value)
+            End If
             SetStatistic(LegacyStatisticTypes.CurrentValue, value)
         End Set
     End Property

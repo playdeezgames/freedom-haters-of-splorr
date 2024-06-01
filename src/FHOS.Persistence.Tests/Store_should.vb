@@ -25,4 +25,17 @@ Public Class Store_should
         sut.CurrentValue = value
         sut.CurrentValue.ShouldBe(expected)
     End Sub
+    <Theory>
+    <InlineData(0, 1, 0)>
+    <InlineData(0, 0, 0)>
+    <InlineData(0, -1, -1)>
+    Sub maintain_maximum_value(maximum As Integer, value As Integer, expected As Integer)
+        Dim sut = CreateSut(maximum, Nothing, maximum)
+        sut.CurrentValue = value
+        sut.CurrentValue.ShouldBe(expected)
+    End Sub
+    <Fact>
+    Sub not_allow_max_less_than_min()
+        Should.Throw(Of ArgumentOutOfRangeException)(Function() CreateSut(0, 1, -1))
+    End Sub
 End Class

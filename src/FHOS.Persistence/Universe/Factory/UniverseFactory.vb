@@ -77,6 +77,9 @@ Friend Class UniverseFactory
                                value As Integer,
                                Optional minimum As Integer? = Nothing,
                                Optional maximum As Integer? = Nothing) As IStore Implements IUniverseFactory.CreateStore
+        If (minimum.HasValue AndAlso maximum.HasValue AndAlso maximum.Value < minimum.Value) Then
+            Throw New ArgumentOutOfRangeException
+        End If
         Dim storeData = New StoreData With
             {
                 .Statistics = New Dictionary(Of String, Integer) From
