@@ -3,5 +3,5 @@
     Property Flags(flag As String) As Boolean
     ReadOnly Property Universe As IUniverse
     Sub Recycle()
-    Function TryGetStatistic(statisticType As String) As Integer?
+    Property Statistics(statisticType As String) As Integer?
 End Interface

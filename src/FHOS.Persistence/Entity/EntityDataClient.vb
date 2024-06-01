@@ -37,6 +37,23 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         End Get
     End Property
 
+    Public Property Statistics(statisticType As String) As Integer? Implements IEntity.Statistics
+        Get
+            Dim result As Integer
+            If EntityData.Statistics.TryGetValue(statisticType, result) Then
+                Return result
+            End If
+            Return Nothing
+        End Get
+        Set(value As Integer?)
+            If value.HasValue Then
+                EntityData.Statistics(statisticType) = value.Value
+            Else
+                EntityData.Statistics.Remove(statisticType)
+            End If
+        End Set
+    End Property
+
     Public Sub New(
                   universeData As Data.UniverseData,
                   entityId As Integer,
@@ -48,14 +65,10 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         Me.entityDataRecycler = entityDataRecycler
     End Sub
     Protected Sub SetStatistic(statisticType As String, value As Integer?)
-        If value.HasValue Then
-            EntityData.Statistics(statisticType) = value.Value
-        Else
-            EntityData.Statistics.Remove(statisticType)
-        End If
+        Statistics(statisticType) = value
     End Sub
     Protected Function GetStatistic(statisticType As String) As Integer?
-        Return TryGetStatistic(statisticType)
+        Return Statistics(statisticType)
     End Function
     Protected Sub SetMetadata(metadataType As String, value As String)
         If value Is Nothing Then
@@ -78,12 +91,4 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         EntityData.Metadatas.Clear()
         entityDataRecycler(UniverseData, Id)
     End Sub
-
-    Public Function TryGetStatistic(statisticType As String) As Integer? Implements IEntity.TryGetStatistic
-        Dim result As Integer
-        If EntityData.Statistics.TryGetValue(statisticType, result) Then
-            Return result
-        End If
-        Return Nothing
-    End Function
 End Class

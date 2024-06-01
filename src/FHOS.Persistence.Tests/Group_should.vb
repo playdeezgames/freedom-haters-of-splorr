@@ -33,6 +33,9 @@
     Sub have_statistics()
         Dim sut = CreateSut()
         Const statisticType = "statistic type"
-        sut.TryGetStatistic(statisticType).ShouldBeNull
+        sut.Statistics(statisticType).ShouldBeNull
+        Const statisticValue = 10
+        sut.Statistics(statisticType) = statisticValue
+        sut.Statistics(statisticType).ShouldBe(statisticValue)
     End Sub
 End Class
