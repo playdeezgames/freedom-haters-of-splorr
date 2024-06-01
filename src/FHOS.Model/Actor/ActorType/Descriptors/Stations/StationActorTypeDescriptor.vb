@@ -26,7 +26,7 @@ Friend MustInherit Class StationActorTypeDescriptor
     Protected Overrides Sub Initialize(actor As IActor)
         Dim planet = actor.State.Location.Map.GetCenterLocation().Actor
         actor.Properties.Name = MakeName(planet)
-        actor.Properties.Groups(GroupTypes.Faction) = planet.Properties.Groups(GroupTypes.Planet).Parents.Single(Function(x) x.GroupType = GroupTypes.PlanetVicinity).Parents.Single(Function(x) x.GroupType = GroupTypes.Faction)
+        actor.Properties.Groups(GroupTypes.Faction) = planet.Properties.Groups(GroupTypes.Planet).Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity).Parents.Single(Function(x) x.EntityType = GroupTypes.Faction)
 
         actor.State.Location.LocationType = LocationTypes.ActorAdjacent
         For Each neighbor In actor.State.Location.GetEmptyNeighborsOfType(LocationTypes.Void)

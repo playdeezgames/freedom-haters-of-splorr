@@ -11,11 +11,11 @@ Friend Class FactionizeGalaxyStep
     End Sub
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        FactionizePlanets(universe.Groups.Where(Function(x) x.GroupType = GroupTypes.Faction))
+        FactionizePlanets(universe.Groups.Where(Function(x) x.EntityType = GroupTypes.Faction))
     End Sub
 
     Private Sub FactionizePlanets(factions As IEnumerable(Of IGroup))
-        Dim planets = New HashSet(Of IGroup)(universe.Groups.Where(Function(x) x.GroupType = GroupTypes.PlanetVicinity))
+        Dim planets = New HashSet(Of IGroup)(universe.Groups.Where(Function(x) x.EntityType = GroupTypes.PlanetVicinity))
         For Each group In factions
             For Each dummy In Enumerable.Range(0, group.Statistics(StatisticTypes.MinimumPlanetCount).Value)
                 Dim planet = RNG.FromEnumerable(planets)

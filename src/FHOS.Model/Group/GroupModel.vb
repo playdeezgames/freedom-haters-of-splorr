@@ -18,7 +18,7 @@ Friend Class GroupModel
 
     Public ReadOnly Property Name As String Implements IGroupModel.Name
         Get
-            Return group.Name
+            Return group.EntityName
         End Get
     End Property
 
@@ -61,13 +61,13 @@ Friend Class GroupModel
 
     Public ReadOnly Property PlanetList As IEnumerable(Of IGroupModel) Implements IGroupModel.PlanetList
         Get
-            Return group.Children.Where(Function(x) x.GroupType = GroupTypes.PlanetVicinity).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
+            Return group.Children.Where(Function(x) x.EntityType = GroupTypes.PlanetVicinity).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
         End Get
     End Property
 
     Public ReadOnly Property SatelliteList As IEnumerable(Of IGroupModel) Implements IGroupModel.SatelliteList
         Get
-            Return group.Children.Where(Function(x) x.GroupType = GroupTypes.Satellite).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
+            Return group.Children.Where(Function(x) x.EntityType = GroupTypes.Satellite).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
         End Get
     End Property
 
@@ -79,19 +79,19 @@ Friend Class GroupModel
 
     Public ReadOnly Property StarSystem As IGroupModel Implements IGroupModel.StarSystem
         Get
-            Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.GroupType = GroupTypes.StarSystem))
+            Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.EntityType = GroupTypes.StarSystem))
         End Get
     End Property
 
     Public ReadOnly Property Planet As IGroupModel Implements IGroupModel.Planet
         Get
-            Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.GroupType = GroupTypes.PlanetVicinity))
+            Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.EntityType = GroupTypes.PlanetVicinity))
         End Get
     End Property
 
     Public ReadOnly Property Faction As IGroupModel Implements IGroupModel.Faction
         Get
-            Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.GroupType = GroupTypes.Faction))
+            Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.EntityType = GroupTypes.Faction))
         End Get
     End Property
 

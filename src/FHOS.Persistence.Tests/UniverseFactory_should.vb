@@ -7,8 +7,8 @@
         Const groupType = "group type"
         Dim group = sut.CreateGroup(groupType, groupName)
         group.ShouldNotBeNull
-        group.GroupType.ShouldBe(groupType)
-        group.Name.ShouldBe(groupName)
+        group.EntityType.ShouldBe(groupType)
+        group.EntityName.ShouldBe(groupName)
         universe.Groups.Count.ShouldBe(1)
         group.Parents.ShouldBeEmpty
         group.Children.ShouldBeEmpty

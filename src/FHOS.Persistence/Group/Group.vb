@@ -27,13 +27,13 @@ Friend Class Group
         End If
     End Sub
 
-    Public ReadOnly Property Name As String Implements IGroup.Name
+    Public ReadOnly Property EntityName As String Implements IGroup.EntityName
         Get
             Return EntityData.Metadatas(LegacyMetadataTypes.Name)
         End Get
     End Property
 
-    Public ReadOnly Property GroupType As String Implements IGroup.GroupType
+    Public ReadOnly Property EntityType As String Implements IGroup.EntityType
         Get
             Return GetMetadata(LegacyMetadataTypes.GroupType)
         End Get

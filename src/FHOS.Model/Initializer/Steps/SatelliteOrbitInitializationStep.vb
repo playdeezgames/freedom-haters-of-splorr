@@ -26,7 +26,7 @@ Friend Class SatelliteOrbitInitializationStep
     End Sub
 
     Private Sub PlaceSatelliteSection(satelliteType As String, location As ILocation, sectionName As String, satelliteGroup As IGroup)
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeSatelliteSection(satelliteType, sectionName)).CreateActor(location, satelliteGroup.Name)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeSatelliteSection(satelliteType, sectionName)).CreateActor(location, satelliteGroup.EntityName)
         location.LocationType = LocationTypes.Satellite
         actor.Properties.Groups(GroupTypes.Satellite) = satelliteGroup
     End Sub

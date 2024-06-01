@@ -1,8 +1,8 @@
 ﻿Public Interface IGroup
     Inherits IEntity
 
-    ReadOnly Property GroupType As String
-    ReadOnly Property Name As String
+    ReadOnly Property EntityName As String
+    ReadOnly Property EntityType As String
 
     ReadOnly Property Parents As IEnumerable(Of IGroup)
     Sub AddParent(parent As IGroup)
