@@ -34,4 +34,13 @@
         sut.TargetLocation.ShouldBeNull
         sut.HasTargetLocation.ShouldBeFalse
     End Sub
+    <Fact>
+    Sub set_entity_type()
+        Const firstLocationType = "first location type"
+        Const secondLocationType = "second location type"
+        Dim sut = CreateSut(locationType:=firstLocationType)
+        sut.EntityType.ShouldBe(firstLocationType)
+        sut.EntityType = secondLocationType
+        sut.EntityType.ShouldBe(secondLocationType)
+    End Sub
 End Class
