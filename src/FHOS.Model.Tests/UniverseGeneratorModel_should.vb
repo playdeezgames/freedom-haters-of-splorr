@@ -31,6 +31,6 @@
     End Sub
 
     Private Function CreateSut() As IUniverseGeneratorModel
-        Return New UniverseModel().Generator
+        Return New UniverseModel(initializer:=New FakeInitializer, generationTimeSlice:=0.0).Generator
     End Function
 End Class

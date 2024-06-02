@@ -1,20 +1,21 @@
 ﻿Imports FHOS.Persistence
 
-Friend Module Initializer
+Friend Class Initializer
+    Implements IInitializer
     Private _stepCount As Integer
-    ReadOnly Property StepsDone As Integer
+    ReadOnly Property StepsDone As Integer Implements IInitializer.StepsDone
         Get
             Return _stepCount
         End Get
     End Property
-    ReadOnly Property StepsRemaining As Integer
+    ReadOnly Property StepsRemaining As Integer Implements IInitializer.StepsRemaining
         Get
             Return initializationSteps.Count + finalizationSteps.Count
         End Get
     End Property
     Private ReadOnly initializationSteps As New Queue(Of InitializationStep)
     Private ReadOnly finalizationSteps As New Queue(Of InitializationStep)
-    Sub Start(universe As IUniverse, embarkSettings As EmbarkSettings)
+    Sub Start(universe As IUniverse, embarkSettings As EmbarkSettings) Implements IInitializer.Start
         _stepCount = 0
         AddStep(New FactionInitializationStep(universe, embarkSettings), True)
         AddStep(New GalaxyInitializationStep(universe, embarkSettings, New NameGenerator), True)
@@ -27,7 +28,7 @@ Friend Module Initializer
             initializationSteps.Enqueue(initializationStep)
         End If
     End Sub
-    Public Function Execute() As Boolean
+    Public Function Execute() As Boolean Implements IInitializer.Execute
         If initializationSteps.Any Then
             _stepCount += 1
             Dim initializationStep = initializationSteps.Dequeue()
@@ -42,4 +43,4 @@ Friend Module Initializer
         End If
         Return False
     End Function
-End Module
+End Class

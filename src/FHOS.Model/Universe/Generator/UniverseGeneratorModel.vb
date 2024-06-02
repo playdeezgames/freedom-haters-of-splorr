@@ -7,12 +7,21 @@ Friend Class UniverseGeneratorModel
     Private ReadOnly dataResetter As Action
     Private ReadOnly universeSource As Func(Of IUniverse)
     Private ReadOnly _settings As EmbarkSettings
+    Private ReadOnly initializer As IInitializer
+    Private ReadOnly generationTimeSlice As Double
 
 
-    Protected Sub New(dataResetter As Action, universeSource As Func(Of IUniverse), settings As EmbarkSettings)
+    Protected Sub New(
+                     dataResetter As Action,
+                     universeSource As Func(Of IUniverse),
+                     settings As EmbarkSettings,
+                     initializer As IInitializer,
+                     generationTimeSlice As Double)
         Me.dataResetter = dataResetter
         Me.universeSource = universeSource
         Me._settings = settings
+        Me.initializer = initializer
+        Me.generationTimeSlice = generationTimeSlice
     End Sub
 
     Public Sub Start() Implements IUniverseGeneratorModel.Start
@@ -22,7 +31,7 @@ Friend Class UniverseGeneratorModel
     End Sub
 
     Public Sub Generate() Implements IUniverseGeneratorModel.Generate
-        Dim endTime = DateTimeOffset.Now.AddSeconds(0.01)
+        Dim endTime = DateTimeOffset.Now.AddSeconds(generationTimeSlice)
         Do
             Initializer.Execute()
         Loop Until DateTimeOffset.Now >= endTime
@@ -31,8 +40,10 @@ Friend Class UniverseGeneratorModel
     Friend Shared Function MakeGenerator(
                                         dataResetter As Action,
                                         universeSource As Func(Of IUniverse),
-                                        settings As EmbarkSettings) As IUniverseGeneratorModel
-        Return New UniverseGeneratorModel(dataResetter, universeSource, settings)
+                                        settings As EmbarkSettings,
+                                        initializer As IInitializer,
+                                        generationTimeSlice As Double) As IUniverseGeneratorModel
+        Return New UniverseGeneratorModel(dataResetter, universeSource, settings, initializer, generationTimeSlice)
     End Function
 
     Public ReadOnly Property StepsRemaining As Integer Implements IUniverseGeneratorModel.StepsRemaining

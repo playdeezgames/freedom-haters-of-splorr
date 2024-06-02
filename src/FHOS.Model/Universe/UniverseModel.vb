@@ -7,6 +7,8 @@ Public Class UniverseModel
     Implements IUniverseModel
     Private ReadOnly WriteStringToFile As Action(Of String, String)
     Private ReadOnly ReadStringFromFile As Func(Of String, String)
+    Private ReadOnly initializer As IInitializer
+    Private ReadOnly generationTimeSlice As Double
 
     Private UniverseData As UniverseData = Nothing
 
@@ -52,7 +54,9 @@ Public Class UniverseModel
             Return UniverseGeneratorModel.MakeGenerator(
                 Sub() UniverseData = New UniverseData,
                 Function() Universe,
-                EmbarkSettings)
+                EmbarkSettings,
+                initializer,
+                generationTimeSlice)
         End Get
     End Property
 
@@ -77,8 +81,14 @@ Public Class UniverseModel
     Const EmbarkSettingsFilename = "embark-settings.json"
     Private _embarkSettings As EmbarkSettings
 
-    Public Sub New(Optional writeStringToFile As Action(Of String, String) = Nothing, Optional readStringFromFile As Func(Of String, String) = Nothing)
+    Public Sub New(
+                  Optional writeStringToFile As Action(Of String, String) = Nothing,
+                  Optional readStringFromFile As Func(Of String, String) = Nothing,
+                  Optional initializer As IInitializer = Nothing,
+                  Optional generationTimeSlice As Double = 0.01)
         Me.WriteStringToFile = If(writeStringToFile, AddressOf File.WriteAllText)
         Me.ReadStringFromFile = If(readStringFromFile, AddressOf File.ReadAllText)
+        Me.initializer = If(initializer, New Initializer)
+        Me.generationTimeSlice = generationTimeSlice
     End Sub
 End Class
