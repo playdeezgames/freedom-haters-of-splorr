@@ -6,5 +6,5 @@
     ReadOnly Property Properties As IActorProperties
     ReadOnly Property State As IActorState
     ReadOnly Property Equipment As IActorEquipment
-
+    ReadOnly Property GroupCategory(group As IGroup) As String
 End Interface

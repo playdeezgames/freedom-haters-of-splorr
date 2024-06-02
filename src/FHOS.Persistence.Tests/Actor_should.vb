@@ -40,5 +40,6 @@
         Dim universe = CreateUniverse()
         Dim group = CreateGroup(universe:=universe)
         Dim sut = CreateSut(universe:=universe)
+        sut.GroupCategory(group).ShouldBeNull
     End Sub
 End Class

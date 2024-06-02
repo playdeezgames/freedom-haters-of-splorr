@@ -49,4 +49,10 @@ Friend Class Actor
             Return ActorEquipment.FromId(UniverseData, Id)
         End Get
     End Property
+
+    Public ReadOnly Property GroupCategory(group As IGroup) As String Implements IActor.GroupCategory
+        Get
+            Return Nothing
+        End Get
+    End Property
 End Class
