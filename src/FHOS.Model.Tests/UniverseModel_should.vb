@@ -1,7 +1,11 @@
 Public Class UniverseModel_should
     Private ReadOnly files As New Dictionary(Of String, String)
     Private Function CreateSut() As IUniverseModel
-        Return New UniverseModel(AddressOf WriteStringToFile, AddressOf ReadStringFromFile)
+        Return New UniverseModel(
+            AddressOf WriteStringToFile,
+            AddressOf ReadStringFromFile,
+            generationTimeSlice:=0.0,
+            initializer:=New EmptyUniverseInitializer(0))
     End Function
 
     Private Function ReadStringFromFile(filename As String) As String
@@ -26,6 +30,44 @@ Public Class UniverseModel_should
         files.Count.ShouldBe(1)
         files(saveFilename).ShouldBe("null")
     End Sub
+
+    Const DefaultSavedData = "{""Actors"":{""Entities"":[],""Recycled"":[]},""Locations"":{""Entities"":[],""Recycled"":[]},""Maps"":{""Entities"":[],""Recycled"":[]},""Groups"":{""Entities"":[],""Recycled"":[]},""Stores"":{""Entities"":[],""Recycled"":[]},""Items"":{""Entities"":[],""Recycled"":[]},""Avatars"":[],""Flags"":[],""Statistics"":{""Turn"":1},""Metadatas"":{}}"
+
+    <Fact>
+    Sub save_current_universe()
+        Const saveFilename = "save.json"
+        Dim sut = CreateSut()
+        sut.Generator.Start()
+        While Not sut.Generator.Done
+            sut.Generator.Generate()
+        End While
+        sut.Save(saveFilename)
+        files.Count.ShouldBe(1)
+        files(saveFilename).ShouldBe(DefaultSavedData)
+    End Sub
+
+    <Fact>
+    Sub load_current_universe()
+        Const loadFilename = "load.json"
+        files(loadFilename) = DefaultSavedData
+        Dim sut = CreateSut()
+        sut.Load(loadFilename)
+        Const saveFilename = "save.json"
+        sut.Save(saveFilename)
+        files.Count.ShouldBe(2)
+        files(saveFilename).ShouldBe(files(loadFilename))
+    End Sub
+
+    <Fact>
+    Sub abandon_current_universe()
+        Const loadFilename = "load.json"
+        files(loadFilename) = DefaultSavedData
+        Dim sut = CreateSut()
+        sut.Load(loadFilename)
+        Const saveFilename = "save.json"
+        sut.Abandon()
+        sut.Save(saveFilename)
+        files.Count.ShouldBe(2)
+        files(saveFilename).ShouldBe("null")
+    End Sub
 End Class
-
-
