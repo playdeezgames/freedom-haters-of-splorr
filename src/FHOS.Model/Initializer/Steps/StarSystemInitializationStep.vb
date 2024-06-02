@@ -63,7 +63,6 @@ Friend Class StarSystemInitializationStep
         Dim starRow = externalActor.Properties.Interior.Size.Rows \ 2
         Dim location = externalActor.Properties.Interior.GetLocation(starColumn, starRow)
         Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarVicinity(externalActor.Descriptor.Subtype)).CreateActor(location, externalActor.Properties.Groups(GroupTypes.StarSystem).EntityName)
-        actor.Properties.Groups(GroupTypes.Faction) = externalActor.Properties.Groups(GroupTypes.Faction)
         location.EntityType = LocationTypes.StarVicinity
         addStep(New StarVicinityInitializationStep(location), False)
     End Sub
