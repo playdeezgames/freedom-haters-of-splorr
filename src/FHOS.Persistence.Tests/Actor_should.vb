@@ -1,5 +1,5 @@
 ﻿Public Class Actor_should
-    Private Function CreateSut(
+    Private Shared Function CreateSut(
                               Optional mapName As String = "map name",
                               Optional mapType As String = "map type",
                               Optional mapColumns As Integer = 3,
@@ -34,5 +34,11 @@
         sut.Properties.ShouldNotBeNull
         sut.State.ShouldNotBeNull
         sut.Equipment.ShouldNotBeNull
+    End Sub
+    <Fact>
+    Sub by_default_have_no_relationship_to_group()
+        Dim universe = CreateUniverse()
+        Dim group = CreateGroup(universe:=universe)
+        Dim sut = CreateSut(universe:=universe)
     End Sub
 End Class

@@ -1,5 +1,5 @@
 ﻿Public Class ActorProperties_should
-    Private Function CreateSut(
+    Private Shared Function CreateSut(
                               Optional mapName As String = "map name",
                               Optional mapType As String = "map type",
                               Optional mapColumns As Integer = 3,
