@@ -1,8 +1,13 @@
-﻿Friend Class FakeInitializer
+﻿Friend Class EmptyUniverseInitializer
     Implements IInitializer
 
+    Private ReadOnly stepCount As Integer
     Private _total As Integer
     Private _complete As Integer
+
+    Sub New(stepCount As Integer)
+        Me.stepCount = stepCount
+    End Sub
 
     Public ReadOnly Property StepsRemaining As Integer Implements IInitializer.StepsRemaining
         Get
@@ -17,7 +22,7 @@
     End Property
 
     Public Sub Start(universe As IUniverse, settings As EmbarkSettings) Implements IInitializer.Start
-        _total = 2
+        _total = stepCount
         _complete = 0
     End Sub
 
