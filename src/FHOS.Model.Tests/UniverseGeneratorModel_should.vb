@@ -30,7 +30,7 @@
         sut.Done.ShouldBeTrue
     End Sub
 
-    Private Function CreateSut() As IUniverseGeneratorModel
+    Private Shared Function CreateSut() As IUniverseGeneratorModel
         Return New UniverseModel(initializer:=New EmptyUniverseInitializer(2), generationTimeSlice:=0.0).Generator
     End Function
 End Class
