@@ -62,4 +62,10 @@ Friend Class Actor
             EntityData.GroupCategories(group.Id) = value
         End Set
     End Property
+
+    Public ReadOnly Property GroupsOfCategory(categoryType As String) As IEnumerable(Of IGroup) Implements IActor.GroupsOfCategory
+        Get
+            Return EntityData.GroupCategories.Where(Function(x) x.Value = categoryType).Select(Function(x) Group.FromId(UniverseData, x.Key))
+        End Get
+    End Property
 End Class

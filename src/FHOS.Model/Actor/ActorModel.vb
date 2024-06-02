@@ -36,7 +36,7 @@ Friend Class ActorModel
 
     Public ReadOnly Property Group As IGroupModel Implements IActorModel.Group
         Get
-            Return GroupModel.FromGroup(actor.Properties.Groups(GroupTypes.Faction))
+            Return GroupModel.FromGroup(actor.GroupsOfCategory(CategoryTypes.Faction).Single)
         End Get
     End Property
 

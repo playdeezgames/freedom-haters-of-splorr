@@ -7,4 +7,5 @@
     ReadOnly Property State As IActorState
     ReadOnly Property Equipment As IActorEquipment
     Property GroupCategory(group As IGroup) As String
+    ReadOnly Property GroupsOfCategory(categoryType As String) As IEnumerable(Of IGroup)
 End Interface

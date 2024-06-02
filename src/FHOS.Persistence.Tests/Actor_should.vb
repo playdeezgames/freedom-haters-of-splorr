@@ -50,5 +50,12 @@
         Const category = "category"
         sut.GroupCategory(group) = category
         sut.GroupCategory(group).ShouldBe(category)
+        sut.GroupsOfCategory(category).Count.ShouldBe(1)
+    End Sub
+    <Fact>
+    Sub have_no_groups_in_category()
+        Const category = "category"
+        Dim sut = CreateSut()
+        sut.GroupsOfCategory(category).ShouldBeEmpty
     End Sub
 End Class

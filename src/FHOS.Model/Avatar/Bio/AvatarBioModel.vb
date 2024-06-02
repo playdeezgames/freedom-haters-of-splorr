@@ -16,7 +16,7 @@ Friend Class AvatarBioModel
 
     Public ReadOnly Property Group As IGroupModel Implements IAvatarBioModel.Group
         Get
-            Return GroupModel.FromGroup(actor.Properties.Groups(GroupTypes.Faction))
+            Return GroupModel.FromGroup(actor.GroupsOfCategory(CategoryTypes.Faction).Single)
         End Get
     End Property
 
