@@ -5,6 +5,8 @@ Imports FHOS.Persistence
 
 Public Class UniverseModel
     Implements IUniverseModel
+    Private ReadOnly WriteStringToFile As Action(Of String, String)
+    Private ReadOnly ReadStringFromFile As Func(Of String, String)
 
     Private UniverseData As UniverseData = Nothing
 
@@ -14,29 +16,29 @@ Public Class UniverseModel
         End Get
     End Property
 
-    Private Shared Sub PersistEmbarkSettings()
-        File.WriteAllText(
+    Private Sub PersistEmbarkSettings()
+        WriteStringToFile(
             EmbarkSettingsFilename,
             JsonSerializer.Serialize(EmbarkSettings))
     End Sub
 
     Public Sub Save(filename As String) Implements IUniverseModel.Save
-        File.WriteAllText(filename, JsonSerializer.Serialize(UniverseData))
+        WriteStringToFile(filename, JsonSerializer.Serialize(UniverseData))
     End Sub
 
     Public Sub Load(filename As String) Implements IUniverseModel.Load
-        UniverseData = JsonSerializer.Deserialize(Of UniverseData)(File.ReadAllText(filename))
+        UniverseData = JsonSerializer.Deserialize(Of UniverseData)(ReadStringFromFile(filename))
     End Sub
 
     Public Sub Abandon() Implements IUniverseModel.Abandon
         UniverseData = Nothing
     End Sub
 
-    Private Shared ReadOnly Property EmbarkSettings As EmbarkSettings
+    Private ReadOnly Property EmbarkSettings As EmbarkSettings
         Get
             If _embarkSettings Is Nothing Then
                 Try
-                    _embarkSettings = JsonSerializer.Deserialize(Of EmbarkSettings)(File.ReadAllText(EmbarkSettingsFilename))
+                    _embarkSettings = JsonSerializer.Deserialize(Of EmbarkSettings)(ReadStringFromFile(EmbarkSettingsFilename))
                 Catch ex As Exception
                     _embarkSettings = New EmbarkSettings
                 End Try
@@ -73,5 +75,10 @@ Public Class UniverseModel
     End Property
 
     Const EmbarkSettingsFilename = "embark-settings.json"
-    Private Shared _embarkSettings As EmbarkSettings
+    Private _embarkSettings As EmbarkSettings
+
+    Public Sub New(Optional writeStringToFile As Action(Of String, String) = Nothing, Optional readStringFromFile As Func(Of String, String) = Nothing)
+        Me.WriteStringToFile = If(writeStringToFile, AddressOf File.WriteAllText)
+        Me.ReadStringFromFile = If(readStringFromFile, AddressOf File.ReadAllText)
+    End Sub
 End Class
