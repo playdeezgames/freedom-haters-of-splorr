@@ -42,4 +42,13 @@
         Dim sut = CreateSut(universe:=universe)
         sut.GroupCategory(group).ShouldBeNull
     End Sub
+    <Fact>
+    Sub set_relationship_to_group()
+        Dim universe = CreateUniverse()
+        Dim group = CreateGroup(universe:=universe)
+        Dim sut = CreateSut(universe:=universe)
+        Const category = "category"
+        sut.GroupCategory(group) = category
+        sut.GroupCategory(group).ShouldBe(category)
+    End Sub
 End Class

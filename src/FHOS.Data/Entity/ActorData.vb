@@ -5,4 +5,5 @@
     Public Property Children As New HashSet(Of Integer)
     Public Property Groups As New Dictionary(Of String, Integer)
     Public Property Equipment As New HashSet(Of Integer)
+    Public Property GroupCategories As New Dictionary(Of Integer, String)
 End Class

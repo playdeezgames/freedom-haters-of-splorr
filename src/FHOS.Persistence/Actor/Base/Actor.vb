@@ -50,9 +50,16 @@ Friend Class Actor
         End Get
     End Property
 
-    Public ReadOnly Property GroupCategory(group As IGroup) As String Implements IActor.GroupCategory
+    Public Property GroupCategory(group As IGroup) As String Implements IActor.GroupCategory
         Get
+            Dim category As String = Nothing
+            If EntityData.GroupCategories.TryGetValue(group.Id, category) Then
+                Return category
+            End If
             Return Nothing
         End Get
+        Set(value As String)
+            EntityData.GroupCategories(group.Id) = value
+        End Set
     End Property
 End Class
