@@ -7,8 +7,16 @@
         sut.Actor.ShouldNotBeNull
         sut.HasDetails.ShouldBeTrue
     End Sub
+    <Fact>
+    Sub have_default_non_existent_values_upon_initialization()
+        Dim sut = CreateSut(-1, -1)
+        sut.Exists.ShouldBeFalse
+        sut.LocationType.ShouldBeNull
+        sut.Actor.ShouldBeNull
+        sut.HasDetails.ShouldBeFalse
+    End Sub
 
-    Private Function CreateSut() As ILocationModel
-        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Board.GetLocation((0, 0))
+    Private Function CreateSut(Optional column As Integer = 0, Optional row As Integer = 0) As ILocationModel
+        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Board.GetLocation((column, row))
     End Function
 End Class
