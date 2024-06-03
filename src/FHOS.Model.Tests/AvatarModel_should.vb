@@ -14,7 +14,7 @@
         sut.Wallet.ShouldNotBeNull
     End Sub
 
-    Private Function CreateSut() As IAvatarModel
+    Private Shared Function CreateSut() As IAvatarModel
         Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Avatar
     End Function
 End Class
