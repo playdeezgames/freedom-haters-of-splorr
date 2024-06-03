@@ -1,6 +1,7 @@
 # Freedom Haters of SPLORR!!
 
-  - [ ] 20240602 - SIGMO FHOS Episode 48 - 
+  - [ ] 20240603 - SIGMO FHOS Episode 49 - 
+  - [x] 20240602 - SIGMO FHOS Episode 48 - 
   - [x] 20240601 - SIGMO FHOS Episode 47 - 
   - [x] 20240531 - SIGMO FHOS Episode 46 - 
   - [x] 20240530 - SIGMO FHOS Episode 45 - 
