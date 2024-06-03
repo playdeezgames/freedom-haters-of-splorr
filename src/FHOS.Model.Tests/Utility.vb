@@ -10,6 +10,9 @@
 
     Friend Sub BuildLonelyUniverse(universe As IUniverse, settings As EmbarkSettings)
         Dim map = universe.Factory.CreateMap("map name", "map type", 1, 1, "location type")
-        universe.Avatar.Push(map.GetLocation(0, 0).CreateActor("actor type", "actor name"))
+        Dim actor = map.GetLocation(0, 0).CreateActor("actor type", "actor name")
+        Dim group = universe.Factory.CreateGroup("group type", "group name")
+        actor.GroupCategory(group) = "Faction"
+        universe.Avatar.Push(actor)
     End Sub
 End Module
