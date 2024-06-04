@@ -17,9 +17,13 @@ Friend Class TypedEntityDataClient(Of TEntityData As EntityData)
     End Sub
 
 
-    Public ReadOnly Property EntityType As String Implements ITypedEntity.EntityType
+    Public Property EntityType As String Implements ITypedEntity.EntityType
         Get
-            Return EntityData.Metadatas(LegacyMetadataTypes.EntityType)
+
+            Return GetMetadata(LegacyMetadataTypes.EntityType)
         End Get
+        Set(value As String)
+            SetMetadata(LegacyMetadataTypes.EntityType, value)
+        End Set
     End Property
 End Class

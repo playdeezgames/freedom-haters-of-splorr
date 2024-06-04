@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Data
 
 Friend Class MapDataClient
-    Inherits EntityDataClient(Of MapData)
+    Inherits TypedEntityDataClient(Of MapData)
     Sub New(
            worldData As UniverseData,
            mapId As Integer)

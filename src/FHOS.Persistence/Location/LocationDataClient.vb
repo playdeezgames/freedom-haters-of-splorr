@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Data
 
 Friend Class LocationDataClient
-    Inherits EntityDataClient(Of LocationData)
+    Inherits TypedEntityDataClient(Of LocationData)
 
     Public Sub New(
                   universeData As UniverseData,

@@ -28,7 +28,7 @@ Friend Class UniverseFactory
                 },
                 .Metadatas = New Dictionary(Of String, String) From
                 {
-                    {LegacyMetadataTypes.MapType, mapType},
+                    {LegacyMetadataTypes.EntityType, mapType},
                     {LegacyMetadataTypes.Name, mapName}
                 }
             }
@@ -52,7 +52,7 @@ Friend Class UniverseFactory
                                 },
                                 .Metadatas = New Dictionary(Of String, String) From
                                 {
-                                    {LegacyMetadataTypes.LocationType, locationType}
+                                    {LegacyMetadataTypes.EntityType, locationType}
                                 }
                             }
         Return UniverseData.Locations.CreateOrRecycle(locationData)

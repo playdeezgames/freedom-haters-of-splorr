@@ -1,6 +1,5 @@
 ﻿Public Interface ILocation
-    Inherits IEntity
-    Property EntityType As String
+    Inherits ITypedEntity
     ReadOnly Property Map As IMap
     ReadOnly Property Column As Integer
     ReadOnly Property Row As Integer

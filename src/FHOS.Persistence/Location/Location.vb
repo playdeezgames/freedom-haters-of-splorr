@@ -33,15 +33,6 @@ Friend Class Location
         End Get
     End Property
 
-    Public Property EntityType As String Implements ILocation.EntityType
-        Get
-            Return EntityData.Metadatas(LegacyMetadataTypes.LocationType)
-        End Get
-        Set(value As String)
-            EntityData.Metadatas(LegacyMetadataTypes.LocationType) = value
-        End Set
-    End Property
-
     Public Property Actor As IActor Implements ILocation.Actor
         Get
             Dim actorId As Integer
