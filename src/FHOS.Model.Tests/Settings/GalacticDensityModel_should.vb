@@ -1,4 +1,4 @@
-﻿Public Class GalacticAgeModel_should
+﻿Public Class GalacticDensityModel_should
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
@@ -7,18 +7,18 @@
         sut.Options.Count.ShouldBe(3)
     End Sub
     <Fact>
-    Sub set_age()
+    Sub set_density()
         Dim sut = CreateSut()
         Dim item = sut.Options.First.Item
-        sut.SetAge(item)
+        sut.SetDensity(item)
         sut.Current.ShouldBe(item)
     End Sub
 
-    Private Function CreateSut() As IGalacticAgeModel
+    Private Function CreateSut() As IGalacticDensityModel
         Return CreateOneStepUniverse(
             AddressOf BuildLonelyUniverse,
             writeStringToFile:=AddressOf WriteFile,
-            readStringFromFile:=AddressOf ReadFile).Settings.GalacticAge
+            readStringFromFile:=AddressOf ReadFile).Settings.GalacticDensity
     End Function
 
     Private Function ReadFile(arg As String) As String

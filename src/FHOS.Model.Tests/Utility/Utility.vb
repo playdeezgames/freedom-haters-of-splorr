@@ -1,6 +1,13 @@
 ﻿Friend Module Utility
-    Function CreateOneStepUniverse(builder As Action(Of IUniverse, EmbarkSettings)) As IUniverseModel
-        Dim model = New UniverseModel(initializer:=New OneStepUniverseInitializer(builder), generationTimeSlice:=0.0)
+    Function CreateOneStepUniverse(
+                                  builder As Action(Of IUniverse, EmbarkSettings),
+                                  Optional writeStringToFile As Action(Of String, String) = Nothing,
+                                  Optional readStringFromFile As Func(Of String, String) = Nothing) As IUniverseModel
+        Dim model = New UniverseModel(
+                initializer:=New OneStepUniverseInitializer(builder),
+                writeStringToFile:=writeStringToFile,
+                readStringFromFile:=readStringFromFile,
+                generationTimeSlice:=0.0)
         model.Generator.Start()
         While Not model.Generator.Done
             model.Generator.Generate()
