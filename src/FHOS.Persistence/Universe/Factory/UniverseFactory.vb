@@ -66,7 +66,7 @@ Friend Class UniverseFactory
             {
                 .Metadatas = New Dictionary(Of String, String) From
                 {
-                    {LegacyMetadataTypes.GroupType, groupType},
+                    {LegacyMetadataTypes.EntityType, groupType},
                     {LegacyMetadataTypes.Name, groupName}
                 }
             }

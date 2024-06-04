@@ -33,12 +33,6 @@ Friend Class Group
         End Get
     End Property
 
-    Public ReadOnly Property EntityType As String Implements IGroup.EntityType
-        Get
-            Return GetMetadata(LegacyMetadataTypes.GroupType)
-        End Get
-    End Property
-
     Public ReadOnly Property Parents As IEnumerable(Of IGroup) Implements IGroup.Parents
         Get
             Return EntityData.Parents.Select(Function(x) Group.FromId(UniverseData, x))

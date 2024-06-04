@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Data
 
 Friend Class GroupDataClient
-    Inherits EntityDataClient(Of GroupData)
+    Inherits TypedEntityDataClient(Of GroupData)
     Public Sub New(
                   universeData As Data.UniverseData,
                   factionId As Integer)
