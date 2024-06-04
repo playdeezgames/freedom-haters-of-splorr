@@ -28,7 +28,7 @@
     Sub have_default_values_upon_instantiation()
         Const actorType = "actor type"
         Dim sut = CreateSut(actorType:=actorType)
-        sut.ActorType.ShouldBe(actorType)
+        sut.EntityType.ShouldBe(actorType)
         sut.Tutorial.ShouldNotBeNull
         sut.Family.ShouldNotBeNull
         sut.Properties.ShouldNotBeNull

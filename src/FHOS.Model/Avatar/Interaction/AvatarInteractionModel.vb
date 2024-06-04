@@ -24,8 +24,8 @@ Friend Class AvatarInteractionModel
         Get
             Dim result As New List(Of (Text As String, Hue As Integer))
             Dim interactor = actor.State.Interactor
-            result.Add((interactor.Properties.Name, Hues.LightGray))
-            result.AddRange(ActorTypes.Descriptors(interactor.ActorType).Describe(interactor))
+            result.Add((interactor.Properties.EntityName, Hues.LightGray))
+            result.AddRange(ActorTypes.Descriptors(interactor.EntityType).Describe(interactor))
             Return result
         End Get
     End Property

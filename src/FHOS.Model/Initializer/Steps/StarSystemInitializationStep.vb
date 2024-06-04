@@ -13,7 +13,7 @@ Friend Class StarSystemInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim descriptor = MapTypes.Descriptors(MapTypes.StarSystem)
         Dim actor = location.Actor
-        actor.Properties.Interior = descriptor.CreateMap($"{actor.Properties.Name} System", actor.Universe)
+        actor.Properties.Interior = descriptor.CreateMap($"{actor.Properties.EntityName} System", actor.Universe)
         PlaceBoundaryActors(actor, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(actor, addStep)
         actor.Properties.Groups(GroupTypes.StarSystem).Statistics(StatisticTypes.PlanetCount) = PlacePlanets(actor, addStep)

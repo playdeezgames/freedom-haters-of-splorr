@@ -59,7 +59,7 @@ Friend Class PlayerShipActorTypeDescriptor
 
         Dim planetCandidates = sigmoFaction.Children.Where(Function(x) x.EntityType = GroupTypes.PlanetVicinity)
         actor.Properties.HomePlanet = RNG.FromEnumerable(planetCandidates)
-        actor.Properties.Name = "(yer ship)"
+        actor.Properties.EntityName = "(yer ship)"
         actor.State.LifeSupport = actor.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
         actor.State.FuelTank = actor.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
         InitializePlayerShipInterior(actor)

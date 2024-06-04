@@ -52,8 +52,8 @@
         actor.ShouldNotBeNull
         actor.State.Location.Id.ShouldBe(sut.Id)
         sut.Actor.Id.ShouldBe(actor.Id)
-        actor.Properties.Name.ShouldBe(actorName)
-        actor.ActorType.ShouldBe(actorType)
+        actor.Properties.EntityName.ShouldBe(actorName)
+        actor.EntityType.ShouldBe(actorType)
     End Sub
     <Fact>
     Sub have_target_location()

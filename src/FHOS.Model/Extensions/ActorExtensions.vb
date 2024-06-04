@@ -9,7 +9,7 @@ Friend Module ActorExtensions
     End Function
     <Extension>
     Function Descriptor(actor As IActor) As ActorTypeDescriptor
-        Return ActorTypes.Descriptors(actor.ActorType)
+        Return ActorTypes.Descriptors(actor.EntityType)
     End Function
 
     <Extension>
