@@ -1,5 +1,4 @@
 ﻿Friend Module LegacyMetadataTypes
-    Friend ReadOnly ActorType As String = NameOf(ActorType)
     Friend ReadOnly Costume As String = NameOf(Costume)
     Friend ReadOnly GroupType As String = NameOf(GroupType)
     Friend ReadOnly Identifier As String = NameOf(Identifier)
@@ -9,4 +8,7 @@
     Friend ReadOnly Name As String = NameOf(Name)
     Friend ReadOnly PlaceType As String = NameOf(PlaceType)
     Friend ReadOnly Tutorial As String = NameOf(Tutorial)
+
+    'keep these:
+    Friend ReadOnly EntityType As String = NameOf(EntityType)
 End Module

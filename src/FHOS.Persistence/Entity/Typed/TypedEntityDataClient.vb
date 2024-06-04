@@ -2,6 +2,7 @@
 
 Friend Class TypedEntityDataClient(Of TEntityData As EntityData)
     Inherits EntityDataClient(Of TEntityData)
+    Implements ITypedEntity
 
     Public Sub New(
                   universeData As UniverseData,
@@ -14,4 +15,11 @@ Friend Class TypedEntityDataClient(Of TEntityData As EntityData)
             entityDataFetcher,
             entityDataRecycler)
     End Sub
+
+
+    Public ReadOnly Property EntityType As String Implements ITypedEntity.EntityType
+        Get
+            Return EntityData.Metadatas(LegacyMetadataTypes.EntityType)
+        End Get
+    End Property
 End Class

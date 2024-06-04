@@ -101,7 +101,7 @@ Friend Class Location
                                     },
                                     .Metadatas = New Dictionary(Of String, String) From
                                     {
-                                        {LegacyMetadataTypes.ActorType, actorType},
+                                        {LegacyMetadataTypes.EntityType, actorType},
                                         {LegacyMetadataTypes.Name, name}
                                     }
                                  }
