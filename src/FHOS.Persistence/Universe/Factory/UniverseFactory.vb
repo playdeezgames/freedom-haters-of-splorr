@@ -101,7 +101,7 @@ Friend Class UniverseFactory
             {
                 .Metadatas = New Dictionary(Of String, String) From
                 {
-                    {LegacyMetadataTypes.ItemType, itemType}
+                    {LegacyMetadataTypes.EntityType, itemType}
                 }
             }
         Return Item.FromId(UniverseData, UniverseData.Items.CreateOrRecycle(itemData))
