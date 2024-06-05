@@ -9,7 +9,7 @@ Friend Class StarVicinityInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim descriptor = MapTypes.Descriptors(MapTypes.StarVicinity)
         Dim actor = location.Actor
-        Dim map = descriptor.CreateMap($"{actor.Properties.LegacyEntityName} Vicinity", actor.Universe)
+        Dim map = descriptor.CreateMap($"{actor.EntityName} Vicinity", actor.Universe)
         actor.Properties.Interior = map
         PlaceBoundaryActors(actor, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(actor)
@@ -20,6 +20,6 @@ Friend Class StarVicinityInitializationStep
         Dim starRow = externalActor.Properties.Interior.Size.Rows \ 2
         Dim location = externalActor.Properties.Interior.GetLocation(starColumn, starRow)
         location.EntityType = LocationTypes.Star
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStar(externalActor.Descriptor.Subtype)).CreateActor(location, externalActor.Properties.LegacyEntityName)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStar(externalActor.Descriptor.Subtype)).CreateActor(location, externalActor.EntityName)
     End Sub
 End Class

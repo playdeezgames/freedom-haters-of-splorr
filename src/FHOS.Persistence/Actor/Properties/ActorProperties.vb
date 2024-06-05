@@ -10,15 +10,6 @@
         Return New ActorProperties(universeData, id)
     End Function
 
-    Public Property LegacyEntityName As String Implements IActorProperties.LegacyEntityName
-        Get
-            Return GetMetadata(LegacyMetadataTypes.Name)
-        End Get
-        Set(value As String)
-            SetMetadata(LegacyMetadataTypes.Name, value)
-        End Set
-    End Property
-
     Public Property Interior As IMap Implements IActorProperties.Interior
         Get
             Return Map.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.MapId))

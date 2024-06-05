@@ -30,7 +30,6 @@
         Const groupType = "group type"
         Dim sut = CreateSut(actorName:=actorName)
         sut.Interior.ShouldBeNull
-        sut.LegacyEntityName.ShouldBe(actorName)
         sut.Groups(groupType).ShouldBeNull
         sut.HomePlanet.ShouldBeNull
         sut.CostumeType.ShouldBeNull

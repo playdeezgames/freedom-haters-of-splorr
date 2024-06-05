@@ -52,7 +52,7 @@
         actor.ShouldNotBeNull
         actor.State.Location.Id.ShouldBe(sut.Id)
         sut.Actor.Id.ShouldBe(actor.Id)
-        actor.Properties.LegacyEntityName.ShouldBe(actorName)
+        actor.EntityName.ShouldBe(actorName)
         actor.EntityType.ShouldBe(actorType)
     End Sub
     <Fact>

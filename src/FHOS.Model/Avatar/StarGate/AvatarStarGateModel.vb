@@ -18,7 +18,7 @@ Friend Class AvatarStarGateModel
         Get
             Dim faction = actor.Properties.Groups(GroupTypes.Faction)
             Dim gates = actor.Universe.Actors.Where(Function(x) ActorTypes.Descriptors(x.EntityType).IsStarGate AndAlso x.Properties.Groups(GroupTypes.Faction).Id = faction.Id)
-            Return gates.Select(Function(x) (x.Properties.LegacyEntityName, ActorModel.FromActor(x)))
+            Return gates.Select(Function(x) (x.EntityName, ActorModel.FromActor(x)))
         End Get
     End Property
 

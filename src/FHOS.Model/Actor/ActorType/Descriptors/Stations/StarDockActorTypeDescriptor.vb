@@ -27,6 +27,6 @@
     End Function
 
     Protected Overrides Function MakeName(planet As Persistence.IActor) As String
-        Return $"{planet.Properties.LegacyEntityName} Star Dock"
+        Return $"{planet.EntityName} Star Dock"
     End Function
 End Class
