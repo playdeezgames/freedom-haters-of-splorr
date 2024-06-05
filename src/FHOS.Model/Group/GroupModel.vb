@@ -18,7 +18,7 @@ Friend Class GroupModel
 
     Public ReadOnly Property Name As String Implements IGroupModel.Name
         Get
-            Return group.EntityName
+            Return group.LegacyEntityName
         End Get
     End Property
 

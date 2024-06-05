@@ -25,7 +25,7 @@ Friend Class MilitaryVesselActorTypeDescriptor
         Dim faction = RNG.FromGenerator(actor.Universe.Groups.Where(Function(x) x.EntityType = GroupTypes.Faction).ToDictionary(Function(x) x, Function(x) x.Statistics(StatisticTypes.PlanetCount).Value))
         actor.GroupCategory(faction) = CategoryTypes.Faction
         actor.Properties.HomePlanet = RNG.FromEnumerable(faction.Children.Where(Function(x) x.EntityType = GroupTypes.PlanetVicinity))
-        actor.EntityName = $"{faction.EntityName} Military Vessel"
+        actor.EntityName = $"{faction.LegacyEntityName} Military Vessel"
     End Sub
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean

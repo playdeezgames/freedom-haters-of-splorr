@@ -8,7 +8,7 @@
         Dim group = sut.CreateGroup(groupType, groupName)
         group.ShouldNotBeNull
         group.EntityType.ShouldBe(groupType)
-        group.EntityName.ShouldBe(groupName)
+        group.LegacyEntityName.ShouldBe(groupName)
         universe.Groups.Count.ShouldBe(1)
         group.Parents.ShouldBeEmpty
         group.Children.ShouldBeEmpty
@@ -25,7 +25,7 @@
         Const defaultLocationType = "default location type"
         Dim map = sut.CreateMap(mapName, mapType, mapColumns, mapRows, defaultLocationType)
         map.EntityType.ShouldBe(mapType)
-        map.EntityName.ShouldBe(mapName)
+        map.LegacyEntityName.ShouldBe(mapName)
         map.Locations.Count.ShouldBe(mapColumns * mapRows)
         map.Locations.All(Function(x) x.EntityType = defaultLocationType).ShouldBeTrue
         map.Size.Columns.ShouldBe(mapColumns)

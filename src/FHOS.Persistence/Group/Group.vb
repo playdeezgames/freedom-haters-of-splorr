@@ -27,7 +27,7 @@ Friend Class Group
         End If
     End Sub
 
-    Public ReadOnly Property EntityName As String Implements IGroup.EntityName
+    Public ReadOnly Property LegacyEntityName As String Implements IGroup.LegacyEntityName
         Get
             Return EntityData.Metadatas(LegacyMetadataTypes.Name)
         End Get
