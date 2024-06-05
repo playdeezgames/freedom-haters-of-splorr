@@ -16,7 +16,7 @@ Friend Class StarSystemInitializationStep
         actor.Properties.Interior = descriptor.CreateMap($"{actor.EntityName} System", actor.Universe)
         PlaceBoundaryActors(actor, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(actor, addStep)
-        actor.Properties.Groups(GroupTypes.StarSystem).Statistics(StatisticTypes.PlanetCount) = PlacePlanets(actor, addStep)
+        actor.Properties.LegacyGroups(GroupTypes.StarSystem).Statistics(StatisticTypes.PlanetCount) = PlacePlanets(actor, addStep)
         addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
     End Sub
 
@@ -51,10 +51,10 @@ Friend Class StarSystemInitializationStep
         Dim location = exteriorActor.Properties.Interior.GetLocation(column, row)
         location.EntityType = LocationTypes.PlanetVicinity
         Dim group = location.Universe.Factory.CreateGroup(GroupTypes.PlanetVicinity, nameGenerator.GenerateUnusedName)
-        group.AddParent(exteriorActor.Properties.Groups(GroupTypes.StarSystem))
+        group.AddParent(exteriorActor.Properties.LegacyGroups(GroupTypes.StarSystem))
         Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetVicinity(planetType)).CreateActor(location, $"{group.EntityName}")
-        actor.Properties.Groups(GroupTypes.PlanetVicinity) = group
-        actor.Properties.Groups(GroupTypes.StarSystem) = exteriorActor.Properties.Groups(GroupTypes.StarSystem)
+        actor.Properties.SetGroup(GroupTypes.PlanetVicinity, group)
+        actor.Properties.SetGroup(GroupTypes.StarSystem, exteriorActor.Properties.LegacyGroups(GroupTypes.StarSystem))
         addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
     End Sub
 
@@ -62,7 +62,7 @@ Friend Class StarSystemInitializationStep
         Dim starColumn = externalActor.Properties.Interior.Size.Columns \ 2
         Dim starRow = externalActor.Properties.Interior.Size.Rows \ 2
         Dim location = externalActor.Properties.Interior.GetLocation(starColumn, starRow)
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarVicinity(externalActor.Descriptor.Subtype)).CreateActor(location, externalActor.Properties.Groups(GroupTypes.StarSystem).EntityName)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarVicinity(externalActor.Descriptor.Subtype)).CreateActor(location, externalActor.Properties.LegacyGroups(GroupTypes.StarSystem).EntityName)
         location.EntityType = LocationTypes.StarVicinity
         addStep(New StarVicinityInitializationStep(location), False)
     End Sub

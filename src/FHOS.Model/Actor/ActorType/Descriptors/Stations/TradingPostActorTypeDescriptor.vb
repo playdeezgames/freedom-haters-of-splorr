@@ -28,7 +28,7 @@
 
     Friend Overrides Function Describe(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
         Return {
-            ($"Faction: {actor.Properties.Groups(GroupTypes.Faction).EntityName}", Hues.Black)
+            ($"Faction: {actor.Properties.LegacyGroups(GroupTypes.Faction).EntityName}", Hues.Black)
             }
     End Function
 End Class

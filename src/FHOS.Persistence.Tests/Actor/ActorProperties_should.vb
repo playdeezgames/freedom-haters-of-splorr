@@ -30,7 +30,7 @@
         Const groupType = "group type"
         Dim sut = CreateSut(actorName:=actorName)
         sut.Interior.ShouldBeNull
-        sut.Groups(groupType).ShouldBeNull
+        sut.LegacyGroups(groupType).ShouldBeNull
         sut.CostumeType.ShouldBeNull
         sut.TargetActor.ShouldBeNull
     End Sub
