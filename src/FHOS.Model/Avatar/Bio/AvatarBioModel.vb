@@ -10,7 +10,7 @@ Friend Class AvatarBioModel
 
     Public ReadOnly Property HomePlanet As IGroupModel Implements IAvatarBioModel.HomePlanet
         Get
-            Return GroupModel.FromGroup(actor.Properties.HomePlanet)
+            Return GroupModel.FromGroup(actor.GroupsOfCategory(CategoryTypes.HomePlanet).FirstOrDefault)
         End Get
     End Property
 

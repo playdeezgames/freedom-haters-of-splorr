@@ -37,15 +37,6 @@
         End Set
     End Property
 
-    Public Property HomePlanet As IGroup Implements IActorProperties.HomePlanet
-        Get
-            Return Persistence.Group.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.HomePlanetActorId))
-        End Get
-        Set(value As IGroup)
-            SetStatistic(LegacyStatisticTypes.HomePlanetActorId, value?.Id)
-        End Set
-    End Property
-
     Public Property Groups(groupType As String) As IGroup Implements IActorProperties.Groups
         Get
             Dim groupId As Integer

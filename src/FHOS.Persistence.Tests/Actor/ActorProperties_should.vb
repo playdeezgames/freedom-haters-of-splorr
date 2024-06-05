@@ -31,7 +31,6 @@
         Dim sut = CreateSut(actorName:=actorName)
         sut.Interior.ShouldBeNull
         sut.Groups(groupType).ShouldBeNull
-        sut.HomePlanet.ShouldBeNull
         sut.CostumeType.ShouldBeNull
         sut.TargetActor.ShouldBeNull
     End Sub
@@ -42,14 +41,6 @@
         Dim map = CreateMap("other map name", "other map type", 2, 3, "other location type", universe:=universe)
         sut.Interior = map
         sut.Interior.Id.ShouldBe(map.Id)
-    End Sub
-    <Fact>
-    Sub have_home_planet()
-        Dim universe = CreateUniverse()
-        Dim sut = CreateSut(universe:=universe)
-        Dim homePlanet = CreateGroup("other group type", "other group name", universe:=universe)
-        sut.HomePlanet = homePlanet
-        sut.HomePlanet.Id.ShouldBe(homePlanet.Id)
     End Sub
     <Fact>
     Sub have_costume_type()
