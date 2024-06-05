@@ -15,9 +15,12 @@ Friend Class NamedEntityDataClient(Of TEntityData As EntityData)
             entityDataRecycler)
     End Sub
 
-    Public ReadOnly Property EntityName As String Implements INamedEntity.EntityName
+    Public Property EntityName As String Implements INamedEntity.EntityName
         Get
-            Return Nothing
+            Return GetMetadata(LegacyMetadataTypes.Name)
         End Get
+        Set(value As String)
+            SetMetadata(LegacyMetadataTypes.Name, value)
+        End Set
     End Property
 End Class

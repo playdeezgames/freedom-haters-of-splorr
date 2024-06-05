@@ -1,4 +1,6 @@
-﻿Public Class Actor_should
+﻿Imports System.Reflection.Metadata
+
+Public Class Actor_should
     Private Shared Function CreateSut(
                               Optional mapName As String = "map name",
                               Optional mapType As String = "map type",
@@ -34,7 +36,14 @@
         sut.Properties.ShouldNotBeNull
         sut.State.ShouldNotBeNull
         sut.Equipment.ShouldNotBeNull
-        sut.EntityName.ShouldBeNull
+        sut.EntityName.ShouldBe("actor name")
+    End Sub
+    <Fact>
+    Sub set_entity_name()
+        Const entityName = "entity name"
+        Dim sut = CreateSut()
+        sut.EntityName = entityName
+        sut.EntityName.ShouldBe(entityName)
     End Sub
     <Fact>
     Sub by_default_have_no_relationship_to_group()
