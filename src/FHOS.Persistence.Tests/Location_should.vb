@@ -26,8 +26,9 @@
         Const locationType = "location type"
         Dim sut As ILocation = CreateSut(column:=column, row:=row, locationType:=locationType)
         sut.Map.ShouldNotBeNull
-        sut.Column.ShouldBe(column)
         sut.Row.ShouldBe(row)
+        sut.Position.Column.ShouldBe(column)
+        sut.Position.Row.ShouldBe(row)
         sut.EntityType.ShouldBe(locationType)
         sut.Actor.ShouldBeNull
         sut.Tutorial.ShouldBeNull

@@ -21,12 +21,6 @@ Friend Class Location
         End Get
     End Property
 
-    Public ReadOnly Property Column As Integer Implements ILocation.Column
-        Get
-            Return EntityData.Statistics(LegacyStatisticTypes.Column)
-        End Get
-    End Property
-
     Public ReadOnly Property Row As Integer Implements ILocation.Row
         Get
             Return EntityData.Statistics(LegacyStatisticTypes.Row)
@@ -79,6 +73,12 @@ Friend Class Location
     Public ReadOnly Property HasTargetLocation As Boolean Implements ILocation.HasTargetLocation
         Get
             Return EntityData.Statistics.ContainsKey(LegacyStatisticTypes.TargetLocationId)
+        End Get
+    End Property
+
+    Public ReadOnly Property Position As (Column As Integer, Row As Integer) Implements ILocation.Position
+        Get
+            Return (EntityData.Statistics(LegacyStatisticTypes.Column), Me.Row)
         End Get
     End Property
 

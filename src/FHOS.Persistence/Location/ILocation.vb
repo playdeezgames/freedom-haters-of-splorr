@@ -1,8 +1,10 @@
-﻿Public Interface ILocation
+﻿Imports System.Data
+
+Public Interface ILocation
     Inherits ITypedEntity
     ReadOnly Property Map As IMap
-    ReadOnly Property Column As Integer
     ReadOnly Property Row As Integer
+    ReadOnly Property Position As (Column As Integer, Row As Integer)
     Property Actor As IActor
     Function CreateActor(actorType As String, name As String) As IActor
 

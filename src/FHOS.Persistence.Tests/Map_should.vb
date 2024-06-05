@@ -26,7 +26,7 @@
             For Each row In Enumerable.Range(0, SutRows)
                 Dim location = sut.GetLocation(column, row)
                 location.ShouldNotBeNull
-                location.Column.ShouldBe(column)
+                location.Position.Column.ShouldBe(column)
                 location.Row.ShouldBe(row)
             Next
         Next

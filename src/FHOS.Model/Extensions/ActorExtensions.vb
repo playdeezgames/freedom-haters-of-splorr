@@ -27,7 +27,7 @@ Friend Module ActorExtensions
         DoTurn(actor)
         DoFuelConsumption(actor)
         Dim location = actor.State.Location
-        Dim nextColumn = location.Column + delta.X
+        Dim nextColumn = location.Position.Column + delta.X
         Dim nextRow = location.Row + delta.Y
         Dim map = location.Map
         Dim nextLocation = map.GetLocation(nextColumn, nextRow)
