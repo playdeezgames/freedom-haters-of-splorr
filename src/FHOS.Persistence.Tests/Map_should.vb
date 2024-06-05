@@ -8,6 +8,13 @@
         Return CreateMap(mapName, mapType, SutColumns, SutRows, locationType)
     End Function
     <Fact>
+    Sub set_name()
+        Const entityName = "entity name"
+        Dim sut = CreateSut()
+        sut.EntityName = entityName
+        sut.EntityName.ShouldBe(entityName)
+    End Sub
+    <Fact>
     Sub have_an_id()
         Dim sut As IMap = CreateSut()
         sut.Id.ShouldBe(0)

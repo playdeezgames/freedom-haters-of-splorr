@@ -22,6 +22,13 @@
         sut.Flags(flagName).ShouldBeFalse
     End Sub
     <Fact>
+    Sub set_name()
+        Const entityName = "entity name"
+        Dim sut = CreateSut()
+        sut.EntityName = entityName
+        sut.EntityName.ShouldBe(entityName)
+    End Sub
+    <Fact>
     Sub have_universe_reference()
         Dim sut = CreateSut()
         sut.Universe.ShouldNotBeNull
