@@ -19,7 +19,7 @@
     End Sub
 
     Protected Overrides Function MakeName(planet As Persistence.IActor) As String
-        Return $"{planet.Properties.EntityName} Trading Post"
+        Return $"{planet.Properties.LegacyEntityName} Trading Post"
     End Function
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean

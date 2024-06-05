@@ -10,7 +10,7 @@
         Return New ActorProperties(universeData, id)
     End Function
 
-    Public Property EntityName As String Implements IActorProperties.EntityName
+    Public Property LegacyEntityName As String Implements IActorProperties.LegacyEntityName
         Get
             Return GetMetadata(LegacyMetadataTypes.Name)
         End Get

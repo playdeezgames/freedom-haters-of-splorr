@@ -34,6 +34,7 @@
         sut.Properties.ShouldNotBeNull
         sut.State.ShouldNotBeNull
         sut.Equipment.ShouldNotBeNull
+        sut.EntityName.ShouldBeNull
     End Sub
     <Fact>
     Sub by_default_have_no_relationship_to_group()

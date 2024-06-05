@@ -11,7 +11,7 @@ Friend Class PlanetVicinityInitializationStep
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim actor = location.Actor
-        Dim map = MapTypes.Descriptors(MapTypes.PlanetVicinity).CreateMap($"{actor.Properties.EntityName} Vicinity", actor.Universe)
+        Dim map = MapTypes.Descriptors(MapTypes.PlanetVicinity).CreateMap($"{actor.Properties.LegacyEntityName} Vicinity", actor.Universe)
         actor.Properties.Interior = map
         PlaceBoundaryActors(
             actor,

@@ -18,7 +18,7 @@ Friend Class StarGateActorTypeDescriptor
     End Sub
 
     Protected Overrides Function MakeName(planet As IActor) As String
-        Return $"{planet.Properties.EntityName} Star Gate"
+        Return $"{planet.Properties.LegacyEntityName} Star Gate"
     End Function
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean

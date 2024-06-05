@@ -30,7 +30,7 @@ Friend Class ActorModel
 
     Public ReadOnly Property Name As String Implements IActorModel.Name
         Get
-            Return actor.Properties.EntityName
+            Return actor.Properties.LegacyEntityName
         End Get
     End Property
 
