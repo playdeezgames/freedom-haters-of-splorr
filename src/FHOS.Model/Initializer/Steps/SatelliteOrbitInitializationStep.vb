@@ -21,7 +21,7 @@ Friend Class SatelliteOrbitInitializationStep
         Dim centerColumn = satellite.Properties.Interior.Size.Columns \ 2
         Dim centerRow = satellite.Properties.Interior.Size.Rows \ 2
         For Each delta In Grid3x3.Descriptors
-            PlaceSatelliteSection(satellite.Descriptor.Subtype, satellite.Properties.Interior.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y), delta.Key, satellite.Properties.LegacyGroups(GroupTypes.Satellite))
+            PlaceSatelliteSection(satellite.Descriptor.Subtype, satellite.Properties.Interior.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y), delta.Key, satellite.Properties.GetGroup(GroupTypes.Satellite))
         Next
     End Sub
 

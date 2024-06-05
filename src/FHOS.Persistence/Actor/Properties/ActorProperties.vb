@@ -45,13 +45,11 @@
         End Set
     End Property
 
-    Public ReadOnly Property LegacyGroups(groupType As String) As IGroup Implements IActorProperties.LegacyGroups
-        Get
-            Dim groupId As Integer
-            If EntityData.Groups.TryGetValue(groupType, groupId) Then
-                Return Persistence.Group.FromId(UniverseData, groupId)
-            End If
-            Return Nothing
-        End Get
-    End Property
+    Public Function GetGroup(groupType As String) As IGroup Implements IActorProperties.GetGroup
+        Dim groupId As Integer
+        If EntityData.Groups.TryGetValue(groupType, groupId) Then
+            Return Persistence.Group.FromId(UniverseData, groupId)
+        End If
+        Return Nothing
+    End Function
 End Class
