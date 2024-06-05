@@ -15,15 +15,6 @@ Friend Class Map
         Return Nothing
     End Function
 
-    Public Property LegacyEntityName As String Implements IMap.LegacyEntityName
-        Get
-            Return EntityData.Metadatas(LegacyMetadataTypes.Name)
-        End Get
-        Set(value As String)
-            EntityData.Metadatas(LegacyMetadataTypes.Name) = value
-        End Set
-    End Property
-
     Public ReadOnly Property Locations As IEnumerable(Of ILocation) Implements IMap.Locations
         Get
             Return EntityData.Locations.Select(Function(x) Location.FromId(UniverseData, x))
