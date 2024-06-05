@@ -11,7 +11,7 @@ Friend Class AvatarStateModel
     Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IAvatarStateModel.Position
         Get
             With actor.State.Location
-                Return (.Position.Column, .Row)
+                Return .Position
             End With
         End Get
     End Property

@@ -27,7 +27,7 @@
                 Dim location = sut.GetLocation(column, row)
                 location.ShouldNotBeNull
                 location.Position.Column.ShouldBe(column)
-                location.Row.ShouldBe(row)
+                location.Position.Row.ShouldBe(row)
             Next
         Next
     End Sub

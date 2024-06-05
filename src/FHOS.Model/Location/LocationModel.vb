@@ -6,7 +6,7 @@
     Protected Sub New(universe As Persistence.IUniverse, boardPosition As (X As Integer, Y As Integer))
         Dim mapPosition As (X As Integer, Y As Integer) = (
             boardPosition.X + universe.Avatar.Actor.State.Location.Position.Column,
-            boardPosition.Y + universe.Avatar.Actor.State.Location.Row)
+            boardPosition.Y + universe.Avatar.Actor.State.Location.Position.Row)
         Me.location = universe.Avatar.Actor.State.Location.Map.GetLocation(mapPosition.X, mapPosition.Y)
     End Sub
 

@@ -28,7 +28,7 @@ Friend Module ActorExtensions
         DoFuelConsumption(actor)
         Dim location = actor.State.Location
         Dim nextColumn = location.Position.Column + delta.X
-        Dim nextRow = location.Row + delta.Y
+        Dim nextRow = location.Position.Row + delta.Y
         Dim map = location.Map
         Dim nextLocation = map.GetLocation(nextColumn, nextRow)
         If nextLocation Is Nothing Then

@@ -15,7 +15,7 @@ Friend Class PlanetOrbitInitializationStep
         For Each actor In actors
             actor.Properties.Interior = map
         Next
-        Dim targetActor = actors.OrderBy(Function(x) x.State.Location.Position.Column).ThenBy(Function(x) x.State.Location.Row).First()
+        Dim targetActor = actors.OrderBy(Function(x) x.State.Location.Position.Column).ThenBy(Function(x) x.State.Location.Position.Row).First()
         PlaceBoundaryActors(targetActor, planet.Properties.Interior.Size.Columns, planet.Properties.Interior.Size.Rows)
         PlacePlanet(planet)
         addStep(New EncounterInitializationStep(planet.Properties.Interior), True)

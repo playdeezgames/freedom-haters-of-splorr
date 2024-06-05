@@ -21,12 +21,6 @@ Friend Class Location
         End Get
     End Property
 
-    Public ReadOnly Property Row As Integer Implements ILocation.Row
-        Get
-            Return EntityData.Statistics(LegacyStatisticTypes.Row)
-        End Get
-    End Property
-
     Public Property Actor As IActor Implements ILocation.Actor
         Get
             Dim actorId As Integer
@@ -78,7 +72,7 @@ Friend Class Location
 
     Public ReadOnly Property Position As (Column As Integer, Row As Integer) Implements ILocation.Position
         Get
-            Return (EntityData.Statistics(LegacyStatisticTypes.Column), Me.Row)
+            Return (EntityData.Statistics(LegacyStatisticTypes.Column), EntityData.Statistics(LegacyStatisticTypes.Row))
         End Get
     End Property
 
