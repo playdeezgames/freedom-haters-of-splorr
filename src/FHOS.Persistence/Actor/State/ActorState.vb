@@ -20,15 +20,6 @@
         End Set
     End Property
 
-    Public Property Facing As Integer Implements IActorState.Facing
-        Get
-            Return EntityData.Statistics(LegacyStatisticTypes.Facing)
-        End Get
-        Set(value As Integer)
-            EntityData.Statistics(LegacyStatisticTypes.Facing) = value
-        End Set
-    End Property
-
     Public Property Interactor As IActor Implements IActorState.Interactor
         Get
             Return Actor.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.InteractorId))

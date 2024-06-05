@@ -18,7 +18,7 @@ Friend Class ActorModel
 
     Private ReadOnly Property Glyph As Char
         Get
-            Return actor.Properties.CostumeDescriptor.Glyphs(actor.State.Facing)
+            Return actor.Properties.CostumeDescriptor.Glyphs(actor.Statistics(StatisticTypes.Facing).Value)
         End Get
     End Property
 

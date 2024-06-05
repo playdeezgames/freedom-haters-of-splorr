@@ -31,7 +31,6 @@
         sut.FuelTank.ShouldBeNull
         sut.Wallet.ShouldBeNull
         sut.Location.ShouldNotBeNull
-        sut.Facing.ShouldBe(0)
         sut.Interactor.ShouldBeNull
         sut.Scrap.ShouldBe(0)
         sut.StarGate.ShouldBeNull
@@ -78,13 +77,6 @@
         sut.Location = location
         oldLocation.Actor.ShouldBeNull
         location.Actor.Id.ShouldBe(ActorId)
-    End Sub
-    <Fact>
-    Sub have_facing()
-        Const facing = 2
-        Dim sut = CreateSut()
-        sut.Facing = facing
-        sut.Facing.ShouldBe(facing)
     End Sub
     <Fact>
     Sub have_scrap()

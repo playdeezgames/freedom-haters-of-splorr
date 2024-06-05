@@ -19,8 +19,8 @@ Friend Module ActorExtensions
 
     <Extension>
     Sub Move(actor As IActor, facing As Integer)
-        actor.State.Facing = facing
-        Dim delta = Persistence.Facing.Deltas(facing)
+        actor.Statistics(StatisticTypes.Facing) = facing
+        Dim delta = Facings.Deltas(facing)
         If Not CanMove(actor) Then
             Return
         End If
