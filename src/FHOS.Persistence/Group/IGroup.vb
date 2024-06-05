@@ -1,5 +1,5 @@
 ﻿Public Interface IGroup
-    Inherits ITypedEntity
+    Inherits INamedEntity
 
     ReadOnly Property LegacyEntityName As String
 
