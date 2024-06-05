@@ -5,7 +5,6 @@
     Friend ReadOnly Columns As String = NameOf(Columns)
     Friend ReadOnly Conviction As String = NameOf(Conviction)
     Friend ReadOnly CurrentValue As String = NameOf(CurrentValue)
-    Friend ReadOnly Facing As String = NameOf(Facing)
     Friend ReadOnly GroupId As String = NameOf(GroupId)
     Friend ReadOnly FuelTankId As String = NameOf(FuelTankId)
     Friend ReadOnly HomePlanetActorId As String = NameOf(HomePlanetActorId)
