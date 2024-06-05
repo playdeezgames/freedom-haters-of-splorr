@@ -10,14 +10,6 @@
         Return New ActorProperties(universeData, id)
     End Function
 
-    Public Sub SetGroup(groupType As String, group As IGroup) Implements IActorProperties.SetGroup
-        If group IsNot Nothing Then
-            EntityData.Groups(groupType) = group.Id
-        Else
-            EntityData.Groups.Remove(groupType)
-        End If
-    End Sub
-
     Public Property Interior As IMap Implements IActorProperties.Interior
         Get
             Return Map.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.MapId))
@@ -44,12 +36,4 @@
             SetStatistic(LegacyStatisticTypes.TargetActor, value?.Id)
         End Set
     End Property
-
-    Public Function GetGroup(groupType As String) As IGroup Implements IActorProperties.GetGroup
-        Dim groupId As Integer
-        If EntityData.Groups.TryGetValue(groupType, groupId) Then
-            Return Persistence.Group.FromId(UniverseData, groupId)
-        End If
-        Return Nothing
-    End Function
 End Class

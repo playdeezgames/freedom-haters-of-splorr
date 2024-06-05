@@ -1,4 +1,5 @@
-﻿Imports FHOS.Persistence
+﻿Imports System.Text.RegularExpressions
+Imports FHOS.Persistence
 
 Friend Class PlanetOrbitInitializationStep
     Inherits InitializationStep
@@ -9,7 +10,7 @@ Friend Class PlanetOrbitInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planet = location.Actor
         Dim actors = location.Map.Locations.Where(Function(x) If(x.Actor?.Descriptor?.IsPlanet, False)).Select(Function(x) x.Actor)
-        Dim map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.Properties.GetGroup(GroupTypes.Planet).EntityName} Orbit", planet.Universe)
+        Dim map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.GroupsOfCategory(CategoryTypes.Planet).Single.EntityName} Orbit", planet.Universe)
         planet.Properties.Interior = map
         For Each actor In actors
             actor.Properties.Interior = map
@@ -32,8 +33,9 @@ Friend Class PlanetOrbitInitializationStep
         Next
     End Sub
     Private Shared Sub PlacePlanetSection(externalActor As IActor, location As ILocation, sectionName As String)
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(externalActor.Descriptor.Subtype, sectionName)).CreateActor(location, externalActor.Properties.GetGroup(GroupTypes.Planet).EntityName)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(externalActor.Descriptor.Subtype, sectionName)).CreateActor(location, externalActor.GroupsOfCategory(CategoryTypes.Planet).Single.EntityName)
         location.EntityType = LocationTypes.Planet
-        actor.Properties.SetGroup(GroupTypes.Planet, externalActor.Properties.GetGroup(GroupTypes.Planet))
+
+        actor.GroupCategory(externalActor.GroupsOfCategory(CategoryTypes.Planet).Single) = CategoryTypes.Planet
     End Sub
 End Class

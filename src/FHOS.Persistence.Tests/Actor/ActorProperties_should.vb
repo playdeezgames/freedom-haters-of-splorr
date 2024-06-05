@@ -27,10 +27,8 @@
     <Fact>
     Sub have_default_values_when_instantiated()
         Const actorName = "actor name"
-        Const groupType = "group type"
         Dim sut = CreateSut(actorName:=actorName)
         sut.Interior.ShouldBeNull
-        sut.GetGroup(groupType).ShouldBeNull
         sut.CostumeType.ShouldBeNull
         sut.TargetActor.ShouldBeNull
     End Sub

@@ -21,7 +21,7 @@ Friend Class PlanetVicinityInitializationStep
             actor,
             addStep,
             actor.Descriptor.Subtype)
-        actor.Properties.GetGroup(GroupTypes.PlanetVicinity).Statistics(StatisticTypes.SatelliteCount) = PlaceSatellites(actor, addStep)
+        actor.GroupsOfCategory(CategoryTypes.PlanetVicinity).Single.Statistics(StatisticTypes.SatelliteCount) = PlaceSatellites(actor, addStep)
         addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
     End Sub
     Private Function PlaceSatellites(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean)) As Integer
@@ -54,12 +54,12 @@ Friend Class PlanetVicinityInitializationStep
         Dim satelliteType As String = planetType.GenerateSatelliteType()
         Dim location = externalActor.Properties.Interior.GetLocation(column, row)
         Dim satelliteGroup = externalActor.Universe.Factory.CreateGroup(GroupTypes.Satellite, nameGenerator.GenerateUnusedName)
-        satelliteGroup.AddParent(externalActor.Properties.GetGroup(GroupTypes.PlanetVicinity))
-        satelliteGroup.AddParent(externalActor.Properties.GetGroup(GroupTypes.PlanetVicinity).Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem))
+        satelliteGroup.AddParent(externalActor.GroupsOfCategory(CategoryTypes.PlanetVicinity).Single)
+        satelliteGroup.AddParent(externalActor.GroupsOfCategory(CategoryTypes.PlanetVicinity).Single.Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem))
         Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, satelliteGroup.EntityName)
-        satellite.Properties.SetGroup(GroupTypes.Satellite, satelliteGroup)
-        satellite.Properties.SetGroup(GroupTypes.PlanetVicinity, externalActor.Properties.GetGroup(GroupTypes.PlanetVicinity))
-        satellite.Properties.SetGroup(GroupTypes.StarSystem, externalActor.Properties.GetGroup(GroupTypes.StarSystem))
+        satellite.GroupCategory(satelliteGroup) = CategoryTypes.Satellite
+        satellite.GroupCategory(externalActor.GroupsOfCategory(CategoryTypes.PlanetVicinity).Single) = CategoryTypes.PlanetVicinity
+        satellite.GroupCategory(externalActor.GroupsOfCategory(CategoryTypes.StarSystem).Single) = CategoryTypes.StarSystem
         location.EntityType = LocationTypes.Satellite
         addStep(New SatelliteOrbitInitializationStep(location), False)
     End Sub
@@ -67,8 +67,8 @@ Friend Class PlanetVicinityInitializationStep
     Private Sub PlacePlanet(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean), subType As String)
         Dim centerColumn = externalActor.Properties.Interior.Size.Columns \ 2
         Dim centerRow = externalActor.Properties.Interior.Size.Rows \ 2
-        Dim group = externalActor.Universe.Factory.CreateGroup(GroupTypes.Planet, externalActor.Properties.GetGroup(GroupTypes.PlanetVicinity).EntityName)
-        group.AddParent(externalActor.Properties.GetGroup(GroupTypes.PlanetVicinity))
+        Dim group = externalActor.Universe.Factory.CreateGroup(GroupTypes.Planet, externalActor.GroupsOfCategory(CategoryTypes.PlanetVicinity).Single.EntityName)
+        group.AddParent(externalActor.GroupsOfCategory(CategoryTypes.PlanetVicinity).Single)
         For Each delta In Grid3x3.Descriptors
             PlacePlanetSectionActor(
                 group,
@@ -86,6 +86,6 @@ Friend Class PlanetVicinityInitializationStep
                                               sectionName As String)
         Dim descriptor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(subType, sectionName))
         Dim actor = descriptor.CreateActor(location, planetGroup.EntityName)
-        actor.Properties.SetGroup(GroupTypes.Planet, planetGroup)
+        actor.GroupCategory(planetGroup) = CategoryTypes.Planet
     End Sub
 End Class

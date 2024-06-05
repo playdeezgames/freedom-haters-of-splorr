@@ -12,11 +12,11 @@
         Should.Throw(Of KeyNotFoundException)(Function() sut.IsSatellite)
         sut.Position.X.ShouldBe(0)
         sut.Position.Y.ShouldBe(0)
-        Should.Throw(Of NullReferenceException)(Function() sut.PlanetCount)
-        Should.Throw(Of NullReferenceException)(Function() sut.SatelliteCount)
-        Should.Throw(Of NullReferenceException)(Function() sut.StarSystem)
-        Should.Throw(Of NullReferenceException)(Function() sut.Faction)
-        Should.Throw(Of NullReferenceException)(Function() sut.PlanetVicinity)
+        Should.Throw(Of InvalidOperationException)(Function() sut.PlanetCount)
+        Should.Throw(Of InvalidOperationException)(Function() sut.SatelliteCount)
+        Should.Throw(Of InvalidOperationException)(Function() sut.StarSystem)
+        Should.Throw(Of InvalidOperationException)(Function() sut.Faction)
+        Should.Throw(Of InvalidOperationException)(Function() sut.PlanetVicinity)
     End Sub
 
     Private Function CreateSut() As IActorModel

@@ -71,7 +71,7 @@ Friend Class ActorModel
 
     Public ReadOnly Property PlanetCount As Integer Implements IActorModel.PlanetCount
         Get
-            Return actor.Properties.GetGroup(GroupTypes.Faction).Statistics(StatisticTypes.PlanetCount).Value
+            Return actor.GroupsOfCategory(CategoryTypes.Faction).Single.Statistics(StatisticTypes.PlanetCount).Value
         End Get
     End Property
 
@@ -95,25 +95,25 @@ Friend Class ActorModel
 
     Public ReadOnly Property StarSystem As IGroupModel Implements IActorModel.StarSystem
         Get
-            Return GroupModel.FromGroup(actor.Properties.GetGroup(GroupTypes.Faction).Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem))
+            Return GroupModel.FromGroup(actor.GroupsOfCategory(CategoryTypes.Faction).Single.Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem))
         End Get
     End Property
 
     Public ReadOnly Property SatelliteCount As Integer Implements IActorModel.SatelliteCount
         Get
-            Return actor.Properties.GetGroup(GroupTypes.Faction).Statistics(StatisticTypes.SatelliteCount).Value
+            Return actor.GroupsOfCategory(CategoryTypes.Faction).Single.Statistics(StatisticTypes.SatelliteCount).Value
         End Get
     End Property
 
     Public ReadOnly Property PlanetVicinity As IGroupModel Implements IActorModel.PlanetVicinity
         Get
-            Return GroupModel.FromGroup(actor.Properties.GetGroup(GroupTypes.Faction).Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity))
+            Return GroupModel.FromGroup(actor.GroupsOfCategory(CategoryTypes.Faction).Single.Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity))
         End Get
     End Property
 
     Public ReadOnly Property Faction As IGroupModel Implements IActorModel.Faction
         Get
-            Return GroupModel.FromGroup(actor.Properties.GetGroup(GroupTypes.Faction).Parents.Single(Function(x) x.EntityType = GroupTypes.Faction))
+            Return GroupModel.FromGroup(actor.GroupsOfCategory(CategoryTypes.Faction).Single.Parents.Single(Function(x) x.EntityType = GroupTypes.Faction))
         End Get
     End Property
 
