@@ -8,7 +8,7 @@
         Dim group = sut.CreateGroup(groupType, groupName)
         group.ShouldNotBeNull
         group.EntityType.ShouldBe(groupType)
-        group.LegacyEntityName.ShouldBe(groupName)
+        group.EntityName.ShouldBe(groupName)
         universe.Groups.Count.ShouldBe(1)
         group.Parents.ShouldBeEmpty
         group.Children.ShouldBeEmpty

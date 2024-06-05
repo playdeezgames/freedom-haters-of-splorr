@@ -56,7 +56,7 @@ Friend Class PlanetVicinityInitializationStep
         Dim satelliteGroup = externalActor.Universe.Factory.CreateGroup(GroupTypes.Satellite, nameGenerator.GenerateUnusedName)
         satelliteGroup.AddParent(externalActor.Properties.Groups(GroupTypes.PlanetVicinity))
         satelliteGroup.AddParent(externalActor.Properties.Groups(GroupTypes.PlanetVicinity).Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem))
-        Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, satelliteGroup.LegacyEntityName)
+        Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, satelliteGroup.EntityName)
         satellite.Properties.Groups(GroupTypes.Satellite) = satelliteGroup
         satellite.Properties.Groups(GroupTypes.PlanetVicinity) = externalActor.Properties.Groups(GroupTypes.PlanetVicinity)
         satellite.Properties.Groups(GroupTypes.StarSystem) = externalActor.Properties.Groups(GroupTypes.StarSystem)
@@ -67,7 +67,7 @@ Friend Class PlanetVicinityInitializationStep
     Private Sub PlacePlanet(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean), subType As String)
         Dim centerColumn = externalActor.Properties.Interior.Size.Columns \ 2
         Dim centerRow = externalActor.Properties.Interior.Size.Rows \ 2
-        Dim group = externalActor.Universe.Factory.CreateGroup(GroupTypes.Planet, externalActor.Properties.Groups(GroupTypes.PlanetVicinity).LegacyEntityName)
+        Dim group = externalActor.Universe.Factory.CreateGroup(GroupTypes.Planet, externalActor.Properties.Groups(GroupTypes.PlanetVicinity).EntityName)
         group.AddParent(externalActor.Properties.Groups(GroupTypes.PlanetVicinity))
         For Each delta In Grid3x3.Descriptors
             PlacePlanetSectionActor(
@@ -85,7 +85,7 @@ Friend Class PlanetVicinityInitializationStep
                                               subType As String,
                                               sectionName As String)
         Dim descriptor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(subType, sectionName))
-        Dim actor = descriptor.CreateActor(location, planetGroup.LegacyEntityName)
+        Dim actor = descriptor.CreateActor(location, planetGroup.EntityName)
         actor.Properties.Groups(GroupTypes.Planet) = planetGroup
     End Sub
 End Class

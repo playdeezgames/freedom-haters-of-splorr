@@ -1,8 +1,5 @@
 ﻿Public Interface IGroup
     Inherits INamedEntity
-
-    ReadOnly Property LegacyEntityName As String
-
     ReadOnly Property Parents As IEnumerable(Of IGroup)
     Sub AddParent(parent As IGroup)
     Sub RemoveParent(parent As IGroup)
