@@ -22,7 +22,7 @@ Friend Class AvatarStatusModel
 
     Public ReadOnly Property Bankrupt As Boolean Implements IAvatarStatusModel.Bankrupt
         Get
-            Return If(actor.State.Wallet.CurrentValue = actor.State.Wallet.MinimumValue, False)
+            Return If(actor.YokedStore(YokeTypes.Wallet).CurrentValue = actor.YokedStore(YokeTypes.Wallet).MinimumValue, False)
         End Get
     End Property
 

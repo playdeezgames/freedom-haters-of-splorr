@@ -12,5 +12,4 @@
     Friend ReadOnly Rows As String = NameOf(Rows)
     Friend ReadOnly TargetLocationId As String = NameOf(TargetLocationId)
     Friend ReadOnly Turn As String = NameOf(Turn)
-    Friend ReadOnly WalletId As String = NameOf(WalletId)
 End Module

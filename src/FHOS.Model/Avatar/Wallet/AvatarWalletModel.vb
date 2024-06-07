@@ -10,13 +10,13 @@ Friend Class AvatarWalletModel
 
     Public ReadOnly Property Jools As Integer Implements IAvatarWalletModel.Jools
         Get
-            Return actor.State.Wallet.CurrentValue
+            Return actor.YokedStore(YokeTypes.Wallet).CurrentValue
         End Get
     End Property
 
     Public ReadOnly Property MinimumJools As Integer Implements IAvatarWalletModel.MinimumJools
         Get
-            Return actor.State.Wallet.MinimumValue.Value
+            Return actor.YokedStore(YokeTypes.Wallet).MinimumValue.Value
         End Get
     End Property
 

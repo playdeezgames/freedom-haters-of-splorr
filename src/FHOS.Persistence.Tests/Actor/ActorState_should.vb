@@ -27,16 +27,7 @@
     <Fact>
     Sub have_default_values_upon_instantiation()
         Dim sut = CreateSut()
-        sut.Wallet.ShouldBeNull
         sut.Location.ShouldNotBeNull
-    End Sub
-    <Fact>
-    Sub have_wallet()
-        Dim universe = CreateUniverse()
-        Dim sut = CreateSut(universe:=universe)
-        Dim store = CreateStore(0, Nothing, Nothing, universe:=universe)
-        sut.Wallet = store
-        sut.Wallet.Id.ShouldBe(store.Id)
     End Sub
     <Fact>
     Sub have_location()
@@ -55,6 +46,6 @@
         Dim actorId = oldLocation.Actor.Id
         sut.Location = location
         oldLocation.Actor.ShouldBeNull
-        location.Actor.Id.ShouldBe(ActorId)
+        location.Actor.Id.ShouldBe(actorId)
     End Sub
 End Class

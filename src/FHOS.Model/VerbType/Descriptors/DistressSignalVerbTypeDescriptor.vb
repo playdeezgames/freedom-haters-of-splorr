@@ -12,7 +12,7 @@ Friend Class DistressSignalVerbTypeDescriptor
         Dim fuelPrice = 1 'TODO: don't just pick a magic number!
         Dim price = fuelPrice * fuelAdded
         actor.YokedStore(YokeTypes.FuelTank).CurrentValue = actor.YokedStore(YokeTypes.FuelTank).MaximumValue.Value
-        actor.State.Wallet.CurrentValue -= fuelAdded * fuelPrice
+        actor.YokedStore(YokeTypes.Wallet).CurrentValue -= fuelAdded * fuelPrice
         actor.Universe.Messages.Add(
                         "Emergency Refuel",
                         ($"Added {fuelAdded} fuel!", Hues.Black),
