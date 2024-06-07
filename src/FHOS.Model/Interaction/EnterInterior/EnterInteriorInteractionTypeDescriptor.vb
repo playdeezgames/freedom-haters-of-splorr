@@ -17,7 +17,7 @@ Friend Class EnterInteriorInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return check(actor.State.Interactor)
+        Return check(actor.YokedActor(YokeTypes.Interactor))
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel

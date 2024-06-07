@@ -8,7 +8,7 @@ Friend Class RefillOxygenInteractionTypeDescriptor
     End Sub
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.NeedsOxygen AndAlso actor.State.Interactor.Descriptor.CanRefillOxygen
+        Return actor.NeedsOxygen AndAlso actor.YokedActor(YokeTypes.Interactor).Descriptor.CanRefillOxygen
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel

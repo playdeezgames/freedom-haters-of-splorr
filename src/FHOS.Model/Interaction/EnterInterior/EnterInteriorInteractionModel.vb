@@ -11,9 +11,9 @@ Friend Class EnterInteriorInteractionModel
 
     Public Sub Perform() Implements IInteractionModel.Perform
         DoTurn(actor)
-        With actor.State.Interactor.Properties.Interior
+        With actor.YokedActor(YokeTypes.Interactor).Properties.Interior
             SetLocation(actor, RNG.FromEnumerable(.Locations.Where(Function(x) x.Flags(FlagTypes.IsEdge) AndAlso x.Actor Is Nothing)))
         End With
-        actor.State.Interactor = Nothing
+        actor.YokedActor(YokeTypes.Interactor) = Nothing
     End Sub
 End Class

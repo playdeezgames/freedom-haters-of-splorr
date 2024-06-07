@@ -35,7 +35,7 @@ Friend Module ActorExtensions
             Return
         End If
         If nextLocation.Actor IsNot Nothing Then
-            actor.State.Interactor = nextLocation.Actor
+            actor.YokedActor(YokeTypes.Interactor) = nextLocation.Actor
             Return
         End If
         If nextLocation.HasTargetLocation Then

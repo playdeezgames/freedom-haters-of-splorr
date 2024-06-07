@@ -20,15 +20,6 @@
         End Set
     End Property
 
-    Public Property Interactor As IActor Implements IActorState.Interactor
-        Get
-            Return Actor.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.InteractorId))
-        End Get
-        Set(value As IActor)
-            SetStatistic(LegacyStatisticTypes.InteractorId, value?.Id)
-        End Set
-    End Property
-
     Public Property LifeSupport As IStore Implements IActorState.LifeSupport
         Get
             Return Store.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.LifeSupportId))

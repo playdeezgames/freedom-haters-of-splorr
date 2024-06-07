@@ -8,7 +8,7 @@
     End Sub
 
     Public Sub Perform() Implements IInteractionModel.Perform
-        actor.YokedActor(YokeTypes.StarGate) = actor.State.Interactor
-        actor.State.Interactor = Nothing
+        actor.YokedActor(YokeTypes.StarGate) = actor.YokedActor(YokeTypes.Interactor)
+        actor.YokedActor(YokeTypes.Interactor) = Nothing
     End Sub
 End Class

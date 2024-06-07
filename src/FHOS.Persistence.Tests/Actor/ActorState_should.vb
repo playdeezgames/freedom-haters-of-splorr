@@ -31,7 +31,6 @@
         sut.FuelTank.ShouldBeNull
         sut.Wallet.ShouldBeNull
         sut.Location.ShouldNotBeNull
-        sut.Interactor.ShouldBeNull
     End Sub
     <Fact>
     Sub have_life_support()
@@ -75,13 +74,5 @@
         sut.Location = location
         oldLocation.Actor.ShouldBeNull
         location.Actor.Id.ShouldBe(ActorId)
-    End Sub
-    <Fact>
-    Sub have_interactor()
-        Dim universe = CreateUniverse()
-        Dim sut = CreateSut(universe:=universe)
-        Dim otherActor = CreateActor("other map name", "other map type", 3, 2, "other location type", 1, 1, "other actor type", "other actor name", universe:=universe)
-        sut.Interactor = otherActor
-        sut.Interactor.Id.ShouldBe(otherActor.Id)
     End Sub
 End Class

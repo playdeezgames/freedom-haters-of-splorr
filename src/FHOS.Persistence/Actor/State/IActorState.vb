@@ -4,6 +4,4 @@
     Property LifeSupport As IStore
     Property FuelTank As IStore
     Property Wallet As IStore
-    'actor relationship categories
-    Property Interactor As IActor
 End Interface
