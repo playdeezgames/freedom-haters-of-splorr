@@ -23,7 +23,7 @@ Friend Class PlayerShipActorTypeDescriptor
             Interior.
             GetLocation(ship.Properties.Interior.Size.Columns \ 2, ship.Properties.Interior.Size.Rows \ 2)
         Dim actor = ActorTypes.Descriptors(ActorTypes.Person).CreateActor(location, "(you)")
-        actor.State.LifeSupport = ship.State.LifeSupport
+        actor.YokedStore(YokeTypes.LifeSupport) = ship.YokedStore(YokeTypes.LifeSupport)
         ship.Family.AddChild(actor)
     End Sub
 
@@ -60,7 +60,7 @@ Friend Class PlayerShipActorTypeDescriptor
         Dim planetCandidates = sigmoFaction.Children.Where(Function(x) x.EntityType = GroupTypes.PlanetVicinity)
         actor.GroupCategory(RNG.FromEnumerable(planetCandidates)) = CategoryTypes.HomePlanet
         actor.EntityName = "(yer ship)"
-        actor.State.LifeSupport = actor.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
+        actor.YokedStore(YokeTypes.LifeSupport) = actor.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
         actor.State.FuelTank = actor.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
         InitializePlayerShipInterior(actor)
         InitializePlayerShipCrew(actor)

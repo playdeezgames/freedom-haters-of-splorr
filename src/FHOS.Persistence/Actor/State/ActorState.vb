@@ -20,15 +20,6 @@
         End Set
     End Property
 
-    Public Property LifeSupport As IStore Implements IActorState.LifeSupport
-        Get
-            Return Store.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.LifeSupportId))
-        End Get
-        Set(value As IStore)
-            SetStatistic(LegacyStatisticTypes.LifeSupportId, value?.Id)
-        End Set
-    End Property
-
     Public Property Wallet As IStore Implements IActorState.Wallet
         Get
             Return Store.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.WalletId))

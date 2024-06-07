@@ -16,7 +16,7 @@ Friend Class AvatarVesselModel
 
     Public ReadOnly Property OxygenPercent As Integer Implements IAvatarVesselModel.OxygenPercent
         Get
-            Return actor.State.LifeSupport.Percent.Value
+            Return actor.YokedStore(YokeTypes.LifeSupport).Percent.Value
         End Get
     End Property
 

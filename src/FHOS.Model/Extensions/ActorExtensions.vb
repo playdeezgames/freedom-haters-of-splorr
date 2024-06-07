@@ -14,7 +14,7 @@ Friend Module ActorExtensions
 
     <Extension>
     Function NeedsOxygen(actor As IActor) As Boolean
-        Return actor.State.LifeSupport.NeedsTopOff
+        Return actor.YokedStore(YokeTypes.LifeSupport).NeedsTopOff
     End Function
 
     <Extension>
@@ -89,6 +89,6 @@ Friend Module ActorExtensions
     <Extension>
     Sub DoTurn(actor As IActor)
         actor.Universe.Turn += 1
-        actor.State.LifeSupport.CurrentValue -= 1
+        actor.YokedStore(YokeTypes.LifeSupport).CurrentValue -= 1
     End Sub
 End Module
