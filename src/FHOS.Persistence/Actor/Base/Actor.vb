@@ -62,4 +62,10 @@ Friend Class Actor
             Return EntityData.GroupCategories.Where(Function(x) x.Value = categoryType).Select(Function(x) Group.FromId(UniverseData, x.Key))
         End Get
     End Property
+
+    Public ReadOnly Property YokedActor(yokeType As String) As IActor Implements IActor.YokedActor
+        Get
+            Return Nothing
+        End Get
+    End Property
 End Class

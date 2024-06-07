@@ -68,4 +68,10 @@ Public Class Actor_should
         Dim sut = CreateSut()
         sut.GroupsOfCategory(category).ShouldBeEmpty
     End Sub
+    <Fact>
+    Sub have_no_yokes()
+        Const yokeType = "yoke type"
+        Dim sut = CreateSut()
+        sut.YokedActor(yokeType).ShouldBeNull
+    End Sub
 End Class
