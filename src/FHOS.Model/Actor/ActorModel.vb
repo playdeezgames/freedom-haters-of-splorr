@@ -63,7 +63,7 @@ Friend Class ActorModel
 
     Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IActorModel.Position
         Get
-            With actor.State.Location
+            With actor.Location
                 Return (.Position.Column, .Position.Row)
             End With
         End Get

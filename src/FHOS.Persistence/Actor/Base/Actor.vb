@@ -32,12 +32,6 @@ Friend Class Actor
         End Get
     End Property
 
-    Public ReadOnly Property State As IActorState Implements IActor.State
-        Get
-            Return ActorState.FromId(UniverseData, Id)
-        End Get
-    End Property
-
     Public ReadOnly Property Equipment As IActorEquipment Implements IActor.Equipment
         Get
             Return ActorEquipment.FromId(UniverseData, Id)
@@ -93,6 +87,20 @@ Friend Class Actor
                 EntityData.YokedStores(yokeType) = value.Id
             Else
                 EntityData.YokedStores.Remove(yokeType)
+            End If
+        End Set
+    End Property
+
+    Public Property Location As ILocation Implements IActor.Location
+        Get
+            Return Persistence.Location.FromId(UniverseData, EntityData.Statistics(LegacyStatisticTypes.LocationId))
+        End Get
+        Set(value As ILocation)
+            If value.Id <> EntityData.Statistics(LegacyStatisticTypes.LocationId) Then
+                Location.Actor = Nothing
+                EntityData.Statistics(LegacyStatisticTypes.LocationId) = value.Id
+                value.Actor = Actor.FromId(UniverseData, Id)
+                ActorTutorial.FromId(UniverseData, Id).Add(value.Tutorial)
             End If
         End Set
     End Property

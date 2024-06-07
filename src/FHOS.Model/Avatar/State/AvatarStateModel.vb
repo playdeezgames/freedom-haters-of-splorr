@@ -10,7 +10,7 @@ Friend Class AvatarStateModel
 
     Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IAvatarStateModel.Position
         Get
-            With actor.State.Location
+            With actor.Location
                 Return .Position
             End With
         End Get
@@ -18,7 +18,7 @@ Friend Class AvatarStateModel
 
     Public ReadOnly Property MapName As String Implements IAvatarStateModel.MapName
         Get
-            Return actor.State.Location.Map.EntityName
+            Return actor.Location.Map.EntityName
         End Get
     End Property
 

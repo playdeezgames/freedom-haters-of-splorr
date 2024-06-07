@@ -13,7 +13,7 @@ Friend Class ActorDataClient
     End Sub
     Public Overrides Sub Recycle()
         Dim actor = Persistence.Actor.FromId(UniverseData, Id)
-        actor.State.Location.Actor = Nothing
+        actor.Location.Actor = Nothing
         MyBase.Recycle()
     End Sub
 End Class

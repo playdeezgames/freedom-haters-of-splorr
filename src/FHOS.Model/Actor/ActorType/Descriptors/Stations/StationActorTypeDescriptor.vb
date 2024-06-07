@@ -24,13 +24,13 @@ Friend MustInherit Class StationActorTypeDescriptor
     Protected MustOverride Function MakeName(planet As IActor) As String
 
     Protected Overrides Sub Initialize(actor As IActor)
-        Dim planet = actor.State.Location.Map.GetCenterLocation().Actor
+        Dim planet = actor.Location.Map.GetCenterLocation().Actor
         actor.EntityName = MakeName(planet)
         Dim faction = planet.GroupsOfCategory(CategoryTypes.Planet).Single.Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity).Parents.Single(Function(x) x.EntityType = GroupTypes.Faction)
         actor.GroupCategory(faction) = CategoryTypes.Faction
 
-        actor.State.Location.EntityType = LocationTypes.ActorAdjacent
-        For Each neighbor In actor.State.Location.GetEmptyNeighborsOfType(LocationTypes.Void)
+        actor.Location.EntityType = LocationTypes.ActorAdjacent
+        For Each neighbor In actor.Location.GetEmptyNeighborsOfType(LocationTypes.Void)
             neighbor.EntityType = LocationTypes.ActorAdjacent
         Next
     End Sub

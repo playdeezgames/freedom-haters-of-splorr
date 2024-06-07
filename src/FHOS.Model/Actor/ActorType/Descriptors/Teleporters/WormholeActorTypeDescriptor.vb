@@ -16,7 +16,7 @@ Friend Class WormholeActorTypeDescriptor
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)
-        Dim location = actor.State.Location
+        Dim location = actor.Location
         location.EntityType = LocationTypes.Wormhole
         For Each neighbor In location.GetEmptyNeighborsOfType(LocationTypes.Void)
             neighbor.EntityType = LocationTypes.ActorAdjacent

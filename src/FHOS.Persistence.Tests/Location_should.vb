@@ -50,7 +50,7 @@
         Dim sut = CreateSut()
         Dim actor = sut.CreateActor(actorType, actorName)
         actor.ShouldNotBeNull
-        actor.State.Location.Id.ShouldBe(sut.Id)
+        actor.Location.Id.ShouldBe(sut.Id)
         sut.Actor.Id.ShouldBe(actor.Id)
         actor.EntityName.ShouldBe(actorName)
         actor.EntityType.ShouldBe(actorType)

@@ -26,7 +26,7 @@ Friend Module ActorExtensions
         End If
         DoTurn(actor)
         DoFuelConsumption(actor)
-        Dim location = actor.State.Location
+        Dim location = actor.Location
         Dim nextColumn = location.Position.Column + delta.X
         Dim nextRow = location.Position.Row + delta.Y
         Dim map = location.Map
@@ -71,12 +71,12 @@ Friend Module ActorExtensions
 
     <Extension>
     Sub SetLocation(actor As IActor, location As ILocation)
-        actor.State.Location = location
+        actor.Location = location
     End Sub
 
     <Extension>
     Sub GoToOtherActor(actor As IActor, otherActor As IActor, postAction As Action(Of Boolean))
-        Dim destinations = otherActor.State.Location.GetEmptyNeighbors()
+        Dim destinations = otherActor.Location.GetEmptyNeighbors()
         If Not destinations.Any Then
             postAction(False)
             Return

@@ -34,9 +34,9 @@ Public Class Actor_should
         sut.Tutorial.ShouldNotBeNull
         sut.Family.ShouldNotBeNull
         sut.Properties.ShouldNotBeNull
-        sut.State.ShouldNotBeNull
         sut.Equipment.ShouldNotBeNull
         sut.EntityName.ShouldBe("actor name")
+        sut.Location.ShouldNotBeNull
     End Sub
     <Fact>
     Sub set_entity_name()
@@ -112,5 +112,24 @@ Public Class Actor_should
         Dim store = universe.Factory.CreateStore(0)
         sut.YokedStore(yokeType) = store
         sut.YokedStore(yokeType) = Nothing
+    End Sub
+    <Fact>
+    Sub have_location()
+        Dim universe = CreateUniverse()
+        Dim sut = CreateSut(universe:=universe)
+        Dim location = CreateLocation(
+            "other map name",
+            "other map type",
+            3,
+            2,
+            "other location type",
+            1,
+            1,
+            universe:=universe)
+        Dim oldLocation = sut.Location
+        Dim actorId = oldLocation.Actor.Id
+        sut.Location = location
+        oldLocation.Actor.ShouldBeNull
+        location.Actor.Id.ShouldBe(actorId)
     End Sub
 End Class
