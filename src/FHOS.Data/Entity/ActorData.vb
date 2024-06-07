@@ -5,4 +5,5 @@
     Public Property Equipment As New HashSet(Of Integer)
     Public Property GroupCategories As New Dictionary(Of Integer, String)
     Public Property YokedActors As New Dictionary(Of String, Integer)
+    Public Property YokedStores As New Dictionary(Of String, Integer)
 End Class

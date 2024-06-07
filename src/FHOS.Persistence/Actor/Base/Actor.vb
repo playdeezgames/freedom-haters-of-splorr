@@ -79,4 +79,21 @@ Friend Class Actor
             End If
         End Set
     End Property
+
+    Public Property YokedStore(yokeType As String) As IStore Implements IActor.YokedStore
+        Get
+            Dim id As Integer
+            If EntityData.YokedStores.TryGetValue(yokeType, id) Then
+                Return Store.FromId(UniverseData, id)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IStore)
+            If value IsNot Nothing Then
+                EntityData.YokedStores(yokeType) = value.Id
+            Else
+                EntityData.YokedStores.Remove(yokeType)
+            End If
+        End Set
+    End Property
 End Class
