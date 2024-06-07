@@ -63,9 +63,16 @@ Friend Class Actor
         End Get
     End Property
 
-    Public ReadOnly Property YokedActor(yokeType As String) As IActor Implements IActor.YokedActor
+    Public Property YokedActor(yokeType As String) As IActor Implements IActor.YokedActor
         Get
+            Dim id As Integer
+            If EntityData.YokedActors.TryGetValue(yokeType, id) Then
+                Return Actor.FromId(UniverseData, id)
+            End If
             Return Nothing
         End Get
+        Set(value As IActor)
+            EntityData.YokedActors(yokeType) = value.Id
+        End Set
     End Property
 End Class

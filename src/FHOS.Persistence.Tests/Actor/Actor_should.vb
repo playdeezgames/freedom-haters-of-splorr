@@ -74,4 +74,11 @@ Public Class Actor_should
         Dim sut = CreateSut()
         sut.YokedActor(yokeType).ShouldBeNull
     End Sub
+    <Fact>
+    Sub allow_yoking()
+        Const yokeType = "yoke type"
+        Dim sut = CreateSut()
+        sut.YokedActor(yokeType) = sut
+        sut.YokedActor(yokeType).Id.ShouldBe(sut.Id)
+    End Sub
 End Class
