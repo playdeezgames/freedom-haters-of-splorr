@@ -32,7 +32,6 @@
         sut.Wallet.ShouldBeNull
         sut.Location.ShouldNotBeNull
         sut.Interactor.ShouldBeNull
-        sut.Scrap.ShouldBe(0)
         sut.StarGate.ShouldBeNull
     End Sub
     <Fact>
@@ -77,13 +76,6 @@
         sut.Location = location
         oldLocation.Actor.ShouldBeNull
         location.Actor.Id.ShouldBe(ActorId)
-    End Sub
-    <Fact>
-    Sub have_scrap()
-        Const scrap = 2
-        Dim sut = CreateSut()
-        sut.Scrap = scrap
-        sut.Scrap.ShouldBe(scrap)
     End Sub
     <Fact>
     Sub have_interactor()

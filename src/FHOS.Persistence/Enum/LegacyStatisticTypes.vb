@@ -23,7 +23,6 @@
     Friend ReadOnly PlanetVicinityId As String = NameOf(PlanetVicinityId)
     Friend ReadOnly Row As String = NameOf(Row)
     Friend ReadOnly Rows As String = NameOf(Rows)
-    Friend ReadOnly Scrap As String = NameOf(Scrap)
     Friend ReadOnly Standards As String = NameOf(Standards)
     Friend ReadOnly StarGateId As String = NameOf(StarGateId)
     Friend ReadOnly StarSystemId As String = NameOf(StarSystemId)

@@ -56,15 +56,6 @@
         End Set
     End Property
 
-    Public Property Scrap As Integer Implements IActorState.Scrap
-        Get
-            Return If(GetStatistic(LegacyStatisticTypes.Scrap), 0)
-        End Get
-        Set(value As Integer)
-            SetStatistic(LegacyStatisticTypes.Scrap, value)
-        End Set
-    End Property
-
     Public Property StarGate As IActor Implements IActorState.StarGate
         Get
             Return Actor.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.StarGateId))

@@ -24,7 +24,7 @@ Friend Class AvatarStateModel
 
     Public ReadOnly Property Scrap As Integer Implements IAvatarStateModel.Scrap
         Get
-            Return actor.State.Scrap
+            Return If(actor.Statistics(StatisticTypes.Scrap), 0)
         End Get
     End Property
 

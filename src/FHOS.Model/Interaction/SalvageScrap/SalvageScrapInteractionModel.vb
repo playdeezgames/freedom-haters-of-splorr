@@ -6,9 +6,9 @@
     End Sub
 
     Public Overrides Sub Perform()
-        Dim scrap = actor.State.Interactor.State.Scrap
+        Dim scrap = If(actor.State.Interactor.Statistics(StatisticTypes.Scrap), 0)
         actor.Universe.Messages.Add("Salvage!", ($"You find {scrap} scrap!", Black))
-        actor.State.Scrap += scrap
+        actor.Statistics(StatisticTypes.Scrap) += scrap
         actor.State.Interactor.Recycle()
         actor.State.Interactor = Nothing
     End Sub

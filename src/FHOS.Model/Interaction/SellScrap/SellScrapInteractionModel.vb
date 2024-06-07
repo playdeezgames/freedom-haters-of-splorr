@@ -6,8 +6,8 @@
     End Sub
 
     Public Overrides Sub Perform()
-        Dim scrap = actor.State.Scrap
-        actor.State.Scrap = 0
+        Dim scrap = If(actor.Statistics(StatisticTypes.Scrap), 0)
+        actor.Statistics(StatisticTypes.Scrap) = 0
         actor.State.Wallet.CurrentValue += scrap
         actor.Universe.Messages.Add(
             "Sell Scrap!",

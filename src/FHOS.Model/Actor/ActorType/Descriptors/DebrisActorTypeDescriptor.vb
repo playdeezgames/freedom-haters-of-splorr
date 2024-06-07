@@ -18,7 +18,7 @@ Friend Class DebrisActorTypeDescriptor
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
-        actor.State.Scrap = RNG.RollDice("4d6")
+        actor.Statistics(StatisticTypes.Scrap) = RNG.RollDice("4d6")
     End Sub
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean

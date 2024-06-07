@@ -1,6 +1,5 @@
 ﻿Public Interface IActorState
     Property Location As ILocation
-    Property Scrap As Integer
     'store relationship categories
     Property LifeSupport As IStore
     Property FuelTank As IStore
