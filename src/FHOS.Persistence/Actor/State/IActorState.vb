@@ -6,5 +6,4 @@
     Property Wallet As IStore
     'actor relationship categories
     Property Interactor As IActor
-    Property StarGate As IActor
 End Interface

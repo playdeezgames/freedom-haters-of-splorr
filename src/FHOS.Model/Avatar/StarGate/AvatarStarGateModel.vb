@@ -10,7 +10,7 @@ Friend Class AvatarStarGateModel
 
     Public ReadOnly Property IsActive As Boolean Implements IAvatarStarGateModel.IsActive
         Get
-            Return actor.State.StarGate IsNot Nothing
+            Return actor.YokedActor(YokeTypes.StarGate) IsNot Nothing
         End Get
     End Property
 
@@ -29,12 +29,12 @@ Friend Class AvatarStarGateModel
                 If Not success Then
                     actor.Universe.Messages.Add("Destination Blocked!", ("The other end is blocked!", Hues.Red))
                 End If
-                actor.State.StarGate = Nothing
+                actor.YokedActor(YokeTypes.StarGate) = Nothing
             End Sub)
     End Sub
 
     Public Sub Leave() Implements IAvatarStarGateModel.Leave
-        actor.State.StarGate = Nothing
+        actor.YokedActor(YokeTypes.StarGate) = Nothing
     End Sub
 
     Friend Shared Function FromActor(actor As Persistence.IActor) As IAvatarStarGateModel
