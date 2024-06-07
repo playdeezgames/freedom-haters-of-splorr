@@ -17,10 +17,10 @@
 
     Public Property Parent As IActor Implements IActorFamily.Parent
         Get
-            Return Actor.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.ParentId))
+            Return Actor.FromId(UniverseData, GetStatistic(PersistenceStatisticTypes.ParentId))
         End Get
         Set(value As IActor)
-            SetStatistic(LegacyStatisticTypes.ParentId, value?.Id)
+            SetStatistic(PersistenceStatisticTypes.ParentId, value?.Id)
         End Set
     End Property
 

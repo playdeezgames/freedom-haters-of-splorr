@@ -1,4 +1,6 @@
-﻿Friend Module LegacyStatisticTypes
+﻿Friend Module PersistenceStatisticTypes
+    Friend ReadOnly ParentId As String = NameOf(ParentId) 'to actor yoke
+    'keep
     Friend ReadOnly ActorId As String = NameOf(ActorId)
     Friend ReadOnly Column As String = NameOf(Column)
     Friend ReadOnly Columns As String = NameOf(Columns)
@@ -7,9 +9,8 @@
     Friend ReadOnly MapId As String = NameOf(MapId)
     Friend ReadOnly MaximumValue As String = NameOf(MaximumValue)
     Friend ReadOnly MinimumValue As String = NameOf(MinimumValue)
-    Friend ReadOnly ParentId As String = NameOf(ParentId)
     Friend ReadOnly Row As String = NameOf(Row)
     Friend ReadOnly Rows As String = NameOf(Rows)
-    Friend ReadOnly TargetLocationId As String = NameOf(TargetLocationId)
+    Friend ReadOnly TargetLocationId As String = NameOf(TargetLocationId) 'to location yoke?
     Friend ReadOnly Turn As String = NameOf(Turn)
 End Module

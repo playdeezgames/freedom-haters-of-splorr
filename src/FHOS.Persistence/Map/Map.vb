@@ -23,14 +23,14 @@ Friend Class Map
 
     Public ReadOnly Property Size As (Columns As Integer, Rows As Integer) Implements IMap.Size
         Get
-            Return (EntityData.Statistics(LegacyStatisticTypes.Columns), EntityData.Statistics(LegacyStatisticTypes.Rows))
+            Return (EntityData.Statistics(PersistenceStatisticTypes.Columns), EntityData.Statistics(PersistenceStatisticTypes.Rows))
         End Get
     End Property
 
     Public Function GetLocation(column As Integer, row As Integer) As ILocation Implements IMap.GetLocation
-        If column < 0 OrElse row < 0 OrElse column >= EntityData.Statistics(LegacyStatisticTypes.Columns) OrElse row >= EntityData.Statistics(LegacyStatisticTypes.Rows) Then
+        If column < 0 OrElse row < 0 OrElse column >= EntityData.Statistics(PersistenceStatisticTypes.Columns) OrElse row >= EntityData.Statistics(PersistenceStatisticTypes.Rows) Then
             Return Nothing
         End If
-        Return Location.FromId(UniverseData, EntityData.Locations(column + row * EntityData.Statistics(LegacyStatisticTypes.Columns)))
+        Return Location.FromId(UniverseData, EntityData.Locations(column + row * EntityData.Statistics(PersistenceStatisticTypes.Columns)))
     End Function
 End Class

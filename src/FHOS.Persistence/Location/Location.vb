@@ -17,45 +17,45 @@ Friend Class Location
 
     Public ReadOnly Property Map As IMap Implements ILocation.Map
         Get
-            Return Persistence.Map.FromId(UniverseData, EntityData.Statistics(LegacyStatisticTypes.MapId))
+            Return Persistence.Map.FromId(UniverseData, EntityData.Statistics(PersistenceStatisticTypes.MapId))
         End Get
     End Property
 
     Public Property Actor As IActor Implements ILocation.Actor
         Get
             Dim actorId As Integer
-            If EntityData.Statistics.TryGetValue(LegacyStatisticTypes.ActorId, actorId) Then
+            If EntityData.Statistics.TryGetValue(PersistenceStatisticTypes.ActorId, actorId) Then
                 Return Persistence.Actor.FromId(UniverseData, actorId)
             End If
             Return Nothing
         End Get
         Set(value As IActor)
             If value Is Nothing Then
-                EntityData.Statistics.Remove(LegacyStatisticTypes.ActorId)
+                EntityData.Statistics.Remove(PersistenceStatisticTypes.ActorId)
                 Return
             End If
-            EntityData.Statistics(LegacyStatisticTypes.ActorId) = value.Id
+            EntityData.Statistics(PersistenceStatisticTypes.ActorId) = value.Id
         End Set
     End Property
 
     Public Property TargetLocation As ILocation Implements ILocation.TargetLocation
         Get
-            Return Location.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.TargetLocationId))
+            Return Location.FromId(UniverseData, GetStatistic(PersistenceStatisticTypes.TargetLocationId))
         End Get
         Set(value As ILocation)
-            SetStatistic(LegacyStatisticTypes.TargetLocationId, value?.Id)
+            SetStatistic(PersistenceStatisticTypes.TargetLocationId, value?.Id)
         End Set
     End Property
 
     Public ReadOnly Property HasTargetLocation As Boolean Implements ILocation.HasTargetLocation
         Get
-            Return EntityData.Statistics.ContainsKey(LegacyStatisticTypes.TargetLocationId)
+            Return EntityData.Statistics.ContainsKey(PersistenceStatisticTypes.TargetLocationId)
         End Get
     End Property
 
     Public ReadOnly Property Position As (Column As Integer, Row As Integer) Implements ILocation.Position
         Get
-            Return (EntityData.Statistics(LegacyStatisticTypes.Column), EntityData.Statistics(LegacyStatisticTypes.Row))
+            Return (EntityData.Statistics(PersistenceStatisticTypes.Column), EntityData.Statistics(PersistenceStatisticTypes.Row))
         End Get
     End Property
 
@@ -64,7 +64,7 @@ Friend Class Location
                                  {
                                     .Statistics = New Dictionary(Of String, Integer) From
                                     {
-                                        {LegacyStatisticTypes.LocationId, Id}
+                                        {PersistenceStatisticTypes.LocationId, Id}
                                     },
                                     .Metadatas = New Dictionary(Of String, String) From
                                     {

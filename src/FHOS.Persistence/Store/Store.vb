@@ -10,7 +10,7 @@ Friend Class Store
 
     Public Property CurrentValue As Integer Implements IStore.CurrentValue
         Get
-            Return GetStatistic(LegacyStatisticTypes.CurrentValue).Value
+            Return GetStatistic(PersistenceStatisticTypes.CurrentValue).Value
         End Get
         Set(value As Integer)
             If MinimumValue.HasValue Then
@@ -19,19 +19,19 @@ Friend Class Store
             If MaximumValue.HasValue Then
                 value = Math.Min(value, MaximumValue.Value)
             End If
-            SetStatistic(LegacyStatisticTypes.CurrentValue, value)
+            SetStatistic(PersistenceStatisticTypes.CurrentValue, value)
         End Set
     End Property
 
     Public ReadOnly Property MaximumValue As Integer? Implements IStore.MaximumValue
         Get
-            Return GetStatistic(LegacyStatisticTypes.MaximumValue)
+            Return GetStatistic(PersistenceStatisticTypes.MaximumValue)
         End Get
     End Property
 
     Public ReadOnly Property MinimumValue As Integer? Implements IStore.MinimumValue
         Get
-            Return GetStatistic(LegacyStatisticTypes.MinimumValue)
+            Return GetStatistic(PersistenceStatisticTypes.MinimumValue)
         End Get
     End Property
 

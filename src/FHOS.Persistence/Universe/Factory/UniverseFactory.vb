@@ -23,8 +23,8 @@ Friend Class UniverseFactory
                 .Locations = Nothing,
                 .Statistics = New Dictionary(Of String, Integer) From
                 {
-                    {LegacyStatisticTypes.Columns, columns},
-                    {LegacyStatisticTypes.Rows, rows}
+                    {PersistenceStatisticTypes.Columns, columns},
+                    {PersistenceStatisticTypes.Rows, rows}
                 },
                 .Metadatas = New Dictionary(Of String, String) From
                 {
@@ -46,9 +46,9 @@ Friend Class UniverseFactory
                             {
                                 .Statistics = New Dictionary(Of String, Integer) From
                                 {
-                                    {LegacyStatisticTypes.MapId, mapId},
-                                    {LegacyStatisticTypes.Column, column},
-                                    {LegacyStatisticTypes.Row, row}
+                                    {PersistenceStatisticTypes.MapId, mapId},
+                                    {PersistenceStatisticTypes.Column, column},
+                                    {PersistenceStatisticTypes.Row, row}
                                 },
                                 .Metadatas = New Dictionary(Of String, String) From
                                 {
@@ -84,14 +84,14 @@ Friend Class UniverseFactory
             {
                 .Statistics = New Dictionary(Of String, Integer) From
                 {
-                    {LegacyStatisticTypes.CurrentValue, value}
+                    {PersistenceStatisticTypes.CurrentValue, value}
                 }
             }
         If minimum.HasValue Then
-            storeData.Statistics(LegacyStatisticTypes.MinimumValue) = minimum.Value
+            storeData.Statistics(PersistenceStatisticTypes.MinimumValue) = minimum.Value
         End If
         If maximum.HasValue Then
-            storeData.Statistics(LegacyStatisticTypes.MaximumValue) = maximum.Value
+            storeData.Statistics(PersistenceStatisticTypes.MaximumValue) = maximum.Value
         End If
         Return Store.FromId(UniverseData, UniverseData.Stores.CreateOrRecycle(storeData))
     End Function

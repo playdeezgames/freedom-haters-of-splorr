@@ -12,10 +12,10 @@
 
     Public Property Interior As IMap Implements IActorProperties.Interior
         Get
-            Return Map.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.MapId))
+            Return Map.FromId(UniverseData, GetStatistic(PersistenceStatisticTypes.MapId))
         End Get
         Set(value As IMap)
-            SetStatistic(LegacyStatisticTypes.MapId, value?.Id)
+            SetStatistic(PersistenceStatisticTypes.MapId, value?.Id)
         End Set
     End Property
 
