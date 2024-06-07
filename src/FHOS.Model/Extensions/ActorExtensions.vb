@@ -55,9 +55,9 @@ Friend Module ActorExtensions
 
     <Extension>
     Sub DoFuelConsumption(actor As IActor)
-        If actor.State.FuelTank IsNot Nothing Then
-            actor.State.FuelTank.CurrentValue -= 1
-            If actor.State.FuelTank.CurrentValue = actor.State.FuelTank.MinimumValue.Value Then
+        If actor.YokedStore(YokeTypes.FuelTank) IsNot Nothing Then
+            actor.YokedStore(YokeTypes.FuelTank).CurrentValue -= 1
+            If actor.YokedStore(YokeTypes.FuelTank).CurrentValue = actor.YokedStore(YokeTypes.FuelTank).MinimumValue.Value Then
                 actor.Tutorial.Add(TutorialTypes.OutOfFuel)
             End If
         End If
@@ -65,7 +65,7 @@ Friend Module ActorExtensions
 
     <Extension>
     Function CanMove(actor As IActor) As Boolean
-        Return actor.State.FuelTank Is Nothing OrElse
+        Return actor.YokedStore(YokeTypes.FuelTank) Is Nothing OrElse
                 AvatarModel.FromActor(actor).Vessel.FuelPercent.Value > 0
     End Function
 

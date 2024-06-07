@@ -29,15 +29,6 @@
         End Set
     End Property
 
-    Public Property FuelTank As IStore Implements IActorState.FuelTank
-        Get
-            Return Store.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.FuelTankId))
-        End Get
-        Set(value As IStore)
-            SetStatistic(LegacyStatisticTypes.FuelTankId, value?.Id)
-        End Set
-    End Property
-
     Friend Shared Function FromId(universeData As Data.UniverseData, id As Integer) As IActorState
         Return New ActorState(universeData, id)
     End Function

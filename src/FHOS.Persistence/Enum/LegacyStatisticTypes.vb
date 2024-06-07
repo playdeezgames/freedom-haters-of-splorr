@@ -3,7 +3,6 @@
     Friend ReadOnly Column As String = NameOf(Column)
     Friend ReadOnly Columns As String = NameOf(Columns)
     Friend ReadOnly CurrentValue As String = NameOf(CurrentValue)
-    Friend ReadOnly FuelTankId As String = NameOf(FuelTankId)
     Friend ReadOnly LocationId As String = NameOf(LocationId)
     Friend ReadOnly MapId As String = NameOf(MapId)
     Friend ReadOnly MaximumValue As String = NameOf(MaximumValue)

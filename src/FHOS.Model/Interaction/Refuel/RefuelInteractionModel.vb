@@ -6,11 +6,11 @@
     End Sub
 
     Public Overrides Sub Perform()
-        Dim fuelRequired = actor.State.FuelTank.TopOffAmount.Value
+        Dim fuelRequired = actor.YokedStore(YokeTypes.FuelTank).TopOffAmount.Value
         Const fuelPerJools = 10
         Dim fuelCost = (fuelRequired + fuelPerJools - 1) \ fuelPerJools
         actor.State.Wallet.CurrentValue -= fuelCost
-        actor.State.FuelTank.CurrentValue += fuelRequired
+        actor.YokedStore(YokeTypes.FuelTank).CurrentValue += fuelRequired
         actor.Universe.Messages.Add("Refueled!", ($"You bought {fuelRequired} fuel.", Black), ($"You paid {fuelCost} Jools.", Black))
     End Sub
 End Class

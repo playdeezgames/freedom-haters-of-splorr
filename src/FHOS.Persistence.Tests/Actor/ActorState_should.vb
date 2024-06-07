@@ -27,17 +27,8 @@
     <Fact>
     Sub have_default_values_upon_instantiation()
         Dim sut = CreateSut()
-        sut.FuelTank.ShouldBeNull
         sut.Wallet.ShouldBeNull
         sut.Location.ShouldNotBeNull
-    End Sub
-    <Fact>
-    Sub have_fuel_tank()
-        Dim universe = CreateUniverse()
-        Dim sut = CreateSut(universe:=universe)
-        Dim store = CreateStore(0, Nothing, Nothing, universe:=universe)
-        sut.FuelTank = store
-        sut.FuelTank.Id.ShouldBe(store.Id)
     End Sub
     <Fact>
     Sub have_wallet()

@@ -22,7 +22,7 @@ Friend Class AvatarVesselModel
 
     Public ReadOnly Property FuelPercent As Integer? Implements IAvatarVesselModel.FuelPercent
         Get
-            Return actor.State.FuelTank?.Percent
+            Return actor.YokedStore(YokeTypes.FuelTank)?.Percent
         End Get
     End Property
 

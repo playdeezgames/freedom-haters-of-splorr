@@ -61,7 +61,7 @@ Friend Class PlayerShipActorTypeDescriptor
         actor.GroupCategory(RNG.FromEnumerable(planetCandidates)) = CategoryTypes.HomePlanet
         actor.EntityName = "(yer ship)"
         actor.YokedStore(YokeTypes.LifeSupport) = actor.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
-        actor.State.FuelTank = actor.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
+        actor.YokedStore(YokeTypes.FuelTank) = actor.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
         InitializePlayerShipInterior(actor)
         InitializePlayerShipCrew(actor)
     End Sub
