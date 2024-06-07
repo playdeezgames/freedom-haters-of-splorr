@@ -16,7 +16,6 @@ Public Class FHOSController
 
         CreateActionStates(context)
 
-        SetState(GameState.Tutorial, New TutorialState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Message, New MessageState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.GameOver, New GameOverState(Me, AddressOf SetCurrentState, context))
 

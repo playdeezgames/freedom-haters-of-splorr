@@ -38,23 +38,6 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property Tutorial As String Implements ILocation.Tutorial
-        Get
-            Dim result As String = Nothing
-            If EntityData.Metadatas.TryGetValue(LegacyMetadataTypes.Tutorial, result) Then
-                Return result
-            End If
-            Return Nothing
-        End Get
-        Set(value As String)
-            If value Is Nothing Then
-                EntityData.Metadatas.Remove(LegacyMetadataTypes.Tutorial)
-            Else
-                EntityData.Metadatas(LegacyMetadataTypes.Tutorial) = value
-            End If
-        End Set
-    End Property
-
     Public Property TargetLocation As ILocation Implements ILocation.TargetLocation
         Get
             Return Location.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.TargetLocationId))

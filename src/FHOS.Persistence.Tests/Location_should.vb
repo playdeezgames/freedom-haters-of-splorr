@@ -30,7 +30,6 @@
         sut.Position.Row.ShouldBe(row)
         sut.EntityType.ShouldBe(locationType)
         sut.Actor.ShouldBeNull
-        sut.Tutorial.ShouldBeNull
         sut.TargetLocation.ShouldBeNull
         sut.HasTargetLocation.ShouldBeFalse
     End Sub
@@ -61,12 +60,5 @@
         sut.TargetLocation = sut
         sut.HasTargetLocation.ShouldBeTrue
         sut.TargetLocation.Id.ShouldBe(sut.Id)
-    End Sub
-    <Fact>
-    Sub have_tutorial()
-        Const tutorial = "tutorial"
-        Dim sut = CreateSut()
-        sut.Tutorial = tutorial
-        sut.Tutorial.ShouldBe(tutorial)
     End Sub
 End Class

@@ -9,5 +9,4 @@ Public Interface ILocation
 
     Property TargetLocation As ILocation
     ReadOnly Property HasTargetLocation As Boolean
-    Property Tutorial As String
 End Interface

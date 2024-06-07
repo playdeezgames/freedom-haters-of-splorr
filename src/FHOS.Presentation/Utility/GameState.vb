@@ -37,5 +37,4 @@
     Friend ReadOnly StarSystemPlanetList As String = NameOf(StarSystemPlanetList)
     Friend ReadOnly StarSystemSatelliteList As String = NameOf(StarSystemSatelliteList)
     Friend ReadOnly Status As String = NameOf(Status)
-    Friend ReadOnly Tutorial As String = NameOf(Tutorial)
 End Module

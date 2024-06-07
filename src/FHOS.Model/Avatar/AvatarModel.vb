@@ -15,12 +15,6 @@ Friend Class AvatarModel
         Return New AvatarModel(actor)
     End Function
 
-    Public ReadOnly Property Tutorial As IAvatarTutorialModel Implements IAvatarModel.Tutorial
-        Get
-            Return New AvatarTutorialModel(actor)
-        End Get
-    End Property
-
     Public ReadOnly Property Bio As IAvatarBioModel Implements IAvatarModel.Bio
         Get
             Return AvatarBioModel.FromActor(actor)

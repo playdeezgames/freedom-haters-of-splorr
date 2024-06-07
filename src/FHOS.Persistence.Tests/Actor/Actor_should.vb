@@ -31,7 +31,6 @@ Public Class Actor_should
         Const actorType = "actor type"
         Dim sut = CreateSut(actorType:=actorType)
         sut.EntityType.ShouldBe(actorType)
-        sut.Tutorial.ShouldNotBeNull
         sut.Family.ShouldNotBeNull
         sut.Properties.ShouldNotBeNull
         sut.Equipment.ShouldNotBeNull

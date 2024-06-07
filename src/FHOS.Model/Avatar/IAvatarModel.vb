@@ -5,7 +5,6 @@
     ReadOnly Property StarGate As IAvatarStarGateModel
     ReadOnly Property State As IAvatarStateModel
     ReadOnly Property Status As IAvatarStatusModel
-    ReadOnly Property Tutorial As IAvatarTutorialModel
     ReadOnly Property Verbs As IAvatarVerbsModel
     ReadOnly Property Vessel As IAvatarVesselModel
     ReadOnly Property Wallet As IAvatarWalletModel

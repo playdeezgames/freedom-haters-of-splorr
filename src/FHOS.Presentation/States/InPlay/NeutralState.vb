@@ -25,8 +25,6 @@ Friend Class NeutralState
                 SetState(GameState.Message)
             ElseIf .State.Avatar.Status.GameOver Then
                 SetState(GameState.GameOver)
-            ElseIf .State.Avatar.Tutorial.HasAny Then
-                SetState(GameState.Tutorial)
             ElseIf .State.Avatar.StarGate.IsActive Then
                 SetState(GameState.StarGate)
             ElseIf .State.Avatar.Interaction.IsActive Then

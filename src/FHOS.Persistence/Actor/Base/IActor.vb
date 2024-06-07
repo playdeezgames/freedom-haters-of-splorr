@@ -1,6 +1,5 @@
 ﻿Public Interface IActor
     Inherits INamedEntity
-    ReadOnly Property Tutorial As IActorTutorial
     ReadOnly Property Family As IActorFamily
     ReadOnly Property Properties As IActorProperties
     ReadOnly Property Equipment As IActorEquipment

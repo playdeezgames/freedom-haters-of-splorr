@@ -8,7 +8,6 @@
         sut.StarGate.ShouldNotBeNull
         sut.State.ShouldNotBeNull
         sut.Status.ShouldNotBeNull
-        sut.Tutorial.ShouldNotBeNull
         sut.Verbs.ShouldNotBeNull
         sut.Vessel.ShouldNotBeNull
         sut.Wallet.ShouldNotBeNull

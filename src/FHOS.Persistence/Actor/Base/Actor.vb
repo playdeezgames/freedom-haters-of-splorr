@@ -14,12 +14,6 @@ Friend Class Actor
         Return Nothing
     End Function
 
-    Public ReadOnly Property Tutorial As IActorTutorial Implements IActor.Tutorial
-        Get
-            Return ActorTutorial.FromId(UniverseData, Id)
-        End Get
-    End Property
-
     Public ReadOnly Property Family As IActorFamily Implements IActor.Family
         Get
             Return ActorFamily.FromId(UniverseData, Id)
@@ -100,7 +94,6 @@ Friend Class Actor
                 Location.Actor = Nothing
                 EntityData.Statistics(LegacyStatisticTypes.LocationId) = value.Id
                 value.Actor = Actor.FromId(UniverseData, Id)
-                ActorTutorial.FromId(UniverseData, Id).Add(value.Tutorial)
             End If
         End Set
     End Property
