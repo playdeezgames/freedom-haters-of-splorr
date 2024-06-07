@@ -27,13 +27,4 @@
             SetMetadata(LegacyMetadataTypes.Costume, value)
         End Set
     End Property
-
-    Public Property TargetActor As IActor Implements IActorProperties.TargetActor
-        Get
-            Return Actor.FromId(UniverseData, GetStatistic(LegacyStatisticTypes.TargetActor))
-        End Get
-        Set(value As IActor)
-            SetStatistic(LegacyStatisticTypes.TargetActor, value?.Id)
-        End Set
-    End Property
 End Class

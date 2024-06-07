@@ -30,7 +30,6 @@
         Dim sut = CreateSut(actorName:=actorName)
         sut.Interior.ShouldBeNull
         sut.CostumeType.ShouldBeNull
-        sut.TargetActor.ShouldBeNull
     End Sub
     <Fact>
     Sub have_interior()
@@ -46,15 +45,5 @@
         Dim sut = CreateSut()
         sut.CostumeType = costumeType
         sut.CostumeType.ShouldBe(costumeType)
-    End Sub
-    <Fact>
-    Sub have_target_actor()
-        Dim universe = CreateUniverse()
-        Dim sut = CreateSut(universe:=universe)
-        Dim otherActor = CreateActor("other map name", "other map type", 3, 2, "other location type", 1, 1, "other actor type", "other actor name", universe:=universe)
-        sut.TargetActor = otherActor
-        sut.TargetActor.Id.ShouldBe(otherActor.Id)
-        sut.TargetActor = Nothing
-        sut.TargetActor.ShouldBe(Nothing)
     End Sub
 End Class
