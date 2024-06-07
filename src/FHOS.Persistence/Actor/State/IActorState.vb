@@ -1,9 +1,11 @@
 ﻿Public Interface IActorState
+    Property Location As ILocation
+    Property Scrap As Integer
+    'store relationship categories
     Property LifeSupport As IStore
     Property FuelTank As IStore
     Property Wallet As IStore
-    Property Location As ILocation
+    'actor relationship categories
     Property Interactor As IActor
-    Property Scrap As Integer
     Property StarGate As IActor
 End Interface

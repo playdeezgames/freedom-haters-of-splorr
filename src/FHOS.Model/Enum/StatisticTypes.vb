@@ -5,5 +5,6 @@
     Friend ReadOnly MinimumPlanetCount As String = NameOf(MinimumPlanetCount)
     Friend ReadOnly PlanetCount As String = NameOf(PlanetCount)
     Friend ReadOnly SatelliteCount As String = NameOf(SatelliteCount)
+    Friend ReadOnly Scrap As String = NameOf(Scrap)
     Friend ReadOnly Standards As String = NameOf(Standards)
 End Module
