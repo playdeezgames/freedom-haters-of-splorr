@@ -72,7 +72,11 @@ Friend Class Actor
             Return Nothing
         End Get
         Set(value As IActor)
-            EntityData.YokedActors(yokeType) = value.Id
+            If value IsNot Nothing Then
+                EntityData.YokedActors(yokeType) = value.Id
+            Else
+                EntityData.YokedActors.Remove(yokeType)
+            End If
         End Set
     End Property
 End Class
