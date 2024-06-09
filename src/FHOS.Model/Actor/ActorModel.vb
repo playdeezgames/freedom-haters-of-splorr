@@ -71,7 +71,7 @@ Friend Class ActorModel
 
     Public ReadOnly Property PlanetCount As Integer Implements IActorModel.PlanetCount
         Get
-            Return actor.YokedGroup(YokeTypes.Faction).Statistics(StatisticTypes.PlanetCount).Value
+            Return If(actor.YokedGroup(YokeTypes.Faction)?.Statistics(StatisticTypes.PlanetCount), 0)
         End Get
     End Property
 
@@ -95,25 +95,25 @@ Friend Class ActorModel
 
     Public ReadOnly Property StarSystem As IGroupModel Implements IActorModel.StarSystem
         Get
-            Return GroupModel.FromGroup(actor.YokedGroup(YokeTypes.Faction).Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem))
+            Return GroupModel.FromGroup(actor.YokedGroup(YokeTypes.Faction)?.Parents?.SingleOrDefault(Function(x) x.EntityType = GroupTypes.StarSystem))
         End Get
     End Property
 
     Public ReadOnly Property SatelliteCount As Integer Implements IActorModel.SatelliteCount
         Get
-            Return actor.YokedGroup(YokeTypes.Faction).Statistics(StatisticTypes.SatelliteCount).Value
+            Return If(actor.YokedGroup(YokeTypes.Faction)?.Statistics(StatisticTypes.SatelliteCount), 0)
         End Get
     End Property
 
     Public ReadOnly Property PlanetVicinity As IGroupModel Implements IActorModel.PlanetVicinity
         Get
-            Return GroupModel.FromGroup(actor.YokedGroup(YokeTypes.Faction).Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity))
+            Return GroupModel.FromGroup(actor.YokedGroup(YokeTypes.Faction)?.Parents?.SingleOrDefault(Function(x) x.EntityType = GroupTypes.PlanetVicinity))
         End Get
     End Property
 
     Public ReadOnly Property Faction As IGroupModel Implements IActorModel.Faction
         Get
-            Return GroupModel.FromGroup(actor.YokedGroup(YokeTypes.Faction).Parents.Single(Function(x) x.EntityType = GroupTypes.Faction))
+            Return GroupModel.FromGroup(actor.YokedGroup(YokeTypes.Faction)?.Parents?.SingleOrDefault(Function(x) x.EntityType = GroupTypes.Faction))
         End Get
     End Property
 

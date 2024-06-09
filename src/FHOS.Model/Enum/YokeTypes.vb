@@ -10,7 +10,7 @@
     Friend ReadOnly Faction As String = NameOf(Faction)
     Friend ReadOnly HomePlanet As String = NameOf(HomePlanet)
     Friend ReadOnly StarSystem As String = NameOf(StarSystem)
-    'Friend ReadOnly PlanetVicinity As String = NameOf(PlanetVicinity)
+    Friend ReadOnly PlanetVicinity As String = NameOf(PlanetVicinity)
     'Friend ReadOnly Planet As String = NameOf(Planet)
     'Friend ReadOnly Satellite As String = NameOf(Satellite)
 End Module

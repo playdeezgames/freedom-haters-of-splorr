@@ -19,7 +19,7 @@
         Dim map = universe.Factory.CreateMap("map name", "map type", 1, 1, "location type")
         Dim actor = map.GetLocation(0, 0).CreateActor("actor type", "actor name")
         Dim group = universe.Factory.CreateGroup("group type", "group name")
-        actor.GroupCategory(group) = "Faction"
+        actor.YokedGroup("Faction") = group
         universe.Avatar.Push(actor)
     End Sub
 End Module
