@@ -45,29 +45,6 @@ Public Class Actor_should
         sut.EntityName.ShouldBe(entityName)
     End Sub
     <Fact>
-    Sub by_default_have_no_relationship_to_group()
-        Dim universe = CreateUniverse()
-        Dim group = CreateGroup(universe:=universe)
-        Dim sut = CreateSut(universe:=universe)
-        sut.GroupCategory(group).ShouldBeNull
-    End Sub
-    <Fact>
-    Sub set_relationship_to_group()
-        Dim universe = CreateUniverse()
-        Dim group = CreateGroup(universe:=universe)
-        Dim sut = CreateSut(universe:=universe)
-        Const category = "category"
-        sut.GroupCategory(group) = category
-        sut.GroupCategory(group).ShouldBe(category)
-        sut.GroupsOfCategory(category).Count.ShouldBe(1)
-    End Sub
-    <Fact>
-    Sub have_no_groups_in_category()
-        Const category = "category"
-        Dim sut = CreateSut()
-        sut.GroupsOfCategory(category).ShouldBeEmpty
-    End Sub
-    <Fact>
     Sub have_no_yokes_to_actors()
         Const yokeType = "yoke type"
         Dim sut = CreateSut()

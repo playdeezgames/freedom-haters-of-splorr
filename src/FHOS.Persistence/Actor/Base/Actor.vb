@@ -32,25 +32,6 @@ Friend Class Actor
         End Get
     End Property
 
-    Public Property GroupCategory(group As IGroup) As String Implements IActor.GroupCategory
-        Get
-            Dim category As String = Nothing
-            If EntityData.GroupCategories.TryGetValue(group.Id, category) Then
-                Return category
-            End If
-            Return Nothing
-        End Get
-        Set(value As String)
-            EntityData.GroupCategories(group.Id) = value
-        End Set
-    End Property
-
-    Public ReadOnly Property GroupsOfCategory(categoryType As String) As IEnumerable(Of IGroup) Implements IActor.GroupsOfCategory
-        Get
-            Return EntityData.GroupCategories.Where(Function(x) x.Value = categoryType).Select(Function(x) Group.FromId(UniverseData, x.Key))
-        End Get
-    End Property
-
     Public Property YokedActor(yokeType As String) As IActor Implements IActor.YokedActor
         Get
             Dim id As Integer
