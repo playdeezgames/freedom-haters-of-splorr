@@ -57,7 +57,7 @@ Friend Class PlanetVicinityInitializationStep
         satelliteGroup.AddParent(externalActor.YokedGroup(YokeTypes.PlanetVicinity))
         satelliteGroup.AddParent(externalActor.YokedGroup(YokeTypes.PlanetVicinity).Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem))
         Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, satelliteGroup.EntityName)
-        satellite.GroupCategory(satelliteGroup) = CategoryTypes.Satellite
+        satellite.YokedGroup(YokeTypes.Satellite) = satelliteGroup
         satellite.YokedGroup(YokeTypes.PlanetVicinity) = externalActor.YokedGroup(YokeTypes.PlanetVicinity)
         satellite.YokedGroup(YokeTypes.StarSystem) = externalActor.YokedGroup(YokeTypes.StarSystem)
         location.EntityType = LocationTypes.Satellite
