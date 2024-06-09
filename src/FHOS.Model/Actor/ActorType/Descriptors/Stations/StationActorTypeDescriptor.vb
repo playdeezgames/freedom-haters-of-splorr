@@ -26,7 +26,7 @@ Friend MustInherit Class StationActorTypeDescriptor
     Protected Overrides Sub Initialize(actor As IActor)
         Dim planet = actor.Location.Map.GetCenterLocation().Actor
         actor.EntityName = MakeName(planet)
-        Dim faction = planet.GroupsOfCategory(CategoryTypes.Planet).Single.Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity).Parents.Single(Function(x) x.EntityType = GroupTypes.Faction)
+        Dim faction = planet.YokedGroup(YokeTypes.Planet).Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity).Parents.Single(Function(x) x.EntityType = GroupTypes.Faction)
         actor.YokedGroup(YokeTypes.Faction) = faction
 
         actor.Location.EntityType = LocationTypes.ActorAdjacent

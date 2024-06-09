@@ -86,6 +86,6 @@ Friend Class PlanetVicinityInitializationStep
                                               sectionName As String)
         Dim descriptor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(subType, sectionName))
         Dim actor = descriptor.CreateActor(location, planetGroup.EntityName)
-        actor.GroupCategory(planetGroup) = CategoryTypes.Planet
+        actor.YokedGroup(YokeTypes.Planet) = planetGroup
     End Sub
 End Class
