@@ -35,6 +35,7 @@ Friend Class PlayerShipActorTypeDescriptor
             "Yer ship's interior",
             ship.Universe)
         ship.Properties.Interior = map
+        ship.Statistics(StatisticTypes.Scrap) = 0
         For Each x In Enumerable.Range(0, descriptor.Size.Columns)
             map.GetLocation(x, 0).EntityType = LocationTypes.Bulkhead
             map.GetLocation(x, descriptor.Size.Rows - 1).EntityType = LocationTypes.Bulkhead
