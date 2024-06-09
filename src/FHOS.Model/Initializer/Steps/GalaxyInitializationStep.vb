@@ -42,7 +42,7 @@ Friend Class GalaxyInitializationStep
         Dim group = map.Universe.Factory.CreateGroup(GroupTypes.StarSystem, nameGenerator.GenerateUnusedName)
         Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarSystem(starType)).CreateActor(location, $"{group.EntityName}")
         location.EntityType = LocationTypes.StarSystem
-        actor.GroupCategory(group) = CategoryTypes.StarSystem
+        actor.YokedGroup(YokeTypes.StarSystem) = group
         addStep(New StarSystemInitializationStep(location, nameGenerator), False)
     End Sub
 End Class

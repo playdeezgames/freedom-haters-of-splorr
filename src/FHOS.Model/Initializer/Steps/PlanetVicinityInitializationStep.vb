@@ -59,7 +59,7 @@ Friend Class PlanetVicinityInitializationStep
         Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, satelliteGroup.EntityName)
         satellite.GroupCategory(satelliteGroup) = CategoryTypes.Satellite
         satellite.GroupCategory(externalActor.GroupsOfCategory(CategoryTypes.PlanetVicinity).Single) = CategoryTypes.PlanetVicinity
-        satellite.GroupCategory(externalActor.GroupsOfCategory(CategoryTypes.StarSystem).Single) = CategoryTypes.StarSystem
+        satellite.YokedGroup(YokeTypes.StarSystem) = externalActor.YokedGroup(YokeTypes.StarSystem)
         location.EntityType = LocationTypes.Satellite
         addStep(New SatelliteOrbitInitializationStep(location), False)
     End Sub
