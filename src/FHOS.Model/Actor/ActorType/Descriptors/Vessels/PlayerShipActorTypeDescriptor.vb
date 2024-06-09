@@ -58,7 +58,7 @@ Friend Class PlayerShipActorTypeDescriptor
         actor.YokedGroup(YokeTypes.Faction) = sigmoFaction
 
         Dim planetCandidates = sigmoFaction.Children.Where(Function(x) x.EntityType = GroupTypes.PlanetVicinity)
-        actor.GroupCategory(RNG.FromEnumerable(planetCandidates)) = CategoryTypes.HomePlanet
+        actor.YokedGroup(YokeTypes.HomePlanet) = RNG.FromEnumerable(planetCandidates)
         actor.EntityName = "(yer ship)"
         actor.YokedStore(YokeTypes.LifeSupport) = actor.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
         actor.YokedStore(YokeTypes.FuelTank) = actor.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)

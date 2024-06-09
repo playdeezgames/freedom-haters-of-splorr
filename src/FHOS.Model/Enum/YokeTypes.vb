@@ -8,7 +8,7 @@
     Friend ReadOnly Wallet As String = NameOf(Wallet)
 
     Friend ReadOnly Faction As String = NameOf(Faction)
-    'Friend ReadOnly HomePlanet As String = NameOf(HomePlanet)
+    Friend ReadOnly HomePlanet As String = NameOf(HomePlanet)
     'Friend ReadOnly StarSystem As String = NameOf(StarSystem)
     'Friend ReadOnly PlanetVicinity As String = NameOf(PlanetVicinity)
     'Friend ReadOnly Planet As String = NameOf(Planet)
