@@ -27,7 +27,7 @@ Friend Class StarGateActorTypeDescriptor
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
         Return {
-            ($"Faction: {actor.GroupsOfCategory(CategoryTypes.Faction).Single.EntityName}", Hues.Black)
+            ($"Faction: {actor.YokedGroup(YokeTypes.Faction).EntityName}", Hues.Black)
             }
     End Function
 End Class

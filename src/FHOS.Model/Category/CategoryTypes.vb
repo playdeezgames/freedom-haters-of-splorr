@@ -1,5 +1,5 @@
 ﻿Friend Module CategoryTypes
-    Friend ReadOnly Faction As String = NameOf(Faction)
+    'Friend ReadOnly Faction As String = NameOf(Faction)
     Friend ReadOnly HomePlanet As String = NameOf(HomePlanet)
     Friend ReadOnly StarSystem As String = NameOf(StarSystem)
     Friend ReadOnly PlanetVicinity As String = NameOf(PlanetVicinity)
@@ -8,7 +8,6 @@
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, CategoryTypeDescriptor) =
         New List(Of CategoryTypeDescriptor) From
         {
-            New FactionCategoryTypeDescriptor,
             New HomePlanetCategoryTypeDescriptor,
             New StarSystemCategoryTypeDescriptor,
             New PlanetVicinityCategoryTypeDescriptor,

@@ -27,7 +27,7 @@ Friend MustInherit Class StationActorTypeDescriptor
         Dim planet = actor.Location.Map.GetCenterLocation().Actor
         actor.EntityName = MakeName(planet)
         Dim faction = planet.GroupsOfCategory(CategoryTypes.Planet).Single.Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity).Parents.Single(Function(x) x.EntityType = GroupTypes.Faction)
-        actor.GroupCategory(faction) = CategoryTypes.Faction
+        actor.YokedGroup(YokeTypes.Faction) = faction
 
         actor.Location.EntityType = LocationTypes.ActorAdjacent
         For Each neighbor In actor.Location.GetEmptyNeighborsOfType(LocationTypes.Void)
