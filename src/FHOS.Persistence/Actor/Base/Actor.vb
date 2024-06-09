@@ -97,4 +97,21 @@ Friend Class Actor
             End If
         End Set
     End Property
+
+    Public Property YokedGroup(yokeType As String) As IGroup Implements IActor.YokedGroup
+        Get
+            Dim id As Integer
+            If EntityData.YokedGroups.TryGetValue(yokeType, id) Then
+                Return Group.FromId(UniverseData, id)
+            End If
+            Return Nothing
+        End Get
+        Set(value As IGroup)
+            If value IsNot Nothing Then
+                EntityData.YokedGroups(yokeType) = value.Id
+            Else
+                EntityData.YokedGroups.Remove(yokeType)
+            End If
+        End Set
+    End Property
 End Class
