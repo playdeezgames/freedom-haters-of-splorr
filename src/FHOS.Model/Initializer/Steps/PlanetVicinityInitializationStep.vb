@@ -21,7 +21,10 @@ Friend Class PlanetVicinityInitializationStep
             actor,
             addStep,
             actor.Descriptor.Subtype)
-        actor.YokedGroup(YokeTypes.PlanetVicinity).Statistics(StatisticTypes.SatelliteCount) = PlaceSatellites(actor, addStep)
+        Dim planetGroup = actor.YokedGroup(YokeTypes.PlanetVicinity)
+        planetGroup.Statistics(StatisticTypes.SatelliteCount) = PlaceSatellites(actor, addStep)
+        Dim starSystemGroup = planetGroup.Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem)
+        starSystemGroup.Statistics(StatisticTypes.SatelliteCount) = If(starSystemGroup.Statistics(StatisticTypes.SatelliteCount), 0) + planetGroup.Statistics(StatisticTypes.SatelliteCount)
         addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
     End Sub
     Private Function PlaceSatellites(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean)) As Integer

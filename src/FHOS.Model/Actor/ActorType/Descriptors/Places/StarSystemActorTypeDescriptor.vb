@@ -27,6 +27,8 @@ Friend Class StarSystemActorTypeDescriptor
         result.Add(($"Type: {descriptor.StarTypeName}", Hues.Black))
         Dim location = actor.Location
         result.Add(($"Galactic Position: ({location.Position.Column}, {location.Position.Row})", Hues.Black))
+        result.Add(($"Planets: {actor.YokedGroup(YokeTypes.StarSystem).Statistics(StatisticTypes.PlanetCount)}", Hues.Black))
+        result.Add(($"Satellites: {actor.YokedGroup(YokeTypes.StarSystem).Statistics(StatisticTypes.SatelliteCount)}", Hues.Black))
         Return result
     End Function
 End Class
