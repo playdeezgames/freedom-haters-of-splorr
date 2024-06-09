@@ -22,6 +22,11 @@ Friend Class StarSystemActorTypeDescriptor
     End Function
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
-        Return {("It's a star! It's real hot!", Hues.Black)}
+        Dim result As New List(Of (Text As String, Hue As Integer))
+        Dim descriptor = StarTypes.Descriptors(actor.Descriptor.Subtype)
+        result.Add(($"Type: {descriptor.StarTypeName}", Hues.Black))
+        Dim location = actor.Location
+        result.Add(($"Galactic Position: ({location.Position.Column}, {location.Position.Row})", Hues.Black))
+        Return result
     End Function
 End Class
