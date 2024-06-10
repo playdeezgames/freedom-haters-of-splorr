@@ -8,7 +8,7 @@ Friend Class SellScrapInteractionTypeDescriptor
     End Sub
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return If(actor.Statistics(StatisticTypes.Scrap), 0) > 0 AndAlso actor.YokedActor(YokeTypes.Interactor).Descriptor.BuysScrap
+        Return If(actor.Statistics(StatisticTypes.Scrap), 0) > 0 AndAlso actor.Interactor.Descriptor.BuysScrap
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel

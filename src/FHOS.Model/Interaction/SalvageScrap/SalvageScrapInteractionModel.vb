@@ -6,7 +6,7 @@
     End Sub
 
     Public Overrides Sub Perform()
-        Dim interactor = actor.YokedActor(YokeTypes.Interactor)
+        Dim interactor = actor.Interactor
         Dim scrap = If(interactor.Statistics(StatisticTypes.Scrap), 0)
         actor.Universe.Messages.Add("Salvage!", ($"You find {scrap} scrap!", Black))
         actor.Statistics(StatisticTypes.Scrap) += scrap

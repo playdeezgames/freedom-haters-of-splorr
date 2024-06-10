@@ -10,7 +10,7 @@ Friend Class AvatarInteractionModel
 
     Public ReadOnly Property IsActive As Boolean Implements IAvatarInteractionModel.IsActive
         Get
-            Return actor.YokedActor(YokeTypes.Interactor) IsNot Nothing
+            Return actor.Interactor IsNot Nothing
         End Get
     End Property
 
@@ -23,7 +23,7 @@ Friend Class AvatarInteractionModel
     Public ReadOnly Property Lines As IEnumerable(Of (Text As String, Hue As Integer)) Implements IAvatarInteractionModel.Lines
         Get
             Dim result As New List(Of (Text As String, Hue As Integer))
-            Dim interactor = actor.YokedActor(YokeTypes.Interactor)
+            Dim interactor = actor.Interactor
             result.Add((interactor.EntityName, Hues.LightGray))
             result.AddRange(ActorTypes.Descriptors(interactor.EntityType).Describe(interactor))
             Return result

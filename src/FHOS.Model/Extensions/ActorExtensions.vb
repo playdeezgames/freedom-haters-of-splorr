@@ -8,6 +8,10 @@ Friend Module ActorExtensions
         actor.YokedActor(YokeTypes.Interactor) = Nothing
     End Sub
     <Extension>
+    Function Interactor(actor As IActor) As IActor
+        Return actor.YokedActor(YokeTypes.Interactor)
+    End Function
+    <Extension>
     Function CostumeDescriptor(actorProperties As IActorProperties) As CostumeTypeDescriptor
         Return CostumeTypes.Descriptors(actorProperties.CostumeType)
     End Function

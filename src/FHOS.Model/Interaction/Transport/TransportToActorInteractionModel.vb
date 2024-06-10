@@ -9,7 +9,7 @@ Friend Class TransportToActorInteractionModel
 
     Public Overrides Sub Perform()
         actor.GoToOtherActor(
-            actor.YokedActor(YokeTypes.Interactor).YokedActor(YokeTypes.Target),
+            actor.Interactor.YokedActor(YokeTypes.Target),
             Sub(success)
                 If Not success Then
                     actor.Universe.Messages.Add("Destination Blocked!", ("The other end is blocked!", Hues.Red))
