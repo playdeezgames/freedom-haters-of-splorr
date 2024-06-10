@@ -43,6 +43,9 @@ Friend Class GalaxyInitializationStep
         starSystemGroup.Statistics(StatisticTypes.Scrap) = 0
         starSystemGroup.Statistics(StatisticTypes.VisitCount) = 0
         starSystemGroup.Statistics(StatisticTypes.WormholeCount) = 0
+        starSystemGroup.Statistics(StatisticTypes.StarGateCount) = 0
+        starSystemGroup.Statistics(StatisticTypes.ShipyardCount) = 0
+        starSystemGroup.Statistics(StatisticTypes.TradingPostCount) = 0
         Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarSystem(starType)).CreateActor(location, $"{starSystemGroup.EntityName}")
         location.EntityType = LocationTypes.StarSystem
         actor.YokedGroup(YokeTypes.StarSystem) = starSystemGroup

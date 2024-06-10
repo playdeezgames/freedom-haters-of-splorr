@@ -32,6 +32,9 @@ Friend Class StarSystemActorTypeDescriptor
         result.Add(($"Satellites: {starSystemGroup.Statistics(StatisticTypes.SatelliteCount)}", Hues.Black))
         result.Add(($"Wormholes: {starSystemGroup.Statistics(StatisticTypes.WormholeCount)}", Hues.Black))
         result.Add(($"Scrap: {starSystemGroup.Statistics(StatisticTypes.Scrap)}", Hues.Black))
+        result.Add(($"Shipyards: {starSystemGroup.Statistics(StatisticTypes.ShipyardCount)}", Hues.Black))
+        result.Add(($"Trading Posts: {starSystemGroup.Statistics(StatisticTypes.TradingPostCount)}", Hues.Black))
+        result.Add(($"Star Gates: {starSystemGroup.Statistics(StatisticTypes.StarGateCount)}", Hues.Black))
         result.Add(($"Visit Count: {starSystemGroup.Statistics(StatisticTypes.VisitCount)}", Hues.Black))
         result.Add(("Factions Present:", Hues.Black))
         For Each factionName In starSystemGroup.Children.
