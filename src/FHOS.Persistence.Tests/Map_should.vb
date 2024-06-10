@@ -63,4 +63,14 @@
         sut.YokedGroup(yokeType) = group
         sut.YokedGroup(yokeType).Id.ShouldBe(group.Id)
     End Sub
+    <Fact>
+    Sub unyoke_groups()
+        Const yokeType = "yoke type"
+        Dim universe = CreateUniverse()
+        Dim group = CreateGroup(universe:=universe)
+        Dim sut As IMap = CreateSut(universe:=universe)
+        sut.YokedGroup(yokeType) = group
+        sut.YokedGroup(yokeType) = Nothing
+        sut.YokedGroup(yokeType).ShouldBeNull
+    End Sub
 End Class

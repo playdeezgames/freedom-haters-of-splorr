@@ -36,7 +36,11 @@ Friend Class Map
             Return Nothing
         End Get
         Set(value As IGroup)
-            EntityData.YokedGroups(yokeType) = value.Id
+            If value IsNot Nothing Then
+                EntityData.YokedGroups(yokeType) = value.Id
+            Else
+                EntityData.YokedGroups.Remove(yokeType)
+            End If
         End Set
     End Property
 
