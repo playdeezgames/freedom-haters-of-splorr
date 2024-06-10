@@ -1,11 +1,17 @@
 ﻿Public Class Map_should
     Private Const SutColumns = 2
     Private Const SutRows = 3
-    Private Shared Function CreateSut() As IMap
+    Private Shared Function CreateSut(Optional universe As IUniverse = Nothing) As IMap
         Const mapName = "map name"
         Const mapType = "map type"
         Const locationType = "location type"
-        Return CreateMap(mapName, mapType, SutColumns, SutRows, locationType)
+        Return CreateMap(
+            mapName,
+            mapType,
+            SutColumns,
+            SutRows,
+            locationType,
+            universe:=universe)
     End Function
     <Fact>
     Sub set_name()
@@ -47,5 +53,14 @@
         Const yokeType = "yoke type"
         Dim sut As IMap = CreateSut()
         sut.YokedGroup(yokeType).Shouldbenull
+    End Sub
+    <Fact>
+    Sub yoke_groups()
+        Const yokeType = "yoke type"
+        Dim universe = CreateUniverse()
+        Dim group = CreateGroup(universe:=universe)
+        Dim sut As IMap = CreateSut(universe:=universe)
+        sut.YokedGroup(yokeType) = group
+        sut.YokedGroup(yokeType).Id.ShouldBe(group.Id)
     End Sub
 End Class

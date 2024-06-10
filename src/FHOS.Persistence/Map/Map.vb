@@ -27,10 +27,17 @@ Friend Class Map
         End Get
     End Property
 
-    Public ReadOnly Property YokedGroup(yokeType As String) As IGroup Implements IMap.YokedGroup
+    Public Property YokedGroup(yokeType As String) As IGroup Implements IMap.YokedGroup
         Get
+            Dim groupId As Integer
+            If EntityData.YokedGroups.TryGetValue(yokeType, groupId) Then
+                Return Group.FromId(UniverseData, groupId)
+            End If
             Return Nothing
         End Get
+        Set(value As IGroup)
+            EntityData.YokedGroups(yokeType) = value.Id
+        End Set
     End Property
 
     Public Function GetLocation(column As Integer, row As Integer) As ILocation Implements IMap.GetLocation
