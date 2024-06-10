@@ -4,13 +4,16 @@ Imports FHOS.Persistence
 Friend Class PlanetOrbitInitializationStep
     Inherits InitializationStep
     Private ReadOnly location As ILocation
-    Public Sub New(location As ILocation)
+    Private ReadOnly planetGroup As IGroup
+    Public Sub New(location As ILocation, planetGroup As IGroup)
         Me.location = location
+        Me.planetGroup = planetGroup
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planet = location.Actor
         Dim actors = location.Map.Locations.Where(Function(x) If(x.Actor?.Descriptor?.IsPlanet, False)).Select(Function(x) x.Actor)
         Dim map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.YokedGroup(YokeTypes.Planet).EntityName} Orbit", planet.Universe)
+        map.YokedGroup(YokeTypes.Planet) = planetGroup
         planet.Properties.Interior = map
         For Each actor In actors
             actor.Properties.Interior = map

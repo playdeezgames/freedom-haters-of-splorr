@@ -8,6 +8,7 @@
     Friend ReadOnly Scrap As String = NameOf(Scrap)
     Friend ReadOnly ShipyardCount As String = NameOf(ShipyardCount)
     Friend ReadOnly Standards As String = NameOf(Standards)
+    Friend ReadOnly StarDockCount As String = NameOf(StarDockCount)
     Friend ReadOnly StarGateCount As String = NameOf(StarGateCount)
     Friend ReadOnly TradingPostCount As String = NameOf(TradingPostCount)
     Friend ReadOnly VisitCount As String = NameOf(VisitCount)

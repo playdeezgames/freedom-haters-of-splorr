@@ -8,6 +8,7 @@
             {
                 {CostumeTypes.MakeCostume(CostumeTypes.StarDock, Hues.Brown), 1}
             },
+            StatisticTypes.StarDockCount,
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.PlanetOrbit, "1d1"}

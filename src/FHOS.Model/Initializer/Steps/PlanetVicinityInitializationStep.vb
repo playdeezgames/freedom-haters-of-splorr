@@ -70,16 +70,17 @@ Friend Class PlanetVicinityInitializationStep
     Private Sub PlacePlanet(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean), subType As String)
         Dim centerColumn = externalActor.Properties.Interior.Size.Columns \ 2
         Dim centerRow = externalActor.Properties.Interior.Size.Rows \ 2
-        Dim group = externalActor.Universe.Factory.CreateGroup(GroupTypes.Planet, externalActor.YokedGroup(YokeTypes.PlanetVicinity).EntityName)
-        group.AddParent(externalActor.YokedGroup(YokeTypes.PlanetVicinity))
+        Dim planetGroup = externalActor.Universe.Factory.CreateGroup(GroupTypes.Planet, externalActor.YokedGroup(YokeTypes.PlanetVicinity).EntityName)
+        planetGroup.Statistics(StatisticTypes.ShipyardCount) = 0
+        planetGroup.AddParent(externalActor.YokedGroup(YokeTypes.PlanetVicinity))
         For Each delta In Grid3x3.Descriptors
             PlacePlanetSectionActor(
-                group,
+                planetGroup,
                 externalActor.Properties.Interior.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y),
                 subType,
                 delta.Value.SectionName)
         Next
-        addStep(New PlanetOrbitInitializationStep(externalActor.Properties.Interior.GetLocation(centerColumn, centerRow)), False)
+        addStep(New PlanetOrbitInitializationStep(externalActor.Properties.Interior.GetLocation(centerColumn, centerRow), planetGroup), False)
     End Sub
 
     Private Shared Sub PlacePlanetSectionActor(

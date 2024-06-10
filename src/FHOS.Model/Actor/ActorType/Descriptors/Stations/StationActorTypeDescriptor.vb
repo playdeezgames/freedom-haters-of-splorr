@@ -2,10 +2,12 @@
 
 Friend MustInherit Class StationActorTypeDescriptor
     Inherits ActorTypeDescriptor
+    ReadOnly statisticType As String
 
     Friend Sub New(
                   actorType As String,
                   costumeGenerator As IReadOnlyDictionary(Of String, Integer),
+                  statisticType As String,
                   Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing,
                   Optional canRefillOxygen As Boolean = False,
                   Optional isStarGate As Boolean = False,
@@ -19,6 +21,7 @@ Friend MustInherit Class StationActorTypeDescriptor
             isStarGate:=isStarGate,
             buysScrap:=buysScrap,
             canRefuel:=canRefuel)
+        Me.statisticType = statisticType
     End Sub
 
     Protected MustOverride Function MakeName(planet As IActor) As String
@@ -33,5 +36,9 @@ Friend MustInherit Class StationActorTypeDescriptor
         For Each neighbor In actor.Location.GetEmptyNeighborsOfType(LocationTypes.Void)
             neighbor.EntityType = LocationTypes.ActorAdjacent
         Next
+        Dim planetGroup = actor.Location.Map.YokedGroup(YokeTypes.Planet)
+        Dim starSystemGroup = planetGroup.Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity).Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem)
+        planetGroup.Statistics(statisticType) += 1
+        starSystemGroup.Statistics(statisticType) += 1
     End Sub
 End Class

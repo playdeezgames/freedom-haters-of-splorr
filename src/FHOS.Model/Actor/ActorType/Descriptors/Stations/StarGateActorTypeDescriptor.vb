@@ -10,6 +10,7 @@ Friend Class StarGateActorTypeDescriptor
             {
                 {CostumeTypes.MakeCostume(CostumeTypes.StarGate, Hues.LightGreen), 1}
             },
+            StatisticTypes.StarGateCount,
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.PlanetOrbit, "1d4/4"}

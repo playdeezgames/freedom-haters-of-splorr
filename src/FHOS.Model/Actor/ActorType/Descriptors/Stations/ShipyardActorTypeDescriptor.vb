@@ -8,6 +8,7 @@
             {
                 {CostumeTypes.MakeCostume(CostumeTypes.Shipyard, Hues.Orange), 1}
             },
+            StatisticTypes.ShipyardCount,
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.PlanetOrbit, "1d4/4"}

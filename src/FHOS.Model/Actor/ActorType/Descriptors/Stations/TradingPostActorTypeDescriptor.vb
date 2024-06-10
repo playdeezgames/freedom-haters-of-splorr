@@ -8,6 +8,7 @@
             {
                 {CostumeTypes.MakeCostume(CostumeTypes.TradingPost, Hues.Cyan), 1}
             },
+            StatisticTypes.TradingPostCount,
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {
