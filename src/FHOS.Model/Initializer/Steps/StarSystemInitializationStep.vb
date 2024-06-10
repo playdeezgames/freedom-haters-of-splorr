@@ -5,19 +5,23 @@ Friend Class StarSystemInitializationStep
     Inherits InitializationStep
     Private ReadOnly location As ILocation
     Private ReadOnly nameGenerator As NameGenerator
-    Sub New(location As ILocation, nameGenerator As NameGenerator)
+    Private ReadOnly starSystemGroup As IGroup
+    Sub New(location As ILocation, nameGenerator As NameGenerator, starSystemGroup As IGroup)
         Me.location = location
         Me.nameGenerator = nameGenerator
+        Me.starSystemGroup = starSystemGroup
     End Sub
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim descriptor = MapTypes.Descriptors(MapTypes.StarSystem)
         Dim actor = location.Actor
-        actor.Properties.Interior = descriptor.CreateMap($"{actor.EntityName} System", actor.Universe)
+        Dim map = descriptor.CreateMap($"{actor.EntityName} System", actor.Universe)
+        map.YokedGroup(YokeTypes.StarSystem) = starSystemGroup
+        actor.Properties.Interior = map
         PlaceBoundaryActors(actor, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(actor, addStep)
         actor.YokedGroup(YokeTypes.StarSystem).Statistics(StatisticTypes.PlanetCount) = PlacePlanets(actor, addStep)
-        addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
+        addStep(New EncounterInitializationStep(map), True)
     End Sub
 
     Private Function PlacePlanets(actor As IActor, addStep As Action(Of InitializationStep, Boolean)) As Integer

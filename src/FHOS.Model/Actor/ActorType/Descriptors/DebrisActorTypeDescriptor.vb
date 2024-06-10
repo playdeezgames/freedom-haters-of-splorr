@@ -19,6 +19,8 @@ Friend Class DebrisActorTypeDescriptor
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
         actor.Statistics(StatisticTypes.Scrap) = RNG.RollDice("4d6")
+        Dim starSystemGroup = actor.Location.Map.YokedGroup(YokeTypes.StarSystem)
+        starSystemGroup.Statistics(StatisticTypes.Scrap) += 1
     End Sub
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean

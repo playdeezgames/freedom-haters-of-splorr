@@ -39,11 +39,11 @@ Friend Class GalaxyInitializationStep
     Private Sub AddStarSystem(addStep As Action(Of InitializationStep, Boolean), map As IMap, column As Integer, row As Integer)
         Dim starType = GalacticAges.Descriptors(embarkSettings.GalacticAge).GenerateStarType()
         Dim location = map.GetLocation(column, row)
-        Dim group = map.Universe.Factory.CreateGroup(GroupTypes.StarSystem, nameGenerator.GenerateUnusedName)
-        group.Statistics(StatisticTypes.Scrap) = 0
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarSystem(starType)).CreateActor(location, $"{group.EntityName}")
+        Dim starSystemGroup = map.Universe.Factory.CreateGroup(GroupTypes.StarSystem, nameGenerator.GenerateUnusedName)
+        starSystemGroup.Statistics(StatisticTypes.Scrap) = 0
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarSystem(starType)).CreateActor(location, $"{starSystemGroup.EntityName}")
         location.EntityType = LocationTypes.StarSystem
-        actor.YokedGroup(YokeTypes.StarSystem) = group
-        addStep(New StarSystemInitializationStep(location, nameGenerator), False)
+        actor.YokedGroup(YokeTypes.StarSystem) = starSystemGroup
+        addStep(New StarSystemInitializationStep(location, nameGenerator, starSystemGroup), False)
     End Sub
 End Class
