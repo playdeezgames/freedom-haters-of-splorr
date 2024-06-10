@@ -4,6 +4,10 @@ Imports SPLORR.Game
 
 Friend Module ActorExtensions
     <Extension>
+    Sub ClearInteractor(actor As IActor)
+        actor.YokedActor(YokeTypes.Interactor) = Nothing
+    End Sub
+    <Extension>
     Function CostumeDescriptor(actorProperties As IActorProperties) As CostumeTypeDescriptor
         Return CostumeTypes.Descriptors(actorProperties.CostumeType)
     End Function

@@ -14,6 +14,6 @@ Friend Class EnterInteriorInteractionModel
         With actor.YokedActor(YokeTypes.Interactor).Properties.Interior
             SetLocation(actor, RNG.FromEnumerable(.Locations.Where(Function(x) x.Flags(FlagTypes.IsEdge) AndAlso x.Actor Is Nothing)))
         End With
-        actor.YokedActor(YokeTypes.Interactor) = Nothing
+        actor.ClearInteractor()
     End Sub
 End Class

@@ -14,7 +14,7 @@ Friend Class TransportToActorInteractionModel
                 If Not success Then
                     actor.Universe.Messages.Add("Destination Blocked!", ("The other end is blocked!", Hues.Red))
                 End If
-                actor.YokedActor(YokeTypes.Interactor) = Nothing
+                actor.ClearInteractor()
             End Sub)
     End Sub
 End Class

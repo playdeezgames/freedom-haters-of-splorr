@@ -16,11 +16,11 @@ Friend Class TransportToLocationTypeModel
         Dim destinations = actor.YokedActor(YokeTypes.Interactor).YokedActor(YokeTypes.Target).Properties.Interior.Locations.Where(Function(x) x.EntityType = locationType)
         If Not destinations.Any Then
             actor.Universe.Messages.Add("Destination Blocked!", ("The other end is blocked!", Hues.Red))
-            actor.YokedActor(YokeTypes.Interactor) = Nothing
+            actor.ClearInteractor()
             Return
         End If
         Dim destination = RNG.FromEnumerable(destinations)
         SetLocation(actor, destination)
-        actor.YokedActor(YokeTypes.Interactor) = Nothing
+        actor.ClearInteractor()
     End Sub
 End Class

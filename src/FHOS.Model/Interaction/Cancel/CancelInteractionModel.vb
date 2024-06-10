@@ -6,6 +6,6 @@
     End Sub
 
     Public Overrides Sub Perform()
-        actor.YokedActor(YokeTypes.Interactor) = Nothing
+        actor.ClearInteractor()
     End Sub
 End Class

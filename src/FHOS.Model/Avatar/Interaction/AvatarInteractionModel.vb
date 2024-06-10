@@ -31,7 +31,7 @@ Friend Class AvatarInteractionModel
     End Property
 
     Public Sub Leave() Implements IAvatarInteractionModel.Leave
-        actor.YokedActor(YokeTypes.Interactor) = Nothing
+        actor.ClearInteractor()
     End Sub
 
     Friend Shared Function FromActor(actor As IActor) As IAvatarInteractionModel

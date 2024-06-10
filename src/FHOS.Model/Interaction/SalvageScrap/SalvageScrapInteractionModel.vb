@@ -13,6 +13,6 @@
         Dim starSystemGroup = actor.Location.Map.YokedGroup(GroupTypes.StarSystem)
         starSystemGroup.Statistics(StatisticTypes.Scrap) -= 1
         interactor.Recycle()
-        actor.YokedActor(YokeTypes.Interactor) = Nothing
+        actor.ClearInteractor()
     End Sub
 End Class
