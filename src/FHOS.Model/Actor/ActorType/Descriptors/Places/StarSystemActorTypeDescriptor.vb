@@ -30,6 +30,7 @@ Friend Class StarSystemActorTypeDescriptor
         Dim starSystemGroup = actor.YokedGroup(YokeTypes.StarSystem)
         result.Add(($"Planets: { starSystemGroup.Statistics(StatisticTypes.PlanetCount)}", Hues.Black))
         result.Add(($"Satellites: {starSystemGroup.Statistics(StatisticTypes.SatelliteCount)}", Hues.Black))
+        result.Add(($"Wormholes: {starSystemGroup.Statistics(StatisticTypes.WormholeCount)}", Hues.Black))
         result.Add(($"Scrap: {starSystemGroup.Statistics(StatisticTypes.Scrap)}", Hues.Black))
         result.Add(($"Visit Count: {starSystemGroup.Statistics(StatisticTypes.VisitCount)}", Hues.Black))
         result.Add(("Factions Present:", Hues.Black))

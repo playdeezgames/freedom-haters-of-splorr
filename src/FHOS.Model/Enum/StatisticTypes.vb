@@ -8,4 +8,5 @@
     Friend ReadOnly Scrap As String = NameOf(Scrap)
     Friend ReadOnly Standards As String = NameOf(Standards)
     Friend ReadOnly VisitCount As String = NameOf(VisitCount)
+    Friend ReadOnly WormholeCount As String = NameOf(WormholeCount)
 End Module
