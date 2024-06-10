@@ -27,8 +27,16 @@ Friend Class StarSystemActorTypeDescriptor
         result.Add(($"Type: {descriptor.StarTypeName}", Hues.Black))
         Dim location = actor.Location
         result.Add(($"Galactic Position: ({location.Position.Column}, {location.Position.Row})", Hues.Black))
-        result.Add(($"Planets: {actor.YokedGroup(YokeTypes.StarSystem).Statistics(StatisticTypes.PlanetCount)}", Hues.Black))
-        result.Add(($"Satellites: {actor.YokedGroup(YokeTypes.StarSystem).Statistics(StatisticTypes.SatelliteCount)}", Hues.Black))
+        Dim starSystemGroup = actor.YokedGroup(YokeTypes.StarSystem)
+        result.Add(($"Planets: { starSystemGroup.Statistics(StatisticTypes.PlanetCount)}", Hues.Black))
+        result.Add(($"Satellites: {starSystemGroup.Statistics(StatisticTypes.SatelliteCount)}", Hues.Black))
+        result.Add(("Factions Present:", Hues.Black))
+        For Each factionName In starSystemGroup.Children.
+            Where(Function(x) x.EntityType = GroupTypes.PlanetVicinity).
+            Select(Function(x) x.Parents.Single(Function(y) y.EntityType = GroupTypes.Faction).EntityName).Distinct
+            result.Add((factionName, Hues.Black))
+        Next
+        result.Add(($"Scrap: {starSystemGroup.Statistics(StatisticTypes.Scrap)}", Hues.Black))
         Return result
     End Function
 End Class

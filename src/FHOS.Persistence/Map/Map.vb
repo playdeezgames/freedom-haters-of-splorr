@@ -27,6 +27,12 @@ Friend Class Map
         End Get
     End Property
 
+    Public ReadOnly Property YokedGroup(yokeType As String) As IGroup Implements IMap.YokedGroup
+        Get
+            Return Nothing
+        End Get
+    End Property
+
     Public Function GetLocation(column As Integer, row As Integer) As ILocation Implements IMap.GetLocation
         If column < 0 OrElse row < 0 OrElse column >= EntityData.Statistics(PersistenceStatisticTypes.Columns) OrElse row >= EntityData.Statistics(PersistenceStatisticTypes.Rows) Then
             Return Nothing

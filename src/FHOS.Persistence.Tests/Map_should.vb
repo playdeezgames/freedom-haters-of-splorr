@@ -42,4 +42,10 @@
         Dim sut As IMap = CreateSut()
         sut.GetLocation(column, row).ShouldBeNull
     End Sub
+    <Fact>
+    Sub have_no_yoked_groups()
+        Const yokeType = "yoke type"
+        Dim sut As IMap = CreateSut()
+        sut.YokedGroup(yokeType).Shouldbenull
+    End Sub
 End Class
