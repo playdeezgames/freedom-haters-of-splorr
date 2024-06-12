@@ -96,6 +96,9 @@ Friend Module ActorExtensions
             postAction(False)
             Return
         End If
+        If otherActor.Descriptor.IsStarSystem Then
+            actor.SetStarSystem(Nothing)
+        End If
         Dim destination = RNG.FromEnumerable(destinations)
         SetLocation(actor, destination)
         postAction(True)
@@ -105,5 +108,13 @@ Friend Module ActorExtensions
     Sub DoTurn(actor As IActor)
         actor.Universe.Turn += 1
         actor.YokedStore(YokeTypes.LifeSupport).CurrentValue -= 1
+    End Sub
+    <Extension>
+    Sub SetStarSystem(actor As IActor, starSystemGroup As IGroup)
+        Dim oldStarSystem = actor.YokedGroup(YokeTypes.StarSystem)
+        If starSystemGroup IsNot Nothing AndAlso (oldStarSystem Is Nothing OrElse oldStarSystem.Id <> starSystemGroup.Id) Then
+            starSystemGroup.Statistics(StatisticTypes.VisitCount) += 1
+        End If
+        actor.YokedGroup(YokeTypes.StarSystem) = starSystemGroup
     End Sub
 End Module

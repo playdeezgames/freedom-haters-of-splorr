@@ -14,7 +14,7 @@ Friend Class EnterInteriorInteractionModel
         With actor.Interactor.Properties.Interior
             Dim starSystemGroup = .YokedGroup(YokeTypes.StarSystem)
             If starSystemGroup IsNot Nothing Then
-                starSystemGroup.Statistics(StatisticTypes.VisitCount) += 1
+                actor.SetStarSystem(starSystemGroup)
             End If
             SetLocation(actor, RNG.FromEnumerable(.Locations.Where(Function(x) x.Flags(FlagTypes.IsEdge) AndAlso x.Actor Is Nothing)))
         End With
