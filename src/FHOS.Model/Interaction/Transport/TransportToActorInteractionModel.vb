@@ -10,9 +10,13 @@ Friend Class TransportToActorInteractionModel
     Public Overrides Sub Perform()
         actor.GoToOtherActor(
             actor.Interactor.YokedActor(YokeTypes.Target),
-            Sub(success)
+            Sub(success, otherActor)
                 If Not success Then
                     actor.Universe.Messages.Add("Destination Blocked!", ("The other end is blocked!", Hues.Red))
+                Else
+                    If otherActor.Descriptor.IsStarSystem Then
+                        actor.SetStarSystem(Nothing)
+                    End If
                 End If
                 actor.ClearInteractor()
             End Sub)

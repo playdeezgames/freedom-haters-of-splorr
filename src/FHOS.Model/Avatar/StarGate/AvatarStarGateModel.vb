@@ -25,9 +25,11 @@ Friend Class AvatarStarGateModel
     Public Sub Enter(gate As IActorModel) Implements IAvatarStarGateModel.Enter
         actor.GoToOtherActor(
             ActorModel.GetActor(gate),
-            Sub(success)
+            Sub(success, otherActor)
                 If Not success Then
                     actor.Universe.Messages.Add("Destination Blocked!", ("The other end is blocked!", Hues.Red))
+                Else
+                    actor.SetStarSystem(otherActor.YokedGroup(YokeTypes.StarSystem))
                 End If
                 actor.YokedActor(YokeTypes.StarGate) = Nothing
             End Sub)

@@ -90,18 +90,15 @@ Friend Module ActorExtensions
     End Sub
 
     <Extension>
-    Sub GoToOtherActor(actor As IActor, otherActor As IActor, postAction As Action(Of Boolean))
+    Sub GoToOtherActor(actor As IActor, otherActor As IActor, postAction As Action(Of Boolean, IActor))
         Dim destinations = otherActor.Location.GetEmptyNeighbors()
         If Not destinations.Any Then
-            postAction(False)
+            postAction(False, otherActor)
             Return
-        End If
-        If otherActor.Descriptor.IsStarSystem Then
-            actor.SetStarSystem(Nothing)
         End If
         Dim destination = RNG.FromEnumerable(destinations)
         SetLocation(actor, destination)
-        postAction(True)
+        postAction(True, otherActor)
     End Sub
 
     <Extension>
