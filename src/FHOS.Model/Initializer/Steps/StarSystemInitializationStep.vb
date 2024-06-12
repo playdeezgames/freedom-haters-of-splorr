@@ -54,10 +54,14 @@ Friend Class StarSystemInitializationStep
         Dim planetType = starType.GeneratePlanetType()
         Dim location = exteriorActor.Properties.Interior.GetLocation(column, row)
         location.EntityType = LocationTypes.PlanetVicinity
-        Dim group = location.Universe.Factory.CreateGroup(GroupTypes.PlanetVicinity, nameGenerator.GenerateUnusedName)
-        group.AddParent(exteriorActor.YokedGroup(YokeTypes.StarSystem))
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetVicinity(planetType)).CreateActor(location, $"{group.EntityName}")
-        actor.YokedGroup(YokeTypes.PlanetVicinity) = group
+        Dim planetVicinityGroup = location.Universe.Factory.CreateGroup(GroupTypes.PlanetVicinity, nameGenerator.GenerateUnusedName)
+        planetVicinityGroup.AddParent(exteriorActor.YokedGroup(YokeTypes.StarSystem))
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetVicinity(planetType)).CreateActor(location, $"{planetVicinityGroup.EntityName}")
+        actor.YokedGroup(YokeTypes.PlanetVicinity) = planetVicinityGroup
+        planetVicinityGroup.Statistics(StatisticTypes.ShipyardCount) = 0
+        planetVicinityGroup.Statistics(StatisticTypes.TradingPostCount) = 0
+        planetVicinityGroup.Statistics(StatisticTypes.StarDockCount) = 0
+        planetVicinityGroup.Statistics(StatisticTypes.StarGateCount) = 0
         actor.YokedGroup(YokeTypes.StarSystem) = exteriorActor.YokedGroup(YokeTypes.StarSystem)
         addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
     End Sub
