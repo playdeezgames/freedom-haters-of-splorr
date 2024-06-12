@@ -29,7 +29,7 @@
 
     Friend Overrides Function Describe(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
         Return {
-            ($"Planet: {actor.YokedGroup(YokeTypes.Planet).EntityName}", Hues.Black)
+            ($"Faction: {actor.YokedGroup(YokeTypes.Faction).EntityName}", Hues.Black)
             }
     End Function
 End Class
