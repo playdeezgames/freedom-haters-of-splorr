@@ -13,9 +13,12 @@ Friend Class WormholeInitializationStep
         Dim actorDescriptor = ActorTypes.Descriptors(ActorTypes.Wormhole)
         Dim starSystemActor = RNG.FromEnumerable(startLocation.Universe.Actors.Where(Function(x) x.Descriptor.IsStarSystem))
         Dim destinationLocation = RNG.FromEnumerable(starSystemActor.Properties.Interior.Locations.Where(Function(x) actorDescriptor.CanSpawn(x)))
-        destinationLocation.Actor = actorDescriptor.CreateActor(destinationLocation, "Wormhole")
+        Dim wormholeActor = actorDescriptor.CreateActor(destinationLocation, "Wormhole")
+        destinationLocation.Actor = wormholeActor
         startLocation.Actor.YokedActor(YokeTypes.Target) = destinationLocation.Actor
         destinationLocation.Actor.YokedActor(YokeTypes.Target) = startLocation.Actor
-        starSystemActor.YokedGroup(YokeTypes.StarSystem).Statistics(StatisticTypes.WormholeCount) += 1
+        Dim starSystemGroup = starSystemActor.YokedGroup(YokeTypes.StarSystem)
+        starSystemGroup.Statistics(StatisticTypes.WormholeCount) += 1
+        wormholeActor.YokedGroup(YokeTypes.StarSystem) = starSystemGroup
     End Sub
 End Class

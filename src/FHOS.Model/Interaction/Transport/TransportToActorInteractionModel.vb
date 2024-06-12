@@ -16,6 +16,8 @@ Friend Class TransportToActorInteractionModel
                 Else
                     If otherActor.Descriptor.IsStarSystem Then
                         actor.SetStarSystem(Nothing)
+                    ElseIf otherActor.Descriptor.IsWormhole Then
+                        actor.SetStarSystem(otherActor.YokedGroup(YokeTypes.StarSystem))
                     End If
                 End If
                 actor.ClearInteractor()
