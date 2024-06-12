@@ -22,6 +22,11 @@ Friend Class PlanetVicinityActorTypeDescriptor
     End Function
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
-        Return {("It's a planet! It's real big!", Hues.Black)}
+        Dim result As New List(Of (Text As String, Hue As Integer))
+        Dim planetType = PlanetTypes.Descriptors(actor.Descriptor.Subtype)
+        result.Add(($"Planet Type: {planetType.PlanetType}", Hues.Black))
+        result.Add(($"Faction: {actor.YokedGroup(YokeTypes.PlanetVicinity).Parents.Single(Function(x) x.EntityType = GroupTypes.Faction).EntityName}", Hues.Black))
+        result.Add(($"Satellites: {actor.YokedGroup(YokeTypes.PlanetVicinity).Statistics(StatisticTypes.SatelliteCount)}", Hues.Black))
+        Return result
     End Function
 End Class
