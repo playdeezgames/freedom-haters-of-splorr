@@ -24,6 +24,10 @@ Friend Class SatelliteActorTypeDescriptor
     End Function
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
-        Return {("That's no moon. It's a space station!", Hues.Black)}
+        Dim result As New List(Of (Text As String, Hue As Integer))
+        result.Add(($"Satellite Type: {SatelliteTypes.Descriptors(actor.Descriptor.Subtype).SatelliteType}", Hues.Black))
+        result.Add(($"Planet: {actor.YokedGroup(YokeTypes.PlanetVicinity).EntityName}", Hues.Black))
+        result.Add(($"Star System: {actor.YokedGroup(YokeTypes.StarSystem).EntityName}", Hues.Black))
+        Return result
     End Function
 End Class
