@@ -11,17 +11,17 @@ Friend Class SatelliteOrbitInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim satellite = location.Actor
         Dim map = MapTypes.Descriptors(MapTypes.SatelliteOrbit).CreateMap($"{satellite.EntityName} Orbit", satellite.Universe)
-        location.Actor.Properties.Interior = map
+        location.Actor.Interior = map
         PlaceBoundaryActors(satellite, map.Size.Columns, map.Size.Rows)
         PlaceSatellite(satellite)
         addStep(New EncounterInitializationStep(map), True)
     End Sub
 
     Private Sub PlaceSatellite(satellite As IActor)
-        Dim centerColumn = satellite.Properties.Interior.Size.Columns \ 2
-        Dim centerRow = satellite.Properties.Interior.Size.Rows \ 2
+        Dim centerColumn = satellite.Interior.Size.Columns \ 2
+        Dim centerRow = satellite.Interior.Size.Rows \ 2
         For Each delta In Grid3x3.Descriptors
-            PlaceSatelliteSection(satellite.Descriptor.Subtype, satellite.Properties.Interior.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y), delta.Key, satellite.YokedGroup(YokeTypes.Satellite))
+            PlaceSatelliteSection(satellite.Descriptor.Subtype, satellite.Interior.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y), delta.Key, satellite.YokedGroup(YokeTypes.Satellite))
         Next
     End Sub
 

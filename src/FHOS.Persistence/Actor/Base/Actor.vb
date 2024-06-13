@@ -20,12 +20,6 @@ Friend Class Actor
         End Get
     End Property
 
-    Public ReadOnly Property Properties As IActorProperties Implements IActor.Properties
-        Get
-            Return ActorProperties.FromId(UniverseData, Id)
-        End Get
-    End Property
-
     Public ReadOnly Property Equipment As IActorEquipment Implements IActor.Equipment
         Get
             Return ActorEquipment.FromId(UniverseData, Id)

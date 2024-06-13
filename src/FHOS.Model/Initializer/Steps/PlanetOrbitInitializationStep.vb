@@ -14,22 +14,22 @@ Friend Class PlanetOrbitInitializationStep
         Dim actors = location.Map.Locations.Where(Function(x) If(x.Actor?.Descriptor?.IsPlanet, False)).Select(Function(x) x.Actor)
         Dim map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.YokedGroup(YokeTypes.Planet).EntityName} Orbit", planet.Universe)
         map.YokedGroup(YokeTypes.Planet) = planetGroup
-        planet.Properties.Interior = map
+        planet.Interior = map
         For Each actor In actors
-            actor.Properties.Interior = map
+            actor.Interior = map
         Next
         Dim targetActor = actors.OrderBy(Function(x) x.Location.Position.Column).ThenBy(Function(x) x.Location.Position.Row).First()
-        PlaceBoundaryActors(targetActor, planet.Properties.Interior.Size.Columns, planet.Properties.Interior.Size.Rows)
+        PlaceBoundaryActors(targetActor, planet.Interior.Size.Columns, planet.Interior.Size.Rows)
         PlacePlanet(planet)
-        addStep(New EncounterInitializationStep(planet.Properties.Interior), True)
+        addStep(New EncounterInitializationStep(planet.Interior), True)
     End Sub
     Private Sub PlacePlanet(externalActor As IActor)
-        Dim planetCenterColumn = externalActor.Properties.Interior.Size.Columns \ 2
-        Dim planetCenterRow = externalActor.Properties.Interior.Size.Rows \ 2
+        Dim planetCenterColumn = externalActor.Interior.Size.Columns \ 2
+        Dim planetCenterRow = externalActor.Interior.Size.Rows \ 2
         For Each delta In Grid5x5.Descriptors
             PlacePlanetSection(
                 externalActor,
-                externalActor.Properties.Interior.GetLocation(
+                externalActor.Interior.GetLocation(
                     planetCenterColumn + delta.Value.Delta.X,
                     planetCenterRow + delta.Value.Delta.Y),
                 delta.Key)

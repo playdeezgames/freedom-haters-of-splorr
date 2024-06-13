@@ -12,8 +12,8 @@ Friend Module ActorExtensions
         Return actor.YokedActor(YokeTypes.Interactor)
     End Function
     <Extension>
-    Function CostumeDescriptor(actorProperties As IActorProperties) As CostumeTypeDescriptor
-        Return CostumeTypes.Descriptors(actorProperties.CostumeType)
+    Function CostumeDescriptor(actor As IActor) As CostumeTypeDescriptor
+        Return CostumeTypes.Descriptors(actor.CostumeType)
     End Function
     <Extension>
     Function Descriptor(actor As IActor) As ActorTypeDescriptor

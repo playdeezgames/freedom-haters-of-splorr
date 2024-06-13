@@ -11,7 +11,7 @@ Friend Class EnterInteriorInteractionModel
 
     Public Sub Perform() Implements IInteractionModel.Perform
         DoTurn(actor)
-        With actor.Interactor.Properties.Interior
+        With actor.Interactor.Interior
             Dim starSystemGroup = .YokedGroup(YokeTypes.StarSystem)
             If starSystemGroup IsNot Nothing Then
                 actor.SetStarSystem(starSystemGroup)

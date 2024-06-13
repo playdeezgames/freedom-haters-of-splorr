@@ -32,7 +32,6 @@ Public Class Actor_should
         Dim sut = CreateSut(actorType:=actorType)
         sut.EntityType.ShouldBe(actorType)
         sut.Family.ShouldNotBeNull
-        sut.Properties.ShouldNotBeNull
         sut.Equipment.ShouldNotBeNull
         sut.EntityName.ShouldBe("actor name")
         sut.Location.ShouldNotBeNull

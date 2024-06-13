@@ -68,7 +68,7 @@ Friend Module Edger
         actor.YokedActor(YokeTypes.Target) = targetActor
     End Sub
     Friend Sub PlaceBoundaryActors(targetActor As IActor, columns As Integer, rows As Integer)
-        Dim map = targetActor.Properties.Interior
+        Dim map = targetActor.Interior
         For Each corner In GetCornerActors(columns, rows)
             PlaceBoundaryActor(map.GetLocation(corner.X, corner.Y), corner.ActorType, targetActor)
         Next

@@ -12,11 +12,11 @@ Friend Class PlanetVicinityInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim actor = location.Actor
         Dim map = MapTypes.Descriptors(MapTypes.PlanetVicinity).CreateMap($"{actor.EntityName} Vicinity", actor.Universe)
-        actor.Properties.Interior = map
+        actor.Interior = map
         PlaceBoundaryActors(
             actor,
-            actor.Properties.Interior.Size.Columns,
-            actor.Properties.Interior.Size.Rows)
+            actor.Interior.Size.Columns,
+            actor.Interior.Size.Rows)
         PlacePlanet(
             actor,
             addStep,
@@ -25,12 +25,12 @@ Friend Class PlanetVicinityInitializationStep
         planetGroup.Statistics(StatisticTypes.SatelliteCount) = PlaceSatellites(actor, addStep)
         Dim starSystemGroup = planetGroup.Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem)
         starSystemGroup.Statistics(StatisticTypes.SatelliteCount) = If(starSystemGroup.Statistics(StatisticTypes.SatelliteCount), 0) + planetGroup.Statistics(StatisticTypes.SatelliteCount)
-        addStep(New EncounterInitializationStep(actor.Properties.Interior), True)
+        addStep(New EncounterInitializationStep(actor.Interior), True)
     End Sub
     Private Function PlaceSatellites(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean)) As Integer
         Dim satellites As List(Of (Column As Integer, Row As Integer)) =
             Grid3x3.Descriptors.
-            Select(Function(x) (x.Value.Delta.X + externalActor.Properties.Interior.Size.Columns \ 2, x.Value.Delta.Y + externalActor.Properties.Interior.Size.Rows \ 2)).
+            Select(Function(x) (x.Value.Delta.X + externalActor.Interior.Size.Columns \ 2, x.Value.Delta.Y + externalActor.Interior.Size.Rows \ 2)).
             ToList
         Dim tries As Integer = 0
         Const MaximumTries = 5000
@@ -39,8 +39,8 @@ Friend Class PlanetVicinityInitializationStep
         Dim maximumSatelliteCount As Integer = planetType.GenerateMaximumSatelliteCount()
         Dim satelliteCount = 0
         While satelliteCount < maximumSatelliteCount AndAlso tries < MaximumTries
-            Dim column = RNG.FromRange(1, externalActor.Properties.Interior.Size.Columns - 3)
-            Dim row = RNG.FromRange(1, externalActor.Properties.Interior.Size.Rows - 3)
+            Dim column = RNG.FromRange(1, externalActor.Interior.Size.Columns - 3)
+            Dim row = RNG.FromRange(1, externalActor.Interior.Size.Rows - 3)
             If satellites.All(Function(satellite) (column - satellite.Column) * (column - satellite.Column) + (row - satellite.Row) * (row - satellite.Row) >= MinimumDistance * MinimumDistance) Then
                 satellites.Add((column, row))
                 MakeSatellite(externalActor, addStep, planetType, column, row)
@@ -55,7 +55,7 @@ Friend Class PlanetVicinityInitializationStep
 
     Private Sub MakeSatellite(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean), planetType As PlanetTypeDescriptor, column As Integer, row As Integer)
         Dim satelliteType As String = planetType.GenerateSatelliteType()
-        Dim location = externalActor.Properties.Interior.GetLocation(column, row)
+        Dim location = externalActor.Interior.GetLocation(column, row)
         Dim satelliteGroup = externalActor.Universe.Factory.CreateGroup(GroupTypes.Satellite, nameGenerator.GenerateUnusedName)
         satelliteGroup.AddParent(externalActor.YokedGroup(YokeTypes.PlanetVicinity))
         satelliteGroup.AddParent(externalActor.YokedGroup(YokeTypes.PlanetVicinity).Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem))
@@ -68,19 +68,19 @@ Friend Class PlanetVicinityInitializationStep
     End Sub
 
     Private Sub PlacePlanet(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean), subType As String)
-        Dim centerColumn = externalActor.Properties.Interior.Size.Columns \ 2
-        Dim centerRow = externalActor.Properties.Interior.Size.Rows \ 2
+        Dim centerColumn = externalActor.Interior.Size.Columns \ 2
+        Dim centerRow = externalActor.Interior.Size.Rows \ 2
         Dim planetGroup = externalActor.Universe.Factory.CreateGroup(GroupTypes.Planet, externalActor.YokedGroup(YokeTypes.PlanetVicinity).EntityName)
         planetGroup.Statistics(StatisticTypes.ShipyardCount) = 0
         planetGroup.AddParent(externalActor.YokedGroup(YokeTypes.PlanetVicinity))
         For Each delta In Grid3x3.Descriptors
             PlacePlanetSectionActor(
                 planetGroup,
-                externalActor.Properties.Interior.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y),
+                externalActor.Interior.GetLocation(centerColumn + delta.Value.Delta.X, centerRow + delta.Value.Delta.Y),
                 subType,
                 delta.Value.SectionName)
         Next
-        addStep(New PlanetOrbitInitializationStep(externalActor.Properties.Interior.GetLocation(centerColumn, centerRow), planetGroup), False)
+        addStep(New PlanetOrbitInitializationStep(externalActor.Interior.GetLocation(centerColumn, centerRow), planetGroup), False)
     End Sub
 
     Private Shared Sub PlacePlanetSectionActor(

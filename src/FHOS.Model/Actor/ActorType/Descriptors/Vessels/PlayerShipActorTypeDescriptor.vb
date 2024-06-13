@@ -19,9 +19,8 @@ Friend Class PlayerShipActorTypeDescriptor
 
     Private Shared Sub InitializePlayerShipCrew(ship As IActor)
         Dim location = ship.
-            Properties.
             Interior.
-            GetLocation(ship.Properties.Interior.Size.Columns \ 2, ship.Properties.Interior.Size.Rows \ 2)
+            GetLocation(ship.Interior.Size.Columns \ 2, ship.Interior.Size.Rows \ 2)
         Dim actor = ActorTypes.Descriptors(ActorTypes.Person).CreateActor(location, "(you)")
         actor.YokedStore(YokeTypes.LifeSupport) = ship.YokedStore(YokeTypes.LifeSupport)
         ship.Family.AddChild(actor)
@@ -34,7 +33,7 @@ Friend Class PlayerShipActorTypeDescriptor
         Dim map = descriptor.CreateMap(
             "Yer ship's interior",
             ship.Universe)
-        ship.Properties.Interior = map
+        ship.Interior = map
         ship.Statistics(StatisticTypes.Scrap) = 0
         For Each x In Enumerable.Range(0, descriptor.Size.Columns)
             map.GetLocation(x, 0).EntityType = LocationTypes.Bulkhead

@@ -17,7 +17,7 @@ Friend Class StarSystemInitializationStep
         Dim actor = location.Actor
         Dim map = descriptor.CreateMap($"{actor.EntityName} System", actor.Universe)
         map.YokedGroup(YokeTypes.StarSystem) = starSystemGroup
-        actor.Properties.Interior = map
+        actor.Interior = map
         PlaceBoundaryActors(actor, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(actor, addStep)
         actor.YokedGroup(YokeTypes.StarSystem).Statistics(StatisticTypes.PlanetCount) = PlacePlanets(actor, addStep)
@@ -27,7 +27,7 @@ Friend Class StarSystemInitializationStep
     Private Function PlacePlanets(actor As IActor, addStep As Action(Of InitializationStep, Boolean)) As Integer
         Dim planets As New List(Of (Column As Integer, Row As Integer)) From
             {
-                (actor.Properties.Interior.Size.Columns \ 2, actor.Properties.Interior.Size.Rows \ 2)
+                (actor.Interior.Size.Columns \ 2, actor.Interior.Size.Rows \ 2)
             }
         Dim tries As Integer = 0
         Const MaximumTries = 5000
@@ -36,8 +36,8 @@ Friend Class StarSystemInitializationStep
         Dim maximumPlanetCount As Integer = starType.GenerateMaximumPlanetCount()
         Dim planetCount = 0
         While planetCount < maximumPlanetCount AndAlso tries < MaximumTries
-            Dim column = RNG.FromRange(1, actor.Properties.Interior.Size.Columns - 3)
-            Dim row = RNG.FromRange(1, actor.Properties.Interior.Size.Rows - 3)
+            Dim column = RNG.FromRange(1, actor.Interior.Size.Columns - 3)
+            Dim row = RNG.FromRange(1, actor.Interior.Size.Rows - 3)
             If planets.All(Function(planet) (column - planet.Column) * (column - planet.Column) + (row - planet.Row) * (row - planet.Row) >= MinimumDistance * MinimumDistance) Then
                 planets.Add((column, row))
                 CreatePlanetVicinity(actor, addStep, starType, column, row)
@@ -52,7 +52,7 @@ Friend Class StarSystemInitializationStep
 
     Private Sub CreatePlanetVicinity(exteriorActor As IActor, addStep As Action(Of InitializationStep, Boolean), starType As StarTypeDescriptor, column As Integer, row As Integer)
         Dim planetType = starType.GeneratePlanetType()
-        Dim location = exteriorActor.Properties.Interior.GetLocation(column, row)
+        Dim location = exteriorActor.Interior.GetLocation(column, row)
         location.EntityType = LocationTypes.PlanetVicinity
         Dim planetVicinityGroup = location.Universe.Factory.CreateGroup(GroupTypes.PlanetVicinity, nameGenerator.GenerateUnusedName)
         planetVicinityGroup.AddParent(exteriorActor.YokedGroup(YokeTypes.StarSystem))
@@ -67,9 +67,9 @@ Friend Class StarSystemInitializationStep
     End Sub
 
     Private Sub PlaceStar(externalActor As IActor, addStep As Action(Of InitializationStep, Boolean))
-        Dim starColumn = externalActor.Properties.Interior.Size.Columns \ 2
-        Dim starRow = externalActor.Properties.Interior.Size.Rows \ 2
-        Dim location = externalActor.Properties.Interior.GetLocation(starColumn, starRow)
+        Dim starColumn = externalActor.Interior.Size.Columns \ 2
+        Dim starRow = externalActor.Interior.Size.Rows \ 2
+        Dim location = externalActor.Interior.GetLocation(starColumn, starRow)
         Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarVicinity(externalActor.Descriptor.Subtype)).CreateActor(location, externalActor.YokedGroup(YokeTypes.StarSystem).EntityName)
         location.EntityType = LocationTypes.StarVicinity
         addStep(New StarVicinityInitializationStep(location), False)
