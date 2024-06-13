@@ -11,7 +11,7 @@
         {
             {
                 Radiated,
-                New SatelliteTypeDescriptor(Radiated, Hues.Cyan)
+                New SatelliteTypeDescriptor(Radiated, Hues.Yellow)
             },
             {
                 Volcanic,
