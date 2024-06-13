@@ -95,4 +95,22 @@ Friend Class Actor
             End If
         End Set
     End Property
+
+    Public Property Interior As IMap Implements IActor.Interior
+        Get
+            Return Map.FromId(UniverseData, GetStatistic(PersistenceStatisticTypes.MapId))
+        End Get
+        Set(value As IMap)
+            SetStatistic(PersistenceStatisticTypes.MapId, value?.Id)
+        End Set
+    End Property
+
+    Public Property CostumeType As String Implements IActor.CostumeType
+        Get
+            Return GetMetadata(LegacyMetadataTypes.Costume)
+        End Get
+        Set(value As String)
+            SetMetadata(LegacyMetadataTypes.Costume, value)
+        End Set
+    End Property
 End Class

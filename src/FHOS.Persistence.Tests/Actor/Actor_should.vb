@@ -36,6 +36,8 @@ Public Class Actor_should
         sut.Equipment.ShouldNotBeNull
         sut.EntityName.ShouldBe("actor name")
         sut.Location.ShouldNotBeNull
+        sut.Interior.ShouldBeNull
+        sut.CostumeType.ShouldBeNull
     End Sub
     <Fact>
     Sub set_entity_name()
@@ -136,5 +138,20 @@ Public Class Actor_should
         sut.YokedGroup(yokeType) = group
         sut.YokedGroup(yokeType) = Nothing
         sut.YokedGroup(yokeType).ShouldBeNull
+    End Sub
+    <Fact>
+    Sub have_interior()
+        Dim universe = CreateUniverse()
+        Dim sut = CreateSut(universe:=universe)
+        Dim map = CreateMap("other map name", "other map type", 2, 3, "other location type", universe:=universe)
+        sut.Interior = map
+        sut.Interior.Id.ShouldBe(map.Id)
+    End Sub
+    <Fact>
+    Sub have_costume_type()
+        Const costumeType = "costume type"
+        Dim sut = CreateSut()
+        sut.CostumeType = costumeType
+        sut.CostumeType.ShouldBe(costumeType)
     End Sub
 End Class
