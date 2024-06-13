@@ -2,6 +2,7 @@
 
 Friend Class MapTypeDescriptor
     ReadOnly Property MapType As String
+    ReadOnly Property MapTypeName As String
     ReadOnly Property Size As (Columns As Integer, Rows As Integer)
     ReadOnly Property DefaultLocationType As String
     Function CreateMap(mapName As String, universe As IUniverse) As IMap
@@ -9,9 +10,11 @@ Friend Class MapTypeDescriptor
     End Function
     Sub New(
            mapType As String,
+           mapTypeName As String,
            size As (Columns As Integer, Rows As Integer),
            defaultLocationType As String)
         Me.MapType = mapType
+        Me.MapTypeName = mapTypeName
         Me.Size = size
         Me.DefaultLocationType = defaultLocationType
     End Sub

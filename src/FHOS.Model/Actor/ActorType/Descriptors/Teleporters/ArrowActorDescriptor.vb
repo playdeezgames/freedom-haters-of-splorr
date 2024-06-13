@@ -18,8 +18,10 @@ Friend Class ArrowActorDescriptor
     End Function
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
+        Dim map = actor.Location.Map
+        Dim mapTypeDescriptor = MapTypes.Descriptors(map.EntityType)
         Return {
-            ("It's an arrow. It points.", Hues.Black)
+            ($"You can depart the {mapTypeDescriptor.MapTypeName}.", Hues.Black)
             }
     End Function
 End Class
