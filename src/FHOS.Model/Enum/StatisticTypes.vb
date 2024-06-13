@@ -1,9 +1,11 @@
 ﻿Friend Module StatisticTypes
     Friend ReadOnly Authority As String = NameOf(Authority)
     Friend ReadOnly Conviction As String = NameOf(Conviction)
+    Friend ReadOnly Column As String = NameOf(Column)
     Friend ReadOnly Facing As String = NameOf(Facing)
     Friend ReadOnly MinimumPlanetCount As String = NameOf(MinimumPlanetCount)
     Friend ReadOnly PlanetCount As String = NameOf(PlanetCount)
+    Friend ReadOnly Row As String = NameOf(Row)
     Friend ReadOnly SatelliteCount As String = NameOf(SatelliteCount)
     Friend ReadOnly Scrap As String = NameOf(Scrap)
     Friend ReadOnly ShipyardCount As String = NameOf(ShipyardCount)

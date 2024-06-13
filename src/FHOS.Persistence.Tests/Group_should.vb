@@ -29,6 +29,21 @@
         sut.EntityName.ShouldBe(entityName)
     End Sub
     <Fact>
+    Sub have_no_metadata()
+        Const metadataType = "metadata type"
+        Dim sut = CreateSut()
+        sut.Metadatas(metadataType).ShouldBeNull
+    End Sub
+
+    <Fact>
+    Sub set_metadata()
+        Const metadataType = "metadata type"
+        Const metadataValue = "metadata value"
+        Dim sut = CreateSut()
+        sut.Metadatas(metadataType) = metadataValue
+        sut.Metadatas(metadataType).ShouldBe(metadataValue)
+    End Sub
+    <Fact>
     Sub have_universe_reference()
         Dim sut = CreateSut()
         sut.Universe.ShouldNotBeNull

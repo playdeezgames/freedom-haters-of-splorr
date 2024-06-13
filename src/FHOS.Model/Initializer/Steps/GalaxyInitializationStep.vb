@@ -40,6 +40,9 @@ Friend Class GalaxyInitializationStep
         Dim starType = GalacticAges.Descriptors(embarkSettings.GalacticAge).GenerateStarType()
         Dim location = map.GetLocation(column, row)
         Dim starSystemGroup = map.Universe.Factory.CreateGroup(GroupTypes.StarSystem, nameGenerator.GenerateUnusedName)
+        starSystemGroup.Metadatas(MetadataTypes.Subtype) = starType
+        starSystemGroup.Statistics(StatisticTypes.Column) = column
+        starSystemGroup.Statistics(StatisticTypes.Row) = row
         starSystemGroup.Statistics(StatisticTypes.Scrap) = 0
         starSystemGroup.Statistics(StatisticTypes.VisitCount) = 0
         starSystemGroup.Statistics(StatisticTypes.WormholeCount) = 0

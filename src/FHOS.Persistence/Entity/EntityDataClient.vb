@@ -54,6 +54,19 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
         End Set
     End Property
 
+    Public Property Metadatas(metadataType As String) As String Implements IEntity.Metadatas
+        Get
+            Dim result As String = Nothing
+            If EntityData.Metadatas.TryGetValue(metadataType, result) Then
+                Return result
+            End If
+            Return Nothing
+        End Get
+        Set(value As String)
+            EntityData.Metadatas(metadataType) = value
+        End Set
+    End Property
+
     Public Sub New(
                   universeData As Data.UniverseData,
                   entityId As Integer,

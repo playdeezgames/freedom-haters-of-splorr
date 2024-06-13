@@ -4,4 +4,5 @@
     ReadOnly Property Universe As IUniverse
     Sub Recycle()
     Property Statistics(statisticType As String) As Integer?
+    Property Metadatas(metadataType As String) As String
 End Interface

@@ -7,8 +7,11 @@
         Should.Throw(Of InvalidOperationException)(Function() sut.Standards)
         Should.Throw(Of InvalidOperationException)(Function() sut.Conviction)
         Should.Throw(Of InvalidOperationException)(Function() sut.PlanetCount)
+        Should.Throw(Of InvalidOperationException)(Function() sut.SatelliteCount)
+        Should.Throw(Of InvalidOperationException)(Function() sut.Position)
         sut.PlanetList.ShouldBeEmpty
         sut.SatelliteList.ShouldBeEmpty
+        sut.FactionsPresent.ShouldBeEmpty
         sut.Pedia.ShouldNotBeNull
         sut.StarSystem.ShouldBeNull
         sut.Planet.ShouldBeNull

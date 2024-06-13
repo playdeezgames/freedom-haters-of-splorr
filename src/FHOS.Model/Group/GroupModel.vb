@@ -97,7 +97,34 @@ Friend Class GroupModel
 
     Public ReadOnly Property StarTypeName As String Implements IGroupModel.StarTypeName
         Get
+            Dim subType = group.Metadatas(MetadataTypes.Subtype)
+            If subType IsNot Nothing Then
+                Return StarTypes.Descriptors(subType).StarTypeName
+            End If
             Return Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property SatelliteCount As Integer Implements IGroupModel.SatelliteCount
+        Get
+            Return group.Statistics(StatisticTypes.SatelliteCount).Value
+        End Get
+    End Property
+
+    Public ReadOnly Property Position As (Column As Integer, Row As Integer) Implements IGroupModel.Position
+        Get
+            Return (group.Statistics(StatisticTypes.Column).Value, group.Statistics(StatisticTypes.Row).Value)
+        End Get
+    End Property
+
+    Public ReadOnly Property FactionsPresent As IEnumerable(Of IGroupModel) Implements IGroupModel.FactionsPresent
+        Get
+            Dim planetVicinities = group.Children.Where(Function(x) x.EntityType = GroupTypes.PlanetVicinity)
+            Return planetVicinities.
+                Select(Function(x) x.Parents.Single(Function(y) y.EntityType = GroupTypes.Faction)).
+                GroupBy(Function(z) z.Id).
+                Select(Function(w) w.First).
+                Select(AddressOf GroupModel.FromGroup)
         End Get
     End Property
 

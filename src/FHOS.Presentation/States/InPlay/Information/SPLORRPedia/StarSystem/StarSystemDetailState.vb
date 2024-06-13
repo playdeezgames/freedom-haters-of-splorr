@@ -31,6 +31,14 @@ Friend Class StarSystemDetailState
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: { .StarTypeName}", Hues.Black)
+            Dim galaxyPosition = .Position
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Position: ({galaxyPosition.Column},{galaxyPosition.Row})", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planet Count: { .PlanetCount}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Satellite Count: { .SatelliteCount}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Factions Present:", Hues.Black)
+            For Each faction In .FactionsPresent
+                position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"{faction.Name}", Hues.Black)
+            Next
             Context.ShowStatusBar(
                 displayBuffer,
                 font,
