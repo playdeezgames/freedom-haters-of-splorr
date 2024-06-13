@@ -95,6 +95,12 @@ Friend Class GroupModel
         End Get
     End Property
 
+    Public ReadOnly Property StarTypeName As String Implements IGroupModel.StarTypeName
+        Get
+            Return Nothing
+        End Get
+    End Property
+
     Public Function RelationNameTo(otherGroup As IGroupModel) As String Implements IGroupModel.RelationNameTo
         Dim deltaAuthority = otherGroup.Authority.Value - Authority.Value
         Dim deltaStandards = otherGroup.Standards.Value - Standards.Value

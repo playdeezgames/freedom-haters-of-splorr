@@ -30,7 +30,7 @@ Friend Class StarSystemDetailState
         With StarSystemListState.SelectedStarSystem.Peek
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
-            'position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: {actor.Subtype}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: { .StarTypeName}", Hues.Black)
             Context.ShowStatusBar(
                 displayBuffer,
                 font,

@@ -13,6 +13,7 @@
         sut.StarSystem.ShouldBeNull
         sut.Planet.ShouldBeNull
         sut.Faction.ShouldBeNull
+        sut.StarTypeName.ShouldBeNull
         Should.Throw(Of InvalidOperationException)(Function() sut.RelationNameTo(sut))
     End Sub
 
