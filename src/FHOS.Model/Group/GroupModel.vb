@@ -61,13 +61,13 @@ Friend Class GroupModel
 
     Public ReadOnly Property PlanetList As IEnumerable(Of IGroupModel) Implements IGroupModel.PlanetList
         Get
-            Return group.Children.Where(Function(x) x.EntityType = GroupTypes.PlanetVicinity).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
+            Return group.ChildrenOfType(GroupTypes.PlanetVicinity).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
         End Get
     End Property
 
     Public ReadOnly Property SatelliteList As IEnumerable(Of IGroupModel) Implements IGroupModel.SatelliteList
         Get
-            Return group.Children.Where(Function(x) x.EntityType = GroupTypes.Satellite).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
+            Return group.ChildrenOfType(GroupTypes.Satellite).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
         End Get
     End Property
 
@@ -119,7 +119,7 @@ Friend Class GroupModel
 
     Public ReadOnly Property FactionsPresent As IEnumerable(Of IGroupModel) Implements IGroupModel.FactionsPresent
         Get
-            Dim planetVicinities = group.Children.Where(Function(x) x.EntityType = GroupTypes.PlanetVicinity)
+            Dim planetVicinities = group.ChildrenOfType(GroupTypes.PlanetVicinity)
             Return planetVicinities.
                 Select(Function(x) x.SingleParent(GroupTypes.Faction)).
                 GroupBy(Function(z) z.Id).
