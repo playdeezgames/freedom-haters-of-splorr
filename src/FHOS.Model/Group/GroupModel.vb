@@ -82,6 +82,12 @@ Friend Class GroupModel
         End Get
     End Property
 
+    Public ReadOnly Property Parents As IGroupParentsModel Implements IGroupModel.Parents
+        Get
+            Return GroupParentsModel.FromGroup(group)
+        End Get
+    End Property
+
     Public Function RelationNameTo(otherGroup As IGroupModel) As String Implements IGroupModel.RelationNameTo
         Dim deltaAuthority = otherGroup.Properties.Authority.Value - Properties.Authority.Value
         Dim deltaStandards = otherGroup.Properties.Standards.Value - Properties.Standards.Value

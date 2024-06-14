@@ -2,6 +2,7 @@
     ReadOnly Property Name As String
     Function RelationNameTo(otherGroup As IGroupModel) As String
     'parents
+    ReadOnly Property Parents As IGroupParentsModel
     ReadOnly Property ParentStarSystem As IGroupModel
     ReadOnly Property ParentPlanet As IGroupModel
     ReadOnly Property ParentFaction As IGroupModel
