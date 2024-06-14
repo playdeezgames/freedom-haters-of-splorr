@@ -45,12 +45,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Wallet As IAvatarWalletModel Implements IAvatarModel.Wallet
-        Get
-            Return AvatarWalletModel.FromActor(actor)
-        End Get
-    End Property
-
     Public ReadOnly Property Interaction As IAvatarInteractionModel Implements IAvatarModel.Interaction
         Get
             Return AvatarInteractionModel.FromActor(actor)

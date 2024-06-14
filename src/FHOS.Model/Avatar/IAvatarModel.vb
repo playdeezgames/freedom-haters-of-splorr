@@ -7,6 +7,5 @@
     ReadOnly Property Status As IAvatarStatusModel
     ReadOnly Property Verbs As IAvatarVerbsModel
     ReadOnly Property Vessel As IAvatarVesselModel
-    ReadOnly Property Wallet As IAvatarWalletModel
     ReadOnly Property Jools As Integer
 End Interface
