@@ -120,12 +120,6 @@ Friend Class GroupModel
         End Get
     End Property
 
-    Public ReadOnly Property Position As (Column As Integer, Row As Integer) Implements IGroupModel.Position
-        Get
-            Return (group.Statistics(StatisticTypes.Column).Value, group.Statistics(StatisticTypes.Row).Value)
-        End Get
-    End Property
-
     Public ReadOnly Property ChildPlanetFactions As IEnumerable(Of IGroupModel) Implements IGroupModel.ChildPlanetFactions
         Get
             Dim planetVicinities = group.ChildrenOfType(GroupTypes.PlanetVicinity)
