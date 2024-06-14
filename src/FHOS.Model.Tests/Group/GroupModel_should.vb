@@ -5,6 +5,7 @@
         sut.Name.ShouldBe("group name")
         Should.Throw(Of InvalidOperationException)(Function() sut.RelationNameTo(sut))
 
+        sut.Children.ShouldNotBeNull
         sut.ChildPlanets.ShouldBeEmpty
         sut.ChildSatellites.ShouldBeEmpty
         sut.ChildPlanetFactions.ShouldBeEmpty
