@@ -26,12 +26,12 @@ Friend Class PlanetVicinityActorTypeDescriptor
         Dim planetType = PlanetTypes.Descriptors(actor.Descriptor.Subtype)
         result.Add(($"Planet Type: {planetType.PlanetType}", Hues.Black))
         Dim planetVicinityGroup = actor.YokedGroup(YokeTypes.PlanetVicinity)
-        result.Add(($"Faction: { planetVicinityGroup.Parents.Single(Function(x) x.EntityType = GroupTypes.Faction).EntityName}", Hues.Black))
+        result.Add(($"Faction: { planetVicinityGroup.SingleParent(GroupTypes.Faction).EntityName}", Hues.Black))
         result.Add(($"Satellites: {planetVicinityGroup.Statistics(StatisticTypes.SatelliteCount)}", Hues.Black))
         result.Add(($"Star Gates: {planetVicinityGroup.Statistics(StatisticTypes.StarGateCount)}", Hues.Black))
         result.Add(($"Ship Yards: {planetVicinityGroup.Statistics(StatisticTypes.ShipyardCount)}", Hues.Black))
         result.Add(($"Trading Posts: {planetVicinityGroup.Statistics(StatisticTypes.TradingPostCount)}", Hues.Black))
-        Dim starSystemGroup = planetVicinityGroup.Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem)
+        Dim starSystemGroup = planetVicinityGroup.SingleParent(GroupTypes.StarSystem)
         result.Add(($"Star System: {starSystemGroup.EntityName}", Hues.Black))
         Return result
     End Function

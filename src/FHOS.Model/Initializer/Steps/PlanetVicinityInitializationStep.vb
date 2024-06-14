@@ -23,7 +23,7 @@ Friend Class PlanetVicinityInitializationStep
             actor.Descriptor.Subtype)
         Dim planetGroup = actor.YokedGroup(YokeTypes.PlanetVicinity)
         planetGroup.Statistics(StatisticTypes.SatelliteCount) = PlaceSatellites(actor, addStep)
-        Dim starSystemGroup = planetGroup.Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem)
+        Dim starSystemGroup = planetGroup.SingleParent(GroupTypes.StarSystem)
         starSystemGroup.Statistics(StatisticTypes.SatelliteCount) = If(starSystemGroup.Statistics(StatisticTypes.SatelliteCount), 0) + planetGroup.Statistics(StatisticTypes.SatelliteCount)
         addStep(New EncounterInitializationStep(actor.Interior), True)
     End Sub
@@ -58,7 +58,7 @@ Friend Class PlanetVicinityInitializationStep
         Dim location = externalActor.Interior.GetLocation(column, row)
         Dim satelliteGroup = externalActor.Universe.Factory.CreateGroup(GroupTypes.Satellite, nameGenerator.GenerateUnusedName)
         satelliteGroup.AddParent(externalActor.YokedGroup(YokeTypes.PlanetVicinity))
-        satelliteGroup.AddParent(externalActor.YokedGroup(YokeTypes.PlanetVicinity).Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem))
+        satelliteGroup.AddParent(externalActor.YokedGroup(YokeTypes.PlanetVicinity).SingleParent(GroupTypes.StarSystem))
         Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, satelliteGroup.EntityName)
         satellite.YokedGroup(YokeTypes.Satellite) = satelliteGroup
         satellite.YokedGroup(YokeTypes.PlanetVicinity) = externalActor.YokedGroup(YokeTypes.PlanetVicinity)

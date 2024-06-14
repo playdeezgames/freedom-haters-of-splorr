@@ -121,7 +121,7 @@ Friend Class GroupModel
         Get
             Dim planetVicinities = group.Children.Where(Function(x) x.EntityType = GroupTypes.PlanetVicinity)
             Return planetVicinities.
-                Select(Function(x) x.Parents.Single(Function(y) y.EntityType = GroupTypes.Faction)).
+                Select(Function(x) x.SingleParent(GroupTypes.Faction)).
                 GroupBy(Function(z) z.Id).
                 Select(Function(w) w.First).
                 Select(AddressOf GroupModel.FromGroup)

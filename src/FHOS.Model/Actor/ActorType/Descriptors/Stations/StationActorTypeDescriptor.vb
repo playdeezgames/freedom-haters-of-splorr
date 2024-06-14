@@ -29,7 +29,7 @@ Friend MustInherit Class StationActorTypeDescriptor
     Protected Overrides Sub Initialize(actor As IActor)
         Dim planet = actor.Location.Map.GetCenterLocation().Actor
         actor.EntityName = MakeName(planet)
-        Dim faction = planet.YokedGroup(YokeTypes.Planet).Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity).Parents.Single(Function(x) x.EntityType = GroupTypes.Faction)
+        Dim faction = planet.YokedGroup(YokeTypes.Planet).SingleParent(GroupTypes.PlanetVicinity).SingleParent(GroupTypes.Faction)
         actor.YokedGroup(YokeTypes.Faction) = faction
 
         actor.Location.EntityType = LocationTypes.ActorAdjacent
@@ -37,8 +37,8 @@ Friend MustInherit Class StationActorTypeDescriptor
             neighbor.EntityType = LocationTypes.ActorAdjacent
         Next
         Dim planetGroup = actor.Location.Map.YokedGroup(YokeTypes.Planet)
-        Dim planetVicinityGroup = planetGroup.Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity)
-        Dim starSystemGroup = planetVicinityGroup.Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem)
+        Dim planetVicinityGroup = planetGroup.SingleParent(GroupTypes.PlanetVicinity)
+        Dim starSystemGroup = planetVicinityGroup.SingleParent(GroupTypes.StarSystem)
         actor.YokedGroup(YokeTypes.StarSystem) = starSystemGroup
         planetGroup.Statistics(statisticType) += 1
         planetVicinityGroup.Statistics(statisticType) += 1
