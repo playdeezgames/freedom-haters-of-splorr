@@ -34,12 +34,6 @@ Friend Class ActorModel
         End Get
     End Property
 
-    Public ReadOnly Property Group As IGroupModel Implements IActorModel.Group
-        Get
-            Return GroupModel.FromGroup(actor.YokedGroup(YokeTypes.Faction))
-        End Get
-    End Property
-
     Public ReadOnly Property Sprite As (Glyph As Char, Hue As Integer) Implements IActorModel.Sprite
         Get
             Return (Glyph, Hue)
