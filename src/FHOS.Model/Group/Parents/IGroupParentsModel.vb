@@ -1,5 +1,5 @@
 ﻿Public Interface IGroupParentsModel
-    ReadOnly Property ParentStarSystem As IGroupModel
-    ReadOnly Property ParentPlanet As IGroupModel
-    ReadOnly Property ParentFaction As IGroupModel
+    ReadOnly Property StarSystem As IGroupModel
+    ReadOnly Property Planet As IGroupModel
+    ReadOnly Property Faction As IGroupModel
 End Interface

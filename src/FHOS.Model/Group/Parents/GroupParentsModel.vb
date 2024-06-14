@@ -9,13 +9,13 @@ Friend Class GroupParentsModel
         Me.group = group
     End Sub
 
-    Public ReadOnly Property ParentStarSystem As IGroupModel Implements IGroupParentsModel.ParentStarSystem
+    Public ReadOnly Property StarSystem As IGroupModel Implements IGroupParentsModel.StarSystem
         Get
             Return OptionalSingleParent(GroupTypes.StarSystem)
         End Get
     End Property
 
-    Public ReadOnly Property ParentPlanet As IGroupModel Implements IGroupParentsModel.ParentPlanet
+    Public ReadOnly Property Planet As IGroupModel Implements IGroupParentsModel.Planet
         Get
             Return OptionalSingleParent(GroupTypes.PlanetVicinity)
         End Get
@@ -25,7 +25,7 @@ Friend Class GroupParentsModel
         Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.EntityType = groupType))
     End Function
 
-    Public ReadOnly Property ParentFaction As IGroupModel Implements IGroupParentsModel.ParentFaction
+    Public ReadOnly Property Faction As IGroupModel Implements IGroupParentsModel.Faction
         Get
             Return OptionalSingleParent(GroupTypes.Faction)
         End Get

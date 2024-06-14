@@ -2,9 +2,9 @@
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
-        sut.ParentStarSystem.ShouldBeNull
-        sut.ParentPlanet.ShouldBeNull
-        sut.ParentFaction.ShouldBeNull
+        sut.StarSystem.ShouldBeNull
+        sut.Planet.ShouldBeNull
+        sut.Faction.ShouldBeNull
     End Sub
 
     Private Function CreateSut() As IGroupParentsModel
