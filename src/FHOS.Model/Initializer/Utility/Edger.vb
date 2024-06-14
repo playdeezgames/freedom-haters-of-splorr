@@ -57,12 +57,6 @@ Friend Module Edger
             End Function).ToList
 
     End Function
-    Friend Sub PlaceBoundary(location As ILocation, locationType As String, targetLocation As ILocation)
-        With location
-            .EntityType = locationType
-            .TargetLocation = targetLocation
-        End With
-    End Sub
     Friend Sub PlaceBoundaryActor(location As ILocation, actorType As String, targetActor As IActor)
         Dim actor = ActorTypes.Descriptors(actorType).CreateActor(location, "Leave Area")
         actor.YokedActor(YokeTypes.Target) = targetActor

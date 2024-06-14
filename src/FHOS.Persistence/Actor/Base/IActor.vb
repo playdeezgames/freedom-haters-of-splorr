@@ -2,10 +2,11 @@
     Inherits INamedEntity
     ReadOnly Property Family As IActorFamily
     ReadOnly Property Equipment As IActorEquipment
-    Property YokedActor(yokeType As String) As IActor
-    Property YokedStore(yokeType As String) As IStore
     Property Location As ILocation
-    Property YokedGroup(yokeType As String) As IGroup
     Property Interior As IMap
     Property CostumeType As String
+    'yokes
+    Property YokedActor(yokeType As String) As IActor
+    Property YokedGroup(yokeType As String) As IGroup
+    Property YokedStore(yokeType As String) As IStore
 End Interface
