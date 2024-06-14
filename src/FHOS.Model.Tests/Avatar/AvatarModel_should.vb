@@ -11,6 +11,7 @@
         sut.Verbs.ShouldNotBeNull
         sut.Vessel.ShouldNotBeNull
         sut.Wallet.ShouldNotBeNull
+        Should.Throw(Of NullReferenceException)(Function() sut.Jools)
     End Sub
 
     Private Shared Function CreateSut() As IAvatarModel

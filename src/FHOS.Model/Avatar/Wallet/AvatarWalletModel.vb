@@ -14,12 +14,6 @@ Friend Class AvatarWalletModel
         End Get
     End Property
 
-    Public ReadOnly Property MinimumJools As Integer Implements IAvatarWalletModel.MinimumJools
-        Get
-            Return actor.YokedStore(YokeTypes.Wallet).MinimumValue.Value
-        End Get
-    End Property
-
     Friend Shared Function FromActor(actor As IActor) As IAvatarWalletModel
         Return New AvatarWalletModel(actor)
     End Function

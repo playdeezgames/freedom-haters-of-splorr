@@ -68,4 +68,10 @@ Friend Class AvatarModel
             Return AvatarStarGateModel.FromActor(actor)
         End Get
     End Property
+
+    Public ReadOnly Property Jools As Integer Implements IAvatarModel.Jools
+        Get
+            Return actor.YokedStore(YokeTypes.Wallet).CurrentValue
+        End Get
+    End Property
 End Class
