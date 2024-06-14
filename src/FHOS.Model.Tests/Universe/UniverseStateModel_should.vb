@@ -6,6 +6,7 @@
         sut.Board.ShouldNotBeNull
         sut.Avatar.ShouldNotBeNull
         sut.Messages.ShouldNotBeNull
+        sut.GetLocation((0, 0)).ShouldNotBeNull
     End Sub
 
     Private Function CreateSut() As IUniverseStateModel

@@ -36,4 +36,8 @@ Friend Class UniverseStateModel
             Return universe.Turn
         End Get
     End Property
+
+    Public Function GetLocation(boardPosition As (X As Integer, Y As Integer)) As ILocationModel Implements IUniverseStateModel.GetLocation
+        Return LocationModel.FromBoardPosition(universe, boardPosition)
+    End Function
 End Class
