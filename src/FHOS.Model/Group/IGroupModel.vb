@@ -11,7 +11,6 @@
     ReadOnly Property ChildPlanetFactions As IEnumerable(Of IGroupModel)
     'properties
     ReadOnly Property Properties As IGroupPropertiesModel
-    ReadOnly Property PlanetCount As Integer
     ReadOnly Property SatelliteCount As Integer
     ReadOnly Property Authority As (LevelName As String, Value As Integer)
     ReadOnly Property Standards As (LevelName As String, Value As Integer)

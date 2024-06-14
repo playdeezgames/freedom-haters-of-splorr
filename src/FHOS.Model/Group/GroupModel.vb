@@ -70,12 +70,6 @@ Friend Class GroupModel
         End Get
     End Property
 
-    Public ReadOnly Property PlanetCount As Integer Implements IGroupModel.PlanetCount
-        Get
-            Return group.Statistics(StatisticTypes.PlanetCount).Value
-        End Get
-    End Property
-
     Private Function SortedChildrenOfType(groupType As String) As IEnumerable(Of IGroupModel)
         Return group.ChildrenOfType(groupType).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
     End Function
