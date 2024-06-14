@@ -13,27 +13,31 @@ Friend Class UniversePediaModel
         Return New UniversePediaModel(universe)
     End Function
 
+    Private Function SortedGroupsOfType(groupType As String) As IEnumerable(Of IGroupModel)
+        Return universe.Groups.Where(Function(x) x.EntityType = groupType).Select(Function(x) GroupModel.FromGroup(x)).OrderBy(Function(x) x.Name)
+    End Function
+
     Public ReadOnly Property FactionList As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.FactionList
         Get
-            Return universe.Groups.Where(Function(x) x.EntityType = GroupTypes.Faction).Select(Function(x) GroupModel.FromGroup(x)).OrderBy(Function(x) x.Name)
+            Return SortedGroupsOfType(GroupTypes.Faction)
         End Get
     End Property
 
     Public ReadOnly Property StarSystemList As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.StarSystemList
         Get
-            Return universe.Groups.Where(Function(x) x.EntityType = GroupTypes.StarSystem).Select(Function(x) GroupModel.FromGroup(x)).OrderBy(Function(x) x.Name)
+            Return SortedGroupsOfType(GroupTypes.StarSystem)
         End Get
     End Property
 
     Public ReadOnly Property PlanetVicinityList As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.PlanetVicinityList
         Get
-            Return universe.Groups.Where(Function(x) x.EntityType = GroupTypes.PlanetVicinity).Select(Function(x) GroupModel.FromGroup(x)).OrderBy(Function(x) x.Name)
+            Return SortedGroupsOfType(GroupTypes.PlanetVicinity)
         End Get
     End Property
 
     Public ReadOnly Property SatelliteList As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.SatelliteList
         Get
-            Return universe.Groups.Where(Function(x) x.EntityType = GroupTypes.Satellite).Select(Function(x) GroupModel.FromGroup(x)).OrderBy(Function(x) x.Name)
+            Return SortedGroupsOfType(GroupTypes.Satellite)
         End Get
     End Property
 End Class

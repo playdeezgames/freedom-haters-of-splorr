@@ -3,6 +3,11 @@
 Friend Class GroupModel
     Implements IGroupModel
 
+    Private Const HostileText As String = "Hostile"
+    Private Const NeutralText As String = "Neutral"
+    Private Const FriendlyText As String = "Friendly"
+    Private Const HostileThreshold As Integer = 50
+    Private Const NeutralThreshold As Integer = 25
     Private group As Persistence.IGroup
 
     Protected Sub New(group As Persistence.IGroup)
@@ -59,15 +64,19 @@ Friend Class GroupModel
         End Get
     End Property
 
+    Private Function SortedChildrenOfType(groupType As String) As IEnumerable(Of IGroupModel)
+        Return group.ChildrenOfType(groupType).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
+    End Function
+
     Public ReadOnly Property PlanetList As IEnumerable(Of IGroupModel) Implements IGroupModel.PlanetList
         Get
-            Return group.ChildrenOfType(GroupTypes.PlanetVicinity).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
+            Return SortedChildrenOfType(GroupTypes.PlanetVicinity)
         End Get
     End Property
 
     Public ReadOnly Property SatelliteList As IEnumerable(Of IGroupModel) Implements IGroupModel.SatelliteList
         Get
-            Return group.ChildrenOfType(GroupTypes.Satellite).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
+            Return SortedChildrenOfType(GroupTypes.Satellite)
         End Get
     End Property
 
@@ -77,21 +86,25 @@ Friend Class GroupModel
         End Get
     End Property
 
+    Private Function OptionalSingleParent(groupType As String) As IGroupModel
+        Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.EntityType = groupType))
+    End Function
+
     Public ReadOnly Property StarSystem As IGroupModel Implements IGroupModel.StarSystem
         Get
-            Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.EntityType = GroupTypes.StarSystem))
+            Return OptionalSingleParent(GroupTypes.StarSystem)
         End Get
     End Property
 
     Public ReadOnly Property Planet As IGroupModel Implements IGroupModel.Planet
         Get
-            Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.EntityType = GroupTypes.PlanetVicinity))
+            Return OptionalSingleParent(GroupTypes.PlanetVicinity)
         End Get
     End Property
 
     Public ReadOnly Property Faction As IGroupModel Implements IGroupModel.Faction
         Get
-            Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.EntityType = GroupTypes.Faction))
+            Return OptionalSingleParent(GroupTypes.Faction)
         End Get
     End Property
 
@@ -133,12 +146,12 @@ Friend Class GroupModel
         Dim deltaStandards = otherGroup.Standards.Value - Standards.Value
         Dim deltaConviction = otherGroup.Conviction.Value - Conviction.Value
         Select Case CInt(Math.Sqrt(deltaAuthority * deltaAuthority) + (deltaStandards * deltaStandards) + (deltaConviction * deltaConviction))
-            Case Is >= 50
-                Return "Hostile"
-            Case Is >= 25
-                Return "Neutral"
+            Case Is >= HostileThreshold
+                Return HostileText
+            Case Is >= NeutralThreshold
+                Return NeutralText
             Case Else
-                Return "Friendly"
+                Return FriendlyText
         End Select
     End Function
 End Class
