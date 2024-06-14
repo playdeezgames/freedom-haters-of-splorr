@@ -4,7 +4,6 @@
         Dim sut = CreateSut()
         Should.Throw(Of ArgumentNullException)(Function() sut.Sprite)
         sut.Name.ShouldBe("actor name")
-        Should.Throw(Of KeyNotFoundException)(Function() sut.IsStarSystem)
         Should.Throw(Of KeyNotFoundException)(Function() sut.IsPlanet)
         Should.Throw(Of KeyNotFoundException)(Function() sut.IsPlanetVicinity)
         Should.Throw(Of KeyNotFoundException)(Function() sut.IsSatellite)

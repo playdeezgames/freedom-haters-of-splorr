@@ -40,12 +40,6 @@ Friend Class ActorModel
         End Get
     End Property
 
-    Public ReadOnly Property IsStarSystem As Boolean Implements IActorModel.IsStarSystem
-        Get
-            Return actor.Descriptor.IsStarSystem
-        End Get
-    End Property
-
     Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IActorModel.Position
         Get
             With actor.Location

@@ -1,7 +1,6 @@
 ﻿Public Interface IActorModel
     ReadOnly Property Sprite As (Glyph As Char, Hue As Integer)
     ReadOnly Property Name As String
-    ReadOnly Property IsStarSystem As Boolean
     ReadOnly Property IsPlanet As Boolean
     ReadOnly Property IsPlanetVicinity As Boolean
     ReadOnly Property IsSatellite As Boolean
