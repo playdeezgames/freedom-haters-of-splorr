@@ -11,7 +11,6 @@
     ReadOnly Property ChildPlanetFactions As IEnumerable(Of IGroupModel)
     'properties
     ReadOnly Property Properties As IGroupPropertiesModel
-    ReadOnly Property Authority As (LevelName As String, Value As Integer)
     ReadOnly Property Standards As (LevelName As String, Value As Integer)
     ReadOnly Property Conviction As (LevelName As String, Value As Integer)
 End Interface

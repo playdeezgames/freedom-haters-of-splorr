@@ -30,7 +30,7 @@ Friend Class FactionDetailState
         With FactionListState.SelectedFaction.Peek
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
-            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Authority: { .Authority.LevelName}({ .Authority.Value})", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Authority: { .Properties.Authority.LevelName}({ .Properties.Authority.Value})", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Standards: { .Standards.LevelName}({ .Standards.Value})", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Conviction: { .Conviction.LevelName}({ .Conviction.Value})", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planets: { .Properties.PlanetCount}", Hues.Black)

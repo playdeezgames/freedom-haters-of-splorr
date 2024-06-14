@@ -52,12 +52,6 @@ Friend Class GroupModel
         Return (ToLevelName(statisticValue), statisticValue)
     End Function
 
-    Public ReadOnly Property Authority As (LevelName As String, Value As Integer) Implements IGroupModel.Authority
-        Get
-            Return ToLevelAndValue(StatisticTypes.Authority)
-        End Get
-    End Property
-
     Public ReadOnly Property Standards As (LevelName As String, Value As Integer) Implements IGroupModel.Standards
         Get
             Return ToLevelAndValue(StatisticTypes.Standards)
@@ -126,7 +120,7 @@ Friend Class GroupModel
     End Property
 
     Public Function RelationNameTo(otherGroup As IGroupModel) As String Implements IGroupModel.RelationNameTo
-        Dim deltaAuthority = otherGroup.Authority.Value - Authority.Value
+        Dim deltaAuthority = otherGroup.Properties.Authority.Value - Properties.Authority.Value
         Dim deltaStandards = otherGroup.Standards.Value - Standards.Value
         Dim deltaConviction = otherGroup.Conviction.Value - Conviction.Value
         Select Case CInt(Math.Sqrt(deltaAuthority * deltaAuthority) + (deltaStandards * deltaStandards) + (deltaConviction * deltaConviction))
