@@ -108,12 +108,6 @@ Friend Class GroupModel
         End Get
     End Property
 
-    Public ReadOnly Property SatelliteCount As Integer Implements IGroupModel.SatelliteCount
-        Get
-            Return group.Statistics(StatisticTypes.SatelliteCount).Value
-        End Get
-    End Property
-
     Public ReadOnly Property ChildPlanetFactions As IEnumerable(Of IGroupModel) Implements IGroupModel.ChildPlanetFactions
         Get
             Dim planetVicinities = group.ChildrenOfType(GroupTypes.PlanetVicinity)

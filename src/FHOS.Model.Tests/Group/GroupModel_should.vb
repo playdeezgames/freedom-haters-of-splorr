@@ -7,7 +7,6 @@
         Should.Throw(Of InvalidOperationException)(Function() sut.Authority)
         Should.Throw(Of InvalidOperationException)(Function() sut.Standards)
         Should.Throw(Of InvalidOperationException)(Function() sut.Conviction)
-        Should.Throw(Of InvalidOperationException)(Function() sut.SatelliteCount)
 
         sut.ChildPlanets.ShouldBeEmpty
         sut.ChildSatellites.ShouldBeEmpty
