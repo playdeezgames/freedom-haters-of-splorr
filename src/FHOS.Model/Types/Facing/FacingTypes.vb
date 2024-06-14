@@ -12,11 +12,4 @@
             New FacingDescriptor(Left, (-1, 0))
         }.ToDictionary(Function(x) x.Facing, Function(x) x)
     Friend ReadOnly All As IEnumerable(Of Integer) = Descriptors.Keys
-    Friend ReadOnly Deltas As (X As Integer, Y As Integer)() =
-        {
-            (0, -1),
-            (1, 0),
-            (0, 1),
-            (-1, 0)
-        }
 End Module

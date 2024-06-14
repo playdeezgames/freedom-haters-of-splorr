@@ -28,7 +28,7 @@ Friend Module ActorExtensions
     <Extension>
     Sub Move(actor As IActor, facing As Integer)
         actor.Statistics(StatisticTypes.Facing) = facing
-        Dim delta = FacingTypes.Deltas(facing)
+        Dim delta = FacingTypes.Descriptors(facing).Delta
         If Not CanMove(actor) Then
             Return
         End If
