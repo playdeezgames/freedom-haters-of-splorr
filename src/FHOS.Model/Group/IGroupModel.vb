@@ -1,17 +1,16 @@
 ﻿Public Interface IGroupModel
     ReadOnly Property Name As String
-    'family
-    'family-sibling
     Function RelationNameTo(otherGroup As IGroupModel) As String
-    'family-parent
+    'parents
     ReadOnly Property ParentStarSystem As IGroupModel
     ReadOnly Property ParentPlanet As IGroupModel
     ReadOnly Property ParentFaction As IGroupModel
-    'family-child
+    'children
     ReadOnly Property ChildPlanets As IEnumerable(Of IGroupModel)
     ReadOnly Property ChildSatellites As IEnumerable(Of IGroupModel)
     ReadOnly Property ChildPlanetFactions As IEnumerable(Of IGroupModel)
     'properties
+    ReadOnly Property Properties As IGroupPropertiesModel
     ReadOnly Property StarTypeName As String
     ReadOnly Property Position As (Column As Integer, Row As Integer)
     ReadOnly Property PlanetCount As Integer

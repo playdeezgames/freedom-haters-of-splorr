@@ -3,19 +3,21 @@
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
         sut.Name.ShouldBe("group name")
+
         Should.Throw(Of InvalidOperationException)(Function() sut.Authority)
         Should.Throw(Of InvalidOperationException)(Function() sut.Standards)
         Should.Throw(Of InvalidOperationException)(Function() sut.Conviction)
         Should.Throw(Of InvalidOperationException)(Function() sut.PlanetCount)
         Should.Throw(Of InvalidOperationException)(Function() sut.SatelliteCount)
         Should.Throw(Of InvalidOperationException)(Function() sut.Position)
+        sut.StarTypeName.ShouldBeNull
+
         sut.ChildPlanets.ShouldBeEmpty
         sut.ChildSatellites.ShouldBeEmpty
         sut.ChildPlanetFactions.ShouldBeEmpty
         sut.ParentStarSystem.ShouldBeNull
         sut.ParentPlanet.ShouldBeNull
         sut.ParentFaction.ShouldBeNull
-        sut.StarTypeName.ShouldBeNull
         Should.Throw(Of InvalidOperationException)(Function() sut.RelationNameTo(sut))
     End Sub
 
