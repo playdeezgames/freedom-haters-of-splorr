@@ -1,4 +1,5 @@
 ﻿Public Interface ILocationTypeModel
+    ReadOnly Property Sprite As (Glyph As Char, Foreground As Integer, Background As Integer)
     ReadOnly Property Glyph As Char 'stuff down, combine with Foreground, Background
     ReadOnly Property Foreground As Integer 'stuff down, combine with Glyph, Background
     ReadOnly Property Background As Integer 'stuff down, combine with Glyph, Foreground
