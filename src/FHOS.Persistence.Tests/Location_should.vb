@@ -30,8 +30,6 @@
         sut.Position.Row.ShouldBe(row)
         sut.EntityType.ShouldBe(locationType)
         sut.Actor.ShouldBeNull
-        sut.TargetLocation.ShouldBeNull
-        sut.HasTargetLocation.ShouldBeFalse
     End Sub
     <Fact>
     Sub set_entity_type()
@@ -53,12 +51,5 @@
         sut.Actor.Id.ShouldBe(actor.Id)
         actor.EntityName.ShouldBe(actorName)
         actor.EntityType.ShouldBe(actorType)
-    End Sub
-    <Fact>
-    Sub have_target_location()
-        Dim sut = CreateSut()
-        sut.TargetLocation = sut
-        sut.HasTargetLocation.ShouldBeTrue
-        sut.TargetLocation.Id.ShouldBe(sut.Id)
     End Sub
 End Class

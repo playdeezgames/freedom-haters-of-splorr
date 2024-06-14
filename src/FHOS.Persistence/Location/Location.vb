@@ -38,21 +38,6 @@ Friend Class Location
         End Set
     End Property
 
-    Public Property TargetLocation As ILocation Implements ILocation.TargetLocation
-        Get
-            Return Location.FromId(UniverseData, GetStatistic(PersistenceStatisticTypes.TargetLocationId))
-        End Get
-        Set(value As ILocation)
-            SetStatistic(PersistenceStatisticTypes.TargetLocationId, value?.Id)
-        End Set
-    End Property
-
-    Public ReadOnly Property HasTargetLocation As Boolean Implements ILocation.HasTargetLocation
-        Get
-            Return EntityData.Statistics.ContainsKey(PersistenceStatisticTypes.TargetLocationId)
-        End Get
-    End Property
-
     Public ReadOnly Property Position As (Column As Integer, Row As Integer) Implements ILocation.Position
         Get
             Return (EntityData.Statistics(PersistenceStatisticTypes.Column), EntityData.Statistics(PersistenceStatisticTypes.Row))

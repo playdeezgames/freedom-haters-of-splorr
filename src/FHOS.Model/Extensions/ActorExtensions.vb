@@ -46,9 +46,6 @@ Friend Module ActorExtensions
             actor.YokedActor(YokeTypes.Interactor) = nextLocation.Actor
             Return
         End If
-        If nextLocation.HasTargetLocation Then
-            nextLocation = nextLocation.TargetLocation
-        End If
         If Not CanEnterLocation(nextLocation, actor) Then
             Return
         End If
