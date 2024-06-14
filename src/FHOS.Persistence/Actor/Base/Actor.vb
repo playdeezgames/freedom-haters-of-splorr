@@ -99,7 +99,7 @@ Friend Class Actor
         End Set
     End Property
 
-    Public Property CostumeType As String Implements IActor.CostumeType
+    Public Property Costume As String Implements IActor.Costume
         Get
             Return GetMetadata(LegacyMetadataTypes.Costume)
         End Get

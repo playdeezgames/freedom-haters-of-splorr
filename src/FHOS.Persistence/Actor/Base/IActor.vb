@@ -4,7 +4,7 @@
     ReadOnly Property Equipment As IActorEquipment
     Property Location As ILocation
     Property Interior As IMap
-    Property CostumeType As String
+    Property Costume As String
     'yokes
     Property YokedActor(yokeType As String) As IActor
     Property YokedGroup(yokeType As String) As IGroup

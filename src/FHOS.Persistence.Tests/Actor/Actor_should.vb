@@ -36,7 +36,7 @@ Public Class Actor_should
         sut.EntityName.ShouldBe("actor name")
         sut.Location.ShouldNotBeNull
         sut.Interior.ShouldBeNull
-        sut.CostumeType.ShouldBeNull
+        sut.Costume.ShouldBeNull
     End Sub
     <Fact>
     Sub set_entity_name()
@@ -150,7 +150,7 @@ Public Class Actor_should
     Sub have_costume_type()
         Const costumeType = "costume type"
         Dim sut = CreateSut()
-        sut.CostumeType = costumeType
-        sut.CostumeType.ShouldBe(costumeType)
+        sut.Costume = costumeType
+        sut.Costume.ShouldBe(costumeType)
     End Sub
 End Class

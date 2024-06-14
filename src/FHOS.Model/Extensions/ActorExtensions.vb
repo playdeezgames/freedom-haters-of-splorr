@@ -13,7 +13,7 @@ Friend Module ActorExtensions
     End Function
     <Extension>
     Function CostumeDescriptor(actor As IActor) As CostumeTypeDescriptor
-        Return CostumeTypes.Descriptors(actor.CostumeType)
+        Return CostumeTypes.Descriptors(actor.Costume)
     End Function
     <Extension>
     Function Descriptor(actor As IActor) As ActorTypeDescriptor
