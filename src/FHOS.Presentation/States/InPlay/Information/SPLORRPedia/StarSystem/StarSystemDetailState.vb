@@ -30,7 +30,7 @@ Friend Class StarSystemDetailState
         With StarSystemListState.SelectedStarSystem.Peek
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
-            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: { .StarTypeName}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: { .Properties.StarTypeName}", Hues.Black)
             Dim galaxyPosition = .Position
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Position: ({galaxyPosition.Column},{galaxyPosition.Row})", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planet Count: { .PlanetCount}", Hues.Black)

@@ -114,16 +114,6 @@ Friend Class GroupModel
         End Get
     End Property
 
-    Public ReadOnly Property StarTypeName As String Implements IGroupModel.StarTypeName
-        Get
-            Dim subType = group.Metadatas(MetadataTypes.Subtype)
-            If subType IsNot Nothing Then
-                Return StarTypes.Descriptors(subType).StarTypeName
-            End If
-            Return Nothing
-        End Get
-    End Property
-
     Public ReadOnly Property SatelliteCount As Integer Implements IGroupModel.SatelliteCount
         Get
             Return group.Statistics(StatisticTypes.SatelliteCount).Value

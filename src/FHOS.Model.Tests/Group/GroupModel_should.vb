@@ -10,7 +10,6 @@
         Should.Throw(Of InvalidOperationException)(Function() sut.PlanetCount)
         Should.Throw(Of InvalidOperationException)(Function() sut.SatelliteCount)
         Should.Throw(Of InvalidOperationException)(Function() sut.Position)
-        sut.StarTypeName.ShouldBeNull
 
         sut.ChildPlanets.ShouldBeEmpty
         sut.ChildSatellites.ShouldBeEmpty
