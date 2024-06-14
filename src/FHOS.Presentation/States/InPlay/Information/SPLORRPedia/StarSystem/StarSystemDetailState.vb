@@ -36,7 +36,7 @@ Friend Class StarSystemDetailState
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planet Count: { .PlanetCount}", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Satellite Count: { .SatelliteCount}", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Factions Present:", Hues.Black)
-            For Each faction In .FactionsPresent
+            For Each faction In .ChildPlanetFactions
                 position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"{faction.Name}", Hues.Black)
             Next
             Context.ShowStatusBar(

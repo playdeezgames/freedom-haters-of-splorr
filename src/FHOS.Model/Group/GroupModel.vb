@@ -80,13 +80,13 @@ Friend Class GroupModel
         Return group.ChildrenOfType(groupType).Select(AddressOf GroupModel.FromGroup).OrderBy(Function(x) x.Name)
     End Function
 
-    Public ReadOnly Property PlanetList As IEnumerable(Of IGroupModel) Implements IGroupModel.PlanetList
+    Public ReadOnly Property ChildPlanets As IEnumerable(Of IGroupModel) Implements IGroupModel.ChildPlanets
         Get
             Return SortedChildrenOfType(GroupTypes.PlanetVicinity)
         End Get
     End Property
 
-    Public ReadOnly Property SatelliteList As IEnumerable(Of IGroupModel) Implements IGroupModel.SatelliteList
+    Public ReadOnly Property ChildSatellites As IEnumerable(Of IGroupModel) Implements IGroupModel.ChildSatellites
         Get
             Return SortedChildrenOfType(GroupTypes.Satellite)
         End Get
@@ -96,19 +96,19 @@ Friend Class GroupModel
         Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.EntityType = groupType))
     End Function
 
-    Public ReadOnly Property StarSystem As IGroupModel Implements IGroupModel.StarSystem
+    Public ReadOnly Property ParentStarSystem As IGroupModel Implements IGroupModel.ParentStarSystem
         Get
             Return OptionalSingleParent(GroupTypes.StarSystem)
         End Get
     End Property
 
-    Public ReadOnly Property Planet As IGroupModel Implements IGroupModel.Planet
+    Public ReadOnly Property ParentPlanet As IGroupModel Implements IGroupModel.ParentPlanet
         Get
             Return OptionalSingleParent(GroupTypes.PlanetVicinity)
         End Get
     End Property
 
-    Public ReadOnly Property Faction As IGroupModel Implements IGroupModel.Faction
+    Public ReadOnly Property ParentFaction As IGroupModel Implements IGroupModel.ParentFaction
         Get
             Return OptionalSingleParent(GroupTypes.Faction)
         End Get
@@ -136,7 +136,7 @@ Friend Class GroupModel
         End Get
     End Property
 
-    Public ReadOnly Property FactionsPresent As IEnumerable(Of IGroupModel) Implements IGroupModel.FactionsPresent
+    Public ReadOnly Property ChildPlanetFactions As IEnumerable(Of IGroupModel) Implements IGroupModel.ChildPlanetFactions
         Get
             Dim planetVicinities = group.ChildrenOfType(GroupTypes.PlanetVicinity)
             Return planetVicinities.

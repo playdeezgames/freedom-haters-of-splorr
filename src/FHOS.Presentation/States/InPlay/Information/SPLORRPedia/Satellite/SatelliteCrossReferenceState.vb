@@ -22,10 +22,10 @@ Friend Class SatelliteCrossReferenceState
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
         Select Case value.Item
             Case StarSystemText
-                StarSystemListState.SelectedStarSystem.Push(SatelliteListState.SelectedSatellite.Peek.StarSystem)
+                StarSystemListState.SelectedStarSystem.Push(SatelliteListState.SelectedSatellite.Peek.ParentStarSystem)
                 SetState(GameState.StarSystemDetails)
             Case PlanetText
-                PlanetListState.SelectedPlanet.Push(SatelliteListState.SelectedSatellite.Peek.Planet)
+                PlanetListState.SelectedPlanet.Push(SatelliteListState.SelectedSatellite.Peek.ParentPlanet)
                 SetState(GameState.PlanetDetails)
         End Select
     End Sub

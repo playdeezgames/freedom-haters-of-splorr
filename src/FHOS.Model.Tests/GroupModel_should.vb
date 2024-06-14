@@ -9,12 +9,12 @@
         Should.Throw(Of InvalidOperationException)(Function() sut.PlanetCount)
         Should.Throw(Of InvalidOperationException)(Function() sut.SatelliteCount)
         Should.Throw(Of InvalidOperationException)(Function() sut.Position)
-        sut.PlanetList.ShouldBeEmpty
-        sut.SatelliteList.ShouldBeEmpty
-        sut.FactionsPresent.ShouldBeEmpty
-        sut.StarSystem.ShouldBeNull
-        sut.Planet.ShouldBeNull
-        sut.Faction.ShouldBeNull
+        sut.ChildPlanets.ShouldBeEmpty
+        sut.ChildSatellites.ShouldBeEmpty
+        sut.ChildPlanetFactions.ShouldBeEmpty
+        sut.ParentStarSystem.ShouldBeNull
+        sut.ParentPlanet.ShouldBeNull
+        sut.ParentFaction.ShouldBeNull
         sut.StarTypeName.ShouldBeNull
         Should.Throw(Of InvalidOperationException)(Function() sut.RelationNameTo(sut))
     End Sub

@@ -24,6 +24,6 @@ Friend Class FactionPlanetListState
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IGroupModel))
-        Return FactionListState.SelectedFaction.Peek.PlanetList.Select(Function(x) (x.Name, x)).ToList
+        Return FactionListState.SelectedFaction.Peek.ChildPlanets.Select(Function(x) (x.Name, x)).ToList
     End Function
 End Class
