@@ -8,6 +8,13 @@ Friend Class GroupModel
     Private Const FriendlyText As String = "Friendly"
     Private Const HostileThreshold As Integer = 50
     Private Const NeutralThreshold As Integer = 25
+    Private Const AcceptableText As String = "Acceptable"
+    Private Const TolerableText As String = "Tolerable"
+    Private Const UnacceptableText As String = "Unacceptable"
+    Private Const AcceptableThreshold = 90
+    Private Const TolerableThreshold = 75
+    Private Const UnacceptableThreshold = 50
+    Private Const InexcusableText As String = "Inexcusable"
     Private group As Persistence.IGroup
 
     Protected Sub New(group As Persistence.IGroup)
@@ -29,32 +36,37 @@ Friend Class GroupModel
 
     Private Shared Function ToLevelName(value As Integer) As String
         Select Case value
-            Case Is > 90
-                Return "Acceptable"
-            Case Is > 75
-                Return "Tolerable"
-            Case Is > 50
-                Return "Unacceptable"
+            Case Is > AcceptableThreshold
+                Return AcceptableText
+            Case Is > TolerableThreshold
+                Return TolerableText
+            Case Is > UnacceptableThreshold
+                Return UnacceptableText
             Case Else
-                Return "Inexcusable"
+                Return InexcusableText
         End Select
+    End Function
+
+    Private Function ToLevelAndValue(statisticType As String) As (LevelName As String, Value As Integer)
+        Dim statisticValue = group.Statistics(statisticType).Value
+        Return (ToLevelName(statisticValue), statisticValue)
     End Function
 
     Public ReadOnly Property Authority As (LevelName As String, Value As Integer) Implements IGroupModel.Authority
         Get
-            Return (ToLevelName(group.Statistics(StatisticTypes.Authority).Value), group.Statistics(StatisticTypes.Authority).Value)
+            Return ToLevelAndValue(StatisticTypes.Authority)
         End Get
     End Property
 
     Public ReadOnly Property Standards As (LevelName As String, Value As Integer) Implements IGroupModel.Standards
         Get
-            Return (ToLevelName(group.Statistics(StatisticTypes.Standards).Value), group.Statistics(StatisticTypes.Standards).Value)
+            Return ToLevelAndValue(StatisticTypes.Standards)
         End Get
     End Property
 
     Public ReadOnly Property Conviction As (LevelName As String, Value As Integer) Implements IGroupModel.Conviction
         Get
-            Return (ToLevelName(group.Statistics(StatisticTypes.Conviction).Value), group.Statistics(StatisticTypes.Conviction).Value)
+            Return ToLevelAndValue(StatisticTypes.Conviction)
         End Get
     End Property
 
