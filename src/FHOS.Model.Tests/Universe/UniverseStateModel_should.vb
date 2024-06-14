@@ -3,7 +3,6 @@
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
         sut.Turn.ShouldBe(1)
-        sut.Board.ShouldNotBeNull
         sut.Avatar.ShouldNotBeNull
         sut.Messages.ShouldNotBeNull
         sut.GetLocation((0, 0)).ShouldNotBeNull

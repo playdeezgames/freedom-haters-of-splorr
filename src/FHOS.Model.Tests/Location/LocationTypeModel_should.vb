@@ -11,6 +11,6 @@ Public Class LocationTypeModel_should
     End Sub
 
     Private Function CreateSut() As ILocationTypeModel
-        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Board.GetLocation((0, 0)).LocationType
+        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.GetLocation((0, 0)).LocationType
     End Function
 End Class

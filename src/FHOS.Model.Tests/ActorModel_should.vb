@@ -7,6 +7,6 @@
     End Sub
 
     Private Function CreateSut() As IActorModel
-        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Board.GetLocation((0, 0)).Actor
+        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.GetLocation((0, 0)).Actor
     End Function
 End Class

@@ -17,6 +17,6 @@
     End Sub
 
     Private Function CreateSut(Optional column As Integer = 0, Optional row As Integer = 0) As ILocationModel
-        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Board.GetLocation((column, row))
+        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.GetLocation((column, row))
     End Function
 End Class

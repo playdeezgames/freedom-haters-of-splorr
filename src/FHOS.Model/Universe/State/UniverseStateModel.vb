@@ -13,12 +13,6 @@ Friend Class UniverseStateModel
         Return New UniverseStateModel(universe)
     End Function
 
-    Public ReadOnly Property Board As IBoardModel Implements IUniverseStateModel.Board
-        Get
-            Return BoardModel.FromUniverse(universe)
-        End Get
-    End Property
-
     Public ReadOnly Property Avatar As IAvatarModel Implements IUniverseStateModel.Avatar
         Get
             Return AvatarModel.FromActor(universe.Avatar.Actor)
