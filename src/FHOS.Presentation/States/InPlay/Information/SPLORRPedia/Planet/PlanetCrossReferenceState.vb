@@ -38,7 +38,7 @@ Friend Class PlanetCrossReferenceState
                 (FactionText, FactionText),
                 (StarSystemText, StarSystemText)
             }.ToList
-        If PlanetListState.SelectedPlanet.Peek.ChildSatellites.Any Then
+        If PlanetListState.SelectedPlanet.Peek.Children.ChildSatellites.Any Then
             items.Add((SatellitesText, SatellitesText))
         End If
         Return items
