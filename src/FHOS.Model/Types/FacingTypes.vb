@@ -1,4 +1,4 @@
-﻿Friend Module Facings
+﻿Friend Module FacingTypes
     Friend Const Up = 0
     Friend Const Right = 1
     Friend Const Down = 2

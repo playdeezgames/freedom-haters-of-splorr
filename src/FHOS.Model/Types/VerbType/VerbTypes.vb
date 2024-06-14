@@ -14,10 +14,10 @@ Public Module VerbTypes
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, VerbTypeDescriptor) =
         New List(Of VerbTypeDescriptor) From
         {
-            New MoveVerbTypeDescriptor(MoveUp, "Move Up", Facings.Up),
-            New MoveVerbTypeDescriptor(MoveRight, "Move Right", Facings.Right),
-            New MoveVerbTypeDescriptor(MoveDown, "Move Down", Facings.Down),
-            New MoveVerbTypeDescriptor(MoveLeft, "Move Left", Facings.Left),
+            New MoveVerbTypeDescriptor(MoveUp, "Move Up", FacingTypes.Up),
+            New MoveVerbTypeDescriptor(MoveRight, "Move Right", FacingTypes.Right),
+            New MoveVerbTypeDescriptor(MoveDown, "Move Down", FacingTypes.Down),
+            New MoveVerbTypeDescriptor(MoveLeft, "Move Left", FacingTypes.Left),
             New DistressSignalVerbTypeDescriptor(),
             New AlwaysAvailableVerbTypeDescriptor(Status, "Status"),
             New AlwaysAvailableVerbTypeDescriptor(SPLORRPedia, "SPLORR!!Pedia"),

@@ -4,7 +4,7 @@ Imports FHOS.Persistence
 Friend Module LocationExtensions
     <Extension>
     Friend Function GetNeighbor(location As ILocation, facing As Integer) As ILocation
-        Dim delta = Facings.Deltas(facing)
+        Dim delta = FacingTypes.Deltas(facing)
         Dim nextColumn = location.Position.Column + delta.X
         Dim nextRow = location.Position.Row + delta.Y
         Return location.Map.GetLocation(nextColumn, nextRow)
@@ -12,7 +12,7 @@ Friend Module LocationExtensions
     <Extension>
     Friend Function GetNeighbors(location As ILocation) As IEnumerable(Of ILocation)
         Dim result As New List(Of ILocation)
-        For Each value In Facings.All
+        For Each value In FacingTypes.All
             Dim neighbor = location.GetNeighbor(value)
             If neighbor IsNot Nothing Then
                 result.Add(neighbor)

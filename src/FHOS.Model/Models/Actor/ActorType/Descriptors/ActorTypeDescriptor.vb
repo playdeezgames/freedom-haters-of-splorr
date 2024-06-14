@@ -63,7 +63,7 @@ Friend MustInherit Class ActorTypeDescriptor
     End Sub
     Friend Function CreateActor(location As ILocation, name As String) As IActor
         Dim actor = location.CreateActor(ActorType, name)
-        actor.Statistics(StatisticTypes.Facing) = RNG.FromRange(0, Facings.Deltas.Length - 1)
+        actor.Statistics(StatisticTypes.Facing) = RNG.FromRange(0, FacingTypes.Deltas.Length - 1)
         actor.CostumeType = RNG.FromGenerator(CostumeGenerator)
         Initialize(actor)
         Return actor
