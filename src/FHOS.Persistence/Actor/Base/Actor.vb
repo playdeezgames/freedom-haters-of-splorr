@@ -107,4 +107,10 @@ Friend Class Actor
             SetMetadata(LegacyMetadataTypes.Costume, value)
         End Set
     End Property
+
+    Public ReadOnly Property Yokes As IActorYokes Implements IActor.Yokes
+        Get
+            Return ActorYokes.FromId(UniverseData, Id)
+        End Get
+    End Property
 End Class

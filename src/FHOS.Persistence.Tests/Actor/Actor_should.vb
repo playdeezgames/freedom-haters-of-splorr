@@ -1,6 +1,4 @@
-﻿Imports System.Reflection.Metadata
-
-Public Class Actor_should
+﻿Public Class Actor_should
     Private Shared Function CreateSut(
                               Optional mapName As String = "map name",
                               Optional mapType As String = "map type",
@@ -37,6 +35,7 @@ Public Class Actor_should
         sut.Location.ShouldNotBeNull
         sut.Interior.ShouldBeNull
         sut.Costume.ShouldBeNull
+        sut.Yokes.ShouldNotBeNull
     End Sub
     <Fact>
     Sub set_entity_name()

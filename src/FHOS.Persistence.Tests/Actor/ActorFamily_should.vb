@@ -1,6 +1,4 @@
-﻿Imports System.Security.Cryptography.X509Certificates
-
-Public Class ActorFamily_should
+﻿Public Class ActorFamily_should
     Private Function CreateSut(
                               Optional mapName As String = "map name",
                               Optional mapType As String = "map type",
