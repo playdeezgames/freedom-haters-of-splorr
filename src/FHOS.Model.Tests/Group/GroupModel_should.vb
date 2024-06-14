@@ -4,7 +4,6 @@
         Dim sut = CreateSut()
         sut.Name.ShouldBe("group name")
 
-        Should.Throw(Of InvalidOperationException)(Function() sut.Standards)
         Should.Throw(Of InvalidOperationException)(Function() sut.Conviction)
 
         sut.ChildPlanets.ShouldBeEmpty

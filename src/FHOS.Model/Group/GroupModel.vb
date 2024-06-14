@@ -52,12 +52,6 @@ Friend Class GroupModel
         Return (ToLevelName(statisticValue), statisticValue)
     End Function
 
-    Public ReadOnly Property Standards As (LevelName As String, Value As Integer) Implements IGroupModel.Standards
-        Get
-            Return ToLevelAndValue(StatisticTypes.Standards)
-        End Get
-    End Property
-
     Public ReadOnly Property Conviction As (LevelName As String, Value As Integer) Implements IGroupModel.Conviction
         Get
             Return ToLevelAndValue(StatisticTypes.Conviction)
@@ -121,7 +115,7 @@ Friend Class GroupModel
 
     Public Function RelationNameTo(otherGroup As IGroupModel) As String Implements IGroupModel.RelationNameTo
         Dim deltaAuthority = otherGroup.Properties.Authority.Value - Properties.Authority.Value
-        Dim deltaStandards = otherGroup.Standards.Value - Standards.Value
+        Dim deltaStandards = otherGroup.Properties.Standards.Value - Properties.Standards.Value
         Dim deltaConviction = otherGroup.Conviction.Value - Conviction.Value
         Select Case CInt(Math.Sqrt(deltaAuthority * deltaAuthority) + (deltaStandards * deltaStandards) + (deltaConviction * deltaConviction))
             Case Is >= HostileThreshold
