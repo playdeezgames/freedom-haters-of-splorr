@@ -11,5 +11,4 @@
     ReadOnly Property ChildPlanetFactions As IEnumerable(Of IGroupModel)
     'properties
     ReadOnly Property Properties As IGroupPropertiesModel
-    ReadOnly Property Conviction As (LevelName As String, Value As Integer)
 End Interface

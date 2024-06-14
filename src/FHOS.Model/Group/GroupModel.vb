@@ -8,13 +8,6 @@ Friend Class GroupModel
     Private Const FriendlyText As String = "Friendly"
     Private Const HostileThreshold As Integer = 50
     Private Const NeutralThreshold As Integer = 25
-    Private Const AcceptableText As String = "Acceptable"
-    Private Const TolerableText As String = "Tolerable"
-    Private Const UnacceptableText As String = "Unacceptable"
-    Private Const AcceptableThreshold = 90
-    Private Const TolerableThreshold = 75
-    Private Const UnacceptableThreshold = 50
-    Private Const InexcusableText As String = "Inexcusable"
     Private ReadOnly group As Persistence.IGroup
 
     Protected Sub New(group As Persistence.IGroup)
@@ -31,30 +24,6 @@ Friend Class GroupModel
     Public ReadOnly Property Name As String Implements IGroupModel.Name
         Get
             Return group.EntityName
-        End Get
-    End Property
-
-    Private Shared Function ToLevelName(value As Integer) As String
-        Select Case value
-            Case Is > AcceptableThreshold
-                Return AcceptableText
-            Case Is > TolerableThreshold
-                Return TolerableText
-            Case Is > UnacceptableThreshold
-                Return UnacceptableText
-            Case Else
-                Return InexcusableText
-        End Select
-    End Function
-
-    Private Function ToLevelAndValue(statisticType As String) As (LevelName As String, Value As Integer)
-        Dim statisticValue = group.Statistics(statisticType).Value
-        Return (ToLevelName(statisticValue), statisticValue)
-    End Function
-
-    Public ReadOnly Property Conviction As (LevelName As String, Value As Integer) Implements IGroupModel.Conviction
-        Get
-            Return ToLevelAndValue(StatisticTypes.Conviction)
         End Get
     End Property
 
@@ -116,7 +85,7 @@ Friend Class GroupModel
     Public Function RelationNameTo(otherGroup As IGroupModel) As String Implements IGroupModel.RelationNameTo
         Dim deltaAuthority = otherGroup.Properties.Authority.Value - Properties.Authority.Value
         Dim deltaStandards = otherGroup.Properties.Standards.Value - Properties.Standards.Value
-        Dim deltaConviction = otherGroup.Conviction.Value - Conviction.Value
+        Dim deltaConviction = otherGroup.Properties.Conviction.Value - Properties.Conviction.Value
         Select Case CInt(Math.Sqrt(deltaAuthority * deltaAuthority) + (deltaStandards * deltaStandards) + (deltaConviction * deltaConviction))
             Case Is >= HostileThreshold
                 Return HostileText
