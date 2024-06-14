@@ -6,8 +6,4 @@
     Property Interior As IMap
     Property Costume As String
     ReadOnly Property Yokes As IActorYokes
-    'yokes
-    Property YokedActor(yokeType As String) As IActor
-    Property YokedGroup(yokeType As String) As IGroup
-    Property YokedStore(yokeType As String) As IStore
 End Interface

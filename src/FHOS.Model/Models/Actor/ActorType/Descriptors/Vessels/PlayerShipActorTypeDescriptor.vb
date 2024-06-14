@@ -22,7 +22,7 @@ Friend Class PlayerShipActorTypeDescriptor
             Interior.
             GetLocation(ship.Interior.Size.Columns \ 2, ship.Interior.Size.Rows \ 2)
         Dim actor = ActorTypes.Descriptors(ActorTypes.Person).CreateActor(location, "(you)")
-        actor.YokedStore(YokeTypes.LifeSupport) = ship.YokedStore(YokeTypes.LifeSupport)
+        actor.Yokes.YokedStore(YokeTypes.LifeSupport) = ship.Yokes.YokedStore(YokeTypes.LifeSupport)
         ship.Family.AddChild(actor)
     End Sub
 
@@ -55,13 +55,13 @@ Friend Class PlayerShipActorTypeDescriptor
             actor.Universe.Avatar.Push(actor)
         End If
         Dim sigmoFaction = actor.Universe.Groups.Single(Function(x) x.EntityType = GroupTypes.Faction AndAlso x.Statistics(StatisticTypes.Authority).Value = 100 AndAlso x.Statistics(StatisticTypes.Standards).Value = 100 AndAlso x.Statistics(StatisticTypes.Conviction).Value = 100)
-        actor.YokedGroup(YokeTypes.Faction) = sigmoFaction
+        actor.Yokes.YokedGroup(YokeTypes.Faction) = sigmoFaction
 
         Dim planetCandidates = sigmoFaction.ChildrenOfType(GroupTypes.PlanetVicinity)
-        actor.YokedGroup(YokeTypes.HomePlanet) = RNG.FromEnumerable(planetCandidates)
+        actor.Yokes.YokedGroup(YokeTypes.HomePlanet) = RNG.FromEnumerable(planetCandidates)
         actor.EntityName = "(yer ship)"
-        actor.YokedStore(YokeTypes.LifeSupport) = actor.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
-        actor.YokedStore(YokeTypes.FuelTank) = actor.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
+        actor.Yokes.YokedStore(YokeTypes.LifeSupport) = actor.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
+        actor.Yokes.YokedStore(YokeTypes.FuelTank) = actor.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
         InitializePlayerShipInterior(actor)
         InitializePlayerShipCrew(actor)
     End Sub

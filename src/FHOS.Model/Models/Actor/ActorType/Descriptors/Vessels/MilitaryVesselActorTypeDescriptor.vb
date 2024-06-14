@@ -23,8 +23,8 @@ Friend Class MilitaryVesselActorTypeDescriptor
 
     Protected Overrides Sub Initialize(actor As IActor)
         Dim faction = RNG.FromGenerator(actor.Universe.Groups.Where(Function(x) x.EntityType = GroupTypes.Faction).ToDictionary(Function(x) x, Function(x) x.Statistics(StatisticTypes.PlanetCount).Value))
-        actor.YokedGroup(YokeTypes.Faction) = faction
-        actor.YokedGroup(YokeTypes.HomePlanet) = RNG.FromEnumerable(faction.ChildrenOfType(GroupTypes.PlanetVicinity))
+        actor.Yokes.YokedGroup(YokeTypes.Faction) = faction
+        actor.Yokes.YokedGroup(YokeTypes.HomePlanet) = RNG.FromEnumerable(faction.ChildrenOfType(GroupTypes.PlanetVicinity))
         actor.EntityName = $"{faction.EntityName} Military Vessel"
     End Sub
 

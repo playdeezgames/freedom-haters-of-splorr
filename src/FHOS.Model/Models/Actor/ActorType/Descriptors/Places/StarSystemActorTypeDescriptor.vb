@@ -27,7 +27,7 @@ Friend Class StarSystemActorTypeDescriptor
         result.Add(($"Type: {descriptor.StarTypeName}", Hues.Black))
         Dim location = actor.Location
         result.Add(($"Galactic Position: ({location.Position.Column}, {location.Position.Row})", Hues.Black))
-        Dim starSystemGroup = actor.YokedGroup(YokeTypes.StarSystem)
+        Dim starSystemGroup = actor.Yokes.YokedGroup(YokeTypes.StarSystem)
         result.Add(($"Planets: { starSystemGroup.Statistics(StatisticTypes.PlanetCount)}", Hues.Black))
         result.Add(($"Satellites: {starSystemGroup.Statistics(StatisticTypes.SatelliteCount)}", Hues.Black))
         result.Add(($"Wormholes: {starSystemGroup.Statistics(StatisticTypes.WormholeCount)}", Hues.Black))

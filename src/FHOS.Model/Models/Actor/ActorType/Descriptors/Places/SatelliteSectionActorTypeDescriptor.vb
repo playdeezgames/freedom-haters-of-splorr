@@ -25,7 +25,7 @@ Friend Class SatelliteSectionActorTypeDescriptor
     Friend Overrides Function Describe(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
         Dim result As New List(Of (Text As String, Hue As Integer))
         result.Add(($"Satellite Type: {SatelliteTypes.Descriptors(actor.Descriptor.Subtype).SatelliteType}", Hues.Black))
-        Dim planetVicinityGroup = actor.YokedGroup(YokeTypes.Satellite).SingleParent(GroupTypes.PlanetVicinity)
+        Dim planetVicinityGroup = actor.Yokes.YokedGroup(YokeTypes.Satellite).SingleParent(GroupTypes.PlanetVicinity)
         Dim starSystemGroup = planetVicinityGroup.SingleParent(GroupTypes.StarSystem)
         result.Add(($"Planet: {planetVicinityGroup.EntityName}", Hues.Black))
         result.Add(($"Star System: {starSystemGroup.EntityName}", Hues.Black))

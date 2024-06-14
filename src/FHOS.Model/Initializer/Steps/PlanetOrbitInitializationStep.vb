@@ -12,7 +12,7 @@ Friend Class PlanetOrbitInitializationStep
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planet = location.Actor
         Dim actors = location.Map.Locations.Where(Function(x) If(x.Actor?.Descriptor?.IsPlanet, False)).Select(Function(x) x.Actor)
-        Dim map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.YokedGroup(YokeTypes.Planet).EntityName} Orbit", planet.Universe)
+        Dim map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.Yokes.YokedGroup(YokeTypes.Planet).EntityName} Orbit", planet.Universe)
         map.YokedGroup(YokeTypes.Planet) = planetGroup
         planet.Interior = map
         For Each actor In actors
@@ -36,8 +36,8 @@ Friend Class PlanetOrbitInitializationStep
         Next
     End Sub
     Private Shared Sub PlacePlanetSection(externalActor As IActor, location As ILocation, sectionName As String)
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(externalActor.Descriptor.Subtype, sectionName)).CreateActor(location, externalActor.YokedGroup(YokeTypes.Planet).EntityName)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetSection(externalActor.Descriptor.Subtype, sectionName)).CreateActor(location, externalActor.Yokes.YokedGroup(YokeTypes.Planet).EntityName)
         location.EntityType = LocationTypes.Planet
-        actor.YokedGroup(YokeTypes.Planet) = externalActor.YokedGroup(YokeTypes.Planet)
+        actor.Yokes.YokedGroup(YokeTypes.Planet) = externalActor.Yokes.YokedGroup(YokeTypes.Planet)
     End Sub
 End Class

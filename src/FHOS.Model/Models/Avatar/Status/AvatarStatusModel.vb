@@ -16,13 +16,13 @@ Friend Class AvatarStatusModel
 
     Public ReadOnly Property Dead As Boolean Implements IAvatarStatusModel.Dead
         Get
-            Return actor.YokedStore(YokeTypes.LifeSupport).CurrentValue = actor.YokedStore(YokeTypes.LifeSupport).MinimumValue.Value
+            Return actor.Yokes.YokedStore(YokeTypes.LifeSupport).CurrentValue = actor.Yokes.YokedStore(YokeTypes.LifeSupport).MinimumValue.Value
         End Get
     End Property
 
     Public ReadOnly Property Bankrupt As Boolean Implements IAvatarStatusModel.Bankrupt
         Get
-            Return If(actor.YokedStore(YokeTypes.Wallet).CurrentValue = actor.YokedStore(YokeTypes.Wallet).MinimumValue, False)
+            Return If(actor.Yokes.YokedStore(YokeTypes.Wallet).CurrentValue = actor.Yokes.YokedStore(YokeTypes.Wallet).MinimumValue, False)
         End Get
     End Property
 

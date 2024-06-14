@@ -51,7 +51,7 @@ Friend Class GalaxyInitializationStep
         starSystemGroup.Statistics(StatisticTypes.TradingPostCount) = 0
         Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarSystem(starType)).CreateActor(location, $"{starSystemGroup.EntityName}")
         location.EntityType = LocationTypes.StarSystem
-        actor.YokedGroup(YokeTypes.StarSystem) = starSystemGroup
+        actor.Yokes.YokedGroup(YokeTypes.StarSystem) = starSystemGroup
         addStep(New StarSystemInitializationStep(location, nameGenerator, starSystemGroup), False)
     End Sub
 End Class

@@ -20,7 +20,7 @@ Friend Class StarSystemInitializationStep
         actor.Interior = map
         PlaceBoundaryActors(actor, descriptor.Size.Columns, descriptor.Size.Rows)
         PlaceStar(actor, addStep)
-        actor.YokedGroup(YokeTypes.StarSystem).Statistics(StatisticTypes.PlanetCount) = PlacePlanets(actor, addStep)
+        actor.Yokes.YokedGroup(YokeTypes.StarSystem).Statistics(StatisticTypes.PlanetCount) = PlacePlanets(actor, addStep)
         addStep(New EncounterInitializationStep(map), True)
     End Sub
 
@@ -55,14 +55,14 @@ Friend Class StarSystemInitializationStep
         Dim location = exteriorActor.Interior.GetLocation(column, row)
         location.EntityType = LocationTypes.PlanetVicinity
         Dim planetVicinityGroup = location.Universe.Factory.CreateGroup(GroupTypes.PlanetVicinity, nameGenerator.GenerateUnusedName)
-        planetVicinityGroup.AddParent(exteriorActor.YokedGroup(YokeTypes.StarSystem))
+        planetVicinityGroup.AddParent(exteriorActor.Yokes.YokedGroup(YokeTypes.StarSystem))
         Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetVicinity(planetType)).CreateActor(location, $"{planetVicinityGroup.EntityName}")
-        actor.YokedGroup(YokeTypes.PlanetVicinity) = planetVicinityGroup
+        actor.Yokes.YokedGroup(YokeTypes.PlanetVicinity) = planetVicinityGroup
         planetVicinityGroup.Statistics(StatisticTypes.ShipyardCount) = 0
         planetVicinityGroup.Statistics(StatisticTypes.TradingPostCount) = 0
         planetVicinityGroup.Statistics(StatisticTypes.StarDockCount) = 0
         planetVicinityGroup.Statistics(StatisticTypes.StarGateCount) = 0
-        actor.YokedGroup(YokeTypes.StarSystem) = exteriorActor.YokedGroup(YokeTypes.StarSystem)
+        actor.Yokes.YokedGroup(YokeTypes.StarSystem) = exteriorActor.Yokes.YokedGroup(YokeTypes.StarSystem)
         addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
     End Sub
 
@@ -70,7 +70,7 @@ Friend Class StarSystemInitializationStep
         Dim starColumn = externalActor.Interior.Size.Columns \ 2
         Dim starRow = externalActor.Interior.Size.Rows \ 2
         Dim location = externalActor.Interior.GetLocation(starColumn, starRow)
-        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarVicinity(externalActor.Descriptor.Subtype)).CreateActor(location, externalActor.YokedGroup(YokeTypes.StarSystem).EntityName)
+        Dim actor = ActorTypes.Descriptors(ActorTypes.MakeStarVicinity(externalActor.Descriptor.Subtype)).CreateActor(location, externalActor.Yokes.YokedGroup(YokeTypes.StarSystem).EntityName)
         location.EntityType = LocationTypes.StarVicinity
         addStep(New StarVicinityInitializationStep(location), False)
     End Sub

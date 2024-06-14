@@ -25,7 +25,7 @@ Friend Class PlanetVicinityActorTypeDescriptor
         Dim result As New List(Of (Text As String, Hue As Integer))
         Dim planetType = PlanetTypes.Descriptors(actor.Descriptor.Subtype)
         result.Add(($"Planet Type: {planetType.PlanetType}", Hues.Black))
-        Dim planetVicinityGroup = actor.YokedGroup(YokeTypes.PlanetVicinity)
+        Dim planetVicinityGroup = actor.Yokes.YokedGroup(YokeTypes.PlanetVicinity)
         result.Add(($"Faction: { planetVicinityGroup.SingleParent(GroupTypes.Faction).EntityName}", Hues.Black))
         result.Add(($"Satellites: {planetVicinityGroup.Statistics(StatisticTypes.SatelliteCount)}", Hues.Black))
         result.Add(($"Star Gates: {planetVicinityGroup.Statistics(StatisticTypes.StarGateCount)}", Hues.Black))

@@ -45,51 +45,6 @@
         sut.EntityName.ShouldBe(entityName)
     End Sub
     <Fact>
-    Sub have_no_yokes_to_actors()
-        Const yokeType = "yoke type"
-        Dim sut = CreateSut()
-        sut.YokedActor(yokeType).ShouldBeNull
-    End Sub
-    <Fact>
-    Sub allow_yoking_to_actors()
-        Const yokeType = "yoke type"
-        Dim sut = CreateSut()
-        sut.YokedActor(yokeType) = sut
-        sut.YokedActor(yokeType).Id.ShouldBe(sut.Id)
-    End Sub
-    <Fact>
-    Sub allow_unyoking_to_actors()
-        Const yokeType = "yoke type"
-        Dim sut = CreateSut()
-        sut.YokedActor(yokeType) = sut
-        sut.YokedActor(yokeType) = Nothing
-        sut.YokedActor(yokeType).ShouldBeNull
-    End Sub
-    <Fact>
-    Sub have_no_yokes_to_stores()
-        Const yokeType = "yoke type"
-        Dim sut = CreateSut()
-        sut.YokedStore(yokeType).ShouldBeNull
-    End Sub
-    <Fact>
-    Sub allow_yoking_to_stores()
-        Const yokeType = "yoke type"
-        Dim universe = CreateUniverse()
-        Dim sut = CreateSut(universe:=universe)
-        Dim store = universe.Factory.CreateStore(0)
-        sut.YokedStore(yokeType) = store
-        sut.YokedStore(yokeType).Id.ShouldBe(store.Id)
-    End Sub
-    <Fact>
-    Sub allow_unyoking_to_stores()
-        Const yokeType = "yoke type"
-        Dim universe = CreateUniverse()
-        Dim sut = CreateSut(universe:=universe)
-        Dim store = universe.Factory.CreateStore(0)
-        sut.YokedStore(yokeType) = store
-        sut.YokedStore(yokeType) = Nothing
-    End Sub
-    <Fact>
     Sub have_location()
         Dim universe = CreateUniverse()
         Dim sut = CreateSut(universe:=universe)
@@ -107,35 +62,6 @@
         sut.Location = location
         oldLocation.Actor.ShouldBeNull
         location.Actor.Id.ShouldBe(actorId)
-    End Sub
-    <Fact>
-    Sub have_no_yokes_to_groups()
-        Const yokeType = "yoke type"
-        Dim sut = CreateSut()
-        sut.YokedGroup(yokeType).ShouldBeNull
-    End Sub
-    <Fact>
-    Sub allow_yoking_to_groups()
-        Const yokeType = "yoke type"
-        Const groupType = "group type"
-        Const groupName = "group name"
-        Dim universe = CreateUniverse()
-        Dim group = universe.Factory.CreateGroup(groupType, groupName)
-        Dim sut = CreateSut(universe:=universe)
-        sut.YokedGroup(yokeType) = group
-        sut.YokedGroup(yokeType).Id.ShouldBe(group.Id)
-    End Sub
-    <Fact>
-    Sub allow_unyoking_to_groups()
-        Const yokeType = "yoke type"
-        Const groupType = "group type"
-        Const groupName = "group name"
-        Dim universe = CreateUniverse()
-        Dim group = universe.Factory.CreateGroup(groupType, groupName)
-        Dim sut = CreateSut(universe:=universe)
-        sut.YokedGroup(yokeType) = group
-        sut.YokedGroup(yokeType) = Nothing
-        sut.YokedGroup(yokeType).ShouldBeNull
     End Sub
     <Fact>
     Sub have_interior()

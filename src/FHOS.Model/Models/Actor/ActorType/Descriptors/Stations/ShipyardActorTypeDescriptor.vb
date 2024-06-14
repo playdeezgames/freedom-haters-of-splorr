@@ -20,7 +20,7 @@
     End Sub
 
     Protected Overrides Function MakeName(planet As Persistence.IActor) As String
-        Return $"{planet.YokedGroup(YokeTypes.Planet).EntityName} Shipyard"
+        Return $"{planet.Yokes.YokedGroup(YokeTypes.Planet).EntityName} Shipyard"
     End Function
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
@@ -29,7 +29,7 @@
 
     Friend Overrides Function Describe(actor As Persistence.IActor) As IEnumerable(Of (Text As String, Hue As Integer))
         Return {
-            ($"Faction: {actor.YokedGroup(YokeTypes.Faction).EntityName}", Hues.Black)
+            ($"Faction: {actor.Yokes.YokedGroup(YokeTypes.Faction).EntityName}", Hues.Black)
             }
     End Function
 End Class
