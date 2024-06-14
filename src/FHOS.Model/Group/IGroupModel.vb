@@ -3,9 +3,6 @@
     Function RelationNameTo(otherGroup As IGroupModel) As String
     'parents
     ReadOnly Property Parents As IGroupParentsModel
-    ReadOnly Property ParentStarSystem As IGroupModel
-    ReadOnly Property ParentPlanet As IGroupModel
-    ReadOnly Property ParentFaction As IGroupModel
     'children
     ReadOnly Property ChildPlanets As IEnumerable(Of IGroupModel)
     ReadOnly Property ChildSatellites As IEnumerable(Of IGroupModel)

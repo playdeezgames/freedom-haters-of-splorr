@@ -10,9 +10,6 @@
         sut.ChildPlanetFactions.ShouldBeEmpty
 
         sut.Parents.ShouldNotBeNull
-        sut.ParentStarSystem.ShouldBeNull
-        sut.ParentPlanet.ShouldBeNull
-        sut.ParentFaction.ShouldBeNull
     End Sub
 
     Private Function CreateSut() As IGroupModel
