@@ -72,6 +72,35 @@
         Dim store = universe.Factory.CreateStore(0)
         sut.YokedStore(yokeType) = store
         sut.YokedStore(yokeType) = Nothing
+        sut.YokedStore(yokeType).ShouldBeNull
     End Sub
-
+    <Fact>
+    Sub have_no_yokes_to_groups()
+        Const yokeType = "yoke type"
+        Dim sut = CreateSut()
+        sut.YokedGroup(yokeType).ShouldBeNull
+    End Sub
+    <Fact>
+    Sub allow_yoking_to_groups()
+        Const yokeType = "yoke type"
+        Const groupType = "group type"
+        Const groupName = "group name"
+        Dim universe = CreateUniverse()
+        Dim sut = CreateSut(universe:=universe)
+        Dim group = universe.Factory.CreateGroup(groupType, groupName)
+        sut.YokedGroup(yokeType) = group
+        sut.YokedGroup(yokeType).Id.ShouldBe(group.Id)
+    End Sub
+    <Fact>
+    Sub allow_unyoking_to_groups()
+        Const yokeType = "yoke type"
+        Const groupType = "group type"
+        Const groupName = "group name"
+        Dim universe = CreateUniverse()
+        Dim sut = CreateSut(universe:=universe)
+        Dim group = universe.Factory.CreateGroup(groupType, groupName)
+        sut.YokedGroup(yokeType) = group
+        sut.YokedGroup(yokeType) = Nothing
+        sut.YokedGroup(yokeType).ShouldBeNull
+    End Sub
 End Class
