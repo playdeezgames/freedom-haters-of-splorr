@@ -9,7 +9,7 @@ Friend Class TransportToActorInteractionModel
 
     Public Overrides Sub Perform()
         actor.GoToOtherActor(
-            actor.Interactor.Yokes.YokedActor(YokeTypes.Target),
+            actor.Interactor.Yokes.Actor(YokeTypes.Target),
             Sub(success, otherActor)
                 If Not success Then
                     actor.Universe.Messages.Add("Destination Blocked!", ("The other end is blocked!", Hues.Red))
@@ -17,7 +17,7 @@ Friend Class TransportToActorInteractionModel
                     If otherActor.Descriptor.IsStarSystem Then
                         actor.SetStarSystem(Nothing)
                     ElseIf otherActor.Descriptor.IsWormhole Then
-                        actor.SetStarSystem(otherActor.Yokes.YokedGroup(YokeTypes.StarSystem))
+                        actor.SetStarSystem(otherActor.Yokes.Group(YokeTypes.StarSystem))
                     End If
                 End If
                 actor.ClearInteractor()

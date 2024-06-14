@@ -28,7 +28,7 @@
     Sub have_no_yokes_to_actors()
         Const yokeType = "yoke type"
         Dim sut = CreateSut()
-        sut.YokedActor(yokeType).ShouldBeNull
+        sut.Actor(yokeType).ShouldBeNull
     End Sub
     <Fact>
     Sub allow_yoking_to_actors()
@@ -36,8 +36,8 @@
         Dim universe = CreateUniverse()
         Dim sut = CreateSut(universe:=universe)
         Dim actor = universe.Actors.Single
-        sut.YokedActor(yokeType) = actor
-        sut.YokedActor(yokeType).Id.ShouldBe(actor.Id)
+        sut.Actor(yokeType) = actor
+        sut.Actor(yokeType).Id.ShouldBe(actor.Id)
     End Sub
     <Fact>
     Sub allow_unyoking_to_actors()
@@ -45,15 +45,15 @@
         Dim universe = CreateUniverse()
         Dim sut = CreateSut(universe:=universe)
         Dim actor = universe.Actors.Single
-        sut.YokedActor(yokeType) = actor
-        sut.YokedActor(yokeType) = Nothing
-        sut.YokedActor(yokeType).ShouldBeNull
+        sut.Actor(yokeType) = actor
+        sut.Actor(yokeType) = Nothing
+        sut.Actor(yokeType).ShouldBeNull
     End Sub
     <Fact>
     Sub have_no_yokes_to_stores()
         Const yokeType = "yoke type"
         Dim sut = CreateSut()
-        sut.YokedStore(yokeType).ShouldBeNull
+        sut.Store(yokeType).ShouldBeNull
     End Sub
     <Fact>
     Sub allow_yoking_to_stores()
@@ -61,8 +61,8 @@
         Dim universe = CreateUniverse()
         Dim sut = CreateSut(universe:=universe)
         Dim store = universe.Factory.CreateStore(0)
-        sut.YokedStore(yokeType) = store
-        sut.YokedStore(yokeType).Id.ShouldBe(store.Id)
+        sut.Store(yokeType) = store
+        sut.Store(yokeType).Id.ShouldBe(store.Id)
     End Sub
     <Fact>
     Sub allow_unyoking_to_stores()
@@ -70,15 +70,15 @@
         Dim universe = CreateUniverse()
         Dim sut = CreateSut(universe:=universe)
         Dim store = universe.Factory.CreateStore(0)
-        sut.YokedStore(yokeType) = store
-        sut.YokedStore(yokeType) = Nothing
-        sut.YokedStore(yokeType).ShouldBeNull
+        sut.Store(yokeType) = store
+        sut.Store(yokeType) = Nothing
+        sut.Store(yokeType).ShouldBeNull
     End Sub
     <Fact>
     Sub have_no_yokes_to_groups()
         Const yokeType = "yoke type"
         Dim sut = CreateSut()
-        sut.YokedGroup(yokeType).ShouldBeNull
+        sut.Group(yokeType).ShouldBeNull
     End Sub
     <Fact>
     Sub allow_yoking_to_groups()
@@ -88,8 +88,8 @@
         Dim universe = CreateUniverse()
         Dim sut = CreateSut(universe:=universe)
         Dim group = universe.Factory.CreateGroup(groupType, groupName)
-        sut.YokedGroup(yokeType) = group
-        sut.YokedGroup(yokeType).Id.ShouldBe(group.Id)
+        sut.Group(yokeType) = group
+        sut.Group(yokeType).Id.ShouldBe(group.Id)
     End Sub
     <Fact>
     Sub allow_unyoking_to_groups()
@@ -99,8 +99,8 @@
         Dim universe = CreateUniverse()
         Dim sut = CreateSut(universe:=universe)
         Dim group = universe.Factory.CreateGroup(groupType, groupName)
-        sut.YokedGroup(yokeType) = group
-        sut.YokedGroup(yokeType) = Nothing
-        sut.YokedGroup(yokeType).ShouldBeNull
+        sut.Group(yokeType) = group
+        sut.Group(yokeType) = Nothing
+        sut.Group(yokeType).ShouldBeNull
     End Sub
 End Class

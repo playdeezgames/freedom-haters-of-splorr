@@ -8,7 +8,7 @@
     Public Overrides Sub Perform()
         Dim scrap = If(actor.Statistics(StatisticTypes.Scrap), 0)
         actor.Statistics(StatisticTypes.Scrap) = 0
-        actor.Yokes.YokedStore(YokeTypes.Wallet).CurrentValue += scrap
+        actor.Yokes.Store(YokeTypes.Wallet).CurrentValue += scrap
         actor.Universe.Messages.Add(
             "Sell Scrap!",
             ($"Gain {scrap} Jools!", Black))

@@ -8,11 +8,11 @@ Friend Class ActorYokes
         MyBase.New(universeData, actorId)
     End Sub
 
-    Public Property YokedActor(yokeType As String) As IActor Implements IActorYokes.YokedActor
+    Public Property Actor(yokeType As String) As IActor Implements IActorYokes.Actor
         Get
             Dim id As Integer
             If EntityData.YokedActors.TryGetValue(yokeType, id) Then
-                Return Actor.FromId(UniverseData, id)
+                Return Persistence.Actor.FromId(UniverseData, id)
             End If
             Return Nothing
         End Get
@@ -25,11 +25,11 @@ Friend Class ActorYokes
         End Set
     End Property
 
-    Public Property YokedGroup(yokeType As String) As IGroup Implements IActorYokes.YokedGroup
+    Public Property Group(yokeType As String) As IGroup Implements IActorYokes.Group
         Get
             Dim id As Integer
             If EntityData.YokedGroups.TryGetValue(yokeType, id) Then
-                Return Group.FromId(UniverseData, id)
+                Return Persistence.Group.FromId(UniverseData, id)
             End If
             Return Nothing
         End Get
@@ -42,11 +42,11 @@ Friend Class ActorYokes
         End Set
     End Property
 
-    Public Property YokedStore(yokeType As String) As IStore Implements IActorYokes.YokedStore
+    Public Property Store(yokeType As String) As IStore Implements IActorYokes.Store
         Get
             Dim id As Integer
             If EntityData.YokedStores.TryGetValue(yokeType, id) Then
-                Return Store.FromId(UniverseData, id)
+                Return Persistence.Store.FromId(UniverseData, id)
             End If
             Return Nothing
         End Get

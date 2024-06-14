@@ -5,11 +5,11 @@ Imports SPLORR.Game
 Friend Module ActorExtensions
     <Extension>
     Sub ClearInteractor(actor As IActor)
-        actor.Yokes.YokedActor(YokeTypes.Interactor) = Nothing
+        actor.Yokes.Actor(YokeTypes.Interactor) = Nothing
     End Sub
     <Extension>
     Function Interactor(actor As IActor) As IActor
-        Return actor.Yokes.YokedActor(YokeTypes.Interactor)
+        Return actor.Yokes.Actor(YokeTypes.Interactor)
     End Function
     <Extension>
     Function CostumeDescriptor(actor As IActor) As CostumeTypeDescriptor
@@ -22,7 +22,7 @@ Friend Module ActorExtensions
 
     <Extension>
     Function NeedsOxygen(actor As IActor) As Boolean
-        Return actor.Yokes.YokedStore(YokeTypes.LifeSupport).NeedsTopOff
+        Return actor.Yokes.Store(YokeTypes.LifeSupport).NeedsTopOff
     End Function
 
     <Extension>
@@ -43,7 +43,7 @@ Friend Module ActorExtensions
             Return
         End If
         If nextLocation.Actor IsNot Nothing Then
-            actor.Yokes.YokedActor(YokeTypes.Interactor) = nextLocation.Actor
+            actor.Yokes.Actor(YokeTypes.Interactor) = nextLocation.Actor
             Return
         End If
         If Not CanEnterLocation(nextLocation, actor) Then
@@ -60,9 +60,9 @@ Friend Module ActorExtensions
 
     <Extension>
     Sub DoFuelConsumption(actor As IActor)
-        If actor.Yokes.YokedStore(YokeTypes.FuelTank) IsNot Nothing Then
-            actor.Yokes.YokedStore(YokeTypes.FuelTank).CurrentValue -= 1
-            If actor.Yokes.YokedStore(YokeTypes.FuelTank).CurrentValue = actor.Yokes.YokedStore(YokeTypes.FuelTank).MinimumValue.Value Then
+        If actor.Yokes.Store(YokeTypes.FuelTank) IsNot Nothing Then
+            actor.Yokes.Store(YokeTypes.FuelTank).CurrentValue -= 1
+            If actor.Yokes.Store(YokeTypes.FuelTank).CurrentValue = actor.Yokes.Store(YokeTypes.FuelTank).MinimumValue.Value Then
                 actor.Universe.Messages.Add("Out of Fuel!",
                     {
                         ("You are out of fuel!", Hues.Black),
@@ -77,7 +77,7 @@ Friend Module ActorExtensions
 
     <Extension>
     Function CanMove(actor As IActor) As Boolean
-        Return actor.Yokes.YokedStore(YokeTypes.FuelTank) Is Nothing OrElse
+        Return actor.Yokes.Store(YokeTypes.FuelTank) Is Nothing OrElse
                 AvatarModel.FromActor(actor).Vessel.FuelPercent.Value > 0
     End Function
 
@@ -101,14 +101,14 @@ Friend Module ActorExtensions
     <Extension>
     Sub DoTurn(actor As IActor)
         actor.Universe.Turn += 1
-        actor.Yokes.YokedStore(YokeTypes.LifeSupport).CurrentValue -= 1
+        actor.Yokes.Store(YokeTypes.LifeSupport).CurrentValue -= 1
     End Sub
     <Extension>
     Sub SetStarSystem(actor As IActor, starSystemGroup As IGroup)
-        Dim oldStarSystem = actor.Yokes.YokedGroup(YokeTypes.StarSystem)
+        Dim oldStarSystem = actor.Yokes.Group(YokeTypes.StarSystem)
         If starSystemGroup IsNot Nothing AndAlso (oldStarSystem Is Nothing OrElse oldStarSystem.Id <> starSystemGroup.Id) Then
             starSystemGroup.Statistics(StatisticTypes.VisitCount) += 1
         End If
-        actor.Yokes.YokedGroup(YokeTypes.StarSystem) = starSystemGroup
+        actor.Yokes.Group(YokeTypes.StarSystem) = starSystemGroup
     End Sub
 End Module

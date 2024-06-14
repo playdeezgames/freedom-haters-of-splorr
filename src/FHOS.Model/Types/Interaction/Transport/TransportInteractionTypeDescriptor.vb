@@ -13,7 +13,7 @@ Friend Class TransportInteractionTypeDescriptor
     End Sub
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.Interactor.Yokes.YokedActor(YokeTypes.Target) IsNot Nothing AndAlso check(actor.Yokes.YokedActor(YokeTypes.Interactor))
+        Return actor.Interactor.Yokes.Actor(YokeTypes.Target) IsNot Nothing AndAlso check(actor.Yokes.Actor(YokeTypes.Interactor))
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel

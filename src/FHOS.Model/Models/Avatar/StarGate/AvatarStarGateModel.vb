@@ -10,14 +10,14 @@ Friend Class AvatarStarGateModel
 
     Public ReadOnly Property IsActive As Boolean Implements IAvatarStarGateModel.IsActive
         Get
-            Return actor.Yokes.YokedActor(YokeTypes.StarGate) IsNot Nothing
+            Return actor.Yokes.Actor(YokeTypes.StarGate) IsNot Nothing
         End Get
     End Property
 
     Public ReadOnly Property AvailableGates As IEnumerable(Of (Text As String, Item As IActorModel)) Implements IAvatarStarGateModel.AvailableGates
         Get
-            Dim faction = actor.Yokes.YokedGroup(YokeTypes.Faction)
-            Dim gates = actor.Universe.Actors.Where(Function(x) ActorTypes.Descriptors(x.EntityType).IsStarGate AndAlso x.Yokes.YokedGroup(YokeTypes.Faction).Id = faction.Id)
+            Dim faction = actor.Yokes.Group(YokeTypes.Faction)
+            Dim gates = actor.Universe.Actors.Where(Function(x) ActorTypes.Descriptors(x.EntityType).IsStarGate AndAlso x.Yokes.Group(YokeTypes.Faction).Id = faction.Id)
             Return gates.Select(Function(x) (x.EntityName, ActorModel.FromActor(x)))
         End Get
     End Property
@@ -29,14 +29,14 @@ Friend Class AvatarStarGateModel
                 If Not success Then
                     actor.Universe.Messages.Add("Destination Blocked!", ("The other end is blocked!", Hues.Red))
                 Else
-                    actor.SetStarSystem(otherActor.Yokes.YokedGroup(YokeTypes.StarSystem))
+                    actor.SetStarSystem(otherActor.Yokes.Group(YokeTypes.StarSystem))
                 End If
-                actor.Yokes.YokedActor(YokeTypes.StarGate) = Nothing
+                actor.Yokes.Actor(YokeTypes.StarGate) = Nothing
             End Sub)
     End Sub
 
     Public Sub Leave() Implements IAvatarStarGateModel.Leave
-        actor.Yokes.YokedActor(YokeTypes.StarGate) = Nothing
+        actor.Yokes.Actor(YokeTypes.StarGate) = Nothing
     End Sub
 
     Friend Shared Function FromActor(actor As Persistence.IActor) As IAvatarStarGateModel

@@ -23,10 +23,10 @@
             New SellScrapInteractionTypeDescriptor(),
             New RefuelInteractionTypeDescriptor(),
             New TransportInteractionTypeDescriptor(EnterWormhole, "Enter Wormhole", Function(x) x.Descriptor.IsWormhole),
-            New TransportInteractionTypeDescriptor(LeaveOrbit, "Leave Orbit", Function(x) x.Yokes.YokedActor(YokeTypes.Target).Descriptor.IsSatellite OrElse x.Yokes.YokedActor(YokeTypes.Target).Descriptor.IsPlanet),
-            New TransportInteractionTypeDescriptor(LeavePlanetVicinity, "Leave Planet Vicinity", Function(x) x.Yokes.YokedActor(YokeTypes.Target).Descriptor.IsPlanetVicinity),
-            New TransportInteractionTypeDescriptor(LeaveStarSystem, "Leave Star System", Function(x) x.Yokes.YokedActor(YokeTypes.Target).Descriptor.IsStarSystem),
-            New TransportInteractionTypeDescriptor(LeaveStarVicinity, "Leave Star Vicinity", Function(x) x.Yokes.YokedActor(YokeTypes.Target).Descriptor.IsStarVicinity),
+            New TransportInteractionTypeDescriptor(LeaveOrbit, "Leave Orbit", Function(x) x.Yokes.Actor(YokeTypes.Target).Descriptor.IsSatellite OrElse x.Yokes.Actor(YokeTypes.Target).Descriptor.IsPlanet),
+            New TransportInteractionTypeDescriptor(LeavePlanetVicinity, "Leave Planet Vicinity", Function(x) x.Yokes.Actor(YokeTypes.Target).Descriptor.IsPlanetVicinity),
+            New TransportInteractionTypeDescriptor(LeaveStarSystem, "Leave Star System", Function(x) x.Yokes.Actor(YokeTypes.Target).Descriptor.IsStarSystem),
+            New TransportInteractionTypeDescriptor(LeaveStarVicinity, "Leave Star Vicinity", Function(x) x.Yokes.Actor(YokeTypes.Target).Descriptor.IsStarVicinity),
             New EnterInteriorInteractionTypeDescriptor(EnterOrbit, "Enter Orbit", Function(x) x.Descriptor.IsSatellite OrElse x.Descriptor.IsPlanet),
             New EnterInteriorInteractionTypeDescriptor(Approach, "Approach", Function(x) x.Descriptor.IsPlanetVicinity OrElse x.Descriptor.IsStarSystem OrElse x.Descriptor.IsStarVicinity)
         }.ToDictionary(Function(x) x.InteractionType, Function(x) x)

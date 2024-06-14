@@ -30,7 +30,7 @@ Friend Class PlanetSectionActorTypeDescriptor
     End Function
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
-        Dim planetGroup = actor.Yokes.YokedGroup(YokeTypes.Planet)
+        Dim planetGroup = actor.Yokes.Group(YokeTypes.Planet)
         Dim planetVicinityGroup = planetGroup.SingleParent(GroupTypes.PlanetVicinity)
         Dim factionGroup = planetVicinityGroup.SingleParent(GroupTypes.Faction)
         Dim starSystemGroup = planetVicinityGroup.SingleParent(GroupTypes.StarSystem)

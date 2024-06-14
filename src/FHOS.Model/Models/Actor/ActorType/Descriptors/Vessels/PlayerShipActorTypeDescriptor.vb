@@ -22,7 +22,7 @@ Friend Class PlayerShipActorTypeDescriptor
             Interior.
             GetLocation(ship.Interior.Size.Columns \ 2, ship.Interior.Size.Rows \ 2)
         Dim actor = ActorTypes.Descriptors(ActorTypes.Person).CreateActor(location, "(you)")
-        actor.Yokes.YokedStore(YokeTypes.LifeSupport) = ship.Yokes.YokedStore(YokeTypes.LifeSupport)
+        actor.Yokes.Store(YokeTypes.LifeSupport) = ship.Yokes.Store(YokeTypes.LifeSupport)
         ship.Family.AddChild(actor)
     End Sub
 
@@ -55,13 +55,13 @@ Friend Class PlayerShipActorTypeDescriptor
             actor.Universe.Avatar.Push(actor)
         End If
         Dim sigmoFaction = actor.Universe.Groups.Single(Function(x) x.EntityType = GroupTypes.Faction AndAlso x.Statistics(StatisticTypes.Authority).Value = 100 AndAlso x.Statistics(StatisticTypes.Standards).Value = 100 AndAlso x.Statistics(StatisticTypes.Conviction).Value = 100)
-        actor.Yokes.YokedGroup(YokeTypes.Faction) = sigmoFaction
+        actor.Yokes.Group(YokeTypes.Faction) = sigmoFaction
 
         Dim planetCandidates = sigmoFaction.ChildrenOfType(GroupTypes.PlanetVicinity)
-        actor.Yokes.YokedGroup(YokeTypes.HomePlanet) = RNG.FromEnumerable(planetCandidates)
+        actor.Yokes.Group(YokeTypes.HomePlanet) = RNG.FromEnumerable(planetCandidates)
         actor.EntityName = "(yer ship)"
-        actor.Yokes.YokedStore(YokeTypes.LifeSupport) = actor.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
-        actor.Yokes.YokedStore(YokeTypes.FuelTank) = actor.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
+        actor.Yokes.Store(YokeTypes.LifeSupport) = actor.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
+        actor.Yokes.Store(YokeTypes.FuelTank) = actor.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
         InitializePlayerShipInterior(actor)
         InitializePlayerShipCrew(actor)
     End Sub
