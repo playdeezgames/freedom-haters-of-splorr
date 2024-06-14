@@ -12,7 +12,6 @@
         sut.PlanetList.ShouldBeEmpty
         sut.SatelliteList.ShouldBeEmpty
         sut.FactionsPresent.ShouldBeEmpty
-        sut.Pedia.ShouldNotBeNull
         sut.StarSystem.ShouldBeNull
         sut.Planet.ShouldBeNull
         sut.Faction.ShouldBeNull

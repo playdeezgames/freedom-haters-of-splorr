@@ -92,12 +92,6 @@ Friend Class GroupModel
         End Get
     End Property
 
-    Public ReadOnly Property Pedia As IUniversePediaModel Implements IGroupModel.Pedia
-        Get
-            Return UniversePediaModel.FromUniverse(group.Universe)
-        End Get
-    End Property
-
     Private Function OptionalSingleParent(groupType As String) As IGroupModel
         Return GroupModel.FromGroup(group.Parents.SingleOrDefault(Function(x) x.EntityType = groupType))
     End Function
