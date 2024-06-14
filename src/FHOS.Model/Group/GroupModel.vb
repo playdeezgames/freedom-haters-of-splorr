@@ -15,7 +15,7 @@ Friend Class GroupModel
     Private Const TolerableThreshold = 75
     Private Const UnacceptableThreshold = 50
     Private Const InexcusableText As String = "Inexcusable"
-    Private group As Persistence.IGroup
+    Private ReadOnly group As Persistence.IGroup
 
     Protected Sub New(group As Persistence.IGroup)
         Me.group = group
