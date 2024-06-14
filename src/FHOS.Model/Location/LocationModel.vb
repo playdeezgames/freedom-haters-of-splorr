@@ -20,15 +20,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property LocationType As ILocationTypeModel Implements ILocationModel.LocationType
-        Get
-            If Not Exists Then
-                Return Nothing
-            End If
-            Return New LocationTypeModel(location)
-        End Get
-    End Property
-
     Public ReadOnly Property Actor As IActorModel Implements ILocationModel.Actor
         Get
             Dim locationActor = location?.Actor
@@ -42,6 +33,20 @@
     Public ReadOnly Property HasActor As Boolean Implements ILocationModel.HasActor
         Get
             Return Actor IsNot Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property Sprite As (Glyph As Char, Foreground As Integer, Background As Integer) Implements ILocationModel.Sprite
+        Get
+            With LocationTypes.Descriptors(location.EntityType)
+                Return (.Glyph, .Foreground, .Background)
+            End With
+        End Get
+    End Property
+
+    Public ReadOnly Property Name As String Implements ILocationModel.Name
+        Get
+            Return LocationTypes.Descriptors(location.EntityType).Name
         End Get
     End Property
 End Class

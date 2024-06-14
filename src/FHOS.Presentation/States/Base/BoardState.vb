@@ -42,8 +42,7 @@ Friend MustInherit Class BoardState
             Return
         End If
 
-        Dim locationTypeModel = locationModel.LocationType
-        With locationTypeModel.Sprite
+        With locationModel.Sprite
             uiFont.WriteLeftText(displayBuffer, plotPosition, ChrW(15), .Background)
             uiFont.WriteLeftText(displayBuffer, plotPosition, .Glyph, .Foreground)
         End With
