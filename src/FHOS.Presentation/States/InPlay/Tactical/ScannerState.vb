@@ -56,7 +56,7 @@ Friend Class ScannerState
             displayBuffer,
             uiFont,
             Context.ControlsText(
-                aButton:=If(TargetLocation.HasDetails, "Details", Nothing),
+                aButton:=If(TargetLocation.HasActor, "Details", Nothing),
                 selectButton:="Navigation"),
             Black,
             DarkGray)

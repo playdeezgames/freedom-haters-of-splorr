@@ -5,7 +5,7 @@
         sut.Exists.ShouldBeTrue
         sut.LocationType.ShouldNotBeNull
         sut.Actor.ShouldNotBeNull
-        sut.HasDetails.ShouldBeTrue
+        sut.HasActor.ShouldBeTrue
     End Sub
     <Fact>
     Sub have_default_non_existent_values_upon_initialization()
@@ -13,7 +13,7 @@
         sut.Exists.ShouldBeFalse
         sut.LocationType.ShouldBeNull
         sut.Actor.ShouldBeNull
-        sut.HasDetails.ShouldBeFalse
+        sut.HasActor.ShouldBeFalse
     End Sub
 
     Private Function CreateSut(Optional column As Integer = 0, Optional row As Integer = 0) As ILocationModel

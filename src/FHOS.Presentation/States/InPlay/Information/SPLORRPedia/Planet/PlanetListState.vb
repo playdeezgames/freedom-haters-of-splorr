@@ -25,6 +25,6 @@ Friend Class PlanetListState
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IGroupModel))
-        Return Context.Model.Pedia.PlanetVicinityList.Select(Function(x) (x.Name, x)).ToList
+        Return Context.Model.Pedia.PlanetVicinities.Select(Function(x) (x.Name, x)).ToList
     End Function
 End Class

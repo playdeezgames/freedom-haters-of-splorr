@@ -39,7 +39,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property HasDetails As Boolean Implements ILocationModel.HasDetails
+    Public ReadOnly Property HasActor As Boolean Implements ILocationModel.HasActor
         Get
             Return Actor IsNot Nothing
         End Get

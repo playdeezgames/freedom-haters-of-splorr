@@ -25,6 +25,6 @@ Friend Class SatelliteListState
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IGroupModel))
-        Return Context.Model.Pedia.SatelliteList.Select(Function(x) (x.Name, x)).ToList
+        Return Context.Model.Pedia.Satellites.Select(Function(x) (x.Name, x)).ToList
     End Function
 End Class

@@ -1,6 +1,6 @@
 ﻿Public Interface IUniversePediaModel
-    ReadOnly Property FactionList As IEnumerable(Of IGroupModel)
-    ReadOnly Property StarSystemList As IEnumerable(Of IGroupModel)
-    ReadOnly Property PlanetVicinityList As IEnumerable(Of IGroupModel)
-    ReadOnly Property SatelliteList As IEnumerable(Of IGroupModel)
+    ReadOnly Property Factions As IEnumerable(Of IGroupModel)
+    ReadOnly Property StarSystems As IEnumerable(Of IGroupModel)
+    ReadOnly Property PlanetVicinities As IEnumerable(Of IGroupModel)
+    ReadOnly Property Satellites As IEnumerable(Of IGroupModel)
 End Interface

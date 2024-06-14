@@ -17,25 +17,25 @@ Friend Class UniversePediaModel
         Return universe.Groups.Where(Function(x) x.EntityType = groupType).Select(Function(x) GroupModel.FromGroup(x)).OrderBy(Function(x) x.Name)
     End Function
 
-    Public ReadOnly Property FactionList As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.FactionList
+    Public ReadOnly Property Factions As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.Factions
         Get
             Return SortedGroupsOfType(GroupTypes.Faction)
         End Get
     End Property
 
-    Public ReadOnly Property StarSystemList As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.StarSystemList
+    Public ReadOnly Property StarSystems As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.StarSystems
         Get
             Return SortedGroupsOfType(GroupTypes.StarSystem)
         End Get
     End Property
 
-    Public ReadOnly Property PlanetVicinityList As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.PlanetVicinityList
+    Public ReadOnly Property PlanetVicinities As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.PlanetVicinities
         Get
             Return SortedGroupsOfType(GroupTypes.PlanetVicinity)
         End Get
     End Property
 
-    Public ReadOnly Property SatelliteList As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.SatelliteList
+    Public ReadOnly Property Satellites As IEnumerable(Of IGroupModel) Implements IUniversePediaModel.Satellites
         Get
             Return SortedGroupsOfType(GroupTypes.Satellite)
         End Get
