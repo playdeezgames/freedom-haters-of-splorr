@@ -3,6 +3,9 @@
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
         sut.IsActive.ShouldBeFalse
+        sut.HasOffers.ShouldBeFalse
+        sut.HasPrices.ShouldBeFalse
+        sut.Trader.ShouldBeNull
         Should.NotThrow(Sub() sut.Leave())
     End Sub
 
