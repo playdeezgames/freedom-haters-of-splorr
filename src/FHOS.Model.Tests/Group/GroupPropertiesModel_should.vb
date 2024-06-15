@@ -9,6 +9,7 @@
         Should.Throw(Of InvalidOperationException)(Function() sut.SatelliteCount)
         Should.Throw(Of InvalidOperationException)(Function() sut.Position)
         sut.StarTypeName.ShouldBeNull
+        sut.PlanetTypeName.ShouldBeNull
     End Sub
 
     Private Function CreateSut() As IGroupPropertiesModel

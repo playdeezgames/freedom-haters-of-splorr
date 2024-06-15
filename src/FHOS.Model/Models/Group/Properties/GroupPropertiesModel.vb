@@ -78,6 +78,16 @@ Friend Class GroupPropertiesModel
         End Get
     End Property
 
+    Public ReadOnly Property PlanetTypeName As String Implements IGroupPropertiesModel.PlanetTypeName
+        Get
+            Dim subType = group.Metadatas(MetadataTypes.Subtype)
+            If subType IsNot Nothing Then
+                Return PlanetTypes.Descriptors(subType).PlanetType
+            End If
+            Return Nothing
+        End Get
+    End Property
+
     Friend Shared Function FromGroup(group As IGroup) As IGroupPropertiesModel
         Return New GroupPropertiesModel(group)
     End Function
