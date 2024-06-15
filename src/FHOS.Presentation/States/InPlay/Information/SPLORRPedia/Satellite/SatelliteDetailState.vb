@@ -30,7 +30,10 @@ Friend Class SatelliteDetailState
         With SatelliteListState.SelectedSatellite.Peek
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
-            'position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: {actor.Subtype}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: { .Properties.SatelliteTypeName}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planet: { .Parents.Planet.Name}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Star System: { .Parents.StarSystem.Name}", Hues.Black)
+            position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Faction: { .Parents.Planet.Parents.Faction.Name}", Hues.Black)
             Context.ShowStatusBar(
                 displayBuffer,
                 font,

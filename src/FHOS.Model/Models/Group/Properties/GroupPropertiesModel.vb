@@ -88,6 +88,16 @@ Friend Class GroupPropertiesModel
         End Get
     End Property
 
+    Public ReadOnly Property SatelliteTypeName As String Implements IGroupPropertiesModel.SatelliteTypeName
+        Get
+            Dim subType = group.Metadatas(MetadataTypes.Subtype)
+            If subType IsNot Nothing Then
+                Return SatelliteTypes.Descriptors(subType).SatelliteType
+            End If
+            Return Nothing
+        End Get
+    End Property
+
     Friend Shared Function FromGroup(group As IGroup) As IGroupPropertiesModel
         Return New GroupPropertiesModel(group)
     End Function
