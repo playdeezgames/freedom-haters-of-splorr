@@ -6,6 +6,7 @@
         sut.Interaction.ShouldNotBeNull
         sut.Stack.ShouldNotBeNull
         sut.StarGate.ShouldNotBeNull
+        sut.Trader.ShouldNotBeNull
         sut.State.ShouldNotBeNull
         sut.Status.ShouldNotBeNull
         sut.Verbs.ShouldNotBeNull

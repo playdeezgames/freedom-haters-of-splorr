@@ -12,7 +12,8 @@ Friend MustInherit Class StationActorTypeDescriptor
                   Optional canRefillOxygen As Boolean = False,
                   Optional isStarGate As Boolean = False,
                   Optional buysScrap As Boolean = False,
-                  Optional canRefuel As Boolean = False)
+                  Optional canRefuel As Boolean = False,
+                  Optional canTrade As Boolean = False)
         MyBase.New(
             actorType,
             costumeGenerator,
@@ -20,7 +21,8 @@ Friend MustInherit Class StationActorTypeDescriptor
             canRefillOxygen:=canRefillOxygen,
             isStarGate:=isStarGate,
             buysScrap:=buysScrap,
-            canRefuel:=canRefuel)
+            canRefuel:=canRefuel,
+            canTrade:=canTrade)
         Me.statisticType = statisticType
     End Sub
 

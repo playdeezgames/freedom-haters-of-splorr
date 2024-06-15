@@ -12,6 +12,7 @@
     Friend ReadOnly LeaveStarVicinity As String = NameOf(LeaveStarVicinity)
     Friend ReadOnly LeaveStarSystem As String = NameOf(LeaveStarSystem)
     Friend ReadOnly EnterStarGate As String = NameOf(EnterStarGate)
+    Friend ReadOnly Trade As String = NameOf(Trade)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, InteractionTypeDescriptor) =
         New List(Of InteractionTypeDescriptor) From
@@ -28,6 +29,7 @@
             New TransportInteractionTypeDescriptor(LeaveStarSystem, "Leave Star System", Function(x) x.Yokes.Actor(YokeTypes.Target).Descriptor.IsStarSystem),
             New TransportInteractionTypeDescriptor(LeaveStarVicinity, "Leave Star Vicinity", Function(x) x.Yokes.Actor(YokeTypes.Target).Descriptor.IsStarVicinity),
             New EnterInteriorInteractionTypeDescriptor(EnterOrbit, "Enter Orbit", Function(x) x.Descriptor.IsSatellite OrElse x.Descriptor.IsPlanet),
-            New EnterInteriorInteractionTypeDescriptor(Approach, "Approach", Function(x) x.Descriptor.IsPlanetVicinity OrElse x.Descriptor.IsStarSystem OrElse x.Descriptor.IsStarVicinity)
+            New EnterInteriorInteractionTypeDescriptor(Approach, "Approach", Function(x) x.Descriptor.IsPlanetVicinity OrElse x.Descriptor.IsStarSystem OrElse x.Descriptor.IsStarVicinity),
+            New TradeInteractionTypeDescriptor()
         }.ToDictionary(Function(x) x.InteractionType, Function(x) x)
 End Module

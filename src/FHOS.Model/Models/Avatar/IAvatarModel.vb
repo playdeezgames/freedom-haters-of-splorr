@@ -3,6 +3,7 @@
     ReadOnly Property Interaction As IAvatarInteractionModel
     ReadOnly Property Stack As IAvatarStackModel
     ReadOnly Property StarGate As IAvatarStarGateModel
+    ReadOnly Property Trader As IAvatarTraderModel
     ReadOnly Property State As IAvatarStateModel
     ReadOnly Property Status As IAvatarStatusModel
     ReadOnly Property Verbs As IAvatarVerbsModel

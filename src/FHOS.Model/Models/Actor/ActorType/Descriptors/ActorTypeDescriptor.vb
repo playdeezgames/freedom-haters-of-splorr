@@ -18,6 +18,7 @@ Friend MustInherit Class ActorTypeDescriptor
     Friend ReadOnly Property IsPlanetSection As Boolean
     Friend ReadOnly Property IsWormhole As Boolean
     Friend ReadOnly Property Subtype As String
+    Friend ReadOnly Property CanTrade As Boolean
     Friend ReadOnly Property SpawnRolls As IReadOnlyDictionary(Of String, String)
     Friend MustOverride Function CanSpawn(location As ILocation) As Boolean
     Friend ReadOnly Property CostumeGenerator As IReadOnlyDictionary(Of String, Integer)
@@ -41,7 +42,8 @@ Friend MustInherit Class ActorTypeDescriptor
            Optional isSatellite As Boolean = False,
            Optional isSatelliteSection As Boolean = False,
            Optional isWormhole As Boolean = False,
-           Optional subtype As String = Nothing)
+           Optional subtype As String = Nothing,
+           Optional canTrade As Boolean = False)
         Me.ActorType = actorType
         Me.CostumeGenerator = costumeGenerator
         Me.SpawnRolls = If(spawnRolls, New Dictionary(Of String, String))
@@ -60,6 +62,7 @@ Friend MustInherit Class ActorTypeDescriptor
         Me.IsSatelliteSection = isSatelliteSection
         Me.IsWormhole = isWormhole
         Me.Subtype = subtype
+        Me.CanTrade = canTrade
     End Sub
     Friend Function CreateActor(location As ILocation, name As String) As IActor
         Dim actor = location.CreateActor(ActorType, name)

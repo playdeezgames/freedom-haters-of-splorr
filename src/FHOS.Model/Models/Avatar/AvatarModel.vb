@@ -68,4 +68,10 @@ Friend Class AvatarModel
             Return actor.Yokes.Store(YokeTypes.Wallet).CurrentValue
         End Get
     End Property
+
+    Public ReadOnly Property Trader As IAvatarTraderModel Implements IAvatarModel.Trader
+        Get
+            Return AvatarTraderModel.FromActor(actor)
+        End Get
+    End Property
 End Class

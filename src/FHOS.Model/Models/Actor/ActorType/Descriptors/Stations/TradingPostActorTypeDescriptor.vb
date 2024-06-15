@@ -16,7 +16,8 @@
                     "3d6/10"
                 }
             },
-            buysScrap:=True)
+            buysScrap:=True,
+            CanTrade:=True)
     End Sub
 
     Protected Overrides Function MakeName(planet As Persistence.IActor) As String
