@@ -1,6 +1,6 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class FuelScoopDescriptor
+Friend Class FuelScoopItemTypeDescriptor
     Inherits ItemTypeDescriptor
 
     Public Sub New()

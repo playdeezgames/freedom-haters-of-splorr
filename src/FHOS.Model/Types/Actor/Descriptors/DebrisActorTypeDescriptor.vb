@@ -18,7 +18,11 @@ Friend Class DebrisActorTypeDescriptor
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
-        actor.Statistics(StatisticTypes.Scrap) = RNG.RollDice("4d6")
+        Dim scrapCount = RNG.RollDice("4d6")
+        For Each dummy In Enumerable.Range(0, scrapCount)
+            actor.Inventory.Add(actor.Universe.Factory.CreateItem(ItemTypes.Scrap))
+        Next
+        actor.Statistics(StatisticTypes.Scrap) = scrapCount
         Dim starSystemGroup = actor.Location.Map.YokedGroup(YokeTypes.StarSystem)
         starSystemGroup.Statistics(StatisticTypes.Scrap) += 1
     End Sub

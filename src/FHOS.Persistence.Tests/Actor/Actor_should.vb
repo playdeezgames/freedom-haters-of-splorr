@@ -36,6 +36,7 @@
         sut.Interior.ShouldBeNull
         sut.Costume.ShouldBeNull
         sut.Yokes.ShouldNotBeNull
+        sut.Inventory.ShouldNotBeNull
     End Sub
     <Fact>
     Sub set_entity_name()

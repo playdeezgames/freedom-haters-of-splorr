@@ -62,4 +62,10 @@ Friend Class Actor
             Return ActorYokes.FromId(UniverseData, Id)
         End Get
     End Property
+
+    Public ReadOnly Property Inventory As IActorInventory Implements IActor.Inventory
+        Get
+            Return ActorInventory.FromId(UniverseData, Id)
+        End Get
+    End Property
 End Class

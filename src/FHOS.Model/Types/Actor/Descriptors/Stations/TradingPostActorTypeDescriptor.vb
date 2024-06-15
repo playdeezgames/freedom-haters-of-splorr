@@ -20,6 +20,10 @@
             CanTrade:=True)
     End Sub
 
+    Protected Overrides Sub Initialize(actor As Persistence.IActor)
+        MyBase.Initialize(actor)
+    End Sub
+
     Protected Overrides Function MakeName(planet As Persistence.IActor) As String
         Return $"{planet.EntityName} Trading Post"
     End Function

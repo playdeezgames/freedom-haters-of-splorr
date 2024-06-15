@@ -13,7 +13,7 @@ Friend Class SalvageScrapInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
-        Return New SalvageScrapInteractionModel(actor, RNG.RollDice("4d6"))
+        Return New SalvageScrapInteractionModel(actor)
     End Function
 
     Friend Overrides Function GetText(actor As IActor) As String

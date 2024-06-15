@@ -1,13 +1,12 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class AtmosphericConcentrator
+Friend Class ScrapItemTypeDescriptor
     Inherits ItemTypeDescriptor
 
     Public Sub New()
-        MyBase.New(ItemTypes.AtmosphericConcentrator)
+        MyBase.New(ItemTypes.Scrap)
     End Sub
 
     Protected Overrides Sub Initialize(item As IItem)
-        item.Flags(FlagTypes.CanRefillOxygen) = True
     End Sub
 End Class

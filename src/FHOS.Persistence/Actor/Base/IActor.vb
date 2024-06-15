@@ -6,4 +6,5 @@
     Property Interior As IMap
     Property Costume As String
     ReadOnly Property Yokes As IActorYokes
+    ReadOnly Property Inventory As IActorInventory
 End Interface

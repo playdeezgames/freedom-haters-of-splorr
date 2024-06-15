@@ -1,11 +1,13 @@
 ﻿Friend Module ItemTypes
     Friend ReadOnly FuelScoop As String = NameOf(FuelScoop)
     Friend ReadOnly AtmosphericConcentrator As String = NameOf(AtmosphericConcentrator)
+    Friend ReadOnly Scrap As String = NameOf(Scrap)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, ItemTypeDescriptor) =
         New List(Of ItemTypeDescriptor) From
         {
-            New FuelScoopDescriptor(),
-            New AtmosphericConcentrator()
+            New FuelScoopItemTypeDescriptor(),
+            New AtmosphericConcentratorItemTypeDescriptor(),
+            New ScrapItemTypeDescriptor()
         }.ToDictionary(Function(x) x.ItemType, Function(x) x)
 End Module
