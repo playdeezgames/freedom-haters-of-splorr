@@ -12,6 +12,7 @@
     Friend ReadOnly Interaction As String = NameOf(Interaction)
     Friend ReadOnly LeaveInteraction As String = NameOf(LeaveInteraction)
     Friend ReadOnly LeaveStarGate As String = NameOf(LeaveStarGate)
+    Friend ReadOnly LeaveTrader As String = NameOf(LeaveTrader)
     Friend ReadOnly Message As String = NameOf(Message)
     Friend ReadOnly MoveDown As String = NameOf(MoveDown)
     Friend ReadOnly MoveLeft As String = NameOf(MoveLeft)

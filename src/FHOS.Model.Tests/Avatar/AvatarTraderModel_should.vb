@@ -3,6 +3,7 @@
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
         sut.IsActive.ShouldBeFalse
+        Should.NotThrow(Sub() sut.Leave())
     End Sub
 
     Private Shared Function CreateSut() As IAvatarTraderModel

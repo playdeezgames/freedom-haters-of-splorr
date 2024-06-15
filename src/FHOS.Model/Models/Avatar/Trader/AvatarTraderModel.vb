@@ -11,9 +11,13 @@ Friend Class AvatarTraderModel
 
     Public ReadOnly Property IsActive As Boolean Implements IAvatarTraderModel.IsActive
         Get
-            Return actor.Yokes.Actor(YokeTypes.StarGate) IsNot Nothing
+            Return actor.Yokes.Actor(YokeTypes.Trader) IsNot Nothing
         End Get
     End Property
+
+    Public Sub Leave() Implements IAvatarTraderModel.Leave
+        actor.Yokes.Actor(YokeTypes.Trader) = Nothing
+    End Sub
 
     Friend Shared Function FromActor(actor As IActor) As IAvatarTraderModel
         Return New AvatarTraderModel(actor)
