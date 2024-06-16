@@ -22,6 +22,7 @@ Friend Class ActionMenuState
         {
             {VerbTypes.DistressSignal, GameState.SignalDistress},
             {VerbTypes.Status, GameState.Status},
+            {VerbTypes.Inventory, GameState.Inventory},
             {VerbTypes.SPLORRPedia, GameState.SPLORRPedia},
             {VerbTypes.MoveRight, GameState.MoveRight},
             {VerbTypes.MoveLeft, GameState.MoveLeft},
