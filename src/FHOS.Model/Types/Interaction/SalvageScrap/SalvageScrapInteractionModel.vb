@@ -8,10 +8,13 @@
     Public Overrides Sub Perform()
         Dim interactor = actor.Interactor
         Dim scrap = If(interactor.Statistics(StatisticTypes.Scrap), 0)
-        For Each item In interactor.Inventory.Items
+        Dim loot = interactor.Inventory.Items.ToList
+        For Each item In loot
             interactor.Inventory.Remove(item)
             actor.Inventory.Add(item)
         Next
+        'loot summary
+
         actor.Universe.Messages.Add("Salvage!", ($"You find {scrap} scrap!", Black))
         actor.Statistics(StatisticTypes.Scrap) += scrap
         Dim starSystemGroup = actor.Location.Map.YokedGroup(GroupTypes.StarSystem)

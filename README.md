@@ -1,6 +1,9 @@
 # Freedom Haters of SPLORR!!
 
-  - [ ] 20240613 - SIGMO FHOS Episode 56 - 
+  - [ ] 20240616 - SIGMO FHOS Episode 59 - 
+  - [x] 20240615 - SIGMO FHOS Episode 58 - 
+  - [x] 20240614 - SIGMO FHOS Episode 57 - 
+  - [x] 20240613 - SIGMO FHOS Episode 56 - 
   - [x] 20240612 - SIGMO FHOS Episode 55 - 
   - [x] 20240610 - SIGMO FHOS Episode 54 - 
   - [x] 20240609 - SIGMO FHOS Episode 53 - 
