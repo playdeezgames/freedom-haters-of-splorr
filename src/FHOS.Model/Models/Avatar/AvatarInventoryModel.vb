@@ -11,7 +11,7 @@ Friend Class AvatarInventoryModel
 
     Public ReadOnly Property Summary As IEnumerable(Of (Text As String, Item As String)) Implements IAvatarInventoryModel.Summary
         Get
-            Return Array.Empty(Of (Text As String, Item As String))
+            Return actor.Inventory.Items.GroupBy(Function(x) x.Descriptor.ItemType).Select(Function(x) ($"{x.First.Descriptor.Name}(x{x.Count})", x.Key))
         End Get
     End Property
 
