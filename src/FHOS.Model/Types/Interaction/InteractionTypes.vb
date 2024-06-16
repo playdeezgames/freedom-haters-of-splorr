@@ -3,7 +3,6 @@
     Friend ReadOnly RefillOxygen As String = NameOf(RefillOxygen)
     Friend ReadOnly Refuel As String = NameOf(Refuel)
     Friend ReadOnly SalvageScrap As String = NameOf(SalvageScrap)
-    Friend ReadOnly SellScrap As String = NameOf(SellScrap)
     Friend ReadOnly EnterWormhole As String = NameOf(EnterWormhole)
     Friend ReadOnly EnterOrbit As String = NameOf(EnterOrbit)
     Friend ReadOnly LeaveOrbit As String = NameOf(LeaveOrbit)
@@ -21,7 +20,6 @@
             New EnterStarGateInteractionTypeDescriptor(),
             New RefillOxygenInteractionTypeDescriptor(),
             New SalvageScrapInteractionTypeDescriptor(),
-            New SellScrapInteractionTypeDescriptor(),
             New RefuelInteractionTypeDescriptor(),
             New TransportInteractionTypeDescriptor(EnterWormhole, "Enter Wormhole", Function(x) x.Descriptor.IsWormhole),
             New TransportInteractionTypeDescriptor(LeaveOrbit, "Leave Orbit", Function(x) x.Yokes.Actor(YokeTypes.Target).Descriptor.IsSatellite OrElse x.Yokes.Actor(YokeTypes.Target).Descriptor.IsPlanet),

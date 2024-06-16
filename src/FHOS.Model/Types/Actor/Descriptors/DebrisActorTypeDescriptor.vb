@@ -22,7 +22,6 @@ Friend Class DebrisActorTypeDescriptor
         For Each dummy In Enumerable.Range(0, scrapCount)
             actor.Inventory.Add(actor.Universe.Factory.CreateItem(ItemTypes.Scrap))
         Next
-        actor.Statistics(StatisticTypes.Scrap) = scrapCount
         Dim starSystemGroup = actor.Location.Map.YokedGroup(YokeTypes.StarSystem)
         starSystemGroup.Statistics(StatisticTypes.Scrap) += 1
     End Sub

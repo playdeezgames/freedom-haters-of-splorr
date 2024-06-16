@@ -5,7 +5,6 @@
         sut.Position.X.ShouldBe(0)
         sut.Position.Y.ShouldBe(0)
         sut.MapName.ShouldBe("map name")
-        sut.Scrap.ShouldBe(0)
     End Sub
 
     Private Function CreateSut() As IAvatarStateModel

@@ -16,8 +16,7 @@
                     "3d6/10"
                 }
             },
-            buysScrap:=True,
-            CanTrade:=True)
+            canTrade:=True)
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)

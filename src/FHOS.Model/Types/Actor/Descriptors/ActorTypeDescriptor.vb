@@ -3,7 +3,6 @@ Imports SPLORR.Game
 
 Friend MustInherit Class ActorTypeDescriptor
     Friend ReadOnly Property ActorType As String
-    Friend ReadOnly Property BuysScrap As Boolean
     Friend ReadOnly Property CanRefillOxygen As Boolean
     Friend ReadOnly Property IsStarGate As Boolean
     Friend ReadOnly Property CanSalvage As Boolean
@@ -31,7 +30,6 @@ Friend MustInherit Class ActorTypeDescriptor
            Optional canRefillOxygen As Boolean = False,
            Optional isStarGate As Boolean = False,
            Optional canSalvage As Boolean = False,
-           Optional buysScrap As Boolean = False,
            Optional canRefuel As Boolean = False,
            Optional isStarSystem As Boolean = False,
            Optional isStarVicinity As Boolean = False,
@@ -50,7 +48,6 @@ Friend MustInherit Class ActorTypeDescriptor
         Me.CanRefillOxygen = canRefillOxygen
         Me.IsStarGate = isStarGate
         Me.CanSalvage = canSalvage
-        Me.BuysScrap = buysScrap
         Me.CanRefuel = canRefuel
         Me.IsStarSystem = isStarSystem
         Me.IsStarVicinity = isStarVicinity

@@ -22,12 +22,6 @@ Friend Class AvatarStateModel
         End Get
     End Property
 
-    Public ReadOnly Property Scrap As Integer Implements IAvatarStateModel.Scrap
-        Get
-            Return If(actor.Statistics(StatisticTypes.Scrap), 0)
-        End Get
-    End Property
-
     Friend Shared Function FromActor(actor As IActor) As IAvatarStateModel
         Return New AvatarStateModel(actor)
     End Function

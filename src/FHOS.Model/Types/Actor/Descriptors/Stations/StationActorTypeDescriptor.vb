@@ -11,7 +11,6 @@ Friend MustInherit Class StationActorTypeDescriptor
                   Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing,
                   Optional canRefillOxygen As Boolean = False,
                   Optional isStarGate As Boolean = False,
-                  Optional buysScrap As Boolean = False,
                   Optional canRefuel As Boolean = False,
                   Optional canTrade As Boolean = False)
         MyBase.New(
@@ -20,7 +19,6 @@ Friend MustInherit Class StationActorTypeDescriptor
             spawnRolls,
             canRefillOxygen:=canRefillOxygen,
             isStarGate:=isStarGate,
-            buysScrap:=buysScrap,
             canRefuel:=canRefuel,
             canTrade:=canTrade)
         Me.statisticType = statisticType
