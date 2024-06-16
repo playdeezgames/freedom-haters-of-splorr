@@ -4,7 +4,7 @@ Friend Class ScrapItemTypeDescriptor
     Inherits ItemTypeDescriptor
 
     Public Sub New()
-        MyBase.New(ItemTypes.Scrap)
+        MyBase.New(ItemTypes.Scrap, "Scrap")
     End Sub
 
     Protected Overrides Sub Initialize(item As IItem)

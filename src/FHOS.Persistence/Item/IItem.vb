@@ -1,3 +1,3 @@
 ﻿Public Interface IItem
-    Inherits IEntity
+    Inherits ITypedEntity
 End Interface

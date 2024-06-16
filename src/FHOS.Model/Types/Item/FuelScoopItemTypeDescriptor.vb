@@ -4,7 +4,7 @@ Friend Class FuelScoopItemTypeDescriptor
     Inherits ItemTypeDescriptor
 
     Public Sub New()
-        MyBase.New(ItemTypes.FuelScoop)
+        MyBase.New(ItemTypes.FuelScoop, "Fuel Scoop")
     End Sub
 
     Protected Overrides Sub Initialize(item As IItem)
