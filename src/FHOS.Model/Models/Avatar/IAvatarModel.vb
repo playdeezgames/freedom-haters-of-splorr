@@ -9,4 +9,5 @@
     ReadOnly Property Verbs As IAvatarVerbsModel
     ReadOnly Property Vessel As IAvatarVesselModel
     ReadOnly Property Jools As Integer
+    ReadOnly Property Inventory As IAvatarInventoryModel
 End Interface

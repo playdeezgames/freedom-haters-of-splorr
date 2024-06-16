@@ -74,4 +74,10 @@ Friend Class AvatarModel
             Return AvatarTraderModel.FromActor(actor)
         End Get
     End Property
+
+    Public ReadOnly Property Inventory As IAvatarInventoryModel Implements IAvatarModel.Inventory
+        Get
+            Return AvatarInventoryModel.FromActor(actor)
+        End Get
+    End Property
 End Class

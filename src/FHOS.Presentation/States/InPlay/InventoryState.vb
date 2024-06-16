@@ -19,9 +19,6 @@ Friend Class InventoryState
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
-        Return New List(Of (Text As String, Item As String)) From
-            {
-                ("Leave", "")
-            }
+        Return Context.Model.State.Avatar.Inventory.Summary.ToList
     End Function
 End Class

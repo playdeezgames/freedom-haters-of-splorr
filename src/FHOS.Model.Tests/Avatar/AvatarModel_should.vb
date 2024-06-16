@@ -11,6 +11,7 @@
         sut.Status.ShouldNotBeNull
         sut.Verbs.ShouldNotBeNull
         sut.Vessel.ShouldNotBeNull
+        sut.Inventory.ShouldNotBeNull
         Should.Throw(Of NullReferenceException)(Function() sut.Jools)
     End Sub
 
