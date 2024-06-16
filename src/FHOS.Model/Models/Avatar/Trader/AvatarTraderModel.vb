@@ -29,7 +29,7 @@ Friend Class AvatarTraderModel
 
     Public ReadOnly Property HasPrices As Boolean Implements IAvatarTraderModel.HasPrices
         Get
-            Return False
+            Return If(yokedTrader?.Prices?.HasAny, False)
         End Get
     End Property
 

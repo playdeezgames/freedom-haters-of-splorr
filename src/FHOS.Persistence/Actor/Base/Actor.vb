@@ -74,4 +74,10 @@ Friend Class Actor
             Return ActorOffers.FromId(UniverseData, Id)
         End Get
     End Property
+
+    Public ReadOnly Property Prices As IActorPrices Implements IActor.Prices
+        Get
+            Return ActorPrices.FromId(UniverseData, Id)
+        End Get
+    End Property
 End Class

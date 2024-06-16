@@ -8,4 +8,5 @@
     ReadOnly Property Yokes As IActorYokes
     ReadOnly Property Inventory As IActorInventory
     ReadOnly Property Offers As IActorOffers
+    ReadOnly Property Prices As IActorPrices
 End Interface

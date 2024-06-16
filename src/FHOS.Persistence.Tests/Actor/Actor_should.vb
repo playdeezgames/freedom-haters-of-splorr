@@ -38,6 +38,7 @@
         sut.Yokes.ShouldNotBeNull
         sut.Inventory.ShouldNotBeNull
         sut.Offers.ShouldNotBeNull
+        sut.Prices.ShouldNotBeNull
     End Sub
     <Fact>
     Sub set_entity_name()
