@@ -4,6 +4,12 @@ Friend Class AvatarTraderModel
     Implements IAvatarTraderModel
 
     Private ReadOnly actor As IActor
+    Private ReadOnly Property yokedTrader As IActor
+        Get
+            Return actor.Yokes.Actor(YokeTypes.Trader)
+        End Get
+    End Property
+
 
     Public Sub New(actor As IActor)
         Me.actor = actor
@@ -11,13 +17,13 @@ Friend Class AvatarTraderModel
 
     Public ReadOnly Property IsActive As Boolean Implements IAvatarTraderModel.IsActive
         Get
-            Return actor.Yokes.Actor(YokeTypes.Trader) IsNot Nothing
+            Return yokedTrader IsNot Nothing
         End Get
     End Property
 
     Public ReadOnly Property HasOffers As Boolean Implements IAvatarTraderModel.HasOffers
         Get
-            Return False
+            Return If(yokedTrader?.Offers?.HasAny, False)
         End Get
     End Property
 
@@ -29,7 +35,7 @@ Friend Class AvatarTraderModel
 
     Private ReadOnly Property Trader As IActorModel Implements IAvatarTraderModel.Trader
         Get
-            Return ActorModel.FromActor(actor.Yokes.Actor(YokeTypes.Trader))
+            Return ActorModel.FromActor(yokedTrader)
         End Get
     End Property
 

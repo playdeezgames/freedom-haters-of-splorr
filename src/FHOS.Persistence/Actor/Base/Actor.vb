@@ -68,4 +68,10 @@ Friend Class Actor
             Return ActorInventory.FromId(UniverseData, Id)
         End Get
     End Property
+
+    Public ReadOnly Property Offers As IActorOffers Implements IActor.Offers
+        Get
+            Return ActorOffers.FromId(UniverseData, Id)
+        End Get
+    End Property
 End Class

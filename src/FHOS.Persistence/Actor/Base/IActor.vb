@@ -7,4 +7,5 @@
     Property Costume As String
     ReadOnly Property Yokes As IActorYokes
     ReadOnly Property Inventory As IActorInventory
+    ReadOnly Property Offers As IActorOffers
 End Interface
