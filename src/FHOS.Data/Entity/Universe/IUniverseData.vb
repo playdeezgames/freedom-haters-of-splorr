@@ -2,7 +2,7 @@
 
 Public Interface IUniverseData
     Inherits IEntityData
-    Property Actors As BucketData(Of ActorData)
+    Property Actors As List(Of ActorData)
     Property Locations As BucketData(Of LocationData)
     Property Maps As BucketData(Of MapData)
     Property Groups As BucketData(Of GroupData)

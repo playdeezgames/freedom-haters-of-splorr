@@ -3,7 +3,7 @@ Imports System.Text.Json.Serialization
 Public Class UniverseData
     Inherits EntityData
     Implements IUniverseData
-    Property Actors As New BucketData(Of ActorData) Implements IUniverseData.Actors
+    Property Actors As New List(Of ActorData) Implements IUniverseData.Actors
     Property Locations As New BucketData(Of LocationData) Implements IUniverseData.Locations
     Property Maps As New BucketData(Of MapData) Implements IUniverseData.Maps
     Property Groups As New BucketData(Of GroupData) Implements IUniverseData.Groups

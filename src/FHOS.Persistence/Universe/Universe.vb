@@ -25,10 +25,7 @@ Public Class Universe
 
     Public ReadOnly Property Actors As IEnumerable(Of IActor) Implements IUniverse.Actors
         Get
-            Dim actorIds = New HashSet(Of Integer)(Enumerable.Range(0, UniverseData.Actors.Entities.Count))
-            For Each recycledId In UniverseData.Actors.Recycled
-                actorIds.Remove(recycledId)
-            Next
+            Dim actorIds = New HashSet(Of Integer)(Enumerable.Range(0, UniverseData.Actors.Count))
             Return actorIds.Select(Function(x) Actor.FromId(UniverseData, x))
         End Get
     End Property

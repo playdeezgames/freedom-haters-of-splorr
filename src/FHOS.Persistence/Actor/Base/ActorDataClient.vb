@@ -8,8 +8,8 @@ Friend Class ActorDataClient
         MyBase.New(
             universeData,
             actorId,
-            Function(u, i) u.Actors.Entities(i),
-            Sub(u, i) u.Actors.Recycled.Add(i))
+            Function(u, i) u.Actors(i),
+            Sub(u, i) Return)
     End Sub
     Public Overrides Sub Recycle()
         Dim actor = Persistence.Actor.FromId(UniverseData, Id)

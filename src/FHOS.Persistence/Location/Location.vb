@@ -57,7 +57,8 @@ Friend Class Location
                                         {LegacyMetadataTypes.Name, name}
                                     }
                                  }
-        Dim actorId As Integer = UniverseData.Actors.CreateOrRecycle(actorData)
+        Dim actorId As Integer = UniverseData.Actors.Count
+        UniverseData.Actors.Add(actorData)
         Dim actor = Persistence.Actor.FromId(UniverseData, actorId)
         Me.Actor = actor
         Return actor
