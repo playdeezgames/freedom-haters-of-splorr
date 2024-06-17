@@ -1,6 +1,4 @@
-﻿Imports System.Text.Json.Serialization
-
-Public Class BucketData(Of TEntity)
+﻿Public Class BucketData(Of TEntity)
     Property Entities As New List(Of TEntity)
     Property Recycled As New HashSet(Of Integer)
     Function CreateOrRecycle(data As TEntity) As Integer
