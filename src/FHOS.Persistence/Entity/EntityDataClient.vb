@@ -20,13 +20,13 @@ Friend Class EntityDataClient(Of TEntityData As IEntityData)
 
     Public Property Flags(flag As String) As Boolean Implements IEntity.Flags
         Get
-            Return EntityData.Flags.Contains(flag)
+            Return EntityData.HasFlag(flag)
         End Get
         Set(value As Boolean)
             If value Then
-                EntityData.Flags.Add(flag)
+                EntityData.SetFlag(flag)
             Else
-                EntityData.Flags.Remove(flag)
+                EntityData.ClearFlag(flag)
             End If
         End Set
     End Property
@@ -99,7 +99,6 @@ Friend Class EntityDataClient(Of TEntityData As IEntityData)
     End Function
 
     Public Overridable Sub Recycle() Implements IEntity.Recycle
-        EntityData.Flags.Clear()
         EntityData.Statistics.Clear()
         EntityData.Metadatas.Clear()
         entityDataRecycler(UniverseData, Id)
