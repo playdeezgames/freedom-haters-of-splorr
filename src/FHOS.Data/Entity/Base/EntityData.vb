@@ -11,6 +11,10 @@
         Flags.Add(flagName)
     End Sub
 
+    Public Sub ClearFlag(flagName As String) Implements IEntityData.ClearFlag
+        Flags.Remove(flagName)
+    End Sub
+
     Public Function HasFlag(flagName As String) As Boolean Implements IEntityData.HasFlag
         Return Flags.Contains(flagName)
     End Function

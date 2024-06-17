@@ -30,5 +30,16 @@ Public Class ItemData_should
         Dim sut As IItemData = New ItemData
         Should.Throw(Of InvalidOperationException)(Sub() sut.SetFlag(flagName))
     End Sub
+    <Fact>
+    Sub clear_flag()
+        Dim sut As IItemData = New ItemData
+        Const flagName = "flag name"
+        sut.SetFlag(flagName)
+        sut.HasFlag(flagName).ShouldBeTrue
+        sut.Flags.Contains(flagName).ShouldBeTrue
+        sut.ClearFlag(flagName)
+        sut.HasFlag(flagName).ShouldBeFalse
+        sut.Flags.Contains(flagName).ShouldBeFalse
+    End Sub
 End Class
 
