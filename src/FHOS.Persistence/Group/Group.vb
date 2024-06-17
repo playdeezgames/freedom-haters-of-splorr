@@ -3,11 +3,11 @@
 Friend Class Group
     Inherits GroupDataClient
     Implements IGroup
-    Friend Shared Function FromId(universeData As UniverseData, id As Integer?) As IGroup
+    Friend Shared Function FromId(universeData As IUniverseData, id As Integer?) As IGroup
         Return If(id.HasValue, New Group(universeData, id.Value), Nothing)
     End Function
 
-    Protected Sub New(universeData As Data.UniverseData, factionId As Integer)
+    Protected Sub New(universeData As Data.IUniverseData, factionId As Integer)
         MyBase.New(universeData, factionId)
     End Sub
 

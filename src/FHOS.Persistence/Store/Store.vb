@@ -4,7 +4,7 @@ Friend Class Store
     Inherits StoreDataClient
     Implements IStore
 
-    Protected Sub New(universeData As UniverseData, storeId As Integer)
+    Protected Sub New(universeData As IUniverseData, storeId As Integer)
         MyBase.New(universeData, storeId)
     End Sub
 
@@ -46,7 +46,7 @@ Friend Class Store
         End Get
     End Property
 
-    Friend Shared Function FromId(universeData As UniverseData, storeId As Integer?) As IStore
+    Friend Shared Function FromId(universeData As IUniverseData, storeId As Integer?) As IStore
         If storeId.HasValue Then
             Return New Store(universeData, storeId.Value)
         End If

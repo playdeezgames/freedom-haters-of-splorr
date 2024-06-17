@@ -1,11 +1,11 @@
 ﻿Imports FHOS.Data
 
-Friend Class EntityDataClient(Of TEntityData As EntityData)
+Friend Class EntityDataClient(Of TEntityData As IEntityData)
     Inherits UniverseDataClient
     Implements IEntity
     Private ReadOnly entityId As Integer
-    Private ReadOnly entityDataFetcher As Func(Of UniverseData, Integer, TEntityData)
-    Private ReadOnly entityDataRecycler As Action(Of UniverseData, Integer)
+    Private ReadOnly entityDataFetcher As Func(Of IUniverseData, Integer, TEntityData)
+    Private ReadOnly entityDataRecycler As Action(Of IUniverseData, Integer)
     Protected ReadOnly Property EntityData As TEntityData
         Get
             Return entityDataFetcher(UniverseData, entityId)
@@ -68,10 +68,10 @@ Friend Class EntityDataClient(Of TEntityData As EntityData)
     End Property
 
     Public Sub New(
-                  universeData As Data.UniverseData,
+                  universeData As Data.IUniverseData,
                   entityId As Integer,
-                  entityDataFetcher As Func(Of UniverseData, Integer, TEntityData),
-                  entityDataRecycler As Action(Of UniverseData, Integer))
+                  entityDataFetcher As Func(Of IUniverseData, Integer, TEntityData),
+                  entityDataRecycler As Action(Of IUniverseData, Integer))
         MyBase.New(universeData)
         Me.entityId = entityId
         Me.entityDataFetcher = entityDataFetcher

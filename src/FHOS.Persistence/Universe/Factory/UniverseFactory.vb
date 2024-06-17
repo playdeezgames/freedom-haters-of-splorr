@@ -4,11 +4,11 @@ Friend Class UniverseFactory
     Inherits UniverseDataClient
     Implements IUniverseFactory
 
-    Public Sub New(universeData As Data.UniverseData)
+    Public Sub New(universeData As Data.IUniverseData)
         MyBase.New(universeData)
     End Sub
 
-    Friend Shared Function FromData(universeData As Data.UniverseData) As IUniverseFactory
+    Friend Shared Function FromData(universeData As Data.IUniverseData) As IUniverseFactory
         Return New UniverseFactory(universeData)
     End Function
 

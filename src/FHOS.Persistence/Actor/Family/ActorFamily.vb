@@ -2,11 +2,11 @@
     Inherits ActorDataClient
     Implements IActorFamily
 
-    Protected Sub New(universeData As Data.UniverseData, actorId As Integer)
+    Protected Sub New(universeData As Data.IUniverseData, actorId As Integer)
         MyBase.New(universeData, actorId)
     End Sub
 
-    Friend Shared Function FromId(universeData As Data.UniverseData, id As Integer) As IActorFamily
+    Friend Shared Function FromId(universeData As Data.IUniverseData, id As Integer) As IActorFamily
         Return New ActorFamily(universeData, id)
     End Function
 

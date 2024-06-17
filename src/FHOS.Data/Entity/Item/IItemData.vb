@@ -1,3 +1,3 @@
-﻿Friend Interface IItemData
+﻿Public Interface IItemData
     Inherits IEntityData
 End Interface

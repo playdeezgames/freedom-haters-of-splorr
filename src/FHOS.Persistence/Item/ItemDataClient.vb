@@ -1,10 +1,10 @@
 ﻿Imports FHOS.Data
 
 Friend Class ItemDataClient
-    Inherits TypedEntityDataClient(Of ItemData)
+    Inherits TypedEntityDataClient(Of IItemData)
 
     Public Sub New(
-                  universeData As UniverseData,
+                  universeData As IUniverseData,
                   entityId As Integer)
         MyBase.New(
             universeData,

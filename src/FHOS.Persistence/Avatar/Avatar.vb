@@ -2,7 +2,7 @@
     Inherits UniverseDataClient
     Implements IAvatar
 
-    Protected Sub New(universeData As Data.UniverseData)
+    Protected Sub New(universeData As Data.IUniverseData)
         MyBase.New(universeData)
     End Sub
 
@@ -20,7 +20,7 @@
         UniverseData.Avatars.Push(actor.Id)
     End Sub
 
-    Friend Shared Function FromData(universeData As Data.UniverseData) As IAvatar
+    Friend Shared Function FromData(universeData As Data.IUniverseData) As IAvatar
         Return New Avatar(universeData)
     End Function
 

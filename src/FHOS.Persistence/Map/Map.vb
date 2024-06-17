@@ -4,11 +4,11 @@ Friend Class Map
     Inherits MapDataClient
     Implements IMap
 
-    Protected Sub New(universeData As UniverseData, mapId As Integer)
+    Protected Sub New(universeData As IUniverseData, mapId As Integer)
         MyBase.New(universeData, mapId)
     End Sub
 
-    Friend Shared Function FromId(universeData As UniverseData, mapId As Integer?) As IMap
+    Friend Shared Function FromId(universeData As IUniverseData, mapId As Integer?) As IMap
         If mapId.HasValue Then
             Return New Map(universeData, mapId.Value)
         End If
