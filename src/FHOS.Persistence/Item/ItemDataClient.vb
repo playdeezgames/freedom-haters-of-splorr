@@ -9,7 +9,7 @@ Friend Class ItemDataClient
         MyBase.New(
             universeData,
             entityId,
-            Function(u, i) u.Items.Entities(i),
-            Sub(u, i) u.Items.Recycled.Add(i))
+            Function(u, i) u.Items(i),
+            Sub(u, i) Return)
     End Sub
 End Class

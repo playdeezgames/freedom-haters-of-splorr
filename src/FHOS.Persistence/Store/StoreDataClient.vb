@@ -8,7 +8,7 @@ Friend Class StoreDataClient
         MyBase.New(
             universeData,
             actorId,
-            Function(u, i) u.Stores.Entities(i),
-            Sub(u, i) u.Stores.Recycled.Add(i))
+            Function(u, i) u.Stores(i),
+            Sub(u, i) Return)
     End Sub
 End Class

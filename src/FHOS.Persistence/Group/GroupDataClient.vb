@@ -8,7 +8,7 @@ Friend Class GroupDataClient
         MyBase.New(
             universeData,
             factionId,
-            Function(u, i) u.Groups.Entities(i),
-            Sub(u, i) u.Groups.Recycled.Add(i))
+            Function(u, i) u.Groups(i),
+            Sub(u, i) Return)
     End Sub
 End Class

@@ -33,7 +33,8 @@ Friend Class UniverseFactory
                     {LegacyMetadataTypes.Name, mapName}
                 }
             }
-        Dim mapId = UniverseData.Maps.CreateOrRecycle(mapData)
+        Dim mapId = UniverseData.Maps.Count
+        UniverseData.Maps.Add(mapData)
         Dim map = Persistence.Map.FromId(UniverseData, mapId)
         mapData.Locations = Enumerable.
                             Range(0, columns * rows).
@@ -65,7 +66,7 @@ Friend Class UniverseFactory
     Public Function CreateGroup(
                                 groupType As String,
                                 groupName As String) As IGroup Implements IUniverseFactory.CreateGroup
-        Dim factionData = New GroupData With
+        Dim groupData = New GroupData With
             {
                 .Metadatas = New Dictionary(Of String, String) From
                 {
@@ -73,7 +74,9 @@ Friend Class UniverseFactory
                     {LegacyMetadataTypes.Name, groupName}
                 }
             }
-        Return Group.FromId(UniverseData, UniverseData.Groups.CreateOrRecycle(factionData))
+        Dim groupId = UniverseData.Groups.Count
+        UniverseData.Groups.Add(groupData)
+        Return Group.FromId(UniverseData, groupId)
     End Function
 
     Public Function CreateStore(
@@ -96,7 +99,9 @@ Friend Class UniverseFactory
         If maximum.HasValue Then
             storeData.Statistics(PersistenceStatisticTypes.MaximumValue) = maximum.Value
         End If
-        Return Store.FromId(UniverseData, UniverseData.Stores.CreateOrRecycle(storeData))
+        Dim storeId = UniverseData.Stores.Count
+        UniverseData.Stores.Add(storeData)
+        Return Store.FromId(UniverseData, storeId)
     End Function
 
     Public Function CreateItem(itemType As String) As IItem Implements IUniverseFactory.CreateItem
@@ -107,6 +112,8 @@ Friend Class UniverseFactory
                     {LegacyMetadataTypes.EntityType, itemType}
                 }
             }
-        Return Item.FromId(UniverseData, UniverseData.Items.CreateOrRecycle(itemData))
+        Dim itemId = UniverseData.Items.Count
+        UniverseData.Items.Add(itemData)
+        Return Item.FromId(UniverseData, itemId)
     End Function
 End Class

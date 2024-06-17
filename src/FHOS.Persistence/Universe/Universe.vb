@@ -15,10 +15,7 @@ Public Class Universe
 
     Public ReadOnly Property Groups As IEnumerable(Of IGroup) Implements IUniverse.Groups
         Get
-            Dim factionIds = New HashSet(Of Integer)(Enumerable.Range(0, UniverseData.Groups.Entities.Count))
-            For Each recycledId In UniverseData.Groups.Recycled
-                factionIds.Remove(recycledId)
-            Next
+            Dim factionIds = New HashSet(Of Integer)(Enumerable.Range(0, UniverseData.Groups.Count))
             Return factionIds.Select(Function(x) Group.FromId(UniverseData, x))
         End Get
     End Property

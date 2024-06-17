@@ -8,7 +8,7 @@ Friend Class MapDataClient
         MyBase.New(
             worldData,
             mapId,
-            Function(u, i) u.Maps.Entities(i),
-            Sub(u, i) u.Maps.Recycled.Add(i))
+            Function(u, i) u.Maps(i),
+            Sub(u, i) Return)
     End Sub
 End Class
