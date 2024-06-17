@@ -3,7 +3,6 @@ Public Class ItemData_should
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
-        sut.Statistics.ShouldBeEmpty
         sut.Metadatas.ShouldBeEmpty
     End Sub
     Protected Overrides Function CreateSut() As IItemData

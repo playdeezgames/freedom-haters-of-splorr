@@ -19,14 +19,13 @@ Friend Class UniverseFactory
                              columns As Integer,
                              rows As Integer,
                              locationType As String) As IMap Implements IUniverseFactory.CreateMap
-        Dim mapData = New MapData With
-            {
-                .Locations = Nothing,
-                .Statistics = New Dictionary(Of String, Integer) From
+        Dim mapData = New MapData(New Dictionary(Of String, Integer) From
                 {
                     {PersistenceStatisticTypes.Columns, columns},
                     {PersistenceStatisticTypes.Rows, rows}
-                },
+                }) With
+            {
+                .Locations = Nothing,
                 .Metadatas = New Dictionary(Of String, String) From
                 {
                     {LegacyMetadataTypes.EntityType, mapType},
@@ -44,14 +43,13 @@ Friend Class UniverseFactory
 
 
     Private Function CreateLocation(mapId As Integer, locationType As String, column As Integer, row As Integer) As Integer
-        Dim locationData = New LocationData With
-                            {
-                                .Statistics = New Dictionary(Of String, Integer) From
+        Dim locationData = New LocationData(New Dictionary(Of String, Integer) From
                                 {
                                     {PersistenceStatisticTypes.MapId, mapId},
                                     {PersistenceStatisticTypes.Column, column},
                                     {PersistenceStatisticTypes.Row, row}
-                                },
+                                }) With
+                            {
                                 .Metadatas = New Dictionary(Of String, String) From
                                 {
                                     {LegacyMetadataTypes.EntityType, locationType}
@@ -86,19 +84,12 @@ Friend Class UniverseFactory
         If (minimum.HasValue AndAlso maximum.HasValue AndAlso maximum.Value < minimum.Value) Then
             Throw New ArgumentOutOfRangeException
         End If
-        Dim storeData = New StoreData With
-            {
-                .Statistics = New Dictionary(Of String, Integer) From
+        Dim storeData = New StoreData(statistics:=New Dictionary(Of String, Integer) From
                 {
                     {PersistenceStatisticTypes.CurrentValue, value}
-                }
-            }
-        If minimum.HasValue Then
-            storeData.Statistics(PersistenceStatisticTypes.MinimumValue) = minimum.Value
-        End If
-        If maximum.HasValue Then
-            storeData.Statistics(PersistenceStatisticTypes.MaximumValue) = maximum.Value
-        End If
+                })
+        storeData.SetStatistic(PersistenceStatisticTypes.MinimumValue, minimum)
+        storeData.SetStatistic(PersistenceStatisticTypes.MaximumValue, maximum)
         Dim storeId = UniverseData.Stores.Count
         UniverseData.Stores.Add(storeData)
         Return Store.FromId(UniverseData, storeId)

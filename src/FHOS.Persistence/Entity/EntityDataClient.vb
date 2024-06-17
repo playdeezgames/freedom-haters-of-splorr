@@ -39,18 +39,10 @@ Friend Class EntityDataClient(Of TEntityData As IEntityData)
 
     Public Property Statistics(statisticType As String) As Integer? Implements IEntity.Statistics
         Get
-            Dim result As Integer
-            If EntityData.Statistics.TryGetValue(statisticType, result) Then
-                Return result
-            End If
-            Return Nothing
+            Return EntityData.GetStatistic(statisticType)
         End Get
         Set(value As Integer?)
-            If value.HasValue Then
-                EntityData.Statistics(statisticType) = value.Value
-            Else
-                EntityData.Statistics.Remove(statisticType)
-            End If
+            EntityData.SetStatistic(statisticType, value)
         End Set
     End Property
 
@@ -99,7 +91,6 @@ Friend Class EntityDataClient(Of TEntityData As IEntityData)
     End Function
 
     Public Overridable Sub Recycle() Implements IEntity.Recycle
-        EntityData.Statistics.Clear()
         EntityData.Metadatas.Clear()
         entityDataRecycler(UniverseData, Id)
     End Sub

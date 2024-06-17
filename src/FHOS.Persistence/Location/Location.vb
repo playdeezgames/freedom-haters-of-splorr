@@ -17,40 +17,31 @@ Friend Class Location
 
     Public ReadOnly Property Map As IMap Implements ILocation.Map
         Get
-            Return Persistence.Map.FromId(UniverseData, EntityData.Statistics(PersistenceStatisticTypes.MapId))
+            Return Persistence.Map.FromId(UniverseData, EntityData.GetStatistic(PersistenceStatisticTypes.MapId))
         End Get
     End Property
 
     Public Property Actor As IActor Implements ILocation.Actor
         Get
-            Dim actorId As Integer
-            If EntityData.Statistics.TryGetValue(PersistenceStatisticTypes.ActorId, actorId) Then
-                Return Persistence.Actor.FromId(UniverseData, actorId)
-            End If
-            Return Nothing
+            Return Persistence.Actor.FromId(UniverseData, EntityData.GetStatistic(PersistenceStatisticTypes.ActorId))
         End Get
         Set(value As IActor)
-            If value Is Nothing Then
-                EntityData.Statistics.Remove(PersistenceStatisticTypes.ActorId)
-                Return
-            End If
-            EntityData.Statistics(PersistenceStatisticTypes.ActorId) = value.Id
+            EntityData.SetStatistic(PersistenceStatisticTypes.ActorId, value?.Id)
         End Set
     End Property
 
     Public ReadOnly Property Position As (Column As Integer, Row As Integer) Implements ILocation.Position
         Get
-            Return (EntityData.Statistics(PersistenceStatisticTypes.Column), EntityData.Statistics(PersistenceStatisticTypes.Row))
+            Return (EntityData.GetStatistic(PersistenceStatisticTypes.Column).Value, EntityData.GetStatistic(PersistenceStatisticTypes.Row).Value)
         End Get
     End Property
 
     Public Function CreateActor(actorType As String, name As String) As IActor Implements ILocation.CreateActor
-        Dim actorData = New ActorData With
-                                 {
-                                    .Statistics = New Dictionary(Of String, Integer) From
+        Dim actorData = New ActorData(statistics:=New Dictionary(Of String, Integer) From
                                     {
                                         {PersistenceStatisticTypes.LocationId, Id}
-                                    },
+                                    }) With
+                                 {
                                     .Metadatas = New Dictionary(Of String, String) From
                                     {
                                         {LegacyMetadataTypes.EntityType, actorType},

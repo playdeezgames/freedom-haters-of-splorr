@@ -28,12 +28,12 @@ Friend Class Actor
 
     Public Property Location As ILocation Implements IActor.Location
         Get
-            Return Persistence.Location.FromId(UniverseData, EntityData.Statistics(PersistenceStatisticTypes.LocationId))
+            Return Persistence.Location.FromId(UniverseData, EntityData.GetStatistic(PersistenceStatisticTypes.LocationId))
         End Get
         Set(value As ILocation)
-            If value.Id <> EntityData.Statistics(PersistenceStatisticTypes.LocationId) Then
+            If value.Id <> EntityData.GetStatistic(PersistenceStatisticTypes.LocationId).Value Then
                 Location.Actor = Nothing
-                EntityData.Statistics(PersistenceStatisticTypes.LocationId) = value.Id
+                EntityData.SetStatistic(PersistenceStatisticTypes.LocationId, value.Id)
                 value.Actor = Actor.FromId(UniverseData, Id)
             End If
         End Set

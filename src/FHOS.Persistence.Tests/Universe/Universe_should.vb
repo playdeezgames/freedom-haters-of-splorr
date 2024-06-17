@@ -8,7 +8,7 @@ Public Class Universe_should
         sut.Messages.ShouldNotBeNull
         sut.Groups.ShouldBeEmpty
         sut.Actors.ShouldBeEmpty
-        Should.Throw(Of KeyNotFoundException)(Function() sut.Turn)
+        Should.Throw(Of InvalidOperationException)(Function() sut.Turn)
     End Sub
     <Fact>
     Sub set_and_retrieve_turn()

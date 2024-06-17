@@ -23,7 +23,7 @@ Friend Class Map
 
     Public ReadOnly Property Size As (Columns As Integer, Rows As Integer) Implements IMap.Size
         Get
-            Return (EntityData.Statistics(PersistenceStatisticTypes.Columns), EntityData.Statistics(PersistenceStatisticTypes.Rows))
+            Return (EntityData.GetStatistic(PersistenceStatisticTypes.Columns).Value, EntityData.GetStatistic(PersistenceStatisticTypes.Rows).Value)
         End Get
     End Property
 
@@ -45,9 +45,9 @@ Friend Class Map
     End Property
 
     Public Function GetLocation(column As Integer, row As Integer) As ILocation Implements IMap.GetLocation
-        If column < 0 OrElse row < 0 OrElse column >= EntityData.Statistics(PersistenceStatisticTypes.Columns) OrElse row >= EntityData.Statistics(PersistenceStatisticTypes.Rows) Then
+        If column < 0 OrElse row < 0 OrElse column >= EntityData.GetStatistic(PersistenceStatisticTypes.Columns).Value OrElse row >= EntityData.GetStatistic(PersistenceStatisticTypes.Rows).Value Then
             Return Nothing
         End If
-        Return Location.FromId(UniverseData, EntityData.Locations(column + row * EntityData.Statistics(PersistenceStatisticTypes.Columns)))
+        Return Location.FromId(UniverseData, EntityData.Locations(column + row * EntityData.GetStatistic(PersistenceStatisticTypes.Columns).Value))
     End Function
 End Class
