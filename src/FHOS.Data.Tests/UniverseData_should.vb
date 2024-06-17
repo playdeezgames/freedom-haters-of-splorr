@@ -6,12 +6,11 @@
         sut.Statistics.ShouldBeEmpty
         sut.Metadatas.ShouldBeEmpty
         sut.Actors.ShouldBeEmpty
-        sut.Locations.Recycled.ShouldBeEmpty
+        sut.Locations.ShouldBeEmpty
         sut.Maps.Recycled.ShouldBeEmpty
         sut.Groups.Recycled.ShouldBeEmpty
         sut.Stores.Recycled.ShouldBeEmpty
         sut.Items.Recycled.ShouldBeEmpty
-        sut.Locations.Entities.ShouldBeEmpty
         sut.Maps.Entities.ShouldBeEmpty
         sut.Groups.Entities.ShouldBeEmpty
         sut.Stores.Entities.ShouldBeEmpty

@@ -1,4 +1,5 @@
-﻿Imports FHOS.Data
+﻿Imports System.Diagnostics.CodeAnalysis
+Imports FHOS.Data
 
 Friend Class UniverseFactory
     Inherits UniverseDataClient
@@ -55,7 +56,9 @@ Friend Class UniverseFactory
                                     {LegacyMetadataTypes.EntityType, locationType}
                                 }
                             }
-        Return UniverseData.Locations.CreateOrRecycle(locationData)
+        Dim locationId = UniverseData.Locations.Count
+        UniverseData.Locations.Add(locationData)
+        Return locationId
     End Function
 
 

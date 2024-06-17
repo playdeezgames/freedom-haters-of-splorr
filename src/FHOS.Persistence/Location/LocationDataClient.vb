@@ -9,7 +9,7 @@ Friend Class LocationDataClient
         MyBase.New(
             universeData,
             locationId,
-            Function(u, i) u.Locations.Entities(i),
-            Sub(u, i) u.Locations.Recycled.Add(i))
+            Function(u, i) u.Locations(i),
+            Sub(u, i) Return)
     End Sub
 End Class
