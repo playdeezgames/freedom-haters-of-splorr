@@ -29,6 +29,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property AllItems As IEnumerable(Of Integer) Implements IActorData.AllItems
+        Get
+            Return Inventory
+        End Get
+    End Property
+
     Public Sub AddChild(childId As Integer) Implements IActorData.AddChild
         Children.Add(childId)
     End Sub
