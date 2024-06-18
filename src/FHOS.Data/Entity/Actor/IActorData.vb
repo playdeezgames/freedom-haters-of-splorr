@@ -11,5 +11,7 @@
     Sub SetYokedActor(yokeType As String, actorId As Integer?)
     Function GetYokedActor(yokeType As String) As Integer?
     Property YokedStores As Dictionary(Of String, Integer)
+    Sub SetYokedStore(yokeType As String, storeId As Integer?)
+    Function GetYokedStore(yokeType As String) As Integer?
     Property YokedGroups As Dictionary(Of String, Integer)
 End Interface

@@ -59,6 +59,29 @@
         sut.SetYokedActor(yokeType, Nothing)
         sut.GetYokedActor(yokeType).ShouldBeNull
     End Sub
+    <Fact>
+    Sub default_given_yoked_store_to_nothing()
+        Dim sut = CreateSut()
+        Const yokeType = "yoke type"
+        sut.GetYokedStore(yokeType).ShouldBeNull
+    End Sub
+    <Fact>
+    Sub set_yoked_store()
+        Dim sut = CreateSut()
+        Const yokeType = "yoke type"
+        Const storeId = 1
+        sut.SetYokedStore(yokeType, storeId)
+        sut.GetYokedStore(yokeType).ShouldBe(storeId)
+    End Sub
+    <Fact>
+    Sub clear_yoked_store()
+        Dim sut = CreateSut()
+        Const yokeType = "yoke type"
+        Const storeId = 1
+        sut.SetYokedStore(yokeType, storeId)
+        sut.SetYokedStore(yokeType, Nothing)
+        sut.GetYokedStore(yokeType).ShouldBeNull
+    End Sub
     <Theory>
     <InlineData(" ")>
     <InlineData("  ")>
@@ -68,6 +91,8 @@
         Dim sut = CreateSut()
         Should.Throw(Of InvalidOperationException)(Function() sut.GetYokedActor(yokeType))
         Should.Throw(Of InvalidOperationException)(Sub() sut.SetYokedActor(yokeType, 1))
+        Should.Throw(Of InvalidOperationException)(Function() sut.GetYokedStore(yokeType))
+        Should.Throw(Of InvalidOperationException)(Sub() sut.SetYokedStore(yokeType, 1))
     End Sub
     Protected Overrides Function CreateSut() As IActorData
         Return New ActorData

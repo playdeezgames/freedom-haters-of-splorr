@@ -62,6 +62,17 @@
         End If
     End Sub
 
+    Public Sub SetYokedStore(yokeType As String, storeId As Integer?) Implements IActorData.SetYokedStore
+        If String.IsNullOrWhiteSpace(yokeType) Then
+            Throw New InvalidOperationException("yokeType is null or whitespace")
+        End If
+        If storeId.HasValue Then
+            YokedStores(yokeType) = storeId.Value
+        Else
+            YokedStores.Remove(yokeType)
+        End If
+    End Sub
+
     Public Function GetYokedActor(yokeType As String) As Integer? Implements IActorData.GetYokedActor
         If String.IsNullOrWhiteSpace(yokeType) Then
             Throw New InvalidOperationException("yokeType is null or whitespace")
@@ -69,6 +80,17 @@
         Dim actorId As Integer
         If YokedActors.TryGetValue(yokeType, actorId) Then
             Return actorId
+        End If
+        Return Nothing
+    End Function
+
+    Public Function GetYokedStore(yokeType As String) As Integer? Implements IActorData.GetYokedStore
+        If String.IsNullOrWhiteSpace(yokeType) Then
+            Throw New InvalidOperationException("yokeType is null or whitespace")
+        End If
+        Dim storeId As Integer
+        If YokedStores.TryGetValue(yokeType, storeId) Then
+            Return storeId
         End If
         Return Nothing
     End Function
