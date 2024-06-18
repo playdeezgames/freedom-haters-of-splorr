@@ -3,12 +3,14 @@
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
+        sut.HasChildren.ShouldBeFalse
         sut.Children.ShouldBeEmpty
-        sut.Equipment.ShouldBeEmpty
+        sut.LegacyChildren.ShouldBeEmpty
+        sut.LegacyEquipment.ShouldBeEmpty
         sut.YokedActors.ShouldBeEmpty
         sut.YokedStores.ShouldBeEmpty
         sut.YokedGroups.ShouldBeEmpty
-        sut.Inventory.ShouldBeEmpty
+        sut.LegacyInventory.ShouldBeEmpty
     End Sub
 
     Protected Overrides Function CreateSut() As IActorData

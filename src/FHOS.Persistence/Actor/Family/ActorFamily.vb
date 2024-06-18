@@ -11,7 +11,7 @@
     End Function
 
     Public Sub AddChild(child As IActor) Implements IActorFamily.AddChild
-        EntityData.Children.Add(child.Id)
+        EntityData.LegacyChildren.Add(child.Id)
         child.Family.Parent = Actor.FromId(UniverseData, Id)
     End Sub
 
@@ -26,13 +26,13 @@
 
     Public ReadOnly Property HasChildren As Boolean Implements IActorFamily.HasChildren
         Get
-            Return EntityData.Children.Any
+            Return EntityData.LegacyChildren.Any
         End Get
     End Property
 
     Public ReadOnly Property Children As IEnumerable(Of IActor) Implements IActorFamily.Children
         Get
-            Return EntityData.Children.Select(Function(x) Actor.FromId(UniverseData, x))
+            Return EntityData.LegacyChildren.Select(Function(x) Actor.FromId(UniverseData, x))
         End Get
     End Property
 End Class
