@@ -27,4 +27,12 @@
             Return Parents
         End Get
     End Property
+
+    Public Function HasChild(childId As Integer) As Boolean Implements IGroupData.HasChild
+        Return Children.Contains(childId)
+    End Function
+
+    Public Function HasParent(parentId As Integer) As Boolean Implements IGroupData.HasParent
+        Return Parents.Contains(parentId)
+    End Function
 End Class
