@@ -8,12 +8,12 @@
 
     Public ReadOnly Property All As IEnumerable(Of IItem) Implements IActorEquipment.All
         Get
-            Return EntityData.LegacyEquipment.Select(Function(x) Item.FromId(UniverseData, x))
+            Return EntityData.Equipment.Select(Function(x) Item.FromId(UniverseData, x))
         End Get
     End Property
 
     Public Sub Equip(item As IItem) Implements IActorEquipment.Equip
-        EntityData.LegacyEquipment.Add(item.Id)
+        EntityData.Equipment.Add(item.Id)
     End Sub
 
     Friend Shared Function FromId(universeData As Data.IUniverseData, id As Integer) As IActorEquipment
