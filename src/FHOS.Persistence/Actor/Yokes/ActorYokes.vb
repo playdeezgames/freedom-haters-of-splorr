@@ -10,18 +10,10 @@ Friend Class ActorYokes
 
     Public Property Actor(yokeType As String) As IActor Implements IActorYokes.Actor
         Get
-            Dim id As Integer
-            If EntityData.YokedActors.TryGetValue(yokeType, id) Then
-                Return Persistence.Actor.FromId(UniverseData, id)
-            End If
-            Return Nothing
+            Return Persistence.Actor.FromId(UniverseData, EntityData.GetYokedActor(yokeType))
         End Get
         Set(value As IActor)
-            If value IsNot Nothing Then
-                EntityData.YokedActors(yokeType) = value.Id
-            Else
-                EntityData.YokedActors.Remove(yokeType)
-            End If
+            EntityData.SetYokedActor(yokeType, value?.Id)
         End Set
     End Property
 
