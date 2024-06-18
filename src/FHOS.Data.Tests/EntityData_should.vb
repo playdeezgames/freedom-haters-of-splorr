@@ -46,6 +46,15 @@
         sut.SetStatistic(statisticType, statisticValue)
         sut.GetStatistic(statisticType).ShouldBe(statisticValue)
     End Sub
+    <Fact>
+    Sub clear_statistic()
+        Dim sut = CreateSut()
+        Const statisticType = "statistic type"
+        Const statisticValue = 1
+        sut.SetStatistic(statisticType, statisticValue)
+        sut.SetStatistic(statisticType, Nothing)
+        sut.GetStatistic(statisticType).ShouldBeNull
+    End Sub
     <Theory>
     <InlineData(" ")>
     <InlineData("  ")>
