@@ -37,7 +37,29 @@
         sut.RemoveItem(1)
         sut.AllItems.ShouldBeEmpty
     End Sub
-
+    <Fact>
+    Sub default_given_yoked_actor_to_nothing()
+        Dim sut = CreateSut()
+        Const yokeType = "yoke type"
+        sut.GetYokedActor(yokeType).ShouldBeNull
+    End Sub
+    <Fact>
+    Sub set_yoked_actor()
+        Dim sut = CreateSut()
+        Const yokeType = "yoke type"
+        Const actorId = 1
+        sut.SetYokedActor(yokeType, actorId)
+        sut.GetYokedActor(yokeType).ShouldBe(actorId)
+    End Sub
+    <Fact>
+    Sub clear_yoked_actor()
+        Dim sut = CreateSut()
+        Const yokeType = "yoke type"
+        Const actorId = 1
+        sut.SetYokedActor(yokeType, actorId)
+        sut.SetYokedActor(yokeType, Nothing)
+        sut.GetYokedActor(yokeType).ShouldBeNull
+    End Sub
     Protected Overrides Function CreateSut() As IActorData
         Return New ActorData
     End Function

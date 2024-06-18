@@ -50,4 +50,20 @@
     Public Sub RemoveItem(itemId As Integer) Implements IActorData.RemoveItem
         Inventory.Remove(itemId)
     End Sub
+
+    Public Sub SetYokedActor(yokeType As String, actorId As Integer?) Implements IActorData.SetYokedActor
+        If actorId.HasValue Then
+            YokedActors(yokeType) = actorId.Value
+        Else
+            YokedActors.Remove(yokeType)
+        End If
+    End Sub
+
+    Public Function GetYokedActor(yokeType As String) As Integer? Implements IActorData.GetYokedActor
+        Dim actorId As Integer
+        If YokedActors.TryGetValue(yokeType, actorId) Then
+            Return actorId
+        End If
+        Return Nothing
+    End Function
 End Class
