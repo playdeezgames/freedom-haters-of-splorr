@@ -28,6 +28,22 @@
         End Get
     End Property
 
+    Public Sub AddChild(childId As Integer) Implements IGroupData.AddChild
+        Children.Add(childId)
+    End Sub
+
+    Public Sub AddParent(parentId As Integer) Implements IGroupData.AddParent
+        Parents.Add(parentId)
+    End Sub
+
+    Public Sub RemoveChild(childId As Integer) Implements IGroupData.RemoveChild
+        Children.Remove(childId)
+    End Sub
+
+    Public Sub RemoveParent(parentId As Integer) Implements IGroupData.RemoveParent
+        Parents.Remove(parentId)
+    End Sub
+
     Public Function HasChild(childId As Integer) As Boolean Implements IGroupData.HasChild
         Return Children.Contains(childId)
     End Function
