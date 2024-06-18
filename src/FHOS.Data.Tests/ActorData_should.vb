@@ -6,6 +6,7 @@
         sut.HasChildren.ShouldBeFalse
         sut.AllChildren.ShouldBeEmpty
         sut.Equipment.ShouldBeEmpty
+        sut.AllEquipment.ShouldBeEmpty
         sut.YokedActors.ShouldBeEmpty
         sut.YokedStores.ShouldBeEmpty
         sut.YokedGroups.ShouldBeEmpty
@@ -17,6 +18,12 @@
         sut.AddChild(1)
         sut.HasChildren.ShouldBeTrue
         sut.AllChildren.ShouldHaveSingleItem
+    End Sub
+    <Fact>
+    Sub add_equipment()
+        Dim sut = CreateSut()
+        sut.AddEquipment(1)
+        sut.AllEquipment.ShouldHaveSingleItem
     End Sub
 
     Protected Overrides Function CreateSut() As IActorData

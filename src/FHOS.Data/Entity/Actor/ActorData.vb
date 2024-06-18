@@ -23,7 +23,17 @@
         End Get
     End Property
 
+    Public ReadOnly Property AllEquipment As IEnumerable(Of Integer) Implements IActorData.AllEquipment
+        Get
+            Return Equipment
+        End Get
+    End Property
+
     Public Sub AddChild(childId As Integer) Implements IActorData.AddChild
         Children.Add(childId)
+    End Sub
+
+    Public Sub AddEquipment(itemId As Integer) Implements IActorData.AddEquipment
+        Equipment.Add(itemId)
     End Sub
 End Class
