@@ -19,18 +19,10 @@ Friend Class ActorYokes
 
     Public Property Group(yokeType As String) As IGroup Implements IActorYokes.Group
         Get
-            Dim id As Integer
-            If EntityData.YokedGroups.TryGetValue(yokeType, id) Then
-                Return Persistence.Group.FromId(UniverseData, id)
-            End If
-            Return Nothing
+            Return Persistence.Group.FromId(UniverseData, EntityData.GetYokedGroup(yokeType))
         End Get
         Set(value As IGroup)
-            If value IsNot Nothing Then
-                EntityData.YokedGroups(yokeType) = value.Id
-            Else
-                EntityData.YokedGroups.Remove(yokeType)
-            End If
+            EntityData.SetYokedGroup(yokeType, value?.Id)
         End Set
     End Property
 

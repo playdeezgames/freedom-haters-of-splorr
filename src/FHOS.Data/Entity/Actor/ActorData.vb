@@ -8,7 +8,7 @@
     Public Property Equipment As New HashSet(Of Integer)
     Public Property YokedActors As New Dictionary(Of String, Integer)
     Public Property YokedStores As New Dictionary(Of String, Integer)
-    Public Property YokedGroups As New Dictionary(Of String, Integer) Implements IActorData.YokedGroups
+    Public Property YokedGroups As New Dictionary(Of String, Integer)
     Public Property Inventory As New HashSet(Of Integer)
 
     Public ReadOnly Property HasChildren As Boolean Implements IActorData.HasChildren
