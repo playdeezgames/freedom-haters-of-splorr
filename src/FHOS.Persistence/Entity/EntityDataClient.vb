@@ -48,14 +48,10 @@ Friend Class EntityDataClient(Of TEntityData As IEntityData)
 
     Public Property Metadatas(metadataType As String) As String Implements IEntity.Metadatas
         Get
-            Dim result As String = Nothing
-            If EntityData.Metadatas.TryGetValue(metadataType, result) Then
-                Return result
-            End If
-            Return Nothing
+            Return GetMetadata(metadataType)
         End Get
         Set(value As String)
-            EntityData.Metadatas(metadataType) = value
+            SetMetadata(metadataType, value)
         End Set
     End Property
 
@@ -76,22 +72,13 @@ Friend Class EntityDataClient(Of TEntityData As IEntityData)
         Return Statistics(statisticType)
     End Function
     Protected Sub SetMetadata(metadataType As String, value As String)
-        If value Is Nothing Then
-            EntityData.Metadatas.Remove(metadataType)
-        Else
-            EntityData.Metadatas(metadataType) = value
-        End If
+        EntityData.SetMetadata(metadataType, value)
     End Sub
     Protected Function GetMetadata(metadataType As String) As String
-        Dim result As String = Nothing
-        If EntityData.Metadatas.TryGetValue(metadataType, result) Then
-            Return result
-        End If
-        Return Nothing
+        Return EntityData.GetMetadata(metadataType)
     End Function
 
     Public Overridable Sub Recycle() Implements IEntity.Recycle
-        EntityData.Metadatas.Clear()
         entityDataRecycler(UniverseData, Id)
     End Sub
 End Class

@@ -5,7 +5,7 @@
     End Sub
     Public Property Flags As New HashSet(Of String)
     Public Property Statistics As Dictionary(Of String, Integer)
-    Property Metadatas As New Dictionary(Of String, String) Implements IEntityData.Metadatas
+    Public Property Metadatas As New Dictionary(Of String, String)
 
     Public Sub SetFlag(flagType As String) Implements IEntityData.SetFlag
         If String.IsNullOrWhiteSpace(flagType) Then
