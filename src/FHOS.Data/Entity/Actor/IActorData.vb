@@ -5,7 +5,6 @@
     ReadOnly Property AllChildren As IEnumerable(Of Integer)
     ReadOnly Property AllEquipment As IEnumerable(Of Integer)
     Sub AddEquipment(itemId As Integer)
-    Property Inventory As HashSet(Of Integer)
     ReadOnly Property AllItems As IEnumerable(Of Integer)
     Sub AddItem(itemId As Integer)
     Sub RemoveItem(itemId As Integer)

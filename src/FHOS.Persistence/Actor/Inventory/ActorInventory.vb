@@ -9,16 +9,16 @@ Friend Class ActorInventory
 
     Public ReadOnly Property Items As IEnumerable(Of IItem) Implements IActorInventory.Items
         Get
-            Return EntityData.Inventory.Select(Function(x) Item.FromId(UniverseData, x))
+            Return EntityData.AllItems.Select(Function(x) Item.FromId(UniverseData, x))
         End Get
     End Property
 
     Public Sub Add(item As IItem) Implements IActorInventory.Add
-        EntityData.Inventory.Add(item.Id)
+        EntityData.AddItem(item.Id)
     End Sub
 
     Public Sub Remove(item As IItem) Implements IActorInventory.Remove
-        EntityData.Inventory.Remove(item.Id)
+        EntityData.RemoveItem(item.Id)
     End Sub
 
     Friend Shared Function FromId(universeData As IUniverseData, actorId As Integer?) As IActorInventory

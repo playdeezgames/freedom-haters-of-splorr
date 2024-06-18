@@ -9,7 +9,6 @@
         sut.YokedActors.ShouldBeEmpty
         sut.YokedStores.ShouldBeEmpty
         sut.YokedGroups.ShouldBeEmpty
-        sut.Inventory.ShouldBeEmpty
         sut.AllItems.ShouldBeEmpty
     End Sub
     <Fact>
