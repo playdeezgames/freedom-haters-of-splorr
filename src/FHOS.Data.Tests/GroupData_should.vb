@@ -3,8 +3,6 @@
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
-        sut.Children.ShouldBeEmpty
-        sut.Parents.ShouldBeEmpty
         sut.HasChildren.ShouldBeFalse
         sut.HasParents.ShouldBeFalse
         sut.AllChildren.ShouldBeEmpty

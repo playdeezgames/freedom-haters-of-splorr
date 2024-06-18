@@ -1,8 +1,8 @@
 ﻿Public Class GroupData
     Inherits EntityData
     Implements IGroupData
-    Property Children As New HashSet(Of Integer) Implements IGroupData.Children
-    Property Parents As New HashSet(Of Integer) Implements IGroupData.Parents
+    Property Children As New HashSet(Of Integer)
+    Property Parents As New HashSet(Of Integer)
 
     Public ReadOnly Property HasChildren As Boolean Implements IGroupData.HasChildren
         Get
