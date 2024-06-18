@@ -66,4 +66,29 @@
         Should.Throw(Of InvalidOperationException)(Sub() sut.SetStatistic(statisticType, statisticValue))
         Should.Throw(Of InvalidOperationException)(Sub() sut.GetStatistic(statisticType))
     End Sub
+    <Fact>
+    Sub default_given_metadata_to_nothing()
+        Dim sut = CreateSut()
+        Const metadataType = "metadata type"
+        sut.GetMetadata(metadataType).ShouldBeNull
+    End Sub
+    <Fact>
+    Sub set_metadata()
+        Dim sut = CreateSut()
+        Const metadataType = "metadata type"
+        Const metadataValue = "value"
+        sut.SetMetadata(metadataType, metadataValue)
+        sut.GetMetadata(metadataType).ShouldBe(metadataValue)
+    End Sub
+    <Theory>
+    <InlineData(" ")>
+    <InlineData("  ")>
+    <InlineData("")>
+    <InlineData(Nothing)>
+    Sub disallow_invalid_metadatas(metadataType As String)
+        Dim sut = CreateSut()
+        Const metadataValue = "value"
+        Should.Throw(Of InvalidOperationException)(Sub() sut.SetMetadata(metadataType, metadataValue))
+        Should.Throw(Of InvalidOperationException)(Sub() sut.GetMetadata(metadataType))
+    End Sub
 End Class

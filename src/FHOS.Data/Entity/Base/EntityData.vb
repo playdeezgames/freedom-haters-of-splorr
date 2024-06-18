@@ -32,6 +32,17 @@
         End If
     End Sub
 
+    Public Sub SetMetadata(metadataType As String, value As String) Implements IEntityData.SetMetadata
+        If String.IsNullOrWhiteSpace(metadataType) Then
+            Throw New InvalidOperationException("statisticType null or whitespace!")
+        End If
+        If value IsNot Nothing Then
+            Metadatas(metadataType) = value
+        Else
+            Metadatas.Remove(metadataType)
+        End If
+    End Sub
+
     Public Function HasFlag(flagType As String) As Boolean Implements IEntityData.HasFlag
         If String.IsNullOrWhiteSpace(flagType) Then
             Throw New InvalidOperationException("flagType null or whitespace!")
@@ -45,6 +56,17 @@
         End If
         Dim result As Integer
         If Statistics.TryGetValue(statisticType, result) Then
+            Return result
+        End If
+        Return Nothing
+    End Function
+
+    Public Function GetMetadata(metadataType As String) As String Implements IEntityData.GetMetadata
+        If String.IsNullOrWhiteSpace(metadataType) Then
+            Throw New InvalidOperationException("metadataType null or whitespace!")
+        End If
+        Dim result As String = Nothing
+        If Metadatas.TryGetValue(metadataType, result) Then
             Return result
         End If
         Return Nothing
