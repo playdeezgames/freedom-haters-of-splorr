@@ -60,6 +60,16 @@
         sut.SetYokedActor(yokeType, Nothing)
         sut.GetYokedActor(yokeType).ShouldBeNull
     End Sub
+    <Theory>
+    <InlineData(" ")>
+    <InlineData("  ")>
+    <InlineData("")>
+    <InlineData(Nothing)>
+    Sub disallow_invalid_yoke_types(yokeType As String)
+        Dim sut = CreateSut()
+        Should.Throw(Of InvalidOperationException)(Function() sut.GetYokedActor(yokeType))
+        Should.Throw(Of InvalidOperationException)(Sub() sut.SetYokedActor(yokeType, 1))
+    End Sub
     Protected Overrides Function CreateSut() As IActorData
         Return New ActorData
     End Function

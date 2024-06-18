@@ -52,6 +52,9 @@
     End Sub
 
     Public Sub SetYokedActor(yokeType As String, actorId As Integer?) Implements IActorData.SetYokedActor
+        If String.IsNullOrWhiteSpace(yokeType) Then
+            Throw New InvalidOperationException("yokeType is null or whitespace")
+        End If
         If actorId.HasValue Then
             YokedActors(yokeType) = actorId.Value
         Else
@@ -60,6 +63,9 @@
     End Sub
 
     Public Function GetYokedActor(yokeType As String) As Integer? Implements IActorData.GetYokedActor
+        If String.IsNullOrWhiteSpace(yokeType) Then
+            Throw New InvalidOperationException("yokeType is null or whitespace")
+        End If
         Dim actorId As Integer
         If YokedActors.TryGetValue(yokeType, actorId) Then
             Return actorId
