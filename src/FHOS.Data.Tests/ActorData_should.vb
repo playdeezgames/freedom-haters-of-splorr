@@ -6,7 +6,6 @@
         sut.HasChildren.ShouldBeFalse
         sut.AllChildren.ShouldBeEmpty
         sut.AllEquipment.ShouldBeEmpty
-        sut.YokedStores.ShouldBeEmpty
         sut.YokedGroups.ShouldBeEmpty
         sut.AllItems.ShouldBeEmpty
     End Sub
