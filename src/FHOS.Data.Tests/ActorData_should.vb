@@ -12,6 +12,13 @@
         sut.YokedGroups.ShouldBeEmpty
         sut.LegacyInventory.ShouldBeEmpty
     End Sub
+    <Fact>
+    Sub add_child()
+        Dim sut = CreateSut()
+        sut.AddChild(1)
+        sut.HasChildren.ShouldBeTrue
+        sut.Children.ShouldHaveSingleItem
+    End Sub
 
     Protected Overrides Function CreateSut() As IActorData
         Return New ActorData

@@ -1,7 +1,7 @@
 ﻿Public Interface IActorData
     Inherits IEntityData
     Property LegacyChildren As HashSet(Of Integer)
-    'Sub AddChild(childId As Integer)
+    Sub AddChild(childId As Integer)
     ReadOnly Property HasChildren As Boolean
     ReadOnly Property Children As IEnumerable(Of Integer)
     Property LegacyEquipment As HashSet(Of Integer)

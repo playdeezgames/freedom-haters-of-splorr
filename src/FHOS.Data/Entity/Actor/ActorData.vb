@@ -13,13 +13,17 @@
 
     Public ReadOnly Property HasChildren As Boolean Implements IActorData.HasChildren
         Get
-            Return False
+            Return LegacyChildren.Any
         End Get
     End Property
 
     Public ReadOnly Property Children As IEnumerable(Of Integer) Implements IActorData.Children
         Get
-            Return Array.Empty(Of Integer)
+            Return LegacyChildren
         End Get
     End Property
+
+    Public Sub AddChild(childId As Integer) Implements IActorData.AddChild
+        LegacyChildren.Add(childId)
+    End Sub
 End Class
