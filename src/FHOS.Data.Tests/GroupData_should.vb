@@ -5,6 +5,10 @@
         Dim sut = CreateSut()
         sut.Children.ShouldBeEmpty
         sut.Parents.ShouldBeEmpty
+        sut.HasChildren.ShouldBeFalse
+        sut.HasParents.ShouldBeFalse
+        sut.AllChildren.ShouldBeEmpty
+        sut.AllParents.ShouldBeEmpty
     End Sub
     Protected Overrides Function CreateSut() As IGroupData
         Return New GroupData

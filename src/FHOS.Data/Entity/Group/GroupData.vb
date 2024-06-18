@@ -3,4 +3,28 @@
     Implements IGroupData
     Property Children As New HashSet(Of Integer) Implements IGroupData.Children
     Property Parents As New HashSet(Of Integer) Implements IGroupData.Parents
+
+    Public ReadOnly Property HasChildren As Boolean Implements IGroupData.HasChildren
+        Get
+            Return Children.Any
+        End Get
+    End Property
+
+    Public ReadOnly Property AllChildren As IEnumerable(Of Integer) Implements IGroupData.AllChildren
+        Get
+            Return Children
+        End Get
+    End Property
+
+    Public ReadOnly Property HasParents As Boolean Implements IGroupData.HasParents
+        Get
+            Return Parents.Any
+        End Get
+    End Property
+
+    Public ReadOnly Property AllParents As IEnumerable(Of Integer) Implements IGroupData.AllParents
+        Get
+            Return Parents
+        End Get
+    End Property
 End Class
