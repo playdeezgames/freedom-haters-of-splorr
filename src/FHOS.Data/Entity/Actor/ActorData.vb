@@ -42,4 +42,12 @@
     Public Sub AddEquipment(itemId As Integer) Implements IActorData.AddEquipment
         Equipment.Add(itemId)
     End Sub
+
+    Public Sub AddItem(itemId As Integer) Implements IActorData.AddItem
+        Inventory.Add(itemId)
+    End Sub
+
+    Public Sub RemoveItem(itemId As Integer) Implements IActorData.RemoveItem
+        Inventory.Remove(itemId)
+    End Sub
 End Class

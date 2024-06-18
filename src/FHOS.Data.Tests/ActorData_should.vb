@@ -25,6 +25,19 @@
         sut.AddEquipment(1)
         sut.AllEquipment.ShouldHaveSingleItem
     End Sub
+    <Fact>
+    Sub add_item()
+        Dim sut = CreateSut()
+        sut.AddItem(1)
+        sut.AllItems.ShouldHaveSingleItem
+    End Sub
+    <Fact>
+    Sub remove_item()
+        Dim sut = CreateSut()
+        sut.AddItem(1)
+        sut.RemoveItem(1)
+        sut.AllItems.ShouldBeEmpty
+    End Sub
 
     Protected Overrides Function CreateSut() As IActorData
         Return New ActorData
