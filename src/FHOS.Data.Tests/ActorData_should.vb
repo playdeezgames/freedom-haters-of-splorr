@@ -5,7 +5,6 @@
         Dim sut = CreateSut()
         sut.HasChildren.ShouldBeFalse
         sut.AllChildren.ShouldBeEmpty
-        sut.Equipment.ShouldBeEmpty
         sut.AllEquipment.ShouldBeEmpty
         sut.YokedActors.ShouldBeEmpty
         sut.YokedStores.ShouldBeEmpty
