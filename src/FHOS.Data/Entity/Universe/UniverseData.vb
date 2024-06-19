@@ -65,4 +65,28 @@ Public Class UniverseData
             Return itemId
         End Get
     End Property
+
+    Public Function GetActorData(actorId As Integer) As IActorData Implements IUniverseData.GetActorData
+        Return Nothing
+    End Function
+
+    Public Function GetLocationData(locationId As Integer) As ILocationData Implements IUniverseData.GetLocationData
+        Return Nothing
+    End Function
+
+    Public Function GetMapData(mapId As Integer) As IMapData Implements IUniverseData.GetMapData
+        Return Nothing
+    End Function
+
+    Public Function GetGroupData(groupId As Integer) As IGroupData Implements IUniverseData.GetGroupData
+        Return Nothing
+    End Function
+
+    Public Function GetStoreData(storeId As Integer) As IStoreData Implements IUniverseData.GetStoreData
+        Return Nothing
+    End Function
+
+    Public Function GetItemData(storeId As Integer) As IItemData Implements IUniverseData.GetItemData
+        Return Nothing
+    End Function
 End Class
