@@ -5,6 +5,7 @@ Public Interface IUniverseData
     Property Actors As Dictionary(Of Integer, IActorData)
     ReadOnly Property NextActorId As Integer
     Function GetActorData(actorId As Integer) As IActorData
+    Sub SetActorData(actorId As Integer, actorData As IActorData)
     Property Locations As Dictionary(Of Integer, ILocationData)
     ReadOnly Property NextLocationId As Integer
     Function GetLocationData(locationId As Integer) As ILocationData

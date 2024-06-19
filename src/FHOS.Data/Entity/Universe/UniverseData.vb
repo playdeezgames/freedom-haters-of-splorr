@@ -67,6 +67,10 @@ Public Class UniverseData
     End Property
 
     Public Function GetActorData(actorId As Integer) As IActorData Implements IUniverseData.GetActorData
+        Dim actorData As IActorData = Nothing
+        If Actors.TryGetValue(actorId, actorData) Then
+            Return actorData
+        End If
         Return Nothing
     End Function
 
@@ -89,4 +93,8 @@ Public Class UniverseData
     Public Function GetItemData(storeId As Integer) As IItemData Implements IUniverseData.GetItemData
         Return Nothing
     End Function
+
+    Public Sub SetActorData(actorId As Integer, actorData As IActorData) Implements IUniverseData.SetActorData
+        Actors(actorId) = actorData
+    End Sub
 End Class
