@@ -57,8 +57,8 @@ Friend Class UniverseFactory
                                     {LegacyMetadataTypes.EntityType, locationType}
                                 }
                             }
-        Dim locationId = UniverseData.Locations.Count
-        UniverseData.Locations.Add(locationData)
+        Dim locationId = If(UniverseData.Locations.Any, UniverseData.Locations.Keys.Max + 1, 0)
+        UniverseData.Locations.Add(locationId, locationData)
         Return locationId
     End Function
 
