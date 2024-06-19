@@ -31,7 +31,7 @@ Public Class UniverseModel_should
         files(saveFilename).ShouldBe("null")
     End Sub
 
-    Const DefaultSavedData = "{""Actors"":[],""Locations"":[],""Maps"":[],""Groups"":[],""Stores"":[],""Items"":[],""Avatars"":[],""Flags"":[],""Statistics"":{""Turn"":1},""Metadatas"":{}}"
+    Const DefaultSavedData = "{""Actors"":{},""Locations"":[],""Maps"":[],""Groups"":[],""Stores"":[],""Items"":[],""Avatars"":[],""Flags"":[],""Statistics"":{""Turn"":1},""Metadatas"":{}}"
 
     <Fact>
     Sub save_current_universe()

@@ -22,7 +22,7 @@ Public Class Universe
 
     Public ReadOnly Property Actors As IEnumerable(Of IActor) Implements IUniverse.Actors
         Get
-            Dim actorIds = New HashSet(Of Integer)(Enumerable.Range(0, UniverseData.LegacyActors.Count))
+            Dim actorIds = UniverseData.Actors.Keys
             Return actorIds.Select(Function(x) Actor.FromId(UniverseData, x))
         End Get
     End Property

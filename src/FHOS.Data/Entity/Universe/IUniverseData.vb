@@ -2,7 +2,6 @@
 
 Public Interface IUniverseData
     Inherits IEntityData
-    Property LegacyActors As List(Of IActorData)
     Property Actors As Dictionary(Of Integer, IActorData)
     Property Locations As List(Of ILocationData)
     Property Maps As List(Of IMapData)
