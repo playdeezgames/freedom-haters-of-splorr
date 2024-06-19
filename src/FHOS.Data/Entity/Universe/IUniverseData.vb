@@ -6,13 +6,13 @@ Public Interface IUniverseData
     ReadOnly Property NextActorId As Integer
     Property Locations As Dictionary(Of Integer, ILocationData)
     ReadOnly Property NextLocationId As Integer
-    Property Maps As List(Of IMapData)
+    Property Maps As Dictionary(Of Integer, IMapData)
     ReadOnly Property NextMapId As Integer
-    Property Groups As List(Of IGroupData)
+    Property Groups As Dictionary(Of Integer, IGroupData)
     ReadOnly Property NextGroupId As Integer
-    Property Stores As List(Of IStoreData)
+    Property Stores As Dictionary(Of Integer, IStoreData)
     ReadOnly Property NextStoreId As Integer
-    Property Items As List(Of IItemData)
+    Property Items As Dictionary(Of Integer, IItemData)
     ReadOnly Property NextItemId As Integer
     Property Avatars As Stack(Of Integer)
     <JsonIgnore>

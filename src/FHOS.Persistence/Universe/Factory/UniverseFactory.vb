@@ -32,8 +32,8 @@ Friend Class UniverseFactory
                     {LegacyMetadataTypes.Name, mapName}
                 }
             }
-        Dim mapId = UniverseData.Maps.Count
-        UniverseData.Maps.Add(mapData)
+        Dim mapId = UniverseData.NextMapId
+        UniverseData.Maps.Add(mapId, mapData)
         Dim map = Persistence.Map.FromId(UniverseData, mapId)
         Dim indices = Enumerable.
                             Range(0, columns * rows)
@@ -74,8 +74,8 @@ Friend Class UniverseFactory
                     {LegacyMetadataTypes.Name, groupName}
                 }
             }
-        Dim groupId = UniverseData.Groups.Count
-        UniverseData.Groups.Add(groupData)
+        Dim groupId = UniverseData.NextGroupId
+        UniverseData.Groups.Add(groupId, groupData)
         Return Group.FromId(UniverseData, groupId)
     End Function
 
@@ -92,8 +92,8 @@ Friend Class UniverseFactory
                 })
         storeData.SetStatistic(PersistenceStatisticTypes.MinimumValue, minimum)
         storeData.SetStatistic(PersistenceStatisticTypes.MaximumValue, maximum)
-        Dim storeId = UniverseData.Stores.Count
-        UniverseData.Stores.Add(storeData)
+        Dim storeId = UniverseData.NextStoreId
+        UniverseData.Stores.Add(storeId, storeData)
         Return Store.FromId(UniverseData, storeId)
     End Function
 
@@ -105,8 +105,8 @@ Friend Class UniverseFactory
                     {LegacyMetadataTypes.EntityType, itemType}
                 }
             }
-        Dim itemId = UniverseData.Items.Count
-        UniverseData.Items.Add(itemData)
+        Dim itemId = UniverseData.NextItemId
+        UniverseData.Items.Add(itemId, itemData)
         Return Item.FromId(UniverseData, itemId)
     End Function
 End Class
