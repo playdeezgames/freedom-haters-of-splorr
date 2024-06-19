@@ -3,6 +3,7 @@
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
+        sut.LegacyLocations.ShouldBeEmpty
         sut.Locations.ShouldBeEmpty
         sut.YokedGroups.ShouldBeEmpty
     End Sub

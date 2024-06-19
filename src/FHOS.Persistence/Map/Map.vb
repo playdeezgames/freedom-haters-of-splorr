@@ -17,7 +17,7 @@ Friend Class Map
 
     Public ReadOnly Property Locations As IEnumerable(Of ILocation) Implements IMap.Locations
         Get
-            Return EntityData.Locations.Select(Function(x) Location.FromId(UniverseData, x))
+            Return EntityData.LegacyLocations.Select(Function(x) Location.FromId(UniverseData, x))
         End Get
     End Property
 
@@ -48,6 +48,6 @@ Friend Class Map
         If column < 0 OrElse row < 0 OrElse column >= EntityData.GetStatistic(PersistenceStatisticTypes.Columns).Value OrElse row >= EntityData.GetStatistic(PersistenceStatisticTypes.Rows).Value Then
             Return Nothing
         End If
-        Return Location.FromId(UniverseData, EntityData.Locations(column + row * EntityData.GetStatistic(PersistenceStatisticTypes.Columns).Value))
+        Return Location.FromId(UniverseData, EntityData.LegacyLocations(column + row * EntityData.GetStatistic(PersistenceStatisticTypes.Columns).Value))
     End Function
 End Class

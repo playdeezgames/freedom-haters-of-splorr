@@ -25,6 +25,7 @@ Friend Class UniverseFactory
                     {PersistenceStatisticTypes.Rows, rows}
                 }) With
             {
+                .LegacyLocations = Nothing,
                 .Locations = Nothing,
                 .Metadatas = New Dictionary(Of String, String) From
                 {
@@ -35,9 +36,11 @@ Friend Class UniverseFactory
         Dim mapId = UniverseData.Maps.Count
         UniverseData.Maps.Add(mapData)
         Dim map = Persistence.Map.FromId(UniverseData, mapId)
-        mapData.Locations = Enumerable.
-                            Range(0, columns * rows).
+        Dim indices = Enumerable.
+                            Range(0, columns * rows)
+        mapData.LegacyLocations = indices.
                             Select(Function(x) CreateLocation(mapId, locationType, x Mod columns, x \ columns)).ToList
+        mapData.Locations = indices.ToDictionary(Function(x) x, Function(x) mapData.LegacyLocations(x))
         Return map
     End Function
 

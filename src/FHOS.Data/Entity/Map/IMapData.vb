@@ -1,6 +1,7 @@
 ﻿Public Interface IMapData
     Inherits IEntityData
-    Property Locations As List(Of Integer)
+    Property LegacyLocations As List(Of Integer)
+    Property Locations As Dictionary(Of Integer, Integer)
     'Sub SetLocation(index As Integer, locationId As Integer)
     'Function GetLocation(index As Integer) As Integer
     Property YokedGroups As Dictionary(Of String, Integer)
