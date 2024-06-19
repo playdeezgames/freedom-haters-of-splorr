@@ -8,6 +8,12 @@
 
     Public Property Locations As New Dictionary(Of Integer, Integer) Implements IMapData.Locations
 
+    Public ReadOnly Property AllLocations As IEnumerable(Of Integer) Implements IMapData.AllLocations
+        Get
+            Return Locations.Values
+        End Get
+    End Property
+
     Public Sub SetLocation(index As Integer, locationId As Integer) Implements IMapData.SetLocation
         Locations(index) = locationId
     End Sub

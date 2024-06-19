@@ -3,7 +3,7 @@
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
-        sut.Locations.ShouldBeEmpty
+        sut.AllLocations.ShouldBeEmpty
         sut.YokedGroups.ShouldBeEmpty
     End Sub
     <Fact>
@@ -18,6 +18,7 @@
         Const index = 10
         sut.SetLocation(index, locationId)
         sut.GetLocation(index).ShouldBe(locationId)
+        sut.AllLocations.ShouldHaveSingleItem
     End Sub
     Protected Overrides Function CreateSut() As IMapData
         Return New MapData
