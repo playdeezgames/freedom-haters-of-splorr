@@ -1,5 +1,5 @@
 ﻿Public Interface IActorData
-    Inherits IEntityData
+    Inherits IGroupedEntityData
     Sub AddChild(childId As Integer)
     ReadOnly Property HasChildren As Boolean
     ReadOnly Property AllChildren As IEnumerable(Of Integer)
@@ -12,6 +12,4 @@
     Function GetYokedActor(yokeType As String) As Integer?
     Sub SetYokedStore(yokeType As String, storeId As Integer?)
     Function GetYokedStore(yokeType As String) As Integer?
-    Sub SetYokedGroup(yokeType As String, groupId As Integer?)
-    Function GetYokedGroup(yokeType As String) As Integer?
 End Interface

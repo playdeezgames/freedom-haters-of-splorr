@@ -1,5 +1,5 @@
 ﻿Public Class ActorData_should
-    Inherits EntityData_should(Of IActorData)
+    Inherits GroupedEntityData_should(Of IActorData)
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
@@ -80,29 +80,6 @@
         sut.SetYokedStore(yokeType, Nothing)
         sut.GetYokedStore(yokeType).ShouldBeNull
     End Sub
-    <Fact>
-    Sub default_given_yoked_group_to_nothing()
-        Dim sut = CreateSut()
-        Const yokeType = "yoke type"
-        sut.GetYokedGroup(yokeType).ShouldBeNull
-    End Sub
-    <Fact>
-    Sub set_yoked_group()
-        Dim sut = CreateSut()
-        Const yokeType = "yoke type"
-        Const groupId = 1
-        sut.SetYokedGroup(yokeType, groupId)
-        sut.GetYokedGroup(yokeType).ShouldBe(groupId)
-    End Sub
-    <Fact>
-    Sub clear_yoked_group()
-        Dim sut = CreateSut()
-        Const yokeType = "yoke type"
-        Const groupId = 1
-        sut.SetYokedGroup(yokeType, groupId)
-        sut.SetYokedGroup(yokeType, Nothing)
-        sut.GetYokedGroup(yokeType).ShouldBeNull
-    End Sub
     <Theory>
     <InlineData(" ")>
     <InlineData("  ")>
@@ -114,8 +91,6 @@
         Should.Throw(Of InvalidOperationException)(Sub() sut.SetYokedActor(yokeType, 1))
         Should.Throw(Of InvalidOperationException)(Function() sut.GetYokedStore(yokeType))
         Should.Throw(Of InvalidOperationException)(Sub() sut.SetYokedStore(yokeType, 1))
-        Should.Throw(Of InvalidOperationException)(Function() sut.GetYokedGroup(yokeType))
-        Should.Throw(Of InvalidOperationException)(Sub() sut.SetYokedGroup(yokeType, 1))
     End Sub
     Protected Overrides Function CreateSut() As IActorData
         Return New ActorData

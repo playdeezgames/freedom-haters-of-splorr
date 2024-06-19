@@ -1,5 +1,5 @@
 ﻿Public Class ActorData
-    Inherits EntityData
+    Inherits GroupedEntityData
     Implements IActorData
     Public Sub New(Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing)
         MyBase.New(statistics:=statistics)
@@ -8,7 +8,6 @@
     Public Property Equipment As New HashSet(Of Integer)
     Public Property YokedActors As New Dictionary(Of String, Integer)
     Public Property YokedStores As New Dictionary(Of String, Integer)
-    Public Property YokedGroups As New Dictionary(Of String, Integer)
     Public Property Inventory As New HashSet(Of Integer)
 
     Public ReadOnly Property HasChildren As Boolean Implements IActorData.HasChildren
@@ -73,17 +72,6 @@
         End If
     End Sub
 
-    Public Sub SetYokedGroup(yokeType As String, groupId As Integer?) Implements IActorData.SetYokedGroup
-        If String.IsNullOrWhiteSpace(yokeType) Then
-            Throw New InvalidOperationException("yokeType is null or whitespace")
-        End If
-        If groupId.HasValue Then
-            YokedGroups(yokeType) = groupId.Value
-        Else
-            YokedGroups.Remove(yokeType)
-        End If
-    End Sub
-
     Public Function GetYokedActor(yokeType As String) As Integer? Implements IActorData.GetYokedActor
         If String.IsNullOrWhiteSpace(yokeType) Then
             Throw New InvalidOperationException("yokeType is null or whitespace")
@@ -102,17 +90,6 @@
         Dim storeId As Integer
         If YokedStores.TryGetValue(yokeType, storeId) Then
             Return storeId
-        End If
-        Return Nothing
-    End Function
-
-    Public Function GetYokedGroup(yokeType As String) As Integer? Implements IActorData.GetYokedGroup
-        If String.IsNullOrWhiteSpace(yokeType) Then
-            Throw New InvalidOperationException("yokeType is null or whitespace")
-        End If
-        Dim groupId As Integer
-        If YokedGroups.TryGetValue(yokeType, groupId) Then
-            Return groupId
         End If
         Return Nothing
     End Function
