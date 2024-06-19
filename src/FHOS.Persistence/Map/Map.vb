@@ -29,18 +29,10 @@ Friend Class Map
 
     Public Property YokedGroup(yokeType As String) As IGroup Implements IMap.YokedGroup
         Get
-            Dim groupId As Integer
-            If EntityData.YokedGroups.TryGetValue(yokeType, groupId) Then
-                Return Group.FromId(UniverseData, groupId)
-            End If
-            Return Nothing
+            Return Group.FromId(UniverseData, EntityData.GetYokedGroup(yokeType))
         End Get
         Set(value As IGroup)
-            If value IsNot Nothing Then
-                EntityData.YokedGroups(yokeType) = value.Id
-            Else
-                EntityData.YokedGroups.Remove(yokeType)
-            End If
+            EntityData.SetYokedGroup(yokeType, value?.Id)
         End Set
     End Property
 

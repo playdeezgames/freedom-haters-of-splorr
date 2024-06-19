@@ -1,10 +1,9 @@
 ﻿Public Class MapData_should
-    Inherits EntityData_should(Of IMapData)
+    Inherits GroupedEntityData_should(Of IMapData)
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
         sut.AllLocations.ShouldBeEmpty
-        sut.YokedGroups.ShouldBeEmpty
     End Sub
     <Fact>
     Sub default_given_location_to_nothing()
