@@ -2,12 +2,12 @@
 
 Public Interface IUniverseData
     Inherits IEntityData
-    Property Actors As List(Of ActorData)
-    Property Locations As List(Of LocationData)
-    Property Maps As List(Of MapData)
-    Property Groups As List(Of GroupData)
-    Property Stores As List(Of StoreData)
-    Property Items As List(Of ItemData)
+    Property Actors As List(Of IActorData)
+    Property Locations As List(Of ILocationData)
+    Property Maps As List(Of IMapData)
+    Property Groups As List(Of IGroupData)
+    Property Stores As List(Of IStoreData)
+    Property Items As List(Of IItemData)
     Property Avatars As Stack(Of Integer)
     <JsonIgnore>
     Property Messages As Queue(Of MessageData)
