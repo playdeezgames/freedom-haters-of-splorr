@@ -3,7 +3,7 @@
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
-        sut.Actors.ShouldBeEmpty
+        sut.LegacyActors.ShouldBeEmpty
         sut.Locations.ShouldBeEmpty
         sut.Maps.ShouldBeEmpty
         sut.Groups.ShouldBeEmpty
