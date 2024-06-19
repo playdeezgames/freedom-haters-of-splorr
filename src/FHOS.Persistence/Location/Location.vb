@@ -48,7 +48,7 @@ Friend Class Location
                                         {LegacyMetadataTypes.Name, name}
                                     }
                                  }
-        Dim actorId As Integer = If(UniverseData.Actors.Any, UniverseData.Actors.Keys.Max + 1, 0)
+        Dim actorId As Integer = UniverseData.NextActorId
         UniverseData.Actors.Add(actorId, actorData)
         Dim actor = Persistence.Actor.FromId(UniverseData, actorId)
         Me.Actor = actor

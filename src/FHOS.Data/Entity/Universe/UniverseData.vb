@@ -12,5 +12,57 @@ Public Class UniverseData
     Property Avatars As New Stack(Of Integer) Implements IUniverseData.Avatars
     <JsonIgnore>
     Property Messages As New Queue(Of MessageData) Implements IUniverseData.Messages
+    Private _nextActorId As Integer = 0
+    Private _nextLocationId As Integer = 0
+    Private _nextMapId As Integer = 0
+    Private _nextGroupId As Integer = 0
+    Private _nextStoreId As Integer = 0
+    Private _nextItemId As Integer = 0
+    Public ReadOnly Property NextActorId As Integer Implements IUniverseData.NextActorId
+        Get
+            Dim actorId = _nextActorId
+            _nextActorId += 1
+            Return actorId
+        End Get
+    End Property
 
+    Public ReadOnly Property NextLocationId As Integer Implements IUniverseData.NextLocationId
+        Get
+            Dim locationId = _nextLocationId
+            _nextLocationId += 1
+            Return locationId
+        End Get
+    End Property
+
+    Public ReadOnly Property NextMapId As Integer Implements IUniverseData.NextMapId
+        Get
+            Dim mapId = _nextMapId
+            _nextMapId += 1
+            Return mapId
+        End Get
+    End Property
+
+    Public ReadOnly Property NextGroupId As Integer Implements IUniverseData.NextGroupId
+        Get
+            Dim groupId = _nextGroupId
+            _nextGroupId += 1
+            Return groupId
+        End Get
+    End Property
+
+    Public ReadOnly Property NextStoreId As Integer Implements IUniverseData.NextStoreId
+        Get
+            Dim storeId = _nextStoreId
+            _nextStoreId += 1
+            Return storeId
+        End Get
+    End Property
+
+    Public ReadOnly Property NextItemId As Integer Implements IUniverseData.NextItemId
+        Get
+            Dim itemId = _nextItemId
+            _nextItemId += 1
+            Return itemId
+        End Get
+    End Property
 End Class
