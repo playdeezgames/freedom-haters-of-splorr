@@ -6,7 +6,7 @@
     End Sub
     Property YokedGroups As New Dictionary(Of String, Integer) Implements IMapData.YokedGroups
 
-    Public Property Locations As New Dictionary(Of Integer, Integer) Implements IMapData.Locations
+    Property Locations As New Dictionary(Of Integer, Integer)
 
     Public ReadOnly Property AllLocations As IEnumerable(Of Integer) Implements IMapData.AllLocations
         Get

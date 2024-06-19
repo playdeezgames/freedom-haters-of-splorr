@@ -17,7 +17,7 @@ Friend Class Map
 
     Public ReadOnly Property Locations As IEnumerable(Of ILocation) Implements IMap.Locations
         Get
-            Return EntityData.Locations.Select(Function(x) Location.FromId(UniverseData, x.Value))
+            Return EntityData.AllLocations.Select(Function(x) Location.FromId(UniverseData, x))
         End Get
     End Property
 
@@ -49,6 +49,6 @@ Friend Class Map
             Return Nothing
         End If
         Dim index = column + row * EntityData.GetStatistic(PersistenceStatisticTypes.Columns).Value
-        Return Location.FromId(UniverseData, EntityData.Locations(index))
+        Return Location.FromId(UniverseData, EntityData.GetLocation(index))
     End Function
 End Class
