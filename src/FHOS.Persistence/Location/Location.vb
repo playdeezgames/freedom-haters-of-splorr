@@ -41,14 +41,11 @@ Friend Class Location
         Dim actorData = New ActorData(actorId, statistics:=New Dictionary(Of String, Integer) From
                                     {
                                         {PersistenceStatisticTypes.LocationId, Id}
-                                    }) With
-                                 {
-                                    .Metadatas = New Dictionary(Of String, String) From
+                                    }, metadatas:=New Dictionary(Of String, String) From
                                     {
                                         {LegacyMetadataTypes.EntityType, actorType},
                                         {LegacyMetadataTypes.Name, name}
-                                    }
-                                 }
+                                    })
         UniverseData.Actors.Add(actorId, actorData)
         Dim actor = Persistence.Actor.FromId(UniverseData, actorId)
         Me.Actor = actor

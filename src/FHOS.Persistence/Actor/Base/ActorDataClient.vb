@@ -8,7 +8,7 @@ Friend Class ActorDataClient
         MyBase.New(
             universeData,
             actorId,
-            Function(u, i) u.Actors(i),
+            Function(u, i) u.GetActorData(i),
             Sub(u, i) Return)
     End Sub
     Public Overrides Sub Recycle()

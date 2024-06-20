@@ -2,8 +2,12 @@
     Inherits IdentifiedEntityData
     Implements IGroupedEntityData
     Public Property YokedGroups As New Dictionary(Of String, Integer)
-    Public Sub New(id As Integer, Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing)
-        MyBase.New(id, statistics)
+    Public Sub New(
+                  id As Integer,
+                  Optional flags As HashSet(Of String) = Nothing,
+                  Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
+                  Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
+        MyBase.New(id, statistics:=statistics, flags:=flags, metadatas:=metadatas)
     End Sub
 
     Public Sub SetYokedGroup(yokeType As String, groupId As Integer?) Implements IGroupedEntityData.SetYokedGroup

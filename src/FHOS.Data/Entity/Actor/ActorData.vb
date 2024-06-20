@@ -1,8 +1,12 @@
 ﻿Public Class ActorData
     Inherits GroupedEntityData
     Implements IActorData
-    Public Sub New(id As Integer, Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing)
-        MyBase.New(id, statistics:=statistics)
+    Public Sub New(
+                  id As Integer,
+                  Optional flags As HashSet(Of String) = Nothing,
+                  Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
+                  Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
+        MyBase.New(id, statistics:=statistics, flags:=flags, metadatas:=metadatas)
     End Sub
     Public Property Children As New HashSet(Of Integer)
     Public Property Equipment As New HashSet(Of Integer)
