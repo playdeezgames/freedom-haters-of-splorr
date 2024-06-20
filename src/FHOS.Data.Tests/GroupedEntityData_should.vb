@@ -1,5 +1,5 @@
 ﻿Public MustInherit Class GroupedEntityData_should(Of TEntityData As IGroupedEntityData)
-    Inherits EntityData_should(Of TEntityData)
+    Inherits IdentifiedEntityData_should(Of TEntityData)
     <Fact>
     Sub default_given_yoked_group_to_nothing()
         Dim sut = CreateSut()

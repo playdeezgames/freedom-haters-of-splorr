@@ -19,7 +19,8 @@ Friend Class UniverseFactory
                              columns As Integer,
                              rows As Integer,
                              locationType As String) As IMap Implements IUniverseFactory.CreateMap
-        Dim mapData = New MapData(New Dictionary(Of String, Integer) From
+        Dim mapId = UniverseData.NextMapId
+        Dim mapData = New MapData(mapId, New Dictionary(Of String, Integer) From
                 {
                     {PersistenceStatisticTypes.Columns, columns},
                     {PersistenceStatisticTypes.Rows, rows}
@@ -32,7 +33,6 @@ Friend Class UniverseFactory
                     {LegacyMetadataTypes.Name, mapName}
                 }
             }
-        Dim mapId = UniverseData.NextMapId
         UniverseData.Maps.Add(mapId, mapData)
         Dim map = Persistence.Map.FromId(UniverseData, mapId)
         Dim indices = Enumerable.

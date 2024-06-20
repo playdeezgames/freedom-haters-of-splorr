@@ -20,6 +20,6 @@
         sut.AllLocations.ShouldHaveSingleItem
     End Sub
     Protected Overrides Function CreateSut() As IMapData
-        Return New MapData
+        Return New MapData(0)
     End Function
 End Class

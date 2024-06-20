@@ -1,8 +1,8 @@
 ﻿Public Class MapData
     Inherits GroupedEntityData
     Implements IMapData
-    Public Sub New(Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing)
-        MyBase.New(statistics:=statistics)
+    Public Sub New(id As Integer, Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing)
+        MyBase.New(id, statistics:=statistics)
     End Sub
 
     Property Locations As New Dictionary(Of Integer, Integer)

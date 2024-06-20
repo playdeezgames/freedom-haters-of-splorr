@@ -1,9 +1,9 @@
-﻿Public Class GroupedEntityData
-    Inherits EntityData
+﻿Public MustInherit Class GroupedEntityData
+    Inherits IdentifiedEntityData
     Implements IGroupedEntityData
     Public Property YokedGroups As New Dictionary(Of String, Integer)
-    Public Sub New(Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing)
-        MyBase.New(statistics)
+    Public Sub New(id As Integer, Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing)
+        MyBase.New(id, statistics)
     End Sub
 
     Public Sub SetYokedGroup(yokeType As String, groupId As Integer?) Implements IGroupedEntityData.SetYokedGroup
