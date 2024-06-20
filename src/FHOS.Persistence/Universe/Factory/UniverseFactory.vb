@@ -1,16 +1,17 @@
 ﻿Imports System.Diagnostics.CodeAnalysis
 Imports FHOS.Data
+Imports Microsoft.Data.Sqlite
 
 Friend Class UniverseFactory
     Inherits UniverseDataClient
     Implements IUniverseFactory
 
-    Public Sub New(universeData As Data.IUniverseData)
-        MyBase.New(universeData)
+    Public Sub New(universeData As Data.IUniverseData, connection As SqliteConnection)
+        MyBase.New(universeData, connection)
     End Sub
 
-    Friend Shared Function FromData(universeData As Data.IUniverseData) As IUniverseFactory
-        Return New UniverseFactory(universeData)
+    Friend Shared Function FromData(universeData As Data.IUniverseData, connection As SqliteConnection) As IUniverseFactory
+        Return New UniverseFactory(universeData, connection)
     End Function
 
     Public Function CreateMap(
@@ -20,7 +21,7 @@ Friend Class UniverseFactory
                              rows As Integer,
                              locationType As String) As IMap Implements IUniverseFactory.CreateMap
         Dim mapId = UniverseData.NextMapId
-        Dim mapData = New MapData(Nothing, mapId, statistics:=New Dictionary(Of String, Integer) From
+        Dim mapData = New MapData(UniverseData.Connection, mapId, statistics:=New Dictionary(Of String, Integer) From
                 {
                     {PersistenceStatisticTypes.Columns, columns},
                     {PersistenceStatisticTypes.Rows, rows}
@@ -32,7 +33,7 @@ Friend Class UniverseFactory
             {
                 .Locations = Nothing}
         UniverseData.Maps.Add(mapId, mapData)
-        Dim map = Persistence.Map.FromId(UniverseData, mapId)
+        Dim map = Persistence.Map.FromId(UniverseData, Connection, mapId)
         Dim indices = Enumerable.
                             Range(0, columns * rows)
         Dim LegacyLocations = indices.
@@ -45,7 +46,7 @@ Friend Class UniverseFactory
     Private Function CreateLocation(mapId As Integer, locationType As String, column As Integer, row As Integer) As Integer
         Dim locationId = UniverseData.NextLocationId
         Dim locationData = New LocationData(
-                                Nothing, locationId,
+                                UniverseData.Connection, locationId,
                                 statistics:=New Dictionary(Of String, Integer) From
                                 {
                                     {PersistenceStatisticTypes.MapId, mapId},
@@ -65,13 +66,13 @@ Friend Class UniverseFactory
                                 groupType As String,
                                 groupName As String) As IGroup Implements IUniverseFactory.CreateGroup
         Dim groupId = UniverseData.NextGroupId
-        Dim groupData = New GroupData(Nothing, groupId, metadatas:=New Dictionary(Of String, String) From
+        Dim groupData = New GroupData(UniverseData.Connection, groupId, metadatas:=New Dictionary(Of String, String) From
                 {
                     {LegacyMetadataTypes.EntityType, groupType},
                     {LegacyMetadataTypes.Name, groupName}
                 })
         UniverseData.Groups.Add(groupId, groupData)
-        Return Group.FromId(UniverseData, groupId)
+        Return Group.FromId(UniverseData, Connection, groupId)
     End Function
 
     Public Function CreateStore(
@@ -82,23 +83,23 @@ Friend Class UniverseFactory
             Throw New ArgumentOutOfRangeException
         End If
         Dim storeId = UniverseData.NextStoreId
-        Dim storeData = New StoreData(Nothing, storeId, statistics:=New Dictionary(Of String, Integer) From
+        Dim storeData = New StoreData(UniverseData.Connection, storeId, statistics:=New Dictionary(Of String, Integer) From
                 {
                     {PersistenceStatisticTypes.CurrentValue, value}
                 })
         storeData.SetStatistic(PersistenceStatisticTypes.MinimumValue, minimum)
         storeData.SetStatistic(PersistenceStatisticTypes.MaximumValue, maximum)
         UniverseData.Stores.Add(storeId, storeData)
-        Return Store.FromId(UniverseData, storeId)
+        Return Store.FromId(UniverseData, Connection, storeId)
     End Function
 
     Public Function CreateItem(itemType As String) As IItem Implements IUniverseFactory.CreateItem
         Dim itemId = UniverseData.NextItemId
-        Dim itemData = New ItemData(Nothing, itemId, metadatas:=New Dictionary(Of String, String) From
+        Dim itemData = New ItemData(UniverseData.Connection, itemId, metadatas:=New Dictionary(Of String, String) From
                 {
                     {LegacyMetadataTypes.EntityType, itemType}
                 })
         UniverseData.Items.Add(itemId, itemData)
-        Return Item.FromId(UniverseData, itemId)
+        Return Item.FromId(UniverseData, Connection, itemId)
     End Function
 End Class

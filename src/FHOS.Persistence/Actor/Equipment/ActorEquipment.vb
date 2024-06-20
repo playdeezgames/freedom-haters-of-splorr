@@ -1,14 +1,16 @@
-﻿Friend Class ActorEquipment
+﻿Imports Microsoft.Data.Sqlite
+
+Friend Class ActorEquipment
     Inherits ActorDataClient
     Implements IActorEquipment
 
-    Protected Sub New(universeData As Data.IUniverseData, actorId As Integer)
-        MyBase.New(universeData, actorId)
+    Protected Sub New(universeData As Data.IUniverseData, connection As SqliteConnection, actorId As Integer)
+        MyBase.New(universeData, connection, actorId)
     End Sub
 
     Public ReadOnly Property All As IEnumerable(Of IItem) Implements IActorEquipment.All
         Get
-            Return EntityData.AllEquipment.Select(Function(x) Item.FromId(UniverseData, x))
+            Return EntityData.AllEquipment.Select(Function(x) Item.FromId(UniverseData, Connection, x))
         End Get
     End Property
 
@@ -16,7 +18,7 @@
         EntityData.AddEquipment(item.Id)
     End Sub
 
-    Friend Shared Function FromId(universeData As Data.IUniverseData, id As Integer) As IActorEquipment
-        Return New ActorEquipment(universeData, id)
+    Friend Shared Function FromId(universeData As Data.IUniverseData, connection As SqliteConnection, id As Integer) As IActorEquipment
+        Return New ActorEquipment(universeData, connection, id)
     End Function
 End Class
