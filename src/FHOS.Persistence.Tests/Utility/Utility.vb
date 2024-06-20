@@ -11,7 +11,7 @@
     Friend Function CreateUniverse(Optional universe As IUniverse = Nothing, Optional data As UniverseData = Nothing) As IUniverse
         Dim check = universe Is Nothing OrElse data Is Nothing
         check.ShouldBeTrue("When bootstrapping a universe, either supply a universe already or the data behind it, or neither, but not both!")
-        Return If(universe, New Universe(If(data, New UniverseData)))
+        Return If(universe, New Universe(If(data, New UniverseData(Nothing))))
     End Function
     Friend Function CreateGroup(
                                Optional groupType As String = "group type",

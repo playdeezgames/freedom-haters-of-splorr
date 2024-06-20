@@ -3,6 +3,13 @@ Imports System.Text.Json.Serialization
 Public Class UniverseData
     Inherits EntityData
     Implements IUniverseData
+    Public Sub New(
+                  connection As SqliteConnection,
+                  Optional flags As ISet(Of String) = Nothing,
+                  Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
+                  Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
+        MyBase.New(connection, flags, statistics, metadatas)
+    End Sub
     Public Property Actors As New Dictionary(Of Integer, IActorData) Implements IUniverseData.Actors
     Property Locations As New Dictionary(Of Integer, ILocationData) Implements IUniverseData.Locations
     Property Maps As New Dictionary(Of Integer, IMapData) Implements IUniverseData.Maps

@@ -1,6 +1,7 @@
 ﻿Public MustInherit Class EntityData
     Implements IEntityData
     Public Sub New(
+                  connection As SqliteConnection,
                   Optional flags As ISet(Of String) = Nothing,
                   Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)

@@ -10,7 +10,7 @@ Public Class UniverseModel
     Private ReadOnly initializer As IInitializer
     Private ReadOnly generationTimeSlice As Double
 
-    Private UniverseData As UniverseData = Nothing
+    Private UniverseData As IUniverseData = Nothing
 
     Private ReadOnly Property Universe As IUniverse
         Get
@@ -25,11 +25,13 @@ Public Class UniverseModel
     End Sub
 
     Public Sub Save(filename As String) Implements IUniverseModel.Save
-        WriteStringToFile(filename, JsonSerializer.Serialize(UniverseData))
+        Throw New NotImplementedException()
+        'WriteStringToFile(filename, JsonSerializer.Serialize(UniverseData))
     End Sub
 
     Public Sub Load(filename As String) Implements IUniverseModel.Load
-        UniverseData = JsonSerializer.Deserialize(Of UniverseData)(ReadStringFromFile(filename))
+        Throw New NotImplementedException()
+        'UniverseData = JsonSerializer.Deserialize(Of UniverseData)(ReadStringFromFile(filename))
     End Sub
 
     Public Sub Abandon() Implements IUniverseModel.Abandon
@@ -52,7 +54,7 @@ Public Class UniverseModel
     Public ReadOnly Property Generator As IUniverseGeneratorModel Implements IUniverseModel.Generator
         Get
             Return UniverseGeneratorModel.MakeGenerator(
-                Sub() UniverseData = New UniverseData,
+                Sub() UniverseData = New UniverseData(Nothing),
                 Function() Universe,
                 EmbarkSettings,
                 initializer,

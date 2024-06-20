@@ -38,7 +38,7 @@ Friend Class Location
 
     Public Function CreateActor(actorType As String, name As String) As IActor Implements ILocation.CreateActor
         Dim actorId As Integer = UniverseData.NextActorId
-        Dim actorData = New ActorData(actorId, statistics:=New Dictionary(Of String, Integer) From
+        Dim actorData = New ActorData(Nothing, actorId, statistics:=New Dictionary(Of String, Integer) From
                                     {
                                         {PersistenceStatisticTypes.LocationId, Id}
                                     }, metadatas:=New Dictionary(Of String, String) From

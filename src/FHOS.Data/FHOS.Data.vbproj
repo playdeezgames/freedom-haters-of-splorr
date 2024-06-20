@@ -4,6 +4,7 @@
     <RootNamespace>FHOS.Data</RootNamespace>
     <TargetFramework>netstandard2.1</TargetFramework>
     <OptionStrict>On</OptionStrict>
+    <ImportedNamespaces>Microsoft.Data.Sqlite=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,FHOS.Data=True</ImportedNamespaces>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -15,7 +16,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.6" />
     <PackageReference Include="System.Text.Json" Version="8.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Import Include="Microsoft.Data.Sqlite" />
   </ItemGroup>
 
 </Project>
