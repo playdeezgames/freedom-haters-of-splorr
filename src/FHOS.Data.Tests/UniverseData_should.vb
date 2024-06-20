@@ -50,6 +50,6 @@
         sut.GetItemData(itemId).ShouldBeNull
     End Sub
     Protected Overrides Function CreateSut() As IUniverseData
-        Return New UniverseData(Nothing)
+        Return New UniverseData(Connection)
     End Function
 End Class

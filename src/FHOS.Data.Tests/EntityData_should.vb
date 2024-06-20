@@ -1,4 +1,13 @@
 ﻿Public MustInherit Class EntityData_should(Of TEntityData As IEntityData)
+    Private _connection As SqliteConnection = Nothing
+    Protected ReadOnly Property Connection As SqliteConnection
+        Get
+            If _connection Is Nothing Then
+                _connection = New SqliteConnection("Data Source=:memory:;Version=3;New=True;")
+            End If
+            Return _connection
+        End Get
+    End Property
     Protected MustOverride Function CreateSut() As TEntityData
     <Fact>
     Sub default_given_flag_to_false()

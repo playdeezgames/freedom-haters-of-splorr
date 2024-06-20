@@ -93,6 +93,6 @@
         Should.Throw(Of InvalidOperationException)(Sub() sut.SetYokedStore(yokeType, 1))
     End Sub
     Protected Overrides Function CreateSut() As IActorData
-        Return New ActorData(Nothing, 0)
+        Return New ActorData(Connection, 0)
     End Function
 End Class
