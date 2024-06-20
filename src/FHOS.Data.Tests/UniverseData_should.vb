@@ -20,14 +20,6 @@
         sut.GetActorData(actorId).ShouldBeNull
     End Sub
     <Fact>
-    Sub set_actor_data()
-        Dim sut = CreateSut()
-        Const actorId = 1
-        Dim actorData = New ActorData
-        sut.SetActorData(actorId, actorData)
-        sut.GetActorData(actorId).ShouldBe(actorData)
-    End Sub
-    <Fact>
     Sub default_locations_to_nothing()
         Dim sut = CreateSut()
         Const locationId = 1

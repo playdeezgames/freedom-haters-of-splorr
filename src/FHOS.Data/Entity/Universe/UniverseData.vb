@@ -93,8 +93,4 @@ Public Class UniverseData
     Public Function GetItemData(storeId As Integer) As IItemData Implements IUniverseData.GetItemData
         Return Nothing
     End Function
-
-    Public Sub SetActorData(actorId As Integer, actorData As IActorData) Implements IUniverseData.SetActorData
-        Actors(actorId) = actorData
-    End Sub
 End Class
