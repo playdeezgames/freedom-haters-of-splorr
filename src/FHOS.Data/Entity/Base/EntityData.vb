@@ -1,7 +1,7 @@
 ﻿Public MustInherit Class EntityData
     Implements IEntityData
     Public Sub New(
-                  Optional flags As HashSet(Of String) = Nothing,
+                  Optional flags As ISet(Of String) = Nothing,
                   Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
         Me.Statistics = If(statistics IsNot Nothing, New Dictionary(Of String, Integer)(statistics), New Dictionary(Of String, Integer))

@@ -4,10 +4,12 @@
     Public Property YokedGroups As New Dictionary(Of String, Integer)
     Public Sub New(
                   id As Integer,
-                  Optional flags As HashSet(Of String) = Nothing,
+                  Optional flags As ISet(Of String) = Nothing,
                   Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
-                  Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
+                  Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing,
+                  Optional yokedGroups As IReadOnlyDictionary(Of String, Integer) = Nothing)
         MyBase.New(id, statistics:=statistics, flags:=flags, metadatas:=metadatas)
+        Me.YokedGroups = If(yokedGroups IsNot Nothing, New Dictionary(Of String, Integer)(yokedGroups), New Dictionary(Of String, Integer))
     End Sub
 
     Public Sub SetYokedGroup(yokeType As String, groupId As Integer?) Implements IGroupedEntityData.SetYokedGroup
