@@ -1,3 +1,3 @@
 ﻿Public Interface IStoreData
-    Inherits IEntityData
+    Inherits IIdentifiedEntityData
 End Interface

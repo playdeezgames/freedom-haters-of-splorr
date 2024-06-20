@@ -1,7 +1,7 @@
 ﻿Public Class StoreData
-    Inherits EntityData
+    Inherits IdentifiedEntityData
     Implements IStoreData
-    Public Sub New(Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing)
-        MyBase.New(statistics:=statistics)
+    Public Sub New(id As Integer, Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing)
+        MyBase.New(id, statistics:=statistics)
     End Sub
 End Class

@@ -1,6 +1,6 @@
 ﻿Public Class StoreData_should
-    Inherits EntityData_should(Of IStoreData)
+    Inherits IdentifiedEntityData_should(Of IStoreData)
     Protected Overrides Function CreateSut() As IStoreData
-        Return New StoreData
+        Return New StoreData(0)
     End Function
 End Class

@@ -1,5 +1,5 @@
 ﻿Public Class GroupData_should
-    Inherits EntityData_should(Of IGroupData)
+    Inherits IdentifiedEntityData_should(Of IGroupData)
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
@@ -57,6 +57,6 @@
         sut.HasParent(parentId).ShouldBeFalse
     End Sub
     Protected Overrides Function CreateSut() As IGroupData
-        Return New GroupData
+        Return New GroupData(0)
     End Function
 End Class

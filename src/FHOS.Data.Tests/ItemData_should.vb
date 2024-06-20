@@ -1,7 +1,7 @@
 Public Class ItemData_should
-    Inherits EntityData_should(Of IItemData)
+    Inherits IdentifiedEntityData_should(Of IItemData)
     Protected Overrides Function CreateSut() As IItemData
-        Return New ItemData
+        Return New ItemData(0)
     End Function
 End Class
 

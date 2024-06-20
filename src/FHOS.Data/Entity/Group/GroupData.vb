@@ -1,6 +1,11 @@
 ﻿Public Class GroupData
-    Inherits EntityData
+    Inherits IdentifiedEntityData
     Implements IGroupData
+
+    Public Sub New(id As Integer, Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing)
+        MyBase.New(id, statistics)
+    End Sub
+
     Property Children As New HashSet(Of Integer)
     Property Parents As New HashSet(Of Integer)
 

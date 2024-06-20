@@ -1,3 +1,3 @@
 ﻿Public Interface IItemData
-    Inherits IEntityData
+    Inherits IIdentifiedEntityData
 End Interface

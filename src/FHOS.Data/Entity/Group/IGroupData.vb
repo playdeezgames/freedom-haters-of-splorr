@@ -1,5 +1,5 @@
 ﻿Public Interface IGroupData
-    Inherits IEntityData
+    Inherits IIdentifiedEntityData
     ReadOnly Property HasChildren As Boolean
     ReadOnly Property AllChildren As IEnumerable(Of Integer)
     Sub AddChild(childId As Integer)

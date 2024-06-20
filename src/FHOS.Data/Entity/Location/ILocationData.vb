@@ -1,3 +1,3 @@
 ﻿Public Interface ILocationData
-    Inherits IEntityData
+    Inherits IIdentifiedEntityData
 End Interface
