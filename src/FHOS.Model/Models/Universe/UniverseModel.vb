@@ -2,7 +2,6 @@
 Imports System.Text.Json
 Imports FHOS.Data
 Imports FHOS.Persistence
-Imports Microsoft.Data.Sqlite
 
 Public Class UniverseModel
     Implements IUniverseModel
@@ -10,13 +9,12 @@ Public Class UniverseModel
     Private ReadOnly ReadStringFromFile As Func(Of String, String)
     Private ReadOnly initializer As IInitializer
     Private ReadOnly generationTimeSlice As Double
-    Private connection As SqliteConnection
 
     Private UniverseData As IUniverseData = Nothing
 
     Private ReadOnly Property Universe As IUniverse
         Get
-            Return New Universe(UniverseData, connection)
+            Return New Universe(UniverseData)
         End Get
     End Property
 
@@ -56,21 +54,13 @@ Public Class UniverseModel
     Public ReadOnly Property Generator As IUniverseGeneratorModel Implements IUniverseModel.Generator
         Get
             Return UniverseGeneratorModel.MakeGenerator(
-                Sub() UniverseData = New UniverseData(CreateConnection()),
+                Sub() UniverseData = New UniverseData(Nothing),
                 Function() Universe,
                 EmbarkSettings,
                 initializer,
                 generationTimeSlice)
         End Get
     End Property
-    Private _connection As SqliteConnection = Nothing
-    Private Function CreateConnection() As SqliteConnection
-        If _connection Is Nothing Then
-            _connection = New SqliteConnection("Data Source=:memory:")
-            _connection.Open()
-        End If
-        Return _connection
-    End Function
 
     Public ReadOnly Property Settings As IUniverseSettingsModel Implements IUniverseModel.Settings
         Get

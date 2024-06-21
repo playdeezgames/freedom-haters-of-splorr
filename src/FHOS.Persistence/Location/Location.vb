@@ -1,30 +1,29 @@
 ﻿Imports FHOS.Data
-Imports Microsoft.Data.Sqlite
 
 Friend Class Location
     Inherits LocationDataClient
     Implements ILocation
 
-    Protected Sub New(universeData As Data.IUniverseData, connection As SqliteConnection, locationId As Integer)
-        MyBase.New(universeData, connection, locationId)
+    Protected Sub New(universeData As Data.IUniverseData, locationId As Integer)
+        MyBase.New(universeData, locationId)
     End Sub
 
-    Friend Shared Function FromId(universeData As IUniverseData, connection As SqliteConnection, locationId As Integer?) As ILocation
+    Friend Shared Function FromId(universeData As IUniverseData, locationId As Integer?) As ILocation
         If locationId.HasValue Then
-            Return New Location(universeData, connection, locationId.Value)
+            Return New Location(universeData, locationId.Value)
         End If
         Return Nothing
     End Function
 
     Public ReadOnly Property Map As IMap Implements ILocation.Map
         Get
-            Return Persistence.Map.FromId(UniverseData, Connection, EntityData.GetStatistic(PersistenceStatisticTypes.MapId))
+            Return Persistence.Map.FromId(UniverseData, EntityData.GetStatistic(PersistenceStatisticTypes.MapId))
         End Get
     End Property
 
     Public Property Actor As IActor Implements ILocation.Actor
         Get
-            Return Persistence.Actor.FromId(UniverseData, Connection, EntityData.GetStatistic(PersistenceStatisticTypes.ActorId))
+            Return Persistence.Actor.FromId(UniverseData, EntityData.GetStatistic(PersistenceStatisticTypes.ActorId))
         End Get
         Set(value As IActor)
             EntityData.SetStatistic(PersistenceStatisticTypes.ActorId, value?.Id)
@@ -39,7 +38,7 @@ Friend Class Location
 
     Public Function CreateActor(actorType As String, name As String) As IActor Implements ILocation.CreateActor
         Dim actorId As Integer = UniverseData.NextActorId
-        Dim actorData = New ActorData(UniverseData.Connection, actorId, statistics:=New Dictionary(Of String, Integer) From
+        Dim actorData = New ActorData(Nothing, actorId, statistics:=New Dictionary(Of String, Integer) From
                                     {
                                         {PersistenceStatisticTypes.LocationId, Id}
                                     }, metadatas:=New Dictionary(Of String, String) From
@@ -48,7 +47,7 @@ Friend Class Location
                                         {LegacyMetadataTypes.Name, name}
                                     })
         UniverseData.Actors.Add(actorId, actorData)
-        Dim actor = Persistence.Actor.FromId(UniverseData, Connection, actorId)
+        Dim actor = Persistence.Actor.FromId(UniverseData, actorId)
         Me.Actor = actor
         Return actor
     End Function

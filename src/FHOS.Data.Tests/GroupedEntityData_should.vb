@@ -1,10 +1,5 @@
 ﻿Public MustInherit Class GroupedEntityData_should(Of TEntityData As IGroupedEntityData)
     Inherits IdentifiedEntityData_should(Of TEntityData)
-
-    Protected Sub New(tablePrefix As String)
-        MyBase.New(tablePrefix)
-    End Sub
-
     <Fact>
     Sub default_given_yoked_group_to_nothing()
         Dim sut = CreateSut()

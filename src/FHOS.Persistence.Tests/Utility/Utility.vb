@@ -1,6 +1,4 @@
-﻿Imports Microsoft.Data.Sqlite
-
-Friend Module Utility
+﻿Friend Module Utility
     Friend Function CreateAvatar(Optional universe As IUniverse = Nothing, Optional data As UniverseData = Nothing) As IAvatar
         Return CreateUniverse(universe, data).Avatar
     End Function
@@ -13,21 +11,8 @@ Friend Module Utility
     Friend Function CreateUniverse(Optional universe As IUniverse = Nothing, Optional data As UniverseData = Nothing) As IUniverse
         Dim check = universe Is Nothing OrElse data Is Nothing
         check.ShouldBeTrue("When bootstrapping a universe, either supply a universe already or the data behind it, or neither, but not both!")
-
-        If data Is Nothing Then
-            data = New UniverseData(CreateConnection())
-        End If
-        Return If(universe, New Universe(data, data.Connection))
+        Return If(universe, New Universe(If(data, New UniverseData(Nothing))))
     End Function
-    Private _connection As SqliteConnection = Nothing
-    Private Function CreateConnection() As SqliteConnection
-        If _connection Is Nothing Then
-            _connection = New SqliteConnection("Data Source=:memory:")
-            _connection.Open()
-        End If
-        Return _connection
-    End Function
-
     Friend Function CreateGroup(
                                Optional groupType As String = "group type",
                                Optional groupName As String = "group name",

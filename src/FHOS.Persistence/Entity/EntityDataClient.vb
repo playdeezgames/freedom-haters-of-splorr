@@ -1,5 +1,4 @@
 ﻿Imports FHOS.Data
-Imports Microsoft.Data.Sqlite
 
 Friend Class EntityDataClient(Of TEntityData As IEntityData)
     Inherits UniverseDataClient
@@ -34,7 +33,7 @@ Friend Class EntityDataClient(Of TEntityData As IEntityData)
 
     Public ReadOnly Property Universe As IUniverse Implements IEntity.Universe
         Get
-            Return New Universe(UniverseData, Connection)
+            Return New Universe(UniverseData)
         End Get
     End Property
 
@@ -57,11 +56,11 @@ Friend Class EntityDataClient(Of TEntityData As IEntityData)
     End Property
 
     Public Sub New(
-                  universeData As Data.IUniverseData, connection As SqliteConnection,
+                  universeData As Data.IUniverseData,
                   entityId As Integer,
                   entityDataFetcher As Func(Of IUniverseData, Integer, TEntityData),
                   entityDataRecycler As Action(Of IUniverseData, Integer))
-        MyBase.New(universeData, connection)
+        MyBase.New(universeData)
         Me.entityId = entityId
         Me.entityDataFetcher = entityDataFetcher
         Me.entityDataRecycler = entityDataRecycler
