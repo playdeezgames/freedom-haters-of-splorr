@@ -12,6 +12,7 @@
         MyBase.New(connection, statistics:=statistics, flags:=flags, metadatas:=metadatas)
         Me.Id = id
         Me.tablePrefix = tablePrefix
+        CreateFlagsTable()
     End Sub
 
     Private Const FlagTableSuffix = "Flags"
@@ -26,7 +27,6 @@
 
     Public ReadOnly Property Id As Integer Implements IIdentifiedEntityData.Id
     Protected Overrides Sub ClearDatabaseFlag(flagType As String)
-        CreateFlagsTable()
         Using command = _connection.CreateCommand
             command.CommandText = $"DELETE FROM [{tablePrefix}{FlagTableSuffix}] WHERE [{FlagTypeColumn}]=@{FlagTypeColumn} AND [{tablePrefix}Id]=@{tablePrefix}Id;"
             command.Parameters.AddWithValue(FlagTypeColumn, flagType)
@@ -35,7 +35,6 @@
         End Using
     End Sub
     Protected Overrides Sub SetDatabaseFlag(flagType As String)
-        CreateFlagsTable()
         Using command = _connection.CreateCommand
             command.CommandText = $"INSERT OR IGNORE INTO [{tablePrefix}{FlagTableSuffix}]([{tablePrefix}Id],[{FlagTypeColumn}]) VALUES(@{tablePrefix}Id,@{FlagTypeColumn});"
             command.Parameters.AddWithValue(FlagTypeColumn, flagType)
