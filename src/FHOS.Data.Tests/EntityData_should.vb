@@ -3,7 +3,7 @@
     Protected ReadOnly Property Connection As SqliteConnection
         Get
             If _connection Is Nothing Then
-                _connection = New SqliteConnection("Data Source=:memory:;Version=3;New=True;")
+                _connection = New SqliteConnection("Data Source=:memory:")
             End If
             Return _connection
         End Get
