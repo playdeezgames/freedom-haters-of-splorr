@@ -16,7 +16,7 @@ Public Class UniverseModel
 
     Private ReadOnly Property Universe As IUniverse
         Get
-            Return New Universe(UniverseData, connection)
+            Return New Universe(UniverseData)
         End Get
     End Property
 

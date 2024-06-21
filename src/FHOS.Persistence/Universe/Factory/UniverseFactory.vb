@@ -1,17 +1,15 @@
-﻿Imports System.Diagnostics.CodeAnalysis
-Imports FHOS.Data
-Imports Microsoft.Data.Sqlite
+﻿Imports FHOS.Data
 
 Friend Class UniverseFactory
     Inherits UniverseDataClient
     Implements IUniverseFactory
 
-    Public Sub New(universeData As Data.IUniverseData, connection As SqliteConnection)
-        MyBase.New(universeData, connection)
+    Public Sub New(universeData As Data.IUniverseData)
+        MyBase.New(universeData)
     End Sub
 
-    Friend Shared Function FromData(universeData As Data.IUniverseData, connection As SqliteConnection) As IUniverseFactory
-        Return New UniverseFactory(universeData, connection)
+    Friend Shared Function FromData(universeData As Data.IUniverseData) As IUniverseFactory
+        Return New UniverseFactory(universeData)
     End Function
 
     Public Function CreateMap(
@@ -33,7 +31,7 @@ Friend Class UniverseFactory
             {
                 .Locations = Nothing}
         UniverseData.Maps.Add(mapId, mapData)
-        Dim map = Persistence.Map.FromId(UniverseData, Connection, mapId)
+        Dim map = Persistence.Map.FromId(UniverseData, mapId)
         Dim indices = Enumerable.
                             Range(0, columns * rows)
         Dim LegacyLocations = indices.
@@ -72,7 +70,7 @@ Friend Class UniverseFactory
                     {LegacyMetadataTypes.Name, groupName}
                 })
         UniverseData.Groups.Add(groupId, groupData)
-        Return Group.FromId(UniverseData, Connection, groupId)
+        Return Group.FromId(UniverseData, groupId)
     End Function
 
     Public Function CreateStore(
@@ -90,7 +88,7 @@ Friend Class UniverseFactory
         storeData.SetStatistic(PersistenceStatisticTypes.MinimumValue, minimum)
         storeData.SetStatistic(PersistenceStatisticTypes.MaximumValue, maximum)
         UniverseData.Stores.Add(storeId, storeData)
-        Return Store.FromId(UniverseData, Connection, storeId)
+        Return Store.FromId(UniverseData, storeId)
     End Function
 
     Public Function CreateItem(itemType As String) As IItem Implements IUniverseFactory.CreateItem
@@ -100,6 +98,6 @@ Friend Class UniverseFactory
                     {LegacyMetadataTypes.EntityType, itemType}
                 })
         UniverseData.Items.Add(itemId, itemData)
-        Return Item.FromId(UniverseData, Connection, itemId)
+        Return Item.FromId(UniverseData, itemId)
     End Function
 End Class

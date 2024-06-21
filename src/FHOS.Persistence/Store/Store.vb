@@ -7,11 +7,9 @@ Friend Class Store
 
     Protected Sub New(
                      universeData As IUniverseData,
-                     connection As SqliteConnection,
                      storeId As Integer)
         MyBase.New(
             universeData,
-            connection,
             storeId)
     End Sub
 
@@ -53,9 +51,9 @@ Friend Class Store
         End Get
     End Property
 
-    Friend Shared Function FromId(universeData As IUniverseData, connection As SqliteConnection, storeId As Integer?) As IStore
+    Friend Shared Function FromId(universeData As IUniverseData, storeId As Integer?) As IStore
         If storeId.HasValue Then
-            Return New Store(universeData, connection, storeId.Value)
+            Return New Store(universeData, storeId.Value)
         End If
         Return Nothing
     End Function

@@ -6,11 +6,9 @@ Friend Class LocationDataClient
 
     Public Sub New(
                   universeData As IUniverseData,
-                  connection As SqliteConnection,
                   locationId As Integer)
         MyBase.New(
             universeData,
-            connection,
             locationId,
             Function(u, i) u.Locations(i),
             Sub(u, i) Return)

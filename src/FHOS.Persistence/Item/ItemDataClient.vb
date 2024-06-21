@@ -6,11 +6,9 @@ Friend Class ItemDataClient
 
     Public Sub New(
                   universeData As IUniverseData,
-                  connection As SqliteConnection,
                   entityId As Integer)
         MyBase.New(
             universeData,
-            connection,
             entityId,
             Function(u, i) u.Items(i),
             Sub(u, i) Return)

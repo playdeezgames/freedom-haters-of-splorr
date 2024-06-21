@@ -4,8 +4,8 @@ Friend Class ActorPrices
     Inherits ActorDataClient
     Implements IActorPrices
 
-    Protected Sub New(universeData As Data.IUniverseData, connection As SqliteConnection, actorId As Integer)
-        MyBase.New(universeData, connection, actorId)
+    Protected Sub New(universeData As Data.IUniverseData, actorId As Integer)
+        MyBase.New(universeData, actorId)
     End Sub
 
     Public ReadOnly Property HasAny As Boolean Implements IActorPrices.HasAny
@@ -14,7 +14,7 @@ Friend Class ActorPrices
         End Get
     End Property
 
-    Friend Shared Function FromId(universeData As Data.IUniverseData, connection As SqliteConnection, id As Integer) As IActorPrices
-        Return New ActorPrices(universeData, connection, id)
+    Friend Shared Function FromId(universeData As Data.IUniverseData, id As Integer) As IActorPrices
+        Return New ActorPrices(universeData, id)
     End Function
 End Class

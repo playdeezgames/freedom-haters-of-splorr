@@ -6,7 +6,6 @@
                   connection As SqliteConnection,
                   tablePrefix As String,
                   id As Integer,
-                  tablePrefix As String,
                   Optional flags As ISet(Of String) = Nothing,
                   Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)

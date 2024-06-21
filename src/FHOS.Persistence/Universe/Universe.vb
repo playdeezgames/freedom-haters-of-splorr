@@ -4,8 +4,8 @@ Imports Microsoft.Data.Sqlite
 Public Class Universe
     Inherits UniverseDataClient
     Implements IUniverse
-    Sub New(universeData As IUniverseData, connection As SqliteConnection)
-        MyBase.New(universeData, connection)
+    Sub New(universeData As IUniverseData)
+        MyBase.New(universeData)
     End Sub
 
     Public ReadOnly Property Messages As IMessages Implements IUniverse.Messages
@@ -17,14 +17,14 @@ Public Class Universe
     Public ReadOnly Property Groups As IEnumerable(Of IGroup) Implements IUniverse.Groups
         Get
             Dim factionIds = New HashSet(Of Integer)(Enumerable.Range(0, UniverseData.Groups.Count))
-            Return factionIds.Select(Function(x) Group.FromId(UniverseData, Connection, x))
+            Return factionIds.Select(Function(x) Group.FromId(UniverseData, x))
         End Get
     End Property
 
     Public ReadOnly Property Actors As IEnumerable(Of IActor) Implements IUniverse.Actors
         Get
             Dim actorIds = UniverseData.Actors.Keys
-            Return actorIds.Select(Function(x) Actor.FromId(UniverseData, Connection, x))
+            Return actorIds.Select(Function(x) Actor.FromId(UniverseData, x))
         End Get
     End Property
 
@@ -40,13 +40,13 @@ Public Class Universe
 
     Public ReadOnly Property Avatar As IAvatar Implements IUniverse.Avatar
         Get
-            Return Persistence.Avatar.FromData(UniverseData, Connection)
+            Return Persistence.Avatar.FromData(UniverseData)
         End Get
     End Property
 
     Public ReadOnly Property Factory As IUniverseFactory Implements IUniverse.Factory
         Get
-            Return UniverseFactory.FromData(UniverseData, Connection)
+            Return UniverseFactory.FromData(UniverseData)
         End Get
     End Property
 End Class
