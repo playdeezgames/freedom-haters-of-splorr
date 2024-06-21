@@ -42,4 +42,12 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
+    Protected Overrides Function CheckDatabaseFlag(flagType As String) As Boolean
+        Using command = _connection.CreateCommand
+            command.CommandText = $"SELECT COUNT(1) FROM [{tablePrefix}{FlagTableSuffix}] WHERE [{FlagTypeColumn}]=@{FlagTypeColumn} AND [{tablePrefix}Id]=@{tablePrefix}Id;"
+            command.Parameters.AddWithValue(FlagTypeColumn, flagType)
+            command.Parameters.AddWithValue($"{tablePrefix}Id", Id)
+            Return CInt(command.ExecuteScalar) > 0
+        End Using
+    End Function
 End Class

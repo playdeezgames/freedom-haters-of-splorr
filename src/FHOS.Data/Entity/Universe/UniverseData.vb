@@ -133,4 +133,12 @@ Public Class UniverseData
             command.ExecuteNonQuery()
         End Using
     End Sub
+
+    Protected Overrides Function CheckDatabaseFlag(flagType As String) As Boolean
+        Using command = _connection.CreateCommand
+            command.CommandText = $"SELECT COUNT(1) FROM [{FlagTableName}] WHERE [{FlagTypeColumn}]=@{FlagTypeColumn};"
+            command.Parameters.AddWithValue(FlagTypeColumn, flagType)
+            Return CInt(command.ExecuteScalar) > 0
+        End Using
+    End Function
 End Class

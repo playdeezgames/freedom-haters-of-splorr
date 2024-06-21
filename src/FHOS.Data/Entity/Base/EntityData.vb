@@ -16,6 +16,7 @@
     Public Property Metadatas As New Dictionary(Of String, String)
     Protected MustOverride Sub SetDatabaseFlag(flagType As String)
     Protected MustOverride Sub ClearDatabaseFlag(flagType As String)
+    Protected MustOverride Function CheckDatabaseFlag(flagType As String) As Boolean
 
     Public Sub SetFlag(flagType As String) Implements IEntityData.SetFlag
         If String.IsNullOrWhiteSpace(flagType) Then
@@ -59,7 +60,7 @@
         If String.IsNullOrWhiteSpace(flagType) Then
             Throw New InvalidOperationException("flagType null or whitespace!")
         End If
-        Return Flags.Contains(flagType)
+        Return CheckDatabaseFlag(flagType)
     End Function
 
     Public Function GetStatistic(statisticType As String) As Integer? Implements IEntityData.GetStatistic
