@@ -6,11 +6,10 @@
                   connection As SqliteConnection,
                   tablePrefix As String,
                   id As Integer,
-                  Optional flags As ISet(Of String) = Nothing,
                   Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing,
                   Optional yokedGroups As IReadOnlyDictionary(Of String, Integer) = Nothing)
-        MyBase.New(connection, tablePrefix, id, statistics:=statistics, flags:=flags, metadatas:=metadatas)
+        MyBase.New(connection, tablePrefix, id, statistics:=statistics, metadatas:=metadatas)
         Me.YokedGroups = If(yokedGroups IsNot Nothing, New Dictionary(Of String, Integer)(yokedGroups), New Dictionary(Of String, Integer))
     End Sub
 

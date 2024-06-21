@@ -3,15 +3,12 @@
     Protected ReadOnly _connection As SqliteConnection
     Public Sub New(
                   connection As SqliteConnection,
-                  Optional flags As ISet(Of String) = Nothing,
                   Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
         Me._connection = connection
         Me.Statistics = If(statistics IsNot Nothing, New Dictionary(Of String, Integer)(statistics), New Dictionary(Of String, Integer))
-        Me.Flags = If(flags IsNot Nothing, New HashSet(Of String)(flags), New HashSet(Of String))
         Me.Metadatas = If(metadatas IsNot Nothing, New Dictionary(Of String, String)(metadatas), New Dictionary(Of String, String))
     End Sub
-    Public Property Flags As New HashSet(Of String)
     Public Property Statistics As Dictionary(Of String, Integer)
     Public Property Metadatas As New Dictionary(Of String, String)
     Protected MustOverride Sub SetDatabaseFlag(flagType As String)
@@ -22,7 +19,6 @@
         If String.IsNullOrWhiteSpace(flagType) Then
             Throw New InvalidOperationException("flagType null or whitespace!")
         End If
-        Flags.Add(flagType)
         SetDatabaseFlag(flagType)
     End Sub
 
@@ -30,7 +26,6 @@
         If String.IsNullOrWhiteSpace(flagType) Then
             Throw New InvalidOperationException("flagType null or whitespace!")
         End If
-        Flags.Remove(flagType)
         ClearDatabaseFlag(flagType)
     End Sub
 

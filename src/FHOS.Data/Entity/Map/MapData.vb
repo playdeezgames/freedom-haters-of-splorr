@@ -4,10 +4,9 @@
     Public Sub New(
                   connection As SqliteConnection,
                   id As Integer,
-                  Optional flags As ISet(Of String) = Nothing,
                   Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
-        MyBase.New(connection, "Map", id, statistics:=statistics, flags:=flags, metadatas:=metadatas)
+        MyBase.New(connection, "Map", id, statistics:=statistics, metadatas:=metadatas)
     End Sub
 
     Property Locations As New Dictionary(Of Integer, Integer)

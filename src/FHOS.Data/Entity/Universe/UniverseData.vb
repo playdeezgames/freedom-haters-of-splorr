@@ -8,7 +8,7 @@ Public Class UniverseData
                   Optional flags As ISet(Of String) = Nothing,
                   Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
-        MyBase.New(connection, flags, statistics, metadatas)
+        MyBase.New(connection, statistics, metadatas)
         CreateFlagsTable()
     End Sub
     Public Property Actors As New Dictionary(Of Integer, IActorData) Implements IUniverseData.Actors
