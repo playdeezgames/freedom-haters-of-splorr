@@ -65,7 +65,7 @@ Friend Class UniverseFactory
                                 groupType As String,
                                 groupName As String) As IGroup Implements IUniverseFactory.CreateGroup
         Dim groupId = UniverseData.NextGroupId
-        Dim groupData = New GroupData(Nothing, groupId, metadatas:=New Dictionary(Of String, String) From
+        Dim groupData = New GroupData(UniverseData.Connection, groupId, metadatas:=New Dictionary(Of String, String) From
                 {
                     {LegacyMetadataTypes.EntityType, groupType},
                     {LegacyMetadataTypes.Name, groupName}

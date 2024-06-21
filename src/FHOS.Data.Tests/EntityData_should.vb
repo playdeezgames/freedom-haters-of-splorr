@@ -4,6 +4,7 @@
         Get
             If _connection Is Nothing Then
                 _connection = New SqliteConnection("Data Source=:memory:")
+                _connection.Open()
             End If
             Return _connection
         End Get

@@ -7,7 +7,7 @@
                   Optional flags As ISet(Of String) = Nothing,
                   Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
-        MyBase.New(connection, id, statistics:=statistics, flags:=flags, metadatas:=metadatas)
+        MyBase.New(connection, "Group", id, statistics:=statistics, flags:=flags, metadatas:=metadatas)
     End Sub
 
     Property Children As New HashSet(Of Integer)

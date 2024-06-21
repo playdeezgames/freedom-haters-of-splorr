@@ -1,10 +1,12 @@
 ﻿Public MustInherit Class EntityData
     Implements IEntityData
+    Protected ReadOnly _connection As SqliteConnection
     Public Sub New(
                   connection As SqliteConnection,
                   Optional flags As ISet(Of String) = Nothing,
                   Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
+        Me._connection = connection
         Me.Statistics = If(statistics IsNot Nothing, New Dictionary(Of String, Integer)(statistics), New Dictionary(Of String, Integer))
         Me.Flags = If(flags IsNot Nothing, New HashSet(Of String)(flags), New HashSet(Of String))
         Me.Metadatas = If(metadatas IsNot Nothing, New Dictionary(Of String, String)(metadatas), New Dictionary(Of String, String))
@@ -12,12 +14,15 @@
     Public Property Flags As New HashSet(Of String)
     Public Property Statistics As Dictionary(Of String, Integer)
     Public Property Metadatas As New Dictionary(Of String, String)
+    Protected MustOverride Sub SetDatabaseFlag(flagType As String)
+    Protected MustOverride Sub ClearDatabaseFlag(flagType As String)
 
     Public Sub SetFlag(flagType As String) Implements IEntityData.SetFlag
         If String.IsNullOrWhiteSpace(flagType) Then
             Throw New InvalidOperationException("flagType null or whitespace!")
         End If
         Flags.Add(flagType)
+        SetDatabaseFlag(flagType)
     End Sub
 
     Public Sub ClearFlag(flagType As String) Implements IEntityData.ClearFlag
@@ -25,6 +30,7 @@
             Throw New InvalidOperationException("flagType null or whitespace!")
         End If
         Flags.Remove(flagType)
+        ClearDatabaseFlag(flagType)
     End Sub
 
     Public Sub SetStatistic(statisticType As String, value As Integer?) Implements IEntityData.SetStatistic
