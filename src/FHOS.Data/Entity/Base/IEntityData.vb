@@ -1,4 +1,5 @@
 ﻿Public Interface IEntityData
+    ReadOnly Property Connection As SqliteConnection
     Function HasFlag(flagName As String) As Boolean
     Sub SetFlag(flagName As String)
     Sub ClearFlag(flagName As String)

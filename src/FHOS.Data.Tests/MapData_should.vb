@@ -1,5 +1,10 @@
 ﻿Public Class MapData_should
     Inherits GroupedEntityData_should(Of IMapData)
+
+    Public Sub New()
+        MyBase.New("Map")
+    End Sub
+
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()

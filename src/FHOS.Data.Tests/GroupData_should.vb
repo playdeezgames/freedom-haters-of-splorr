@@ -1,5 +1,8 @@
 ﻿Public Class GroupData_should
     Inherits IdentifiedEntityData_should(Of IGroupData)
+    Public Sub New()
+        MyBase.New("Group")
+    End Sub
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()

@@ -1,23 +1,25 @@
-﻿Friend Class ActorFamily
+﻿Imports Microsoft.Data.Sqlite
+
+Friend Class ActorFamily
     Inherits ActorDataClient
     Implements IActorFamily
 
-    Protected Sub New(universeData As Data.IUniverseData, actorId As Integer)
-        MyBase.New(universeData, actorId)
+    Protected Sub New(universeData As Data.IUniverseData, connection As SqliteConnection, actorId As Integer)
+        MyBase.New(universeData, connection, actorId)
     End Sub
 
-    Friend Shared Function FromId(universeData As Data.IUniverseData, id As Integer) As IActorFamily
-        Return New ActorFamily(universeData, id)
+    Friend Shared Function FromId(universeData As Data.IUniverseData, connection As SqliteConnection, id As Integer) As IActorFamily
+        Return New ActorFamily(universeData, connection, id)
     End Function
 
     Public Sub AddChild(child As IActor) Implements IActorFamily.AddChild
         EntityData.AddChild(child.Id)
-        child.Family.Parent = Actor.FromId(UniverseData, Id)
+        child.Family.Parent = Actor.FromId(UniverseData, Connection, Id)
     End Sub
 
     Public Property Parent As IActor Implements IActorFamily.Parent
         Get
-            Return Actor.FromId(UniverseData, GetStatistic(PersistenceStatisticTypes.ParentId))
+            Return Actor.FromId(UniverseData, Connection, GetStatistic(PersistenceStatisticTypes.ParentId))
         End Get
         Set(value As IActor)
             SetStatistic(PersistenceStatisticTypes.ParentId, value?.Id)
@@ -32,7 +34,7 @@
 
     Public ReadOnly Property Children As IEnumerable(Of IActor) Implements IActorFamily.Children
         Get
-            Return EntityData.AllChildren.Select(Function(x) Actor.FromId(UniverseData, x))
+            Return EntityData.AllChildren.Select(Function(x) Actor.FromId(UniverseData, Connection, x))
         End Get
     End Property
 End Class

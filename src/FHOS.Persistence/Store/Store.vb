@@ -1,11 +1,18 @@
 ﻿Imports FHOS.Data
+Imports Microsoft.Data.Sqlite
 
 Friend Class Store
     Inherits StoreDataClient
     Implements IStore
 
-    Protected Sub New(universeData As IUniverseData, storeId As Integer)
-        MyBase.New(universeData, storeId)
+    Protected Sub New(
+                     universeData As IUniverseData,
+                     connection As SqliteConnection,
+                     storeId As Integer)
+        MyBase.New(
+            universeData,
+            connection,
+            storeId)
     End Sub
 
     Public Property CurrentValue As Integer Implements IStore.CurrentValue
@@ -46,9 +53,9 @@ Friend Class Store
         End Get
     End Property
 
-    Friend Shared Function FromId(universeData As IUniverseData, storeId As Integer?) As IStore
+    Friend Shared Function FromId(universeData As IUniverseData, connection As SqliteConnection, storeId As Integer?) As IStore
         If storeId.HasValue Then
-            Return New Store(universeData, storeId.Value)
+            Return New Store(universeData, connection, storeId.Value)
         End If
         Return Nothing
     End Function

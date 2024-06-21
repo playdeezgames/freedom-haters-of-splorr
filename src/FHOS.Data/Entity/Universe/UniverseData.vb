@@ -9,6 +9,15 @@ Public Class UniverseData
                   Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
         MyBase.New(connection, flags, statistics, metadatas)
+        Using command = connection.CreateCommand
+            command.CommandText = "
+CREATE TABLE IF NOT EXISTS [UniverseFlags]
+(
+    [FlagType] TEXT,
+    UNIQUE([FlagType])
+);"
+            command.ExecuteNonQuery()
+        End Using
     End Sub
     Public Property Actors As New Dictionary(Of Integer, IActorData) Implements IUniverseData.Actors
     Property Locations As New Dictionary(Of Integer, ILocationData) Implements IUniverseData.Locations
