@@ -82,6 +82,12 @@ CREATE TABLE IF NOT EXISTS [UniverseFlags]
         End Get
     End Property
 
+    Public ReadOnly Property Connection As SqliteConnection Implements IUniverseData.Connection
+        Get
+            Return _connection
+        End Get
+    End Property
+
     Public Function GetActorData(actorId As Integer) As IActorData Implements IUniverseData.GetActorData
         Dim actorData As IActorData = Nothing
         If Actors.TryGetValue(actorId, actorData) Then
@@ -109,4 +115,32 @@ CREATE TABLE IF NOT EXISTS [UniverseFlags]
     Public Function GetItemData(storeId As Integer) As IItemData Implements IUniverseData.GetItemData
         Return Nothing
     End Function
+
+    Protected Overrides Sub SetDatabaseFlag(flagType As String)
+        CreateFlagsTable()
+        Using command = _connection.CreateCommand
+            command.CommandText = $"INSERT OR IGNORE INTO [{FlagTableName}]([{FlagTypeColumn}]) VALUES(@{FlagTypeColumn});"
+            command.Parameters.AddWithValue(FlagTypeColumn, flagType)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Private Const FlagTableName = "UniverseFlags"
+    Private Const FlagTypeColumn = "FlagType"
+
+    Private Sub CreateFlagsTable()
+        Using command = _connection.CreateCommand()
+            command.CommandText = $"CREATE TABLE IF NOT EXISTS [{FlagTableName}]([{FlagTypeColumn}] TEXT NOT NULL UNIQUE);"
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Protected Overrides Sub ClearDatabaseFlag(flagType As String)
+        CreateFlagsTable()
+        Using command = _connection.CreateCommand
+            command.CommandText = $"DELETE FROM [{FlagTableName}] WHERE [{FlagTypeColumn}]=@{FlagTypeColumn};"
+            command.Parameters.AddWithValue(FlagTypeColumn, flagType)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
 End Class

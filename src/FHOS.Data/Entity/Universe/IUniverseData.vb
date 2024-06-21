@@ -2,6 +2,7 @@
 
 Public Interface IUniverseData
     Inherits IEntityData
+    ReadOnly Property Connection As SqliteConnection
     Property Actors As Dictionary(Of Integer, IActorData)
     ReadOnly Property NextActorId As Integer
     Function GetActorData(actorId As Integer) As IActorData

@@ -13,19 +13,12 @@ Friend Module Utility
     Friend Function CreateUniverse(Optional universe As IUniverse = Nothing, Optional data As UniverseData = Nothing) As IUniverse
         Dim check = universe Is Nothing OrElse data Is Nothing
         check.ShouldBeTrue("When bootstrapping a universe, either supply a universe already or the data behind it, or neither, but not both!")
-
         If data Is Nothing Then
-            data = New UniverseData(CreateConnection())
+            Dim connection As New SqliteConnection("Data Source=:memory:")
+            connection.Open()
+            data = New UniverseData(connection)
         End If
-        Return If(universe, New Universe(data, data.Connection))
-    End Function
-    Private _connection As SqliteConnection = Nothing
-    Private Function CreateConnection() As SqliteConnection
-        If _connection Is Nothing Then
-            _connection = New SqliteConnection("Data Source=:memory:")
-            _connection.Open()
-        End If
-        Return _connection
+        Return If(universe, New Universe(data))
     End Function
 
     Friend Function CreateGroup(
