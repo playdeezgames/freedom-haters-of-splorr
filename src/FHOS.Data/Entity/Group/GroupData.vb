@@ -4,9 +4,8 @@
     Public Sub New(
                   connection As SqliteConnection,
                   id As Integer,
-                  Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
-        MyBase.New(connection, "Group", id, statistics:=statistics, metadatas:=metadatas)
+        MyBase.New(connection, "Group", id, metadatas:=metadatas)
     End Sub
 
     Property Children As New HashSet(Of Integer)

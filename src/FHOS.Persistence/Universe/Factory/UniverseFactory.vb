@@ -19,17 +19,15 @@ Friend Class UniverseFactory
                              rows As Integer,
                              locationType As String) As IMap Implements IUniverseFactory.CreateMap
         Dim mapId = UniverseData.NextMapId
-        Dim mapData = New MapData(UniverseData.Connection, mapId, statistics:=New Dictionary(Of String, Integer) From
-                {
-                    {PersistenceStatisticTypes.Columns, columns},
-                    {PersistenceStatisticTypes.Rows, rows}
-                }, metadatas:=New Dictionary(Of String, String) From
+        Dim mapData = New MapData(UniverseData.Connection, mapId, metadatas:=New Dictionary(Of String, String) From
                 {
                     {LegacyMetadataTypes.EntityType, mapType},
                     {LegacyMetadataTypes.Name, mapName}
                 }) With
             {
                 .Locations = Nothing}
+        mapData.SetStatistic(PersistenceStatisticTypes.Columns, columns)
+        mapData.SetStatistic(PersistenceStatisticTypes.Rows, rows)
         UniverseData.Maps.Add(mapId, mapData)
         Dim map = Persistence.Map.FromId(UniverseData, mapId)
         Dim indices = Enumerable.
@@ -45,16 +43,13 @@ Friend Class UniverseFactory
         Dim locationId = UniverseData.NextLocationId
         Dim locationData = New LocationData(
                                 UniverseData.Connection, locationId,
-                                statistics:=New Dictionary(Of String, Integer) From
-                                {
-                                    {PersistenceStatisticTypes.MapId, mapId},
-                                    {PersistenceStatisticTypes.Column, column},
-                                    {PersistenceStatisticTypes.Row, row}
-                                },
                                 metadatas:=New Dictionary(Of String, String) From
                                 {
                                     {LegacyMetadataTypes.EntityType, locationType}
                                 })
+        locationData.SetStatistic(PersistenceStatisticTypes.MapId, mapId)
+        locationData.SetStatistic(PersistenceStatisticTypes.Column, column)
+        locationData.SetStatistic(PersistenceStatisticTypes.Row, row)
         UniverseData.Locations.Add(locationId, locationData)
         Return locationId
     End Function
@@ -81,10 +76,8 @@ Friend Class UniverseFactory
             Throw New ArgumentOutOfRangeException
         End If
         Dim storeId = UniverseData.NextStoreId
-        Dim storeData = New StoreData(UniverseData.Connection, storeId, statistics:=New Dictionary(Of String, Integer) From
-                {
-                    {PersistenceStatisticTypes.CurrentValue, value}
-                })
+        Dim storeData = New StoreData(UniverseData.Connection, storeId)
+        storeData.SetStatistic(PersistenceStatisticTypes.CurrentValue, value)
         storeData.SetStatistic(PersistenceStatisticTypes.MinimumValue, minimum)
         storeData.SetStatistic(PersistenceStatisticTypes.MaximumValue, maximum)
         UniverseData.Stores.Add(storeId, storeData)

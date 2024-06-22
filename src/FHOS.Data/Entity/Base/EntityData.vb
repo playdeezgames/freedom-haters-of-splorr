@@ -3,20 +3,17 @@
     Protected ReadOnly _connection As SqliteConnection
     Public Sub New(
                   connection As SqliteConnection,
-                  Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
         Me._connection = connection
-        Me.Statistics = If(statistics IsNot Nothing, New Dictionary(Of String, Integer)(statistics), New Dictionary(Of String, Integer))
         Me.Metadatas = If(metadatas IsNot Nothing, New Dictionary(Of String, String)(metadatas), New Dictionary(Of String, String))
     End Sub
-    Public Property Statistics As Dictionary(Of String, Integer)
     Public Property Metadatas As New Dictionary(Of String, String)
     Protected MustOverride Sub WriteDatabaseFlag(flagType As String)
     Protected MustOverride Sub ClearDatabaseFlag(flagType As String)
     Protected MustOverride Function ReadDatabaseFlag(flagType As String) As Boolean
     Protected MustOverride Sub WriteDatabaseStatistic(statisticType As String, statisticValue As Integer)
     Protected MustOverride Sub ClearDatabaseStatistic(statisticType As String)
-    'Protected MustOverride Function ReadDatabaseStatistic(statisticType As String) As Integer?
+    Protected MustOverride Function ReadDatabaseStatistic(statisticType As String) As Integer?
 
     Public Sub SetFlag(flagType As String) Implements IEntityData.SetFlag
         If String.IsNullOrWhiteSpace(flagType) Then
@@ -37,10 +34,8 @@
             Throw New InvalidOperationException("statisticType null or whitespace!")
         End If
         If value.HasValue Then
-            Statistics(statisticType) = value.Value
             WriteDatabaseStatistic(statisticType, value.Value)
         Else
-            Statistics.Remove(statisticType)
             ClearDatabaseStatistic(statisticType)
         End If
     End Sub
@@ -67,12 +62,7 @@
         If String.IsNullOrWhiteSpace(statisticType) Then
             Throw New InvalidOperationException("statisticType null or whitespace!")
         End If
-        'Return ReadDatabaseStatistic(statisticType)
-        Dim result As Integer
-        If Statistics.TryGetValue(statisticType, result) Then
-            Return result
-        End If
-        Return Nothing
+        Return ReadDatabaseStatistic(statisticType)
     End Function
 
     Public Function GetMetadata(metadataType As String) As String Implements IEntityData.GetMetadata

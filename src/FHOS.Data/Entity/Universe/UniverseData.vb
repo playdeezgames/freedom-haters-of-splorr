@@ -5,10 +5,8 @@ Public Class UniverseData
     Implements IUniverseData
     Public Sub New(
                   connection As SqliteConnection,
-                  Optional flags As ISet(Of String) = Nothing,
-                  Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
-        MyBase.New(connection, statistics, metadatas)
+        MyBase.New(connection, metadatas)
         CreateFlagsTable()
         CreateStatisticsTable()
     End Sub
@@ -193,4 +191,23 @@ WHERE
             command.ExecuteNonQuery()
         End Using
     End Sub
+
+    Protected Overrides Function ReadDatabaseStatistic(statisticType As String) As Integer?
+        Using command = _connection.CreateCommand
+            command.CommandText = $"
+SELECT 
+    [{StatisticValueColumn}] 
+FROM 
+    [{StatisticTableName}] 
+WHERE 
+    [{StatisticTypeColumn}]=@{StatisticTypeColumn};"
+            command.Parameters.AddWithValue(StatisticTypeColumn, statisticType)
+            Using reader = command.ExecuteReader
+                If reader.Read Then
+                    Return reader.GetInt32(0)
+                End If
+            End Using
+            Return Nothing
+        End Using
+    End Function
 End Class

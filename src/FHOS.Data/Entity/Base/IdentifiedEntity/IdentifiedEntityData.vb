@@ -1,6 +1,4 @@
-﻿Imports System.Net.NetworkInformation
-
-Public MustInherit Class IdentifiedEntityData
+﻿Public MustInherit Class IdentifiedEntityData
     Inherits EntityData
     Implements IIdentifiedEntityData
     Protected ReadOnly tablePrefix As String
@@ -8,9 +6,8 @@ Public MustInherit Class IdentifiedEntityData
                   connection As SqliteConnection,
                   tablePrefix As String,
                   id As Integer,
-                  Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
-        MyBase.New(connection, statistics:=statistics, metadatas:=metadatas)
+        MyBase.New(connection, metadatas:=metadatas)
         Me.Id = id
         Me.tablePrefix = tablePrefix
         CreateFlagsTable()
@@ -114,4 +111,25 @@ WHERE
             command.ExecuteNonQuery()
         End Using
     End Sub
+
+    Protected Overrides Function ReadDatabaseStatistic(statisticType As String) As Integer?
+        Using command = _connection.CreateCommand
+            command.CommandText = $"
+SELECT 
+    [{StatisticValueColumn}] 
+FROM 
+    [{tablePrefix}{StatisticTableSuffix}] 
+WHERE 
+    [{StatisticTypeColumn}]=@{StatisticTypeColumn} AND
+    [{tablePrefix}Id]=@{tablePrefix}Id;"
+            command.Parameters.AddWithValue(StatisticTypeColumn, statisticType)
+            command.Parameters.AddWithValue($"{tablePrefix}Id", Id)
+            Using reader = command.ExecuteReader
+                If reader.Read Then
+                    Return reader.GetInt32(0)
+                End If
+            End Using
+            Return Nothing
+        End Using
+    End Function
 End Class
