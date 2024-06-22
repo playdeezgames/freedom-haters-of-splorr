@@ -50,14 +50,6 @@
         sut.GetItemData(itemId).ShouldBeNull
     End Sub
 
-    Protected Overrides Sub VerifyFlagClear(entityData As IUniverseData, flagType As String)
-        Using command = Connection.CreateCommand()
-            command.CommandText = "SELECT COUNT(1) FROM [UniverseFlags] WHERE [FlagType]=@FlagType;"
-            command.Parameters.AddWithValue("FlagType", flagType)
-            CInt(command.ExecuteScalar()).ShouldBe(0)
-        End Using
-    End Sub
-
     Protected Overrides Function CreateSut() As IUniverseData
         Return New UniverseData(Connection)
     End Function

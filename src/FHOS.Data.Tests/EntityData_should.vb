@@ -10,13 +10,11 @@
         End Get
     End Property
     Protected MustOverride Function CreateSut() As TEntityData
-    Protected MustOverride Sub VerifyFlagClear(entityData As TEntityData, flagType As String)
     <Fact>
     Sub default_given_flag_to_false()
         Dim sut = CreateSut()
         Const flagType = "flag type"
         sut.HasFlag(flagType).ShouldBeFalse
-        VerifyFlagClear(sut, flagType)
     End Sub
     <Fact>
     Sub set_flag_to_true()

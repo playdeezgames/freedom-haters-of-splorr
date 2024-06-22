@@ -1,8 +1,5 @@
 ﻿Public Class ActorData_should
     Inherits GroupedEntityData_should(Of IActorData)
-    Public Sub New()
-        MyBase.New("Actor")
-    End Sub
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
