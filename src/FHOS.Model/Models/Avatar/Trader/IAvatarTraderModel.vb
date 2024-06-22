@@ -4,6 +4,6 @@
     ReadOnly Property HasOffers As Boolean
     ReadOnly Property Offers As IEnumerable(Of IAvatarTraderOfferModel)
     ReadOnly Property HasPrices As Boolean
-    ReadOnly Property Prices As IEnumerable(Of IAvatarTraderPricesModel)
+    ReadOnly Property Prices As IEnumerable(Of IAvatarTraderPriceModel)
     ReadOnly Property Trader As IActorModel
 End Interface

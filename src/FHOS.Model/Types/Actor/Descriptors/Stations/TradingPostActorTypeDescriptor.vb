@@ -21,6 +21,7 @@
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
         MyBase.Initialize(actor)
+        actor.Offers.Add(ItemTypes.Scrap)
     End Sub
 
     Protected Overrides Function MakeName(planet As Persistence.IActor) As String

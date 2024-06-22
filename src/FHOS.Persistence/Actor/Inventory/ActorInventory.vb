@@ -13,6 +13,12 @@ Friend Class ActorInventory
         End Get
     End Property
 
+    Public ReadOnly Property ItemCountOfType(itemType As String) As Integer Implements IActorInventory.ItemCountOfType
+        Get
+            Return Items.Count(Function(x) x.EntityType = itemType)
+        End Get
+    End Property
+
     Public Sub Add(item As IItem) Implements IActorInventory.Add
         EntityData.AddItem(item.Id)
     End Sub

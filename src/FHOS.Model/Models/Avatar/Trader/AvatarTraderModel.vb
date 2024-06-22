@@ -41,13 +41,13 @@ Friend Class AvatarTraderModel
 
     Public ReadOnly Property Offers As IEnumerable(Of IAvatarTraderOfferModel) Implements IAvatarTraderModel.Offers
         Get
-            Return Array.Empty(Of IAvatarTraderOfferModel)
+            Return If(yokedTrader?.Offers?.All.Select(Function(x) AvatarTraderOfferModel.FromActorOffer(actor, x)), Array.Empty(Of IAvatarTraderOfferModel))
         End Get
     End Property
 
-    Public ReadOnly Property Prices As IEnumerable(Of IAvatarTraderPricesModel) Implements IAvatarTraderModel.Prices
+    Public ReadOnly Property Prices As IEnumerable(Of IAvatarTraderPriceModel) Implements IAvatarTraderModel.Prices
         Get
-            Return Array.Empty(Of IAvatarTraderPricesModel)
+            Return If(yokedTrader?.Prices?.All.Select(Function(x) AvatarTraderPriceModel.FromActorPrice(actor, x)), Array.Empty(Of IAvatarTraderPriceModel))
         End Get
     End Property
 
