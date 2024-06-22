@@ -8,9 +8,19 @@
 
     Public ReadOnly Property HasAny As Boolean Implements IActorPrices.HasAny
         Get
-            Return False
+            Return EntityData.HasPrices
         End Get
     End Property
+
+    Public ReadOnly Property All As IEnumerable(Of String) Implements IActorPrices.All
+        Get
+            Return EntityData.AllPrices
+        End Get
+    End Property
+
+    Public Sub Add(itemType As String) Implements IActorPrices.Add
+        EntityData.AddPrice(itemType)
+    End Sub
 
     Friend Shared Function FromId(universeData As Data.IUniverseData, id As Integer) As IActorPrices
         Return New ActorPrices(universeData, id)

@@ -39,6 +39,18 @@ Friend Class AvatarTraderModel
         End Get
     End Property
 
+    Public ReadOnly Property Offers As IEnumerable(Of IAvatarTraderOfferModel) Implements IAvatarTraderModel.Offers
+        Get
+            Return Array.Empty(Of IAvatarTraderOfferModel)
+        End Get
+    End Property
+
+    Public ReadOnly Property Prices As IEnumerable(Of IAvatarTraderPricesModel) Implements IAvatarTraderModel.Prices
+        Get
+            Return Array.Empty(Of IAvatarTraderPricesModel)
+        End Get
+    End Property
+
     Public Sub Leave() Implements IAvatarTraderModel.Leave
         actor.Yokes.Actor(YokeTypes.Trader) = Nothing
     End Sub

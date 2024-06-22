@@ -4,7 +4,9 @@
         Dim sut = CreateSut()
         sut.IsActive.ShouldBeFalse
         sut.HasOffers.ShouldBeFalse
+        sut.Offers.ShouldBeEmpty
         sut.HasPrices.ShouldBeFalse
+        sut.Prices.ShouldBeEmpty
         sut.Trader.ShouldBeNull
         Should.NotThrow(Sub() sut.Leave())
     End Sub

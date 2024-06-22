@@ -12,4 +12,10 @@
     Function GetYokedActor(yokeType As String) As Integer?
     Sub SetYokedStore(yokeType As String, storeId As Integer?)
     Function GetYokedStore(yokeType As String) As Integer?
+    ReadOnly Property HasOffers As Boolean
+    ReadOnly Property AllOffers As IEnumerable(Of String)
+    Sub AddOffer(itemType As String)
+    ReadOnly Property HasPrices As Boolean
+    ReadOnly Property AllPrices As IEnumerable(Of String)
+    Sub AddPrice(itemType As String)
 End Interface

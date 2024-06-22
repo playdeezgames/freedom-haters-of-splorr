@@ -7,6 +7,10 @@
         sut.AllChildren.ShouldBeEmpty
         sut.AllEquipment.ShouldBeEmpty
         sut.AllItems.ShouldBeEmpty
+        sut.HasOffers.ShouldBeFalse
+        sut.AllOffers.ShouldBeEmpty
+        sut.HasPrices.ShouldBeFalse
+        sut.AllPrices.ShouldBeEmpty
     End Sub
     <Fact>
     Sub add_child()
@@ -91,6 +95,24 @@
         Should.Throw(Of InvalidOperationException)(Sub() sut.SetYokedActor(yokeType, 1))
         Should.Throw(Of InvalidOperationException)(Function() sut.GetYokedStore(yokeType))
         Should.Throw(Of InvalidOperationException)(Sub() sut.SetYokedStore(yokeType, 1))
+    End Sub
+    <Fact>
+    Sub add_offer()
+        Dim sut = CreateSut()
+        Const itemType = "item type"
+        sut.AddOffer(itemType)
+        sut.HasOffers.ShouldBeTrue
+        sut.AllOffers.ShouldHaveSingleItem
+        sut.AllOffers.Single.ShouldBe(itemType)
+    End Sub
+    <Fact>
+    Sub add_price()
+        Dim sut = CreateSut()
+        Const itemType = "item type"
+        sut.AddPrice(itemType)
+        sut.HasPrices.ShouldBeTrue
+        sut.AllPrices.ShouldHaveSingleItem
+        sut.AllPrices.Single.ShouldBe(itemType)
     End Sub
     Protected Overrides Function CreateSut() As IActorData
         Return New ActorData(0)

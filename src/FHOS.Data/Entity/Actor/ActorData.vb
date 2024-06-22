@@ -13,6 +13,8 @@
     Public Property YokedActors As New Dictionary(Of String, Integer)
     Public Property YokedStores As New Dictionary(Of String, Integer)
     Public Property Inventory As New HashSet(Of Integer)
+    Public Property Offers As New HashSet(Of String)
+    Public Property Prices As New HashSet(Of String)
 
     Public ReadOnly Property HasChildren As Boolean Implements IActorData.HasChildren
         Get
@@ -35,6 +37,30 @@
     Public ReadOnly Property AllItems As IEnumerable(Of Integer) Implements IActorData.AllItems
         Get
             Return Inventory
+        End Get
+    End Property
+
+    Public ReadOnly Property HasOffers As Boolean Implements IActorData.HasOffers
+        Get
+            Return Offers.Any
+        End Get
+    End Property
+
+    Public ReadOnly Property AllOffers As IEnumerable(Of String) Implements IActorData.AllOffers
+        Get
+            Return Offers
+        End Get
+    End Property
+
+    Public ReadOnly Property HasPrices As Boolean Implements IActorData.HasPrices
+        Get
+            Return Prices.Any
+        End Get
+    End Property
+
+    Public ReadOnly Property AllPrices As IEnumerable(Of String) Implements IActorData.AllPrices
+        Get
+            Return Prices
         End Get
     End Property
 
@@ -74,6 +100,14 @@
         Else
             YokedStores.Remove(yokeType)
         End If
+    End Sub
+
+    Public Sub AddOffer(itemType As String) Implements IActorData.AddOffer
+        Offers.Add(itemType)
+    End Sub
+
+    Public Sub AddPrice(itemType As String) Implements IActorData.AddPrice
+        Prices.Add(itemType)
     End Sub
 
     Public Function GetYokedActor(yokeType As String) As Integer? Implements IActorData.GetYokedActor

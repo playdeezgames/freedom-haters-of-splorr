@@ -28,6 +28,16 @@
     Sub have_default_values_when_instantiated()
         Dim sut = CreateSut()
         sut.HasAny.ShouldBeFalse
+        sut.All.ShouldBeEmpty
+    End Sub
+    <Fact>
+    Sub add_offer()
+        Dim sut = CreateSut()
+        Const itemType = "item type"
+        sut.Add(itemType)
+        sut.HasAny.ShouldBeTrue
+        sut.All.ShouldHaveSingleItem
+        sut.All.Single.ShouldBe(itemType)
     End Sub
 
 End Class
