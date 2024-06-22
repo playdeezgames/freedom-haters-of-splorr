@@ -10,7 +10,20 @@ Public Class UniverseData
                   Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
         MyBase.New(connection, statistics, metadatas)
         CreateFlagsTable()
+        CreateStatisticsTable()
     End Sub
+
+    Const StatisticTableName = "UniverseStatistics"
+    Const StatisticTypeColumn = "StatisticType"
+    Const StatisticValueColumn = "StatisticValue"
+
+    Private Sub CreateStatisticsTable()
+        Using command = _connection.CreateCommand()
+            command.CommandText = $"CREATE TABLE IF NOT EXISTS [{StatisticTableName}]([{StatisticTypeColumn}] TEXT NOT NULL UNIQUE,[{StatisticValueColumn}] INT NOT NULL);"
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
     Public Property Actors As New Dictionary(Of Integer, IActorData) Implements IUniverseData.Actors
     Property Locations As New Dictionary(Of Integer, ILocationData) Implements IUniverseData.Locations
     Property Maps As New Dictionary(Of Integer, IMapData) Implements IUniverseData.Maps
@@ -108,7 +121,7 @@ Public Class UniverseData
         Return Nothing
     End Function
 
-    Protected Overrides Sub SetDatabaseFlag(flagType As String)
+    Protected Overrides Sub WriteDatabaseFlag(flagType As String)
         Using command = _connection.CreateCommand
             command.CommandText = $"INSERT OR IGNORE INTO [{FlagTableName}]([{FlagTypeColumn}]) VALUES(@{FlagTypeColumn});"
             command.Parameters.AddWithValue(FlagTypeColumn, flagType)
@@ -134,11 +147,50 @@ Public Class UniverseData
         End Using
     End Sub
 
-    Protected Overrides Function CheckDatabaseFlag(flagType As String) As Boolean
+    Protected Overrides Function ReadDatabaseFlag(flagType As String) As Boolean
         Using command = _connection.CreateCommand
             command.CommandText = $"SELECT COUNT(1) FROM [{FlagTableName}] WHERE [{FlagTypeColumn}]=@{FlagTypeColumn};"
             command.Parameters.AddWithValue(FlagTypeColumn, flagType)
             Return CInt(command.ExecuteScalar) > 0
         End Using
     End Function
+
+    Protected Overrides Sub WriteDatabaseStatistic(statisticType As String, statisticValue As Integer)
+        Using command = _connection.CreateCommand
+            command.CommandText = $"
+INSERT INTO [{StatisticTableName}]
+(
+    [{StatisticTypeColumn}],
+    [{StatisticValueColumn}]
+) 
+VALUES
+(
+    @{StatisticTypeColumn},
+    @{StatisticValueColumn}
+)
+ON 
+    CONFLICT([{StatisticTypeColumn}]) 
+DO 
+    UPDATE 
+    SET 
+        [{StatisticValueColumn}]=@{StatisticValueColumn} 
+    WHERE 
+        [{StatisticTypeColumn}]=@{StatisticTypeColumn};"
+            command.Parameters.AddWithValue(StatisticTypeColumn, statisticType)
+            command.Parameters.AddWithValue(StatisticValueColumn, statisticValue)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Protected Overrides Sub ClearDatabaseStatistic(statisticType As String)
+        Using command = _connection.CreateCommand
+            command.CommandText = $"
+DELETE FROM 
+    [{StatisticTableName}] 
+WHERE 
+    [{StatisticTypeColumn}]=@{StatisticTypeColumn};"
+            command.Parameters.AddWithValue(StatisticTypeColumn, statisticType)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
 End Class

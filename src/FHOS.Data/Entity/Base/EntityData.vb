@@ -11,15 +11,18 @@
     End Sub
     Public Property Statistics As Dictionary(Of String, Integer)
     Public Property Metadatas As New Dictionary(Of String, String)
-    Protected MustOverride Sub SetDatabaseFlag(flagType As String)
+    Protected MustOverride Sub WriteDatabaseFlag(flagType As String)
     Protected MustOverride Sub ClearDatabaseFlag(flagType As String)
-    Protected MustOverride Function CheckDatabaseFlag(flagType As String) As Boolean
+    Protected MustOverride Function ReadDatabaseFlag(flagType As String) As Boolean
+    Protected MustOverride Sub WriteDatabaseStatistic(statisticType As String, statisticValue As Integer)
+    Protected MustOverride Sub ClearDatabaseStatistic(statisticType As String)
+    'Protected MustOverride Function ReadDatabaseStatistic(statisticType As String) As Integer?
 
     Public Sub SetFlag(flagType As String) Implements IEntityData.SetFlag
         If String.IsNullOrWhiteSpace(flagType) Then
             Throw New InvalidOperationException("flagType null or whitespace!")
         End If
-        SetDatabaseFlag(flagType)
+        WriteDatabaseFlag(flagType)
     End Sub
 
     Public Sub ClearFlag(flagType As String) Implements IEntityData.ClearFlag
@@ -35,8 +38,10 @@
         End If
         If value.HasValue Then
             Statistics(statisticType) = value.Value
+            WriteDatabaseStatistic(statisticType, value.Value)
         Else
             Statistics.Remove(statisticType)
+            ClearDatabaseStatistic(statisticType)
         End If
     End Sub
 
@@ -55,13 +60,14 @@
         If String.IsNullOrWhiteSpace(flagType) Then
             Throw New InvalidOperationException("flagType null or whitespace!")
         End If
-        Return CheckDatabaseFlag(flagType)
+        Return ReadDatabaseFlag(flagType)
     End Function
 
     Public Function GetStatistic(statisticType As String) As Integer? Implements IEntityData.GetStatistic
         If String.IsNullOrWhiteSpace(statisticType) Then
             Throw New InvalidOperationException("statisticType null or whitespace!")
         End If
+        'Return ReadDatabaseStatistic(statisticType)
         Dim result As Integer
         If Statistics.TryGetValue(statisticType, result) Then
             Return result
