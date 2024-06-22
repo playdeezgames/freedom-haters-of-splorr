@@ -5,13 +5,13 @@
     Public Sub New(
                   connection As SqliteConnection,
                   tablePrefix As String,
-                  id As Integer,
-                  Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
-        MyBase.New(connection, metadatas:=metadatas)
+                  id As Integer)
+        MyBase.New(connection)
         Me.Id = id
         Me.tablePrefix = tablePrefix
         CreateFlagsTable()
         CreateStatisticsTable()
+        CreateMetadatasTable()
     End Sub
 
     Const StatisticTableSuffix = "Statistics"
@@ -27,6 +27,20 @@ CREATE TABLE IF NOT EXISTS [{tablePrefix}{StatisticTableSuffix}]
     [{StatisticTypeColumn}] TEXT NOT NULL, 
     [{StatisticValueColumn}] INT NOT NULL, 
     UNIQUE([{tablePrefix}Id],[{StatisticTypeColumn}])
+);"
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Private Sub CreateMetadatasTable()
+        Using command = _connection.CreateCommand()
+            command.CommandText = $"
+CREATE TABLE IF NOT EXISTS [{tablePrefix}{MetadataTableSuffix}]
+(
+    [{tablePrefix}Id] INTEGER NOT NULL, 
+    [{MetadataTypeColumn}] TEXT NOT NULL, 
+    [{MetadataValueColumn}] INT NOT NULL, 
+    UNIQUE([{tablePrefix}Id],[{MetadataTypeColumn}])
 );"
             command.ExecuteNonQuery()
         End Using
@@ -127,6 +141,76 @@ WHERE
             Using reader = command.ExecuteReader
                 If reader.Read Then
                     Return reader.GetInt32(0)
+                End If
+            End Using
+            Return Nothing
+        End Using
+    End Function
+
+    Const MetadataTableSuffix = "Metadatas"
+    Const MetadataTypeColumn = "MetadataType"
+    Const MetadataValueColumn = "MetadataValue"
+
+    Protected Overrides Sub WriteDatabaseMetadata(metadataType As String, metadataValue As String)
+        Using command = _connection.CreateCommand
+            command.CommandText = $"
+INSERT INTO [{tablePrefix}{MetadataTableSuffix}]
+(
+    [{tablePrefix}Id],
+    [{MetadataTypeColumn}],
+    [{MetadataValueColumn}]
+) 
+VALUES
+(
+    @{tablePrefix}Id,
+    @{MetadataTypeColumn},
+    @{MetadataValueColumn}
+)
+ON 
+    CONFLICT([{tablePrefix}Id],[{MetadataTypeColumn}]) 
+DO 
+    UPDATE 
+    SET 
+        [{MetadataValueColumn}]=@{MetadataValueColumn} 
+    WHERE 
+        [{MetadataTypeColumn}]=@{MetadataTypeColumn} AND
+        [{tablePrefix}Id]=@{tablePrefix}Id;"
+            command.Parameters.AddWithValue($"{tablePrefix}Id", Id)
+            command.Parameters.AddWithValue(MetadataTypeColumn, metadataType)
+            command.Parameters.AddWithValue(MetadataValueColumn, metadataValue)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Protected Overrides Sub ClearDatabaseMetadata(metadataType As String)
+        Using command = _connection.CreateCommand
+            command.CommandText = $"
+DELETE FROM 
+    [{tablePrefix}{MetadataTableSuffix}] 
+WHERE 
+    [{MetadataTypeColumn}]=@{MetadataTypeColumn} AND
+    [{tablePrefix}Id]=@{tablePrefix}Id;"
+            command.Parameters.AddWithValue(MetadataTypeColumn, metadataType)
+            command.Parameters.AddWithValue($"{tablePrefix}Id", Id)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Protected Overrides Function ReadDatabaseMetadata(metadataType As String) As String
+        Using command = _connection.CreateCommand
+            command.CommandText = $"
+SELECT 
+    [{MetadataValueColumn}] 
+FROM 
+    [{tablePrefix}{MetadataTableSuffix}] 
+WHERE 
+    [{MetadataTypeColumn}]=@{MetadataTypeColumn} AND
+    [{tablePrefix}Id]=@{tablePrefix}Id;"
+            command.Parameters.AddWithValue(MetadataTypeColumn, metadataType)
+            command.Parameters.AddWithValue($"{tablePrefix}Id", Id)
+            Using reader = command.ExecuteReader
+                If reader.Read Then
+                    Return reader.GetString(0)
                 End If
             End Using
             Return Nothing

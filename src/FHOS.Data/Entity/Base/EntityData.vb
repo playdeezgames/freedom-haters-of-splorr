@@ -2,18 +2,18 @@
     Implements IEntityData
     Protected ReadOnly _connection As SqliteConnection
     Public Sub New(
-                  connection As SqliteConnection,
-                  Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
+                  connection As SqliteConnection)
         Me._connection = connection
-        Me.Metadatas = If(metadatas IsNot Nothing, New Dictionary(Of String, String)(metadatas), New Dictionary(Of String, String))
     End Sub
-    Public Property Metadatas As New Dictionary(Of String, String)
     Protected MustOverride Sub WriteDatabaseFlag(flagType As String)
     Protected MustOverride Sub ClearDatabaseFlag(flagType As String)
     Protected MustOverride Function ReadDatabaseFlag(flagType As String) As Boolean
     Protected MustOverride Sub WriteDatabaseStatistic(statisticType As String, statisticValue As Integer)
     Protected MustOverride Sub ClearDatabaseStatistic(statisticType As String)
     Protected MustOverride Function ReadDatabaseStatistic(statisticType As String) As Integer?
+    Protected MustOverride Sub WriteDatabaseMetadata(metadataType As String, metadataValue As String)
+    Protected MustOverride Sub ClearDatabaseMetadata(metadataType As String)
+    Protected MustOverride Function ReadDatabaseMetadata(metadataType As String) As String
 
     Public Sub SetFlag(flagType As String) Implements IEntityData.SetFlag
         If String.IsNullOrWhiteSpace(flagType) Then
@@ -45,9 +45,9 @@
             Throw New InvalidOperationException("statisticType null or whitespace!")
         End If
         If value IsNot Nothing Then
-            Metadatas(metadataType) = value
+            WriteDatabaseMetadata(metadataType, value)
         Else
-            Metadatas.Remove(metadataType)
+            ClearDatabaseMetadata(metadataType)
         End If
     End Sub
 
@@ -69,10 +69,6 @@
         If String.IsNullOrWhiteSpace(metadataType) Then
             Throw New InvalidOperationException("metadataType null or whitespace!")
         End If
-        Dim result As String = Nothing
-        If Metadatas.TryGetValue(metadataType, result) Then
-            Return result
-        End If
-        Return Nothing
+        Return ReadDatabaseMetadata(metadataType)
     End Function
 End Class

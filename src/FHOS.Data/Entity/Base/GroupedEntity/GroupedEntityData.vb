@@ -6,9 +6,8 @@
                   connection As SqliteConnection,
                   tablePrefix As String,
                   id As Integer,
-                  Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing,
                   Optional yokedGroups As IReadOnlyDictionary(Of String, Integer) = Nothing)
-        MyBase.New(connection, tablePrefix, id, metadatas:=metadatas)
+        MyBase.New(connection, tablePrefix, id)
         Me.YokedGroups = If(yokedGroups IsNot Nothing, New Dictionary(Of String, Integer)(yokedGroups), New Dictionary(Of String, Integer))
     End Sub
 

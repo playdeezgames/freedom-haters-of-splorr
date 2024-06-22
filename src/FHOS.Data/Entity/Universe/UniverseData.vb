@@ -4,20 +4,36 @@ Public Class UniverseData
     Inherits EntityData
     Implements IUniverseData
     Public Sub New(
-                  connection As SqliteConnection,
-                  Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
-        MyBase.New(connection, metadatas)
+                  connection As SqliteConnection)
+        MyBase.New(connection)
         CreateFlagsTable()
         CreateStatisticsTable()
+        CreateMetadatasTable()
     End Sub
 
     Const StatisticTableName = "UniverseStatistics"
     Const StatisticTypeColumn = "StatisticType"
     Const StatisticValueColumn = "StatisticValue"
 
+    Const MetadataTableName = "UniverseMetadatas"
+    Const MetadataTypeColumn = "MetadataType"
+    Const MetadataValueColumn = "MetadataValue"
+
     Private Sub CreateStatisticsTable()
         Using command = _connection.CreateCommand()
             command.CommandText = $"CREATE TABLE IF NOT EXISTS [{StatisticTableName}]([{StatisticTypeColumn}] TEXT NOT NULL UNIQUE,[{StatisticValueColumn}] INT NOT NULL);"
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Private Sub CreateMetadatasTable()
+        Using command = _connection.CreateCommand()
+            command.CommandText = $"
+CREATE TABLE IF NOT EXISTS [{MetadataTableName}]
+(
+    [{MetadataTypeColumn}] TEXT NOT NULL UNIQUE,
+    [{MetadataValueColumn}] TEXT NOT NULL
+);"
             command.ExecuteNonQuery()
         End Using
     End Sub
@@ -205,6 +221,64 @@ WHERE
             Using reader = command.ExecuteReader
                 If reader.Read Then
                     Return reader.GetInt32(0)
+                End If
+            End Using
+            Return Nothing
+        End Using
+    End Function
+
+    Protected Overrides Sub WriteDatabaseMetadata(metadataType As String, metadataValue As String)
+        Using command = _connection.CreateCommand
+            command.CommandText = $"
+INSERT INTO [{MetadataTableName}]
+(
+    [{MetadataTypeColumn}],
+    [{MetadataValueColumn}]
+) 
+VALUES
+(
+    @{MetadataTypeColumn},
+    @{MetadataValueColumn}
+)
+ON 
+    CONFLICT([{MetadataTypeColumn}]) 
+DO 
+    UPDATE 
+    SET 
+        [{MetadataValueColumn}]=@{MetadataValueColumn} 
+    WHERE 
+        [{MetadataTypeColumn}]=@{MetadataTypeColumn};"
+            command.Parameters.AddWithValue(MetadataTypeColumn, metadataType)
+            command.Parameters.AddWithValue(MetadataValueColumn, metadataValue)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Protected Overrides Sub ClearDatabaseMetadata(metadataType As String)
+        Using command = _connection.CreateCommand
+            command.CommandText = $"
+DELETE FROM 
+    [{MetadataTableName}] 
+WHERE 
+    [{MetadataTypeColumn}]=@{MetadataTypeColumn};"
+            command.Parameters.AddWithValue(MetadataTypeColumn, metadataType)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Protected Overrides Function ReadDatabaseMetadata(metadataType As String) As String
+        Using command = _connection.CreateCommand
+            command.CommandText = $"
+SELECT 
+    [{MetadataValueColumn}] 
+FROM 
+    [{MetadataTableName}] 
+WHERE 
+    [{MetadataTypeColumn}]=@{MetadataTypeColumn};"
+            command.Parameters.AddWithValue(MetadataTypeColumn, metadataType)
+            Using reader = command.ExecuteReader
+                If reader.Read Then
+                    Return reader.GetString(0)
                 End If
             End Using
             Return Nothing

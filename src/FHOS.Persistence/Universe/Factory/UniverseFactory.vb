@@ -19,15 +19,14 @@ Friend Class UniverseFactory
                              rows As Integer,
                              locationType As String) As IMap Implements IUniverseFactory.CreateMap
         Dim mapId = UniverseData.NextMapId
-        Dim mapData = New MapData(UniverseData.Connection, mapId, metadatas:=New Dictionary(Of String, String) From
-                {
-                    {LegacyMetadataTypes.EntityType, mapType},
-                    {LegacyMetadataTypes.Name, mapName}
-                }) With
+        Dim mapData = New MapData(UniverseData.Connection, mapId) With
             {
-                .Locations = Nothing}
+                .Locations = Nothing
+            }
         mapData.SetStatistic(PersistenceStatisticTypes.Columns, columns)
         mapData.SetStatistic(PersistenceStatisticTypes.Rows, rows)
+        mapData.SetMetadata(LegacyMetadataTypes.EntityType, mapType)
+        mapData.SetMetadata(LegacyMetadataTypes.Name, mapName)
         UniverseData.Maps.Add(mapId, mapData)
         Dim map = Persistence.Map.FromId(UniverseData, mapId)
         Dim indices = Enumerable.
@@ -42,28 +41,22 @@ Friend Class UniverseFactory
     Private Function CreateLocation(mapId As Integer, locationType As String, column As Integer, row As Integer) As Integer
         Dim locationId = UniverseData.NextLocationId
         Dim locationData = New LocationData(
-                                UniverseData.Connection, locationId,
-                                metadatas:=New Dictionary(Of String, String) From
-                                {
-                                    {LegacyMetadataTypes.EntityType, locationType}
-                                })
+                                UniverseData.Connection, locationId)
         locationData.SetStatistic(PersistenceStatisticTypes.MapId, mapId)
         locationData.SetStatistic(PersistenceStatisticTypes.Column, column)
         locationData.SetStatistic(PersistenceStatisticTypes.Row, row)
+        locationData.SetMetadata(LegacyMetadataTypes.EntityType, locationType)
         UniverseData.Locations.Add(locationId, locationData)
         Return locationId
     End Function
-
 
     Public Function CreateGroup(
                                 groupType As String,
                                 groupName As String) As IGroup Implements IUniverseFactory.CreateGroup
         Dim groupId = UniverseData.NextGroupId
-        Dim groupData = New GroupData(UniverseData.Connection, groupId, metadatas:=New Dictionary(Of String, String) From
-                {
-                    {LegacyMetadataTypes.EntityType, groupType},
-                    {LegacyMetadataTypes.Name, groupName}
-                })
+        Dim groupData = New GroupData(UniverseData.Connection, groupId)
+        groupData.SetMetadata(LegacyMetadataTypes.EntityType, groupType)
+        groupData.SetMetadata(LegacyMetadataTypes.Name, groupName)
         UniverseData.Groups.Add(groupId, groupData)
         Return Group.FromId(UniverseData, groupId)
     End Function
@@ -86,10 +79,8 @@ Friend Class UniverseFactory
 
     Public Function CreateItem(itemType As String) As IItem Implements IUniverseFactory.CreateItem
         Dim itemId = UniverseData.NextItemId
-        Dim itemData = New ItemData(UniverseData.Connection, itemId, metadatas:=New Dictionary(Of String, String) From
-                {
-                    {LegacyMetadataTypes.EntityType, itemType}
-                })
+        Dim itemData = New ItemData(UniverseData.Connection, itemId)
+        itemData.SetMetadata(LegacyMetadataTypes.EntityType, itemType)
         UniverseData.Items.Add(itemId, itemData)
         Return Item.FromId(UniverseData, itemId)
     End Function

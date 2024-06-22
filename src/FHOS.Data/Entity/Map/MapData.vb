@@ -3,9 +3,8 @@
     Implements IMapData
     Public Sub New(
                   connection As SqliteConnection,
-                  id As Integer,
-                  Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
-        MyBase.New(connection, "Map", id, metadatas:=metadatas)
+                  id As Integer)
+        MyBase.New(connection, "Map", id)
     End Sub
 
     Property Locations As New Dictionary(Of Integer, Integer)

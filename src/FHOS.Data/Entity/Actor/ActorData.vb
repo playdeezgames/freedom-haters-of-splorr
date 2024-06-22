@@ -3,9 +3,8 @@
     Implements IActorData
     Public Sub New(
                   connection As SqliteConnection,
-                  id As Integer,
-                  Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
-        MyBase.New(connection, "Actor", id, metadatas:=metadatas)
+                  id As Integer)
+        MyBase.New(connection, "Actor", id)
     End Sub
     Public Property Children As New HashSet(Of Integer)
     Public Property Equipment As New HashSet(Of Integer)

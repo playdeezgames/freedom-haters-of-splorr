@@ -3,9 +3,8 @@
     Implements IGroupData
     Public Sub New(
                   connection As SqliteConnection,
-                  id As Integer,
-                  Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
-        MyBase.New(connection, "Group", id, metadatas:=metadatas)
+                  id As Integer)
+        MyBase.New(connection, "Group", id)
     End Sub
 
     Property Children As New HashSet(Of Integer)
