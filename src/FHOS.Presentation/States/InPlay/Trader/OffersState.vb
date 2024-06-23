@@ -26,12 +26,13 @@ Friend Class OffersState
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IAvatarTraderOfferModel))
         CurrentOffer = Nothing
-        Dim menuItems = Context.Model.State.Avatar.Trader.Offers.Where(Function(x) x.Quantity > 0).Select(Function(x) (x.Name, x))
+        Dim menuItems = Context.Model.State.Avatar.Trader.Offers.Select(Function(x) (x.Name, x))
         Return menuItems.ToList
     End Function
     Public Overrides Sub OnStart()
         If Not Context.Model.State.Avatar.Trader.Offers.Any(Function(x) x.Quantity > 0) Then
             SetState(GameState.Trader)
         End If
+        MyBase.OnStart()
     End Sub
 End Class

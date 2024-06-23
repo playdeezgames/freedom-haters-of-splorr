@@ -8,18 +8,6 @@ Friend Class ActorOffers
         MyBase.New(universeData, actorId)
     End Sub
 
-    Public ReadOnly Property LegacyHasAny As Boolean Implements IActorOffers.LegacyHasAny
-        Get
-            Return EntityData.HasOffers
-        End Get
-    End Property
-
-    Public ReadOnly Property LegacyAll As IEnumerable(Of String) Implements IActorOffers.LegacyAll
-        Get
-            Return EntityData.AllOffers
-        End Get
-    End Property
-
     Public ReadOnly Property HasAny(seller As IActor) As Boolean Implements IActorOffers.HasAny
         Get
             Return All(seller).Any

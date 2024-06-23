@@ -28,8 +28,6 @@
     Sub have_default_values_when_instantiated()
         Dim sut = CreateSut()
         Dim seller As IActor = sut.Actor
-        sut.LegacyHasAny.ShouldBeFalse
-        sut.LegacyAll.ShouldBeEmpty
         sut.HasAny(seller).ShouldBeFalse
         sut.All(seller).ShouldBeEmpty
         sut.Actor.ShouldNotBeNull
@@ -40,9 +38,6 @@
         Const itemType = "item type"
         Dim seller As IActor = sut.Actor
         sut.Add(itemType)
-        sut.LegacyHasAny.ShouldBeTrue
-        sut.LegacyAll.ShouldHaveSingleItem
-        sut.LegacyAll.Single.ShouldBe(itemType)
         sut.HasAny(seller).ShouldBeFalse
         sut.All(seller).ShouldBeEmpty
     End Sub
