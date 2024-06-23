@@ -30,6 +30,7 @@
         actor.Inventory.Add(universe.Factory.CreateItem("Scrap"))
         Dim trader = map.GetLocation(1, 0).CreateActor("trader", "trader")
         trader.Offers.Add("Scrap")
+        trader.Prices.Add("Scrap")
         actor.Yokes.Actor("Trader") = trader
         Dim group = universe.Factory.CreateGroup("group type", "group name")
         actor.Yokes.Group("Faction") = group

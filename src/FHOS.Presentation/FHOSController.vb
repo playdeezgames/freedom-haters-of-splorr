@@ -30,6 +30,7 @@ Public Class FHOSController
         SetState(GameState.Offers, New OffersState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Sell, New SellState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Prices, New PricesState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Buy, New BuyState(Me, AddressOf SetCurrentState, context))
 
         CreateSPLORRPediaStates(context)
 

@@ -5,8 +5,8 @@
         sut.IsActive.ShouldBeTrue
         sut.HasOffers.ShouldBeTrue
         sut.Offers.ShouldHaveSingleItem
-        sut.HasPrices.ShouldBeFalse
-        sut.Prices.ShouldBeEmpty
+        sut.HasPrices.ShouldBeTrue
+        sut.Prices.ShouldHaveSingleItem
         sut.Trader.ShouldNotBeNull
         Should.NotThrow(Sub() sut.Leave())
     End Sub

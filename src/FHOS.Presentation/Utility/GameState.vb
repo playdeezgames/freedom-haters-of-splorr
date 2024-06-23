@@ -1,5 +1,6 @@
 ﻿Friend Module GameState
     Friend ReadOnly ActionMenu As String = NameOf(ActionMenu)
+    Friend ReadOnly Buy As String = NameOf(Buy)
     Friend ReadOnly ChangeFactionCount As String = NameOf(ChangeFactionCount)
     Friend ReadOnly ChangeGalacticAge As String = NameOf(ChangeGalacticAge)
     Friend ReadOnly ChangeGalacticDensity As String = NameOf(ChangeGalacticDensity)

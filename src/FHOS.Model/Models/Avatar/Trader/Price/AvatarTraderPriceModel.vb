@@ -13,7 +13,14 @@ Friend Class AvatarTraderPriceModel
 
     Public ReadOnly Property Name As String Implements IAvatarTraderPriceModel.Name
         Get
-            Return itemType
+            Dim descriptor = ItemTypes.Descriptors(itemType)
+            Return $"{descriptor.Name}(@{descriptor.Price})"
+        End Get
+    End Property
+
+    Public ReadOnly Property CanBuy As Boolean Implements IAvatarTraderPriceModel.CanBuy
+        Get
+            Return False
         End Get
     End Property
 
