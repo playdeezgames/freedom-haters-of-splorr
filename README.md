@@ -1,6 +1,9 @@
 # Freedom Haters of SPLORR!!
 
-  - [ ] 20240623 - SIGMO FHOS Episode 66 - 
+  - [ ] 20240626 - SIGMO FHOS Episode 69 - 
+  - [ ] 20240625 - SIGMO FHOS Episode 68 - 
+  - [ ] 20240624 - SIGMO FHOS Episode 67 - 
+  - [x] 20240623 - SIGMO FHOS Episode 66 - 
   - [x] 20240622 - SIGMO FHOS Episode 65 - 
   - [x] 20240621 - SIGMO FHOS Episode 64 - 
   - [x] 20240620 - SIGMO FHOS Episode 63 - 
