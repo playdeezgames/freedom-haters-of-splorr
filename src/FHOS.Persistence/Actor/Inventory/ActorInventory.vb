@@ -25,6 +25,12 @@ Friend Class ActorInventory
         End Get
     End Property
 
+    Public ReadOnly Property AnyOfType(itemType As String) As Boolean Implements IActorInventory.AnyOfType
+        Get
+            Return Items.Any(Function(x) x.EntityType = itemType)
+        End Get
+    End Property
+
     Public Sub Add(item As IItem) Implements IActorInventory.Add
         EntityData.AddItem(item.Id)
     End Sub

@@ -4,4 +4,5 @@
     ReadOnly Property Items As IEnumerable(Of IItem)
     ReadOnly Property ItemCountOfType(itemType As String) As Integer
     ReadOnly Property ItemsOfType(itemType As String) As IEnumerable(Of IItem)
+    ReadOnly Property AnyOfType(itemType As String) As Boolean
 End Interface

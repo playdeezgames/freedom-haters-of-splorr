@@ -23,7 +23,7 @@ Friend Class AvatarTraderModel
 
     Public ReadOnly Property HasOffers As Boolean Implements IAvatarTraderModel.HasOffers
         Get
-            Return If(yokedTrader?.Offers?.HasAny, False)
+            Return If(yokedTrader?.Offers?.LegacyHasAny, False)
         End Get
     End Property
 
@@ -41,7 +41,7 @@ Friend Class AvatarTraderModel
 
     Public ReadOnly Property Offers As IEnumerable(Of IAvatarTraderOfferModel) Implements IAvatarTraderModel.Offers
         Get
-            Return If(yokedTrader?.Offers?.All.Select(Function(x) AvatarTraderOfferModel.FromActorOffer(actor, x)), Array.Empty(Of IAvatarTraderOfferModel))
+            Return If(yokedTrader?.Offers?.LegacyAll.Select(Function(x) AvatarTraderOfferModel.FromActorOffer(actor, x)), Array.Empty(Of IAvatarTraderOfferModel))
         End Get
     End Property
 

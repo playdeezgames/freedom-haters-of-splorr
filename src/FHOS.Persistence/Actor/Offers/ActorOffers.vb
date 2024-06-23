@@ -8,15 +8,33 @@ Friend Class ActorOffers
         MyBase.New(universeData, actorId)
     End Sub
 
-    Public ReadOnly Property HasAny As Boolean Implements IActorOffers.HasAny
+    Public ReadOnly Property LegacyHasAny As Boolean Implements IActorOffers.LegacyHasAny
         Get
             Return EntityData.HasOffers
         End Get
     End Property
 
-    Public ReadOnly Property All As IEnumerable(Of String) Implements IActorOffers.All
+    Public ReadOnly Property LegacyAll As IEnumerable(Of String) Implements IActorOffers.LegacyAll
         Get
             Return EntityData.AllOffers
+        End Get
+    End Property
+
+    Public ReadOnly Property HasAny(seller As IActor) As Boolean Implements IActorOffers.HasAny
+        Get
+            Return All(seller).Any
+        End Get
+    End Property
+
+    Public ReadOnly Property All(seller As IActor) As IEnumerable(Of String) Implements IActorOffers.All
+        Get
+            Return EntityData.AllOffers.Where(Function(x) seller.Inventory.AnyOfType(x))
+        End Get
+    End Property
+
+    Public ReadOnly Property Actor As IActor Implements IActorOffers.Actor
+        Get
+            Return Persistence.Actor.FromId(UniverseData, Id)
         End Get
     End Property
 

@@ -27,17 +27,24 @@
     <Fact>
     Sub have_default_values_when_instantiated()
         Dim sut = CreateSut()
-        sut.HasAny.ShouldBeFalse
-        sut.All.ShouldBeEmpty
+        Dim seller As IActor = sut.Actor
+        sut.LegacyHasAny.ShouldBeFalse
+        sut.LegacyAll.ShouldBeEmpty
+        sut.HasAny(seller).ShouldBeFalse
+        sut.All(seller).ShouldBeEmpty
+        sut.Actor.ShouldNotBeNull
     End Sub
     <Fact>
     Sub add_offer()
         Dim sut = CreateSut()
         Const itemType = "item type"
+        Dim seller As IActor = sut.Actor
         sut.Add(itemType)
-        sut.HasAny.ShouldBeTrue
-        sut.All.ShouldHaveSingleItem
-        sut.All.Single.ShouldBe(itemType)
+        sut.LegacyHasAny.ShouldBeTrue
+        sut.LegacyAll.ShouldHaveSingleItem
+        sut.LegacyAll.Single.ShouldBe(itemType)
+        sut.HasAny(seller).ShouldBeFalse
+        sut.All(seller).ShouldBeEmpty
     End Sub
 
 End Class
