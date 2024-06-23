@@ -17,6 +17,21 @@ Friend Class AvatarTraderOfferModel
         End Get
     End Property
 
+    Public ReadOnly Property Quantity As Integer Implements IAvatarTraderOfferModel.Quantity
+        Get
+            Return actor.Inventory.ItemCountOfType(itemType)
+        End Get
+    End Property
+
+    Public Sub Sell(quantity As Integer) Implements IAvatarTraderOfferModel.Sell
+        Dim items = actor.Inventory.ItemsOfType(itemType).Take(quantity)
+        For Each item In items
+            actor.Inventory.Remove(item)
+            item.Recycle()
+            actor.Yokes.Store(YokeTypes.Wallet).CurrentValue += ItemTypes.Descriptors(itemType).Offer
+        Next
+    End Sub
+
     Friend Shared Function FromActorOffer(actor As IActor, itemType As String) As IAvatarTraderOfferModel
         Return New AvatarTraderOfferModel(actor, itemType)
     End Function

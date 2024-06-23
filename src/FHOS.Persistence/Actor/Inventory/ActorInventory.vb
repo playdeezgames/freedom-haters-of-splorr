@@ -19,6 +19,12 @@ Friend Class ActorInventory
         End Get
     End Property
 
+    Public ReadOnly Property ItemsOfType(itemType As String) As IEnumerable(Of IItem) Implements IActorInventory.ItemsOfType
+        Get
+            Return Items.Where(Function(x) x.EntityType = itemType)
+        End Get
+    End Property
+
     Public Sub Add(item As IItem) Implements IActorInventory.Add
         EntityData.AddItem(item.Id)
     End Sub

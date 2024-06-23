@@ -28,6 +28,7 @@ Public Class FHOSController
         SetState(GameState.Trader, New TraderState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.LeaveTrader, New LeaveTraderState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Offers, New OffersState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Sell, New SellState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Prices, New PricesState(Me, AddressOf SetCurrentState, context))
 
         CreateSPLORRPediaStates(context)

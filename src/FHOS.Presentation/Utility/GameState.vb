@@ -20,6 +20,7 @@
     Friend ReadOnly MoveRight As String = NameOf(MoveRight)
     Friend ReadOnly MoveUp As String = NameOf(MoveUp)
     Friend ReadOnly Navigation As String = NameOf(Navigation)
+    Friend ReadOnly Sell As String = NameOf(Sell)
     Friend ReadOnly Offers As String = NameOf(Offers)
     Friend ReadOnly PlanetCrossReference As String = NameOf(PlanetCrossReference)
     Friend ReadOnly PlanetDetails As String = NameOf(PlanetDetails)

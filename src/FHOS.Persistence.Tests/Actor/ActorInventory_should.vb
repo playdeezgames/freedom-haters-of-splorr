@@ -35,13 +35,16 @@
         Dim sut = CreateSut(universe:=universe)
         Const itemType = "item type"
         Dim item = universe.Factory.CreateItem(itemType)
+        sut.ItemsOfType(itemType).ShouldBeEmpty
         sut.ItemCountOfType(itemType).ShouldBe(0)
         Should.NotThrow(Sub() sut.Add(item))
         sut.Items.Count.ShouldBe(1)
+        sut.ItemsOfType(itemType).ShouldHaveSingleItem
         sut.ItemCountOfType(itemType).ShouldBe(1)
         sut.Items.Single.Id.ShouldBe(item.Id)
         sut.Remove(item)
         sut.Items.Count.ShouldBe(0)
+        sut.ItemsOfType(itemType).ShouldBeEmpty
         sut.ItemCountOfType(itemType).ShouldBe(0)
     End Sub
 End Class
