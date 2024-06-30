@@ -19,7 +19,7 @@ Friend Class InteractionState
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IInteractionModel))
         value.Item.Perform()
-        SetState(BoilerplateState.Neutral)
+        SetState(GameState.Neutral)
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IInteractionModel))

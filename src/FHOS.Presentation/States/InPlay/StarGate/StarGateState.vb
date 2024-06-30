@@ -19,7 +19,7 @@ Friend Class StarGateState
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IActorModel))
         Context.Model.State.Avatar.StarGate.Enter(value.Item)
-        SetState(BoilerplateState.Neutral)
+        SetState(GameState.Neutral)
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IActorModel))

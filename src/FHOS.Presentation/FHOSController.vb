@@ -7,7 +7,7 @@ Public Class FHOSController
 
     Public Sub New(settings As ISettings, context As IUIContext(Of IUniverseModel))
         MyBase.New(settings, context)
-        SetState(BoilerplateState.Neutral, New NeutralState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Neutral, New NeutralState(Me, AddressOf SetCurrentState, context))
 
         CreateEmbarkationStates(context)
 

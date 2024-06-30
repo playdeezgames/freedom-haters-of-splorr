@@ -17,7 +17,7 @@ Friend Class LeaveTraderState
 
     Public Overrides Sub OnStart()
         Context.Model.State.Avatar.Trader.Leave()
-        SetState(BoilerplateState.Neutral)
+        SetState(GameState.Neutral)
         MyBase.OnStart()
     End Sub
 End Class

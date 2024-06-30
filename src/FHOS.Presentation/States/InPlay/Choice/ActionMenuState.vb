@@ -14,7 +14,7 @@ Friend Class ActionMenuState
             context,
             "Action Menu",
             context.ChooseOrCancel,
-            BoilerplateState.Neutral)
+            GameState.Neutral)
     End Sub
 
     Private ReadOnly actionMap As IReadOnlyDictionary(Of String, String) =

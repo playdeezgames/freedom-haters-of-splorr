@@ -18,7 +18,7 @@ Friend Class LeaveStarGateState
 
     Public Overrides Sub OnStart()
         Context.Model.State.Avatar.StarGate.Leave()
-        SetState(BoilerplateState.Neutral)
+        SetState(GameState.Neutral)
         MyBase.OnStart()
     End Sub
 End Class

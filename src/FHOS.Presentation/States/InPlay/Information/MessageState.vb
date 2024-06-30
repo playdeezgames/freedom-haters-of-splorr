@@ -16,7 +16,7 @@ Friend Class MessageState
     Public Overrides Sub HandleCommand(cmd As String)
         If cmd = Command.A Then
             Context.Model.State.Messages.Dismiss()
-            SetState(BoilerplateState.Neutral)
+            SetState(GameState.Neutral)
         End If
     End Sub
 

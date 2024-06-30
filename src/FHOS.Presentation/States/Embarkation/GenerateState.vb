@@ -26,7 +26,7 @@ Friend Class GenerateState
         font.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, Context.ViewCenter.Y + font.HalfHeight), $"Time Taken: {(DateTimeOffset.Now - _timeStart).TotalSeconds:f1}s", Context.UIPalette.MenuItem)
         Context.Model.Generator.Generate()
         If Context.Model.Generator.Done Then
-            SetState(BoilerplateState.Neutral)
+            SetState(GameState.Neutral)
         End If
     End Sub
     Public Overrides Sub OnStart()
