@@ -4,7 +4,7 @@ Imports SPLORR.UI
 Friend Class PricesState
     Inherits BasePickerState(Of IUniverseModel, IAvatarTraderPriceModel)
 
-    Friend Shared CurrentPrice As IAvatarTraderPriceModel
+    Friend Shared CurrentPrice As IAvatarTraderPriceModel = Nothing
 
     Public Sub New(
                   parent As IGameController,
