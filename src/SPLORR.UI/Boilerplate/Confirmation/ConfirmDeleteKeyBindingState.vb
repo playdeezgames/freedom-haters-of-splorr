@@ -15,15 +15,15 @@
     End Sub
 
     Protected Overrides Sub OnConfirm()
-        Context.KeyBindings.Unbind(KeyBindingsState(Of TModel).SelectedKey)
+        Context.KeyBindings.Unbind(Context.SelectedKey)
     End Sub
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        If Not Context.KeyBindings.CanUnbind(KeyBindingsState(Of TModel).SelectedKey) Then
+        If Not Context.KeyBindings.CanUnbind(Context.SelectedKey) Then
             SetState(BoilerplateState.CannotUnbindKeyBinding)
             Return
         End If
-        Me.HeaderText = $"Unbind '{KeyBindingsState(Of TModel).SelectedKey}'?"
+        Me.HeaderText = $"Unbind '{Context.SelectedKey}'?"
     End Sub
 End Class

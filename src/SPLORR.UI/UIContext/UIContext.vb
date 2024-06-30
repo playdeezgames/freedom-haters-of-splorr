@@ -16,6 +16,8 @@ Public MustInherit Class UIContext(Of TModel)
 
     Public ReadOnly Property KeyBindings As IKeyBindings Implements IUIContext(Of TModel).KeyBindings
 
+    Public Property SelectedKey As String Implements IUIContext(Of TModel).SelectedKey
+
     Sub New(
            game As TModel,
            fontFilenames As IReadOnlyDictionary(Of String, String),

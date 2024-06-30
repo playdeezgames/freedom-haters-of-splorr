@@ -15,7 +15,7 @@
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
-        KeyBindingsState(Of TModel).SelectedKey = value.Item
+        Context.SelectedKey = value.Item
         SetState(BoilerplateState.ConfirmDeleteKeyBinding)
     End Sub
 

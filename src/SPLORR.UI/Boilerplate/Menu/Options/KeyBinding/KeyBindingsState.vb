@@ -1,6 +1,5 @@
 ﻿Friend Class KeyBindingsState(Of TModel)
     Inherits BasePickerState(Of TModel, String)
-    Friend Shared Property SelectedKey As String
 
     Public Sub New(
                   parent As IGameController,

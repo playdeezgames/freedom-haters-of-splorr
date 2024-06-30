@@ -19,7 +19,7 @@
             Case GoBackText
                 SetState(BoilerplateState.KeyBindings)
             Case Else
-                KeyBindingsState(Of TModel).SelectedKey = value.Item
+                Context.SelectedKey = value.Item
                 SetState(BoilerplateState.AddBoundCommand)
         End Select
     End Sub

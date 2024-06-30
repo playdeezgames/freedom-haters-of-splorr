@@ -17,6 +17,6 @@
     End Function
 
     Protected Overrides Function MessageText() As String
-        Return $"Cannot Unbind '{KeyBindingsState(Of TModel).SelectedKey}'"
+        Return $"Cannot Unbind '{Context.SelectedKey}'"
     End Function
 End Class

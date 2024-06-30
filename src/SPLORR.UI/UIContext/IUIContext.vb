@@ -17,4 +17,5 @@
     Sub SaveGame(slot As Integer)
     Function DoesSlotExist(slot As Integer) As Boolean
     ReadOnly Property KeyBindings As IKeyBindings
+    Property SelectedKey As String
 End Interface
