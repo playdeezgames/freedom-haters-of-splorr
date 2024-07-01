@@ -102,10 +102,6 @@ Public Class UniverseModel
     Public Property CurrentPrice As IAvatarTraderPriceModel Implements IUniverseModel.CurrentPrice
 
     Public ReadOnly Property Ephemerals As IUniverseEphemeralsModel Implements IUniverseModel.Ephemerals
-        Get
-            Return UniverseEphemeralsModel.FromUniverse(Universe)
-        End Get
-    End Property
 
     Const EmbarkSettingsFilename = "embark-settings.json"
     Private _embarkSettings As EmbarkSettings
@@ -123,5 +119,6 @@ Public Class UniverseModel
         Me.SelectedPlanet = New Stack(Of IGroupModel)
         Me.SelectedSatellite = New Stack(Of IGroupModel)
         Me.SelectedStarSystem = New Stack(Of IGroupModel)
+        Me.Ephemerals = New UniverseEphemeralsModel
     End Sub
 End Class
