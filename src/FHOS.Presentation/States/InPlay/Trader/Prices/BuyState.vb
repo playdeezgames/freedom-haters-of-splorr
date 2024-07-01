@@ -25,10 +25,10 @@ Friend Class BuyState
     End Function
 
     Public Overrides Sub OnStart()
-        If PricesState.CurrentPrice.MaximumQuantity < 1 Then
+        If Context.Model.CurrentPrice.MaximumQuantity < 1 Then
             SetState(GameState.Prices)
         End If
-        PricesState.CurrentPrice.Buy(1)
+        Context.Model.CurrentPrice.Buy(1)
         SetState(GameState.Prices)
         'MyBase.OnStart()
     End Sub

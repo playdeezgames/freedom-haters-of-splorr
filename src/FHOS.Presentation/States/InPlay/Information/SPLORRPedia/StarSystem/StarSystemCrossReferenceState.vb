@@ -32,7 +32,7 @@ Friend Class StarSystemCrossReferenceState
         Dim items = {
                 (PlanetsText, PlanetsText)
             }.ToList
-        If StarSystemListState.SelectedStarSystem.Peek.Children.ChildSatellites.Any Then
+        If Context.Model.SelectedStarSystem.Peek.Children.ChildSatellites.Any Then
             items.Add((SatellitesText, SatellitesText))
         End If
         Return items

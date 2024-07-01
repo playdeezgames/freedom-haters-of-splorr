@@ -4,8 +4,6 @@ Imports SPLORR.UI
 Friend Class PricesState
     Inherits BasePickerState(Of IUniverseModel, IAvatarTraderPriceModel)
 
-    Friend Shared CurrentPrice As IAvatarTraderPriceModel = Nothing
-
     Public Sub New(
                   parent As IGameController,
                   setState As Action(Of String, Boolean),
@@ -23,12 +21,12 @@ Friend Class PricesState
         If Not value.Item.CanBuy Then
             Return
         End If
-        CurrentPrice = value.Item
+        Context.Model.CurrentPrice = value.Item
         SetState(GameState.Buy)
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IAvatarTraderPriceModel))
-        CurrentPrice = Nothing
+        Context.Model.CurrentPrice = Nothing
         Return Context.Model.State.Avatar.Trader.Prices.Select(Function(x) (x.Name, x)).ToList
     End Function
 End Class

@@ -43,6 +43,8 @@ Public Class UniverseModel
         SelectedPlanet.Clear()
         SelectedSatellite.Clear()
         SelectedStarSystem.Clear()
+        CurrentOffer = Nothing
+        CurrentPrice = Nothing
     End Sub
 
     Private ReadOnly Property EmbarkSettings As EmbarkSettings
@@ -94,6 +96,10 @@ Public Class UniverseModel
     Public ReadOnly Property SelectedSatellite As Stack(Of IGroupModel) Implements IUniverseModel.SelectedSatellite
 
     Public ReadOnly Property SelectedStarSystem As Stack(Of IGroupModel) Implements IUniverseModel.SelectedStarSystem
+
+    Public Property CurrentOffer As IAvatarTraderOfferModel Implements IUniverseModel.CurrentOffer
+
+    Public Property CurrentPrice As IAvatarTraderPriceModel Implements IUniverseModel.CurrentPrice
 
     Const EmbarkSettingsFilename = "embark-settings.json"
     Private _embarkSettings As EmbarkSettings
