@@ -24,6 +24,7 @@ Public Class UniverseModel_should
         sut.Settings.ShouldNotBeNull
         sut.State.ShouldNotBeNull
         sut.Pedia.ShouldNotBeNull
+        sut.Ephemerals.ShouldNotBeNull
         Should.NotThrow(Sub() sut.Save(saveFilename))
         Should.NotThrow(Sub() sut.Load(saveFilename))
         Should.NotThrow(Sub() sut.Abandon())
