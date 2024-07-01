@@ -66,6 +66,8 @@ Public Class UniverseModel_should
         sut.SelectedPlanet.ShouldBeEmpty
         sut.SelectedSatellite.ShouldBeEmpty
         sut.SelectedStarSystem.ShouldBeEmpty
+        'sut.CurrentOffer.ShouldBeNull
+        'sut.CurrentPrice.ShouldBeNull
     End Sub
 
     Private Shared Sub PushToEphemerals(sut As IUniverseModel)

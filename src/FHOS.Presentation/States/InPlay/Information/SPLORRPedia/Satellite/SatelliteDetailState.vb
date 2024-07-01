@@ -17,7 +17,7 @@ Friend Class SatelliteDetailState
     Public Overrides Sub HandleCommand(cmd As String)
         Select Case cmd
             Case Command.B
-                SatelliteListState.SelectedSatellite.Pop()
+                Context.Model.SelectedSatellite.Pop()
                 SetState(Nothing)
             Case Command.A
                 SetState(GameState.SatelliteCrossReference)
@@ -27,7 +27,7 @@ Friend Class SatelliteDetailState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFontName)
-        With SatelliteListState.SelectedSatellite.Peek
+        With Context.Model.SelectedSatellite.Peek
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Type: { .Properties.SatelliteTypeName}", Hues.Black)

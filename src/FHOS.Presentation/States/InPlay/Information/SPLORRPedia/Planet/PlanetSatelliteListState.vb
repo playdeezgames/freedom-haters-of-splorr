@@ -18,7 +18,7 @@ Friend Class PlanetSatelliteListState
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IGroupModel))
-        SatelliteListState.SelectedSatellite.Push(value.Item)
+        Context.Model.SelectedSatellite.Push(value.Item)
         SetState(GameState.SatelliteDetails)
     End Sub
 
