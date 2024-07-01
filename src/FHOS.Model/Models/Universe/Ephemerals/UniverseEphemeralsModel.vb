@@ -16,4 +16,6 @@ Friend Class UniverseEphemeralsModel
     Public ReadOnly Property SelectedStarSystem As Stack(Of IGroupModel) Implements IUniverseEphemeralsModel.SelectedStarSystem
     Public Property CurrentOffer As IAvatarTraderOfferModel Implements IUniverseEphemeralsModel.CurrentOffer
     Public Property CurrentPrice As IAvatarTraderPriceModel Implements IUniverseEphemeralsModel.CurrentPrice
+
+    Public Property SellQuantity As Integer Implements IUniverseEphemeralsModel.SellQuantity
 End Class

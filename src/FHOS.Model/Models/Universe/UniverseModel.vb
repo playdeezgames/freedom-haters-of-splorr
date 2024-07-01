@@ -45,6 +45,7 @@ Public Class UniverseModel
         Ephemerals.SelectedStarSystem.Clear()
         Ephemerals.CurrentOffer = Nothing
         Ephemerals.CurrentPrice = Nothing
+        Ephemerals.SellQuantity = 0
     End Sub
 
     Private ReadOnly Property EmbarkSettings As EmbarkSettings

@@ -69,6 +69,7 @@ Public Class UniverseModel_should
         sut.Ephemerals.SelectedStarSystem.ShouldBeEmpty
         sut.Ephemerals.CurrentOffer.ShouldBeNull
         sut.Ephemerals.CurrentPrice.ShouldBeNull
+        sut.Ephemerals.SellQuantity.ShouldBe(0)
     End Sub
 
     Private Shared Sub PushToEphemerals(sut As IUniverseModel)
@@ -76,6 +77,7 @@ Public Class UniverseModel_should
         sut.Ephemerals.SelectedPlanet.Push(Nothing)
         sut.Ephemerals.SelectedSatellite.Push(Nothing)
         sut.Ephemerals.SelectedStarSystem.Push(Nothing)
+        sut.Ephemerals.SellQuantity = 10
     End Sub
 
     <Fact>

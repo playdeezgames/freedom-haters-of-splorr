@@ -5,4 +5,5 @@
     ReadOnly Property SelectedStarSystem As Stack(Of IGroupModel)
     Property CurrentOffer As IAvatarTraderOfferModel
     Property CurrentPrice As IAvatarTraderPriceModel
+    Property SellQuantity As Integer
 End Interface

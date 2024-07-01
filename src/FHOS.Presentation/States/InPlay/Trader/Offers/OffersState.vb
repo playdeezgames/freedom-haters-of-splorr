@@ -19,7 +19,7 @@ Friend Class OffersState
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IAvatarTraderOfferModel))
         Context.Model.Ephemerals.CurrentOffer = value.Item
-        SetState(GameState.Sell)
+        SetState(GameState.SellQuantity)
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IAvatarTraderOfferModel))

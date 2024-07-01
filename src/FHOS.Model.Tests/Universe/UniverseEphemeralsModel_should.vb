@@ -5,6 +5,14 @@
         ValidateDefaultEphemerals(sut)
     End Sub
 
+    <Fact>
+    Sub set_sell_quantity()
+        Dim sut = CreateSut()
+        Const givenQuantity = 10
+        sut.SellQuantity = givenQuantity
+        sut.SellQuantity.ShouldBe(givenQuantity)
+    End Sub
+
     Private Shared Sub ValidateDefaultEphemerals(sut As IUniverseEphemeralsModel)
         sut.SelectedFaction.ShouldBeEmpty
         sut.SelectedPlanet.ShouldBeEmpty
@@ -12,6 +20,7 @@
         sut.SelectedStarSystem.ShouldBeEmpty
         sut.CurrentOffer.ShouldBeNull
         sut.CurrentPrice.ShouldBeNull
+        sut.SellQuantity.ShouldBe(0)
     End Sub
 
 

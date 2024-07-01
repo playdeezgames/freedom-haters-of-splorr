@@ -9,7 +9,9 @@ Friend Class SellState
 
     Public Overrides Sub OnStart()
         MyBase.OnStart()
-        Context.Model.Ephemerals.CurrentOffer.Sell(1)
+        With Context.Model.Ephemerals
+            .CurrentOffer.Sell(.SellQuantity)
+        End With
         SetState(GameState.Offers)
     End Sub
 
