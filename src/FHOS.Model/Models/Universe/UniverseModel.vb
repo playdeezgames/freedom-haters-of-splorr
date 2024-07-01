@@ -31,11 +31,13 @@ Public Class UniverseModel
     Public Sub Load(filename As String) Implements IUniverseModel.Load
         UniverseData = JsonSerializer.Deserialize(Of UniverseData)(ReadStringFromFile(filename))
         SelectedFaction.Clear()
+        SelectedPlanet.Clear()
     End Sub
 
     Public Sub Abandon() Implements IUniverseModel.Abandon
         UniverseData = Nothing
         SelectedFaction.Clear()
+        SelectedPlanet.Clear()
     End Sub
 
     Private ReadOnly Property EmbarkSettings As EmbarkSettings
@@ -82,6 +84,8 @@ Public Class UniverseModel
 
     Public ReadOnly Property SelectedFaction As Stack(Of IGroupModel) Implements IUniverseModel.SelectedFaction
 
+    Public ReadOnly Property SelectedPlanet As Stack(Of IGroupModel) Implements IUniverseModel.SelectedPlanet
+
     Const EmbarkSettingsFilename = "embark-settings.json"
     Private _embarkSettings As EmbarkSettings
 
@@ -95,5 +99,6 @@ Public Class UniverseModel
         Me.initializer = If(initializer, New Initializer)
         Me.generationTimeSlice = generationTimeSlice
         Me.SelectedFaction = New Stack(Of IGroupModel)
+        Me.SelectedPlanet = New Stack(Of IGroupModel)
     End Sub
 End Class

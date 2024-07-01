@@ -25,7 +25,7 @@ Friend Class SatelliteCrossReferenceState
                 StarSystemListState.SelectedStarSystem.Push(SatelliteListState.SelectedSatellite.Peek.Parents.StarSystem)
                 SetState(GameState.StarSystemDetails)
             Case PlanetText
-                PlanetListState.SelectedPlanet.Push(SatelliteListState.SelectedSatellite.Peek.Parents.Planet)
+                Context.Model.SelectedPlanet.Push(SatelliteListState.SelectedSatellite.Peek.Parents.Planet)
                 SetState(GameState.PlanetDetails)
         End Select
     End Sub

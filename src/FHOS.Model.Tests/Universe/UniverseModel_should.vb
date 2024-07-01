@@ -29,6 +29,8 @@ Public Class UniverseModel_should
         Should.NotThrow(Sub() sut.Abandon())
         files.Count.ShouldBe(1)
         files(saveFilename).ShouldBe("null")
+        sut.SelectedFaction.ShouldBeEmpty
+        sut.SelectedPlanet.ShouldBeEmpty
     End Sub
 
     Const DefaultSavedData = "{""Actors"":{},""Locations"":{},""Maps"":{},""Groups"":{},""Stores"":{},""Items"":{},""Avatars"":[],""NextActorId"":0,""NextLocationId"":0,""NextMapId"":0,""NextGroupId"":0,""NextStoreId"":0,""NextItemId"":0,""Flags"":[],""Statistics"":{""Turn"":1},""Metadatas"":{}}"
