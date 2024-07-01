@@ -39,12 +39,12 @@ Public Class UniverseModel
     End Sub
 
     Private Sub ClearEphemerals()
-        SelectedFaction.Clear()
-        SelectedPlanet.Clear()
-        SelectedSatellite.Clear()
-        SelectedStarSystem.Clear()
-        CurrentOffer = Nothing
-        CurrentPrice = Nothing
+        Ephemerals.SelectedFaction.Clear()
+        Ephemerals.SelectedPlanet.Clear()
+        Ephemerals.SelectedSatellite.Clear()
+        Ephemerals.SelectedStarSystem.Clear()
+        Ephemerals.CurrentOffer = Nothing
+        Ephemerals.CurrentPrice = Nothing
     End Sub
 
     Private ReadOnly Property EmbarkSettings As EmbarkSettings
@@ -88,19 +88,6 @@ Public Class UniverseModel
             Return UniversePediaModel.FromUniverse(Universe)
         End Get
     End Property
-
-    Public ReadOnly Property SelectedFaction As Stack(Of IGroupModel) Implements IUniverseModel.SelectedFaction
-
-    Public ReadOnly Property SelectedPlanet As Stack(Of IGroupModel) Implements IUniverseModel.SelectedPlanet
-
-    Public ReadOnly Property SelectedSatellite As Stack(Of IGroupModel) Implements IUniverseModel.SelectedSatellite
-
-    Public ReadOnly Property SelectedStarSystem As Stack(Of IGroupModel) Implements IUniverseModel.SelectedStarSystem
-
-    Public Property CurrentOffer As IAvatarTraderOfferModel Implements IUniverseModel.CurrentOffer
-
-    Public Property CurrentPrice As IAvatarTraderPriceModel Implements IUniverseModel.CurrentPrice
-
     Public ReadOnly Property Ephemerals As IUniverseEphemeralsModel Implements IUniverseModel.Ephemerals
 
     Const EmbarkSettingsFilename = "embark-settings.json"
@@ -115,10 +102,6 @@ Public Class UniverseModel
         Me.ReadStringFromFile = If(readStringFromFile, AddressOf File.ReadAllText)
         Me.initializer = If(initializer, New Initializer)
         Me.generationTimeSlice = generationTimeSlice
-        Me.SelectedFaction = New Stack(Of IGroupModel)
-        Me.SelectedPlanet = New Stack(Of IGroupModel)
-        Me.SelectedSatellite = New Stack(Of IGroupModel)
-        Me.SelectedStarSystem = New Stack(Of IGroupModel)
         Me.Ephemerals = New UniverseEphemeralsModel
     End Sub
 End Class

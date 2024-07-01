@@ -17,7 +17,7 @@ Friend Class FactionDetailState
     Public Overrides Sub HandleCommand(cmd As String)
         Select Case cmd
             Case Command.B
-                Context.Model.SelectedFaction.Pop()
+                Context.Model.Ephemerals.SelectedFaction.Pop()
                 SetState(Nothing)
             Case Command.A
                 SetState(GameState.FactionPlanetList)
@@ -27,7 +27,7 @@ Friend Class FactionDetailState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFontName)
-        With Context.Model.SelectedFaction.Peek
+        With Context.Model.Ephemerals.SelectedFaction.Peek
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Authority: { .Properties.Authority.LevelName}({ .Properties.Authority.Value})", Hues.Black)

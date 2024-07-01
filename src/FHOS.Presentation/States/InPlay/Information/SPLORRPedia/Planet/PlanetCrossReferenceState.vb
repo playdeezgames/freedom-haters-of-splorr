@@ -23,12 +23,12 @@ Friend Class PlanetCrossReferenceState
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
         Select Case value.Item
             Case StarSystemText
-                Context.Model.SelectedStarSystem.Push(Context.Model.SelectedPlanet.Peek.Parents.StarSystem)
+                Context.Model.Ephemerals.SelectedStarSystem.Push(Context.Model.Ephemerals.SelectedPlanet.Peek.Parents.StarSystem)
                 SetState(GameState.StarSystemDetails)
             Case SatellitesText
                 SetState(GameState.PlanetSatelliteList)
             Case FactionText
-                Context.Model.SelectedFaction.Push(Context.Model.SelectedPlanet.Peek.Parents.Faction)
+                Context.Model.Ephemerals.SelectedFaction.Push(Context.Model.Ephemerals.SelectedPlanet.Peek.Parents.Faction)
                 SetState(GameState.FactionDetails)
         End Select
     End Sub
@@ -38,7 +38,7 @@ Friend Class PlanetCrossReferenceState
                 (FactionText, FactionText),
                 (StarSystemText, StarSystemText)
             }.ToList
-        If Context.Model.SelectedPlanet.Peek.Children.ChildSatellites.Any Then
+        If Context.Model.Ephemerals.SelectedPlanet.Peek.Children.ChildSatellites.Any Then
             items.Add((SatellitesText, SatellitesText))
         End If
         Return items

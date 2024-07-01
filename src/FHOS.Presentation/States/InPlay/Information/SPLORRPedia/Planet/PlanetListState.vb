@@ -19,7 +19,7 @@ Friend Class PlanetListState
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IGroupModel))
-        Context.Model.SelectedPlanet.Push(value.Item)
+        Context.Model.Ephemerals.SelectedPlanet.Push(value.Item)
         PushState(GameState.PlanetDetails)
     End Sub
 

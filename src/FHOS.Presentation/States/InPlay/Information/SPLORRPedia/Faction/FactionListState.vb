@@ -18,7 +18,7 @@ Friend Class FactionListState
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IGroupModel))
-        Context.Model.SelectedFaction.Push(value.Item)
+        Context.Model.Ephemerals.SelectedFaction.Push(value.Item)
         PushState(GameState.FactionDetails)
     End Sub
 

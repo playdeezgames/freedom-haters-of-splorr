@@ -18,11 +18,11 @@ Friend Class StarSystemPlanetListState
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IGroupModel))
-        Context.Model.SelectedPlanet.Push(value.Item)
+        Context.Model.Ephemerals.SelectedPlanet.Push(value.Item)
         SetState(GameState.PlanetDetails)
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IGroupModel))
-        Return Context.Model.SelectedStarSystem.Peek.Children.ChildPlanets.Select(Function(x) (x.Name, x)).ToList
+        Return Context.Model.Ephemerals.SelectedStarSystem.Peek.Children.ChildPlanets.Select(Function(x) (x.Name, x)).ToList
     End Function
 End Class

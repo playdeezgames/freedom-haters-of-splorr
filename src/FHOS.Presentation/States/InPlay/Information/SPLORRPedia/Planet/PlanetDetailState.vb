@@ -17,7 +17,7 @@ Friend Class PlanetDetailState
     Public Overrides Sub HandleCommand(cmd As String)
         Select Case cmd
             Case Command.B
-                Context.Model.SelectedPlanet.Pop()
+                Context.Model.Ephemerals.SelectedPlanet.Pop()
                 SetState(Nothing)
             Case Command.A
                 PushState(GameState.PlanetCrossReference)
@@ -27,7 +27,7 @@ Friend Class PlanetDetailState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         displayBuffer.Fill(Context.UIPalette.Background)
         Dim font = Context.Font(UIFontName)
-        With Context.Model.SelectedPlanet.Peek
+        With Context.Model.Ephemerals.SelectedPlanet.Peek
             Context.ShowHeader(displayBuffer, font, .Name, Context.UIPalette.Header, Context.UIPalette.Background)
             Dim position = (Context.ViewCenter.X, font.Height)
             position = font.WriteCenteredTextLines(displayBuffer, position, Context.ViewSize.Width, $"Planet Type: { .Properties.PlanetTypeName}", Hues.Black)

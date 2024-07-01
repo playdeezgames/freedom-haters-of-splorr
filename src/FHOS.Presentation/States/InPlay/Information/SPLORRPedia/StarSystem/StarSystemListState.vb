@@ -19,7 +19,7 @@ Friend Class StarSystemListState
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IGroupModel))
-        Context.Model.SelectedStarSystem.Push(value.Item)
+        Context.Model.Ephemerals.SelectedStarSystem.Push(value.Item)
         PushState(GameState.StarSystemDetails)
     End Sub
 

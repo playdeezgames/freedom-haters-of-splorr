@@ -63,19 +63,19 @@ Public Class UniverseModel_should
     End Sub
 
     Private Shared Sub ValidateEphemerals(sut As IUniverseModel)
-        sut.SelectedFaction.ShouldBeEmpty
-        sut.SelectedPlanet.ShouldBeEmpty
-        sut.SelectedSatellite.ShouldBeEmpty
-        sut.SelectedStarSystem.ShouldBeEmpty
-        sut.CurrentOffer.ShouldBeNull
-        sut.CurrentPrice.ShouldBeNull
+        sut.Ephemerals.SelectedFaction.ShouldBeEmpty
+        sut.Ephemerals.SelectedPlanet.ShouldBeEmpty
+        sut.Ephemerals.SelectedSatellite.ShouldBeEmpty
+        sut.Ephemerals.SelectedStarSystem.ShouldBeEmpty
+        sut.Ephemerals.CurrentOffer.ShouldBeNull
+        sut.Ephemerals.CurrentPrice.ShouldBeNull
     End Sub
 
     Private Shared Sub PushToEphemerals(sut As IUniverseModel)
-        sut.SelectedFaction.Push(Nothing)
-        sut.SelectedPlanet.Push(Nothing)
-        sut.SelectedSatellite.Push(Nothing)
-        sut.SelectedStarSystem.Push(Nothing)
+        sut.Ephemerals.SelectedFaction.Push(Nothing)
+        sut.Ephemerals.SelectedPlanet.Push(Nothing)
+        sut.Ephemerals.SelectedSatellite.Push(Nothing)
+        sut.Ephemerals.SelectedStarSystem.Push(Nothing)
     End Sub
 
     <Fact>
