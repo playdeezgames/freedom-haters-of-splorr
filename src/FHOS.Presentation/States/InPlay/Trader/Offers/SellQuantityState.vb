@@ -40,7 +40,7 @@ Friend Class SellQuantityState
                 Context.Model.Ephemerals.SellQuantity = Context.Model.Ephemerals.CurrentOffer.Quantity \ 2
                 SetState(GameState.Sell)
             Case Else
-                'TODO: go to a place where you can set a specific quantity
+                SetState(GameState.SellSpecificQuantity)
         End Select
     End Sub
 

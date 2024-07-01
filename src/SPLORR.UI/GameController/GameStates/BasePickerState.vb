@@ -5,7 +5,7 @@
     Private ReadOnly _statusBarText As String
     Protected Property HeaderText As String
     Protected ReadOnly _cancelGameState As String
-    Protected ReadOnly _pageSize As Integer?
+    Protected Property _pageSize As Integer?
     Public Sub New(
                   parent As IGameController,
                   setState As Action(Of String, Boolean),
