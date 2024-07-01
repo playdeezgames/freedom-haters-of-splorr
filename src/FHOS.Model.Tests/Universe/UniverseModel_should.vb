@@ -29,8 +29,7 @@ Public Class UniverseModel_should
         Should.NotThrow(Sub() sut.Abandon())
         files.Count.ShouldBe(1)
         files(saveFilename).ShouldBe("null")
-        sut.SelectedFaction.ShouldBeEmpty
-        sut.SelectedPlanet.ShouldBeEmpty
+        ValidateEphemerals(sut)
     End Sub
 
     Const DefaultSavedData = "{""Actors"":{},""Locations"":{},""Maps"":{},""Groups"":{},""Stores"":{},""Items"":{},""Avatars"":[],""NextActorId"":0,""NextLocationId"":0,""NextMapId"":0,""NextGroupId"":0,""NextStoreId"":0,""NextItemId"":0,""Flags"":[],""Statistics"":{""Turn"":1},""Metadatas"":{}}"
@@ -53,11 +52,25 @@ Public Class UniverseModel_should
         Const loadFilename = "load.json"
         files(loadFilename) = DefaultSavedData
         Dim sut = CreateSut()
+        PushToEphemerals(sut)
         sut.Load(loadFilename)
+        ValidateEphemerals(sut)
         Const saveFilename = "save.json"
         sut.Save(saveFilename)
         files.Count.ShouldBe(2)
         files(saveFilename).ShouldBe(files(loadFilename))
+    End Sub
+
+    Private Shared Sub ValidateEphemerals(sut As IUniverseModel)
+        sut.SelectedFaction.ShouldBeEmpty
+        sut.SelectedPlanet.ShouldBeEmpty
+        sut.SelectedSatellite.ShouldBeEmpty
+    End Sub
+
+    Private Shared Sub PushToEphemerals(sut As IUniverseModel)
+        sut.SelectedFaction.Push(Nothing)
+        sut.SelectedPlanet.Push(Nothing)
+        sut.SelectedSatellite.Push(Nothing)
     End Sub
 
     <Fact>
@@ -67,7 +80,9 @@ Public Class UniverseModel_should
         Dim sut = CreateSut()
         sut.Load(loadFilename)
         Const saveFilename = "save.json"
+        PushToEphemerals(sut)
         sut.Abandon()
+        ValidateEphemerals(sut)
         sut.Save(saveFilename)
         files.Count.ShouldBe(2)
         files(saveFilename).ShouldBe("null")
