@@ -28,7 +28,7 @@ Friend Class PlanetCrossReferenceState
             Case SatellitesText
                 SetState(GameState.PlanetSatelliteList)
             Case FactionText
-                FactionListState.SelectedFaction.Push(PlanetListState.SelectedPlanet.Peek.Parents.Faction)
+                Context.Model.SelectedFaction.Push(PlanetListState.SelectedPlanet.Peek.Parents.Faction)
                 SetState(GameState.FactionDetails)
         End Select
     End Sub

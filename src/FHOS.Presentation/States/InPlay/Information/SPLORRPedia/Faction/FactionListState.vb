@@ -3,7 +3,6 @@ Imports SPLORR.UI
 
 Friend Class FactionListState
     Inherits BasePickerState(Of Model.IUniverseModel, IGroupModel)
-    Friend Shared SelectedFaction As New Stack(Of IGroupModel)
 
     Public Sub New(
                   parent As IGameController,
@@ -19,7 +18,7 @@ Friend Class FactionListState
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As IGroupModel))
-        SelectedFaction.Push(value.Item)
+        Context.Model.SelectedFaction.Push(value.Item)
         PushState(GameState.FactionDetails)
     End Sub
 
