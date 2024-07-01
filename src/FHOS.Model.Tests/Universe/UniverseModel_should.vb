@@ -65,12 +65,14 @@ Public Class UniverseModel_should
         sut.SelectedFaction.ShouldBeEmpty
         sut.SelectedPlanet.ShouldBeEmpty
         sut.SelectedSatellite.ShouldBeEmpty
+        sut.SelectedStarSystem.ShouldBeEmpty
     End Sub
 
     Private Shared Sub PushToEphemerals(sut As IUniverseModel)
         sut.SelectedFaction.Push(Nothing)
         sut.SelectedPlanet.Push(Nothing)
         sut.SelectedSatellite.Push(Nothing)
+        sut.SelectedStarSystem.Push(Nothing)
     End Sub
 
     <Fact>
