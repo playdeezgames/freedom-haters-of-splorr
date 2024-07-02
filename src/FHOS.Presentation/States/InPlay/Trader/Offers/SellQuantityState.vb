@@ -32,13 +32,13 @@ Friend Class SellQuantityState
         Select Case value.Item
             Case QuantityAll
                 Context.Model.Ephemerals.SellQuantity = Context.Model.Ephemerals.CurrentOffer.Quantity
-                SetState(GameState.Sell)
+                SetState(GameState.SellConfirm)
             Case QuantityOne
                 Context.Model.Ephemerals.SellQuantity = 1
-                SetState(GameState.Sell)
+                SetState(GameState.SellConfirm)
             Case QuantityHalf
                 Context.Model.Ephemerals.SellQuantity = Context.Model.Ephemerals.CurrentOffer.Quantity \ 2
-                SetState(GameState.Sell)
+                SetState(GameState.SellConfirm)
             Case Else
                 SetState(GameState.SellSpecificQuantity)
         End Select
@@ -46,7 +46,7 @@ Friend Class SellQuantityState
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
         With Context.Model.Ephemerals.CurrentOffer
-            HeaderText = $"Sell How Many { .Name}?"
+            HeaderText = $"Sell How Many { .NameAndQuantity}?"
             Dim result As New List(Of (Text As String, Item As String)) From
             {
                 ($"{QuantityOne}(1)", QuantityOne),

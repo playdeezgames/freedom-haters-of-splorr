@@ -24,7 +24,7 @@ Friend Class OffersState
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IAvatarTraderOfferModel))
         Context.Model.Ephemerals.CurrentOffer = Nothing
-        Dim menuItems = Context.Model.State.Avatar.Trader.Offers.Select(Function(x) (x.Name, x))
+        Dim menuItems = Context.Model.State.Avatar.Trader.Offers.Select(Function(x) (x.NameAndQuantity, x))
         Return menuItems.ToList
     End Function
     Public Overrides Sub OnStart()

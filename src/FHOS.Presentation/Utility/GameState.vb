@@ -37,6 +37,7 @@ Friend Module GameState
     Friend ReadOnly SelectCrewMember As String = NameOf(SelectCrewMember)
     Friend ReadOnly SelectVessel As String = NameOf(SelectVessel)
     Friend ReadOnly Sell As String = NameOf(Sell)
+    Friend ReadOnly SellConfirm As String = NameOf(SellConfirm)
     Friend ReadOnly SellQuantity As String = NameOf(SellQuantity)
     Friend ReadOnly SellSpecificQuantity As String = NameOf(SellSpecificQuantity)
     Friend ReadOnly SignalDistress As String = NameOf(SignalDistress)

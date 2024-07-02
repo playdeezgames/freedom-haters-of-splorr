@@ -1,5 +1,4 @@
 Imports FHOS.Model
-Imports FHOS.Persistence
 Imports SPLORR.UI
 
 Public Class FHOSController
@@ -25,20 +24,24 @@ Public Class FHOSController
         SetState(GameState.StarGate, New StarGateState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.LeaveStarGate, New LeaveStarGateState(Me, AddressOf SetCurrentState, context))
 
-        SetState(GameState.Trader, New TraderState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.LeaveTrader, New LeaveTraderState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.Offers, New OffersState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.Sell, New SellState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.SellQuantity, New SellQuantityState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.SellSpecificQuantity, New SellSpecificQuantityState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.Prices, New PricesState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.Buy, New BuyState(Me, AddressOf SetCurrentState, context))
-
+        CreateTraderStates(context)
         CreateSPLORRPediaStates(context)
 
         SetState(GameState.ActionMenu, New ActionMenuState(Me, AddressOf SetCurrentState, context))
 
         SetCurrentState(BoilerplateState.Splash, True)
+    End Sub
+
+    Private Sub CreateTraderStates(context As IUIContext(Of IUniverseModel))
+        SetState(GameState.Trader, New TraderState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.LeaveTrader, New LeaveTraderState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Offers, New OffersState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Sell, New SellState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.SellConfirm, New SellConfirmState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.SellQuantity, New SellQuantityState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.SellSpecificQuantity, New SellSpecificQuantityState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Prices, New PricesState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Buy, New BuyState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private Sub CreateSPLORRPediaStates(context As IUIContext(Of IUniverseModel))

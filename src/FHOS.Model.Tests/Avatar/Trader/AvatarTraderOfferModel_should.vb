@@ -2,7 +2,8 @@
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
-        sut.Name.ShouldBe("Scrap(x1)")
+        sut.NameAndQuantity.ShouldBe("Scrap(x1)")
+        sut.Name.ShouldBe("Scrap")
         sut.Quantity.ShouldBe(1)
     End Sub
     <Fact>
@@ -10,6 +11,7 @@
         Dim avatar = CreateOneStepUniverse(AddressOf BuildTraderUniverse).State.Avatar
         avatar.Inventory.Summary.ShouldHaveSingleItem
         Dim sut = avatar.Trader.Offers.Single
+        sut.JoolsOffered(1).ShouldBe(1)
         Should.NotThrow(Sub() sut.Sell(1))
         avatar.Inventory.Summary.ShouldBeEmpty
         avatar.Jools.ShouldBe(1)

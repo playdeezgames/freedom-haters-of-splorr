@@ -18,13 +18,13 @@ Friend Class SellSpecificQuantityState
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As Integer))
         Context.Model.Ephemerals.SellQuantity = value.Item
-        SetState(GameState.Sell)
+        SetState(GameState.SellConfirm)
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As Integer))
         With Context.Model.Ephemerals.CurrentOffer
             _pageSize = If(.Quantity >= 20, .Quantity \ 10, Nothing)
-            HeaderText = $"Sell How Many { .Name}?"
+            HeaderText = $"Sell How Many { .NameAndQuantity}?"
             Return Enumerable.Range(1, .Quantity).Select(Function(x) ($"{x}", x)).ToList
         End With
     End Function

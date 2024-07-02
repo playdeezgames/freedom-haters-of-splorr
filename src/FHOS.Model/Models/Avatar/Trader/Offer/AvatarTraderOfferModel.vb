@@ -11,7 +11,7 @@ Friend Class AvatarTraderOfferModel
         Me.itemType = itemType
     End Sub
 
-    Public ReadOnly Property Name As String Implements IAvatarTraderOfferModel.Name
+    Public ReadOnly Property NameAndQuantity As String Implements IAvatarTraderOfferModel.NameAndQuantity
         Get
             Return $"{ItemTypes.Descriptors(itemType).Name}(x{actor.Inventory.ItemCountOfType(itemType)})"
         End Get
@@ -20,6 +20,12 @@ Friend Class AvatarTraderOfferModel
     Public ReadOnly Property Quantity As Integer Implements IAvatarTraderOfferModel.Quantity
         Get
             Return actor.Inventory.ItemCountOfType(itemType)
+        End Get
+    End Property
+
+    Public ReadOnly Property Name As String Implements IAvatarTraderOfferModel.Name
+        Get
+            Return ItemTypes.Descriptors(itemType).Name
         End Get
     End Property
 
@@ -34,5 +40,9 @@ Friend Class AvatarTraderOfferModel
 
     Friend Shared Function FromActorOffer(actor As IActor, itemType As String) As IAvatarTraderOfferModel
         Return New AvatarTraderOfferModel(actor, itemType)
+    End Function
+
+    Public Function JoolsOffered(quantity As Integer) As Integer Implements IAvatarTraderOfferModel.JoolsOffered
+        Return ItemTypes.Descriptors(itemType).Offer * quantity
     End Function
 End Class
