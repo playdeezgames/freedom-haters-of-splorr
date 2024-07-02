@@ -43,4 +43,10 @@ Friend Class TraderState
             Return result
         End With
     End Function
+
+    Public Overrides Sub Render(displayBuffer As IPixelSink)
+        MyBase.Render(displayBuffer)
+        Dim font = Context.Font(UIFont)
+        font.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, font.Height), $"Jools: {Context.Model.State.Avatar.Jools}", DarkGray)
+    End Sub
 End Class

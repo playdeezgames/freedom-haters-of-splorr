@@ -24,7 +24,7 @@ Friend Class OffersState
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IAvatarTraderOfferModel))
         Context.Model.Ephemerals.CurrentOffer = Nothing
-        Dim menuItems = Context.Model.State.Avatar.Trader.Offers.Select(Function(x) (x.NameAndQuantity, x))
+        Dim menuItems = Context.Model.State.Avatar.Trader.Offers.Select(Function(x) ($"{x.NameAndQuantity}@{x.JoolsOffered(1)}", x))
         Return menuItems.ToList
     End Function
     Public Overrides Sub OnStart()
@@ -32,5 +32,10 @@ Friend Class OffersState
             SetState(GameState.Trader)
         End If
         MyBase.OnStart()
+    End Sub
+    Public Overrides Sub Render(displayBuffer As IPixelSink)
+        MyBase.Render(displayBuffer)
+        Dim font = Context.Font(UIFont)
+        font.WriteCenteredText(displayBuffer, (Context.ViewCenter.X, font.Height), $"Jools: {Context.Model.State.Avatar.Jools}", DarkGray)
     End Sub
 End Class
