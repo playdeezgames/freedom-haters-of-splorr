@@ -23,7 +23,7 @@ Friend Class SellSpecificQuantityState
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As Integer))
         With Context.Model.Ephemerals.CurrentOffer
-            _pageSize = If(.Quantity >= 20, .Quantity \ 10, Nothing)
+            PageSize = If(.Quantity >= 20, .Quantity \ 10, Nothing)
             HeaderText = $"Sell How Many { .NameAndQuantity}?"
             Return Enumerable.Range(1, .Quantity).Select(Function(x) ($"{x}", x)).ToList
         End With

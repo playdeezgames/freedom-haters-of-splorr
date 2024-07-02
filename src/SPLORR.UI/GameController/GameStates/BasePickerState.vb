@@ -5,7 +5,7 @@
     Private ReadOnly _statusBarText As String
     Protected Property HeaderText As String
     Protected ReadOnly _cancelGameState As String
-    Protected Property _pageSize As Integer?
+    Protected Property PageSize As Integer
     Public Sub New(
                   parent As IGameController,
                   setState As Action(Of String, Boolean),
@@ -13,12 +13,12 @@
                   headerText As String,
                   statusBarText As String,
                   cancelGameState As String,
-                  Optional pageSize As Integer? = Nothing)
+                  Optional pageSize As Integer = 0)
         MyBase.New(parent, setState, context)
         _statusBarText = statusBarText
         _cancelGameState = cancelGameState
         Me.HeaderText = headerText
-        _pageSize = pageSize
+        Me.PageSize = pageSize
     End Sub
     Public Overrides Sub HandleCommand(cmd As String)
         Select Case cmd
@@ -31,12 +31,12 @@
             Case Command.Down, Command.Select
                 MenuItemIndex = (MenuItemIndex + 1) Mod _menuItems.Count
             Case Command.Right
-                If _pageSize.HasValue Then
-                    MenuItemIndex = (MenuItemIndex + _pageSize.Value) Mod _menuItems.Count
+                If PageSize > 0 Then
+                    MenuItemIndex = (MenuItemIndex + PageSize) Mod _menuItems.Count
                 End If
             Case Command.Left
-                If _pageSize.HasValue Then
-                    MenuItemIndex = (MenuItemIndex + _menuItems.Count - _pageSize.Value) Mod _menuItems.Count
+                If PageSize > 0 Then
+                    MenuItemIndex = (MenuItemIndex + _menuItems.Count - PageSize) Mod _menuItems.Count
                 End If
         End Select
     End Sub
@@ -63,9 +63,9 @@
 
     Private Sub ShowHeader(displayBuffer As IPixelSink, font As Font)
         Dim text = HeaderText
-        If _pageSize.HasValue Then
-            Dim page = MenuItemIndex \ _pageSize.Value + 1
-            Dim pages = (_menuItems.Count + _pageSize.Value - 1) \ _pageSize.Value
+        If PageSize > 0 Then
+            Dim page = MenuItemIndex \ PageSize + 1
+            Dim pages = (_menuItems.Count + PageSize - 1) \ PageSize
             text = $"<= {HeaderText} Pg {page}/{pages} =>"
         End If
         Context.ShowHeader(displayBuffer, font, text, Context.UIPalette.Header, Context.UIPalette.Background)
