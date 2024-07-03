@@ -1,4 +1,4 @@
-﻿Public MustInherit Class GroupedEntityData_should(Of TEntityData As IGroupedEntityData)
+﻿Public MustInherit Class GroupedEntityData_should(Of TEntityData As GroupedEntityData)
     Inherits IdentifiedEntityData_should(Of TEntityData)
     <Fact>
     Sub default_given_yoked_group_to_nothing()

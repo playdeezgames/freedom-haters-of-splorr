@@ -1,6 +1,5 @@
 ﻿Public MustInherit Class GroupedEntityData
     Inherits IdentifiedEntityData
-    Implements IGroupedEntityData
     Public Property YokedGroups As New Dictionary(Of String, Integer)
     Public Sub New(
                   id As Integer,
@@ -12,7 +11,7 @@
         Me.YokedGroups = If(yokedGroups IsNot Nothing, New Dictionary(Of String, Integer)(yokedGroups), New Dictionary(Of String, Integer))
     End Sub
 
-    Public Sub SetYokedGroup(yokeType As String, groupId As Integer?) Implements IGroupedEntityData.SetYokedGroup
+    Public Sub SetYokedGroup(yokeType As String, groupId As Integer?)
         If String.IsNullOrWhiteSpace(yokeType) Then
             Throw New InvalidOperationException("yokeType is null or whitespace")
         End If
@@ -23,7 +22,7 @@
         End If
     End Sub
 
-    Public Function GetYokedGroup(yokeType As String) As Integer? Implements IGroupedEntityData.GetYokedGroup
+    Public Function GetYokedGroup(yokeType As String) As Integer?
         If String.IsNullOrWhiteSpace(yokeType) Then
             Throw New InvalidOperationException("yokeType is null or whitespace")
         End If
