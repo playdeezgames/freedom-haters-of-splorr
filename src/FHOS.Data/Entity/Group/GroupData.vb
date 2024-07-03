@@ -1,15 +1,8 @@
 ﻿Public Class GroupData
     Inherits IdentifiedEntityData
-    Public Sub New(
-                  id As Integer,
-                  Optional flags As ISet(Of String) = Nothing,
-                  Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
-                  Optional metadatas As IReadOnlyDictionary(Of String, String) = Nothing)
-        MyBase.New(id, statistics:=statistics, flags:=flags, metadatas:=metadatas)
-    End Sub
 
-    Property Children As New HashSet(Of Integer)
-    Property Parents As New HashSet(Of Integer)
+    Public Property Children As New HashSet(Of Integer)
+    Public Property Parents As New HashSet(Of Integer)
 
     Public ReadOnly Property HasChildren As Boolean
         Get

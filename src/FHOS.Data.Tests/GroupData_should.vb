@@ -57,6 +57,6 @@
         sut.HasParent(parentId).ShouldBeFalse
     End Sub
     Protected Overrides Function CreateSut() As GroupData
-        Return New GroupData(0)
+        Return New GroupData With {.Id = 0}
     End Function
 End Class

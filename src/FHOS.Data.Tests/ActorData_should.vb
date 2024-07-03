@@ -115,6 +115,6 @@
         sut.AllPrices.Single.ShouldBe(itemType)
     End Sub
     Protected Overrides Function CreateSut() As ActorData
-        Return New ActorData(0)
+        Return New ActorData With {.Id = 0}
     End Function
 End Class
