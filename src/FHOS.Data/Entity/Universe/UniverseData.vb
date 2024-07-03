@@ -5,7 +5,7 @@ Public Class UniverseData
     Implements IUniverseData
     Public Property Actors As New Dictionary(Of Integer, ActorData) Implements IUniverseData.Actors
     Property Locations As New Dictionary(Of Integer, LocationData) Implements IUniverseData.Locations
-    Property Maps As New Dictionary(Of Integer, IMapData) Implements IUniverseData.Maps
+    Property Maps As New Dictionary(Of Integer, MapData) Implements IUniverseData.Maps
     Property Groups As New Dictionary(Of Integer, GroupData) Implements IUniverseData.Groups
     Property Stores As New Dictionary(Of Integer, IStoreData) Implements IUniverseData.Stores
     Property Items As New Dictionary(Of Integer, ItemData) Implements IUniverseData.Items
@@ -78,7 +78,7 @@ Public Class UniverseData
         Return Nothing
     End Function
 
-    Public Function GetMapData(mapId As Integer) As IMapData Implements IUniverseData.GetMapData
+    Public Function GetMapData(mapId As Integer) As MapData Implements IUniverseData.GetMapData
         Return Nothing
     End Function
 

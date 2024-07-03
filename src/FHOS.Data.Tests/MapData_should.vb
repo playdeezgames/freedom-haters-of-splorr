@@ -1,5 +1,5 @@
 ﻿Public Class MapData_should
-    Inherits GroupedEntityData_should(Of IMapData)
+    Inherits GroupedEntityData_should(Of MapData)
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
@@ -19,7 +19,7 @@
         sut.GetLocation(index).ShouldBe(locationId)
         sut.AllLocations.ShouldHaveSingleItem
     End Sub
-    Protected Overrides Function CreateSut() As IMapData
+    Protected Overrides Function CreateSut() As MapData
         Return New MapData(0)
     End Function
 End Class

@@ -8,9 +8,9 @@ Public Interface IUniverseData
     Property Locations As Dictionary(Of Integer, LocationData)
     ReadOnly Property NextLocationId As Integer
     Function GetLocationData(locationId As Integer) As LocationData
-    Property Maps As Dictionary(Of Integer, IMapData)
+    Property Maps As Dictionary(Of Integer, MapData)
     ReadOnly Property NextMapId As Integer
-    Function GetMapData(mapId As Integer) As IMapData
+    Function GetMapData(mapId As Integer) As MapData
     Property Groups As Dictionary(Of Integer, GroupData)
     ReadOnly Property NextGroupId As Integer
     Function GetGroupData(groupId As Integer) As GroupData
