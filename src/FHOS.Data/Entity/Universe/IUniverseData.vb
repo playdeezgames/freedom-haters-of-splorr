@@ -14,9 +14,9 @@ Public Interface IUniverseData
     Property Groups As Dictionary(Of Integer, GroupData)
     ReadOnly Property NextGroupId As Integer
     Function GetGroupData(groupId As Integer) As GroupData
-    Property Stores As Dictionary(Of Integer, IStoreData)
+    Property Stores As Dictionary(Of Integer, StoreData)
     ReadOnly Property NextStoreId As Integer
-    Function GetStoreData(storeId As Integer) As IStoreData
+    Function GetStoreData(storeId As Integer) As StoreData
     Property Items As Dictionary(Of Integer, ItemData)
     ReadOnly Property NextItemId As Integer
     Function GetItemData(itemId As Integer) As ItemData

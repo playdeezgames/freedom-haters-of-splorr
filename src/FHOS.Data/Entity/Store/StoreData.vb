@@ -1,6 +1,5 @@
 ﻿Public Class StoreData
     Inherits IdentifiedEntityData
-    Implements IStoreData
     Public Sub New(
                   id As Integer,
                   Optional flags As ISet(Of String) = Nothing,

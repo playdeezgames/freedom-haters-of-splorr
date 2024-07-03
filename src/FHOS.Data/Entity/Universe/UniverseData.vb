@@ -7,7 +7,7 @@ Public Class UniverseData
     Property Locations As New Dictionary(Of Integer, LocationData) Implements IUniverseData.Locations
     Property Maps As New Dictionary(Of Integer, MapData) Implements IUniverseData.Maps
     Property Groups As New Dictionary(Of Integer, GroupData) Implements IUniverseData.Groups
-    Property Stores As New Dictionary(Of Integer, IStoreData) Implements IUniverseData.Stores
+    Property Stores As New Dictionary(Of Integer, StoreData) Implements IUniverseData.Stores
     Property Items As New Dictionary(Of Integer, ItemData) Implements IUniverseData.Items
     Property Avatars As New Stack(Of Integer) Implements IUniverseData.Avatars
     <JsonIgnore>
@@ -86,7 +86,7 @@ Public Class UniverseData
         Return Nothing
     End Function
 
-    Public Function GetStoreData(storeId As Integer) As IStoreData Implements IUniverseData.GetStoreData
+    Public Function GetStoreData(storeId As Integer) As StoreData Implements IUniverseData.GetStoreData
         Return Nothing
     End Function
 
