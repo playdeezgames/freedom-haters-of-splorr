@@ -52,4 +52,5 @@ Friend Module GameState
     Friend ReadOnly StarSystemSatelliteList As String = NameOf(StarSystemSatelliteList)
     Friend ReadOnly Status As String = NameOf(Status)
     Friend ReadOnly Trader As String = NameOf(Trader)
+    Friend ReadOnly UseItem As String = NameOf(UseItem)
 End Module

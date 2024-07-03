@@ -46,6 +46,7 @@ Public Class UniverseModel
         Ephemerals.CurrentOffer = Nothing
         Ephemerals.CurrentPrice = Nothing
         Ephemerals.SellQuantity = 0
+        Ephemerals.InventoryItemStack = Nothing
     End Sub
 
     Private ReadOnly Property EmbarkSettings As EmbarkSettings

@@ -88,6 +88,7 @@ Public Class FHOSController
         SetState(GameState.Inventory, New InventoryState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.InventoryActionSelect, New InventoryActionSelectState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.InventoryInspect, New InventoryInspectState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.UseItem, New UseItemState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private Sub CreateEmbarkationStates(context As IUIContext(Of IUniverseModel))

@@ -7,10 +7,15 @@ Friend Class AvatarInventoryItemStackModel
         Me.actor = actor
         Me.itemType = itemType
     End Sub
+    Private ReadOnly Property Descriptor As ItemTypeDescriptor
+        Get
+            Return ItemTypes.Descriptors(itemType)
+        End Get
+    End Property
 
     Public ReadOnly Property ItemName As String Implements IAvatarInventoryItemStackModel.ItemName
         Get
-            Return ItemTypes.Descriptors(itemType).Name
+            Return Descriptor.Name
         End Get
     End Property
 
@@ -22,7 +27,13 @@ Friend Class AvatarInventoryItemStackModel
 
     Public ReadOnly Property Description As String Implements IAvatarInventoryItemStackModel.Description
         Get
-            Return ItemTypes.Descriptors(itemType).Description
+            Return Descriptor.Description
+        End Get
+    End Property
+
+    Public ReadOnly Property CanUse As Boolean Implements IAvatarInventoryItemStackModel.CanUse
+        Get
+            Return Descriptor.CanUse
         End Get
     End Property
 
@@ -32,4 +43,8 @@ Friend Class AvatarInventoryItemStackModel
     Friend Shared Function FromActorAndItems(actor As IActor, itemType As String) As IAvatarInventoryItemStackModel
         Return New AvatarInventoryItemStackModel(actor, itemType)
     End Function
+
+    Public Sub Use() Implements IAvatarInventoryItemStackModel.Use
+        Descriptor.Use(actor, actor.Inventory.Items.First)
+    End Sub
 End Class

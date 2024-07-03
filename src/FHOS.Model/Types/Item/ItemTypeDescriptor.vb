@@ -6,12 +6,22 @@ Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property Offer As Integer
     ReadOnly Property Price As Integer
     ReadOnly Property Description As String
-    Sub New(itemType As String, name As String, description As String, Optional offer As Integer = 0, Optional price As Integer = 0)
+    ReadOnly Property CanUse As Boolean
+    Private ReadOnly onUse As Action(Of IActor, IItem)
+    Sub New(
+           itemType As String,
+           name As String,
+           description As String,
+           Optional offer As Integer = 0,
+           Optional price As Integer = 0,
+           Optional onUse As Action(Of IActor, IItem) = Nothing)
         Me.ItemType = itemType
         Me.Name = name
         Me.Offer = offer
         Me.Price = price
         Me.Description = description
+        Me.onUse = onUse
+        Me.CanUse = onUse IsNot Nothing
     End Sub
     Function CreateItem(universe As IUniverse) As IItem
         Dim item = universe.Factory.CreateItem(ItemType)
@@ -19,4 +29,10 @@ Friend MustInherit Class ItemTypeDescriptor
         Return item
     End Function
     Protected MustOverride Sub Initialize(item As IItem)
+
+    Friend Sub Use(actor As IActor, item As IItem)
+        If CanUse Then
+            onUse(actor, item)
+        End If
+    End Sub
 End Class
