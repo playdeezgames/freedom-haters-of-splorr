@@ -1,5 +1,5 @@
 ﻿Public Class ActorData_should
-    Inherits GroupedEntityData_should(Of IActorData)
+    Inherits GroupedEntityData_should(Of ActorData)
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
@@ -114,7 +114,7 @@
         sut.AllPrices.ShouldHaveSingleItem
         sut.AllPrices.Single.ShouldBe(itemType)
     End Sub
-    Protected Overrides Function CreateSut() As IActorData
+    Protected Overrides Function CreateSut() As ActorData
         Return New ActorData(0)
     End Function
 End Class

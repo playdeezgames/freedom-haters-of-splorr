@@ -3,10 +3,10 @@ Imports System.Text.Json.Serialization
 Public Class UniverseData
     Inherits EntityData
     Implements IUniverseData
-    Public Property Actors As New Dictionary(Of Integer, IActorData) Implements IUniverseData.Actors
+    Public Property Actors As New Dictionary(Of Integer, ActorData) Implements IUniverseData.Actors
     Property Locations As New Dictionary(Of Integer, ILocationData) Implements IUniverseData.Locations
     Property Maps As New Dictionary(Of Integer, IMapData) Implements IUniverseData.Maps
-    Property Groups As New Dictionary(Of Integer, IGroupData) Implements IUniverseData.Groups
+    Property Groups As New Dictionary(Of Integer, GroupData) Implements IUniverseData.Groups
     Property Stores As New Dictionary(Of Integer, IStoreData) Implements IUniverseData.Stores
     Property Items As New Dictionary(Of Integer, IItemData) Implements IUniverseData.Items
     Property Avatars As New Stack(Of Integer) Implements IUniverseData.Avatars
@@ -66,8 +66,8 @@ Public Class UniverseData
         End Get
     End Property
 
-    Public Function GetActorData(actorId As Integer) As IActorData Implements IUniverseData.GetActorData
-        Dim actorData As IActorData = Nothing
+    Public Function GetActorData(actorId As Integer) As ActorData Implements IUniverseData.GetActorData
+        Dim actorData As ActorData = Nothing
         If Actors.TryGetValue(actorId, actorData) Then
             Return actorData
         End If
@@ -82,7 +82,7 @@ Public Class UniverseData
         Return Nothing
     End Function
 
-    Public Function GetGroupData(groupId As Integer) As IGroupData Implements IUniverseData.GetGroupData
+    Public Function GetGroupData(groupId As Integer) As GroupData Implements IUniverseData.GetGroupData
         Return Nothing
     End Function
 

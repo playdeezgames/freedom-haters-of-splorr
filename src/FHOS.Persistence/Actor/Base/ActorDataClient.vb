@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Data
 
 Friend Class ActorDataClient
-    Inherits NamedEntityDataClient(Of IActorData)
+    Inherits NamedEntityDataClient(Of ActorData)
     Protected Sub New(
                      universeData As IUniverseData,
                      actorId As Integer)
