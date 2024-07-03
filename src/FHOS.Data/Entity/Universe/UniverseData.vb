@@ -4,7 +4,7 @@ Public Class UniverseData
     Inherits EntityData
     Implements IUniverseData
     Public Property Actors As New Dictionary(Of Integer, ActorData) Implements IUniverseData.Actors
-    Property Locations As New Dictionary(Of Integer, ILocationData) Implements IUniverseData.Locations
+    Property Locations As New Dictionary(Of Integer, LocationData) Implements IUniverseData.Locations
     Property Maps As New Dictionary(Of Integer, IMapData) Implements IUniverseData.Maps
     Property Groups As New Dictionary(Of Integer, GroupData) Implements IUniverseData.Groups
     Property Stores As New Dictionary(Of Integer, IStoreData) Implements IUniverseData.Stores
@@ -74,7 +74,7 @@ Public Class UniverseData
         Return Nothing
     End Function
 
-    Public Function GetLocationData(locationId As Integer) As ILocationData Implements IUniverseData.GetLocationData
+    Public Function GetLocationData(locationId As Integer) As LocationData Implements IUniverseData.GetLocationData
         Return Nothing
     End Function
 

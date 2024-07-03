@@ -1,6 +1,5 @@
 ﻿Public Class LocationData
     Inherits IdentifiedEntityData
-    Implements ILocationData
     Public Sub New(
                   id As Integer,
                   Optional flags As ISet(Of String) = Nothing,
