@@ -3,7 +3,7 @@
 Public Class Universe
     Inherits UniverseDataClient
     Implements IUniverse
-    Sub New(universeData As IUniverseData)
+    Sub New(universeData As UniverseData)
         MyBase.New(universeData)
     End Sub
 

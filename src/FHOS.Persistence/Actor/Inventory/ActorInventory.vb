@@ -3,7 +3,7 @@
 Friend Class ActorInventory
     Inherits ActorDataClient
     Implements IActorInventory
-    Protected Sub New(universeData As IUniverseData, actorId As Integer)
+    Protected Sub New(universeData As UniverseData, actorId As Integer)
         MyBase.New(universeData, actorId)
     End Sub
 
@@ -39,7 +39,7 @@ Friend Class ActorInventory
         EntityData.RemoveItem(item.Id)
     End Sub
 
-    Friend Shared Function FromId(universeData As IUniverseData, actorId As Integer?) As IActorInventory
+    Friend Shared Function FromId(universeData As UniverseData, actorId As Integer?) As IActorInventory
         If actorId.HasValue Then
             Return New ActorInventory(universeData, actorId.Value)
         End If

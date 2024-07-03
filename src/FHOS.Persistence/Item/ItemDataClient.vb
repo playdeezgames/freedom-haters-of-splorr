@@ -4,7 +4,7 @@ Friend Class ItemDataClient
     Inherits TypedEntityDataClient(Of ItemData)
 
     Public Sub New(
-                  universeData As IUniverseData,
+                  universeData As UniverseData,
                   entityId As Integer)
         MyBase.New(
             universeData,

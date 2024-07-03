@@ -2,7 +2,7 @@
     Inherits ActorDataClient
     Implements IActorPrices
 
-    Protected Sub New(universeData As Data.IUniverseData, actorId As Integer)
+    Protected Sub New(universeData As Data.UniverseData, actorId As Integer)
         MyBase.New(universeData, actorId)
     End Sub
 
@@ -22,7 +22,7 @@
         EntityData.AddPrice(itemType)
     End Sub
 
-    Friend Shared Function FromId(universeData As Data.IUniverseData, id As Integer) As IActorPrices
+    Friend Shared Function FromId(universeData As Data.UniverseData, id As Integer) As IActorPrices
         Return New ActorPrices(universeData, id)
     End Function
 End Class

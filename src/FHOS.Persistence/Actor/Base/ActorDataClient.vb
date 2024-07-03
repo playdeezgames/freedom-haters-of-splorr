@@ -3,7 +3,7 @@
 Friend Class ActorDataClient
     Inherits NamedEntityDataClient(Of ActorData)
     Protected Sub New(
-                     universeData As IUniverseData,
+                     universeData As UniverseData,
                      actorId As Integer)
         MyBase.New(
             universeData,

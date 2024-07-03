@@ -3,7 +3,7 @@
 Friend Class GroupDataClient
     Inherits NamedEntityDataClient(Of GroupData)
     Public Sub New(
-                  universeData As Data.IUniverseData,
+                  universeData As Data.UniverseData,
                   factionId As Integer)
         MyBase.New(
             universeData,

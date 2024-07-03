@@ -1,5 +1,4 @@
 ﻿Public MustInherit Class EntityData
-    Implements IEntityData
     Public Sub New(
                   Optional flags As ISet(Of String) = Nothing,
                   Optional statistics As IReadOnlyDictionary(Of String, Integer) = Nothing,
@@ -12,21 +11,21 @@
     Public Property Statistics As Dictionary(Of String, Integer)
     Public Property Metadatas As New Dictionary(Of String, String)
 
-    Public Sub SetFlag(flagType As String) Implements IEntityData.SetFlag
+    Public Sub SetFlag(flagType As String)
         If String.IsNullOrWhiteSpace(flagType) Then
             Throw New InvalidOperationException("flagType null or whitespace!")
         End If
         Flags.Add(flagType)
     End Sub
 
-    Public Sub ClearFlag(flagType As String) Implements IEntityData.ClearFlag
+    Public Sub ClearFlag(flagType As String)
         If String.IsNullOrWhiteSpace(flagType) Then
             Throw New InvalidOperationException("flagType null or whitespace!")
         End If
         Flags.Remove(flagType)
     End Sub
 
-    Public Sub SetStatistic(statisticType As String, value As Integer?) Implements IEntityData.SetStatistic
+    Public Sub SetStatistic(statisticType As String, value As Integer?)
         If String.IsNullOrWhiteSpace(statisticType) Then
             Throw New InvalidOperationException("statisticType null or whitespace!")
         End If
@@ -37,7 +36,7 @@
         End If
     End Sub
 
-    Public Sub SetMetadata(metadataType As String, value As String) Implements IEntityData.SetMetadata
+    Public Sub SetMetadata(metadataType As String, value As String)
         If String.IsNullOrWhiteSpace(metadataType) Then
             Throw New InvalidOperationException("statisticType null or whitespace!")
         End If
@@ -48,14 +47,14 @@
         End If
     End Sub
 
-    Public Function HasFlag(flagType As String) As Boolean Implements IEntityData.HasFlag
+    Public Function HasFlag(flagType As String) As Boolean
         If String.IsNullOrWhiteSpace(flagType) Then
             Throw New InvalidOperationException("flagType null or whitespace!")
         End If
         Return Flags.Contains(flagType)
     End Function
 
-    Public Function GetStatistic(statisticType As String) As Integer? Implements IEntityData.GetStatistic
+    Public Function GetStatistic(statisticType As String) As Integer?
         If String.IsNullOrWhiteSpace(statisticType) Then
             Throw New InvalidOperationException("statisticType null or whitespace!")
         End If
@@ -66,7 +65,7 @@
         Return Nothing
     End Function
 
-    Public Function GetMetadata(metadataType As String) As String Implements IEntityData.GetMetadata
+    Public Function GetMetadata(metadataType As String) As String
         If String.IsNullOrWhiteSpace(metadataType) Then
             Throw New InvalidOperationException("metadataType null or whitespace!")
         End If

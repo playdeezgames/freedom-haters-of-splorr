@@ -4,7 +4,7 @@ Friend Class ActorOffers
     Inherits ActorDataClient
     Implements IActorOffers
 
-    Protected Sub New(universeData As IUniverseData, actorId As Integer)
+    Protected Sub New(universeData As UniverseData, actorId As Integer)
         MyBase.New(universeData, actorId)
     End Sub
 
@@ -30,7 +30,7 @@ Friend Class ActorOffers
         EntityData.AddOffer(itemType)
     End Sub
 
-    Friend Shared Function FromId(universeData As IUniverseData, id As Integer) As IActorOffers
+    Friend Shared Function FromId(universeData As UniverseData, id As Integer) As IActorOffers
         Return New ActorOffers(universeData, id)
     End Function
 End Class

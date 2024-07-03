@@ -1,5 +1,5 @@
 ﻿Public Class UniverseData_should
-    Inherits EntityData_should(Of IUniverseData)
+    Inherits EntityData_should(Of UniverseData)
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
@@ -49,7 +49,7 @@
         Const itemId = 1
         sut.GetItemData(itemId).ShouldBeNull
     End Sub
-    Protected Overrides Function CreateSut() As IUniverseData
+    Protected Overrides Function CreateSut() As UniverseData
         Return New UniverseData
     End Function
 End Class

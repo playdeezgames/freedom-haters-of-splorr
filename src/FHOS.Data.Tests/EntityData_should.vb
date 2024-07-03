@@ -1,4 +1,4 @@
-﻿Public MustInherit Class EntityData_should(Of TEntityData As IEntityData)
+﻿Public MustInherit Class EntityData_should(Of TEntityData As EntityData)
     Protected MustOverride Function CreateSut() As TEntityData
     <Fact>
     Sub default_given_flag_to_false()

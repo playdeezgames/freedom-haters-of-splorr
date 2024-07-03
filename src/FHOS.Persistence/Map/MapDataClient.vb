@@ -3,7 +3,7 @@
 Friend Class MapDataClient
     Inherits NamedEntityDataClient(Of MapData)
     Sub New(
-           worldData As IUniverseData,
+           worldData As UniverseData,
            mapId As Integer)
         MyBase.New(
             worldData,

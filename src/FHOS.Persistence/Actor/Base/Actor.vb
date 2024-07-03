@@ -3,11 +3,11 @@
 Friend Class Actor
     Inherits ActorDataClient
     Implements IActor
-    Protected Sub New(universeData As Data.IUniverseData, actorId As Integer)
+    Protected Sub New(universeData As Data.UniverseData, actorId As Integer)
         MyBase.New(universeData, actorId)
     End Sub
 
-    Friend Shared Function FromId(universeData As IUniverseData, actorId As Integer?) As IActor
+    Friend Shared Function FromId(universeData As UniverseData, actorId As Integer?) As IActor
         If actorId.HasValue Then
             Return New Actor(universeData, actorId.Value)
         End If

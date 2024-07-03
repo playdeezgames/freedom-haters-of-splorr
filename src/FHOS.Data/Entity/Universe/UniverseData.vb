@@ -2,23 +2,22 @@ Imports System.Text.Json.Serialization
 
 Public Class UniverseData
     Inherits EntityData
-    Implements IUniverseData
-    Public Property Actors As New Dictionary(Of Integer, ActorData) Implements IUniverseData.Actors
-    Property Locations As New Dictionary(Of Integer, LocationData) Implements IUniverseData.Locations
-    Property Maps As New Dictionary(Of Integer, MapData) Implements IUniverseData.Maps
-    Property Groups As New Dictionary(Of Integer, GroupData) Implements IUniverseData.Groups
-    Property Stores As New Dictionary(Of Integer, StoreData) Implements IUniverseData.Stores
-    Property Items As New Dictionary(Of Integer, ItemData) Implements IUniverseData.Items
-    Property Avatars As New Stack(Of Integer) Implements IUniverseData.Avatars
+    Public Property Actors As New Dictionary(Of Integer, ActorData)
+    Property Locations As New Dictionary(Of Integer, LocationData)
+    Property Maps As New Dictionary(Of Integer, MapData)
+    Property Groups As New Dictionary(Of Integer, GroupData)
+    Property Stores As New Dictionary(Of Integer, StoreData)
+    Property Items As New Dictionary(Of Integer, ItemData)
+    Property Avatars As New Stack(Of Integer)
     <JsonIgnore>
-    Property Messages As New Queue(Of MessageData) Implements IUniverseData.Messages
+    Property Messages As New Queue(Of MessageData)
     Private _nextActorId As Integer = 0
     Private _nextLocationId As Integer = 0
     Private _nextMapId As Integer = 0
     Private _nextGroupId As Integer = 0
     Private _nextStoreId As Integer = 0
     Private _nextItemId As Integer = 0
-    Public ReadOnly Property NextActorId As Integer Implements IUniverseData.NextActorId
+    Public ReadOnly Property NextActorId As Integer
         Get
             Dim actorId = _nextActorId
             _nextActorId += 1
@@ -26,7 +25,7 @@ Public Class UniverseData
         End Get
     End Property
 
-    Public ReadOnly Property NextLocationId As Integer Implements IUniverseData.NextLocationId
+    Public ReadOnly Property NextLocationId As Integer
         Get
             Dim locationId = _nextLocationId
             _nextLocationId += 1
@@ -34,7 +33,7 @@ Public Class UniverseData
         End Get
     End Property
 
-    Public ReadOnly Property NextMapId As Integer Implements IUniverseData.NextMapId
+    Public ReadOnly Property NextMapId As Integer
         Get
             Dim mapId = _nextMapId
             _nextMapId += 1
@@ -42,7 +41,7 @@ Public Class UniverseData
         End Get
     End Property
 
-    Public ReadOnly Property NextGroupId As Integer Implements IUniverseData.NextGroupId
+    Public ReadOnly Property NextGroupId As Integer
         Get
             Dim groupId = _nextGroupId
             _nextGroupId += 1
@@ -50,7 +49,7 @@ Public Class UniverseData
         End Get
     End Property
 
-    Public ReadOnly Property NextStoreId As Integer Implements IUniverseData.NextStoreId
+    Public ReadOnly Property NextStoreId As Integer
         Get
             Dim storeId = _nextStoreId
             _nextStoreId += 1
@@ -58,7 +57,7 @@ Public Class UniverseData
         End Get
     End Property
 
-    Public ReadOnly Property NextItemId As Integer Implements IUniverseData.NextItemId
+    Public ReadOnly Property NextItemId As Integer
         Get
             Dim itemId = _nextItemId
             _nextItemId += 1
@@ -66,7 +65,7 @@ Public Class UniverseData
         End Get
     End Property
 
-    Public Function GetActorData(actorId As Integer) As ActorData Implements IUniverseData.GetActorData
+    Public Function GetActorData(actorId As Integer) As ActorData
         Dim actorData As ActorData = Nothing
         If Actors.TryGetValue(actorId, actorData) Then
             Return actorData
@@ -74,23 +73,23 @@ Public Class UniverseData
         Return Nothing
     End Function
 
-    Public Function GetLocationData(locationId As Integer) As LocationData Implements IUniverseData.GetLocationData
+    Public Function GetLocationData(locationId As Integer) As LocationData
         Return Nothing
     End Function
 
-    Public Function GetMapData(mapId As Integer) As MapData Implements IUniverseData.GetMapData
+    Public Function GetMapData(mapId As Integer) As MapData
         Return Nothing
     End Function
 
-    Public Function GetGroupData(groupId As Integer) As GroupData Implements IUniverseData.GetGroupData
+    Public Function GetGroupData(groupId As Integer) As GroupData
         Return Nothing
     End Function
 
-    Public Function GetStoreData(storeId As Integer) As StoreData Implements IUniverseData.GetStoreData
+    Public Function GetStoreData(storeId As Integer) As StoreData
         Return Nothing
     End Function
 
-    Public Function GetItemData(storeId As Integer) As ItemData Implements IUniverseData.GetItemData
+    Public Function GetItemData(storeId As Integer) As ItemData
         Return Nothing
     End Function
 End Class

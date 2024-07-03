@@ -1,6 +1,5 @@
 ﻿Public MustInherit Class IdentifiedEntityData
     Inherits EntityData
-    Implements IIdentifiedEntityData
     Public Sub New(
                   id As Integer,
                   Optional flags As ISet(Of String) = Nothing,
@@ -10,5 +9,5 @@
         Me.Id = id
     End Sub
 
-    Public ReadOnly Property Id As Integer Implements IIdentifiedEntityData.Id
+    Public ReadOnly Property Id As Integer
 End Class

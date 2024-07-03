@@ -1,14 +1,14 @@
 ﻿Imports FHOS.Data
 
-Friend Class TypedEntityDataClient(Of TEntityData As IEntityData)
+Friend Class TypedEntityDataClient(Of TEntityData As EntityData)
     Inherits EntityDataClient(Of TEntityData)
     Implements ITypedEntity
 
     Public Sub New(
-                  universeData As IUniverseData,
+                  universeData As UniverseData,
                   entityId As Integer,
-                  entityDataFetcher As Func(Of IUniverseData, Integer, TEntityData),
-                  entityDataRecycler As Action(Of IUniverseData, Integer))
+                  entityDataFetcher As Func(Of UniverseData, Integer, TEntityData),
+                  entityDataRecycler As Action(Of UniverseData, Integer))
         MyBase.New(
             universeData,
             entityId,

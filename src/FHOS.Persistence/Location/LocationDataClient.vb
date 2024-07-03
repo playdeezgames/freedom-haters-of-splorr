@@ -4,7 +4,7 @@ Friend Class LocationDataClient
     Inherits TypedEntityDataClient(Of LocationData)
 
     Public Sub New(
-                  universeData As IUniverseData,
+                  universeData As UniverseData,
                   locationId As Integer)
         MyBase.New(
             universeData,

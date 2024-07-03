@@ -4,7 +4,7 @@ Friend Class ActorYokes
     Inherits ActorDataClient
     Implements IActorYokes
 
-    Protected Sub New(universeData As IUniverseData, actorId As Integer)
+    Protected Sub New(universeData As UniverseData, actorId As Integer)
         MyBase.New(universeData, actorId)
     End Sub
 
@@ -35,7 +35,7 @@ Friend Class ActorYokes
         End Set
     End Property
 
-    Friend Shared Function FromId(universeData As IUniverseData, actorId As Integer?) As IActorYokes
+    Friend Shared Function FromId(universeData As UniverseData, actorId As Integer?) As IActorYokes
         If actorId.HasValue Then
             Return New ActorYokes(universeData, actorId.Value)
         End If

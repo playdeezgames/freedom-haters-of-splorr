@@ -1,4 +1,4 @@
-﻿Public MustInherit Class IdentifiedEntityData_should(Of TEntityData As IIdentifiedEntityData)
+﻿Public MustInherit Class IdentifiedEntityData_should(Of TEntityData As IdentifiedEntityData)
     Inherits EntityData_should(Of TEntityData)
     <Fact>
     Sub have_id()

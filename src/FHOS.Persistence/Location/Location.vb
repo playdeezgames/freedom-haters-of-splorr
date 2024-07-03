@@ -4,11 +4,11 @@ Friend Class Location
     Inherits LocationDataClient
     Implements ILocation
 
-    Protected Sub New(universeData As Data.IUniverseData, locationId As Integer)
+    Protected Sub New(universeData As Data.UniverseData, locationId As Integer)
         MyBase.New(universeData, locationId)
     End Sub
 
-    Friend Shared Function FromId(universeData As IUniverseData, locationId As Integer?) As ILocation
+    Friend Shared Function FromId(universeData As UniverseData, locationId As Integer?) As ILocation
         If locationId.HasValue Then
             Return New Location(universeData, locationId.Value)
         End If

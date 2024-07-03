@@ -3,7 +3,7 @@
 Friend Class StoreDataClient
     Inherits EntityDataClient(Of StoreData)
     Sub New(
-           universeData As IUniverseData,
+           universeData As UniverseData,
            actorId As Integer)
         MyBase.New(
             universeData,
