@@ -3,19 +3,33 @@
 Friend Class AvatarInventoryItemStackModel
     Implements IAvatarInventoryItemStackModel
 
+    Public Sub New(actor As IActor, itemType As String)
+        Me.actor = actor
+        Me.itemType = itemType
+    End Sub
+
     Public ReadOnly Property ItemName As String Implements IAvatarInventoryItemStackModel.ItemName
         Get
-            Throw New NotImplementedException()
+            Return ItemTypes.Descriptors(itemType).Name
         End Get
     End Property
 
     Public ReadOnly Property Count As Integer Implements IAvatarInventoryItemStackModel.Count
         Get
-            Throw New NotImplementedException()
+            Return actor.Inventory.Items.Count(Function(x) x.Descriptor.ItemType = itemType)
         End Get
     End Property
 
-    Friend Shared Function FromActorAndItems(actor As IActor, items As IEnumerable(Of IItem)) As IAvatarInventoryItemStackModel
-        Throw New NotImplementedException()
+    Public ReadOnly Property Description As String Implements IAvatarInventoryItemStackModel.Description
+        Get
+            Return ItemTypes.Descriptors(itemType).Description
+        End Get
+    End Property
+
+    Private ReadOnly actor As IActor
+    Private ReadOnly itemType As String
+
+    Friend Shared Function FromActorAndItems(actor As IActor, itemType As String) As IAvatarInventoryItemStackModel
+        Return New AvatarInventoryItemStackModel(actor, itemType)
     End Function
 End Class

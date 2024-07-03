@@ -6,5 +6,5 @@
     Property CurrentOffer As IAvatarTraderOfferModel
     Property CurrentPrice As IAvatarTraderPriceModel
     Property SellQuantity As Integer
-    Property InventoryItemType As String
+    Property InventoryItemStack As IAvatarInventoryItemStackModel
 End Interface

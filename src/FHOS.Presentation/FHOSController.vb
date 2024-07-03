@@ -77,12 +77,17 @@ Public Class FHOSController
         SetState(GameState.Status, New StatusState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.SelectCrewMember, New SelectCrewMemberState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.SelectVessel, New SelectVesselState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.Inventory, New InventoryState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.InventoryActionSelect, New InventoryActionSelectState(Me, AddressOf SetCurrentState, context))
+        CreateInventoryStates(context)
 
         For Each state In doVerbStates
             SetState(state.Key, New DoVerbState(Me, AddressOf SetCurrentState, context, state.Value))
         Next
+    End Sub
+
+    Private Sub CreateInventoryStates(context As IUIContext(Of IUniverseModel))
+        SetState(GameState.Inventory, New InventoryState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.InventoryActionSelect, New InventoryActionSelectState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.InventoryInspect, New InventoryInspectState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private Sub CreateEmbarkationStates(context As IUIContext(Of IUniverseModel))

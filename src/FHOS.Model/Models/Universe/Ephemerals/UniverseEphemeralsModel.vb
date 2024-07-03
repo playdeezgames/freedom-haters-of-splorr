@@ -19,5 +19,5 @@ Friend Class UniverseEphemeralsModel
 
     Public Property SellQuantity As Integer Implements IUniverseEphemeralsModel.SellQuantity
 
-    Public Property InventoryItemType As String Implements IUniverseEphemeralsModel.InventoryItemType
+    Public Property InventoryItemStack As IAvatarInventoryItemStackModel Implements IUniverseEphemeralsModel.InventoryItemStack
 End Class

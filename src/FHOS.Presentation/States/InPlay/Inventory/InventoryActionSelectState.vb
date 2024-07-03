@@ -18,11 +18,14 @@ Friend Class InventoryActionSelectState
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
-        SetState(GameState.Inventory)
+        Select Case value.Item
+            Case InspectText
+                SetState(GameState.InventoryInspect)
+        End Select
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
-        HeaderText = Context.Model.Ephemerals.InventoryItemType
+        HeaderText = Context.Model.Ephemerals.InventoryItemStack.ItemName
         Dim result As New List(Of (Text As String, Item As String))
         result.Add((InspectText, InspectText))
         Return result

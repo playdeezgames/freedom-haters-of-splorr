@@ -21,7 +21,7 @@
         sut.CurrentOffer.ShouldBeNull
         sut.CurrentPrice.ShouldBeNull
         sut.SellQuantity.ShouldBe(0)
-        sut.InventoryItemType.ShouldBeNull
+        sut.InventoryItemStack.ShouldBeNull
     End Sub
 
 
