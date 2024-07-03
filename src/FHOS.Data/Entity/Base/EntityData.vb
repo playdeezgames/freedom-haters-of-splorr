@@ -8,7 +8,7 @@
         Me.Metadatas = If(metadatas IsNot Nothing, New Dictionary(Of String, String)(metadatas), New Dictionary(Of String, String))
     End Sub
     Public Property Flags As New HashSet(Of String)
-    Public Property Statistics As Dictionary(Of String, Integer)
+    Public Property Statistics As New Dictionary(Of String, Integer)
     Public Property Metadatas As New Dictionary(Of String, String)
 
     Public Sub SetFlag(flagType As String)
