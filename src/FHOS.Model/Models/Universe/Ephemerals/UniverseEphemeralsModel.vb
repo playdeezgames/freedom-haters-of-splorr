@@ -18,4 +18,6 @@ Friend Class UniverseEphemeralsModel
     Public Property CurrentPrice As IAvatarTraderPriceModel Implements IUniverseEphemeralsModel.CurrentPrice
 
     Public Property SellQuantity As Integer Implements IUniverseEphemeralsModel.SellQuantity
+
+    Public Property InventoryItemType As String Implements IUniverseEphemeralsModel.InventoryItemType
 End Class

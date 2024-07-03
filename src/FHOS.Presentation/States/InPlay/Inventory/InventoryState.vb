@@ -15,7 +15,8 @@ Friend Class InventoryState
     End Sub
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
-        SetState(GameState.ActionMenu)
+        Context.Model.Ephemerals.InventoryItemType = value.Item
+        SetState(GameState.InventoryActionSelect)
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))

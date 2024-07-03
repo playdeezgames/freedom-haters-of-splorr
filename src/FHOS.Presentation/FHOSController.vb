@@ -78,6 +78,7 @@ Public Class FHOSController
         SetState(GameState.SelectCrewMember, New SelectCrewMemberState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.SelectVessel, New SelectVesselState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Inventory, New InventoryState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.InventoryActionSelect, New InventoryActionSelectState(Me, AddressOf SetCurrentState, context))
 
         For Each state In doVerbStates
             SetState(state.Key, New DoVerbState(Me, AddressOf SetCurrentState, context, state.Value))

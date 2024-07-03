@@ -3,6 +3,7 @@
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
         sut.Summary.ShouldBeEmpty
+        sut.ItemStacks.ShouldBeEmpty
     End Sub
 
     Private Function CreateSut() As IAvatarInventoryModel
