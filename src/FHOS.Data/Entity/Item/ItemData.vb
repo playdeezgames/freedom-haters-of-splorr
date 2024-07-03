@@ -1,6 +1,5 @@
 ﻿Public Class ItemData
     Inherits IdentifiedEntityData
-    Implements IItemData
 
     Public Sub New(
                   id As Integer,

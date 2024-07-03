@@ -17,9 +17,9 @@ Public Interface IUniverseData
     Property Stores As Dictionary(Of Integer, IStoreData)
     ReadOnly Property NextStoreId As Integer
     Function GetStoreData(storeId As Integer) As IStoreData
-    Property Items As Dictionary(Of Integer, IItemData)
+    Property Items As Dictionary(Of Integer, ItemData)
     ReadOnly Property NextItemId As Integer
-    Function GetItemData(storeId As Integer) As IItemData
+    Function GetItemData(itemId As Integer) As ItemData
     Property Avatars As Stack(Of Integer)
     <JsonIgnore>
     Property Messages As Queue(Of MessageData)
