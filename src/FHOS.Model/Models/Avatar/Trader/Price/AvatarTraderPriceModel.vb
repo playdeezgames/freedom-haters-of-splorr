@@ -60,4 +60,8 @@ Friend Class AvatarTraderPriceModel
     Friend Shared Function FromActorPrice(actor As IActor, itemType As String) As IAvatarTraderPriceModel
         Return New AvatarTraderPriceModel(actor, itemType)
     End Function
+
+    Public Function TotalPrice(quantity As Integer) As Integer Implements IAvatarTraderPriceModel.TotalPrice
+        Return UnitPrice * quantity
+    End Function
 End Class

@@ -25,11 +25,12 @@ Friend Class BuyState
     End Function
 
     Public Overrides Sub OnStart()
-        If Context.Model.Ephemerals.CurrentPrice.MaximumQuantity < 1 Then
+        With Context.Model.Ephemerals
+            If .CurrentPrice.MaximumQuantity < 1 Then
+                SetState(GameState.Prices)
+            End If
+            .CurrentPrice.Buy(.BuyQuantity)
             SetState(GameState.Prices)
-        End If
-        Context.Model.Ephemerals.CurrentPrice.Buy(1)
-        SetState(GameState.Prices)
-        'MyBase.OnStart()
+        End With
     End Sub
 End Class

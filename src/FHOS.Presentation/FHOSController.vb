@@ -35,13 +35,24 @@ Public Class FHOSController
     Private Sub CreateTraderStates(context As IUIContext(Of IUniverseModel))
         SetState(GameState.Trader, New TraderState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.LeaveTrader, New LeaveTraderState(Me, AddressOf SetCurrentState, context))
+        CreateTraderSellStates(context)
+        CreateTraderBuyStates(context)
+    End Sub
+
+    Private Sub CreateTraderBuyStates(context As IUIContext(Of IUniverseModel))
+        SetState(GameState.Prices, New PricesState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.Buy, New BuyState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.BuyQuantity, New BuyQuantityState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.BuyConfirm, New BuyConfirmState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.BuySpecificQuantity, New BuySpecificQuantityState(Me, AddressOf SetCurrentState, context))
+    End Sub
+
+    Private Sub CreateTraderSellStates(context As IUIContext(Of IUniverseModel))
         SetState(GameState.Offers, New OffersState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.Sell, New SellState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.SellConfirm, New SellConfirmState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.SellQuantity, New SellQuantityState(Me, AddressOf SetCurrentState, context))
         SetState(GameState.SellSpecificQuantity, New SellSpecificQuantityState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.Prices, New PricesState(Me, AddressOf SetCurrentState, context))
-        SetState(GameState.Buy, New BuyState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private Sub CreateSPLORRPediaStates(context As IUIContext(Of IUniverseModel))

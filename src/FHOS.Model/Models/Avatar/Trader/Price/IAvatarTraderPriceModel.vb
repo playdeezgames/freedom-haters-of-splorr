@@ -5,4 +5,5 @@
     ReadOnly Property MaximumQuantity As Integer
     ReadOnly Property InventoryQuantity As Integer
     Sub Buy(quantity As Integer)
+    Function TotalPrice(quantity As Integer) As Integer
 End Interface

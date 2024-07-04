@@ -7,4 +7,5 @@
     Property CurrentPrice As IAvatarTraderPriceModel
     Property SellQuantity As Integer
     Property InventoryItemStack As IAvatarInventoryItemStackModel
+    Property BuyQuantity As Integer
 End Interface

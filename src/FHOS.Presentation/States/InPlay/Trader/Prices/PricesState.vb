@@ -22,7 +22,7 @@ Friend Class PricesState
             Return
         End If
         Context.Model.Ephemerals.CurrentPrice = value.Item
-        SetState(GameState.Buy)
+        SetState(GameState.BuyQuantity)
     End Sub
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IAvatarTraderPriceModel))
@@ -39,7 +39,7 @@ Friend Class PricesState
             displayBuffer,
             (Context.ViewCenter.X, font.Height),
             $"Jools: {jools}",
-            If(jools >= item.UnitPrice, Hues.Green, Hues.Red))
+            If(item.MaximumQuantity > 0, Hues.Blue, Hues.Orange))
         font.WriteCenteredText(
             displayBuffer,
             (Context.ViewCenter.X, font.Height * 2),
