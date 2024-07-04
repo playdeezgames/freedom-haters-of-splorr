@@ -3,6 +3,7 @@
     Friend ReadOnly Conviction As String = NameOf(Conviction)
     Friend ReadOnly Column As String = NameOf(Column)
     Friend ReadOnly Facing As String = NameOf(Facing)
+    Friend ReadOnly Fuel As String = NameOf(Fuel)
     Friend ReadOnly MinimumPlanetCount As String = NameOf(MinimumPlanetCount)
     Friend ReadOnly Oxygen As String = NameOf(Oxygen)
     Friend ReadOnly PlanetCount As String = NameOf(PlanetCount)

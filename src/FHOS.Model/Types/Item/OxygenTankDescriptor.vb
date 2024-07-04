@@ -15,7 +15,7 @@ Friend Class OxygenTankDescriptor
     Private Shared Sub UseOxygenTank(actor As IActor, item As IItem)
         Dim lines As New List(Of (String, Integer))
         Dim store = actor.Yokes.Store(YokeTypes.LifeSupport)
-        Const oxygenAmount = 100
+        Dim oxygenAmount = item.Statistics(StatisticTypes.Oxygen).Value
         store.CurrentValue += oxygenAmount
         lines.Add(($"Added {oxygenAmount} O2.", Hues.Black))
         lines.Add(($"O2 is now {store.Percent.Value}%.", Hues.Black))
@@ -25,6 +25,6 @@ Friend Class OxygenTankDescriptor
     End Sub
 
     Protected Overrides Sub Initialize(item As IItem)
-        item.Statistics(StatisticTypes.Oxygen) = 50
+        item.Statistics(StatisticTypes.Oxygen) = 100
     End Sub
 End Class

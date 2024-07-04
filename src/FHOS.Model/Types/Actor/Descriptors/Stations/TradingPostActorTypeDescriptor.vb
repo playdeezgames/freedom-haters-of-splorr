@@ -23,6 +23,7 @@
         MyBase.Initialize(actor)
         actor.Offers.Add(ItemTypes.Scrap)
         actor.Prices.Add(ItemTypes.OxygenTank)
+        actor.Prices.Add(ItemTypes.FuelRod)
     End Sub
 
     Protected Overrides Function MakeName(planet As Persistence.IActor) As String
