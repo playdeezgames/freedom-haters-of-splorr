@@ -33,15 +33,17 @@ Friend Class PricesState
     Public Overrides Sub Render(displayBuffer As IPixelSink)
         MyBase.Render(displayBuffer)
         Dim font = Context.Font(UIFont)
+        Dim jools = Context.Model.State.Avatar.Jools
+        Dim item = CurrentMenuItem.Item
         font.WriteCenteredText(
             displayBuffer,
             (Context.ViewCenter.X, font.Height),
-            $"Jools: {Context.Model.State.Avatar.Jools}",
-            DarkGray)
+            $"Jools: {jools}",
+            If(jools >= item.UnitPrice, Hues.Green, Hues.Red))
         font.WriteCenteredText(
             displayBuffer,
             (Context.ViewCenter.X, font.Height * 2),
-            $"You have {CurrentMenuItem.Item.InventoryQuantity}",
+            $"You have {item.InventoryQuantity}",
             DarkGray)
     End Sub
 End Class
