@@ -45,6 +45,6 @@ Friend Class AvatarInventoryItemStackModel
     End Function
 
     Public Sub Use() Implements IAvatarInventoryItemStackModel.Use
-        Descriptor.Use(actor, actor.Inventory.Items.First)
+        Descriptor.Use(actor, actor.Inventory.Items.First(Function(x) x.EntityType = itemType))
     End Sub
 End Class
