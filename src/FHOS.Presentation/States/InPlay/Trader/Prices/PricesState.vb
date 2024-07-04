@@ -27,6 +27,21 @@ Friend Class PricesState
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As IAvatarTraderPriceModel))
         Context.Model.Ephemerals.CurrentPrice = Nothing
-        Return Context.Model.State.Avatar.Trader.Prices.Select(Function(x) (x.Name, x)).ToList
+        Return Context.Model.State.Avatar.Trader.Prices.Select(Function(x) ($"{x.Name}(@{x.UnitPrice})", x)).ToList
     End Function
+
+    Public Overrides Sub Render(displayBuffer As IPixelSink)
+        MyBase.Render(displayBuffer)
+        Dim font = Context.Font(UIFont)
+        font.WriteCenteredText(
+            displayBuffer,
+            (Context.ViewCenter.X, font.Height),
+            $"Jools: {Context.Model.State.Avatar.Jools}",
+            DarkGray)
+        font.WriteCenteredText(
+            displayBuffer,
+            (Context.ViewCenter.X, font.Height * 2),
+            $"You have {CurrentMenuItem.Item.InventoryQuantity}",
+            DarkGray)
+    End Sub
 End Class

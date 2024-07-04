@@ -11,56 +11,74 @@ Public Class UniverseData
     Property Avatars As New Stack(Of Integer)
     <JsonIgnore>
     Property Messages As New Queue(Of MessageData)
-    Private _nextActorId As Integer = 0
-    Private _nextLocationId As Integer = 0
-    Private _nextMapId As Integer = 0
-    Private _nextGroupId As Integer = 0
-    Private _nextStoreId As Integer = 0
-    Private _nextItemId As Integer = 0
+    Private _nextActorId As Integer? = Nothing
+    Private _nextLocationId As Integer? = Nothing
+    Private _nextMapId As Integer? = Nothing
+    Private _nextGroupId As Integer? = Nothing
+    Private _nextStoreId As Integer? = Nothing
+    Private _nextItemId As Integer? = Nothing
     Public ReadOnly Property NextActorId As Integer
         Get
-            Dim actorId = _nextActorId
-            _nextActorId += 1
+            If Not _nextActorId.HasValue Then
+                _nextActorId = If(Not Actors.Any, 0, Actors.Keys.Max + 1)
+            End If
+            Dim actorId = _nextActorId.Value
+            _nextActorId = actorId + 1
             Return actorId
         End Get
     End Property
 
     Public ReadOnly Property NextLocationId As Integer
         Get
-            Dim locationId = _nextLocationId
-            _nextLocationId += 1
+            If Not _nextLocationId.HasValue Then
+                _nextLocationId = If(Not Locations.Any, 0, Locations.Keys.Max + 1)
+            End If
+            Dim locationId = _nextLocationId.Value
+            _nextLocationId = locationId + 1
             Return locationId
         End Get
     End Property
 
     Public ReadOnly Property NextMapId As Integer
         Get
-            Dim mapId = _nextMapId
-            _nextMapId += 1
+            If Not _nextMapId.HasValue Then
+                _nextMapId = If(Not Maps.Any, 0, Maps.Keys.Max + 1)
+            End If
+            Dim mapId = _nextMapId.Value
+            _nextMapId = mapId + 1
             Return mapId
         End Get
     End Property
 
     Public ReadOnly Property NextGroupId As Integer
         Get
-            Dim groupId = _nextGroupId
-            _nextGroupId += 1
+            If Not _nextGroupId.HasValue Then
+                _nextGroupId = If(Not Groups.Any, 0, Groups.Keys.Max + 1)
+            End If
+            Dim groupId = _nextGroupId.Value
+            _nextGroupId = groupId + 1
             Return groupId
         End Get
     End Property
 
     Public ReadOnly Property NextStoreId As Integer
         Get
-            Dim storeId = _nextStoreId
-            _nextStoreId += 1
+            If Not _nextStoreId.HasValue Then
+                _nextStoreId = If(Not Stores.Any, 0, Stores.Keys.Max + 1)
+            End If
+            Dim storeId = _nextStoreId.Value
+            _nextStoreId = storeId + 1
             Return storeId
         End Get
     End Property
 
     Public ReadOnly Property NextItemId As Integer
         Get
-            Dim itemId = _nextItemId
-            _nextItemId += 1
+            If Not _nextItemId.HasValue Then
+                _nextItemId = If(Not Items.Any, 0, Items.Keys.Max + 1)
+            End If
+            Dim itemId = _nextItemId.Value
+            _nextItemId = itemId + 1
             Return itemId
         End Get
     End Property
@@ -70,26 +88,6 @@ Public Class UniverseData
         If Actors.TryGetValue(actorId, actorData) Then
             Return actorData
         End If
-        Return Nothing
-    End Function
-
-    Public Function GetLocationData(locationId As Integer) As LocationData
-        Return Nothing
-    End Function
-
-    Public Function GetMapData(mapId As Integer) As MapData
-        Return Nothing
-    End Function
-
-    Public Function GetGroupData(groupId As Integer) As GroupData
-        Return Nothing
-    End Function
-
-    Public Function GetStoreData(storeId As Integer) As StoreData
-        Return Nothing
-    End Function
-
-    Public Function GetItemData(storeId As Integer) As ItemData
         Return Nothing
     End Function
 End Class

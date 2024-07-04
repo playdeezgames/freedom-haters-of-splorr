@@ -13,8 +13,7 @@ Friend Class AvatarTraderPriceModel
 
     Public ReadOnly Property Name As String Implements IAvatarTraderPriceModel.Name
         Get
-            Dim descriptor = ItemTypes.Descriptors(itemType)
-            Return $"{descriptor.Name}(@{descriptor.Price})"
+            Return ItemTypes.Descriptors(itemType).Name
         End Get
     End Property
 
@@ -32,6 +31,18 @@ Friend Class AvatarTraderPriceModel
             End If
             Dim price = ItemTypes.Descriptors(itemType).Price
             Return actor.Yokes.Store(YokeTypes.Wallet).CurrentValue \ price
+        End Get
+    End Property
+
+    Public ReadOnly Property UnitPrice As Integer Implements IAvatarTraderPriceModel.UnitPrice
+        Get
+            Return ItemTypes.Descriptors(itemType).Price
+        End Get
+    End Property
+
+    Public ReadOnly Property InventoryQuantity As Integer Implements IAvatarTraderPriceModel.InventoryQuantity
+        Get
+            Return actor.Inventory.ItemCountOfType(itemType)
         End Get
     End Property
 

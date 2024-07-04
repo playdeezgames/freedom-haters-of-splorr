@@ -6,6 +6,11 @@
     Protected Property HeaderText As String
     Protected ReadOnly _cancelGameState As String
     Protected Property PageSize As Integer
+    Protected ReadOnly Property CurrentMenuItem As (Text As String, Item As TItem)
+        Get
+            Return _menuItems(MenuItemIndex)
+        End Get
+    End Property
     Public Sub New(
                   parent As IGameController,
                   setState As Action(Of String, Boolean),
