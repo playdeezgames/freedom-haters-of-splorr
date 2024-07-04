@@ -9,6 +9,6 @@ Friend Class StoreDataClient
             universeData,
             actorId,
             Function(u, i) u.Stores(i),
-            Sub(u, i) Return)
+            Sub(u, i) u.Stores.Remove(i))
     End Sub
 End Class

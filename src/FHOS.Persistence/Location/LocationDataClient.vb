@@ -10,6 +10,6 @@ Friend Class LocationDataClient
             universeData,
             locationId,
             Function(u, i) u.Locations(i),
-            Sub(u, i) Return)
+            Sub(u, i) u.Locations.Remove(i))
     End Sub
 End Class

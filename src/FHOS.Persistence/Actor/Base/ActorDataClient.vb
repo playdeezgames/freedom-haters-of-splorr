@@ -9,7 +9,7 @@ Friend Class ActorDataClient
             universeData,
             actorId,
             Function(u, i) u.GetActorData(i),
-            Sub(u, i) Return)
+            Sub(u, i) u.Actors.Remove(i))
     End Sub
     Public Overrides Sub Recycle()
         Dim actor = Persistence.Actor.FromId(UniverseData, Id)

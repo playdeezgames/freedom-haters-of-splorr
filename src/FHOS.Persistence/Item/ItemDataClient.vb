@@ -10,6 +10,6 @@ Friend Class ItemDataClient
             universeData,
             entityId,
             Function(u, i) u.Items(i),
-            Sub(u, i) Return)
+            Sub(u, i) u.Items.Remove(i))
     End Sub
 End Class

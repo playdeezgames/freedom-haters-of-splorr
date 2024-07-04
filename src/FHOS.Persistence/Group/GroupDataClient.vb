@@ -9,6 +9,6 @@ Friend Class GroupDataClient
             universeData,
             factionId,
             Function(u, i) u.Groups(i),
-            Sub(u, i) Return)
+            Sub(u, i) u.Groups.Remove(i))
     End Sub
 End Class

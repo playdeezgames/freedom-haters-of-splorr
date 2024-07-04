@@ -9,6 +9,6 @@ Friend Class MapDataClient
             worldData,
             mapId,
             Function(u, i) u.Maps(i),
-            Sub(u, i) Return)
+            Sub(u, i) u.Maps.Remove(i))
     End Sub
 End Class
