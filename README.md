@@ -4,8 +4,8 @@
   - [ ] 20240706 - SIGMO FHOS Episode 72 - 
   - [ ] 20240705 - SIGMO FHOS Episode 71 - 
   - [ ] 20240704 - SIGMO FHOS Episode 70 - 
-  - [ ] 20240703 - SIGMO FHOS Episode 69 - 
-  - [ ] 20240702 - SIGMO FHOS Episode 68 - 
+  - [x] 20240703 - SIGMO FHOS Episode 69 - 
+  - [x] 20240702 - SIGMO FHOS Episode 68 - 
   - [x] 20240701 - SIGMO FHOS Episode 67 - 
   - [x] 20240623 - SIGMO FHOS Episode 66 - 
   - [x] 20240622 - SIGMO FHOS Episode 65 - 
