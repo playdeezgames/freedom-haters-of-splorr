@@ -26,8 +26,8 @@ Friend Class PlayerShipActorTypeDescriptor
         ship.Family.AddChild(actor)
     End Sub
 
-    Private Const PlayerShipMaximumOxygen = 250
-    Private Const PlayerShipMaximumFuel = 250
+    Private Const PlayerShipStartingMaximumOxygen = 250
+    Private Const PlayerShipStartubgMaximumFuel = 250
     Private Shared Sub InitializePlayerShipInterior(ship As IActor)
         Dim descriptor = MapTypes.Descriptors(MapTypes.Vessel)
         Dim map = descriptor.CreateMap(
@@ -59,8 +59,8 @@ Friend Class PlayerShipActorTypeDescriptor
         Dim planetCandidates = sigmoFaction.ChildrenOfType(GroupTypes.PlanetVicinity)
         actor.Yokes.Group(YokeTypes.HomePlanet) = RNG.FromEnumerable(planetCandidates)
         actor.EntityName = "(yer ship)"
-        actor.Yokes.Store(YokeTypes.LifeSupport) = actor.Universe.Factory.CreateStore(PlayerShipMaximumOxygen, minimum:=0, maximum:=PlayerShipMaximumOxygen)
-        actor.Yokes.Store(YokeTypes.FuelTank) = actor.Universe.Factory.CreateStore(PlayerShipMaximumFuel, minimum:=0, maximum:=PlayerShipMaximumFuel)
+        actor.Yokes.Store(YokeTypes.LifeSupport) = actor.Universe.Factory.CreateStore(PlayerShipStartingMaximumOxygen, minimum:=0, maximum:=PlayerShipStartingMaximumOxygen)
+        actor.Yokes.Store(YokeTypes.FuelTank) = actor.Universe.Factory.CreateStore(PlayerShipStartubgMaximumFuel, minimum:=0, maximum:=PlayerShipStartubgMaximumFuel)
         InitializePlayerShipInterior(actor)
         InitializePlayerShipCrew(actor)
     End Sub
