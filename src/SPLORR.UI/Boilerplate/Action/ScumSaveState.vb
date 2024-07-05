@@ -16,6 +16,6 @@
     Public Overrides Sub OnStart()
         MyBase.OnStart()
         Context.SaveGame(0)
-        SetState(BoilerplateState.Neutral)
+        SetState(BoilerplateState.SaveConfirmation)
     End Sub
 End Class

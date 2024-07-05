@@ -101,7 +101,14 @@ Friend Module ActorExtensions
     <Extension>
     Sub DoTurn(actor As IActor)
         actor.Universe.Turn += 1
-        actor.Yokes.Store(YokeTypes.LifeSupport).CurrentValue -= 1
+        Dim store = actor.Yokes.Store(YokeTypes.LifeSupport)
+        store.CurrentValue -= 1
+        If store.CurrentValue = store.MinimumValue Then
+            Dim tank = actor.Inventory.Items.FirstOrDefault(Function(x) x.EntityType = ItemTypes.OxygenTank)
+            If tank IsNot Nothing Then
+                ItemTypes.Descriptors(ItemTypes.OxygenTank).Use(actor, tank)
+            End If
+        End If
     End Sub
     <Extension>
     Sub SetStarSystem(actor As IActor, starSystemGroup As IGroup)
