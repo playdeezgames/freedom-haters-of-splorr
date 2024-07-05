@@ -12,7 +12,8 @@
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.PlanetOrbit, "1d4/4"}
-            })
+            },
+            CanUpgradeShip:=True)
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)

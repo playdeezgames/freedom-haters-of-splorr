@@ -27,6 +27,8 @@ Friend Class NeutralState
                 SetState(GameState.GameOver)
             ElseIf .State.Avatar.StarGate.IsActive Then
                 SetState(GameState.StarGate)
+            ElseIf .State.Avatar.Shipyard.IsActive Then
+                SetState(GameState.Shipyard)
             ElseIf .State.Avatar.Trader.IsActive Then
                 SetState(GameState.Trader)
             ElseIf .State.Avatar.Interaction.IsActive Then

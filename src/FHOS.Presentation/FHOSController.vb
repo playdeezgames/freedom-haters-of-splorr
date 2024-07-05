@@ -25,11 +25,16 @@ Public Class FHOSController
         SetState(GameState.LeaveStarGate, New LeaveStarGateState(Me, AddressOf SetCurrentState, context))
 
         CreateTraderStates(context)
+        CreateShipyardState(context)
         CreateSPLORRPediaStates(context)
 
         SetState(GameState.ActionMenu, New ActionMenuState(Me, AddressOf SetCurrentState, context))
 
         SetCurrentState(BoilerplateState.Splash, True)
+    End Sub
+
+    Private Sub CreateShipyardState(context As IUIContext(Of IUniverseModel))
+        SetState(GameState.Shipyard, New ShipyardState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private Sub CreateTraderStates(context As IUIContext(Of IUniverseModel))

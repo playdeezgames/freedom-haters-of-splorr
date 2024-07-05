@@ -80,4 +80,10 @@ Friend Class AvatarModel
             Return AvatarInventoryModel.FromActor(actor)
         End Get
     End Property
+
+    Public ReadOnly Property Shipyard As IAvatarShipyardModel Implements IAvatarModel.Shipyard
+        Get
+            Return AvatarShipyardModel.FromActor(actor)
+        End Get
+    End Property
 End Class

@@ -12,5 +12,6 @@
     Friend ReadOnly PlanetVicinity As String = NameOf(PlanetVicinity)
     Friend ReadOnly Planet As String = NameOf(Planet)
     Friend ReadOnly Satellite As String = NameOf(Satellite)
+    Friend ReadOnly Shipyard As String = NameOf(Shipyard)
     Friend ReadOnly Trader As String = NameOf(Trader)
 End Module

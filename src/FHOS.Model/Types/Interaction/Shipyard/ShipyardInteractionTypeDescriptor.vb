@@ -1,21 +1,21 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class TradeInteractionTypeDescriptor
+Friend Class ShipyardInteractionTypeDescriptor
     Inherits InteractionTypeDescriptor
 
     Public Sub New()
-        MyBase.New(InteractionTypes.Trade)
+        MyBase.New(InteractionTypes.UpgradeShip)
     End Sub
 
     Friend Overrides Function GetText(actor As IActor) As String
-        Return "Trade"
+        Return "Upgrade Ship..."
     End Function
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.Interactor.Descriptor.CanTrade
+        Return actor.Interactor.Descriptor.CanUpgradeShip
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
-        Return New TradeInteractionModel(actor)
+        Return New ShipyardInteractionModel(actor)
     End Function
 End Class
