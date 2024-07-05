@@ -30,10 +30,10 @@ Friend Class StatusState
                 .UIPalette.Header,
                 .UIPalette.Background)
             Dim position = (.ViewCenter.X, font.Height)
-            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"O2: {avatar.Vessel.OxygenPercent}%", Hues.ForPercentage(avatar.Vessel.OxygenPercent))
+            position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"O2: ({avatar.Vessel.OxygenQuantity}/{avatar.Vessel.OxygenMaximum}){avatar.Vessel.OxygenPercent}%", Hues.ForPercentage(avatar.Vessel.OxygenPercent))
             Dim fuel = avatar.Vessel.FuelPercent
             If fuel.HasValue Then
-                position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Fuel: {fuel.Value}%", Hues.ForPercentage(fuel.Value))
+                position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Fuel: ({avatar.Vessel.FuelQuantity}/{avatar.Vessel.FuelMaximum}){fuel.Value}%", Hues.ForPercentage(fuel.Value))
             End If
             position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Faction: {avatar.Bio.Group.Name}", Hues.Black)
             position = font.WriteCenteredTextLines(displayBuffer, position, .ViewSize.Width, $"Home Planet: {avatar.Bio.HomePlanet.Name}", Hues.Black)
