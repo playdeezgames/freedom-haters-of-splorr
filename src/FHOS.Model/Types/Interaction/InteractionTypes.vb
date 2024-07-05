@@ -2,6 +2,7 @@
     Friend ReadOnly Approach As String = NameOf(Approach)
     Friend ReadOnly Cancel As String = NameOf(Cancel)
     Friend ReadOnly EnterOrbit As String = NameOf(EnterOrbit)
+    Friend ReadOnly EnterShipyard As String = NameOf(EnterShipyard)
     Friend ReadOnly EnterStarGate As String = NameOf(EnterStarGate)
     Friend ReadOnly EnterWormhole As String = NameOf(EnterWormhole)
     Friend ReadOnly LeaveOrbit As String = NameOf(LeaveOrbit)
@@ -12,7 +13,6 @@
     Friend ReadOnly Refuel As String = NameOf(Refuel)
     Friend ReadOnly SalvageScrap As String = NameOf(SalvageScrap)
     Friend ReadOnly Trade As String = NameOf(Trade)
-    Friend ReadOnly UpgradeShip As String = NameOf(UpgradeShip)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, InteractionTypeDescriptor) =
         New List(Of InteractionTypeDescriptor) From

@@ -35,6 +35,7 @@ Public Class FHOSController
 
     Private Sub CreateShipyardState(context As IUIContext(Of IUniverseModel))
         SetState(GameState.Shipyard, New ShipyardState(Me, AddressOf SetCurrentState, context))
+        SetState(GameState.LeaveShipyard, New LeaveShipyardState(Me, AddressOf SetCurrentState, context))
     End Sub
 
     Private Sub CreateTraderStates(context As IUIContext(Of IUniverseModel))

@@ -4,11 +4,11 @@ Friend Class ShipyardInteractionTypeDescriptor
     Inherits InteractionTypeDescriptor
 
     Public Sub New()
-        MyBase.New(InteractionTypes.UpgradeShip)
+        MyBase.New(InteractionTypes.EnterShipyard)
     End Sub
 
     Friend Overrides Function GetText(actor As IActor) As String
-        Return "Upgrade Ship..."
+        Return "Enter Shipyard..."
     End Function
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean

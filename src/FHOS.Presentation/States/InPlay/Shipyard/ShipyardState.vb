@@ -3,8 +3,6 @@ Imports SPLORR.UI
 
 Friend Class ShipyardState
     Inherits BasePickerState(Of IUniverseModel, String)
-    Const BuyText = "Buy"
-    Const SellText = "Sell"
     Const LeaveText = "Leave"
 
     Public Sub New(parent As IGameController, setState As Action(Of String, Boolean), context As IUIContext(Of Model.IUniverseModel))
@@ -18,12 +16,8 @@ Friend Class ShipyardState
 
     Protected Overrides Sub OnActivateMenuItem(value As (Text As String, Item As String))
         Select Case value.Item
-            Case BuyText
-                SetState(GameState.Prices)
-            Case SellText
-                SetState(GameState.Offers)
             Case LeaveText
-                SetState(GameState.LeaveTrader)
+                SetState(GameState.LeaveShipyard)
         End Select
     End Sub
 

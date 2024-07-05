@@ -20,6 +20,7 @@ Friend Module GameState
     Friend ReadOnly InventoryActionSelect As String = NameOf(InventoryActionSelect)
     Friend ReadOnly InventoryInspect As String = NameOf(InventoryInspect)
     Friend ReadOnly LeaveInteraction As String = NameOf(LeaveInteraction)
+    Friend ReadOnly LeaveShipyard As String = NameOf(LeaveShipyard)
     Friend ReadOnly LeaveStarGate As String = NameOf(LeaveStarGate)
     Friend ReadOnly LeaveTrader As String = NameOf(LeaveTrader)
     Friend ReadOnly Message As String = NameOf(Message)
