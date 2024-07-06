@@ -1,33 +1,15 @@
 ﻿Imports FHOS.Persistence
 
 Friend Class AvatarShipyardModel
+    Inherits AvatarYokedModel
     Implements IAvatarShipyardModel
 
-    Private actor As IActor
-
     Public Sub New(actor As IActor)
-        Me.actor = actor
+        MyBase.New(actor, YokeTypes.Shipyard)
     End Sub
-    Private ReadOnly Property YokedShipyard As IActor
-        Get
-            Return actor.Yokes.Actor(YokeTypes.Shipyard)
-        End Get
-    End Property
 
-    Public ReadOnly Property IsActive As Boolean Implements IAvatarShipyardModel.IsActive
-        Get
-            Return YokedShipyard IsNot Nothing
-        End Get
-    End Property
-
-    Public ReadOnly Property Specimen As IActorModel Implements IAvatarShipyardModel.Specimen
-        Get
-            Return ActorModel.FromActor(YokedShipyard)
-        End Get
-    End Property
-
-    Public Sub Leave() Implements IAvatarShipyardModel.Leave
-        actor.Yokes.Actor(YokeTypes.Shipyard) = Nothing
+    Protected Overrides Sub OnLeave()
+        'do nothing
     End Sub
 
     Friend Shared Function FromActor(actor As IActor) As IAvatarShipyardModel

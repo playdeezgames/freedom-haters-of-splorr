@@ -1,30 +1,18 @@
 ﻿Imports SPLORR.Game
 
 Friend Class AvatarStarGateModel
-    Inherits BaseAvatarModel
+    Inherits AvatarYokedModel
     Implements IAvatarStarGateModel
 
     Protected Sub New(actor As Persistence.IActor)
-        MyBase.New(actor)
+        MyBase.New(actor, YokeTypes.StarGate)
     End Sub
-
-    Public ReadOnly Property IsActive As Boolean Implements IAvatarStarGateModel.IsActive
-        Get
-            Return actor.Yokes.Actor(YokeTypes.StarGate) IsNot Nothing
-        End Get
-    End Property
 
     Public ReadOnly Property AvailableGates As IEnumerable(Of (Text As String, Item As IActorModel)) Implements IAvatarStarGateModel.AvailableGates
         Get
-            Dim faction = actor.Yokes.Group(YokeTypes.Faction)
+            Dim faction = YokedActor.Yokes.Group(YokeTypes.Faction)
             Dim gates = actor.Universe.Actors.Where(Function(x) ActorTypes.Descriptors(x.EntityType).IsStarGate AndAlso x.Yokes.Group(YokeTypes.Faction).Id = faction.Id)
             Return gates.Select(Function(x) (x.EntityName, ActorModel.FromActor(x)))
-        End Get
-    End Property
-
-    Public ReadOnly Property Specimen As IActorModel Implements IAvatarYokedModel.Specimen
-        Get
-            Return ActorModel.FromActor(actor.Yokes.Actor(YokeTypes.StarGate))
         End Get
     End Property
 
@@ -41,8 +29,8 @@ Friend Class AvatarStarGateModel
             End Sub)
     End Sub
 
-    Public Sub Leave() Implements IAvatarStarGateModel.Leave
-        actor.Yokes.Actor(YokeTypes.StarGate) = Nothing
+    Protected Overrides Sub OnLeave()
+        'do nothing
     End Sub
 
     Friend Shared Function FromActor(actor As Persistence.IActor) As IAvatarStarGateModel
