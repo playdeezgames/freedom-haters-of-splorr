@@ -20,6 +20,7 @@ Friend Class OxygenTankDescriptor
         lines.Add(($"Added {oxygenAmount} O2.", Hues.Black))
         lines.Add(($"O2 is now {store.Percent.Value}%.", Hues.Black))
         actor.Inventory.Remove(item)
+        actor.Inventory.Add(actor.Universe.Factory.CreateItem(ItemTypes.Scrap))
         item.Recycle()
         actor.Universe.Messages.Add("Replenished Oxygen!", lines.ToArray)
     End Sub
