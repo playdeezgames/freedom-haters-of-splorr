@@ -2,10 +2,10 @@
     Inherits InteractionModel
 
     Public Sub New(actor As Persistence.IActor)
-        MyBase.New(actor)
+        MyBase.New(actor, AddressOf DoRefillOxygen)
     End Sub
 
-    Public Overrides Sub Perform()
+    Private Shared Sub DoRefillOxygen(actor As Persistence.IActor)
         Dim oxygenRequired = actor.Yokes.Store(YokeTypes.LifeSupport).TopOffAmount.Value
         Const oxygenPerJools = 10
         Dim oxygenCost = (oxygenRequired + oxygenPerJools - 1) \ oxygenPerJools

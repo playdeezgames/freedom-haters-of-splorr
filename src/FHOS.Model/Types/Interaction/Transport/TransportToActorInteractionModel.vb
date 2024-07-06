@@ -1,13 +1,11 @@
-﻿Imports SPLORR.Game
-
-Friend Class TransportToActorInteractionModel
+﻿Friend Class TransportToActorInteractionModel
     Inherits InteractionModel
 
     Public Sub New(actor As Persistence.IActor)
-        MyBase.New(actor)
+        MyBase.New(actor, AddressOf DoTransportToActor)
     End Sub
 
-    Public Overrides Sub Perform()
+    Private Shared Sub DoTransportToActor(actor As Persistence.IActor)
         actor.GoToOtherActor(
             actor.Interactor.Yokes.Actor(YokeTypes.Target),
             Sub(success, otherActor)

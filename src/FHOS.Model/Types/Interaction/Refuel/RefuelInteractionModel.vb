@@ -2,10 +2,10 @@
     Inherits InteractionModel
 
     Public Sub New(actor As Persistence.IActor)
-        MyBase.New(actor)
+        MyBase.New(actor, AddressOf DoRefuel)
     End Sub
 
-    Public Overrides Sub Perform()
+    Private Shared Sub DoRefuel(actor As Persistence.IActor)
         Dim fuelRequired = actor.Yokes.Store(YokeTypes.FuelTank).TopOffAmount.Value
         Const fuelPerJools = 3
         Dim fuelCost = (fuelRequired + fuelPerJools - 1) \ fuelPerJools

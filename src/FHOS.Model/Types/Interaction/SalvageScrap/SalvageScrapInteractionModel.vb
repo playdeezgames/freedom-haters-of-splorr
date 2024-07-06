@@ -2,10 +2,10 @@
     Inherits InteractionModel
 
     Public Sub New(actor As Persistence.IActor)
-        MyBase.New(actor)
+        MyBase.New(actor, AddressOf DoSalvageScrap)
     End Sub
 
-    Public Overrides Sub Perform()
+    Private Shared Sub DoSalvageScrap(actor As Persistence.IActor)
         Dim interactor = actor.Interactor
         Dim loot = interactor.Inventory.Items.ToList
         For Each item In loot
