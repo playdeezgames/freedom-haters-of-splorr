@@ -7,7 +7,7 @@
         sut.Offers.ShouldHaveSingleItem
         sut.HasPrices.ShouldBeTrue
         sut.Prices.ShouldHaveSingleItem
-        sut.Trader.ShouldNotBeNull
+        sut.Specimen.ShouldNotBeNull
         Should.NotThrow(Sub() sut.Leave())
     End Sub
 

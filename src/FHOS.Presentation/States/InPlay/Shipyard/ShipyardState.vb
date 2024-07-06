@@ -23,7 +23,7 @@ Friend Class ShipyardState
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
         With Model.State.Avatar.Shipyard
-            HeaderText = .Shipyard.Name
+            HeaderText = .Specimen.Name
             Dim result As New List(Of (Text As String, Item As String)) From
                 {
                     (LeaveText, LeaveText)

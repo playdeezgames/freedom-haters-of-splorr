@@ -29,7 +29,7 @@ Friend Class TraderState
 
     Protected Overrides Function InitializeMenuItems() As List(Of (Text As String, Item As String))
         With Model.State.Avatar.Trader
-            HeaderText = .Trader.Name
+            HeaderText = .Specimen.Name
             Dim result As New List(Of (Text As String, Item As String)) From
                 {
                     (LeaveText, LeaveText)

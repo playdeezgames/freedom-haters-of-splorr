@@ -20,7 +20,7 @@ Friend Class AvatarShipyardModel
         End Get
     End Property
 
-    Public ReadOnly Property Shipyard As IActorModel Implements IAvatarShipyardModel.Shipyard
+    Public ReadOnly Property Specimen As IActorModel Implements IAvatarShipyardModel.Specimen
         Get
             Return ActorModel.FromActor(YokedShipyard)
         End Get

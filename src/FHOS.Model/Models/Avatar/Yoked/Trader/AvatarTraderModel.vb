@@ -33,7 +33,7 @@ Friend Class AvatarTraderModel
         End Get
     End Property
 
-    Private ReadOnly Property Trader As IActorModel Implements IAvatarTraderModel.Trader
+    Private ReadOnly Property Specimen As IActorModel Implements IAvatarTraderModel.Specimen
         Get
             Return ActorModel.FromActor(YokedTrader)
         End Get

@@ -3,7 +3,7 @@
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
         sut.IsActive.ShouldBeTrue
-        sut.Shipyard.ShouldNotBeNull
+        sut.Specimen.ShouldNotBeNull
         Should.NotThrow(Sub() sut.Leave())
     End Sub
 
