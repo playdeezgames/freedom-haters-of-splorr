@@ -16,6 +16,7 @@ Friend Class RefuelInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function GetText(actor As IActor) As String
+        'TODO: give me the price!
         Return "Refuel"
     End Function
 End Class

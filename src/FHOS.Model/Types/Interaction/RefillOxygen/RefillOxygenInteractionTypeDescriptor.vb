@@ -16,6 +16,7 @@ Friend Class RefillOxygenInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function GetText(actor As IActor) As String
+        'TODO: give me the price!
         Return $"Refill Oxygen (Currently {actor.Yokes.Store(YokeTypes.LifeSupport).Percent}%)"
     End Function
 End Class

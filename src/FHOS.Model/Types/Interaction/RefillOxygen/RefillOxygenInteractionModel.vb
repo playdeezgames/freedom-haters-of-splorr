@@ -6,8 +6,11 @@
     End Sub
 
     Public Overrides Sub Perform()
-        actor.Yokes.Store(YokeTypes.LifeSupport).CurrentValue = actor.Yokes.Store(YokeTypes.LifeSupport).MaximumValue.Value
-        actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= 1
-        actor.Universe.Messages.Add("Oxygen Refilled!", ("You refill yer oxygen!", Black), ("Cost: 1 Jools!", Black))
+        Dim oxygenRequired = actor.Yokes.Store(YokeTypes.LifeSupport).TopOffAmount.Value
+        Const oxygenPerJools = 10
+        Dim oxygenCost = (oxygenRequired + oxygenPerJools - 1) \ oxygenPerJools
+        actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= oxygenCost
+        actor.Yokes.Store(YokeTypes.LifeSupport).CurrentValue += oxygenRequired
+        actor.Universe.Messages.Add("Oxygen Refilled!", ($"You buy {oxygenRequired} oxygen!", Black), ($"Cost: {oxygenCost} Jools!", Black))
     End Sub
 End Class
