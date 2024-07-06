@@ -1,4 +1,5 @@
 ﻿Public Interface IAvatarTraderModel
+    Inherits IAvatarYokedModel
     ReadOnly Property IsActive As Boolean
     Sub Leave()
     ReadOnly Property HasOffers As Boolean
