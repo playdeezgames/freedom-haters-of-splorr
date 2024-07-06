@@ -22,6 +22,12 @@ Friend Class AvatarStarGateModel
         End Get
     End Property
 
+    Public ReadOnly Property Specimen As IActorModel Implements IAvatarYokedModel.Specimen
+        Get
+            Return ActorModel.FromActor(actor.Yokes.Actor(YokeTypes.StarGate))
+        End Get
+    End Property
+
     Public Sub Enter(gate As IActorModel) Implements IAvatarStarGateModel.Enter
         actor.GoToOtherActor(
             ActorModel.GetActor(gate),
