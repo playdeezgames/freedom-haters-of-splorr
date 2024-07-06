@@ -16,6 +16,9 @@ Friend Class EnterStarGateInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
-        Return New EnterStarGateInteractionModel(actor)
+        Return New InteractionModel(actor, Sub(a)
+                                               a.Yokes.Actor(YokeTypes.StarGate) = a.Interactor
+                                               a.ClearInteractor()
+                                           End Sub)
     End Function
 End Class

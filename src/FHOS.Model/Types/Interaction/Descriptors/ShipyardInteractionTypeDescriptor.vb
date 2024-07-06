@@ -16,6 +16,9 @@ Friend Class ShipyardInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
-        Return New ShipyardInteractionModel(actor)
+        Return New InteractionModel(actor, Sub(a)
+                                               a.Yokes.Actor(YokeTypes.Shipyard) = a.Interactor
+                                               a.ClearInteractor()
+                                           End Sub)
     End Function
 End Class

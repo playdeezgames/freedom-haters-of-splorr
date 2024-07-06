@@ -1,6 +1,6 @@
 ﻿Imports FHOS.Persistence
 
-Friend MustInherit Class InteractionModel
+Friend Class InteractionModel
     Implements IInteractionModel
 
     Protected ReadOnly actor As IActor

@@ -1,22 +1,24 @@
 ﻿Imports FHOS.Persistence
+Imports SPLORR.Game
 
-Friend Class RefillOxygenInteractionTypeDescriptor
+Friend Class SalvageScrapInteractionTypeDescriptor
     Inherits InteractionTypeDescriptor
 
     Public Sub New()
-        MyBase.New(InteractionTypes.RefillOxygen)
+        MyBase.New(InteractionTypes.SalvageScrap)
     End Sub
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.NeedsOxygen AndAlso actor.Interactor.Descriptor.CanRefillOxygen
+        Return actor.Interactor.Descriptor.CanSalvage
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
-        Return New RefillOxygenInteractionModel(actor)
+        Return New InteractionModel(actor, Sub(a)
+
+                                           End Sub)
     End Function
 
     Friend Overrides Function GetText(actor As IActor) As String
-        'TODO: give me the price!
-        Return $"Refill Oxygen (Currently {actor.Yokes.Store(YokeTypes.LifeSupport).Percent}%)"
+        Return "Salvage Scrap"
     End Function
 End Class
