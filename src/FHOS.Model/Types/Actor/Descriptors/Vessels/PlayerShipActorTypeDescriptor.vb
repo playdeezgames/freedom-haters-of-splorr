@@ -14,6 +14,11 @@ Friend Class PlayerShipActorTypeDescriptor
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.Galaxy, "1d1"}
+            },
+            equipSlots:=New Dictionary(Of String, Integer) From
+            {
+                {Model.EquipSlots.FuelSupply, 1},
+                {Model.EquipSlots.LifeSupport, 1}
             })
     End Sub
 
@@ -26,8 +31,6 @@ Friend Class PlayerShipActorTypeDescriptor
         ship.Family.AddChild(actor)
     End Sub
 
-    Private Const PlayerShipStartingMaximumOxygen = 250
-    Private Const PlayerShipStartubgMaximumFuel = 250
     Private Shared Sub InitializePlayerShipInterior(ship As IActor)
         Dim descriptor = MapTypes.Descriptors(MapTypes.Vessel)
         Dim map = descriptor.CreateMap(
@@ -59,10 +62,24 @@ Friend Class PlayerShipActorTypeDescriptor
         Dim planetCandidates = sigmoFaction.ChildrenOfType(GroupTypes.PlanetVicinity)
         actor.Yokes.Group(YokeTypes.HomePlanet) = RNG.FromEnumerable(planetCandidates)
         actor.EntityName = "(yer ship)"
-        actor.Yokes.Store(YokeTypes.LifeSupport) = actor.Universe.Factory.CreateStore(PlayerShipStartingMaximumOxygen, minimum:=0, maximum:=PlayerShipStartingMaximumOxygen)
-        actor.Yokes.Store(YokeTypes.FuelTank) = actor.Universe.Factory.CreateStore(PlayerShipStartubgMaximumFuel, minimum:=0, maximum:=PlayerShipStartubgMaximumFuel)
+        InitializePlayerShipEquipment(actor)
         InitializePlayerShipInterior(actor)
         InitializePlayerShipCrew(actor)
+    End Sub
+
+    Private Shared Sub InitializePlayerShipEquipment(actor As IActor)
+        InitializePlayerShipLifeSupport(actor)
+        InitializePlayerShipFuelSupply(actor)
+    End Sub
+
+    Private Shared Sub InitializePlayerShipFuelSupply(actor As IActor)
+        Dim item = ItemTypes.MarkedDescriptor(ItemTypes.FuelSupply, Marks.MarkI).CreateItem(actor.Universe)
+        actor.Equip(item)
+    End Sub
+
+    Private Shared Sub InitializePlayerShipLifeSupport(actor As IActor)
+        Dim item = ItemTypes.MarkedDescriptor(ItemTypes.LifeSupport, Marks.MarkI).CreateItem(actor.Universe)
+        actor.Equip(item)
     End Sub
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))

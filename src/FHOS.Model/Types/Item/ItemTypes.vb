@@ -24,4 +24,7 @@
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, ItemTypeDescriptor) =
         CreateItemTypes().ToDictionary(Function(x) x.ItemType, Function(x) x)
+    Friend Function MarkedDescriptor(itemType As String, mark As String) As ItemTypeDescriptor
+        Return Descriptors($"{itemType}{mark}")
+    End Function
 End Module

@@ -4,8 +4,10 @@
     Friend ReadOnly Column As String = NameOf(Column)
     Friend ReadOnly Facing As String = NameOf(Facing)
     Friend ReadOnly Fuel As String = NameOf(Fuel)
+    Friend ReadOnly FuelCapacity As String = NameOf(FuelCapacity)
     Friend ReadOnly MinimumPlanetCount As String = NameOf(MinimumPlanetCount)
     Friend ReadOnly Oxygen As String = NameOf(Oxygen)
+    Friend ReadOnly OxygenCapacity As String = NameOf(OxygenCapacity)
     Friend ReadOnly PlanetCount As String = NameOf(PlanetCount)
     Friend ReadOnly Row As String = NameOf(Row)
     Friend ReadOnly SatelliteCount As String = NameOf(SatelliteCount)
@@ -17,4 +19,5 @@
     Friend ReadOnly TradingPostCount As String = NameOf(TradingPostCount)
     Friend ReadOnly VisitCount As String = NameOf(VisitCount)
     Friend ReadOnly WormholeCount As String = NameOf(WormholeCount)
+
 End Module

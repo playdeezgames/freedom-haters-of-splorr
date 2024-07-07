@@ -11,9 +11,15 @@ Friend Class FuelSupplyItemTypeDescriptor
             equipSlots:=New Dictionary(Of String, Integer) From
             {
                 {Model.EquipSlots.FuelSupply, 1}
-            })
+            },
+            onEquip:=AddressOf EquipFuelSupplyItem)
+    End Sub
+
+    Private Shared Sub EquipFuelSupplyItem(actor As IActor, item As IItem)
+        actor.Yokes.Store(YokeTypes.FuelTank) = actor.Universe.Factory.CreateStore(item.Statistics(StatisticTypes.FuelCapacity).Value, minimum:=0, maximum:=item.Statistics(StatisticTypes.FuelCapacity))
     End Sub
 
     Protected Overrides Sub Initialize(item As IItem)
+        item.Statistics(StatisticTypes.FuelCapacity) = 250
     End Sub
 End Class
