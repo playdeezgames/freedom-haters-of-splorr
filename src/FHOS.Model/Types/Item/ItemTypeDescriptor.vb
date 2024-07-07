@@ -7,6 +7,7 @@ Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property Price As Integer
     ReadOnly Property Description As String
     ReadOnly Property CanUse As Boolean
+    ReadOnly Property EquipSlots As IReadOnlyDictionary(Of String, Integer)
     Private ReadOnly onUse As Action(Of IActor, IItem)
     Sub New(
            itemType As String,
@@ -14,7 +15,8 @@ Friend MustInherit Class ItemTypeDescriptor
            description As String,
            Optional offer As Integer = 0,
            Optional price As Integer = 0,
-           Optional onUse As Action(Of IActor, IItem) = Nothing)
+           Optional onUse As Action(Of IActor, IItem) = Nothing,
+           Optional equipSlots As IReadOnlyDictionary(Of String, Integer) = Nothing)
         Me.ItemType = itemType
         Me.Name = name
         Me.Offer = offer
@@ -22,6 +24,7 @@ Friend MustInherit Class ItemTypeDescriptor
         Me.Description = description
         Me.onUse = onUse
         Me.CanUse = onUse IsNot Nothing
+        Me.EquipSlots = If(equipSlots, New Dictionary(Of String, Integer))
     End Sub
     Function CreateItem(universe As IUniverse) As IItem
         Dim item = universe.Factory.CreateItem(ItemType)
