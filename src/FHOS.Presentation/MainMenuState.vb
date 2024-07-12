@@ -10,7 +10,7 @@ Public Class MainMenuState
     Public Overrides Function Run() As IState Implements IState.Run
         ui.Clear()
         ui.WriteFiglet((Mood.Title, "Freedom Haters of SPLORR!!"))
-        Select Case ui.Choose(
+        Dim choice = ui.Choose(
                 (Mood.Prompt, Prompts.MainMenu),
                 Choices.Embark,
                 Choices.ScumLoad,
@@ -18,10 +18,15 @@ Public Class MainMenuState
                 Choices.Options,
                 Choices.About,
                 Choices.Quit)
+        Select Case choice
             Case Choices.Quit
                 If ui.Confirm((Mood.Danger, Confirms.Quit)) Then
                     Return endState
                 End If
+            Case Choices.Embark
+                Return New EmbarkMenuState(model, ui, Me)
+            Case Else
+                ui.Message((Mood.Warning, $"TODO: {choice}"))
         End Select
         Return Me
     End Function

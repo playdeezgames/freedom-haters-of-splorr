@@ -15,6 +15,8 @@ Friend Module MoodExtensions
                 Return "lime"
             Case Mood.Title
                 Return "fuchsia"
+            Case Mood.Warning
+                Return "yellow"
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -32,6 +34,8 @@ Friend Module MoodExtensions
                 Return Color.Lime
             Case Mood.Title
                 Return Color.Fuchsia
+            Case Mood.Warning
+                Return Color.Yellow
             Case Else
                 Throw New NotImplementedException
         End Select

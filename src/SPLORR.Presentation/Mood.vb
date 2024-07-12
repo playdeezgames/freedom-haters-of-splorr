@@ -4,4 +4,5 @@
     Info
     Success
     Title
+    Warning
 End Enum
