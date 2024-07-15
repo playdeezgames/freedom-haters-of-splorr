@@ -16,10 +16,10 @@ Friend Class EmbarkMenuState
         ui.Clear()
         ui.Write(
             (Mood.Title, $"Embark Settings:"),
-            (Mood.Info, $"Galactic Age: "),
-            (Mood.Info, $"Galactic Density: "),
-            (Mood.Info, $"Starting Wealth: "),
-            (Mood.Info, $"Faction Count: "),
+            (Mood.Info, $"Galactic Age: {model.Settings.GalacticAge.CurrentName}"),
+            (Mood.Info, $"Galactic Density: {model.Settings.GalacticDensity.CurrentName}"),
+            (Mood.Info, $"Starting Wealth: {model.Settings.StartingWealth.CurrentName}"),
+            (Mood.Info, $"Faction Count: {model.Settings.FactionCount.CurrentName}"),
             (Mood.Info, String.Empty))
         Dim choice = ui.Choose(
                 (Mood.Prompt, Prompts.EmbarkMenu),
@@ -32,6 +32,8 @@ Friend Class EmbarkMenuState
         Select Case choice
             Case Choices.Cancel
                 Return endState
+            Case Choices.ChangeGalacticAge
+                Return New ChangeGalacticAgeState(model, ui, Me)
             Case Else
                 ui.Message((Mood.Warning, $"TODO: {choice}"))
         End Select
