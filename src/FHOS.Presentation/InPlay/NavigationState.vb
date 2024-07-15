@@ -22,7 +22,10 @@ Friend Class NavigationState
                 ui.WriteLine((moodTable(Hues.ForPercentage(fuel.Value)), $"Fuel: { fuel.Value}%"))
             End If
         End With
-        ui.ReadKey()
+        Dim key = ui.ReadKey()
+        If key = KeyNames.Escape Then
+            Return New GameMenu(model, ui, Me, endState)
+        End If
         Return endState
     End Function
 
