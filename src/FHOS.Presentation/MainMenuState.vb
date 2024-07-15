@@ -25,6 +25,8 @@ Public Class MainMenuState
                 End If
             Case Choices.Embark
                 Return New EmbarkMenuState(model, ui, Me)
+            Case Choices.About
+                Return New AboutState(model, ui, Me)
             Case Else
                 ui.Message((Mood.Warning, $"TODO: {choice}"))
         End Select
