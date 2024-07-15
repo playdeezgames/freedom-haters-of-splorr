@@ -12,7 +12,7 @@ Friend Class AboutState
     Public Overrides Function Run() As IState
         ui.Clear()
         For Each aboutLine In Messages.AboutLines
-            ui.Write(aboutLine)
+            ui.WriteLine(aboutLine)
         Next
         ui.Message((Mood.Info, String.Empty))
         Return endState

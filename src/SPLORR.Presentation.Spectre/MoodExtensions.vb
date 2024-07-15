@@ -1,4 +1,6 @@
-﻿Imports System.Runtime.CompilerServices
+﻿Imports System.ComponentModel
+Imports System.Net.NetworkInformation
+Imports System.Runtime.CompilerServices
 Imports Spectre.Console
 
 Friend Module MoodExtensions
@@ -17,6 +19,38 @@ Friend Module MoodExtensions
                 Return "fuchsia"
             Case Mood.Warning
                 Return "yellow"
+            Case Mood.Black
+                Return "black"
+            Case Mood.Blue
+                Return "blue"
+            Case Mood.Green
+                Return "green"
+            Case Mood.Cyan
+                Return "cyan1"
+            Case Mood.Red
+                Return "red"
+            Case Mood.Purple
+                Return "purple"
+            Case Mood.Brown
+                Return "sandybrown"
+            Case Mood.LightGray
+                Return "silver"
+            Case Mood.DarkGray
+                Return "darkslategray1"
+            Case Mood.LightBlue
+                Return "lightskyblue1"
+            Case Mood.LightGreen
+                Return "lightgreen"
+            Case Mood.Orange
+                Return "orange1"
+            Case Mood.Pink
+                Return "pink1"
+            Case Mood.Tan
+                Return "tan"
+            Case Mood.Yellow
+                Return "yellow"
+            Case Mood.White
+                Return "white"
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -36,6 +70,38 @@ Friend Module MoodExtensions
                 Return Color.Fuchsia
             Case Mood.Warning
                 Return Color.Yellow
+            Case Mood.Black
+                Return Color.Black
+            Case Mood.Blue
+                Return Color.Blue
+            Case Mood.Green
+                Return Color.Green
+            Case Mood.Cyan
+                Return Color.Cyan1
+            Case Mood.Red
+                Return Color.Red
+            Case Mood.Purple
+                Return Color.Purple
+            Case Mood.Brown
+                Return Color.SandyBrown
+            Case Mood.LightGray
+                Return Color.Silver
+            Case Mood.DarkGray
+                Return Color.DarkSlateGray1
+            Case Mood.LightBlue
+                Return Color.LightSkyBlue1
+            Case Mood.LightGreen
+                Return Color.LightGreen
+            Case Mood.Orange
+                Return Color.Orange1
+            Case Mood.Pink
+                Return Color.Pink1
+            Case Mood.Tan
+                Return Color.Tan
+            Case Mood.Yellow
+                Return Color.Yellow
+            Case Mood.White
+                Return Color.White
             Case Else
                 Throw New NotImplementedException
         End Select

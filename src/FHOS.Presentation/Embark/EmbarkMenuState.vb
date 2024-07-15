@@ -14,7 +14,7 @@ Friend Class EmbarkMenuState
 
     Public Overrides Function Run() As IState
         ui.Clear()
-        ui.Write(
+        ui.WriteLine(
             (Mood.Title, $"Embark Settings:"),
             (Mood.Info, $"Galactic Age: {model.Settings.GalacticAge.CurrentName}"),
             (Mood.Info, $"Galactic Density: {model.Settings.GalacticDensity.CurrentName}"),

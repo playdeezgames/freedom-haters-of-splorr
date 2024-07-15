@@ -11,7 +11,7 @@ Public Class UIContext
         Choose(prompt, "Ok")
     End Sub
 
-    Public Sub Write(ParamArray lines() As (Mood As Mood, Text As String)) Implements IUIContext.Write
+    Public Sub WriteLine(ParamArray lines() As (Mood As Mood, Text As String)) Implements IUIContext.WriteLine
         For Each line In lines
             AnsiConsole.MarkupLine($"[{line.Mood.ColorName}]{Markup.Escape(line.Text)}[/]")
         Next
@@ -26,6 +26,10 @@ Public Class UIContext
             {
                 .Color = figlet.Mood.ToColor()
             })
+    End Sub
+
+    Public Sub Write(stuff As (Mood As Mood, Text As String)) Implements IUIContext.Write
+        AnsiConsole.Markup($"[{stuff.Mood.ColorName}]{Markup.Escape(stuff.Text)}[/]")
     End Sub
 
     Public Function Choose(Of TResult)(prompt As (Mood As Mood, Text As String), ParamArray choices() As (Text As String, Value As TResult)) As TResult Implements IUIContext.Choose
@@ -47,5 +51,14 @@ Public Class UIContext
 
     Public Function Ask(Of TResult)(prompt As (Mood As Mood, Text As String), defaultResult As TResult) As TResult Implements IUIContext.Ask
         Return AnsiConsole.Ask($"[{prompt.Mood.ColorName}]{prompt.Text}[/]", defaultResult)
+    End Function
+
+    Public Function ReadKey() As String Implements IUIContext.ReadKey
+        Do
+            Dim key = AnsiConsole.Console.Input.ReadKey(True)
+            If key.HasValue Then
+                Return key?.Key.ToString()
+            End If
+        Loop
     End Function
 End Class
