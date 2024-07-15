@@ -1,6 +1,7 @@
 # Freedom Haters of SPLORR!!
 
-  - [ ] 20240715 - SIGMO FHOS Episode 73 - 
+  - [ ] 20240716 - SIGMO FHOS Episode 74 - 
+  - [x] 20240715 - SIGMO FHOS Episode 73 - 
   - [x] 20240707 - SIGMO FHOS Episode 73 - 
   - [x] 20240706 - SIGMO FHOS Episode 72 - 
   - [x] 20240705 - SIGMO FHOS Episode 71 - 

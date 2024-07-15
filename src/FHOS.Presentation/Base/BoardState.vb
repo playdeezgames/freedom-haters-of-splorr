@@ -31,6 +31,14 @@ Friend MustInherit Class BoardState
         New Dictionary(Of Char, Char) From
         {
             {ChrW(0), "."c},
+            {ChrW(16), "^"c},
+            {ChrW(17), "/"c},
+            {ChrW(18), ">"c},
+            {ChrW(19), "\"c},
+            {ChrW(20), "v"c},
+            {ChrW(21), "/"c},
+            {ChrW(22), "<"c},
+            {ChrW(23), "\"c},
             {ChrW(128), "@"c},
             {ChrW(129), "@"c},
             {ChrW(130), "@"c},
