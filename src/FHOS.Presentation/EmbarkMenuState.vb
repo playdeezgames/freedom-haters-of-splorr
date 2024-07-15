@@ -36,6 +36,10 @@ Friend Class EmbarkMenuState
                 Return New ChangeGalacticAgeState(model, ui, Me)
             Case Choices.ChangeGalacticDensity
                 Return New ChangeGalacticDensityState(model, ui, Me)
+            Case Choices.ChangeStartingWealth
+                Return New ChangeStartingWealthState(model, ui, Me)
+            Case Choices.ChangeFactionCount
+                Return New ChangeFactionCountState(model, ui, Me)
             Case Else
                 ui.Message((Mood.Warning, $"TODO: {choice}"))
         End Select
