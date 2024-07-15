@@ -7,4 +7,5 @@ Friend Module Messages
             (Mood.Info, "About Freedom Haters of SPLORR!!"),
             (Mood.Info, "A Production of TheGrumpyGameDev")
         }
+    Friend Const Generating = "Generating..."
 End Module
