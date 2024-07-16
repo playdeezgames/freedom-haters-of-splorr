@@ -5,7 +5,7 @@
   - [ ] 20240719 - SIGMO FHOS Episode 78 - 
   - [ ] 20240718 - SIGMO FHOS Episode 77 - 
   - [ ] 20240717 - SIGMO FHOS Episode 76 - 
-  - [ ] 20240716 - SIGMO FHOS Episode 75 - 
+  - [x] 20240716 - SIGMO FHOS Episode 75 - 
   - [x] 20240715 - SIGMO FHOS Episode 74 - 
   - [x] 20240707 - SIGMO FHOS Episode 73 - 
   - [x] 20240706 - SIGMO FHOS Episode 72 - 
