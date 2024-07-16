@@ -12,12 +12,12 @@ Friend Class GenerateState
     Public Overrides Function Run() As IState
         Dim _timeStart = DateTimeOffset.Now
         Do Until model.Generator.Done
+            model.Generator.Generate()
             ui.Clear()
             ui.WriteFiglet((Mood.Title, Messages.Generating))
             ui.WriteLine((Mood.Info, $"Steps Completed: {model.Generator.StepsCompleted}"))
             ui.WriteLine((Mood.Info, $"Steps To Go: {model.Generator.StepsRemaining}"))
             ui.WriteLine((Mood.Info, $"Time Taken: {(DateTimeOffset.Now - _timeStart).TotalSeconds:f1}s"))
-            model.Generator.Generate()
         Loop
         ui.Message((Mood.Prompt, String.Empty))
         Return New NeutralState(model, ui, endState)
