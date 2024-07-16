@@ -162,7 +162,7 @@ Friend MustInherit Class BoardState
                     Dim foreground = If(locationModel.Actor?.Sprite.Hue, locationModel.Sprite.Background)
                     ui.Write((moodTable(foreground), $" {glyphTable(glyph)} "))
                 Else
-                    ui.Write((Mood.DarkGray, "###"))
+                    ui.Write((Mood.Cyan, "..."))
                 End If
             Next
             ui.WriteLine((Mood.Black, String.Empty))

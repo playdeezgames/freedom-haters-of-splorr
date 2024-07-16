@@ -26,7 +26,7 @@ Friend Module MoodExtensions
             Case Mood.Green
                 Return "green"
             Case Mood.Cyan
-                Return "cyan1"
+                Return "teal"
             Case Mood.Red
                 Return "red"
             Case Mood.Purple
@@ -77,7 +77,7 @@ Friend Module MoodExtensions
             Case Mood.Green
                 Return Color.Green
             Case Mood.Cyan
-                Return Color.Cyan1
+                Return Color.Teal
             Case Mood.Red
                 Return Color.Red
             Case Mood.Purple
