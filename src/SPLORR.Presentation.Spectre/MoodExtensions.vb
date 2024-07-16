@@ -36,7 +36,7 @@ Friend Module MoodExtensions
             Case Mood.LightGray
                 Return "silver"
             Case Mood.DarkGray
-                Return "darkslategray1"
+                Return "grey"
             Case Mood.LightBlue
                 Return "lightskyblue1"
             Case Mood.LightGreen
@@ -87,7 +87,7 @@ Friend Module MoodExtensions
             Case Mood.LightGray
                 Return Color.Silver
             Case Mood.DarkGray
-                Return Color.DarkSlateGray1
+                Return Color.Grey
             Case Mood.LightBlue
                 Return Color.LightSkyBlue1
             Case Mood.LightGreen
