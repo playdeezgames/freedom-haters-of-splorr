@@ -21,7 +21,7 @@ Friend Class ArrowActorDescriptor
         Dim map = actor.Location.Map
         Dim mapTypeDescriptor = MapTypes.Descriptors(map.EntityType)
         Return {
-            ($"You can depart the {mapTypeDescriptor.MapTypeName}.", Hues.Black)
+            ($"You can depart the {mapTypeDescriptor.MapTypeName}.", Hues.LightGray)
             }
     End Function
 End Class

@@ -36,12 +36,12 @@ Friend Class PlanetSectionActorTypeDescriptor
         Dim starSystemGroup = planetVicinityGroup.SingleParent(GroupTypes.StarSystem)
         Return New List(Of (Text As String, Hue As Integer)) From
             {
-                ($"Planet Type: {PlanetTypes.Descriptors(actor.Descriptor.Subtype).PlanetType}", Hues.Black),
-                ($"Star System: {starSystemGroup.EntityName}", Hues.Black),
-                ($"Faction: {factionGroup.EntityName}", Hues.Black),
-                ($"Star Gates: {planetVicinityGroup.Statistics(StatisticTypes.StarGateCount)}", Hues.Black),
-                ($"Ship Yards: {planetVicinityGroup.Statistics(StatisticTypes.ShipyardCount)}", Hues.Black),
-                ($"Trading Posts: {planetVicinityGroup.Statistics(StatisticTypes.TradingPostCount)}", Hues.Black)
+                ($"Planet Type: {PlanetTypes.Descriptors(actor.Descriptor.Subtype).PlanetType}", Hues.LightGray),
+                ($"Star System: {starSystemGroup.EntityName}", Hues.LightGray),
+                ($"Faction: {factionGroup.EntityName}", Hues.LightGray),
+                ($"Star Gates: {planetVicinityGroup.Statistics(StatisticTypes.StarGateCount)}", Hues.LightGray),
+                ($"Ship Yards: {planetVicinityGroup.Statistics(StatisticTypes.ShipyardCount)}", Hues.LightGray),
+                ($"Trading Posts: {planetVicinityGroup.Statistics(StatisticTypes.TradingPostCount)}", Hues.LightGray)
             }
     End Function
 End Class

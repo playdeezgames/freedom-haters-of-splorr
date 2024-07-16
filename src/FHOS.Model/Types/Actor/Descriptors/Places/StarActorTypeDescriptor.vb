@@ -23,7 +23,7 @@ Friend Class StarActorTypeDescriptor
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
         Dim result = New List(Of (Text As String, Hue As Integer))
-        result.Add(($"Star Type: {StarTypes.Descriptors(actor.Descriptor.Subtype).StarTypeName}", Hues.Black))
+        result.Add(($"Star Type: {StarTypes.Descriptors(actor.Descriptor.Subtype).StarTypeName}", Hues.LightGray))
         Return result
     End Function
 End Class

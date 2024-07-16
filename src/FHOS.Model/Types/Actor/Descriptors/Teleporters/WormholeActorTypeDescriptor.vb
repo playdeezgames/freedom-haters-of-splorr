@@ -31,9 +31,9 @@ Friend Class WormholeActorTypeDescriptor
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
         Return {
-            ("It's a wormhole!", Hues.Black),
-            ("No actual worms were involved, we don't think. Tho, there are a few fringe folks who hypothesize that these were made by trans-dimensional space worms.", Hues.Black),
-            ("Instead, it is a space-time anomaly that allows ships to instantly travel between one end and the other.", Hues.Black)
+            ("It's a wormhole!", Hues.LightGray),
+            ("No actual worms were involved, we don't think. Tho, there are a few fringe folks who hypothesize that these were made by trans-dimensional space worms.", Hues.LightGray),
+            ("Instead, it is a space-time anomaly that allows ships to instantly travel between one end and the other.", Hues.LightGray)
             }
     End Function
 End Class
