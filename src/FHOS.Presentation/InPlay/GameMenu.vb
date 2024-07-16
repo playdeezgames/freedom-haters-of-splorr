@@ -17,9 +17,8 @@ Friend Class GameMenu
     End Sub
 
     Public Overrides Function Run() As IState
-        Do
-            ui.Clear()
-            Dim choice = ui.Choose(
+        ui.Clear()
+        Dim choice = ui.Choose(
                 (Mood.Prompt, Prompts.GameMenu),
                 Choices.ContinueGame,
                 Choices.ScumSave,
@@ -27,16 +26,16 @@ Friend Class GameMenu
                 Choices.ScumLoad,
                 Choices.Options,
                 Choices.AbandonGame)
-            Select Case choice
-                Case Choices.ContinueGame
-                    Return endState
-                Case Choices.AbandonGame
-                    If ui.Confirm((Mood.Danger, Confirms.AbandonGame)) Then
-                        Return abandonedState
-                    End If
-                Case Else
-                    ui.Message((Mood.Warning, $"TODO: {choice}"))
-            End Select
-        Loop
+        Select Case choice
+            Case Choices.ContinueGame
+                Return endState
+            Case Choices.AbandonGame
+                If ui.Confirm((Mood.Danger, Confirms.AbandonGame)) Then
+                    Return abandonedState
+                End If
+            Case Else
+                ui.Message((Mood.Warning, $"TODO: {choice}"))
+        End Select
+        Return Me
     End Function
 End Class
