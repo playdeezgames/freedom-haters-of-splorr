@@ -1,6 +1,7 @@
 ﻿Friend Module Choices
     Friend Const AbandonGame = "Abandon Game"
     Friend Const About = "About..."
+    Friend Const Buy = "Buy"
     Friend Const Cancel = "Cancel"
     Friend Const ChangeFactionCount = "Change Faction Count..."
     Friend Const ChangeGalacticAge = "Change Galactic Age..."
@@ -9,10 +10,12 @@
     Friend Const ContinueGame = "Continue Game"
     Friend Const Embark = "Embark!"
     Friend Const Go = "Go!"
+    Friend Const Leave = "Leave"
     Friend Const Load = "Load..."
     Friend Const Options = "Options..."
     Friend Const Quit = "Quit"
     Friend Const Save = "Save..."
     Friend Const ScumLoad = "Scum Load"
     Friend Const ScumSave = "Scum Save"
+    Friend Const Sell = "Sell"
 End Module

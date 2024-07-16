@@ -21,8 +21,8 @@ Friend Class NeutralState
                 '    Return New StarGateState(model, ui, endState)
                 'ElseIf .State.Avatar.Shipyard.IsActive Then
                 '    Return New ShipyardState(model, ui, endState)
-                'ElseIf .State.Avatar.Trader.IsActive Then
-                '    Return New TraderState(model, ui, endState)
+            ElseIf .State.Avatar.Trader.IsActive Then
+                Return New TraderState(model, ui, endState)
             ElseIf .State.Avatar.Interaction.IsActive Then
                 Return New InteractionState(model, ui, endState)
             Else
