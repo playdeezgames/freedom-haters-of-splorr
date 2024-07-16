@@ -23,8 +23,8 @@ Friend Class NeutralState
                 '    Return New ShipyardState(model, ui, endState)
                 'ElseIf .State.Avatar.Trader.IsActive Then
                 '    Return New TraderState(model, ui, endState)
-                'ElseIf .State.Avatar.Interaction.IsActive Then
-                '    Return New InteractionState(model, ui, endState)
+            ElseIf .State.Avatar.Interaction.IsActive Then
+                Return New InteractionState(model, ui, endState)
             Else
                 Return New NavigationState(model, ui, endState)
             End If

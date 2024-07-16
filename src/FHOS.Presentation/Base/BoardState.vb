@@ -6,26 +6,6 @@ Friend MustInherit Class BoardState
     Private Const ViewColumns = 21
     Private Const ViewRows = 21
 
-    Protected Shared ReadOnly moodTable As IReadOnlyDictionary(Of Integer, Mood) =
-        New Dictionary(Of Integer, Mood) From
-        {
-            {Hues.Black, Mood.Black},
-            {Hues.Blue, Mood.Blue},
-            {Hues.Green, Mood.Green},
-            {Hues.Cyan, Mood.Cyan},
-            {Hues.Red, Mood.Red},
-            {Hues.Purple, Mood.Purple},
-            {Hues.Brown, Mood.Brown},
-            {Hues.LightGray, Mood.LightGray},
-            {Hues.DarkGray, Mood.DarkGray},
-            {Hues.LightBlue, Mood.LightBlue},
-            {Hues.LightGreen, Mood.LightGreen},
-            {Hues.Tan, Mood.Tan},
-            {Hues.Orange, Mood.Orange},
-            {Hues.Pink, Mood.Pink},
-            {Hues.Yellow, Mood.Yellow},
-            {Hues.White, Mood.White}
-        }
 
     Private Shared ReadOnly glyphTable As IReadOnlyDictionary(Of Char, Char) =
         New Dictionary(Of Char, Char) From
