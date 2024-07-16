@@ -15,7 +15,7 @@ Friend Class MessageState
             ui.WriteLine((Mood.Orange, .Header))
             ui.WriteLine(.Lines.Select(Function(x) (moodTable(x.Hue), x.Text)).ToArray)
         End With
-        ui.Message((Mood.Prompt, Messages.Continue))
+        ui.Message((Mood.Prompt, String.Empty))
         model.State.Messages.Dismiss()
         Return New NeutralState(model, ui, endState)
     End Function

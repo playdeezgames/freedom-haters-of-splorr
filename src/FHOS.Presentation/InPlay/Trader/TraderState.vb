@@ -24,6 +24,10 @@ Friend Class TraderState
             End If
             Dim choice = ui.Choose((Mood.Prompt, .Specimen.Name), result.ToArray)
             Select Case choice
+                Case Choices.Buy
+                    Return New PricesState(model, ui, endState)
+                Case Choices.Sell
+                    Return New OffersState(model, ui, endState)
                 Case Else
                     .Leave()
                     Return New NeutralState(model, ui, endState)
