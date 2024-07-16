@@ -8,4 +8,5 @@ Friend Module Messages
             (Mood.Info, "A Production of TheGrumpyGameDev")
         }
     Friend Const Generating = "Generating..."
+    Friend Const [Continue] = "Continue"
 End Module

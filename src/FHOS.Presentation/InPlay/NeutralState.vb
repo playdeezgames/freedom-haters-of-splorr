@@ -13,10 +13,10 @@ Friend Class NeutralState
         With model
             If Not .Generator.Done Then
                 Return New GenerateState(model, ui, endState)
-                'ElseIf .State.Messages.HasAny Then
-                '    Return New MessageState(model, ui, endState)
-                'ElseIf .State.Avatar.Status.GameOver Then
-                '    Return New GameOverState(model, ui, endState)
+            ElseIf .State.Messages.HasAny Then
+                Return New MessageState(model, ui, endState)
+            ElseIf .State.Avatar.Status.GameOver Then
+                Return New GameOverState(model, ui, endState)
                 'ElseIf .State.Avatar.StarGate.IsActive Then
                 '    Return New StarGateState(model, ui, endState)
                 'ElseIf .State.Avatar.Shipyard.IsActive Then
