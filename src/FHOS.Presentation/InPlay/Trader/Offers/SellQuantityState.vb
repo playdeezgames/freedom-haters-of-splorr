@@ -45,7 +45,7 @@ Friend Class SellQuantityState
                 Case QuantityHalf
                     Return New SellConfirmState(model, ui, endState, offer, offer.Quantity \ 2)
                 Case Else
-                    Dim quantity = ui.Ask((Mood.Prompt, "How Many?"), 0)
+                    Dim quantity = Math.Clamp(ui.Ask((Mood.Prompt, "How Many?"), 0), 0, offer.Quantity)
                     If quantity > 0 Then
                         Return New SellConfirmState(model, ui, endState, offer, quantity)
                     End If
