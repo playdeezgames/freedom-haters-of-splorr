@@ -3,8 +3,8 @@ Imports SPLORR.Presentation
 
 Friend MustInherit Class BoardState
     Inherits BaseState
-    Private Const ViewColumns = 21
-    Private Const ViewRows = 21
+    Protected Const ViewColumns = 21
+    Protected Const ViewRows = 21
 
 
     Private Shared ReadOnly glyphTable As IReadOnlyDictionary(Of Char, Char) =
@@ -152,7 +152,7 @@ Friend MustInherit Class BoardState
     Protected Sub New(model As IUniverseModel, ui As IUIContext, endState As IState)
         MyBase.New(model, ui, endState)
     End Sub
-    Protected Sub RenderBoard()
+    Protected Sub RenderBoard(Optional cursor As (X As Integer, Y As Integer)? = Nothing)
         For Each boardY In Enumerable.Range(-ViewRows \ 2, ViewRows)
             For Each boardX In Enumerable.Range(-ViewColumns \ 2, ViewColumns)
                 Dim locationModel = model.State.GetLocation((boardX, boardY))
@@ -160,7 +160,13 @@ Friend MustInherit Class BoardState
                 If locationModel.Exists Then
                     Dim glyph = If(locationModel.Actor?.Sprite.Glyph, locationModel.Sprite.Glyph)
                     Dim foreground = If(locationModel.Actor?.Sprite.Hue, locationModel.Sprite.Background)
-                    ui.Write((moodTable(foreground), $" {glyphTable(glyph)} "))
+                    If cursor.HasValue AndAlso cursor.Value.X = boardX AndAlso cursor.Value.Y = boardY Then
+                        ui.Write((Mood.Pink, $"["))
+                        ui.Write((moodTable(foreground), $"{glyphTable(glyph)}"))
+                        ui.Write((Mood.Pink, $"]"))
+                    Else
+                        ui.Write((moodTable(foreground), $" {glyphTable(glyph)} "))
+                    End If
                 Else
                     ui.Write((Mood.Cyan, "..."))
                 End If

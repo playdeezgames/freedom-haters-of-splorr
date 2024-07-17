@@ -10,6 +10,14 @@ Friend Class NavigationState
 
     Public Overrides Function Run() As IState
         ui.Clear()
+        ui.Write((Mood.Prompt, "Arrows: "))
+        ui.Write((Mood.Info, "Move | "))
+        ui.Write((Mood.Prompt, "Space/Enter: "))
+        ui.Write((Mood.Info, "Actions... | "))
+        ui.Write((Mood.Prompt, "Tab: "))
+        ui.Write((Mood.Info, "Scanner | "))
+        ui.Write((Mood.Prompt, "Escape: "))
+        ui.WriteLine((Mood.Info, "Game Menu"))
         RenderBoard()
         With model.State.Avatar
             ui.WriteLine((Mood.Purple, $"NAV SCREEN"))
@@ -36,6 +44,8 @@ Friend Class NavigationState
                 Return New MoveLeftState(model, ui, endState)
             Case KeyNames.Spacebar, KeyNames.Enter
                 Return New ActionMenuState(model, ui, endState)
+            Case KeyNames.Tab
+                Return New ScannerState(model, ui, endState, (0, 0))
             Case Else
                 Return New NeutralState(model, ui, endState)
         End Select
