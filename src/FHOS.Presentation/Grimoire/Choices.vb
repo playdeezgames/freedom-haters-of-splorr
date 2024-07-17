@@ -10,6 +10,7 @@
     Friend Const ContinueGame = "Continue Game"
     Friend Const Embark = "Embark!"
     Friend Const Go = "Go!"
+    Friend Const Inspect = "Inspect"
     Friend Const Leave = "Leave"
     Friend Const Load = "Load..."
     Friend Const Options = "Options..."
@@ -18,4 +19,5 @@
     Friend Const ScumLoad = "Scum Load"
     Friend Const ScumSave = "Scum Save"
     Friend Const Sell = "Sell"
+    Friend Const Use = "Use"
 End Module

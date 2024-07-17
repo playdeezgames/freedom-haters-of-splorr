@@ -34,7 +34,7 @@ Friend Class NavigationState
                 Return New MoveDownState(model, ui, endState)
             Case KeyNames.LeftArrow
                 Return New MoveLeftState(model, ui, endState)
-            Case KeyNames.Spacebar
+            Case KeyNames.Spacebar, KeyNames.Enter
                 Return New ActionMenuState(model, ui, endState)
             Case Else
                 Return New NeutralState(model, ui, endState)

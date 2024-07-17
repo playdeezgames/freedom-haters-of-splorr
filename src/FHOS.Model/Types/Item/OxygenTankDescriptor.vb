@@ -17,8 +17,8 @@ Friend Class OxygenTankDescriptor
         Dim store = actor.Yokes.Store(YokeTypes.LifeSupport)
         Dim oxygenAmount = item.Statistics(StatisticTypes.Oxygen).Value
         store.CurrentValue += oxygenAmount
-        lines.Add(($"Added {oxygenAmount} O2.", Hues.Black))
-        lines.Add(($"O2 is now {store.Percent.Value}%.", Hues.Black))
+        lines.Add(($"Added {oxygenAmount} O2.", Hues.LightGray))
+        lines.Add(($"O2 is now {store.Percent.Value}%.", Hues.LightGray))
         actor.Inventory.Remove(item)
         actor.Inventory.Add(actor.Universe.Factory.CreateItem(ItemTypes.Scrap))
         item.Recycle()

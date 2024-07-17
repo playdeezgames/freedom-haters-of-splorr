@@ -17,6 +17,8 @@ Friend Class ActionMenuState
         Select Case choice
             Case VerbTypes.Status
                 Return New StatusState(model, ui, endState)
+            Case VerbTypes.Inventory
+                Return New InventoryState(model, ui, endState)
             Case Else
                 Return New NeutralState(model, ui, endState)
         End Select

@@ -17,8 +17,8 @@ Friend Class FuelRodDescriptor
         Dim store = actor.Yokes.Store(YokeTypes.FuelTank)
         Dim fuelAmount = item.Statistics(StatisticTypes.Fuel).Value
         store.CurrentValue += fuelAmount
-        lines.Add(($"Added {fuelAmount} fuel.", Hues.Black))
-        lines.Add(($"Fuel is now {store.Percent.Value}%.", Hues.Black))
+        lines.Add(($"Added {fuelAmount} fuel.", Hues.LightGray))
+        lines.Add(($"Fuel is now {store.Percent.Value}%.", Hues.LightGray))
         actor.Inventory.Remove(item)
         item.Recycle()
         actor.Universe.Messages.Add("Replenished Fuel!", lines.ToArray)
