@@ -4,7 +4,12 @@ Imports SPLORR.Presentation.Spectre
 
 Module Program
     Sub Main(args As String())
-        Console.Title = "Freedom Haters of SPLORR!!"
+        Try
+            Console.Title = "Freedom Haters of SPLORR!!"
+            Console.CursorVisible = False
+        Catch ex As PlatformNotSupportedException
+            'nom!
+        End Try
         MainMenuState.Start(New UniverseModel, New UIContext)
     End Sub
 End Module
