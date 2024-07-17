@@ -16,6 +16,7 @@ Friend Class InventoryInspectState
     Public Overrides Function Run() As IState
         ui.Clear()
         ui.WriteLine((Mood.Title, itemStack.ItemName))
+        ui.WriteLine((Mood.Info, itemStack.Description))
         ui.WriteLine((Mood.Info, $"Count: {itemStack.Count}"))
         ui.Message((Mood.Prompt, String.Empty))
         Return New InventoryActionSelectState(model, ui, endState, itemStack)
