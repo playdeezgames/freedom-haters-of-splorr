@@ -10,14 +10,20 @@ Public Class MainMenuState
     Public Overrides Function Run() As IState Implements IState.Run
         ui.Clear()
         ui.WriteFiglet((Mood.Title, "Freedom Haters of SPLORR!!"))
-        Dim choice = ui.Choose(
-                (Mood.Prompt, Prompts.MainMenu),
-                Choices.Embark,
-                Choices.ScumLoad,
+        Dim menu As New List(Of String) From
+            {
+                Choices.Embark
+            }
+        If model.DoesSlotExist(0) Then
+            menu.Add(Choices.ScumLoad)
+        End If
+        menu.AddRange({
                 Choices.Load,
                 Choices.Options,
                 Choices.About,
-                Choices.Quit)
+                Choices.Quit})
+        Dim choice = ui.Choose(
+                (Mood.Prompt, Prompts.MainMenu), menu.ToArray)
         Select Case choice
             Case Choices.Quit
                 If ui.Confirm((Mood.Danger, Confirms.Quit)) Then
@@ -27,6 +33,11 @@ Public Class MainMenuState
                 Return New EmbarkMenuState(model, ui, Me)
             Case Choices.About
                 Return New AboutState(model, ui, Me)
+            Case Choices.ScumLoad
+                model.LoadGame(0)
+                Return New NeutralState(model, ui, Me)
+            Case Choices.Load
+                Return New LoadState(model, ui, Me)
             Case Else
                 ui.Message((Mood.Warning, $"TODO: {choice}"))
         End Select
