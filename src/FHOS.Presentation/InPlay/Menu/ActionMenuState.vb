@@ -19,6 +19,11 @@ Friend Class ActionMenuState
                 Return New StatusState(model, ui, endState)
             Case VerbTypes.Inventory
                 Return New InventoryState(model, ui, endState)
+            Case VerbTypes.Crew
+                Return New SelectCrewMemberState(model, ui, endState)
+            Case VerbTypes.Vessel
+                model.State.Avatar.Stack.Pop()
+                Return New NeutralState(model, ui, endState)
             Case Else
                 Return New DoVerbState(model, ui, endState, choice)
         End Select

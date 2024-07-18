@@ -19,6 +19,14 @@ Friend MustInherit Class BoardState
             {ChrW(21), "/"c},
             {ChrW(22), "<"c},
             {ChrW(23), "\"c},
+            {ChrW(24), "a"c},
+            {ChrW(25), "b"c},
+            {ChrW(26), "c"c},
+            {ChrW(27), "d"c},
+            {ChrW(28), "e"c},
+            {ChrW(29), "f"c},
+            {ChrW(30), "g"c},
+            {ChrW(31), "h"c},
             {ChrW(128), "@"c},
             {ChrW(129), "@"c},
             {ChrW(130), "@"c},
@@ -163,7 +171,7 @@ Friend MustInherit Class BoardState
 
                 If locationModel.Exists Then
                     Dim glyph = If(locationModel.Actor?.Sprite.Glyph, locationModel.Sprite.Glyph)
-                    Dim foreground = If(locationModel.Actor?.Sprite.Hue, locationModel.Sprite.Background)
+                    Dim foreground = If(locationModel.Actor?.Sprite.Hue, locationModel.Sprite.Foreground)
                     If cursor.HasValue AndAlso cursor.Value.X = boardX AndAlso cursor.Value.Y = boardY Then
                         ui.Write((Mood.Pink, $"["))
                         ui.Write((moodTable(foreground), $"{glyphTable(glyph)}"))
