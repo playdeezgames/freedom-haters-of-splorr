@@ -9,4 +9,5 @@ Friend Module Messages
         }
     Friend Const Generating = "Generating..."
     Friend Const Status = "Status"
+    Friend Const Scanner = "SCANNER"
 End Module

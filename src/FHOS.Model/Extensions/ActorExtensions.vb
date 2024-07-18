@@ -65,11 +65,11 @@ Friend Module ActorExtensions
             If actor.Yokes.Store(YokeTypes.FuelTank).CurrentValue = actor.Yokes.Store(YokeTypes.FuelTank).MinimumValue.Value Then
                 actor.Universe.Messages.Add("Out of Fuel!",
                     {
-                        ("You are out of fuel!", Hues.Black),
-                        ("", Hues.Black),
-                        ("To send a distress signal,", Hues.Black),
-                        ("press [A] from the NAV SCREEN", Hues.Black),
-                        ("then choose 'Distress Signal'", Hues.Black)
+                        ("You are out of fuel!", Hues.LightGray),
+                        ("", Hues.LightGray),
+                        ("To send a distress signal,", Hues.LightGray),
+                        ("press [Space/Enter] from the NAV SCREEN", Hues.LightGray),
+                        ("then choose 'Distress Signal'", Hues.LightGray)
                     })
             End If
         End If
@@ -78,7 +78,7 @@ Friend Module ActorExtensions
     <Extension>
     Function CanMove(actor As IActor) As Boolean
         Return actor.Yokes.Store(YokeTypes.FuelTank) Is Nothing OrElse
-                AvatarModel.FromActor(actor).Vessel.FuelPercent.Value > 0
+                AvatarModel.FromActor(actor).Vessel.FuelQuantity.Value > 0
     End Function
 
     <Extension>

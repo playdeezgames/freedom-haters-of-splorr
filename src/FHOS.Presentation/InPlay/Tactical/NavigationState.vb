@@ -24,10 +24,11 @@ Friend Class NavigationState
             ui.WriteLine((Mood.Info, $"{ .State.MapName} ({ .State.Position.X},{ .State.Position.Y})"))
             ui.WriteLine((Mood.Info, $"Turn: { model.State.Turn}"))
             ui.WriteLine((Mood.Info, $"Jools: { .Jools}"))
-            ui.WriteLine((moodTable(Hues.ForPercentage(.Vessel.OxygenPercent)), $"O2: { .Vessel.OxygenPercent}%"))
+            ui.WriteLine(
+                (moodTable(Hues.ForPercentage(.Vessel.OxygenPercent)), $"O2: { .Vessel.OxygenPercent}% ({ .Vessel.OxygenQuantity}/{ .Vessel.OxygenMaximum})"))
             Dim fuel = .Vessel.FuelPercent
             If fuel.HasValue Then
-                ui.WriteLine((moodTable(Hues.ForPercentage(fuel.Value)), $"Fuel: { fuel.Value}%"))
+                ui.WriteLine((moodTable(Hues.ForPercentage(fuel.Value)), $"Fuel: { fuel.Value}% ({ .Vessel.FuelQuantity}/{ .Vessel.FuelMaximum})"))
             End If
         End With
         Dim key = ui.ReadKey()

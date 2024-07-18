@@ -20,7 +20,7 @@ Friend Class ActionMenuState
             Case VerbTypes.Inventory
                 Return New InventoryState(model, ui, endState)
             Case Else
-                Return New NeutralState(model, ui, endState)
+                Return New DoVerbState(model, ui, endState, choice)
         End Select
     End Function
 End Class
