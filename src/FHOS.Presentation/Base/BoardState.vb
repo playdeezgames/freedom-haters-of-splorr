@@ -152,9 +152,13 @@ Friend MustInherit Class BoardState
     Protected Sub New(model As IUniverseModel, ui As IUIContext, endState As IState)
         MyBase.New(model, ui, endState)
     End Sub
+    Protected Const MinimumRow = -ViewRows \ 2
+    Protected Const MaximumRow = ViewRows \ 2
+    Protected Const MinimumColumn = -ViewColumns \ 2
+    Protected Const MaximumColumn = ViewColumns \ 2
     Protected Sub RenderBoard(Optional cursor As (X As Integer, Y As Integer)? = Nothing)
-        For Each boardY In Enumerable.Range(-ViewRows \ 2, ViewRows)
-            For Each boardX In Enumerable.Range(-ViewColumns \ 2, ViewColumns)
+        For Each boardY In Enumerable.Range(MinimumRow, ViewRows)
+            For Each boardX In Enumerable.Range(MinimumColumn, ViewColumns)
                 Dim locationModel = model.State.GetLocation((boardX, boardY))
 
                 If locationModel.Exists Then

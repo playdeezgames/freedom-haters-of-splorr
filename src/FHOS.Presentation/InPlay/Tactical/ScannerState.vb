@@ -24,15 +24,25 @@ Friend Class ScannerState
             Case KeyNames.Tab
                 Return New NeutralState(model, ui, endState)
             Case KeyNames.UpArrow
-                Return New ScannerState(model, ui, endState, (cursor.X, Math.Max(-ViewRows \ 2, cursor.Y - 1)))
+                Return MoveCursor(0, -1)
             Case KeyNames.DownArrow
-                Return New ScannerState(model, ui, endState, (cursor.X, Math.Min(ViewRows - ViewRows \ 2, cursor.Y + 1)))
+                Return MoveCursor(0, 1)
             Case KeyNames.LeftArrow
-                Return New ScannerState(model, ui, endState, (Math.Max(-ViewColumns \ 2, cursor.X - 1), cursor.Y))
+                Return MoveCursor(-1, 0)
             Case KeyNames.RightArrow
-                Return New ScannerState(model, ui, endState, (Math.Min(ViewColumns - ViewColumns \ 2, cursor.X + 1), cursor.Y))
+                Return MoveCursor(1, 0)
             Case Else
-                Return New ScannerState(model, ui, endState, cursor)
+                Return Me
         End Select
+    End Function
+
+    Private Function MoveCursor(deltaX As Integer, deltaY As Integer) As IState
+        Dim nextX = Math.Clamp(cursor.X + deltaX, MinimumColumn, MaximumColumn)
+        Dim nextY = Math.Clamp(cursor.Y + deltaY, MinimumRow, MaximumRow)
+        Dim nextLocation = model.State.GetLocation((nextX, nextY))
+        If nextLocation IsNot Nothing AndAlso nextLocation.Exists Then
+            Return New ScannerState(model, ui, endState, (nextX, nextY))
+        End If
+        Return Me
     End Function
 End Class

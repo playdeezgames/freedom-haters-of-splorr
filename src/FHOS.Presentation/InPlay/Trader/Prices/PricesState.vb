@@ -10,9 +10,6 @@ Friend Class PricesState
     End Sub
 
     Public Overrides Function Run() As IState
-        If Not model.State.Avatar.Trader.Prices.Any(Function(x) x.MaximumQuantity > 0) Then
-            Return New TraderState(model, ui, endState)
-        End If
         ui.Clear()
         ui.WriteLine((Mood.Info, $"Jools: {model.State.Avatar.Jools}"))
         Dim menuItems As New List(Of (String, IAvatarTraderPriceModel)) From

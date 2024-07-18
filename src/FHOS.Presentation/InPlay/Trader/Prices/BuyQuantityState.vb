@@ -24,14 +24,18 @@ Friend Class BuyQuantityState
             ui.Clear()
             Dim result As New List(Of (Text As String, Item As String)) From
             {
-                (Choices.Leave, Choices.Leave),
-                ($"{QuantityOne}(1)", QuantityOne),
-                ($"{QuantityMaximum}({ .MaximumQuantity})", QuantityMaximum)
+                (Choices.Leave, Choices.Leave)
             }
+            If .MaximumQuantity > 0 Then
+                result.Add(($"{QuantityOne}(1)", QuantityOne))
+            End If
+            If .MaximumQuantity > 1 Then
+                result.Add(($"{QuantityMaximum}({ .MaximumQuantity})", QuantityMaximum))
+            End If
             If .MaximumQuantity > 2 Then
                 result.Add(($"{QuantitySpecificNumber}...", QuantitySpecificNumber))
             End If
-            Select Case ui.Choose((Mood.Prompt, $"Buy How Many { .Name}?"), result.ToArray)
+            Select Case ui.Choose((Mood.Prompt, $"Buy How Many { .Name}(@{ .UnitPrice})?"), result.ToArray)
                 Case Choices.Leave
                     Return New OffersState(model, ui, endState)
                 Case QuantityMaximum
