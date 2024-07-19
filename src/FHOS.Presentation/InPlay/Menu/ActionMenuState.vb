@@ -11,10 +11,17 @@ Friend Class ActionMenuState
 
     Public Overrides Function Run() As IState
         ui.Clear()
+        Dim menu As New List(Of (String, String)) From
+            {
+                (Choices.Leave, Choices.Leave)
+            }
+        menu.AddRange(model.State.Avatar.Verbs.Available)
         Dim choice = ui.Choose(
             (Mood.Prompt, Prompts.ActionMenu),
-            model.State.Avatar.Verbs.Available.ToArray)
+            menu.ToArray)
         Select Case choice
+            Case Choices.Leave
+                Return New NeutralState(model, ui, endState)
             Case VerbTypes.Status
                 Return New StatusState(model, ui, endState)
             Case VerbTypes.Inventory
@@ -24,6 +31,8 @@ Friend Class ActionMenuState
             Case VerbTypes.Vessel
                 model.State.Avatar.Stack.Pop()
                 Return New NeutralState(model, ui, endState)
+            Case VerbTypes.SPLORRPedia
+                Return New SPLORRPediaState(model, ui, endState)
             Case Else
                 Return New DoVerbState(model, ui, endState, choice)
         End Select

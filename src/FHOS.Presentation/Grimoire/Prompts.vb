@@ -9,5 +9,6 @@
     Friend Const LoadGame = "Load Game:"
     Friend Const MainMenu = "Main Menu:"
     Friend Const SaveGame = "Save Game:"
+    Friend Const SPLORRPedia = "SPLORR!!Pedia:"
     Friend Const StartingWealth = "Starting Wealth:"
 End Module

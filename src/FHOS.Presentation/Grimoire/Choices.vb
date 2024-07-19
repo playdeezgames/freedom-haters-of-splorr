@@ -19,4 +19,8 @@
     Friend Const ScumSave = "Scum Save"
     Friend Const Sell = "Sell"
     Friend Const Use = "Use"
+    Friend Const Factions = "Factions..."
+    Friend Const StarSystems = "Star Systems..."
+    Friend Const Planets = "Planets..."
+    Friend Const Satellites = "Satellites..."
 End Module
