@@ -13,7 +13,7 @@ Friend Class SaveState
         ui.Clear()
         Dim result As New List(Of (String, Integer?)) From
             {
-                (Choices.Leave, Nothing)
+                (Choices.Cancel, Nothing)
             }
         result.AddRange(model.AvailableSlots.Select(Of (String, Integer?))(Function(x) ($"{model.GetSlotName(x)}{If(model.DoesSlotExist(x), "(will overwrite)", "")}", x)))
         Dim choice = ui.Choose(

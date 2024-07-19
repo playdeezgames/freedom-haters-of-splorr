@@ -13,14 +13,14 @@ Friend Class ActionMenuState
         ui.Clear()
         Dim menu As New List(Of (String, String)) From
             {
-                (Choices.Leave, Choices.Leave)
+                (Choices.Cancel, Choices.Cancel)
             }
         menu.AddRange(model.State.Avatar.Verbs.Available)
         Dim choice = ui.Choose(
             (Mood.Prompt, Prompts.ActionMenu),
             menu.ToArray)
         Select Case choice
-            Case Choices.Leave
+            Case Choices.Cancel
                 Return New NeutralState(model, ui, endState)
             Case VerbTypes.Status
                 Return New StatusState(model, ui, endState)

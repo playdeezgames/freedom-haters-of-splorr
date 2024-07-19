@@ -19,7 +19,7 @@ Friend Class InventoryActionSelectState
     Public Overrides Function Run() As IState
         ui.Clear()
         Dim result As New List(Of (Text As String, Item As String)) From {
-                (Choices.Leave, Choices.Leave),
+                (Choices.Cancel, Choices.Cancel),
                 (Choices.Inspect, Choices.Inspect)
             }
         If itemStack.CanUse Then

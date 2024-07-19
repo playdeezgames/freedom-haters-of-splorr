@@ -14,7 +14,7 @@ Friend Class PricesState
         ui.WriteLine((Mood.Info, $"Jools: {model.State.Avatar.Jools}"))
         Dim menuItems As New List(Of (String, IAvatarTraderPriceModel)) From
             {
-                (Choices.Leave, Nothing)
+                (Choices.Cancel, Nothing)
             }
         menuItems.AddRange(model.State.Avatar.Trader.Prices.Select(Function(x) ($"{x.Name}@{x.UnitPrice} (You have {x.InventoryQuantity})", x)))
         Dim choice = ui.Choose((Mood.Prompt, String.Empty), menuItems.ToArray)

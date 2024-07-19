@@ -11,7 +11,6 @@
     Friend Const Embark = "Embark!"
     Friend Const Go = "Go!"
     Friend Const Inspect = "Inspect"
-    Friend Const Leave = "Leave"
     Friend Const Load = "Load..."
     Friend Const Quit = "Quit"
     Friend Const Save = "Save..."

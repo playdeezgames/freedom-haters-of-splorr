@@ -14,7 +14,7 @@ Friend Class TraderState
         With model.State.Avatar.Trader
             Dim result As New List(Of String) From
                 {
-                    Choices.Leave
+                    Choices.Cancel
                 }
             If .HasPrices Then
                 result.Add(Choices.Buy)

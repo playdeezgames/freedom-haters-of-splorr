@@ -18,7 +18,7 @@ Friend Class LoadState
         End If
         Dim menu As New List(Of (String, Integer?)) From
             {
-                (Choices.Leave, Nothing)
+                (Choices.Cancel, Nothing)
             }
         menu.AddRange(loadableSlots.Select(Of (String, Integer?))(Function(x) (model.GetSlotName(x), x)))
         Dim choice = ui.Choose(Of Integer?)(

@@ -13,7 +13,7 @@ Friend Class InventoryState
         ui.Clear()
         Dim result As New List(Of (String, IAvatarInventoryItemStackModel)) From
             {
-                (Choices.Leave, Nothing)
+                (Choices.Cancel, Nothing)
             }
         result.AddRange(model.State.Avatar.Inventory.ItemStacks.Select(Function(x) ($"{x.ItemName}(x{x.Count})", x)))
         Dim choice = ui.Choose(

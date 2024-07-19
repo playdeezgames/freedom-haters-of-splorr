@@ -25,7 +25,7 @@ Friend Class SellQuantityState
             ui.Clear()
             Dim result As New List(Of (Text As String, Item As String)) From
             {
-                (Choices.Leave, Choices.Leave),
+                (Choices.Cancel, Choices.Cancel),
                 ($"{QuantityOne}(1)", QuantityOne),
                 ($"{QuantityAll}({ .Quantity})", QuantityAll)
             }
@@ -36,7 +36,7 @@ Friend Class SellQuantityState
                 result.Add(($"{QuantitySpecificNumber}...", QuantitySpecificNumber))
             End If
             Select Case ui.Choose((Mood.Prompt, $"Sell How Many { .NameAndQuantity}?"), result.ToArray)
-                Case Choices.Leave
+                Case Choices.Cancel
                     Return New OffersState(model, ui, endState)
                 Case QuantityAll
                     Return New SellConfirmState(model, ui, endState, offer, offer.Quantity)

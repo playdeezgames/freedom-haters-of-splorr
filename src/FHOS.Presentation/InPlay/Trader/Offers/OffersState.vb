@@ -17,7 +17,7 @@ Friend Class OffersState
         ui.WriteLine((Mood.Info, $"Jools: {model.State.Avatar.Jools}"))
         Dim menuItems As New List(Of (String, IAvatarTraderOfferModel)) From
             {
-                (Choices.Leave, Nothing)
+                (Choices.Cancel, Nothing)
             }
         menuItems.AddRange(model.State.Avatar.Trader.Offers.Select(Function(x) ($"{x.NameAndQuantity}@{x.JoolsOffered(1)}", x)))
         Dim choice = ui.Choose((Mood.Prompt, String.Empty), menuItems.ToArray)

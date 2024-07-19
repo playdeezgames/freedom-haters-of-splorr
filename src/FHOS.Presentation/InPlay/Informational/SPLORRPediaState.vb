@@ -13,12 +13,12 @@ Friend Class SPLORRPediaState
         ui.Clear()
         Select Case ui.Choose(
             (Mood.Prompt, Prompts.SPLORRPedia),
-            Choices.Leave,
+            Choices.Cancel,
             Choices.Factions,
             Choices.StarSystems,
             Choices.Planets,
             Choices.Satellites)
-            Case Choices.Leave
+            Case Choices.Cancel
                 Return New ActionMenuState(model, ui, endState)
             Case Else
                 Throw New NotImplementedException
