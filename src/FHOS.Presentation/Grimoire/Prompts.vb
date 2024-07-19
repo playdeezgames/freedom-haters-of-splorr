@@ -6,7 +6,6 @@
     Friend Const GalacticDensity = "Galactic Density:"
     Friend Const GameMenu = "Game Menu:"
     Friend Const Inventory = "Inventory:"
-    Friend Const LoadGame = "Load Game"
     Friend Const MainMenu = "Main Menu:"
     Friend Const StartingWealth = "Starting Wealth:"
 End Module
