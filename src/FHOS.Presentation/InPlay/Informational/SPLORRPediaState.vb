@@ -11,17 +11,21 @@ Friend Class SPLORRPediaState
 
     Public Overrides Function Run() As IState
         ui.Clear()
-        Select Case ui.Choose(
+        Dim choice = ui.Choose(
             (Mood.Prompt, Prompts.SPLORRPedia),
             Choices.Cancel,
             Choices.Factions,
             Choices.StarSystems,
             Choices.Planets,
             Choices.Satellites)
+        Select Case choice
             Case Choices.Cancel
                 Return New ActionMenuState(model, ui, endState)
+            Case Choices.Factions
+                Return New FactionsState(model, ui, Me, String.Empty)
             Case Else
-                Throw New NotImplementedException
+                ui.Message((Mood.Warning, $"TODO: {choice}"))
+                Return Me
         End Select
     End Function
 End Class
