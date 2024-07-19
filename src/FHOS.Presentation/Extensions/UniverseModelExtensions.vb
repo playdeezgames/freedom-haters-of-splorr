@@ -36,4 +36,8 @@ Friend Module UniverseModelExtensions
     Public Function LoadableSlots(model As IUniverseModel) As IEnumerable(Of Integer)
         Return SlotDetails.Keys.Where(Function(x) DoesSlotExist(model, x))
     End Function
+    <Extension>
+    Public Function AvailableSlots(model As IUniverseModel) As IEnumerable(Of Integer)
+        Return SlotDetails.Keys.Where(Function(x) x > 0)
+    End Function
 End Module

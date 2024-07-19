@@ -24,7 +24,6 @@ Friend Class GameMenu
                 Choices.ScumSave,
                 Choices.Save,
                 Choices.ScumLoad,
-                Choices.Options,
                 Choices.AbandonGame)
         Select Case choice
             Case Choices.ContinueGame
@@ -33,6 +32,12 @@ Friend Class GameMenu
                 If ui.Confirm((Mood.Danger, Confirms.AbandonGame)) Then
                     Return abandonedState
                 End If
+            Case Choices.ScumSave
+                Return New ScumSaveState(model, ui, abandonedState)
+            Case Choices.ScumLoad
+                Return New ScumLoadState(model, ui, abandonedState)
+            Case Choices.Save
+                Return New SaveState(model, ui, abandonedState)
             Case Else
                 ui.Message((Mood.Warning, $"TODO: {choice}"))
         End Select

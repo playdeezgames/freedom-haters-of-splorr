@@ -19,7 +19,6 @@ Public Class MainMenuState
         End If
         menu.AddRange({
                 Choices.Load,
-                Choices.Options,
                 Choices.About,
                 Choices.Quit})
         Dim choice = ui.Choose(

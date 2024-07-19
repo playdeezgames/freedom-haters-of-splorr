@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="SIGMO.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="SIGMO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FHOS.Presentation\FHOS.Presentation.vbproj" />
   </ItemGroup>
 
