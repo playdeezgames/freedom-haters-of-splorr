@@ -37,6 +37,8 @@ Friend Class FactionState
             (Mood.Prompt, String.Empty),
             Choices.Cancel,
             Choices.Planets)
+            Case Choices.Planets
+                Return New FactionPlanetsState(model, ui, Me, group, String.Empty)
             Case Else
                 Return endState
         End Select

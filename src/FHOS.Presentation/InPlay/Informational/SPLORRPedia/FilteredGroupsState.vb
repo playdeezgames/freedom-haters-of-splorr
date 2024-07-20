@@ -1,10 +1,8 @@
-﻿Imports System.Diagnostics.CodeAnalysis
-Imports FHOS.Model
+﻿Imports FHOS.Model
 Imports SPLORR.Presentation
 
-Friend Class FactionsState
+Friend MustInherit Class FilteredGroupsState
     Inherits BaseState
-    Implements IState
 
     Private ReadOnly filter As String
 
@@ -13,9 +11,14 @@ Friend Class FactionsState
         Me.filter = filter
     End Sub
 
+    Protected MustOverride ReadOnly Property GroupSource As IEnumerable(Of IGroupModel)
+    Protected MustOverride ReadOnly Property PromptText As String
+    Protected MustOverride Function ApplyFilter(filter As String) As IState
+    Protected MustOverride Function ToDetail(group As IGroupModel) As IState
+
     Public Overrides Function Run() As IState
         ui.Clear()
-        Dim table = model.Pedia.Factions.ToDictionary(Function(x) x.Name, Function(x) x)
+        Dim table = GroupSource.ToDictionary(Function(x) x.Name, Function(x) x)
         Dim menu As New List(Of (String, String)) From
             {
                 (Choices.Cancel, Nothing)
@@ -27,13 +30,13 @@ Friend Class FactionsState
             menu.Add(($"Add Filter...", String.Empty))
             menu.AddRange(table.Keys.Select(Function(x) (x, x)))
         End If
-        Dim choice = ui.Choose((Mood.Prompt, "Factions:"), menu.ToArray)
+        Dim choice = ui.Choose((Mood.Prompt, PromptText), menu.ToArray)
         If choice Is Nothing Then
             Return endState
         End If
         If choice = String.Empty Then
-            Return New FactionsState(model, ui, endState, ui.Ask(Of String)((Mood.Prompt, "New Filter:"), String.Empty))
+            Return ApplyFilter(ui.Ask(Of String)((Mood.Prompt, "New Filter (blank to clear):"), String.Empty))
         End If
-        Return New FactionState(model, ui, Me, table(choice))
+        Return ToDetail(table(choice))
     End Function
 End Class
