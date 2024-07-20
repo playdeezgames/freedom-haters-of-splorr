@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Model
 Imports SPLORR.Presentation
 
-Friend Class PlanetState
+Friend Class SatelliteState
     Inherits BaseState
     Implements IState
 
@@ -16,23 +16,23 @@ Friend Class PlanetState
         ui.Clear()
         With group
             ui.WriteLine((Mood.Title, .Name))
-            ui.WriteLine((Mood.Info, $"Planet Type: { .Properties.PlanetTypeName}"))
+            ui.WriteLine((Mood.Info, $"Type: { .Properties.SatelliteTypeName}"))
+            ui.WriteLine((Mood.Info, $"Planet: { .Parents.Planet.Name}"))
             ui.WriteLine((Mood.Info, $"Star System: { .Parents.StarSystem.Name}"))
-            ui.WriteLine((Mood.Info, $"Satellite Count: { .Properties.SatelliteCount}"))
-            ui.WriteLine((Mood.Info, $"Faction: { .Parents.Faction.Name}"))
+            ui.WriteLine((Mood.Info, $"Faction: { .Parents.Planet.Parents.Faction.Name}"))
         End With
         Select Case ui.Choose(
             (Mood.Prompt, String.Empty),
             Choices.Cancel,
-            Choices.Satellites,
             Choices.Faction,
-            Choices.StarSystem)
+            Choices.StarSystem,
+            Choices.Planet)
             Case Choices.Faction
-                Return New FactionState(model, ui, Me, group.Parents.Faction)
+                Return New FactionState(model, ui, Me, group.Parents.Planet.Parents.Faction)
             Case Choices.StarSystem
                 Return New StarSystemState(model, ui, Me, group.Parents.StarSystem)
-            Case Choices.Satellites
-                Return New PlanetSatellitesState(model, ui, Me, group, String.Empty)
+            Case Choices.Planet
+                Return New StarSystemState(model, ui, Me, group.Parents.Planet)
             Case Else
                 Return endState
         End Select
