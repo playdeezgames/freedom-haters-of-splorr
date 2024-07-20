@@ -23,6 +23,12 @@ Friend Class SPLORRPediaState
                 Return New ActionMenuState(model, ui, endState)
             Case Choices.Factions
                 Return New FactionsState(model, ui, Me, String.Empty)
+            Case Choices.StarSystems
+                Return New StarSystemsState(model, ui, Me, String.Empty)
+            Case Choices.Planets
+                Return New PlanetsState(model, ui, Me, String.Empty)
+            Case Choices.Satellites
+                Return New SatellitesState(model, ui, Me, String.Empty)
             Case Else
                 ui.Message((Mood.Warning, $"TODO: {choice}"))
                 Return Me

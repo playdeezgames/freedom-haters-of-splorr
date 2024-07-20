@@ -32,7 +32,7 @@ Friend Class SatelliteState
             Case Choices.StarSystem
                 Return New StarSystemState(model, ui, Me, group.Parents.StarSystem)
             Case Choices.Planet
-                Return New StarSystemState(model, ui, Me, group.Parents.Planet)
+                Return New PlanetState(model, ui, Me, group.Parents.Planet)
             Case Else
                 Return endState
         End Select
