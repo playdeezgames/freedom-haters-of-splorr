@@ -1,6 +1,7 @@
 ﻿Friend Module Prompts
     Friend Const ActionMenu = "Action Menu:"
     Friend Const EmbarkMenu = "Embark Menu:"
+    Friend Const EquipmentSlot = "Equipment Slot:"
     Friend Const FactionCount = "Faction Count:"
     Friend Const GalacticAge = "Galactic Age:"
     Friend Const GalacticDensity = "Galactic Density:"

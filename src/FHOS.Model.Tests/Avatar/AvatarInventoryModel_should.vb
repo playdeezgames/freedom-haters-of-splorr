@@ -9,5 +9,4 @@
     Private Function CreateSut() As IAvatarInventoryModel
         Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Avatar.Inventory
     End Function
-
 End Class

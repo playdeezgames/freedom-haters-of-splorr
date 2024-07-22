@@ -9,6 +9,12 @@ Friend Class AvatarEquipmentModel
         Me.actor = actor
     End Sub
 
+    Public ReadOnly Property Slots As IEnumerable(Of IAvatarEquipmentSlotModel) Implements IAvatarEquipmentModel.Slots
+        Get
+            Return Array.Empty(Of IAvatarEquipmentSlotModel)
+        End Get
+    End Property
+
     Friend Shared Function FromActor(actor As IActor) As IAvatarEquipmentModel
         Return New AvatarEquipmentModel(actor)
     End Function
