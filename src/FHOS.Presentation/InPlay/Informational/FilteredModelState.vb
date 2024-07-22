@@ -1,24 +1,32 @@
 ﻿Imports FHOS.Model
 Imports SPLORR.Presentation
 
-Friend MustInherit Class FilteredGroupsState
+Friend MustInherit Class FilteredModelState(Of TModel)
     Inherits BaseState
 
     Private ReadOnly filter As String
 
-    Public Sub New(model As IUniverseModel, ui As IUIContext, endState As IState, filter As String)
-        MyBase.New(model, ui, endState)
+    Public Sub New(
+                  model As IUniverseModel,
+                  ui As IUIContext,
+                  endState As IState,
+                  filter As String)
+        MyBase.New(
+            model,
+            ui,
+            endState)
         Me.filter = filter
     End Sub
 
-    Protected MustOverride ReadOnly Property GroupSource As IEnumerable(Of IGroupModel)
+    Protected MustOverride ReadOnly Property ModelSource As IEnumerable(Of TModel)
     Protected MustOverride ReadOnly Property PromptText As String
     Protected MustOverride Function ApplyFilter(filter As String) As IState
-    Protected MustOverride Function ToDetail(group As IGroupModel) As IState
+    Protected MustOverride Function OnSelected(model As TModel) As IState
+    Protected MustOverride Function ToName(model As TModel) As String
 
     Public Overrides Function Run() As IState
         ui.Clear()
-        Dim table = GroupSource.ToDictionary(Function(x) x.Name, Function(x) x)
+        Dim table = ModelSource.ToDictionary(Function(x) ToName(x), Function(x) x)
         Dim menu As New List(Of (String, String)) From
             {
                 (Choices.Cancel, Nothing)
@@ -37,6 +45,6 @@ Friend MustInherit Class FilteredGroupsState
         If choice = String.Empty Then
             Return ApplyFilter(ui.Ask(Of String)((Mood.Prompt, "New Filter (blank to clear):"), String.Empty))
         End If
-        Return ToDetail(table(choice))
+        Return OnSelected(table(choice))
     End Function
 End Class

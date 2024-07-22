@@ -2,7 +2,7 @@
 Imports SPLORR.Presentation
 
 Friend Class PlanetSatellitesState
-    Inherits FilteredGroupsState
+    Inherits FilteredModelState(Of IGroupModel)
     Implements IState
 
     Private ReadOnly group As IGroupModel
@@ -12,7 +12,7 @@ Friend Class PlanetSatellitesState
         Me.group = group
     End Sub
 
-    Protected Overrides ReadOnly Property GroupSource As IEnumerable(Of IGroupModel)
+    Protected Overrides ReadOnly Property ModelSource As IEnumerable(Of IGroupModel)
         Get
             Return group.Children.ChildSatellites
         End Get
@@ -28,7 +28,11 @@ Friend Class PlanetSatellitesState
         Return New PlanetSatellitesState(model, ui, endState, group, filter)
     End Function
 
-    Protected Overrides Function ToDetail(group As IGroupModel) As IState
+    Protected Overrides Function OnSelected(group As IGroupModel) As IState
         Return New SatelliteState(model, ui, Me, group)
+    End Function
+
+    Protected Overrides Function ToName(model As IGroupModel) As String
+        Return model.Name
     End Function
 End Class

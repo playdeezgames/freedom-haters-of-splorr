@@ -17,8 +17,8 @@ Friend Class NeutralState
                 Return New MessageState(model, ui, endState)
             ElseIf .State.Avatar.Status.GameOver Then
                 Return New GameOverState(model, ui, endState)
-                'ElseIf .State.Avatar.StarGate.IsActive Then
-                '    Return New StarGateState(model, ui, endState)
+            ElseIf .State.Avatar.StarGate.IsActive Then
+                Return New StarGateState(model, ui, endState, String.Empty)
                 'ElseIf .State.Avatar.Shipyard.IsActive Then
                 '    Return New ShipyardState(model, ui, endState)
             ElseIf .State.Avatar.Trader.IsActive Then

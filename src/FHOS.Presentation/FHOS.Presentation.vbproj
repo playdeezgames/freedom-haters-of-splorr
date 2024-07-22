@@ -19,4 +19,8 @@
     <ProjectReference Include="..\SPLORR.Presentation.Spectre\SPLORR.Presentation.Spectre.vbproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="InPlay\Shipyard\" />
+  </ItemGroup>
+
 </Project>

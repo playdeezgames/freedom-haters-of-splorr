@@ -2,13 +2,13 @@
 Imports SPLORR.Presentation
 
 Friend Class FactionsState
-    Inherits FilteredGroupsState
+    Inherits FilteredModelState(Of IGroupModel)
 
     Public Sub New(model As IUniverseModel, ui As IUIContext, endState As IState, filter As String)
         MyBase.New(model, ui, endState, filter)
     End Sub
 
-    Protected Overrides ReadOnly Property GroupSource As IEnumerable(Of IGroupModel)
+    Protected Overrides ReadOnly Property ModelSource As IEnumerable(Of IGroupModel)
         Get
             Return model.Pedia.Factions
         End Get
@@ -24,7 +24,11 @@ Friend Class FactionsState
         Return New FactionsState(model, ui, endState, filter)
     End Function
 
-    Protected Overrides Function ToDetail(group As IGroupModel) As IState
+    Protected Overrides Function OnSelected(group As IGroupModel) As IState
         Return New FactionState(model, ui, Me, group)
+    End Function
+
+    Protected Overrides Function ToName(model As IGroupModel) As String
+        Return model.Name
     End Function
 End Class
