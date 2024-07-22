@@ -11,6 +11,7 @@ Public Module VerbTypes
     Public ReadOnly Crew As String = NameOf(Crew)
     Public ReadOnly Vessel As String = NameOf(Vessel)
     Public ReadOnly Inventory As String = NameOf(Inventory)
+    Public ReadOnly Equipment As String = NameOf(Equipment)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, VerbTypeDescriptor) =
         New List(Of VerbTypeDescriptor) From
@@ -24,6 +25,7 @@ Public Module VerbTypes
             New AlwaysAvailableVerbTypeDescriptor(SPLORRPedia, "SPLORR!!Pedia"),
             New ConditionalVerbTypeDescriptor(Crew, "Crew...", Function(Actor) Actor.Family.HasChildren),
             New ConditionalVerbTypeDescriptor(Vessel, "Vessel...", Function(Actor) Actor.Family.Parent IsNot Nothing),
-            New ConditionalVerbTypeDescriptor(Inventory, "Inventory...", Function(Actor) Actor.Inventory.Items.Any)
+            New ConditionalVerbTypeDescriptor(Inventory, "Inventory...", Function(Actor) Actor.Inventory.Items.Any),
+            New ConditionalVerbTypeDescriptor(Equipment, "Equipment...", Function(Actor) Actor.Equipment.All.Any)
         }.ToDictionary(Function(x) x.VerbType, Function(x) x)
 End Module

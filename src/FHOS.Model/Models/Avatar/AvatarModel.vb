@@ -86,4 +86,10 @@ Friend Class AvatarModel
             Return AvatarShipyardModel.FromActor(actor)
         End Get
     End Property
+
+    Public ReadOnly Property Equipment As IAvatarEquipmentModel Implements IAvatarModel.Equipment
+        Get
+            Return AvatarEquipmentModel.FromActor(actor)
+        End Get
+    End Property
 End Class

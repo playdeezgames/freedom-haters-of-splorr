@@ -11,4 +11,5 @@
     ReadOnly Property Vessel As IAvatarVesselModel
     ReadOnly Property Jools As Integer
     ReadOnly Property Inventory As IAvatarInventoryModel
+    ReadOnly Property Equipment As IAvatarEquipmentModel
 End Interface

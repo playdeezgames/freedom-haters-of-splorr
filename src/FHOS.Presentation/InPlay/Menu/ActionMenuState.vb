@@ -26,6 +26,8 @@ Friend Class ActionMenuState
                 Return New StatusState(model, ui, endState)
             Case VerbTypes.Inventory
                 Return New InventoryState(model, ui, endState)
+            Case VerbTypes.Equipment
+                Return New EquipmentState(model, ui, endState)
             Case VerbTypes.Crew
                 Return New SelectCrewMemberState(model, ui, endState)
             Case VerbTypes.Vessel
