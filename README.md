@@ -1,40 +1,15 @@
 # Freedom Haters of SPLORR!!
 
+  - [ ] 20240728 - SIGMO FHOS Episode 86 - 
+  - [ ] 20240727 - SIGMO FHOS Episode 85 - 
+  - [ ] 20240726 - SIGMO FHOS Episode 84 - 
+  - [ ] 20240725 - SIGMO FHOS Episode 83 - 
+  - [ ] 20240724 - SIGMO FHOS Episode 82 - 
   - [ ] 20240723 - SIGMO FHOS Episode 81 - 
   - [x] 20240722 - SIGMO FHOS Episode 80 - 
   - [x] 20240720 - SIGMO FHOS Episode 79 - 
   - [x] 20240719 - SIGMO FHOS Episode 78 - 
   - [x] 20240718 - SIGMO FHOS Episode 77 - 
-  - [x] 20240717 - SIGMO FHOS Episode 76 - 
-  - [x] 20240716 - SIGMO FHOS Episode 75 - 
-  - [x] 20240715 - SIGMO FHOS Episode 74 - 
-  - [x] 20240707 - SIGMO FHOS Episode 73 - 
-  - [x] 20240706 - SIGMO FHOS Episode 72 - 
-  - [x] 20240705 - SIGMO FHOS Episode 71 - 
-  - [x] 20240704 - SIGMO FHOS Episode 70 - 
-  - [x] 20240703 - SIGMO FHOS Episode 69 - 
-  - [x] 20240702 - SIGMO FHOS Episode 68 - 
-  - [x] 20240701 - SIGMO FHOS Episode 67 - 
-  - [x] 20240623 - SIGMO FHOS Episode 66 - 
-  - [x] 20240622 - SIGMO FHOS Episode 65 - 
-  - [x] 20240621 - SIGMO FHOS Episode 64 - 
-  - [x] 20240620 - SIGMO FHOS Episode 63 - 
-  - [x] 20240619 - SIGMO FHOS Episode 62 - 
-  - [x] 20240618 - SIGMO FHOS Episode 61 - 
-  - [x] 20240617 - SIGMO FHOS Episode 60 - 
-  - [x] 20240616 - SIGMO FHOS Episode 59 - 
-  - [x] 20240615 - SIGMO FHOS Episode 58 - 
-  - [x] 20240614 - SIGMO FHOS Episode 57 - 
-  - [x] 20240613 - SIGMO FHOS Episode 56 - 
-  - [x] 20240612 - SIGMO FHOS Episode 55 - 
-  - [x] 20240610 - SIGMO FHOS Episode 54 - 
-  - [x] 20240609 - SIGMO FHOS Episode 53 - 
-  - [x] 20240607 - SIGMO FHOS Episode 52 - 
-  - [x] 20240605 - SIGMO FHOS Episode 51 - 
-  - [x] 20240604 - SIGMO FHOS Episode 50 - 
-  - [x] 20240603 - SIGMO FHOS Episode 49 - 
-  - [x] 20240602 - SIGMO FHOS Episode 48 - 
-  - [x] 20240601 - SIGMO FHOS Episode 47 - 
 
 Freedom Haters of SPLORR!!
 
