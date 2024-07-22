@@ -11,17 +11,17 @@ Friend Class EquipmentState
 
     Public Overrides Function Run() As IState
         ui.Clear()
-        Dim menu As IReadOnlyList(Of (String, IAvatarEquipmentSlotModel)) =
-            New List(Of (String, IAvatarEquipmentSlotModel)) From
+        Dim menu As New List(Of (String, IAvatarEquipmentSlotModel)) From
             {
                 (Choices.Cancel, Nothing)
             }
+        menu.AddRange(model.State.Avatar.Equipment.Slots.Select(Function(x) (x.SlotName, x)))
         Dim choice = ui.Choose(
             (Mood.Prompt, Prompts.EquipmentSlot),
             menu.ToArray)
         If choice Is Nothing Then
             Return New ActionMenuState(model, ui, endState)
         End If
-        Throw New NotImplementedException
+        Return New EquipmentSlotState(model, ui, endState, choice)
     End Function
 End Class
