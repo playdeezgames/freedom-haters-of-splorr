@@ -30,23 +30,10 @@ Public Class UniverseModel
 
     Public Sub Load(filename As String) Implements IUniverseModel.Load
         UniverseData = JsonSerializer.Deserialize(Of UniverseData)(ReadStringFromFile(filename))
-        ClearEphemerals()
     End Sub
 
     Public Sub Abandon() Implements IUniverseModel.Abandon
         UniverseData = Nothing
-        ClearEphemerals()
-    End Sub
-
-    Private Sub ClearEphemerals()
-        Ephemerals.SelectedFaction.Clear()
-        Ephemerals.SelectedPlanet.Clear()
-        Ephemerals.SelectedSatellite.Clear()
-        Ephemerals.SelectedStarSystem.Clear()
-        Ephemerals.CurrentOffer = Nothing
-        Ephemerals.CurrentPrice = Nothing
-        Ephemerals.SellQuantity = 0
-        Ephemerals.InventoryItemStack = Nothing
     End Sub
 
     Private ReadOnly Property EmbarkSettings As EmbarkSettings
@@ -90,7 +77,6 @@ Public Class UniverseModel
             Return UniversePediaModel.FromUniverse(Universe)
         End Get
     End Property
-    Public ReadOnly Property Ephemerals As IUniverseEphemeralsModel Implements IUniverseModel.Ephemerals
 
     Const EmbarkSettingsFilename = "embark-settings.json"
     Private _embarkSettings As EmbarkSettings
@@ -104,6 +90,5 @@ Public Class UniverseModel
         Me.ReadStringFromFile = If(readStringFromFile, AddressOf File.ReadAllText)
         Me.initializer = If(initializer, New Initializer)
         Me.generationTimeSlice = generationTimeSlice
-        Me.Ephemerals = New UniverseEphemeralsModel
     End Sub
 End Class
