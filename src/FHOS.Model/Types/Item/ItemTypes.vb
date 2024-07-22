@@ -7,8 +7,6 @@
     Friend ReadOnly LifeSupport As String = NameOf(LifeSupport)
     Friend ReadOnly FuelSupply As String = NameOf(FuelSupply)
 
-
-
     Private Function CreateItemTypes() As IReadOnlyList(Of ItemTypeDescriptor)
         Dim result = New List(Of ItemTypeDescriptor) From {
             New FuelScoopItemTypeDescriptor(),
