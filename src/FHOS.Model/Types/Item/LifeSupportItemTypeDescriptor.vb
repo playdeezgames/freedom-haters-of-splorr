@@ -4,8 +4,8 @@
     Public Sub New(mark As String)
         MyBase.New(
             $"{ItemTypes.LifeSupport}{mark}",
-            $"Life Support System {Marks.Descriptors(mark).Name}",
-            $"This is the Life Support System {Marks.Descriptors(mark).Name}. It allows organics to breathe, which is useful when the organic wishes to remain not-dead.",
+            $"EterniVita {Marks.Descriptors(mark).Name}",
+            $"This is the EterniVita {Marks.Descriptors(mark).Name} from NexGen Dynamics. Step into the future with EterniVita, the pinnacle of life support technology. Engineered to ensure uninterrupted vitality and resilience, EterniVita redefines safety and peace of mind in the most challenging environments. With its cutting-edge biostasis chambers and adaptive AI monitoring, EterniVita stands as the ultimate safeguard for explorers, colonists, and spacefarers alike. Embrace limitless possibilities with EterniVita—where every breath guarantees a secure tomorrow, today.",
             equipSlots:=New Dictionary(Of String, Integer) From
             {
                 {Model.EquipSlots.LifeSupport, 1}

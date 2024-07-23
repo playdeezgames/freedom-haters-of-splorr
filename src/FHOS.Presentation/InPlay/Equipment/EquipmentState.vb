@@ -15,7 +15,7 @@ Friend Class EquipmentState
             {
                 (Choices.Cancel, Nothing)
             }
-        menu.AddRange(model.State.Avatar.Equipment.Slots.Select(Function(x) (x.SlotName, x)))
+        menu.AddRange(model.State.Avatar.Equipment.Slots.Select(Function(x) (ToName(x), x)))
         Dim choice = ui.Choose(
             (Mood.Prompt, Prompts.EquipmentSlot),
             menu.ToArray)
@@ -23,5 +23,9 @@ Friend Class EquipmentState
             Return New ActionMenuState(model, ui, endState)
         End If
         Return New EquipmentSlotState(model, ui, endState, choice)
+    End Function
+
+    Private Function ToName(model As IAvatarEquipmentSlotModel) As String
+        Return $"{model.SlotName}: {String.Join(", ", model.Items.Select(Function(x) x.DisplayName))}"
     End Function
 End Class
