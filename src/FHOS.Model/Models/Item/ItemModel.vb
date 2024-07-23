@@ -15,6 +15,12 @@ Friend Class ItemModel
         End Get
     End Property
 
+    Public ReadOnly Property Description As String Implements IItemModel.Description
+        Get
+            Return item.Descriptor.Description
+        End Get
+    End Property
+
     Friend Shared Function FromItem(item As IItem) As IItemModel
         Return New ItemModel(item)
     End Function
