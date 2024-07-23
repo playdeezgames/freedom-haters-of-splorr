@@ -1,6 +1,9 @@
 ﻿Friend Class LifeSupportItemTypeDescriptor
     Inherits ItemTypeDescriptor
 
+    Private Const OxygenCapacityPerMarkValue As Integer = 250
+    ReadOnly Property oxygenCapacity As Integer
+
     Public Sub New(mark As String)
         MyBase.New(
             $"{ItemTypes.LifeSupport}{mark}",
@@ -11,6 +14,7 @@
                 {Model.EquipSlots.LifeSupport, 1}
             },
             onEquip:=AddressOf EquipLifeSupportItem)
+        Me.oxygenCapacity = Marks.Descriptors(mark).Value * OxygenCapacityPerMarkValue
     End Sub
 
     Private Shared Sub EquipLifeSupportItem(actor As Persistence.IActor, item As Persistence.IItem)
@@ -18,6 +22,6 @@
     End Sub
 
     Protected Overrides Sub Initialize(item As Persistence.IItem)
-        item.Statistics(StatisticTypes.OxygenCapacity) = 250
+        item.Statistics(StatisticTypes.OxygenCapacity) = oxygenCapacity
     End Sub
 End Class

@@ -3,6 +3,9 @@
 Friend Class FuelSupplyItemTypeDescriptor
     Inherits ItemTypeDescriptor
 
+    Private Const FuelCapacityPerMarkValue As Integer = 250
+    Private ReadOnly Property fuelCapacity As Integer
+
     Public Sub New(mark As String)
         MyBase.New(
             $"{ItemTypes.FuelSupply}{mark}",
@@ -13,6 +16,7 @@ Friend Class FuelSupplyItemTypeDescriptor
                 {Model.EquipSlots.FuelSupply, 1}
             },
             onEquip:=AddressOf EquipFuelSupplyItem)
+        Me.fuelCapacity = Marks.Descriptors(mark).Value * FuelCapacityPerMarkValue
     End Sub
 
     Private Shared Sub EquipFuelSupplyItem(actor As IActor, item As IItem)
@@ -20,6 +24,6 @@ Friend Class FuelSupplyItemTypeDescriptor
     End Sub
 
     Protected Overrides Sub Initialize(item As IItem)
-        item.Statistics(StatisticTypes.FuelCapacity) = 250
+        item.Statistics(StatisticTypes.FuelCapacity) = fuelCapacity
     End Sub
 End Class

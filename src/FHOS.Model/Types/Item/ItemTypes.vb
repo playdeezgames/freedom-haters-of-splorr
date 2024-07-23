@@ -13,10 +13,12 @@
             New AtmosphericConcentratorItemTypeDescriptor(),
             New ScrapItemTypeDescriptor(),
             New OxygenTankDescriptor(),
-            New FuelRodDescriptor(),
-            New LifeSupportItemTypeDescriptor(MarkI),
-            New FuelSupplyItemTypeDescriptor(MarkI)
+            New FuelRodDescriptor()
         }
+        For Each markType In Marks.Descriptors.Keys
+            result.Add(New LifeSupportItemTypeDescriptor(markType))
+            result.Add(New FuelSupplyItemTypeDescriptor(markType))
+        Next
         Return result
     End Function
 
