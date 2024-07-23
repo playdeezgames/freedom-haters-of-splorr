@@ -12,8 +12,8 @@ Friend Class AvatarEquipmentModel
     Public ReadOnly Property Slots As IEnumerable(Of IAvatarEquipmentSlotModel) Implements IAvatarEquipmentModel.Slots
         Get
             Dim items = actor.Equipment.All
-            Dim itemSlots = items.SelectMany(Function(x) x.Descriptor.EquipSlots.Keys).Distinct
-            Return Array.Empty(Of IAvatarEquipmentSlotModel)
+            Dim equipSlots = items.SelectMany(Function(x) x.Descriptor.EquipSlots.Keys).Distinct
+            Return equipSlots.Select(Function(x) AvatarEquipmentSlotModel.FromActorAndSlot(actor, x))
         End Get
     End Property
 

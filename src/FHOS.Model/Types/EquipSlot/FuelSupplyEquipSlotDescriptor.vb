@@ -2,6 +2,8 @@
     Inherits EquipSlotDescriptor
 
     Public Sub New()
-        MyBase.New(EquipSlots.FuelSupply)
+        MyBase.New(
+            EquipSlots.FuelSupply,
+            "Fuel Supply")
     End Sub
 End Class
