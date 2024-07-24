@@ -18,6 +18,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property Actor As IActor Implements IActorEquipment.Actor
+        Get
+            Return Persistence.Actor.FromId(UniverseData, Id)
+        End Get
+    End Property
+
     Public Sub Equip(equipSlot As String, item As IItem) Implements IActorEquipment.Equip
         EntityData.SetYokedItem(equipSlot, item?.Id)
     End Sub

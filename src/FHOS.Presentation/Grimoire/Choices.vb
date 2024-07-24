@@ -13,6 +13,7 @@
     Friend Const Faction = "Faction"
     Friend Const Go = "Go!"
     Friend Const Inspect = "Inspect"
+    Friend Const InstallEquipment = "Install Equipment..."
     Friend Const Load = "Load..."
     Friend Const Planet = "Planet"
     Friend Const Quit = "Quit"
@@ -26,4 +27,5 @@
     Friend Const StarSystem = "Star System"
     Friend Const Planets = "Planets..."
     Friend Const Satellites = "Satellites..."
+    Friend Const UninstallEquipment = "Uninstall Equipment..."
 End Module

@@ -16,12 +16,15 @@ Friend Class ShipyardState
             {
                 (Choices.Cancel, Choices.Cancel)
             }
-            'TODO: change equipment
             If .CanChangeEquipment Then
                 menu.Add((Choices.ChangeEquipment, Choices.ChangeEquipment))
             End If
-            'TODO: add equipment
-            'TODO: remove equipment
+            If .CanInstallEquipment Then
+                menu.Add((Choices.InstallEquipment, Choices.InstallEquipment))
+            End If
+            If .CanUninstallEquipment Then
+                menu.Add((Choices.UninstallEquipment, Choices.UninstallEquipment))
+            End If
             Dim choice = ui.Choose(
             (Mood.Prompt, .Specimen.Name),
             menu.ToArray)
