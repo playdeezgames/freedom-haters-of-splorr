@@ -4,10 +4,8 @@ Imports SPLORR.Game
 
 Friend Module ActorExtensions
     <Extension>
-    Function ItemsEquipped(actor As IActor, equipSlot As String) As IEnumerable(Of IItem)
-        Return actor.Equipment.
-                All.
-                Where(Function(x) x.Descriptor.EquipSlots.ContainsKey(equipSlot))
+    Function ItemEquipped(actor As IActor, equipSlot As String) As IItem
+        Return actor.Equipment.GetSlot(equipSlot)
     End Function
     <Extension>
     Sub ClearInteractor(actor As IActor)

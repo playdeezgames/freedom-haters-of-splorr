@@ -26,6 +26,6 @@ Friend Class EquipmentState
     End Function
 
     Private Function ToName(model As IAvatarEquipmentSlotModel) As String
-        Return $"{model.SlotName}: {String.Join(", ", model.Items.Select(Function(x) x.DisplayName))}"
+        Return $"{model.SlotName}: {model.Item.DisplayName}"
     End Function
 End Class

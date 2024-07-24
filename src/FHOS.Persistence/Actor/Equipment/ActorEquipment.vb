@@ -25,4 +25,12 @@
     Friend Shared Function FromId(universeData As Data.UniverseData, id As Integer) As IActorEquipment
         Return New ActorEquipment(universeData, id)
     End Function
+
+    Public Function GetSlot(equipSlot As String) As IItem Implements IActorEquipment.GetSlot
+        Dim itemId = EntityData.GetYokedItem(equipSlot)
+        If itemId.HasValue Then
+            Return New Item(UniverseData, itemId.Value)
+        End If
+        Return Nothing
+    End Function
 End Class

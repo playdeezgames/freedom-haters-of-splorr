@@ -17,11 +17,9 @@ Friend Class AvatarEquipmentSlotModel
         End Get
     End Property
 
-    Public ReadOnly Property Items As IEnumerable(Of IItemModel) Implements IAvatarEquipmentSlotModel.Items
+    Public ReadOnly Property Item As IItemModel Implements IAvatarEquipmentSlotModel.Item
         Get
-            Return actor.
-                ItemsEquipped(equipSlot).
-                Select(Function(x) ItemModel.FromItem(x))
+            Return ItemModel.FromItem(actor.Equipment.GetSlot(equipSlot))
         End Get
     End Property
 
