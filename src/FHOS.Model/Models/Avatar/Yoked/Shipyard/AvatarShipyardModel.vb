@@ -8,6 +8,16 @@ Friend Class AvatarShipyardModel
         MyBase.New(actor, YokeTypes.Shipyard)
     End Sub
 
+    Public ReadOnly Property CanChangeEquipment As Boolean Implements IAvatarShipyardModel.CanChangeEquipment
+        Get
+            Dim equipSlots = actor.Descriptor.RequiredEquipSlots.Keys
+            'determine equipment occupying required equipment slots
+
+            'TODO: detect equipment that is not optional for which i have a replacement in inventory
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
     Protected Overrides Sub OnLeave()
         'do nothing
     End Sub

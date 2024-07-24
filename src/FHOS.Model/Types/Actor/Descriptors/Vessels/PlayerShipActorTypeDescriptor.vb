@@ -15,7 +15,12 @@ Friend Class PlayerShipActorTypeDescriptor
             {
                 {MapTypes.Galaxy, "1d1"}
             },
-            equipSlots:=New Dictionary(Of String, Integer) From
+            availableEquipSlots:=New Dictionary(Of String, Integer) From
+            {
+                {Model.EquipSlots.FuelSupply, 1},
+                {Model.EquipSlots.LifeSupport, 1}
+            },
+            requiredEquipSlots:=New Dictionary(Of String, Integer) From
             {
                 {Model.EquipSlots.FuelSupply, 1},
                 {Model.EquipSlots.LifeSupport, 1}

@@ -20,9 +20,7 @@ Friend Class AvatarEquipmentSlotModel
     Public ReadOnly Property Items As IEnumerable(Of IItemModel) Implements IAvatarEquipmentSlotModel.Items
         Get
             Return actor.
-                Equipment.
-                All.
-                Where(Function(x) x.Descriptor.EquipSlots.ContainsKey(equipSlot)).
+                ItemsEquipped(equipSlot).
                 Select(Function(x) ItemModel.FromItem(x))
         End Get
     End Property

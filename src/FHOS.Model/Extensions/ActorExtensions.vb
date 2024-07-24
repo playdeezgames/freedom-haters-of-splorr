@@ -4,6 +4,12 @@ Imports SPLORR.Game
 
 Friend Module ActorExtensions
     <Extension>
+    Function ItemsEquipped(actor As IActor, equipSlot As String) As IEnumerable(Of IItem)
+        Return actor.Equipment.
+                All.
+                Where(Function(x) x.Descriptor.EquipSlots.ContainsKey(equipSlot))
+    End Function
+    <Extension>
     Sub ClearInteractor(actor As IActor)
         actor.Yokes.Actor(YokeTypes.Interactor) = Nothing
     End Sub

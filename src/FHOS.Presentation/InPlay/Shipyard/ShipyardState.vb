@@ -10,18 +10,26 @@ Friend Class ShipyardState
     End Sub
 
     Public Overrides Function Run() As IState
-        ui.Clear()
-        Dim menu As New List(Of (String, String)) From
+        With model.State.Avatar.Shipyard
+            ui.Clear()
+            Dim menu As New List(Of (String, String)) From
             {
                 (Choices.Cancel, Choices.Cancel)
             }
-        Dim choice = ui.Choose(
-            (Mood.Prompt, model.State.Avatar.Shipyard.Specimen.Name),
+            'TODO: change equipment
+            If .CanChangeEquipment Then
+                menu.Add((Choices.ChangeEquipment, Choices.ChangeEquipment))
+            End If
+            'TODO: add equipment
+            'TODO: remove equipment
+            Dim choice = ui.Choose(
+            (Mood.Prompt, .Specimen.Name),
             menu.ToArray)
-        Select Case choice
-            Case Else
-                model.State.Avatar.Shipyard.Leave()
-                Return New NeutralState(model, ui, endState)
-        End Select
+            Select Case choice
+                Case Else
+                    .Leave()
+                    Return New NeutralState(model, ui, endState)
+            End Select
+        End With
     End Function
 End Class

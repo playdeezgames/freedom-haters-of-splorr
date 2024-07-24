@@ -3,6 +3,7 @@
     Friend Const About = "About..."
     Friend Const Buy = "Buy"
     Friend Const Cancel = "Cancel"
+    Friend Const ChangeEquipment = "Change Equipment..."
     Friend Const ChangeFactionCount = "Change Faction Count..."
     Friend Const ChangeGalacticAge = "Change Galactic Age..."
     Friend Const ChangeGalacticDensity = "Change Galactic Density..."
