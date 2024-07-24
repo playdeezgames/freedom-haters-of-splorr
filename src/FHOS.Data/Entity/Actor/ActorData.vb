@@ -1,7 +1,6 @@
 ﻿Public Class ActorData
     Inherits GroupedEntityData
     Public Property Children As New HashSet(Of Integer)
-    Public Property Equipment As New HashSet(Of Integer)
     Public Property YokedItems As New Dictionary(Of String, Integer)
     Public Property YokedActors As New Dictionary(Of String, Integer)
     Public Property YokedStores As New Dictionary(Of String, Integer)
@@ -59,10 +58,6 @@
 
     Public Sub AddChild(childId As Integer)
         Children.Add(childId)
-    End Sub
-
-    Public Sub AddEquipment(itemId As Integer)
-        Equipment.Add(itemId)
     End Sub
 
     Public Sub AddItem(itemId As Integer)
