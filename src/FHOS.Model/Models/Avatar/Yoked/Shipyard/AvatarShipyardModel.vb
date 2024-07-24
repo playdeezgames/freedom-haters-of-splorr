@@ -10,27 +10,49 @@ Friend Class AvatarShipyardModel
 
     Public ReadOnly Property CanChangeEquipment As Boolean Implements IAvatarShipyardModel.CanChangeEquipment
         Get
-            Return actor.
-                Equipment.
-                GetRequiredSlots.
-                Any(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.EquipSlot = x))
+            Return ChangeableEquipmentSlots.Any
         End Get
     End Property
 
     Public ReadOnly Property CanInstallEquipment As Boolean Implements IAvatarShipyardModel.CanInstallEquipment
         Get
-            Return actor.
-                Equipment.
-                GetInstallableSlots.
-                Any(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.EquipSlot = x))
+            Return InstallableEquipmentSlots.Any
         End Get
     End Property
 
     Public ReadOnly Property CanUninstallEquipment As Boolean Implements IAvatarShipyardModel.CanUninstallEquipment
         Get
+            Return UninstallableEquipmentSlots.Any
+        End Get
+    End Property
+
+    Public ReadOnly Property ChangeableEquipmentSlots As IEnumerable(Of IActorEquipmentSlotModel) Implements IAvatarShipyardModel.ChangeableEquipmentSlots
+        Get
             Return actor.
                 Equipment.
-                GetUninstallableSlots().Any
+                GetRequiredSlots.
+                Where(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.EquipSlot = x)).
+                Select(Function(x) ActorEquipmentSlotModel.FromActorAndSlot(actor, x))
+        End Get
+    End Property
+
+    Public ReadOnly Property InstallableEquipmentSlots As IEnumerable(Of IActorEquipmentSlotModel) Implements IAvatarShipyardModel.InstallableEquipmentSlots
+        Get
+            Return actor.
+                Equipment.
+                GetInstallableSlots.
+                Where(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.EquipSlot = x)).
+                Select(Function(x) ActorEquipmentSlotModel.FromActorAndSlot(actor, x))
+        End Get
+    End Property
+
+    Public ReadOnly Property UninstallableEquipmentSlots As IEnumerable(Of IActorEquipmentSlotModel) Implements IAvatarShipyardModel.UninstallableEquipmentSlots
+        Get
+            Return actor.
+                Equipment.
+                GetInstallableSlots.
+                Where(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.EquipSlot = x)).
+                Select(Function(x) ActorEquipmentSlotModel.FromActorAndSlot(actor, x))
         End Get
     End Property
 

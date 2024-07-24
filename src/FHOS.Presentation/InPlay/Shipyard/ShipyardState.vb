@@ -29,6 +29,8 @@ Friend Class ShipyardState
             (Mood.Prompt, .Specimen.Name),
             menu.ToArray)
             Select Case choice
+                Case Choices.ChangeEquipment
+                    Return New ChangeEquipmentState(model, ui, endState)
                 Case Else
                     .Leave()
                     Return New NeutralState(model, ui, endState)
