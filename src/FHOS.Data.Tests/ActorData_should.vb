@@ -20,12 +20,6 @@
         sut.AllChildren.ShouldHaveSingleItem
     End Sub
     <Fact>
-    Sub add_equipment()
-        Dim sut = CreateSut()
-        sut.AddEquipment(1)
-        sut.AllEquipment.ShouldHaveSingleItem
-    End Sub
-    <Fact>
     Sub add_item()
         Dim sut = CreateSut()
         sut.AddItem(1)

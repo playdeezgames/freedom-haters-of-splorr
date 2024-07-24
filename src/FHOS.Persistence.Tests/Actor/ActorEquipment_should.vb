@@ -28,14 +28,16 @@
     Sub have_default_values_when_instantiated()
         Dim sut = CreateSut()
         sut.All.ShouldBeEmpty
-        Should.Throw(Of NullReferenceException)(Sub() sut.Equip(Nothing))
+        Const equipSlot = "equip slot"
+        Should.NotThrow(Sub() sut.Equip(equipSlot, Nothing))
     End Sub
     <Fact>
     Sub equip_item()
         Dim universe = CreateUniverse()
         Dim sut = CreateSut(universe:=universe)
         Dim item = CreateItem("item type", universe:=universe)
-        sut.Equip(item)
+        Const equipSlot = "equip slot"
+        sut.Equip(equipSlot, item)
         sut.All.Count.ShouldBe(1)
         sut.All.Single.Id.ShouldBe(item.Id)
     End Sub

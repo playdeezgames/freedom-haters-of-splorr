@@ -12,8 +12,8 @@
         End Get
     End Property
 
-    Public Sub Equip(item As IItem) Implements IActorEquipment.Equip
-        EntityData.AddEquipment(item.Id)
+    Public Sub Equip(equipSlot As String, item As IItem) Implements IActorEquipment.Equip
+        EntityData.SetYokedItem(equipSlot, item?.Id)
     End Sub
 
     Friend Shared Function FromId(universeData As Data.UniverseData, id As Integer) As IActorEquipment

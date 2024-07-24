@@ -79,12 +79,12 @@ Friend Class PlayerShipActorTypeDescriptor
 
     Private Shared Sub InitializePlayerShipFuelSupply(actor As IActor)
         Dim item = ItemTypes.MarkedDescriptor(ItemTypes.FuelSupply, Marks.MarkI).CreateItem(actor.Universe)
-        actor.Equip(item)
+        actor.Equip(EquipSlots.FuelSupply, item)
     End Sub
 
     Private Shared Sub InitializePlayerShipLifeSupport(actor As IActor)
         Dim item = ItemTypes.MarkedDescriptor(ItemTypes.LifeSupport, Marks.MarkI).CreateItem(actor.Universe)
-        actor.Equip(item)
+        actor.Equip(EquipSlots.LifeSupport, item)
     End Sub
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))

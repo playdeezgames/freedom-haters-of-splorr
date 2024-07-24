@@ -23,7 +23,7 @@
 
     Public ReadOnly Property AllEquipment As IEnumerable(Of Integer)
         Get
-            Return Equipment
+            Return YokedItems.Values.Distinct
         End Get
     End Property
 

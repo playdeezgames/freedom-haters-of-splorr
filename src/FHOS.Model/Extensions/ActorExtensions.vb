@@ -125,8 +125,8 @@ Friend Module ActorExtensions
         actor.Yokes.Group(YokeTypes.StarSystem) = starSystemGroup
     End Sub
     <Extension>
-    Sub Equip(actor As IActor, item As IItem)
-        actor.Equipment.Equip(item)
+    Sub Equip(actor As IActor, equipSlot As String, item As IItem)
+        actor.Equipment.Equip(equipSlot, item)
         item.OnEquip(actor)
     End Sub
 End Module
