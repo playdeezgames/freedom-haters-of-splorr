@@ -10,10 +10,6 @@
             ItemTypes.MarkedType(ItemTypes.LifeSupport, markType),
             $"EterniVita {Marks.Descriptors(markType).Name}",
             $"This is the EterniVita {Marks.Descriptors(markType).Name} from NexGen Dynamics. Step into the future with EterniVita, the pinnacle of life support technology. Engineered to ensure uninterrupted vitality and resilience, EterniVita redefines safety and peace of mind in the most challenging environments. With its cutting-edge biostasis chambers and adaptive AI monitoring, EterniVita stands as the ultimate safeguard for explorers, colonists, and spacefarers alike. Embrace limitless possibilities with EterniVita—where every breath guarantees a secure tomorrow, today.",
-            equipSlots:=New Dictionary(Of String, Integer) From
-            {
-                {Model.EquipSlots.LifeSupport, 1}
-            },
             onEquip:=AddressOf EquipLifeSupportItem,
             price:=CalculatePrice(markType))
         Me.oxygenCapacity = Marks.Descriptors(markType).Value * OxygenCapacityPerMarkValue

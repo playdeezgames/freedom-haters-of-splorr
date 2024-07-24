@@ -12,10 +12,6 @@ Friend Class FuelSupplyItemTypeDescriptor
             ItemTypes.MarkedType(ItemTypes.FuelSupply, markType),
             $"StarLume Fuel {Marks.Descriptors(markType).Name}",
             $"This is the StarLume Fuel {Marks.Descriptors(markType).Name} from Celestial Energy Solutions. Embark on interstellar journeys with StarLume Fuel by Celestial Energy Solutions, the foremost name in propulsion innovation. Crafted from rare celestial minerals and refined through cutting-edge fusion technology, StarLume Fuel guarantees unmatched efficiency and reliability for your spacecraft. Whether you're charting new frontiers or navigating through asteroid belts, trust Celestial Energy Solutions to propel you farther and faster than ever before. Reach for the stars with StarLume Fuel—where limitless possibilities await beyond every horizon.",
-            equipSlots:=New Dictionary(Of String, Integer) From
-            {
-                {Model.EquipSlots.FuelSupply, 1}
-            },
             onEquip:=AddressOf EquipFuelSupplyItem,
             price:=CalculatePrice(markType))
         Me.fuelCapacity = Marks.Descriptors(markType).Value * FuelCapacityPerMarkValue
