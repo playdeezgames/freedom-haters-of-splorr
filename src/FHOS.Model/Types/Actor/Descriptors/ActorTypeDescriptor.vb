@@ -19,9 +19,9 @@ Friend MustInherit Class ActorTypeDescriptor
     Friend ReadOnly Property Subtype As String
     Friend ReadOnly Property CanTrade As Boolean
     Friend ReadOnly Property CanUpgradeShip As Boolean
-    Friend ReadOnly Property AvailableEquipSlots As HashSet(Of String)
+    Friend ReadOnly Property EquipSlots As IReadOnlyDictionary(Of String, Boolean)
     Friend Function HasEquipSlot(equipSlot As String) As Boolean
-        Return AvailableEquipSlots.Contains(equipSlot)
+        Return EquipSlots.ContainsKey(equipSlot)
     End Function
     Friend ReadOnly Property SpawnRolls As IReadOnlyDictionary(Of String, String)
     Friend MustOverride Function CanSpawn(location As ILocation) As Boolean
@@ -48,7 +48,7 @@ Friend MustInherit Class ActorTypeDescriptor
            Optional subtype As String = Nothing,
            Optional canTrade As Boolean = False,
            Optional canUpgradeShip As Boolean = False,
-           Optional availableEquipSlots As HashSet(Of String) = Nothing)
+           Optional availableEquipSlots As IReadOnlyDictionary(Of String, Boolean) = Nothing)
         Me.ActorType = actorType
         Me.CostumeGenerator = costumeGenerator
         Me.SpawnRolls = If(spawnRolls, New Dictionary(Of String, String))
@@ -68,7 +68,7 @@ Friend MustInherit Class ActorTypeDescriptor
         Me.Subtype = subtype
         Me.CanTrade = canTrade
         Me.CanUpgradeShip = canUpgradeShip
-        Me.AvailableEquipSlots = If(availableEquipSlots, New HashSet(Of String))
+        Me.EquipSlots = If(availableEquipSlots, New Dictionary(Of String, Boolean))
     End Sub
     Friend Function CreateActor(location As ILocation, name As String) As IActor
         Dim actor = location.CreateActor(ActorType, name)

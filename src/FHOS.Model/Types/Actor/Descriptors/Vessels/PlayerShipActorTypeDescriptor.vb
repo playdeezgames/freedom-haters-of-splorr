@@ -15,10 +15,10 @@ Friend Class PlayerShipActorTypeDescriptor
             {
                 {MapTypes.Galaxy, "1d1"}
             },
-            availableEquipSlots:=New HashSet(Of String) From
+            availableEquipSlots:=New Dictionary(Of String, Boolean) From
             {
-                EquipSlots.FuelSupply,
-                EquipSlots.LifeSupport
+                {Model.EquipSlots.FuelSupply, True},
+                {Model.EquipSlots.LifeSupport, True}
             })
     End Sub
 
@@ -74,12 +74,12 @@ Friend Class PlayerShipActorTypeDescriptor
 
     Private Shared Sub InitializePlayerShipFuelSupply(actor As IActor)
         Dim item = ItemTypes.MarkedDescriptor(ItemTypes.FuelSupply, Marks.MarkI).CreateItem(actor.Universe)
-        actor.Equip(EquipSlots.FuelSupply, item)
+        actor.Equip(Model.EquipSlots.FuelSupply, item)
     End Sub
 
     Private Shared Sub InitializePlayerShipLifeSupport(actor As IActor)
         Dim item = ItemTypes.MarkedDescriptor(ItemTypes.LifeSupport, Marks.MarkI).CreateItem(actor.Universe)
-        actor.Equip(EquipSlots.LifeSupport, item)
+        actor.Equip(Model.EquipSlots.LifeSupport, item)
     End Sub
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
