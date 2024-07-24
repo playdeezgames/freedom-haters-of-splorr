@@ -39,6 +39,12 @@
         sut.AllItems.ShouldBeEmpty
     End Sub
     <Fact>
+    Sub default_given_yoked_item_to_nothing()
+        Dim sut = CreateSut()
+        Const yokeType = "yoke type"
+        sut.GetYokedItem(yokeType).ShouldBeNull
+    End Sub
+    <Fact>
     Sub default_given_yoked_actor_to_nothing()
         Dim sut = CreateSut()
         Const yokeType = "yoke type"
@@ -51,6 +57,14 @@
         Const actorId = 1
         sut.SetYokedActor(yokeType, actorId)
         sut.GetYokedActor(yokeType).ShouldBe(actorId)
+    End Sub
+    <Fact>
+    Sub set_yoked_item()
+        Dim sut = CreateSut()
+        Const yokeType = "yoke type"
+        Const itemId = 1
+        sut.SetYokedItem(yokeType, itemId)
+        sut.GetYokedItem(yokeType).ShouldBe(itemId)
     End Sub
     <Fact>
     Sub clear_yoked_actor()

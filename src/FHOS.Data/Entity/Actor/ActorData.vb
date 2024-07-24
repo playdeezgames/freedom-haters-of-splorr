@@ -2,6 +2,7 @@
     Inherits GroupedEntityData
     Public Property Children As New HashSet(Of Integer)
     Public Property Equipment As New HashSet(Of Integer)
+    Public Property YokedItems As New Dictionary(Of String, Integer)
     Public Property YokedActors As New Dictionary(Of String, Integer)
     Public Property YokedStores As New Dictionary(Of String, Integer)
     Public Property Inventory As New HashSet(Of Integer)
@@ -83,6 +84,17 @@
         End If
     End Sub
 
+    Public Sub SetYokedItem(yokeType As String, itemId As Integer?)
+        If String.IsNullOrWhiteSpace(yokeType) Then
+            Throw New InvalidOperationException("yokeType is null or whitespace")
+        End If
+        If itemId.HasValue Then
+            YokedItems(yokeType) = itemId.Value
+        Else
+            YokedItems.Remove(yokeType)
+        End If
+    End Sub
+
     Public Sub SetYokedStore(yokeType As String, storeId As Integer?)
         If String.IsNullOrWhiteSpace(yokeType) Then
             Throw New InvalidOperationException("yokeType is null or whitespace")
@@ -109,6 +121,17 @@
         Dim actorId As Integer
         If YokedActors.TryGetValue(yokeType, actorId) Then
             Return actorId
+        End If
+        Return Nothing
+    End Function
+
+    Public Function GetYokedItem(yokeType As String) As Integer?
+        If String.IsNullOrWhiteSpace(yokeType) Then
+            Throw New InvalidOperationException("yokeType is null or whitespace")
+        End If
+        Dim itemId As Integer
+        If YokedItems.TryGetValue(yokeType, itemId) Then
+            Return itemId
         End If
         Return Nothing
     End Function
