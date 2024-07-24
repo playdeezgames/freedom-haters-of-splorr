@@ -28,6 +28,7 @@
     Sub have_default_values_when_instantiated()
         Dim sut = CreateSut()
         sut.All.ShouldBeEmpty
+        sut.AllSlots.ShouldBeEmpty
         Const equipSlot = "equip slot"
         Should.NotThrow(Sub() sut.Equip(equipSlot, Nothing))
     End Sub
@@ -39,6 +40,8 @@
         Const equipSlot = "equip slot"
         sut.Equip(equipSlot, item)
         sut.All.Count.ShouldBe(1)
+        sut.AllSlots.Count.ShouldBe(1)
         sut.All.Single.Id.ShouldBe(item.Id)
+        sut.AllSlots.Single.ShouldBe(equipSlot)
     End Sub
 End Class

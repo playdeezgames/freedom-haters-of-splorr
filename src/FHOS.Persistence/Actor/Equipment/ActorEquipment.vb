@@ -12,6 +12,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property AllSlots As IEnumerable(Of String) Implements IActorEquipment.AllSlots
+        Get
+            Return EntityData.YokedItems.Keys
+        End Get
+    End Property
+
     Public Sub Equip(equipSlot As String, item As IItem) Implements IActorEquipment.Equip
         EntityData.SetYokedItem(equipSlot, item?.Id)
     End Sub
