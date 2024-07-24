@@ -123,8 +123,15 @@ Friend Module ActorExtensions
         actor.Yokes.Group(YokeTypes.StarSystem) = starSystemGroup
     End Sub
     <Extension>
-    Sub Equip(actor As IActor, equipSlot As String, item As IItem)
-        actor.Equipment.Equip(equipSlot, item)
-        item.OnEquip(actor)
-    End Sub
+    Function Equip(actor As IActor, equipSlot As String, item As IItem) As Boolean
+        If item Is Nothing Then
+            Throw New NotImplementedException("TODO: when item is nothing... we are UNEQUIPPING")
+        End If
+        If actor.Descriptor.HasEquipSlot(equipSlot) AndAlso item.Descriptor.EquipSlot = equipSlot AndAlso actor.Equipment.GetSlot(equipSlot) Is Nothing Then
+            actor.Equipment.Equip(equipSlot, item)
+            item.OnEquip(actor)
+            Return True
+        End If
+        Return False
+    End Function
 End Module

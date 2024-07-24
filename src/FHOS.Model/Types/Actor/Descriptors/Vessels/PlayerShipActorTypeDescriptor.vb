@@ -14,6 +14,11 @@ Friend Class PlayerShipActorTypeDescriptor
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.Galaxy, "1d1"}
+            },
+            availableEquipSlots:=New HashSet(Of String) From
+            {
+                EquipSlots.FuelSupply,
+                EquipSlots.LifeSupport
             })
     End Sub
 
