@@ -14,16 +14,6 @@ Friend Class PlayerShipActorTypeDescriptor
             spawnRolls:=New Dictionary(Of String, String) From
             {
                 {MapTypes.Galaxy, "1d1"}
-            },
-            availableEquipSlots:=New Dictionary(Of String, Integer) From
-            {
-                {Model.EquipSlots.FuelSupply, 1},
-                {Model.EquipSlots.LifeSupport, 1}
-            },
-            requiredEquipSlots:=New Dictionary(Of String, Integer) From
-            {
-                {Model.EquipSlots.FuelSupply, 1},
-                {Model.EquipSlots.LifeSupport, 1}
             })
     End Sub
 

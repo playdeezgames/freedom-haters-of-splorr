@@ -10,9 +10,7 @@ Friend Class AvatarShipyardModel
 
     Public ReadOnly Property CanChangeEquipment As Boolean Implements IAvatarShipyardModel.CanChangeEquipment
         Get
-            Dim equipSlots = actor.Descriptor.RequiredEquipSlots.Keys
             'determine equipment occupying required equipment slots
-
             'TODO: detect equipment that is not optional for which i have a replacement in inventory
             Throw New NotImplementedException()
         End Get
