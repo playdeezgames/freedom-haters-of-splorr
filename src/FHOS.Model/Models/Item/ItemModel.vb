@@ -24,4 +24,7 @@ Friend Class ItemModel
     Friend Shared Function FromItem(item As IItem) As IItemModel
         Return New ItemModel(item)
     End Function
+    Friend Shared Function GetItem(model As IItemModel) As IItem
+        Return CType(model, ItemModel).item
+    End Function
 End Class

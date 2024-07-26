@@ -73,11 +73,13 @@ Friend Class PlayerShipActorTypeDescriptor
     End Sub
 
     Private Shared Sub InitializePlayerShipFuelSupply(actor As IActor)
+        actor.Yokes.Store(YokeTypes.FuelTank) = actor.Universe.Factory.CreateStore(0, 0, 0)
         Dim item = ItemTypes.MarkedDescriptor(ItemTypes.FuelSupply, Marks.MarkI).CreateItem(actor.Universe)
         actor.Equip(Model.EquipSlots.FuelSupply, item)
     End Sub
 
     Private Shared Sub InitializePlayerShipLifeSupport(actor As IActor)
+        actor.Yokes.Store(YokeTypes.LifeSupport) = actor.Universe.Factory.CreateStore(0, 0, 0)
         Dim item = ItemTypes.MarkedDescriptor(ItemTypes.LifeSupport, Marks.MarkI).CreateItem(actor.Universe)
         actor.Equip(Model.EquipSlots.LifeSupport, item)
     End Sub

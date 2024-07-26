@@ -10,4 +10,8 @@ Friend Module ItemExtensions
     Friend Sub OnEquip(item As IItem, actor As IActor)
         item.Descriptor.Equip(actor, item)
     End Sub
+    <Extension>
+    Friend Sub OnUnequip(item As IItem, actor As IActor)
+        item.Descriptor.Unequip(actor, item)
+    End Sub
 End Module

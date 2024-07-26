@@ -10,6 +10,7 @@ Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property EquipSlot As String
     Private ReadOnly onUse As Action(Of IActor, IItem)
     Private ReadOnly onEquip As Action(Of IActor, IItem)
+    Private ReadOnly onUnequip As Action(Of IActor, IItem)
     Sub New(
            itemType As String,
            name As String,
@@ -18,7 +19,8 @@ Friend MustInherit Class ItemTypeDescriptor
            Optional price As Integer = 0,
            Optional onUse As Action(Of IActor, IItem) = Nothing,
            Optional equipSlot As String = Nothing,
-           Optional onEquip As Action(Of IActor, IItem) = Nothing)
+           Optional onEquip As Action(Of IActor, IItem) = Nothing,
+           Optional onUnequip As Action(Of IActor, IItem) = Nothing)
         Me.ItemType = itemType
         Me.Name = name
         Me.Offer = offer
@@ -28,6 +30,7 @@ Friend MustInherit Class ItemTypeDescriptor
         Me.CanUse = onUse IsNot Nothing
         Me.EquipSlot = equipSlot
         Me.onEquip = onEquip
+        Me.onUnequip = onUnequip
     End Sub
     Function CreateItem(universe As IUniverse) As IItem
         Dim item = universe.Factory.CreateItem(ItemType)
@@ -43,5 +46,8 @@ Friend MustInherit Class ItemTypeDescriptor
     End Sub
     Friend Sub Equip(actor As IActor, item As IItem)
         onEquip?(actor, item)
+    End Sub
+    Friend Sub Unequip(actor As IActor, item As IItem)
+        onUnequip?(actor, item)
     End Sub
 End Class

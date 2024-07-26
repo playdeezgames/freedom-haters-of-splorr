@@ -23,10 +23,15 @@ Friend Class Store
         End Set
     End Property
 
-    Public ReadOnly Property MaximumValue As Integer? Implements IStore.MaximumValue
+    Public Property MaximumValue As Integer? Implements IStore.MaximumValue
         Get
             Return GetStatistic(PersistenceStatisticTypes.MaximumValue)
         End Get
+        Set(value As Integer?)
+            Dim currentValue = Me.CurrentValue
+            SetStatistic(PersistenceStatisticTypes.MaximumValue, value)
+            Me.CurrentValue = currentValue
+        End Set
     End Property
 
     Public ReadOnly Property MinimumValue As Integer? Implements IStore.MinimumValue

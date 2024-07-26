@@ -37,6 +37,12 @@ Friend Class AvatarInventoryItemStackModel
         End Get
     End Property
 
+    Public ReadOnly Property Items As IEnumerable(Of IItemModel) Implements IAvatarInventoryItemStackModel.Items
+        Get
+            Return actor.Inventory.Items.Where(Function(x) x.Descriptor.ItemType = itemType).Select(AddressOf ItemModel.FromItem)
+        End Get
+    End Property
+
     Private ReadOnly actor As IActor
     Private ReadOnly itemType As String
 
