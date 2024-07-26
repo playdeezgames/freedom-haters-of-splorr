@@ -39,10 +39,12 @@
 
     Friend Sub BuildShipyardUniverse(universe As IUniverse, settings As EmbarkSettings)
         Dim map = universe.Factory.CreateMap("map name", "map type", 2, 1, "location type")
-        Dim actor = map.GetLocation(0, 0).CreateActor("actor type", "actor name")
+        Dim actor = map.GetLocation(0, 0).CreateActor("PlayerShip", "actor name")
         actor.Yokes.Store("Wallet") = universe.Factory.CreateStore(0, -1)
-        actor.Inventory.Add(universe.Factory.CreateItem("Scrap"))
-        Dim shipyard = map.GetLocation(1, 0).CreateActor("shipyard", "shipyard")
+        Dim item = universe.Factory.CreateItem("FuelSupplyMarkI")
+        actor.Equipment.Equip("FuelSupply", item)
+        actor.Inventory.Add(universe.Factory.CreateItem("FuelSupplyMarkII"))
+        Dim Shipyard = map.GetLocation(1, 0).CreateActor("shipyard", "shipyard")
         actor.Yokes.Actor("Shipyard") = shipyard
         Dim group = universe.Factory.CreateGroup("group type", "group name")
         actor.Yokes.Group("Faction") = group

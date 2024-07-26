@@ -1,10 +1,10 @@
 # Freedom Haters of SPLORR!!
 
-  - [ ] 20240728 - SIGMO FHOS Episode 86 - 
-  - [ ] 20240727 - SIGMO FHOS Episode 85 - 
-  - [ ] 20240726 - SIGMO FHOS Episode 84 - 
-  - [ ] 20240725 - SIGMO FHOS Episode 83 - 
-  - [ ] 20240724 - SIGMO FHOS Episode 82 - 
+  - [ ] 20240729 - SIGMO FHOS Episode 86 - 
+  - [ ] 20240728 - SIGMO FHOS Episode 85 - 
+  - [ ] 20240727 - SIGMO FHOS Episode 84 - 
+  - [ ] 20240726 - SIGMO FHOS Episode 83 - 
+  - [x] 20240724 - SIGMO FHOS Episode 82 - 
   - [x] 20240723 - SIGMO FHOS Episode 81 - 
   - [x] 20240722 - SIGMO FHOS Episode 80 - 
   - [x] 20240720 - SIGMO FHOS Episode 79 - 
