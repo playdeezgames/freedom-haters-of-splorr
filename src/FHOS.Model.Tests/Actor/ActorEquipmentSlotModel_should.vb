@@ -4,11 +4,20 @@
         Dim sut = CreateSut()
         sut.SlotName.ShouldBe("Fuel Supply")
         sut.InstallableItems.ShouldHaveSingleItem
-        sut.Unequip().ShouldBeNull
         Should.Throw(Of NotImplementedException)(Sub() sut.Equip(Nothing))
     End Sub
+    <Fact>
+    Sub uninstall_item_from_slot()
+        Dim avatar = CreateOneStepUniverse(AddressOf BuildShipyardUniverse).State.Avatar
+        Dim sut = CreateSut(avatar)
+        Dim oldItem = sut.Unequip()
+        oldItem.ShouldNotBeNull
+        oldItem.DisplayName.ShouldBe("StarLume Fuel Mark I")
+        avatar.Equipment.Slots.ShouldBeEmpty
+        avatar.Inventory.ItemStacks.Single(Function(x) x.ItemName = "StarLume Fuel Mark I").Count.ShouldBe(1)
+    End Sub
 
-    Private Function CreateSut() As IActorEquipmentSlotModel
-        Return CreateOneStepUniverse(AddressOf BuildShipyardUniverse).State.Avatar.Shipyard.ChangeableEquipmentSlots.First
+    Private Function CreateSut(Optional avatar As IAvatarModel = Nothing) As IActorEquipmentSlotModel
+        Return If(avatar, CreateOneStepUniverse(AddressOf BuildShipyardUniverse).State.Avatar).Shipyard.ChangeableEquipmentSlots.First
     End Function
 End Class

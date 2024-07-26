@@ -36,6 +36,9 @@ Friend Class ActorEquipmentSlotModel
     End Function
 
     Public Function Unequip() As IItemModel Implements IActorEquipmentSlotModel.Unequip
-        Return Nothing
+        Dim item = actor.Equipment.GetSlot(equipSlot)
+        actor.Equipment.Equip(equipSlot, Nothing)
+        actor.Inventory.Add(item)
+        Return ItemModel.FromItem(item)
     End Function
 End Class
