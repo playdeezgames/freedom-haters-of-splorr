@@ -17,7 +17,25 @@ Friend Class ActorEquipmentSlotModel
         End Get
     End Property
 
+    Public ReadOnly Property InstallableItems As IEnumerable(Of IItemModel) Implements IActorEquipmentSlotModel.InstallableItems
+        Get
+            Return actor.
+                Inventory.
+                Items.
+                Where(Function(y) y.Descriptor.EquipSlot = equipSlot).
+                Select(AddressOf ItemModel.FromItem)
+        End Get
+    End Property
+
+    Public Sub Equip(item As IItemModel) Implements IActorEquipmentSlotModel.Equip
+        Throw New NotImplementedException()
+    End Sub
+
     Friend Shared Function FromActorAndSlot(actor As IActor, equipSlot As String) As IActorEquipmentSlotModel
         Return New ActorEquipmentSlotModel(actor, equipSlot)
+    End Function
+
+    Public Function Unequip() As IItemModel Implements IActorEquipmentSlotModel.Unequip
+        Return Nothing
     End Function
 End Class

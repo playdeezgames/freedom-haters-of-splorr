@@ -13,4 +13,5 @@
     Friend Const SaveGame = "Save Game:"
     Friend Const SPLORRPedia = "SPLORR!!Pedia:"
     Friend Const StartingWealth = "Starting Wealth:"
+    Friend Const WhichItem = "Which Item?"
 End Module
