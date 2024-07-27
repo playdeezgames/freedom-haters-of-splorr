@@ -24,6 +24,7 @@
         actor.Offers.Add(ItemTypes.Scrap)
         actor.Prices.Add(ItemTypes.OxygenTank)
         actor.Prices.Add(ItemTypes.FuelRod)
+        actor.Prices.Add(ItemTypes.AtmosphericConcentrator)
         For Each markType In Marks.Descriptors.Keys
             actor.Prices.Add(ItemTypes.MarkedType(ItemTypes.LifeSupport, markType))
             actor.Prices.Add(ItemTypes.MarkedType(ItemTypes.FuelSupply, markType))

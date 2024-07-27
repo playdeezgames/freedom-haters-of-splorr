@@ -7,7 +7,9 @@ Friend Class AtmosphericConcentratorItemTypeDescriptor
         MyBase.New(
             ItemTypes.AtmosphericConcentrator,
             "Atmospheric Concentrator",
-            "This device allows a vessel to replenish their oxygen from a planet's atmosphere.")
+            "This device allows a vessel to replenish their oxygen from a planet's atmosphere.",
+            equipSlot:=EquipSlots.Accessory,
+            price:=5000)
     End Sub
 
     Protected Overrides Sub Initialize(item As IItem)

@@ -18,7 +18,8 @@ Friend Class PlayerShipActorTypeDescriptor
             availableEquipSlots:=New Dictionary(Of String, Boolean) From
             {
                 {Model.EquipSlots.FuelSupply, True},
-                {Model.EquipSlots.LifeSupport, True}
+                {Model.EquipSlots.LifeSupport, True},
+                {Model.EquipSlots.Accessory, False}
             })
     End Sub
 
