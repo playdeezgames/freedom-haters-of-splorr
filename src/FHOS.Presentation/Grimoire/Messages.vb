@@ -10,4 +10,5 @@ Friend Module Messages
     Friend Const Generating = "Generating..."
     Friend Const Status = "Status"
     Friend Const Scanner = "SCANNER"
+    Friend Const InsufficientFunds = "Insufficient Funds."
 End Module

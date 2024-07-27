@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Model
 Imports SPLORR.Presentation
 
-Friend Class ChangeEquipmentItemConfirmState
+Friend Class ChangeEquipmentItemCompleteState
     Inherits BaseState
     Implements IState
 
@@ -24,12 +24,16 @@ Friend Class ChangeEquipmentItemConfirmState
 
     Public Overrides Function Run() As IState
         ui.Clear()
+        Dim fee = equipSlot.UninstallFee + item.InstallFee
         Dim oldItem = equipSlot.Unequip()
         If oldItem IsNot Nothing Then
             ui.WriteLine((Mood.Info, $"Uninstalled {oldItem.DisplayName} from {equipSlot.SlotName}."))
         End If
         equipSlot.Equip(item)
         ui.WriteLine((Mood.Info, $"Installed {item.DisplayName} on {equipSlot.SlotName}."))
+        If fee > 0 Then
+            ui.WriteLine((Mood.Info, $"Paid Fees: {fee}"))
+        End If
         ui.Message((Mood.Prompt, String.Empty))
         Return New ShipyardState(model, ui, endState)
     End Function

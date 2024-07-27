@@ -45,6 +45,7 @@ Friend Class ActorEquipmentSlotModel
         actor.Equipment.Equip(
             equipSlot,
             item)
+        actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= item.Descriptor.InstallFee
         item.OnEquip(actor)
     End Sub
 
@@ -57,6 +58,7 @@ Friend Class ActorEquipmentSlotModel
         actor.Equipment.Equip(equipSlot, Nothing)
         item.OnUnequip(actor)
         actor.Inventory.Add(item)
+        actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= item.Descriptor.UninstallFee
         Return ItemModel.FromItem(item)
     End Function
 End Class

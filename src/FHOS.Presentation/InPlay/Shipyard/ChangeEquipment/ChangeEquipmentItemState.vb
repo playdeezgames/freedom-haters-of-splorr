@@ -23,11 +23,20 @@ Friend Class ChangeEquipmentItemState
         If choice Is Nothing Then
             Return New ChangeEquipmentState(model, ui, endState)
         End If
-        Return New ChangeEquipmentItemConfirmState(model, ui, endState, equipSlot, choice)
+        Dim fee = ToFee(choice)
+        If fee > 0 AndAlso model.State.Avatar.Jools < fee Then
+            ui.Message((Mood.Danger, Messages.InsufficientFunds))
+            Return Me
+        End If
+        Return New ChangeEquipmentItemCompleteState(model, ui, endState, equipSlot, choice)
     End Function
 
     Private Function ToName(itemModel As IItemModel) As String
-        Dim changeFee = equipSlot.UninstallFee + itemModel.InstallFee
+        Dim changeFee = ToFee(itemModel)
         Return $"{itemModel.DisplayName}{If(changeFee > 0, $"(fee: {changeFee})", String.Empty)}"
+    End Function
+
+    Private Function ToFee(itemModel As IItemModel) As Integer
+        Return equipSlot.UninstallFee + itemModel.InstallFee
     End Function
 End Class
