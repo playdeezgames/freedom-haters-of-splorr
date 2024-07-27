@@ -4,7 +4,10 @@ Friend Class FuelScoopItemTypeDescriptor
     Inherits ItemTypeDescriptor
 
     Public Sub New()
-        MyBase.New(ItemTypes.FuelScoop, "Fuel Scoop", "This device allows a vessel to replenish fuel directly from a star.")
+        MyBase.New(
+            ItemTypes.FuelScoop,
+            "Fuel Scoop",
+            "This device allows a vessel to replenish fuel directly from a star.")
     End Sub
 
     Protected Overrides Sub Initialize(item As IItem)
