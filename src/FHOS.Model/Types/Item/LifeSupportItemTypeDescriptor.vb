@@ -19,6 +19,7 @@
 
     Private Shared Sub UnequipLifeSupportItem(actor As Persistence.IActor, item As Persistence.IItem)
         Dim store = actor.Yokes.Store(YokeTypes.LifeSupport)
+        item.Statistics(StatisticTypes.CurrentOxygenCapacity) = store.CurrentValue
         store.MaximumValue = 0
     End Sub
 
@@ -29,10 +30,11 @@
     Private Shared Sub EquipLifeSupportItem(actor As Persistence.IActor, item As Persistence.IItem)
         Dim store = actor.Yokes.Store(YokeTypes.LifeSupport)
         store.MaximumValue = item.Statistics(StatisticTypes.OxygenCapacity)
-        store.CurrentValue = If(item.Statistics(StatisticTypes.OxygenCapacity), 0)
+        store.CurrentValue = If(item.Statistics(StatisticTypes.CurrentOxygenCapacity), 0)
     End Sub
 
     Protected Overrides Sub Initialize(item As Persistence.IItem)
         item.Statistics(StatisticTypes.OxygenCapacity) = oxygenCapacity
+        item.Statistics(StatisticTypes.CurrentOxygenCapacity) = oxygenCapacity
     End Sub
 End Class
