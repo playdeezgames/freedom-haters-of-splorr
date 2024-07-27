@@ -175,12 +175,14 @@ Friend MustInherit Class BoardState
                     If cursor.HasValue AndAlso cursor.Value.X = boardX AndAlso cursor.Value.Y = boardY Then
                         ui.Write((Mood.Pink, $"["))
                         ui.Write((moodTable(foreground), $"{glyphTable(glyph)}"))
+                    ElseIf cursor.HasValue AndAlso cursor.Value.X = boardX - 1 AndAlso cursor.Value.Y = boardY Then
                         ui.Write((Mood.Pink, $"]"))
+                        ui.Write((moodTable(foreground), $"{glyphTable(glyph)}"))
                     Else
-                        ui.Write((moodTable(foreground), $" {glyphTable(glyph)} "))
+                        ui.Write((moodTable(foreground), $" {glyphTable(glyph)}"))
                     End If
                 Else
-                    ui.Write((Mood.Cyan, "..."))
+                    ui.Write((Mood.Cyan, ".."))
                 End If
             Next
             ui.WriteLine((Mood.Black, String.Empty))
