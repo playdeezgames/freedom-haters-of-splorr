@@ -3,6 +3,8 @@
 
     Private Const OxygenCapacityPerMarkValue As Integer = 250
     Private Const PricePerMarkValue As Integer = 500
+    Private Const InstallFeePerMarkValue As Integer = 10
+    Private Const UninstallFeePerMarkValue As Integer = 5
     ReadOnly Property oxygenCapacity As Integer
 
     Public Sub New(markType As String)
@@ -13,7 +15,9 @@
             onEquip:=AddressOf EquipLifeSupportItem,
             onUnequip:=AddressOf UnequipLifeSupportItem,
             price:=CalculatePrice(markType),
-            equipSlot:=EquipSlots.LifeSupport)
+            equipSlot:=EquipSlots.LifeSupport,
+            installFee:=Marks.Descriptors(markType).Value * InstallFeePerMarkValue,
+            uninstallFee:=Marks.Descriptors(markType).Value * UninstallFeePerMarkValue)
         Me.oxygenCapacity = Marks.Descriptors(markType).Value * OxygenCapacityPerMarkValue
     End Sub
 

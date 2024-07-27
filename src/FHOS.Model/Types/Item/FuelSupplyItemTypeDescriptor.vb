@@ -5,6 +5,8 @@ Friend Class FuelSupplyItemTypeDescriptor
 
     Private Const FuelCapacityPerMarkValue As Integer = 250
     Private Const PricePerMarkValue As Integer = 500
+    Private Const InstallFeePerMarkValue As Integer = 10
+    Private Const UninstallFeePerMarkValue As Integer = 5
     Private ReadOnly Property fuelCapacity As Integer
 
     Public Sub New(markType As String)
@@ -15,7 +17,9 @@ Friend Class FuelSupplyItemTypeDescriptor
             onEquip:=AddressOf EquipFuelSupplyItem,
             onUnequip:=AddressOf UnequipFuelSupplyItem,
             price:=CalculatePrice(markType),
-            equipSlot:=EquipSlots.FuelSupply)
+            equipSlot:=EquipSlots.FuelSupply,
+            installFee:=Marks.Descriptors(markType).Value * InstallFeePerMarkValue,
+            uninstallFee:=Marks.Descriptors(markType).Value * UninstallFeePerMarkValue)
         Me.fuelCapacity = Marks.Descriptors(markType).Value * FuelCapacityPerMarkValue
     End Sub
 
