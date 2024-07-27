@@ -18,11 +18,16 @@ Friend Class ChangeEquipmentItemState
             {
                 (Choices.Cancel, Nothing)
             }
-        menu.AddRange(equipSlot.InstallableItems.Select(Function(x) (x.DisplayName, x)))
+        menu.AddRange(equipSlot.InstallableItems.Select(Function(x) (ToName(x), x)))
         Dim choice = ui.Choose((Mood.Prompt, Prompts.WhichItem), menu.ToArray)
         If choice Is Nothing Then
             Return New ChangeEquipmentState(model, ui, endState)
         End If
         Return New ChangeEquipmentItemConfirmState(model, ui, endState, equipSlot, choice)
+    End Function
+
+    Private Function ToName(itemModel As IItemModel) As String
+        Dim changeFee = equipSlot.UninstallFee + itemModel.InstallFee
+        Return $"{itemModel.DisplayName}{If(changeFee > 0, $"(fee: {changeFee})", String.Empty)}"
     End Function
 End Class

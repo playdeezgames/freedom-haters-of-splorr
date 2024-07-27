@@ -3,4 +3,5 @@
     ReadOnly Property InstallableItems As IEnumerable(Of IItemModel)
     Function Unequip() As IItemModel
     Sub Equip(itemModel As IItemModel)
+    ReadOnly Property UninstallFee As Integer
 End Interface

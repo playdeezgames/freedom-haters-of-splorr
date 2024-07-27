@@ -27,6 +27,12 @@ Friend Class ActorEquipmentSlotModel
         End Get
     End Property
 
+    Public ReadOnly Property UninstallFee As Integer Implements IActorEquipmentSlotModel.UninstallFee
+        Get
+            Return actor.Equipment.GetSlot(equipSlot).Descriptor.UninstallFee
+        End Get
+    End Property
+
     Public Sub Equip(itemModel As IItemModel) Implements IActorEquipmentSlotModel.Equip
         If itemModel Is Nothing Then
             Throw New ArgumentNullException(NameOf(itemModel))

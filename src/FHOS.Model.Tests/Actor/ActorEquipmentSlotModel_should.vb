@@ -5,6 +5,7 @@
         sut.SlotName.ShouldBe("Fuel Supply")
         sut.InstallableItems.ShouldHaveSingleItem
         Should.Throw(Of ArgumentNullException)(Sub() sut.Equip(Nothing))
+        sut.UninstallFee.ShouldBe(5)
     End Sub
     <Fact>
     Sub uninstall_item_from_slot()

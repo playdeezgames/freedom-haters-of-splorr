@@ -21,6 +21,12 @@ Friend Class ItemModel
         End Get
     End Property
 
+    Public ReadOnly Property InstallFee As Integer Implements IItemModel.InstallFee
+        Get
+            Return item.Descriptor.InstallFee
+        End Get
+    End Property
+
     Friend Shared Function FromItem(item As IItem) As IItemModel
         Return New ItemModel(item)
     End Function
