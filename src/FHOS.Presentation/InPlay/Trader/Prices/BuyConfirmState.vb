@@ -22,7 +22,7 @@ Friend Class BuyConfirmState
     Public Overrides Function Run() As IState
         If ui.Confirm((Mood.Prompt, $"Buy {quantity} {price.Name} for {price.UnitPrice * quantity} Jools?")) Then
             price.Buy(quantity)
-            Return New PricesState(model, ui, endState)
+            Return New PricesState(model, ui, endState, String.Empty)
         End If
         Return New BuyQuantityState(model, ui, endState, price)
     End Function

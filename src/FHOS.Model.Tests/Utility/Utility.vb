@@ -23,6 +23,16 @@
         universe.Avatar.Push(actor)
     End Sub
 
+    Friend Sub BuildOneInventoryItemUniverse(universe As IUniverse, settings As EmbarkSettings)
+        Dim map = universe.Factory.CreateMap("map name", "map type", 1, 1, "location type")
+        Dim actor = map.GetLocation(0, 0).CreateActor("actor type", "actor name")
+        Dim item = universe.Factory.CreateItem("Scrap")
+        actor.Inventory.Add(item)
+        Dim group = universe.Factory.CreateGroup("group type", "group name")
+        actor.Yokes.Group("Faction") = group
+        universe.Avatar.Push(actor)
+    End Sub
+
     Friend Sub BuildTraderUniverse(universe As IUniverse, settings As EmbarkSettings)
         Dim map = universe.Factory.CreateMap("map name", "map type", 2, 1, "location type")
         Dim actor = map.GetLocation(0, 0).CreateActor("actor type", "actor name")
@@ -41,6 +51,7 @@
         Dim map = universe.Factory.CreateMap("map name", "map type", 2, 1, "location type")
         Dim actor = map.GetLocation(0, 0).CreateActor("PlayerShip", "actor name")
         actor.Yokes.Store("Wallet") = universe.Factory.CreateStore(0, -1)
+        actor.Yokes.Store("FuelTank") = universe.Factory.CreateStore(0, 0, 0)
         Dim item = universe.Factory.CreateItem("FuelSupplyMarkI")
         actor.Equipment.Equip("FuelSupply", item)
         actor.Inventory.Add(universe.Factory.CreateItem("FuelSupplyMarkII"))

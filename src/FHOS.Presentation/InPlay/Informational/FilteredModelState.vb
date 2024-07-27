@@ -22,6 +22,9 @@ Friend MustInherit Class FilteredModelState(Of TModel)
     Protected MustOverride ReadOnly Property PromptText As String
     Protected MustOverride Function ApplyFilter(filter As String) As IState
     Protected MustOverride Function OnSelected(model As TModel) As IState
+    Protected Overridable Function OnCancel() As IState
+        Return endState
+    End Function
     Protected MustOverride Function ToName(model As TModel) As String
 
     Public Overrides Function Run() As IState
@@ -40,7 +43,7 @@ Friend MustInherit Class FilteredModelState(Of TModel)
         End If
         Dim choice = ui.Choose((Mood.Prompt, PromptText), menu.ToArray)
         If choice Is Nothing Then
-            Return endState
+            Return OnCancel()
         End If
         If choice = String.Empty Then
             Return ApplyFilter(ui.Ask(Of String)((Mood.Prompt, "New Filter (blank to clear):"), String.Empty))
