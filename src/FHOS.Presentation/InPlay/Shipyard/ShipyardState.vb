@@ -31,6 +31,8 @@ Friend Class ShipyardState
             Select Case choice
                 Case Choices.ChangeEquipment
                     Return New ChangeEquipmentState(model, ui, endState)
+                Case Choices.InstallEquipment
+                    Return New InstallEquipmentState(model, ui, endState)
                 Case Else
                     .Leave()
                     Return New NeutralState(model, ui, endState)

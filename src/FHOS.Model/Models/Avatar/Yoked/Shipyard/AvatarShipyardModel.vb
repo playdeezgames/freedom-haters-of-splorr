@@ -50,8 +50,7 @@ Friend Class AvatarShipyardModel
         Get
             Return actor.
                 Equipment.
-                GetInstallableSlots.
-                Where(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.EquipSlot = x)).
+                GetUninstallableSlots.
                 Select(Function(x) ActorEquipmentSlotModel.FromActorAndSlot(actor, x))
         End Get
     End Property
