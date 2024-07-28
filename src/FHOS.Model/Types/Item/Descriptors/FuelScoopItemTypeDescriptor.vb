@@ -9,9 +9,9 @@ Friend Class FuelScoopItemTypeDescriptor
             "Fuel Scoop",
             "This device allows a vessel to replenish fuel directly from a star.",
             equipSlot:=EquipSlots.Accessory,
-            price:=500,
-            installFee:=20,
-            uninstallFee:=10)
+            price:=10000,
+            installFee:=100,
+            uninstallFee:=50)
     End Sub
 
     Protected Overrides Sub Initialize(item As IItem)

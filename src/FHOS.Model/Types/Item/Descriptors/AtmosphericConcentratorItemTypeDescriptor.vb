@@ -10,8 +10,8 @@ Friend Class AtmosphericConcentratorItemTypeDescriptor
             "This device allows a vessel to replenish their oxygen from a planet's atmosphere.",
             equipSlot:=EquipSlots.Accessory,
             price:=5000,
-            installFee:=20,
-            uninstallFee:=10)
+            installFee:=25,
+            uninstallFee:=15)
     End Sub
 
     Protected Overrides Sub Initialize(item As IItem)

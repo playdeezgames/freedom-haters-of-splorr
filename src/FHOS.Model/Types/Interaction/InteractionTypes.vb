@@ -14,6 +14,7 @@
     Friend ReadOnly SalvageScrap As String = NameOf(SalvageScrap)
     Friend ReadOnly Trade As String = NameOf(Trade)
     Friend ReadOnly UseFuelScoop As String = NameOf(UseFuelScoop)
+    Friend ReadOnly UseAirScoop As String = NameOf(UseAirScoop)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, InteractionTypeDescriptor) =
         New List(Of InteractionTypeDescriptor) From
@@ -32,6 +33,7 @@
             New EnterInteriorInteractionTypeDescriptor(Approach, "Approach", Function(x) x.Descriptor.IsPlanetVicinity OrElse x.Descriptor.IsStarSystem OrElse x.Descriptor.IsStarVicinity),
             New TradeInteractionTypeDescriptor(),
             New ShipyardInteractionTypeDescriptor(),
-            New UseFuelScoopInterationTypeDescriptor()
+            New UseFuelScoopInterationTypeDescriptor(),
+            New UseAirScoopInteractionTypeDescriptor()
         }.ToDictionary(Function(x) x.InteractionType, Function(x) x)
 End Module
