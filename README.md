@@ -2,7 +2,7 @@
 
   - [ ] 20240729 - SIGMO FHOS Episode 86 - 
   - [ ] 20240728 - SIGMO FHOS Episode 85 - 
-  - [ ] 20240727 - SIGMO FHOS Episode 84 - 
+  - [x] 20240727 - SIGMO FHOS Episode 84 - 
   - [x] 20240726 - SIGMO FHOS Episode 83 - 
   - [x] 20240724 - SIGMO FHOS Episode 82 - 
   - [x] 20240723 - SIGMO FHOS Episode 81 - 
