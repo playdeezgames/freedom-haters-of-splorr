@@ -20,7 +20,7 @@ Friend Class InstallEquipmentState
             menu.AddRange(installableSlots.Select(Function(x) (x.SlotName, x)))
             Dim choice = ui.Choose((Mood.Prompt, Prompts.EquipmentSlot), menu.ToArray)
             If choice IsNot Nothing Then
-                Return New InstallEquipmentItemState(model, ui, endState, choice)
+                Return New ChangeEquipmentItemState(model, ui, endState, choice)
             End If
             Return New ShipyardState(model, ui, endState)
         End With

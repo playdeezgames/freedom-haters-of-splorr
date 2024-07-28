@@ -24,13 +24,15 @@ Friend Class ChangeEquipmentItemCompleteState
 
     Public Overrides Function Run() As IState
         ui.Clear()
-        Dim fee = equipSlot.UninstallFee + item.InstallFee
-        Dim oldItem = equipSlot.Unequip()
-        If oldItem IsNot Nothing Then
+        Dim fee = equipSlot.UninstallFee + If(item?.InstallFee, 0)
+        If equipSlot.HasItem Then
+            Dim oldItem = equipSlot.Unequip()
             ui.WriteLine((Mood.Info, $"Uninstalled {oldItem.DisplayName} from {equipSlot.SlotName}."))
         End If
-        equipSlot.Equip(item)
-        ui.WriteLine((Mood.Info, $"Installed {item.DisplayName} on {equipSlot.SlotName}."))
+        If item IsNot Nothing Then
+            equipSlot.Equip(item)
+            ui.WriteLine((Mood.Info, $"Installed {item.DisplayName} on {equipSlot.SlotName}."))
+        End If
         If fee > 0 Then
             ui.WriteLine((Mood.Info, $"Paid Fees: {fee}"))
         End If

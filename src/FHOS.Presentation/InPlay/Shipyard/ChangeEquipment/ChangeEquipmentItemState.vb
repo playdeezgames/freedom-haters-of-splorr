@@ -21,7 +21,10 @@ Friend Class ChangeEquipmentItemState
         menu.AddRange(equipSlot.InstallableItems.Select(Function(x) (ToName(x), x)))
         Dim choice = ui.Choose((Mood.Prompt, Prompts.WhichItem), menu.ToArray)
         If choice Is Nothing Then
-            Return New ChangeEquipmentState(model, ui, endState)
+            If equipSlot.HasItem Then
+                Return New ChangeEquipmentState(model, ui, endState)
+            End If
+            Return New InstallEquipmentState(model, ui, endState)
         End If
         Dim fee = ToFee(choice)
         If fee > 0 AndAlso model.State.Avatar.Jools < fee Then

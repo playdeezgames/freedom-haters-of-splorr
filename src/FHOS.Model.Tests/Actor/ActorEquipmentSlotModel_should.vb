@@ -3,6 +3,7 @@
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
         sut.SlotName.ShouldBe("Fuel Supply")
+        sut.HasItem.ShouldBeTrue
         sut.InstallableItems.ShouldHaveSingleItem
         Should.Throw(Of ArgumentNullException)(Sub() sut.Equip(Nothing))
         sut.UninstallFee.ShouldBe(5)

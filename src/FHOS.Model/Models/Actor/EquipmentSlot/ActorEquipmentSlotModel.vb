@@ -29,7 +29,13 @@ Friend Class ActorEquipmentSlotModel
 
     Public ReadOnly Property UninstallFee As Integer Implements IActorEquipmentSlotModel.UninstallFee
         Get
-            Return actor.Equipment.GetSlot(equipSlot).Descriptor.UninstallFee
+            Return If(actor.Equipment.GetSlot(equipSlot)?.Descriptor?.UninstallFee, 0)
+        End Get
+    End Property
+
+    Public ReadOnly Property HasItem As Boolean Implements IActorEquipmentSlotModel.HasItem
+        Get
+            Return actor.Equipment.GetSlot(equipSlot) IsNot Nothing
         End Get
     End Property
 
