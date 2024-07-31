@@ -23,7 +23,54 @@ Friend Class AvatarEquipmentSlotModel
         End Get
     End Property
 
+    Public ReadOnly Property InstallableItems As IEnumerable(Of IItemModel) Implements IAvatarEquipmentSlotModel.InstallableItems
+        Get
+            Return actor.
+                Inventory.
+                Items.
+                Where(Function(y) y.Descriptor.EquipSlot = equipSlot).
+                Select(AddressOf ItemModel.FromItem)
+        End Get
+    End Property
+
+    Public ReadOnly Property HasItem As Boolean Implements IAvatarEquipmentSlotModel.HasItem
+        Get
+            Return actor.Equipment.GetSlot(equipSlot) IsNot Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property UninstallFee As Integer Implements IAvatarEquipmentSlotModel.UninstallFee
+        Get
+            Return If(actor.Equipment.GetSlot(equipSlot)?.Descriptor?.UninstallFee, 0)
+        End Get
+    End Property
+
+    Public Sub Equip(itemModel As IItemModel) Implements IAvatarEquipmentSlotModel.Equip
+        If itemModel Is Nothing Then
+            Throw New ArgumentNullException(NameOf(itemModel))
+        End If
+        If actor.Equipment.GetSlot(equipSlot) IsNot Nothing Then
+            Throw New InvalidOperationException("Cannot equip to an already equipped slot.")
+        End If
+        Dim item = Model.ItemModel.GetItem(itemModel)
+        actor.Inventory.Remove(item)
+        actor.Equipment.Equip(
+            equipSlot,
+            item)
+        actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= item.Descriptor.InstallFee
+        item.OnEquip(actor)
+    End Sub
+
     Friend Shared Function FromActorAndSlot(actor As IActor, equipSlot As String) As IAvatarEquipmentSlotModel
         Return New AvatarEquipmentSlotModel(actor, equipSlot)
+    End Function
+
+    Public Function Unequip() As IItemModel Implements IAvatarEquipmentSlotModel.Unequip
+        Dim item = actor.Equipment.GetSlot(equipSlot)
+        actor.Equipment.Equip(equipSlot, Nothing)
+        item.OnUnequip(actor)
+        actor.Inventory.Add(item)
+        actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= item.Descriptor.UninstallFee
+        Return ItemModel.FromItem(item)
     End Function
 End Class

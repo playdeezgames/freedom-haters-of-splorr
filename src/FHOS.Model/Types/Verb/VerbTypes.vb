@@ -2,14 +2,14 @@
 
 Public Module VerbTypes
     Public ReadOnly DistressSignal As String = NameOf(DistressSignal)
-    Public ReadOnly MoveRight As String = NameOf(MoveRight)
-    Public ReadOnly MoveUp As String = NameOf(MoveUp)
+    Public ReadOnly Equipment As String = NameOf(Equipment)
+    Public ReadOnly Inventory As String = NameOf(Inventory)
     Public ReadOnly MoveDown As String = NameOf(MoveDown)
     Public ReadOnly MoveLeft As String = NameOf(MoveLeft)
+    Public ReadOnly MoveRight As String = NameOf(MoveRight)
+    Public ReadOnly MoveUp As String = NameOf(MoveUp)
     Public ReadOnly SPLORRPedia As String = NameOf(SPLORRPedia)
     Public ReadOnly Status As String = NameOf(Status)
-    Public ReadOnly Inventory As String = NameOf(Inventory)
-    Public ReadOnly Equipment As String = NameOf(Equipment)
 
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, VerbTypeDescriptor) =
         New List(Of VerbTypeDescriptor) From
