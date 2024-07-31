@@ -6,7 +6,6 @@
     Friend ReadOnly PlanetVicinity As String = NameOf(PlanetVicinity)
     Friend ReadOnly PlanetOrbit As String = NameOf(PlanetOrbit)
     Friend ReadOnly SatelliteOrbit As String = NameOf(SatelliteOrbit)
-    Friend ReadOnly Vessel As String = NameOf(Vessel)
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, MapTypeDescriptor) =
         New List(Of MapTypeDescriptor) From
         {
@@ -16,7 +15,6 @@
             New MapTypeDescriptor(StarVicinity, "Star Vicinity", (15, 15), LocationTypes.Void),
             New MapTypeDescriptor(PlanetVicinity, "Planet Vicinity", (15, 15), LocationTypes.Void),
             New MapTypeDescriptor(PlanetOrbit, "Planet Orbit", (11, 11), LocationTypes.Void),
-            New MapTypeDescriptor(SatelliteOrbit, "Satellite Orbit", (9, 9), LocationTypes.Void),
-            New MapTypeDescriptor(Vessel, "Vessel", (5, 5), LocationTypes.Air)
+            New MapTypeDescriptor(SatelliteOrbit, "Satellite Orbit", (9, 9), LocationTypes.Void)
         }.ToDictionary(Function(x) x.MapType, Function(x) x)
 End Module

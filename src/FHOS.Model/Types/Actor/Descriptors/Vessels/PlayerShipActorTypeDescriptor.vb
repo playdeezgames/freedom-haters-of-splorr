@@ -23,23 +23,6 @@ Friend Class PlayerShipActorTypeDescriptor
             })
     End Sub
 
-    Private Shared Sub InitializePlayerShipInterior(ship As IActor)
-        Dim descriptor = MapTypes.Descriptors(MapTypes.Vessel)
-        Dim map = descriptor.CreateMap(
-            "Yer ship's interior",
-            ship.Universe)
-        ship.Interior = map
-        For Each x In Enumerable.Range(0, descriptor.Size.Columns)
-            map.GetLocation(x, 0).EntityType = LocationTypes.Bulkhead
-            map.GetLocation(x, descriptor.Size.Rows - 1).EntityType = LocationTypes.Bulkhead
-        Next
-        For Each y In Enumerable.Range(1, descriptor.Size.Rows - 2)
-            map.GetLocation(0, y).EntityType = LocationTypes.Bulkhead
-            map.GetLocation(descriptor.Size.Columns - 1, y).EntityType = LocationTypes.Bulkhead
-        Next
-        map.GetLocation(descriptor.Size.Columns \ 2, 0).EntityType = LocationTypes.MakeDoor(CardinalDirections.North, False)
-    End Sub
-
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean
         Return location.EntityType = LocationTypes.Void AndAlso location.Actor Is Nothing
     End Function
@@ -55,7 +38,6 @@ Friend Class PlayerShipActorTypeDescriptor
         actor.Yokes.Group(YokeTypes.HomePlanet) = RNG.FromEnumerable(planetCandidates)
         actor.EntityName = "(yer ship)"
         InitializePlayerShipEquipment(actor)
-        InitializePlayerShipInterior(actor)
     End Sub
 
     Private Shared Sub InitializePlayerShipEquipment(actor As IActor)
