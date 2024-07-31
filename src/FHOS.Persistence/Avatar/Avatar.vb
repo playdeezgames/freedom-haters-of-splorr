@@ -8,23 +8,24 @@
 
     Public ReadOnly Property Actor As IActor Implements IAvatar.Actor
         Get
-            Dim avatarId As Integer
-            If UniverseData.Avatars.TryPeek(avatarId) Then
-                Return Persistence.Actor.FromId(UniverseData, avatarId)
+            If UniverseData.Avatar.HasValue Then
+                Return Persistence.Actor.FromId(UniverseData, UniverseData.Avatar)
             End If
             Return Nothing
         End Get
     End Property
 
-    Public Sub Push(actor As IActor) Implements IAvatar.Push
-        UniverseData.Avatars.Push(actor.Id)
+    Public Sub SetActor(actor As IActor) Implements IAvatar.SetActor
+        UniverseData.Avatar = actor?.Id
     End Sub
 
     Friend Shared Function FromData(universeData As Data.UniverseData) As IAvatar
         Return New Avatar(universeData)
     End Function
 
-    Public Function Pop() As IActor Implements IAvatar.Pop
-        Return Persistence.Actor.FromId(UniverseData, UniverseData.Avatars.Pop())
+    Public Function RemoveActor() As IActor Implements IAvatar.RemoveActor
+        Dim result = Persistence.Actor.FromId(UniverseData, UniverseData.Avatar)
+        UniverseData.Avatar = Nothing
+        Return result
     End Function
 End Class

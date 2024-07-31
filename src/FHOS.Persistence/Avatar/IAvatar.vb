@@ -1,5 +1,5 @@
 ﻿Public Interface IAvatar
-    Sub Push(actor As IActor)
-    Function Pop() As IActor
+    Sub SetActor(actor As IActor)
+    Function RemoveActor() As IActor
     ReadOnly Property Actor As IActor
 End Interface

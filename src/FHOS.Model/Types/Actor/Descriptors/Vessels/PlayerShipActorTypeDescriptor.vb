@@ -29,7 +29,7 @@ Friend Class PlayerShipActorTypeDescriptor
 
     Protected Overrides Sub Initialize(actor As IActor)
         If actor.Universe.Avatar.Actor Is Nothing Then
-            actor.Universe.Avatar.Push(actor)
+            actor.Universe.Avatar.SetActor(actor)
         End If
         Dim sigmoFaction = actor.Universe.Groups.Single(Function(x) x.EntityType = GroupTypes.Faction AndAlso x.Statistics(StatisticTypes.Authority).Value = 100 AndAlso x.Statistics(StatisticTypes.Standards).Value = 100 AndAlso x.Statistics(StatisticTypes.Conviction).Value = 100)
         actor.Yokes.Group(YokeTypes.Faction) = sigmoFaction

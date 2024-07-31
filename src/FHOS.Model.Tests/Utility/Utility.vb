@@ -20,7 +20,7 @@
         Dim actor = map.GetLocation(0, 0).CreateActor("actor type", "actor name")
         Dim group = universe.Factory.CreateGroup("group type", "group name")
         actor.Yokes.Group("Faction") = group
-        universe.Avatar.Push(actor)
+        universe.Avatar.SetActor(actor)
     End Sub
 
     Friend Sub BuildOneInventoryItemUniverse(universe As IUniverse, settings As EmbarkSettings)
@@ -30,7 +30,7 @@
         actor.Inventory.Add(item)
         Dim group = universe.Factory.CreateGroup("group type", "group name")
         actor.Yokes.Group("Faction") = group
-        universe.Avatar.Push(actor)
+        universe.Avatar.SetActor(actor)
     End Sub
 
     Friend Sub BuildTraderUniverse(universe As IUniverse, settings As EmbarkSettings)
@@ -44,7 +44,7 @@
         actor.Yokes.Actor("Trader") = trader
         Dim group = universe.Factory.CreateGroup("group type", "group name")
         actor.Yokes.Group("Faction") = group
-        universe.Avatar.Push(actor)
+        universe.Avatar.SetActor(actor)
     End Sub
 
     Friend Sub BuildShipyardUniverse(universe As IUniverse, settings As EmbarkSettings)
@@ -59,6 +59,6 @@
         actor.Yokes.Actor("Shipyard") = shipyard
         Dim group = universe.Factory.CreateGroup("group type", "group name")
         actor.Yokes.Group("Faction") = group
-        universe.Avatar.Push(actor)
+        universe.Avatar.SetActor(actor)
     End Sub
 End Module

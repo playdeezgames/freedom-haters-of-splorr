@@ -9,11 +9,11 @@ Friend Class AvatarStackModel
     End Sub
 
     Public Sub Push(actor As IActorModel) Implements IAvatarStackModel.Push
-        MyBase.actor.Universe.Avatar.Push(ActorModel.GetActor(actor))
+        MyBase.actor.Universe.Avatar.SetActor(ActorModel.GetActor(actor))
     End Sub
 
     Public Sub Pop() Implements IAvatarStackModel.Pop
-        actor.Universe.Avatar.Pop()
+        actor.Universe.Avatar.RemoveActor()
     End Sub
 
     Friend Shared Function FromActor(actor As IActor) As IAvatarStackModel
