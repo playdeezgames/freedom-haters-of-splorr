@@ -4,7 +4,6 @@
         Dim sut = CreateSut()
         sut.Bio.ShouldNotBeNull
         sut.Interaction.ShouldNotBeNull
-        sut.Stack.ShouldNotBeNull
         sut.StarGate.ShouldNotBeNull
         sut.Trader.ShouldNotBeNull
         sut.Shipyard.ShouldNotBeNull

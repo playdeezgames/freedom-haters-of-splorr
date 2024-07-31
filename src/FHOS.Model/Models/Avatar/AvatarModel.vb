@@ -27,12 +27,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Stack As IAvatarStackModel Implements IAvatarModel.Stack
-        Get
-            Return AvatarStackModel.FromActor(actor)
-        End Get
-    End Property
-
     Public ReadOnly Property Status As IAvatarStatusModel Implements IAvatarModel.Status
         Get
             Return AvatarStatusModel.FromActor(actor)

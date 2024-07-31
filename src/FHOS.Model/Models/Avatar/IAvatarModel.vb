@@ -1,7 +1,6 @@
 ﻿Public Interface IAvatarModel
     ReadOnly Property Bio As IAvatarBioModel
     ReadOnly Property Interaction As IAvatarInteractionModel
-    ReadOnly Property Stack As IAvatarStackModel
     ReadOnly Property StarGate As IAvatarStarGateModel
     ReadOnly Property Trader As IAvatarTraderModel
     ReadOnly Property Shipyard As IAvatarShipyardModel
