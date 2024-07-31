@@ -9,6 +9,7 @@ Public Class UniverseData
     Property Stores As New Dictionary(Of Integer, StoreData)
     Property Items As New Dictionary(Of Integer, ItemData)
     Property Avatars As New Stack(Of Integer)
+    Property Avatar As Integer?
     <JsonIgnore>
     Property Messages As New Queue(Of MessageData)
     Private _nextActorId As Integer? = Nothing

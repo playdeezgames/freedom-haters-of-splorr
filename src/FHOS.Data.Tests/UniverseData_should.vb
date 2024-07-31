@@ -11,6 +11,7 @@
         sut.Items.ShouldBeEmpty
         sut.Avatars.ShouldBeEmpty
         sut.Messages.ShouldBeEmpty
+        sut.Avatar.ShouldBeNull
         'note: NextActorId (etc) have a side effect. so don't test them.
     End Sub
     <Fact>
