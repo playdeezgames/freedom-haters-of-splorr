@@ -1,5 +1,4 @@
 ﻿Friend Module ActorTypes
-    Friend ReadOnly Person As String = NameOf(Person)
     Friend ReadOnly PlayerShip As String = NameOf(PlayerShip)
     Friend ReadOnly MilitaryShip As String = NameOf(MilitaryShip)
     Friend ReadOnly TradingPost As String = NameOf(TradingPost)
@@ -25,7 +24,6 @@
         {
             New PlayerShipActorTypeDescriptor(),
             New MilitaryVesselActorTypeDescriptor(),
-            New PersonActorTypeDescriptor(),
             New TradingPostActorTypeDescriptor(),
             New StarDockActorTypeDescriptor(),
             New ShipyardActorTypeDescriptor(),
