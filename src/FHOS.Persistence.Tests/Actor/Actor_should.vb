@@ -29,7 +29,6 @@
         Const actorType = "actor type"
         Dim sut = CreateSut(actorType:=actorType)
         sut.EntityType.ShouldBe(actorType)
-        sut.Family.ShouldNotBeNull
         sut.Equipment.ShouldNotBeNull
         sut.EntityName.ShouldBe("actor name")
         sut.Location.ShouldNotBeNull

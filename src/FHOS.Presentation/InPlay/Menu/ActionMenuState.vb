@@ -28,11 +28,6 @@ Friend Class ActionMenuState
                 Return New InventoryState(model, ui, endState)
             Case VerbTypes.Equipment
                 Return New EquipmentState(model, ui, endState)
-            Case VerbTypes.Crew
-                Return New SelectCrewMemberState(model, ui, endState)
-            Case VerbTypes.Vessel
-                model.State.Avatar.Stack.Pop()
-                Return New NeutralState(model, ui, endState)
             Case VerbTypes.SPLORRPedia
                 Return New SPLORRPediaState(model, ui, endState)
             Case Else

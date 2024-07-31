@@ -14,12 +14,6 @@ Friend Class Actor
         Return Nothing
     End Function
 
-    Public ReadOnly Property Family As IActorFamily Implements IActor.Family
-        Get
-            Return ActorFamily.FromId(UniverseData, Id)
-        End Get
-    End Property
-
     Public ReadOnly Property Equipment As IActorEquipment Implements IActor.Equipment
         Get
             Return ActorEquipment.FromId(UniverseData, Id)

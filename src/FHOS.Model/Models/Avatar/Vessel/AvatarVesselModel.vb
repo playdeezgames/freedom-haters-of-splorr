@@ -8,12 +8,6 @@ Friend Class AvatarVesselModel
         MyBase.New(actor)
     End Sub
 
-    Public ReadOnly Property AvailableCrew As IEnumerable(Of (Name As String, Actor As IActorModel)) Implements IAvatarVesselModel.AvailableCrew
-        Get
-            Return actor.Family.Children.Select(Function(x) (x.EntityName, ActorModel.FromActor(x)))
-        End Get
-    End Property
-
     Public ReadOnly Property OxygenPercent As Integer Implements IAvatarVesselModel.OxygenPercent
         Get
             Return actor.Yokes.Store(YokeTypes.LifeSupport).Percent.Value

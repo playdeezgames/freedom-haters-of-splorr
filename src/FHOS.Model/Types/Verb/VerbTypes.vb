@@ -8,8 +8,6 @@ Public Module VerbTypes
     Public ReadOnly MoveLeft As String = NameOf(MoveLeft)
     Public ReadOnly SPLORRPedia As String = NameOf(SPLORRPedia)
     Public ReadOnly Status As String = NameOf(Status)
-    Public ReadOnly Crew As String = NameOf(Crew)
-    Public ReadOnly Vessel As String = NameOf(Vessel)
     Public ReadOnly Inventory As String = NameOf(Inventory)
     Public ReadOnly Equipment As String = NameOf(Equipment)
 
@@ -23,8 +21,6 @@ Public Module VerbTypes
             New DistressSignalVerbTypeDescriptor(),
             New AlwaysAvailableVerbTypeDescriptor(Status, "Status"),
             New AlwaysAvailableVerbTypeDescriptor(SPLORRPedia, "SPLORR!!Pedia"),
-            New ConditionalVerbTypeDescriptor(Crew, "Crew...", Function(Actor) Actor.Family.HasChildren),
-            New ConditionalVerbTypeDescriptor(Vessel, "Vessel...", Function(Actor) Actor.Family.Parent IsNot Nothing),
             New ConditionalVerbTypeDescriptor(Inventory, "Inventory...", Function(Actor) Actor.Inventory.Items.Any),
             New ConditionalVerbTypeDescriptor(Equipment, "Equipment...", Function(Actor) Actor.Equipment.All.Any)
         }.ToDictionary(Function(x) x.VerbType, Function(x) x)
