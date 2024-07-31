@@ -21,8 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_STUFF", "_STUFF", "{CA752F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A9D3D963-BAD8-4BD3-8DE4-2ECA90D32873}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utility", "Utility", "{E21EB721-05E4-41E4-B118-BAF4BF8D4C53}"
-EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "FHOS.Persistence.Tests", "FHOS.Persistence.Tests\FHOS.Persistence.Tests.vbproj", "{98C97C71-CA8C-4424-987A-928ACE3BCACF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{08BA4319-F76B-4EC2-BFAE-ECB5CE3A42AA}"
@@ -31,13 +29,13 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "FHOS.Model.Tests", "FHOS.Mo
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "FHOS.Data.Tests", "FHOS.Data.Tests\FHOS.Data.Tests.vbproj", "{3EE08094-F3C2-4E8A-BBF6-4F9B155EE785}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SPLORR.Presentation", "SPLORR.Presentation\SPLORR.Presentation.vbproj", "{A6C0BC7C-B74B-4C7B-9981-EE801394F6EF}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "SPLORR.Presentation", "SPLORR.Presentation\SPLORR.Presentation.vbproj", "{A6C0BC7C-B74B-4C7B-9981-EE801394F6EF}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FHOS.Presentation", "FHOS.Presentation\FHOS.Presentation.vbproj", "{054A5D7C-2481-4F6E-B5DA-AE01ACAD1A1A}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "FHOS.Presentation", "FHOS.Presentation\FHOS.Presentation.vbproj", "{054A5D7C-2481-4F6E-B5DA-AE01ACAD1A1A}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SPLORR.Presentation.Spectre", "SPLORR.Presentation.Spectre\SPLORR.Presentation.Spectre.vbproj", "{B6FF8E69-8C9B-4619-AF23-A957148EE0CE}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "SPLORR.Presentation.Spectre", "SPLORR.Presentation.Spectre\SPLORR.Presentation.Spectre.vbproj", "{B6FF8E69-8C9B-4619-AF23-A957148EE0CE}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FHOS", "FHOS\FHOS.vbproj", "{B07C9BEC-5CD5-48E4-BF36-F5F55F2DE0E0}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "FHOS", "FHOS\FHOS.vbproj", "{B07C9BEC-5CD5-48E4-BF36-F5F55F2DE0E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
