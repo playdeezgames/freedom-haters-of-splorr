@@ -13,7 +13,7 @@ Friend Class ChangeEquipmentState
         With model.State.Avatar.Shipyard
             Dim changeableSlots = .ChangeableEquipmentSlots
             ui.Clear()
-            Dim menu As New List(Of (String, IActorEquipmentSlotModel)) From
+            Dim menu As New List(Of (String, IAvatarEquipmentSlotModel)) From
                 {
                     (Choices.Cancel, Nothing)
                 }

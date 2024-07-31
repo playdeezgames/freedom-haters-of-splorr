@@ -5,9 +5,9 @@ Friend Class ChangeEquipmentItemState
     Inherits BaseState
     Implements IState
 
-    Private ReadOnly equipSlot As IActorEquipmentSlotModel
+    Private ReadOnly equipSlot As IAvatarEquipmentSlotModel
 
-    Public Sub New(model As IUniverseModel, ui As IUIContext, endState As IState, equipSlot As IActorEquipmentSlotModel)
+    Public Sub New(model As IUniverseModel, ui As IUIContext, endState As IState, equipSlot As IAvatarEquipmentSlotModel)
         MyBase.New(model, ui, endState)
         Me.equipSlot = equipSlot
     End Sub

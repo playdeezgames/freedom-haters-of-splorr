@@ -3,7 +3,7 @@
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
         sut.HomePlanet.ShouldBeNull
-        sut.Group.ShouldNotBeNull
+        sut.Faction.ShouldNotBeNull
     End Sub
 
     Private Function CreateSut() As IAvatarBioModel

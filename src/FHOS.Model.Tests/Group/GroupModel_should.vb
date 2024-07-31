@@ -9,6 +9,6 @@
     End Sub
 
     Private Function CreateSut() As IGroupModel
-        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Avatar.Bio.Group
+        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Avatar.Bio.Faction
     End Function
 End Class

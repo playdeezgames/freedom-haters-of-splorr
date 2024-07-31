@@ -14,7 +14,7 @@ Friend Class AvatarBioModel
         End Get
     End Property
 
-    Public ReadOnly Property Group As IGroupModel Implements IAvatarBioModel.Group
+    Public ReadOnly Property Faction As IGroupModel Implements IAvatarBioModel.Faction
         Get
             Return GroupModel.FromGroup(actor.Yokes.Group(YokeTypes.Faction))
         End Get

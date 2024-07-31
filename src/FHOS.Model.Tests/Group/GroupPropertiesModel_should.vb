@@ -14,6 +14,6 @@
     End Sub
 
     Private Function CreateSut() As IGroupPropertiesModel
-        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Avatar.Bio.Group.Properties
+        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Avatar.Bio.Faction.Properties
     End Function
 End Class

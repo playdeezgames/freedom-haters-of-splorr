@@ -5,14 +5,14 @@ Friend Class ChangeEquipmentItemCompleteState
     Inherits BaseState
     Implements IState
 
-    Private ReadOnly equipSlot As IActorEquipmentSlotModel
+    Private ReadOnly equipSlot As IAvatarEquipmentSlotModel
     Private ReadOnly item As IItemModel
 
     Public Sub New(
                   model As IUniverseModel,
                   ui As IUIContext,
                   endState As IState,
-                  equipSlot As IActorEquipmentSlotModel,
+                  equipSlot As IAvatarEquipmentSlotModel,
                   item As IItemModel)
         MyBase.New(
             model,

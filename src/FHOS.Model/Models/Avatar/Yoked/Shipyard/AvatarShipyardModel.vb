@@ -26,32 +26,32 @@ Friend Class AvatarShipyardModel
         End Get
     End Property
 
-    Public ReadOnly Property ChangeableEquipmentSlots As IEnumerable(Of IActorEquipmentSlotModel) Implements IAvatarShipyardModel.ChangeableEquipmentSlots
+    Public ReadOnly Property ChangeableEquipmentSlots As IEnumerable(Of IAvatarEquipmentSlotModel) Implements IAvatarShipyardModel.ChangeableEquipmentSlots
         Get
             Return actor.
                 Equipment.
                 GetRequiredSlots.
                 Where(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.EquipSlot = x)).
-                Select(Function(x) ActorEquipmentSlotModel.FromActorAndSlot(actor, x))
+                Select(Function(x) AvatarEquipmentSlotModel.FromActorAndSlot(actor, x))
         End Get
     End Property
 
-    Public ReadOnly Property InstallableEquipmentSlots As IEnumerable(Of IActorEquipmentSlotModel) Implements IAvatarShipyardModel.InstallableEquipmentSlots
+    Public ReadOnly Property InstallableEquipmentSlots As IEnumerable(Of IAvatarEquipmentSlotModel) Implements IAvatarShipyardModel.InstallableEquipmentSlots
         Get
             Return actor.
                 Equipment.
                 GetInstallableSlots.
                 Where(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.EquipSlot = x)).
-                Select(Function(x) ActorEquipmentSlotModel.FromActorAndSlot(actor, x))
+                Select(Function(x) AvatarEquipmentSlotModel.FromActorAndSlot(actor, x))
         End Get
     End Property
 
-    Public ReadOnly Property UninstallableEquipmentSlots As IEnumerable(Of IActorEquipmentSlotModel) Implements IAvatarShipyardModel.UninstallableEquipmentSlots
+    Public ReadOnly Property UninstallableEquipmentSlots As IEnumerable(Of IAvatarEquipmentSlotModel) Implements IAvatarShipyardModel.UninstallableEquipmentSlots
         Get
             Return actor.
                 Equipment.
                 GetUninstallableSlots.
-                Select(Function(x) ActorEquipmentSlotModel.FromActorAndSlot(actor, x))
+                Select(Function(x) AvatarEquipmentSlotModel.FromActorAndSlot(actor, x))
         End Get
     End Property
 

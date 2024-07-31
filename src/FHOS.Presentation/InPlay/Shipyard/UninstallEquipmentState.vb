@@ -13,7 +13,7 @@ Friend Class UninstallEquipmentState
         With model.State.Avatar.Shipyard
             Dim uninstallableSlots = .UninstallableEquipmentSlots
             ui.Clear()
-            Dim menu As New List(Of (String, IActorEquipmentSlotModel)) From
+            Dim menu As New List(Of (String, IAvatarEquipmentSlotModel)) From
                 {
                     (Choices.Cancel, Nothing)
                 }
@@ -31,7 +31,7 @@ Friend Class UninstallEquipmentState
         End With
     End Function
 
-    Private Function ToName(equipSlot As IActorEquipmentSlotModel) As String
+    Private Function ToName(equipSlot As IAvatarEquipmentSlotModel) As String
         Return equipSlot.SlotName
     End Function
 End Class
