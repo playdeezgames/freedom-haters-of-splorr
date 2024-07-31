@@ -1,24 +1,11 @@
 ﻿Public Class ActorData
     Inherits GroupedEntityData
-    Public Property Children As New HashSet(Of Integer)
     Public Property YokedItems As New Dictionary(Of String, Integer)
     Public Property YokedActors As New Dictionary(Of String, Integer)
     Public Property YokedStores As New Dictionary(Of String, Integer)
     Public Property Inventory As New HashSet(Of Integer)
     Public Property Offers As New HashSet(Of String)
     Public Property Prices As New HashSet(Of String)
-
-    Public ReadOnly Property HasChildren As Boolean
-        Get
-            Return Children.Any
-        End Get
-    End Property
-
-    Public ReadOnly Property AllChildren As IEnumerable(Of Integer)
-        Get
-            Return Children
-        End Get
-    End Property
 
     Public ReadOnly Property AllEquipment As IEnumerable(Of Integer)
         Get
@@ -55,10 +42,6 @@
             Return Prices
         End Get
     End Property
-
-    Public Sub AddChild(childId As Integer)
-        Children.Add(childId)
-    End Sub
 
     Public Sub AddItem(itemId As Integer)
         Inventory.Add(itemId)
