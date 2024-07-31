@@ -9,11 +9,11 @@
     <Fact>
     Sub sell_an_item()
         Dim avatar = CreateOneStepUniverse(AddressOf BuildTraderUniverse).State.Avatar
-        avatar.Inventory.Summary.ShouldHaveSingleItem
+        avatar.Inventory.ItemStacks.ShouldHaveSingleItem
         Dim sut = avatar.Trader.Offers.Single
         sut.JoolsOffered(1).ShouldBe(1)
         Should.NotThrow(Sub() sut.Sell(1))
-        avatar.Inventory.Summary.ShouldBeEmpty
+        avatar.Inventory.ItemStacks.ShouldBeEmpty
         avatar.Jools.ShouldBe(1)
     End Sub
     Private Shared Function CreateSut() As IAvatarTraderOfferModel

@@ -9,12 +9,6 @@ Friend Class AvatarInventoryModel
         Me.actor = actor
     End Sub
 
-    Public ReadOnly Property Summary As IEnumerable(Of (Text As String, Item As String)) Implements IAvatarInventoryModel.Summary
-        Get
-            Return actor.Inventory.Items.GroupBy(Function(x) x.Descriptor.ItemType).Select(Function(x) ($"{x.First.Descriptor.Name}(x{x.Count})", x.Key))
-        End Get
-    End Property
-
     Public ReadOnly Property ItemStacks As IEnumerable(Of IAvatarInventoryItemStackModel) Implements IAvatarInventoryModel.ItemStacks
         Get
             Return actor.Inventory.Items.GroupBy(Function(x) x.Descriptor.ItemType).Select(Function(x) AvatarInventoryItemStackModel.FromActorAndItems(actor, x.Key))
