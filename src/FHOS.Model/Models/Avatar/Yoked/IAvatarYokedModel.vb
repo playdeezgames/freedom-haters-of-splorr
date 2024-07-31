@@ -1,5 +1,4 @@
 ﻿Public Interface IAvatarYokedModel
-    ReadOnly Property IsActive As Boolean
-    Sub Leave()
+    Inherits IAvatarBaseInteractionModel
     ReadOnly Property Specimen As IActorModel
 End Interface
