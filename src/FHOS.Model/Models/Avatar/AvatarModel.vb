@@ -39,21 +39,9 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Interaction As IAvatarInteractionModel Implements IAvatarModel.Interaction
-        Get
-            Return AvatarInteractionModel.FromActor(actor)
-        End Get
-    End Property
-
     Public ReadOnly Property Vessel As IAvatarVesselModel Implements IAvatarModel.Vessel
         Get
             Return AvatarVesselModel.FromActor(actor)
-        End Get
-    End Property
-
-    Public ReadOnly Property StarGate As IAvatarStarGateModel Implements IAvatarModel.StarGate
-        Get
-            Return AvatarStarGateModel.FromActor(actor)
         End Get
     End Property
 
@@ -63,21 +51,9 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Trader As IAvatarTraderModel Implements IAvatarModel.Trader
-        Get
-            Return AvatarTraderModel.FromActor(actor)
-        End Get
-    End Property
-
     Public ReadOnly Property Inventory As IAvatarInventoryModel Implements IAvatarModel.Inventory
         Get
             Return AvatarInventoryModel.FromActor(actor)
-        End Get
-    End Property
-
-    Public ReadOnly Property Shipyard As IAvatarShipyardModel Implements IAvatarModel.Shipyard
-        Get
-            Return AvatarShipyardModel.FromActor(actor)
         End Get
     End Property
 

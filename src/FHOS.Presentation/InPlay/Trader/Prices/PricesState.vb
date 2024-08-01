@@ -10,7 +10,7 @@ Friend Class PricesState
 
     Protected Overrides ReadOnly Property ModelSource As IEnumerable(Of IAvatarTraderPriceModel)
         Get
-            Return model.State.Avatar.Trader.Prices
+            Return model.State.Avatar.Yokes.Trader.Prices
         End Get
     End Property
 

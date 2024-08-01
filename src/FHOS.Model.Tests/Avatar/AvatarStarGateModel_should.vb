@@ -9,6 +9,6 @@
     End Sub
 
     Private Shared Function CreateSut() As IAvatarStarGateModel
-        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Avatar.StarGate
+        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Avatar.Yokes.StarGate
     End Function
 End Class

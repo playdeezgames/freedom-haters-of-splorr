@@ -17,7 +17,7 @@ Friend Class StarGateState
 
     Protected Overrides ReadOnly Property ModelSource As IEnumerable(Of IActorModel)
         Get
-            Return model.State.Avatar.StarGate.AvailableGates.Select(Function(x) x.Item)
+            Return model.State.Avatar.Yokes.StarGate.AvailableGates.Select(Function(x) x.Item)
         End Get
     End Property
 
@@ -26,7 +26,7 @@ Friend Class StarGateState
     End Function
 
     Protected Overrides Function OnSelected(model As IActorModel) As IState
-        Me.model.State.Avatar.StarGate.Enter(model)
+        Me.model.State.Avatar.Yokes.StarGate.Enter(model)
         Return New NeutralState(Me.model, ui, endState)
     End Function
 

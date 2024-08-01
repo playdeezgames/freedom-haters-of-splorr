@@ -17,13 +17,13 @@ Friend Class NeutralState
                 Return New MessageState(model, ui, endState)
             ElseIf .State.Avatar.Status.GameOver Then
                 Return New GameOverState(model, ui, endState)
-            ElseIf .State.Avatar.StarGate.IsActive Then
+            ElseIf .State.Avatar.Yokes.StarGate.IsActive Then
                 Return New StarGateState(model, ui, endState, String.Empty)
-            ElseIf .State.Avatar.Shipyard.IsActive Then
+            ElseIf .State.Avatar.Yokes.Shipyard.IsActive Then
                 Return New ShipyardState(model, ui, endState)
-            ElseIf .State.Avatar.Trader.IsActive Then
+            ElseIf .State.Avatar.Yokes.Trader.IsActive Then
                 Return New TraderState(model, ui, endState)
-            ElseIf .State.Avatar.Interaction.IsActive Then
+            ElseIf .State.Avatar.Yokes.Interaction.IsActive Then
                 Return New InteractionState(model, ui, endState)
             Else
                 Return New NavigationState(model, ui, endState)

@@ -14,7 +14,7 @@
     End Sub
 
     Private Shared Function CreateSut() As IAvatarShipyardModel
-        Return CreateOneStepUniverse(AddressOf BuildShipyardUniverse).State.Avatar.Shipyard
+        Return CreateOneStepUniverse(AddressOf BuildShipyardUniverse).State.Avatar.Yokes.Shipyard
     End Function
 
 End Class

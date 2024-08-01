@@ -3,10 +3,6 @@
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
         sut.Bio.ShouldNotBeNull
-        sut.Interaction.ShouldNotBeNull
-        sut.StarGate.ShouldNotBeNull
-        sut.Trader.ShouldNotBeNull
-        sut.Shipyard.ShouldNotBeNull
         sut.State.ShouldNotBeNull
         sut.Status.ShouldNotBeNull
         sut.Verbs.ShouldNotBeNull

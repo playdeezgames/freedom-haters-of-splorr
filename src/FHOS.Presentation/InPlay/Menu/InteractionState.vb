@@ -11,8 +11,8 @@ Friend Class InteractionState
 
     Public Overrides Function Run() As IState
         ui.Clear()
-        ui.WriteLine(model.State.Avatar.Interaction.Lines.Select(Function(x) (moodTable(x.Hue), x.Text)).ToArray)
-        Dim choice = ui.Choose((Mood.Prompt, String.Empty), model.State.Avatar.Interaction.AvailableChoices.ToArray)
+        ui.WriteLine(model.State.Avatar.Yokes.Interaction.Lines.Select(Function(x) (moodTable(x.Hue), x.Text)).ToArray)
+        Dim choice = ui.Choose((Mood.Prompt, String.Empty), model.State.Avatar.Yokes.Interaction.AvailableChoices.ToArray)
         choice.Perform()
         Return New NeutralState(model, ui, endState)
     End Function

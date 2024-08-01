@@ -12,6 +12,6 @@
     End Sub
 
     Private Shared Function CreateSut() As IAvatarTraderModel
-        Return CreateOneStepUniverse(AddressOf BuildTraderUniverse).State.Avatar.Trader
+        Return CreateOneStepUniverse(AddressOf BuildTraderUniverse).State.Avatar.Yokes.Trader
     End Function
 End Class

@@ -9,7 +9,7 @@
         sut.InventoryQuantity.ShouldBe(1)
     End Sub
     Private Shared Function CreateSut() As IAvatarTraderPriceModel
-        Return CreateOneStepUniverse(AddressOf BuildTraderUniverse).State.Avatar.Trader.Prices.Single
+        Return CreateOneStepUniverse(AddressOf BuildTraderUniverse).State.Avatar.Yokes.Trader.Prices.Single
     End Function
 
 End Class

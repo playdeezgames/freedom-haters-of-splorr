@@ -10,7 +10,7 @@ Friend Class ShipyardState
     End Sub
 
     Public Overrides Function Run() As IState
-        With model.State.Avatar.Shipyard
+        With model.State.Avatar.Yokes.Shipyard
             ui.Clear()
             Dim menu As New List(Of (String, String)) From
             {

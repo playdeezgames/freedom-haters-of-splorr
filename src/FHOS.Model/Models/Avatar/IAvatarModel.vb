@@ -7,10 +7,5 @@
     ReadOnly Property Jools As Integer
     ReadOnly Property Inventory As IAvatarInventoryModel
     ReadOnly Property Equipment As IAvatarEquipmentModel
-    'TODO: these become part of "yokes"
     ReadOnly Property Yokes As IAvatarYokesModel
-    ReadOnly Property Interaction As IAvatarInteractionModel
-    ReadOnly Property StarGate As IAvatarStarGateModel
-    ReadOnly Property Trader As IAvatarTraderModel
-    ReadOnly Property Shipyard As IAvatarShipyardModel
 End Interface

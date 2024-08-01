@@ -9,6 +9,6 @@
     End Sub
 
     Private Function CreateSut() As IAvatarInteractionModel
-        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Avatar.Interaction
+        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Avatar.Yokes.Interaction
     End Function
 End Class

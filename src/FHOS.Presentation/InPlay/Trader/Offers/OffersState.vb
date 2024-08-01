@@ -10,7 +10,7 @@ Friend Class OffersState
     End Sub
 
     Public Overrides Function Run() As IState
-        If Not model.State.Avatar.Trader.Offers.Any(Function(x) x.Quantity > 0) Then
+        If Not model.State.Avatar.Yokes.Trader.Offers.Any(Function(x) x.Quantity > 0) Then
             Return New TraderState(model, ui, endState)
         End If
         ui.Clear()
@@ -19,7 +19,7 @@ Friend Class OffersState
             {
                 (Choices.Cancel, Nothing)
             }
-        menuItems.AddRange(model.State.Avatar.Trader.Offers.Select(Function(x) ($"{x.NameAndQuantity}@{x.JoolsOffered(1)}", x)))
+        menuItems.AddRange(model.State.Avatar.Yokes.Trader.Offers.Select(Function(x) ($"{x.NameAndQuantity}@{x.JoolsOffered(1)}", x)))
         Dim choice = ui.Choose((Mood.Prompt, String.Empty), menuItems.ToArray)
         If choice Is Nothing Then
             Return New TraderState(model, ui, endState)

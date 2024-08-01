@@ -11,7 +11,7 @@ Friend Class TraderState
 
     Public Overrides Function Run() As IState
         ui.Clear()
-        With model.State.Avatar.Trader
+        With model.State.Avatar.Yokes.Trader
             Dim result As New List(Of String) From
                 {
                     Choices.Cancel
