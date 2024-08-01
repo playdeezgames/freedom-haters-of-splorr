@@ -80,7 +80,9 @@ Public Class UniverseModel
 
     Public ReadOnly Property SaveState As IUniverseSaveStateModel Implements IUniverseModel.SaveState
         Get
-            Return UniverseSaveStateModel.FromUniverse(Universe)
+            Return UniverseSaveStateModel.FromUniverse(
+                Sub(d) UniverseData = d,
+                Function() UniverseData, WriteStringToFile, ReadStringFromFile)
         End Get
     End Property
 
