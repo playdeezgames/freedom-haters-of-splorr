@@ -78,6 +78,12 @@ Public Class UniverseModel
         End Get
     End Property
 
+    Public ReadOnly Property SaveState As IUniverseSaveStateModel Implements IUniverseModel.SaveState
+        Get
+            Return UniverseSaveStateModel.FromUniverse(Universe)
+        End Get
+    End Property
+
     Const EmbarkSettingsFilename = "embark-settings.json"
     Private _embarkSettings As EmbarkSettings
 
