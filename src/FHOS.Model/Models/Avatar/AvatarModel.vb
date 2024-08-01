@@ -86,4 +86,10 @@ Friend Class AvatarModel
             Return AvatarEquipmentModel.FromActor(actor)
         End Get
     End Property
+
+    Public ReadOnly Property Yokes As IAvatarYokesModel Implements IAvatarModel.Yokes
+        Get
+            Return AvatarYokesModel.FromActor(actor)
+        End Get
+    End Property
 End Class

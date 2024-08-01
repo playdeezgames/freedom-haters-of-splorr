@@ -13,6 +13,7 @@
         sut.Vessel.ShouldNotBeNull
         sut.Inventory.ShouldNotBeNull
         sut.Equipment.ShouldNotBeNull
+        sut.Yokes.ShouldNotBeNull
         Should.Throw(Of NullReferenceException)(Function() sut.Jools)
     End Sub
 
