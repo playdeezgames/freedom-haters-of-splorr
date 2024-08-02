@@ -41,7 +41,8 @@ Friend Class EmbarkMenuState
             Case Choices.ChangeFactionCount
                 Return New ChangeFactionCountState(model, ui, Me)
             Case Choices.Go
-                Return New EmbarkState(model, ui, endState)
+                model.Generator.Start()
+                Return New NeutralState(model, ui, endState)
             Case Else
                 ui.Message((Mood.Warning, $"TODO: {choice}"))
         End Select
