@@ -18,6 +18,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property CurrentStep As String Implements IInitializer.CurrentStep
+        Get
+            Return "One Step Universe Initializer"
+        End Get
+    End Property
+
     Public Sub Start(universe As IUniverse, settings As EmbarkSettings) Implements IInitializer.Start
         doStuff(universe, settings)
     End Sub

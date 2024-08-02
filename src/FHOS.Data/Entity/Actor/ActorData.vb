@@ -3,9 +3,9 @@
     Public Property YokedItems As New Dictionary(Of String, Integer)
     Public Property YokedActors As New Dictionary(Of String, Integer)
     Public Property YokedStores As New Dictionary(Of String, Integer)
-    Public Property Inventory As New HashSet(Of Integer)
-    Public Property Offers As New HashSet(Of String)
-    Public Property Prices As New HashSet(Of String)
+    Public Property InventoryItems As New HashSet(Of Integer)
+    Public Property OfferedItems As New HashSet(Of String)
+    Public Property PricedItems As New HashSet(Of String)
 
     Public ReadOnly Property AllEquipment As IEnumerable(Of Integer)
         Get
@@ -15,40 +15,40 @@
 
     Public ReadOnly Property AllItems As IEnumerable(Of Integer)
         Get
-            Return Inventory
+            Return InventoryItems
         End Get
     End Property
 
-    Public ReadOnly Property HasOffers As Boolean
+    Public ReadOnly Property HasOfferedItems As Boolean
         Get
-            Return Offers.Any
+            Return OfferedItems.Any
         End Get
     End Property
 
-    Public ReadOnly Property AllOffers As IEnumerable(Of String)
+    Public ReadOnly Property AllOfferedItems As IEnumerable(Of String)
         Get
-            Return Offers
+            Return OfferedItems
         End Get
     End Property
 
-    Public ReadOnly Property HasPrices As Boolean
+    Public ReadOnly Property HasPricedItems As Boolean
         Get
-            Return Prices.Any
+            Return PricedItems.Any
         End Get
     End Property
 
-    Public ReadOnly Property AllPrices As IEnumerable(Of String)
+    Public ReadOnly Property AllPricedItems As IEnumerable(Of String)
         Get
-            Return Prices
+            Return PricedItems
         End Get
     End Property
 
-    Public Sub AddItem(itemId As Integer)
-        Inventory.Add(itemId)
+    Public Sub AddInventoryItem(itemId As Integer)
+        InventoryItems.Add(itemId)
     End Sub
 
-    Public Sub RemoveItem(itemId As Integer)
-        Inventory.Remove(itemId)
+    Public Sub RemoveInventoryItem(itemId As Integer)
+        InventoryItems.Remove(itemId)
     End Sub
 
     Public Sub SetYokedActor(yokeType As String, actorId As Integer?)
@@ -84,12 +84,12 @@
         End If
     End Sub
 
-    Public Sub AddOffer(itemType As String)
-        Offers.Add(itemType)
+    Public Sub AddOfferedItem(itemType As String)
+        OfferedItems.Add(itemType)
     End Sub
 
-    Public Sub AddPrice(itemType As String)
-        Prices.Add(itemType)
+    Public Sub AddPricedItem(itemType As String)
+        PricedItems.Add(itemType)
     End Sub
 
     Public Function GetYokedActor(yokeType As String) As Integer?

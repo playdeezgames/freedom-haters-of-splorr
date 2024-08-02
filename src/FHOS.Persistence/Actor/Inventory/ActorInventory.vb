@@ -32,11 +32,11 @@ Friend Class ActorInventory
     End Property
 
     Public Sub Add(item As IItem) Implements IActorInventory.Add
-        EntityData.AddItem(item.Id)
+        EntityData.AddInventoryItem(item.Id)
     End Sub
 
     Public Sub Remove(item As IItem) Implements IActorInventory.Remove
-        EntityData.RemoveItem(item.Id)
+        EntityData.RemoveInventoryItem(item.Id)
     End Sub
 
     Friend Shared Function FromId(universeData As UniverseData, actorId As Integer?) As IActorInventory

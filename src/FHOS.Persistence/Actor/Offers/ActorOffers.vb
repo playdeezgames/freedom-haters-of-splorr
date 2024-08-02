@@ -16,7 +16,7 @@ Friend Class ActorOffers
 
     Public ReadOnly Property All(seller As IActor) As IEnumerable(Of String) Implements IActorOffers.All
         Get
-            Return EntityData.AllOffers.Where(Function(x) seller.Inventory.AnyOfType(x))
+            Return EntityData.AllOfferedItems.Where(Function(x) seller.Inventory.AnyOfType(x))
         End Get
     End Property
 
@@ -27,7 +27,7 @@ Friend Class ActorOffers
     End Property
 
     Public Sub Add(itemType As String) Implements IActorOffers.Add
-        EntityData.AddOffer(itemType)
+        EntityData.AddOfferedItem(itemType)
     End Sub
 
     Friend Shared Function FromId(universeData As UniverseData, id As Integer) As IActorOffers

@@ -5,22 +5,22 @@
         Dim sut = CreateSut()
         sut.AllEquipment.ShouldBeEmpty
         sut.AllItems.ShouldBeEmpty
-        sut.HasOffers.ShouldBeFalse
-        sut.AllOffers.ShouldBeEmpty
-        sut.HasPrices.ShouldBeFalse
-        sut.AllPrices.ShouldBeEmpty
+        sut.HasOfferedItems.ShouldBeFalse
+        sut.AllOfferedItems.ShouldBeEmpty
+        sut.HasPricedItems.ShouldBeFalse
+        sut.AllPricedItems.ShouldBeEmpty
     End Sub
     <Fact>
     Sub add_item()
         Dim sut = CreateSut()
-        sut.AddItem(1)
+        sut.AddInventoryItem(1)
         sut.AllItems.ShouldHaveSingleItem
     End Sub
     <Fact>
     Sub remove_item()
         Dim sut = CreateSut()
-        sut.AddItem(1)
-        sut.RemoveItem(1)
+        sut.AddInventoryItem(1)
+        sut.RemoveInventoryItem(1)
         sut.AllItems.ShouldBeEmpty
     End Sub
     <Fact>
@@ -99,19 +99,19 @@
     Sub add_offer()
         Dim sut = CreateSut()
         Const itemType = "item type"
-        sut.AddOffer(itemType)
-        sut.HasOffers.ShouldBeTrue
-        sut.AllOffers.ShouldHaveSingleItem
-        sut.AllOffers.Single.ShouldBe(itemType)
+        sut.AddOfferedItem(itemType)
+        sut.HasOfferedItems.ShouldBeTrue
+        sut.AllOfferedItems.ShouldHaveSingleItem
+        sut.AllOfferedItems.Single.ShouldBe(itemType)
     End Sub
     <Fact>
     Sub add_price()
         Dim sut = CreateSut()
         Const itemType = "item type"
-        sut.AddPrice(itemType)
-        sut.HasPrices.ShouldBeTrue
-        sut.AllPrices.ShouldHaveSingleItem
-        sut.AllPrices.Single.ShouldBe(itemType)
+        sut.AddPricedItem(itemType)
+        sut.HasPricedItems.ShouldBeTrue
+        sut.AllPricedItems.ShouldHaveSingleItem
+        sut.AllPricedItems.Single.ShouldBe(itemType)
     End Sub
     Protected Overrides Function CreateSut() As ActorData
         Return New ActorData With {.Id = 0}
