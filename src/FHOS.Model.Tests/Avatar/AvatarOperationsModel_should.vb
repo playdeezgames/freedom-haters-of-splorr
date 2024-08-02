@@ -1,4 +1,4 @@
-﻿Public Class AvatarVerbsModel_should
+﻿Public Class AvatarOperationsModel_should
     <Fact>
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
@@ -7,7 +7,7 @@
         Should.Throw(Of ArgumentNullException)(Sub() sut.Perform(Nothing))
     End Sub
 
-    Private Function CreateSut() As IAvatarVerbsModel
-        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Avatar.Verbs
+    Private Function CreateSut() As IAvatarOperationsModel
+        Return CreateOneStepUniverse(AddressOf BuildLonelyUniverse).State.Avatar.Operations
     End Function
 End Class

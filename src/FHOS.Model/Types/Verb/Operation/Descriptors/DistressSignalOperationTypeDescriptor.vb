@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class DistressSignalVerbTypeDescriptor
-    Inherits VerbTypeDescriptor
+Friend Class DistressSignalOperationTypeDescriptor
+    Inherits OperationTypeDescriptor
 
     Friend Sub New()
         MyBase.New(DistressSignal, "Signal Distress")

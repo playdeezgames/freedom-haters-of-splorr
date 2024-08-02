@@ -2,7 +2,7 @@
 Imports SPLORR.Presentation
 
 Friend Class MoveUpState
-    Inherits DoVerbState
+    Inherits DoOperationState
     Implements IState
 
     Public Sub New(
@@ -13,6 +13,6 @@ Friend Class MoveUpState
             model,
             ui,
             endState,
-            VerbTypes.MoveUp)
+            OperationTypes.MoveUp)
     End Sub
 End Class

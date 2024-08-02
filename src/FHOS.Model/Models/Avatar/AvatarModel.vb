@@ -21,9 +21,9 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Verbs As IAvatarVerbsModel Implements IAvatarModel.Verbs
+    Public ReadOnly Property Operations As IAvatarOperationsModel Implements IAvatarModel.Operations
         Get
-            Return AvatarVerbsModel.FromActor(actor)
+            Return AvatarOperationsModel.FromActor(actor)
         End Get
     End Property
 

@@ -1,12 +1,12 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class ConditionalVerbTypeDescriptor
-    Inherits VerbTypeDescriptor
+Friend Class ConditionalOperationTypeDescriptor
+    Inherits OperationTypeDescriptor
 
     Private ReadOnly checkAvailability As Func(Of IActor, Boolean)
 
-    Friend Sub New(verbType As String, text As String, checkAvailability As Func(Of IActor, Boolean))
-        MyBase.New(verbType, text)
+    Friend Sub New(operationType As String, text As String, checkAvailability As Func(Of IActor, Boolean))
+        MyBase.New(operationType, text)
         Me.checkAvailability = checkAvailability
     End Sub
 

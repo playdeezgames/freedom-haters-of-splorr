@@ -1,12 +1,12 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class MoveVerbTypeDescriptor
-    Inherits VerbTypeDescriptor
+Friend Class MoveOperationTypeDescriptor
+    Inherits OperationTypeDescriptor
     ReadOnly Property facing As Integer
 
-    Friend Sub New(verbType As String, text As String, facing As Integer)
+    Friend Sub New(operationType As String, text As String, facing As Integer)
         MyBase.New(
-            verbType,
+            operationType,
             text,
             False)
         Me.facing = facing

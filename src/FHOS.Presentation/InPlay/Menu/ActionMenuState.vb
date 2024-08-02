@@ -15,23 +15,23 @@ Friend Class ActionMenuState
             {
                 (Choices.Cancel, Choices.Cancel)
             }
-        menu.AddRange(model.State.Avatar.Verbs.Available)
+        menu.AddRange(model.State.Avatar.Operations.Available)
         Dim choice = ui.Choose(
             (Mood.Prompt, Prompts.ActionMenu),
             menu.ToArray)
         Select Case choice
             Case Choices.Cancel
                 Return New NeutralState(model, ui, endState)
-            Case VerbTypes.Status
+            Case OperationTypes.Status
                 Return New StatusState(model, ui, endState)
-            Case VerbTypes.Inventory
+            Case OperationTypes.Inventory
                 Return New InventoryState(model, ui, endState)
-            Case VerbTypes.Equipment
+            Case OperationTypes.Equipment
                 Return New EquipmentState(model, ui, endState)
-            Case VerbTypes.SPLORRPedia
+            Case OperationTypes.SPLORRPedia
                 Return New SPLORRPediaState(model, ui, endState)
             Case Else
-                Return New DoVerbState(model, ui, endState, choice)
+                Return New DoOperationState(model, ui, endState, choice)
         End Select
     End Function
 End Class

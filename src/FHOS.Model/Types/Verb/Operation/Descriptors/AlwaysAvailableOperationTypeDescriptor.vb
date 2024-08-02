@@ -1,10 +1,10 @@
 ﻿Imports FHOS.Persistence
 
-Friend Class AlwaysAvailableVerbTypeDescriptor
-    Inherits VerbTypeDescriptor
+Friend Class AlwaysAvailableOperationTypeDescriptor
+    Inherits OperationTypeDescriptor
 
-    Friend Sub New(verbType As String, text As String)
-        MyBase.New(verbType, text)
+    Friend Sub New(operationType As String, text As String)
+        MyBase.New(operationType, text)
     End Sub
 
     Protected Overrides Sub OnPerform(actor As IActor)

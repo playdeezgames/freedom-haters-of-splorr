@@ -2,7 +2,7 @@
     ReadOnly Property Bio As IAvatarBioModel
     ReadOnly Property State As IAvatarStateModel
     ReadOnly Property Status As IAvatarStatusModel
-    ReadOnly Property Verbs As IAvatarVerbsModel
+    ReadOnly Property Operations As IAvatarOperationsModel
     ReadOnly Property Vessel As IAvatarVesselModel
     ReadOnly Property Jools As Integer
     ReadOnly Property Inventory As IAvatarInventoryModel

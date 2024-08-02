@@ -2,7 +2,7 @@
 Imports SPLORR.Presentation
 
 Friend Class MoveLeftState
-    Inherits DoVerbState
+    Inherits DoOperationState
 
     Public Sub New(
                   model As IUniverseModel,
@@ -12,6 +12,6 @@ Friend Class MoveLeftState
             model,
             ui,
             endState,
-            VerbTypes.MoveLeft)
+            OperationTypes.MoveLeft)
     End Sub
 End Class

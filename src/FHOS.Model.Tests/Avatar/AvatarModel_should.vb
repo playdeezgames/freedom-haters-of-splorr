@@ -5,7 +5,7 @@
         sut.Bio.ShouldNotBeNull
         sut.State.ShouldNotBeNull
         sut.Status.ShouldNotBeNull
-        sut.Verbs.ShouldNotBeNull
+        sut.Operations.ShouldNotBeNull
         sut.Vessel.ShouldNotBeNull
         sut.Inventory.ShouldNotBeNull
         sut.Equipment.ShouldNotBeNull
