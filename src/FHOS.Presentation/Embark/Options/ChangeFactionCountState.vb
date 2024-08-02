@@ -2,7 +2,7 @@
 Imports SPLORR.Presentation
 
 Friend Class ChangeFactionCountState
-    Inherits BaseState
+    Inherits EmbarkOptionState(Of Integer)
     Implements IState
 
     Public Sub New(
@@ -12,20 +12,19 @@ Friend Class ChangeFactionCountState
         MyBase.New(
             model,
             ui,
-            endState)
+            endState,
+            Prompts.FactionCount,
+            0)
     End Sub
 
-    Public Overrides Function Run() As IState
-        Dim menu As New List(Of (Text As String, Item As Integer)) From
-            {
-                (Choices.Cancel, 0)
-            }
-        menu.AddRange(model.Settings.FactionCount.Options)
-        Dim answer = ui.Choose(
-            (Mood.Prompt, Prompts.FactionCount), menu.ToArray)
-        If answer <> 0 Then
-            model.Settings.FactionCount.SetFactionCount(answer)
-        End If
-        Return endState
+    Protected Overrides Sub OnOption(answer As Integer)
+        model.Settings.FactionCount.SetFactionCount(answer)
+    End Sub
+    Protected Overrides Function OptionSource() As IEnumerable(Of (Text As String, Item As Integer))
+        Return model.Settings.FactionCount.Options
+    End Function
+
+    Protected Overrides Function IsCancel(answer As Integer) As Boolean
+        Return answer = 0
     End Function
 End Class
