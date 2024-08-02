@@ -24,18 +24,6 @@ Public Class UniverseModel
             JsonSerializer.Serialize(EmbarkSettings))
     End Sub
 
-    Public Sub Save(filename As String) Implements IUniverseModel.Save
-        WriteStringToFile(filename, JsonSerializer.Serialize(UniverseData))
-    End Sub
-
-    Public Sub Load(filename As String) Implements IUniverseModel.Load
-        UniverseData = JsonSerializer.Deserialize(Of UniverseData)(ReadStringFromFile(filename))
-    End Sub
-
-    Public Sub Abandon() Implements IUniverseModel.Abandon
-        UniverseData = Nothing
-    End Sub
-
     Private ReadOnly Property EmbarkSettings As EmbarkSettings
         Get
             If _embarkSettings Is Nothing Then

@@ -5,12 +5,12 @@ Imports FHOS.Model
 Friend Module UniverseModelExtensions
     <Extension>
     Public Sub LoadGame(model As IUniverseModel, slot As Integer)
-        model.Load(SlotDetails(slot).Filename)
+        model.SaveState.Load(SlotDetails(slot).Filename)
     End Sub
 
     <Extension>
     Public Sub SaveGame(model As IUniverseModel, slot As Integer)
-        model.Save(SlotDetails(slot).Filename)
+        model.SaveState.Save(SlotDetails(slot).Filename)
     End Sub
 
     <Extension>
