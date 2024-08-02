@@ -2,7 +2,7 @@
 Imports SPLORR.Presentation
 
 Friend Class ChangeGalacticAgeState
-    Inherits BaseState
+    Inherits EmbarkOptionState(Of String)
     Implements IState
 
     Public Sub New(
@@ -12,20 +12,20 @@ Friend Class ChangeGalacticAgeState
         MyBase.New(
             model,
             ui,
-            endState)
+            endState,
+            Prompts.GalacticAge,
+            Choices.Cancel)
     End Sub
 
-    Public Overrides Function Run() As IState
-        Dim menu As New List(Of (Text As String, Item As String)) From
-            {
-                (Choices.Cancel, Choices.Cancel)
-            }
-        menu.AddRange(model.Settings.GalacticAge.Options)
-        Dim answer = ui.Choose(
-            (Mood.Prompt, Prompts.GalacticAge), menu.ToArray)
-        If answer <> Choices.Cancel Then
-            model.Settings.GalacticAge.SetAge(answer)
-        End If
-        Return endState
+    Protected Overrides Sub OnOption(answer As String)
+        model.Settings.GalacticAge.SetAge(answer)
+    End Sub
+
+    Protected Overrides Function OptionSource() As IEnumerable(Of (Text As String, Item As String))
+        Return model.Settings.GalacticAge.Options
+    End Function
+
+    Protected Overrides Function IsCancel(answer As String) As Boolean
+        Return answer = Choices.Cancel
     End Function
 End Class
