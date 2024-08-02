@@ -6,7 +6,6 @@ Friend MustInherit Class BoardState
     Protected Const ViewColumns = 21
     Protected Const ViewRows = 21
 
-
     Private Shared ReadOnly glyphTable As IReadOnlyDictionary(Of Char, Char) =
         New Dictionary(Of Char, Char) From
         {
@@ -166,26 +165,40 @@ Friend MustInherit Class BoardState
     Protected Const MaximumColumn = ViewColumns \ 2
     Protected Sub RenderBoard(Optional cursor As (X As Integer, Y As Integer)? = Nothing)
         For Each boardY In Enumerable.Range(MinimumRow, ViewRows)
-            For Each boardX In Enumerable.Range(MinimumColumn, ViewColumns)
-                Dim locationModel = model.State.GetLocation((boardX, boardY))
-
-                If locationModel.Exists Then
-                    Dim glyph = If(locationModel.Actor?.Sprite.Glyph, locationModel.Sprite.Glyph)
-                    Dim foreground = If(locationModel.Actor?.Sprite.Hue, locationModel.Sprite.Foreground)
-                    If cursor.HasValue AndAlso cursor.Value.X = boardX AndAlso cursor.Value.Y = boardY Then
-                        ui.Write((Mood.Pink, $"["))
-                        ui.Write((moodTable(foreground), $"{glyphTable(glyph)}"))
-                    ElseIf cursor.HasValue AndAlso cursor.Value.X = boardX - 1 AndAlso cursor.Value.Y = boardY Then
-                        ui.Write((Mood.Pink, $"]"))
-                        ui.Write((moodTable(foreground), $"{glyphTable(glyph)}"))
-                    Else
-                        ui.Write((moodTable(foreground), $" {glyphTable(glyph)}"))
-                    End If
-                Else
-                    ui.Write((Mood.Cyan, ".."))
-                End If
-            Next
-            ui.WriteLine((Mood.Black, String.Empty))
+            RenderBoardRow(cursor, boardY)
         Next
+    End Sub
+
+    Private Sub RenderBoardRow(cursor As (X As Integer, Y As Integer)?, boardY As Integer)
+        For Each boardX In Enumerable.Range(MinimumColumn, ViewColumns)
+            RenderBoardCell(cursor, boardY, boardX)
+        Next
+        ui.WriteLine((Mood.Black, String.Empty))
+    End Sub
+
+    Private Sub RenderBoardCell(cursor As (X As Integer, Y As Integer)?, boardY As Integer, boardX As Integer)
+        Dim locationModel = model.State.GetLocation((boardX, boardY))
+        If locationModel.Exists Then
+            RenderLocation(cursor, boardY, boardX, locationModel)
+        Else
+            ui.Write((Mood.Cyan, ".."))
+        End If
+    End Sub
+
+    Private Sub RenderLocation(cursor As (X As Integer, Y As Integer)?, boardY As Integer, boardX As Integer, locationModel As ILocationModel)
+        RenderCursor(cursor, boardY, boardX)
+        Dim glyph = If(locationModel.Actor?.Sprite.Glyph, locationModel.Sprite.Glyph)
+        Dim foreground = If(locationModel.Actor?.Sprite.Hue, locationModel.Sprite.Foreground)
+        ui.Write((moodTable(foreground), $"{glyphTable(glyph)}"))
+    End Sub
+
+    Private Sub RenderCursor(cursor As (X As Integer, Y As Integer)?, boardY As Integer, boardX As Integer)
+        If cursor.HasValue AndAlso cursor.Value.X = boardX AndAlso cursor.Value.Y = boardY Then
+            ui.Write((Mood.Pink, $"["))
+        ElseIf cursor.HasValue AndAlso cursor.Value.X = boardX - 1 AndAlso cursor.Value.Y = boardY Then
+            ui.Write((Mood.Pink, $"]"))
+        Else
+            ui.Write((Mood.Black, $" "))
+        End If
     End Sub
 End Class
