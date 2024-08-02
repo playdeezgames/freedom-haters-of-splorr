@@ -2,7 +2,7 @@
 Imports SPLORR.Presentation
 
 Friend Class ChangeStartingWealthState
-    Inherits BaseState
+    Inherits EmbarkOptionState(Of String)
     Implements IState
 
     Public Sub New(
@@ -12,20 +12,20 @@ Friend Class ChangeStartingWealthState
         MyBase.New(
             model,
             ui,
-            endState)
+            endState,
+            Prompts.StartingWealth,
+            Choices.Cancel)
     End Sub
 
-    Public Overrides Function Run() As IState
-        Dim menu As New List(Of (Text As String, Item As String)) From
-            {
-                (Choices.Cancel, Choices.Cancel)
-            }
-        menu.AddRange(model.Settings.StartingWealth.Options)
-        Dim answer = ui.Choose(
-            (Mood.Prompt, Prompts.StartingWealth), menu.ToArray)
-        If answer <> Choices.Cancel Then
-            model.Settings.StartingWealth.SetWealthLevel(answer)
-        End If
-        Return endState
+    Protected Overrides Sub OnOption(answer As String)
+        model.Settings.StartingWealth.SetWealthLevel(answer)
+    End Sub
+
+    Protected Overrides Function OptionSource() As IEnumerable(Of (Text As String, Item As String))
+        Return model.Settings.StartingWealth.Options
+    End Function
+
+    Protected Overrides Function IsCancel(answer As String) As Boolean
+        Return answer <> Choices.Cancel
     End Function
 End Class
