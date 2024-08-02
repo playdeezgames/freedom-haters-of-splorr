@@ -25,6 +25,13 @@ Friend Class Actor
         Return Nothing
     End Function
 
+    Public Sub SetReputation(group As IGroup, reputation As Integer?) Implements IActor.SetReputation
+        EntityData.Reputations.Remove(group.Id)
+        If reputation.HasValue Then
+            EntityData.Reputations.Add(group.Id, reputation.Value)
+        End If
+    End Sub
+
     Public ReadOnly Property Equipment As IActorEquipment Implements IActor.Equipment
         Get
             Return ActorEquipment.FromId(UniverseData, Id)

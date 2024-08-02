@@ -9,4 +9,5 @@
     ReadOnly Property Offers As IActorOffers
     ReadOnly Property Prices As IActorPrices
     Function GetReputation(group As IGroup) As Integer?
+    Sub SetReputation(group As IGroup, reputation As Integer?)
 End Interface

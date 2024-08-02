@@ -33,9 +33,12 @@ Friend Class PlayerShipActorTypeDescriptor
         End If
         Dim sigmoFaction = actor.Universe.Groups.Single(Function(x) x.EntityType = GroupTypes.Faction AndAlso x.Statistics(StatisticTypes.Authority).Value = 100 AndAlso x.Statistics(StatisticTypes.Standards).Value = 100 AndAlso x.Statistics(StatisticTypes.Conviction).Value = 100)
         actor.Yokes.Group(YokeTypes.Faction) = sigmoFaction
+        actor.SetReputation(sigmoFaction, 100)
 
         Dim planetCandidates = sigmoFaction.ChildrenOfType(GroupTypes.PlanetVicinity)
-        actor.Yokes.Group(YokeTypes.HomePlanet) = RNG.FromEnumerable(planetCandidates)
+        Dim homePlanet = RNG.FromEnumerable(planetCandidates)
+        actor.Yokes.Group(YokeTypes.HomePlanet) = homePlanet
+        actor.SetReputation(homePlanet, 100)
         actor.EntityName = "(yer ship)"
         InitializePlayerShipEquipment(actor)
     End Sub

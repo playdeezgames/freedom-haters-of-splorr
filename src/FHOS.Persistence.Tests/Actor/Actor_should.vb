@@ -39,6 +39,7 @@
         sut.Offers.ShouldNotBeNull
         sut.Prices.ShouldNotBeNull
         Should.Throw(Of ArgumentNullException)(Sub() sut.GetReputation(Nothing))
+        Should.Throw(Of ArgumentNullException)(Sub() sut.SetReputation(Nothing, Nothing))
     End Sub
     <Fact>
     Sub set_entity_name()
