@@ -10,6 +10,12 @@ Friend Class FactionizeGalaxyStep
         Me.universe = universe
     End Sub
 
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return "Factionizing Galaxy..."
+        End Get
+    End Property
+
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         FactionizePlanets(universe.Groups.Where(Function(x) x.EntityType = GroupTypes.Faction))
     End Sub

@@ -63,4 +63,10 @@ Friend Class UniverseGeneratorModel
             Return Initializer.StepsRemaining = 0
         End Get
     End Property
+
+    Public ReadOnly Property CurrentStep As String Implements IUniverseGeneratorModel.CurrentStep
+        Get
+            Return initializer.CurrentStep
+        End Get
+    End Property
 End Class

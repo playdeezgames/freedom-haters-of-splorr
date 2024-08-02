@@ -54,6 +54,13 @@ Friend Class FactionInitializationStep
             "Commonwealth",
             "Meritocracy"
         }
+
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return $"Initializing Factions..."
+        End Get
+    End Property
+
     Private Function GenerateName(names As HashSet(Of String)) As String
         Dim name As String
         Do

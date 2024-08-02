@@ -6,6 +6,13 @@ Friend Class StarSystemInitializationStep
     Private ReadOnly location As ILocation
     Private ReadOnly nameGenerator As NameGenerator
     Private ReadOnly starSystemGroup As IGroup
+
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return $"Initializing Star System {starSystemGroup.EntityName}..."
+        End Get
+    End Property
+
     Sub New(location As ILocation, nameGenerator As NameGenerator, starSystemGroup As IGroup)
         Me.location = location
         Me.nameGenerator = nameGenerator

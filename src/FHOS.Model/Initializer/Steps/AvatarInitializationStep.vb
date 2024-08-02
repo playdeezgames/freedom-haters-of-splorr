@@ -8,6 +8,13 @@ Friend Class AvatarInitializationStep
         Me.universe = universe
         Me.embarkSettings = embarkSettings
     End Sub
+
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return "Initializing Avatar..."
+        End Get
+    End Property
+
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim actor = universe.Avatar.Actor
         actor.Yokes.Store(YokeTypes.Wallet) = universe.Factory.CreateStore(

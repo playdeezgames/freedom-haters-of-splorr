@@ -9,6 +9,12 @@ Friend Class WormholeInitializationStep
         Me.startLocation = startLocation
     End Sub
 
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return "Initializing Wormhole..."
+        End Get
+    End Property
+
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim actorDescriptor = ActorTypes.Descriptors(ActorTypes.Wormhole)
         Dim starSystemActor = RNG.FromEnumerable(startLocation.Universe.Actors.Where(Function(x) x.Descriptor.IsStarSystem))

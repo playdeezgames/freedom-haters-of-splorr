@@ -1,10 +1,16 @@
-﻿Imports System.Text.RegularExpressions
-Imports FHOS.Persistence
+﻿Imports FHOS.Persistence
 
 Friend Class PlanetOrbitInitializationStep
     Inherits InitializationStep
     Private ReadOnly location As ILocation
     Private ReadOnly planetGroup As IGroup
+
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return $"Initialization Orbit of Planet {planetGroup.EntityName}..."
+        End Get
+    End Property
+
     Public Sub New(location As ILocation, planetGroup As IGroup)
         Me.location = location
         Me.planetGroup = planetGroup

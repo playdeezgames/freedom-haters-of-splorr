@@ -10,6 +10,12 @@ Friend Class EncounterInitializationStep
         Me.map = map
     End Sub
 
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return $"Initializing encounters for map {map.EntityName}..."
+        End Get
+    End Property
+
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         For Each ActorDescriptor In ActorTypes.Descriptors.Where(Function(x) x.Value.SpawnRolls.ContainsKey(map.EntityType))
             Dim spawnCount = RNG.RollDice(ActorDescriptor.Value.SpawnRolls(map.EntityType))

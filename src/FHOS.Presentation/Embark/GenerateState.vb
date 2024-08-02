@@ -15,6 +15,7 @@ Friend Class GenerateState
             model.Generator.Generate()
             ui.Clear()
             ui.WriteFiglet((Mood.Title, Messages.Generating))
+            ui.WriteLine((Mood.Info, $"Current Step: {model.Generator.CurrentStep}"))
             ui.WriteLine((Mood.Info, $"Steps Completed: {model.Generator.StepsCompleted}"))
             ui.WriteLine((Mood.Info, $"Steps To Go: {model.Generator.StepsRemaining}"))
             ui.WriteLine((Mood.Info, $"Time Taken: {(DateTimeOffset.Now - _timeStart).TotalSeconds:f1}s"))

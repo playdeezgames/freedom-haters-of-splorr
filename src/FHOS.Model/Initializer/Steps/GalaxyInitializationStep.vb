@@ -12,6 +12,13 @@ Friend Class GalaxyInitializationStep
         Me.embarkSettings = embarkSettings
         Me.nameGenerator = nameGenerator
     End Sub
+
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return "Initializing Galaxy..."
+        End Get
+    End Property
+
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim starMap = MapTypes.Descriptors(MapTypes.Galaxy).CreateMap(
             GalaxyName,

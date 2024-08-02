@@ -6,6 +6,13 @@ Friend Class StarVicinityInitializationStep
     Sub New(location As ILocation)
         Me.location = location
     End Sub
+
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return "Initializing Star Vicinity..."
+        End Get
+    End Property
+
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim descriptor = MapTypes.Descriptors(MapTypes.StarVicinity)
         Dim actor = location.Actor

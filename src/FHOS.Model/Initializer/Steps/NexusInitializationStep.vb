@@ -13,6 +13,12 @@ Friend Class NexusInitializationStep
         Me.embarkSettings = embarkSettings
     End Sub
 
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return "Initializing Nexus..."
+        End Get
+    End Property
+
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim nexusMap = MapTypes.Descriptors(MapTypes.Nexus).CreateMap(
             NexusName,

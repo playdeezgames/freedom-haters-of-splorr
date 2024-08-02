@@ -13,6 +13,19 @@ Friend Class Initializer
             Return initializationSteps.Count + finalizationSteps.Count
         End Get
     End Property
+
+    Public ReadOnly Property CurrentStep As String Implements IInitializer.CurrentStep
+        Get
+            If initializationSteps.Any Then
+                Return initializationSteps.Peek.Name
+            End If
+            If finalizationSteps.Any Then
+                Return finalizationSteps.Peek.Name
+            End If
+            Return "Done!"
+        End Get
+    End Property
+
     Private ReadOnly initializationSteps As New Queue(Of InitializationStep)
     Private ReadOnly finalizationSteps As New Queue(Of InitializationStep)
     Sub Start(universe As IUniverse, embarkSettings As EmbarkSettings) Implements IInitializer.Start

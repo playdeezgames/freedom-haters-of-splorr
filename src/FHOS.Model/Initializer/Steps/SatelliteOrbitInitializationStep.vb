@@ -8,6 +8,12 @@ Friend Class SatelliteOrbitInitializationStep
         Me.location = location
     End Sub
 
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return "Initializing Satellite Orbit..."
+        End Get
+    End Property
+
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim satellite = location.Actor
         Dim map = MapTypes.Descriptors(MapTypes.SatelliteOrbit).CreateMap($"{satellite.EntityName} Orbit", satellite.Universe)

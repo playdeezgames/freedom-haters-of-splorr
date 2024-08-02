@@ -5,6 +5,13 @@ Friend Class PlanetVicinityInitializationStep
     Inherits InitializationStep
     Private ReadOnly location As ILocation
     Private ReadOnly nameGenerator As NameGenerator
+
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return "Initializing Planet Vicinity..."
+        End Get
+    End Property
+
     Sub New(location As ILocation, nameGenerator As NameGenerator)
         Me.location = location
         Me.nameGenerator = nameGenerator
