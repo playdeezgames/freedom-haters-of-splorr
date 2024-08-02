@@ -8,4 +8,5 @@
     ReadOnly Property Inventory As IActorInventory
     ReadOnly Property Offers As IActorOffers
     ReadOnly Property Prices As IActorPrices
+    Function GetReputation(group As IGroup) As Integer?
 End Interface

@@ -23,4 +23,11 @@ Friend Class AvatarBioModel
     Friend Shared Function FromActor(actor As IActor) As IAvatarBioModel
         Return New AvatarBioModel(actor)
     End Function
+
+    Public Function Reputation(group As IGroupModel) As Integer? Implements IAvatarBioModel.Reputation
+        If group Is Nothing Then
+            Throw New ArgumentNullException(NameOf(group))
+        End If
+        Return actor.GetReputation(CType(group, GroupModel).ToGroup)
+    End Function
 End Class

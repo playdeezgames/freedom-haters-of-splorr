@@ -61,4 +61,7 @@ Friend Class GroupModel
                 Return FriendlyText
         End Select
     End Function
+    Friend Function ToGroup() As IGroup
+        Return group
+    End Function
 End Class

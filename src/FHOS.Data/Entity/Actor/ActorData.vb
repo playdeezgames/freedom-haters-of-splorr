@@ -6,6 +6,7 @@
     Public Property InventoryItems As New HashSet(Of Integer)
     Public Property OfferedItems As New HashSet(Of String)
     Public Property PricedItems As New HashSet(Of String)
+    Public Property Reputations As New Dictionary(Of Integer, Integer)
 
     Public ReadOnly Property AllEquipment As IEnumerable(Of Integer)
         Get

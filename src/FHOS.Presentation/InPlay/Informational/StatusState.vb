@@ -19,8 +19,8 @@ Friend Class StatusState
             ui.WriteLine((moodTable(Hues.ForPercentage(fuel.Value)), $"Fuel: ({avatar.Vessel.FuelQuantity}/{avatar.Vessel.FuelMaximum}){fuel.Value}%"))
         End If
         ui.WriteLine(
-        (Mood.Info, $"Faction: {avatar.Bio.Faction.Name}"),
-        (Mood.Info, $"Home Planet: {avatar.Bio.HomePlanet.Name}"))
+        (Mood.Info, $"Faction: {avatar.Bio.Faction.Name} (Reputation: {avatar.Bio.Reputation(avatar.Bio.Faction)})"),
+        (Mood.Info, $"Home Planet: {avatar.Bio.HomePlanet.Name} (Reputation: {avatar.Bio.Reputation(avatar.Bio.HomePlanet)})"))
         ui.Message((Mood.Prompt, String.Empty))
         Return New NeutralState(model, ui, endState)
     End Function

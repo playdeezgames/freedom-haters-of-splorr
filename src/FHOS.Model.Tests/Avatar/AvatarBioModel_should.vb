@@ -4,6 +4,7 @@
         Dim sut = CreateSut()
         sut.HomePlanet.ShouldBeNull
         sut.Faction.ShouldNotBeNull
+        Should.Throw(Of ArgumentNullException)(Sub() sut.Reputation(Nothing))
     End Sub
 
     Private Function CreateSut() As IAvatarBioModel

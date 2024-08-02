@@ -14,6 +14,17 @@ Friend Class Actor
         Return Nothing
     End Function
 
+    Public Function GetReputation(group As IGroup) As Integer? Implements IActor.GetReputation
+        If group Is Nothing Then
+            Throw New ArgumentNullException(NameOf(group))
+        End If
+        Dim reputation As Integer = 0
+        If EntityData.Reputations.TryGetValue(group.Id, reputation) Then
+            Return reputation
+        End If
+        Return Nothing
+    End Function
+
     Public ReadOnly Property Equipment As IActorEquipment Implements IActor.Equipment
         Get
             Return ActorEquipment.FromId(UniverseData, Id)
