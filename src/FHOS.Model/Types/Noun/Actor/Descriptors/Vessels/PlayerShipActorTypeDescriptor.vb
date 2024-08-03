@@ -31,17 +31,33 @@ Friend Class PlayerShipActorTypeDescriptor
         If actor.Universe.Avatar.Actor Is Nothing Then
             actor.Universe.Avatar.SetActor(actor)
         End If
-        Dim sigmoFaction = actor.Universe.Groups.Single(Function(x) x.EntityType = GroupTypes.Faction AndAlso x.Statistics(StatisticTypes.Authority).Value = 100 AndAlso x.Statistics(StatisticTypes.Standards).Value = 100 AndAlso x.Statistics(StatisticTypes.Conviction).Value = 100)
-        actor.Yokes.Group(YokeTypes.Faction) = sigmoFaction
-        actor.SetReputation(sigmoFaction, 100)
-
-        Dim planetCandidates = sigmoFaction.ChildrenOfType(GroupTypes.PlanetVicinity)
-        Dim homePlanet = RNG.FromEnumerable(planetCandidates)
-        actor.Yokes.Group(YokeTypes.HomePlanet) = homePlanet
-        actor.SetReputation(homePlanet, 100)
+        Dim faction As IGroup = InitializeFaction(actor)
+        Dim planet = InitializeHomePlanet(actor, faction)
+        Dim starSystem As IGroup = InitializeStarSystem(actor, planet)
         actor.EntityName = "(yer ship)"
         InitializePlayerShipEquipment(actor)
     End Sub
+
+    Private Function InitializeStarSystem(actor As IActor, planet As IGroup) As IGroup
+        Dim starSystem = planet.Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem)
+        actor.SetReputation(starSystem, 100)
+        Return starSystem
+    End Function
+
+    Private Shared Function InitializeHomePlanet(actor As IActor, faction As IGroup) As IGroup
+        Dim candidates = faction.ChildrenOfType(GroupTypes.PlanetVicinity)
+        Dim planet = RNG.FromEnumerable(candidates)
+        actor.Yokes.Group(YokeTypes.HomePlanet) = planet
+        actor.SetReputation(planet, 100)
+        Return planet
+    End Function
+
+    Private Shared Function InitializeFaction(ByRef actor As IActor) As IGroup
+        Dim sigmoFaction As IGroup = actor.Universe.Groups.Single(Function(x) x.EntityType = GroupTypes.Faction AndAlso x.Statistics(StatisticTypes.Authority).Value = 100 AndAlso x.Statistics(StatisticTypes.Standards).Value = 100 AndAlso x.Statistics(StatisticTypes.Conviction).Value = 100)
+        actor.Yokes.Group(YokeTypes.Faction) = sigmoFaction
+        actor.SetReputation(sigmoFaction, 100)
+        Return sigmoFaction
+    End Function
 
     Private Shared Sub InitializePlayerShipEquipment(actor As IActor)
         InitializePlayerShipLifeSupport(actor)
