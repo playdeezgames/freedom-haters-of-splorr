@@ -30,7 +30,7 @@ Friend Class AvatarStateModel
 
     Public ReadOnly Property Dialog As IAvatarStateDialogModel Implements IAvatarStateModel.Dialog
         Get
-            Return Nothing
+            Return AvatarStateDialogModel.FromDialog(actor.Dialog)
         End Get
     End Property
 
