@@ -1,11 +1,12 @@
 ﻿Friend Module ItemTypes
-    Friend ReadOnly FuelScoop As String = NameOf(FuelScoop)
     Friend ReadOnly AtmosphericConcentrator As String = NameOf(AtmosphericConcentrator)
-    Friend ReadOnly Scrap As String = NameOf(Scrap)
-    Friend ReadOnly OxygenTank As String = NameOf(OxygenTank)
+    Friend ReadOnly Delivery As String = NameOf(Delivery)
     Friend ReadOnly FuelRod As String = NameOf(FuelRod)
-    Friend ReadOnly LifeSupport As String = NameOf(LifeSupport)
+    Friend ReadOnly FuelScoop As String = NameOf(FuelScoop)
     Friend ReadOnly FuelSupply As String = NameOf(FuelSupply)
+    Friend ReadOnly LifeSupport As String = NameOf(LifeSupport)
+    Friend ReadOnly OxygenTank As String = NameOf(OxygenTank)
+    Friend ReadOnly Scrap As String = NameOf(Scrap)
     Friend Function MarkedType(itemType As String, markType As String) As String
         Return $"{itemType}{markType}"
     End Function
@@ -16,7 +17,8 @@
             New AtmosphericConcentratorItemTypeDescriptor(),
             New ScrapItemTypeDescriptor(),
             New OxygenTankDescriptor(),
-            New FuelRodDescriptor()
+            New FuelRodDescriptor(),
+            New DeliveryDescriptor()
         }
         For Each markType In Marks.Descriptors.Keys
             result.Add(New LifeSupportItemTypeDescriptor(markType))

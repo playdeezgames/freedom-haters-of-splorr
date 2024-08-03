@@ -40,6 +40,7 @@ Friend MustInherit Class StationActorTypeDescriptor
         Next
         Dim planetGroup = actor.Location.Map.YokedGroup(YokeTypes.Planet)
         Dim planetVicinityGroup = planetGroup.SingleParent(GroupTypes.PlanetVicinity)
+        actor.Yokes.Group(YokeTypes.Planet) = planetGroup
         Dim starSystemGroup = planetVicinityGroup.SingleParent(GroupTypes.StarSystem)
         actor.Yokes.Group(YokeTypes.StarSystem) = starSystemGroup
         planetGroup.Statistics(statisticType) += 1

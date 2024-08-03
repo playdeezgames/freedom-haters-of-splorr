@@ -1,4 +1,6 @@
-﻿Friend Class StarDockActorTypeDescriptor
+﻿Imports SPLORR.Game
+
+Friend Class StarDockActorTypeDescriptor
     Inherits StationActorTypeDescriptor
 
     Public Sub New()
@@ -30,4 +32,23 @@
     Protected Overrides Function MakeName(planet As Persistence.IActor) As String
         Return $"{planet.EntityName} Star Dock"
     End Function
+
+    Protected Overrides Sub Initialize(actor As Persistence.IActor)
+        MyBase.Initialize(actor)
+        Dim deliveryItem = actor.Universe.Factory.CreateItem(ItemTypes.Delivery)
+        actor.Inventory.Add(deliveryItem)
+        Dim planet = actor.Yokes.Group(YokeTypes.Planet)
+        deliveryItem.Statistics(StatisticTypes.OriginPlanetId) = planet.Id
+        Dim planetVicinity = planet.Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity)
+        Dim faction = planetVicinity.Parents.Single(Function(x) x.EntityType = GroupTypes.Faction)
+        Dim candidates = faction.
+            ChildrenOfType(GroupTypes.PlanetVicinity).
+            Where(Function(x) x.Id <> planetVicinity.Id).
+            Select(Function(x) x.Children.Single(Function(y) y.EntityType = GroupTypes.Planet))
+        Dim destination = RNG.FromEnumerable(candidates)
+        deliveryItem.Statistics(StatisticTypes.DestinationPlanetId) = destination.Id
+        deliveryItem.Statistics(StatisticTypes.JoolsReward) = 10
+        deliveryItem.Statistics(StatisticTypes.ReputationBonus) = 1
+        deliveryItem.Statistics(StatisticTypes.ReputationPenalty) = -5
+    End Sub
 End Class
