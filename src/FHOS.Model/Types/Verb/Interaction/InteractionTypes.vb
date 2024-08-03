@@ -1,4 +1,5 @@
 ﻿Friend Module InteractionTypes
+    Friend ReadOnly AcceptDeliveryMission As String = NameOf(AcceptDeliveryMission)
     Friend ReadOnly Approach As String = NameOf(Approach)
     Friend ReadOnly Cancel As String = NameOf(Cancel)
     Friend ReadOnly EnterOrbit As String = NameOf(EnterOrbit)
@@ -34,6 +35,7 @@
             New TradeInteractionTypeDescriptor(),
             New ShipyardInteractionTypeDescriptor(),
             New UseFuelScoopInterationTypeDescriptor(),
-            New UseAirScoopInteractionTypeDescriptor()
+            New UseAirScoopInteractionTypeDescriptor(),
+            New AcceptDeliveryMissionInteractionTypeDescriptor()
         }.ToDictionary(Function(x) x.InteractionType, Function(x) x)
 End Module

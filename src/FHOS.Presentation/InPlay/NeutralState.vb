@@ -15,6 +15,8 @@ Friend Class NeutralState
                 Return New GenerateState(model, ui, endState)
             ElseIf .State.Messages.HasAny Then
                 Return New MessageState(model, ui, endState)
+            ElseIf .State.Avatar.State.HasDialog Then
+                Return New DialogState(model, ui, endState)
             ElseIf .State.Avatar.Status.GameOver Then
                 Return New GameOverState(model, ui, endState)
             ElseIf .State.Avatar.Yokes.StarGate.IsActive Then

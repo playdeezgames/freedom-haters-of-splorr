@@ -1,4 +1,6 @@
-﻿Public Class ActorData
+﻿Imports System.Text.Json.Serialization
+
+Public Class ActorData
     Inherits GroupedEntityData
     Public Property YokedItems As New Dictionary(Of String, Integer)
     Public Property YokedActors As New Dictionary(Of String, Integer)
@@ -7,6 +9,8 @@
     Public Property OfferedItems As New HashSet(Of String)
     Public Property PricedItems As New HashSet(Of String)
     Public Property Reputations As New Dictionary(Of Integer, Integer)
+    <JsonIgnore>
+    Public Property Dialog As IDialog = Nothing
 
     Public ReadOnly Property AllEquipment As IEnumerable(Of Integer)
         Get

@@ -26,6 +26,9 @@ Friend Class Actor
     End Function
 
     Public Sub SetReputation(group As IGroup, reputation As Integer?) Implements IActor.SetReputation
+        If group Is Nothing Then
+            Throw New ArgumentNullException(NameOf(group))
+        End If
         EntityData.Reputations.Remove(group.Id)
         If reputation.HasValue Then
             EntityData.Reputations.Add(group.Id, reputation.Value)
@@ -91,5 +94,14 @@ Friend Class Actor
         Get
             Return ActorPrices.FromId(UniverseData, Id)
         End Get
+    End Property
+
+    Public Property Dialog As IDialog Implements IActor.Dialog
+        Get
+            Return EntityData.Dialog
+        End Get
+        Set(value As IDialog)
+            EntityData.Dialog = value
+        End Set
     End Property
 End Class

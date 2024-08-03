@@ -22,6 +22,18 @@ Friend Class AvatarStateModel
         End Get
     End Property
 
+    Public ReadOnly Property HasDialog As Boolean Implements IAvatarStateModel.HasDialog
+        Get
+            Return actor.Dialog IsNot Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property Dialog As IAvatarStateDialogModel Implements IAvatarStateModel.Dialog
+        Get
+            Return Nothing
+        End Get
+    End Property
+
     Friend Shared Function FromActor(actor As IActor) As IAvatarStateModel
         Return New AvatarStateModel(actor)
     End Function
