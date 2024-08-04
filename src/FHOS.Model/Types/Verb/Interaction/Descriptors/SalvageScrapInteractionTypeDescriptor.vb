@@ -25,7 +25,7 @@ Friend Class SalvageScrapInteractionTypeDescriptor
                                                    {
                                                        ("You find:", Hues.LightGray)
                                                    }
-                                               lines.AddRange(loot.GroupBy(Function(x) x.Descriptor.Name).Select(Function(x) ($"{x.Count} {x.Key}", Hues.LightGray)))
+                                               lines.AddRange(loot.GroupBy(Function(x) x.EntityName).Select(Function(x) ($"{x.Count} {x.Key}", Hues.LightGray)))
                                                a.Universe.Messages.Add("Salvage!", lines.ToArray)
                                                Dim starSystemGroup = a.Location.Map.YokedGroup(GroupTypes.StarSystem)
                                                starSystemGroup.Statistics(StatisticTypes.Scrap) -= 1

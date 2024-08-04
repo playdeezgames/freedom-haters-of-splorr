@@ -11,7 +11,7 @@ Friend Class ItemModel
 
     Public ReadOnly Property DisplayName As String Implements IItemModel.DisplayName
         Get
-            Return item.Descriptor.Name
+            Return item.EntityName
         End Get
     End Property
 

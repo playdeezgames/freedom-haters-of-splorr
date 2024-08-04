@@ -16,6 +16,7 @@ Friend MustInherit Class ItemTypeDescriptor
     Private ReadOnly onUse As Action(Of IActor, IItem)
     Private ReadOnly onEquip As Action(Of IActor, IItem)
     Private ReadOnly onUnequip As Action(Of IActor, IItem)
+    Private ReadOnly toEntityName As Func(Of IItem, String)
     Sub New(
            itemType As String,
            name As String,
@@ -27,7 +28,8 @@ Friend MustInherit Class ItemTypeDescriptor
            Optional onEquip As Action(Of IActor, IItem) = Nothing,
            Optional onUnequip As Action(Of IActor, IItem) = Nothing,
            Optional installFee As Integer = 0,
-           Optional uninstallFee As Integer = 0)
+           Optional uninstallFee As Integer = 0,
+           Optional toEntityName As Func(Of IItem, String) = Nothing)
         Me.ItemType = itemType
         Me.Name = name
         Me.Offer = offer
@@ -40,6 +42,7 @@ Friend MustInherit Class ItemTypeDescriptor
         Me.onUnequip = onUnequip
         Me.InstallFee = installFee
         Me.UninstallFee = uninstallFee
+        Me.toEntityName = toEntityName
     End Sub
     Function CreateItem(universe As IUniverse) As IItem
         Dim item = universe.Factory.CreateItem(ItemType)
@@ -59,4 +62,7 @@ Friend MustInherit Class ItemTypeDescriptor
     Friend Sub Unequip(actor As IActor, item As IItem)
         onUnequip?(actor, item)
     End Sub
+    Friend Function GetEntityName(item As IItem) As String
+        Return If(toEntityName IsNot Nothing, toEntityName(item), Name)
+    End Function
 End Class

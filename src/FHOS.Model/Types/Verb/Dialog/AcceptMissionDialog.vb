@@ -34,11 +34,14 @@ Friend Class AcceptMissionDialog
     End Property
 
     Private Function ToChoice(item As IItem) As (Text As String, Value As Action)
-        Return (item.Descriptor.Name, Sub() Return)
+        Return (item.EntityName, Sub() AcceptDeliveryMission(item))
     End Function
 
     Private Sub CancelDialog()
         actor.Dialog = Nothing
         actor.Yokes.Actor(YokeTypes.Interactor) = starDock
+    End Sub
+    Private Sub AcceptDeliveryMission(item As IItem)
+        actor.Dialog = New DeliveryMissionSummaryDialog(actor, starDock, item)
     End Sub
 End Class
