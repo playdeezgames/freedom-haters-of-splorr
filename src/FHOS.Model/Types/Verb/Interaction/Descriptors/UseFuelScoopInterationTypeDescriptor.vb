@@ -17,7 +17,7 @@ Friend Class UseFuelScoopInterationTypeDescriptor
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
         Return New InteractionModel(actor, Sub(a)
-                                               Dim store = a.Yokes.Store(YokeTypes.FuelTank)
+                                               Dim store = a.FuelTank
                                                store.CurrentValue = store.MaximumValue.Value
                                                a.ClearInteractor()
                                            End Sub)

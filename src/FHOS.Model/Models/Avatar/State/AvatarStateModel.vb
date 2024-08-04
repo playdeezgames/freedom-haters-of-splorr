@@ -10,9 +10,7 @@ Friend Class AvatarStateModel
 
     Public ReadOnly Property Position As (X As Integer, Y As Integer) Implements IAvatarStateModel.Position
         Get
-            With actor.Location
-                Return .Position
-            End With
+            Return actor.Location.Position
         End Get
     End Property
 
@@ -30,11 +28,7 @@ Friend Class AvatarStateModel
 
     Public ReadOnly Property Dialog As IAvatarStateDialogModel Implements IAvatarStateModel.Dialog
         Get
-            Dim dlg = actor.Dialog
-            If dlg Is Nothing Then
-                Return Nothing
-            End If
-            Return AvatarStateDialogModel.FromDialog(dlg)
+            Return AvatarStateDialogModel.FromDialog(actor?.Dialog)
         End Get
     End Property
 

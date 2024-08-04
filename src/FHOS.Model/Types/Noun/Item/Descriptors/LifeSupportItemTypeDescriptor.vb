@@ -22,7 +22,7 @@
     End Sub
 
     Private Shared Sub UnequipLifeSupportItem(actor As Persistence.IActor, item As Persistence.IItem)
-        Dim store = actor.Yokes.Store(YokeTypes.LifeSupport)
+        Dim store = actor.LifeSupport
         item.Statistics(StatisticTypes.CurrentOxygenCapacity) = store.CurrentValue
         store.MaximumValue = 0
     End Sub
@@ -32,7 +32,7 @@
     End Function
 
     Private Shared Sub EquipLifeSupportItem(actor As Persistence.IActor, item As Persistence.IItem)
-        Dim store = actor.Yokes.Store(YokeTypes.LifeSupport)
+        Dim store = actor.LifeSupport
         store.MaximumValue = item.Statistics(StatisticTypes.OxygenCapacity)
         store.CurrentValue = If(item.Statistics(StatisticTypes.CurrentOxygenCapacity), 0)
     End Sub

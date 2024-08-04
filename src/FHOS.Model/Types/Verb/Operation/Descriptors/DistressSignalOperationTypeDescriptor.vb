@@ -8,10 +8,10 @@ Friend Class DistressSignalOperationTypeDescriptor
     End Sub
 
     Protected Overrides Sub OnPerform(actor As IActor)
-        Dim fuelAdded = actor.Yokes.Store(YokeTypes.FuelTank).MaximumValue.Value - actor.Yokes.Store(YokeTypes.FuelTank).CurrentValue
+        Dim fuelAdded = actor.FuelTank.MaximumValue.Value - actor.FuelTank.CurrentValue
         Dim fuelPrice = 1 'TODO: don't just pick a magic number!
         Dim price = fuelPrice * fuelAdded
-        actor.Yokes.Store(YokeTypes.FuelTank).CurrentValue = actor.Yokes.Store(YokeTypes.FuelTank).MaximumValue.Value
+        actor.FuelTank.CurrentValue = actor.FuelTank.MaximumValue.Value
         actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= fuelAdded * fuelPrice
         actor.Universe.Messages.Add(
                         "Emergency Refuel",
@@ -20,6 +20,6 @@ Friend Class DistressSignalOperationTypeDescriptor
     End Sub
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.Yokes.Store(YokeTypes.FuelTank) IsNot Nothing AndAlso AvatarModel.FromActor(actor).Vessel.FuelPercent.Value = 0
+        Return actor.FuelTank IsNot Nothing AndAlso AvatarModel.FromActor(actor).Vessel.FuelPercent.Value = 0
     End Function
 End Class

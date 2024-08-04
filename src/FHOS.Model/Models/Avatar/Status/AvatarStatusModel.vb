@@ -16,7 +16,7 @@ Friend Class AvatarStatusModel
 
     Public ReadOnly Property Dead As Boolean Implements IAvatarStatusModel.Dead
         Get
-            Return actor.Yokes.Store(YokeTypes.LifeSupport).CurrentValue = actor.Yokes.Store(YokeTypes.LifeSupport).MinimumValue.Value
+            Return actor.LifeSupport.CurrentValue = actor.LifeSupport.MinimumValue.Value
         End Get
     End Property
 

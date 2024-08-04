@@ -21,7 +21,7 @@ Friend Class AvatarInventoryItemStackModel
 
     Public ReadOnly Property Count As Integer Implements IAvatarInventoryItemStackModel.Count
         Get
-            Return actor.Inventory.Items.Count(Function(x) x.Descriptor.ItemType = itemType)
+            Return actor.Inventory.ItemsOfType(itemType).Count
         End Get
     End Property
 
@@ -39,7 +39,7 @@ Friend Class AvatarInventoryItemStackModel
 
     Public ReadOnly Property Items As IEnumerable(Of IItemModel) Implements IAvatarInventoryItemStackModel.Items
         Get
-            Return actor.Inventory.Items.Where(Function(x) x.Descriptor.ItemType = itemType).Select(AddressOf ItemModel.FromItem)
+            Return actor.Inventory.ItemsOfType(itemType).Select(AddressOf ItemModel.FromItem)
         End Get
     End Property
 
@@ -47,8 +47,7 @@ Friend Class AvatarInventoryItemStackModel
         Get
             Return actor.
                 Inventory.
-                Items.
-                Where(Function(x) x.Descriptor.ItemType = itemType).
+                ItemsOfType(itemType).
                 GroupBy(Function(x) x.EntityName).
                 Select(Function(x) AvatarInventoryItemSubstackModel.FromActorAndItems(actor, x.ToList))
         End Get
@@ -62,6 +61,6 @@ Friend Class AvatarInventoryItemStackModel
     End Function
 
     Public Sub Use() Implements IAvatarInventoryItemStackModel.Use
-        Descriptor.Use(actor, actor.Inventory.Items.First(Function(x) x.EntityType = itemType))
+        Descriptor.Use(actor, actor.Inventory.ItemsOfType(itemType).First)
     End Sub
 End Class

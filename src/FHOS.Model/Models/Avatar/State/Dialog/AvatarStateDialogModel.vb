@@ -22,6 +22,6 @@ Friend Class AvatarStateDialogModel
     End Property
 
     Friend Shared Function FromDialog(dialog As IDialog) As IAvatarStateDialogModel
-        Return New AvatarStateDialogModel(dialog)
+        Return If(dialog IsNot Nothing, New AvatarStateDialogModel(dialog), Nothing)
     End Function
 End Class

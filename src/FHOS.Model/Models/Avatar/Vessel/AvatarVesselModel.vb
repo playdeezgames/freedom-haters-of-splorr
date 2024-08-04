@@ -10,37 +10,37 @@ Friend Class AvatarVesselModel
 
     Public ReadOnly Property OxygenPercent As Integer Implements IAvatarVesselModel.OxygenPercent
         Get
-            Return actor.Yokes.Store(YokeTypes.LifeSupport).Percent.Value
+            Return actor.LifeSupport.Percent.Value
         End Get
     End Property
 
     Public ReadOnly Property FuelPercent As Integer? Implements IAvatarVesselModel.FuelPercent
         Get
-            Return actor.Yokes.Store(YokeTypes.FuelTank)?.Percent
+            Return actor.FuelTank?.Percent
         End Get
     End Property
 
     Public ReadOnly Property OxygenQuantity As Integer Implements IAvatarVesselModel.OxygenQuantity
         Get
-            Return actor.Yokes.Store(YokeTypes.LifeSupport).CurrentValue
+            Return actor.LifeSupport.CurrentValue
         End Get
     End Property
 
     Public ReadOnly Property OxygenMaximum As Integer Implements IAvatarVesselModel.OxygenMaximum
         Get
-            Return actor.Yokes.Store(YokeTypes.LifeSupport).MaximumValue.Value
+            Return actor.LifeSupport.MaximumValue.Value
         End Get
     End Property
 
     Public ReadOnly Property FuelQuantity As Integer? Implements IAvatarVesselModel.FuelQuantity
         Get
-            Return actor.Yokes.Store(YokeTypes.FuelTank)?.CurrentValue
+            Return actor.FuelTank?.CurrentValue
         End Get
     End Property
 
     Public ReadOnly Property FuelMaximum As Integer? Implements IAvatarVesselModel.FuelMaximum
         Get
-            Return actor.Yokes.Store(YokeTypes.FuelTank)?.MaximumValue
+            Return actor.FuelTank?.MaximumValue
         End Get
     End Property
 

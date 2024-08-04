@@ -14,7 +14,7 @@ Friend Class FuelRodDescriptor
 
     Private Shared Sub UseFuelRod(actor As IActor, item As IItem)
         Dim lines As New List(Of (String, Integer))
-        Dim store = actor.Yokes.Store(YokeTypes.FuelTank)
+        Dim store = actor.FuelTank
         Dim fuelAmount = item.Statistics(StatisticTypes.Fuel).Value
         store.CurrentValue += fuelAmount
         lines.Add(($"Added {fuelAmount} fuel.", Hues.LightGray))

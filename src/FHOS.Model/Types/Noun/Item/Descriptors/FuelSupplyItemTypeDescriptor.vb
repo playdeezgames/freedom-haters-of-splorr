@@ -24,8 +24,8 @@ Friend Class FuelSupplyItemTypeDescriptor
     End Sub
 
     Private Shared Sub UnequipFuelSupplyItem(actor As IActor, item As IItem)
-        item.Statistics(StatisticTypes.CurrentFuelCapacity) = actor.Yokes.Store(YokeTypes.FuelTank).CurrentValue
-        Dim store = actor.Yokes.Store(YokeTypes.FuelTank).MaximumValue = 0
+        item.Statistics(StatisticTypes.CurrentFuelCapacity) = actor.FuelTank.CurrentValue
+        Dim store = actor.FuelTank.MaximumValue = 0
     End Sub
 
     Private Shared Function CalculatePrice(markType As String) As Integer
@@ -33,7 +33,7 @@ Friend Class FuelSupplyItemTypeDescriptor
     End Function
 
     Private Shared Sub EquipFuelSupplyItem(actor As IActor, item As IItem)
-        Dim store = actor.Yokes.Store(YokeTypes.FuelTank)
+        Dim store = actor.FuelTank
         store.MaximumValue = item.Statistics(StatisticTypes.FuelCapacity)
         store.CurrentValue = If(item.Statistics(StatisticTypes.CurrentFuelCapacity), 0)
         item.Statistics(StatisticTypes.CurrentFuelCapacity) = Nothing

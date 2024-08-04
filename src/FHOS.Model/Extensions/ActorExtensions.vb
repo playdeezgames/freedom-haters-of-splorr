@@ -4,6 +4,22 @@ Imports SPLORR.Game
 
 Friend Module ActorExtensions
     <Extension>
+    Function LifeSupport(actor As IActor) As IStore
+        Return actor.Yokes.Store(YokeTypes.LifeSupport)
+    End Function
+    <Extension>
+    Function FuelTank(actor As IActor) As IStore
+        Return actor.Yokes.Store(YokeTypes.FuelTank)
+    End Function
+    <Extension>
+    Function Faction(actor As IActor) As IGroup
+        Return actor.Yokes.Group(YokeTypes.Faction)
+    End Function
+    <Extension>
+    Function HomePlanet(actor As IActor) As IGroup
+        Return actor.Yokes.Group(YokeTypes.HomePlanet)
+    End Function
+    <Extension>
     Function ItemEquipped(actor As IActor, equipSlot As String) As IItem
         Return actor.Equipment.GetSlot(equipSlot)
     End Function
@@ -26,7 +42,7 @@ Friend Module ActorExtensions
 
     <Extension>
     Function NeedsOxygen(actor As IActor) As Boolean
-        Return actor.Yokes.Store(YokeTypes.LifeSupport).NeedsTopOff
+        Return actor.LifeSupport.NeedsTopOff
     End Function
 
     <Extension>
@@ -64,9 +80,9 @@ Friend Module ActorExtensions
 
     <Extension>
     Sub DoFuelConsumption(actor As IActor)
-        If actor.Yokes.Store(YokeTypes.FuelTank) IsNot Nothing Then
-            actor.Yokes.Store(YokeTypes.FuelTank).CurrentValue -= 1
-            If actor.Yokes.Store(YokeTypes.FuelTank).CurrentValue = actor.Yokes.Store(YokeTypes.FuelTank).MinimumValue.Value Then
+        If actor.FuelTank IsNot Nothing Then
+            actor.FuelTank.CurrentValue -= 1
+            If actor.FuelTank.CurrentValue = actor.FuelTank.MinimumValue.Value Then
                 actor.Universe.Messages.Add("Out of Fuel!",
                     {
                         ("You are out of fuel!", Hues.LightGray),
@@ -81,7 +97,7 @@ Friend Module ActorExtensions
 
     <Extension>
     Function CanMove(actor As IActor) As Boolean
-        Return actor.Yokes.Store(YokeTypes.FuelTank) Is Nothing OrElse
+        Return actor.FuelTank Is Nothing OrElse
                 AvatarModel.FromActor(actor).Vessel.FuelQuantity.Value > 0
     End Function
 
@@ -105,7 +121,7 @@ Friend Module ActorExtensions
     <Extension>
     Sub DoTurn(actor As IActor)
         actor.Universe.Turn += 1
-        Dim store = actor.Yokes.Store(YokeTypes.LifeSupport)
+        Dim store = actor.LifeSupport
         store.CurrentValue -= 1
         If store.CurrentValue = store.MinimumValue Then
             Dim tank = actor.Inventory.Items.FirstOrDefault(Function(x) x.EntityType = ItemTypes.OxygenTank)

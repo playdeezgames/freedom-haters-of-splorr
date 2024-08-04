@@ -10,13 +10,13 @@ Friend Class AvatarBioModel
 
     Public ReadOnly Property HomePlanet As IGroupModel Implements IAvatarBioModel.HomePlanet
         Get
-            Return GroupModel.FromGroup(actor.Yokes.Group(YokeTypes.HomePlanet))
+            Return GroupModel.FromGroup(actor.HomePlanet)
         End Get
     End Property
 
     Public ReadOnly Property Faction As IGroupModel Implements IAvatarBioModel.Faction
         Get
-            Return GroupModel.FromGroup(actor.Yokes.Group(YokeTypes.Faction))
+            Return GroupModel.FromGroup(actor.Faction)
         End Get
     End Property
 
