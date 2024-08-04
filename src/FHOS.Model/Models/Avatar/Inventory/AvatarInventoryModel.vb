@@ -11,7 +11,7 @@ Friend Class AvatarInventoryModel
 
     Public ReadOnly Property ItemStacks As IEnumerable(Of IAvatarInventoryItemStackModel) Implements IAvatarInventoryModel.ItemStacks
         Get
-            Return actor.Inventory.Items.GroupBy(Function(x) x.Descriptor.ItemType).Select(Function(x) AvatarInventoryItemStackModel.FromActorAndItems(actor, x.Key))
+            Return actor.Inventory.Items.GroupBy(Function(x) x.ItemTypeName).Select(Function(x) AvatarInventoryItemStackModel.FromActorAndItems(actor, x.Key))
         End Get
     End Property
 

@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Model
 Imports SPLORR.Presentation
 
-Friend Class InventoryInspectState
+Friend Class ItemStackInspectState
     Inherits BaseState
     Implements IState
 
@@ -15,10 +15,18 @@ Friend Class InventoryInspectState
 
     Public Overrides Function Run() As IState
         ui.Clear()
-        ui.WriteLine((Mood.Title, itemStack.ItemName))
+        ui.WriteLine((Mood.Title, itemStack.ItemTypeName))
         ui.WriteLine((Mood.Info, itemStack.Description))
         ui.WriteLine((Mood.Info, $"Count: {itemStack.Count}"))
-        ui.Message((Mood.Prompt, String.Empty))
+        Dim menu As New List(Of (String, IAvatarInventoryItemSubstackModel)) From
+            {
+                (Choices.Cancel, Nothing)
+            }
+        menu.AddRange(itemStack.Substacks.Select(Function(x) (x.EntityName, x)))
+        Dim choice = ui.Choose((Mood.Prompt, String.Empty), menu.ToArray)
+        If choice IsNot Nothing Then
+            Return New ItemSubstackInspectState(model, ui, Me, choice)
+        End If
         Return New InventoryActionSelectState(model, ui, endState, itemStack)
     End Function
 End Class

@@ -15,7 +15,7 @@ Friend Class InventoryState
             {
                 (Choices.Cancel, Nothing)
             }
-        result.AddRange(model.State.Avatar.Inventory.ItemStacks.Select(Function(x) ($"{x.ItemName}(x{x.Count})", x)))
+        result.AddRange(model.State.Avatar.Inventory.ItemStacks.Select(Function(x) ($"{x.ItemTypeName}(x{x.Count})", x)))
         Dim choice = ui.Choose(
             (Mood.Prompt, Prompts.Inventory),
             result.ToArray)

@@ -13,7 +13,7 @@ Friend Class AvatarInventoryItemStackModel
         End Get
     End Property
 
-    Public ReadOnly Property ItemName As String Implements IAvatarInventoryItemStackModel.ItemName
+    Public ReadOnly Property ItemTypeName As String Implements IAvatarInventoryItemStackModel.ItemTypeName
         Get
             Return Descriptor.Name
         End Get
@@ -40,6 +40,17 @@ Friend Class AvatarInventoryItemStackModel
     Public ReadOnly Property Items As IEnumerable(Of IItemModel) Implements IAvatarInventoryItemStackModel.Items
         Get
             Return actor.Inventory.Items.Where(Function(x) x.Descriptor.ItemType = itemType).Select(AddressOf ItemModel.FromItem)
+        End Get
+    End Property
+
+    Public ReadOnly Property Substacks As IEnumerable(Of IAvatarInventoryItemSubstackModel) Implements IAvatarInventoryItemStackModel.Substacks
+        Get
+            Return actor.
+                Inventory.
+                Items.
+                Where(Function(x) x.Descriptor.ItemType = itemType).
+                GroupBy(Function(x) x.EntityName).
+                Select(Function(x) AvatarInventoryItemSubstackModel.FromActorAndItems(actor, x.ToList))
         End Get
     End Property
 

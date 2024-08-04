@@ -3,11 +3,12 @@
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
         sut.ShouldNotBeNull
-        sut.ItemName.ShouldBe("Scrap")
+        sut.ItemTypeName.ShouldBe("Scrap")
         sut.Count.ShouldBe(1)
         sut.Description.ShouldNotBeNull
         sut.CanUse.ShouldBeFalse
         sut.Items.ShouldHaveSingleItem
+        sut.Substacks.ShouldHaveSingleItem
         Should.NotThrow(Sub() sut.Use())
     End Sub
 
