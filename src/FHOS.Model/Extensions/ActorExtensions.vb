@@ -134,4 +134,82 @@ Friend Module ActorExtensions
         End If
         Return False
     End Function
+    <Extension>
+    Sub GenerateDeliveryMission(actor As Persistence.IActor)
+        Dim deliveryItem = actor.Universe.Factory.CreateItem(ItemTypes.Delivery)
+        actor.Inventory.Add(deliveryItem)
+        Dim planet = actor.Yokes.Group(YokeTypes.Planet)
+        deliveryItem.Statistics(StatisticTypes.OriginPlanetId) = planet.Id
+        Dim planetVicinity = planet.Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity)
+        Dim faction = planetVicinity.Parents.Single(Function(x) x.EntityType = GroupTypes.Faction)
+        Dim candidates = faction.
+            ChildrenOfType(GroupTypes.PlanetVicinity).
+            Where(Function(x) x.Id <> planetVicinity.Id).
+            Select(Function(x) x.Children.Single(Function(y) y.EntityType = GroupTypes.Planet))
+        Dim destination = RNG.FromEnumerable(candidates)
+        deliveryItem.Metadatas(MetadataTypes.EntityName) = $"{GenerateAdverb()} {GenerateAdjective()} {GenerateNoun()}"
+        deliveryItem.Metadatas(MetadataTypes.Recipient) = $"{GenerateRecipientName()} the {GenerateRecipientJob()}"
+        deliveryItem.SetDestinationPlanet(destination)
+        deliveryItem.SetJoolsReward(10)
+        deliveryItem.SetReputationBonus(1)
+        deliveryItem.SetReputationPenalty(-5)
+    End Sub
+
+    Private jobs As IReadOnlyList(Of String) =
+        New List(Of String) From
+        {
+            "Pirate",
+            "Merkinsmith",
+            "Harlot"
+        }
+    Private names As IReadOnlyList(Of String) =
+        New List(Of String) From
+        {
+            "Gorachan",
+            "Samuli",
+            "David"
+        }
+    Private Function GenerateRecipientJob() As Object
+        Return RNG.FromEnumerable(jobs)
+    End Function
+
+    Private Function GenerateRecipientName() As Object
+        Return RNG.FromEnumerable(names)
+    End Function
+
+    Private nouns As IReadOnlyList(Of String) =
+        New List(Of String) From
+        {
+            "thingie",
+            "merkin",
+            "marital aid"
+        }
+
+    Private adjectives As IReadOnlyList(Of String) =
+        New List(Of String) From
+        {
+            "salty",
+            "unwashed",
+            "used"
+        }
+
+    Private adverbs As IReadOnlyList(Of String) =
+        New List(Of String) From
+        {
+            "extremely",
+            "oddly",
+            "woefully"
+        }
+
+    Private Function GenerateNoun() As String
+        Return RNG.FromList(nouns.ToList)
+    End Function
+
+    Private Function GenerateAdjective() As Object
+        Return RNG.FromList(adjectives.ToList)
+    End Function
+
+    Private Function GenerateAdverb() As Object
+        Return RNG.FromList(adverbs.ToList)
+    End Function
 End Module

@@ -30,6 +30,6 @@ Friend Class StarSystemsState
     End Function
 
     Protected Overrides Function ToName(model As IGroupModel) As String
-        Throw New NotImplementedException()
+        Return model.Name
     End Function
 End Class

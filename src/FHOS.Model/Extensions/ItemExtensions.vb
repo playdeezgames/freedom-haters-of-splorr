@@ -46,4 +46,8 @@ Friend Module ItemExtensions
     Friend Function EntityName(item As IItem) As String
         Return item.Descriptor.GetEntityName(item)
     End Function
+    <Extension>
+    Friend Function GetRecipient(item As IItem) As String
+        Return item.Metadatas(MetadataTypes.Recipient)
+    End Function
 End Module

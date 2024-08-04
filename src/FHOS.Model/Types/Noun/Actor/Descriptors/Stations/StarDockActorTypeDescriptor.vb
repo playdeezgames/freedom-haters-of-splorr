@@ -35,24 +35,6 @@ Friend Class StarDockActorTypeDescriptor
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
         MyBase.Initialize(actor)
-        InitializeDeliveryItem(actor)
-    End Sub
-
-    Private Shared Sub InitializeDeliveryItem(actor As Persistence.IActor)
-        Dim deliveryItem = actor.Universe.Factory.CreateItem(ItemTypes.Delivery)
-        actor.Inventory.Add(deliveryItem)
-        Dim planet = actor.Yokes.Group(YokeTypes.Planet)
-        deliveryItem.Statistics(StatisticTypes.OriginPlanetId) = planet.Id
-        Dim planetVicinity = planet.Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity)
-        Dim faction = planetVicinity.Parents.Single(Function(x) x.EntityType = GroupTypes.Faction)
-        Dim candidates = faction.
-            ChildrenOfType(GroupTypes.PlanetVicinity).
-            Where(Function(x) x.Id <> planetVicinity.Id).
-            Select(Function(x) x.Children.Single(Function(y) y.EntityType = GroupTypes.Planet))
-        Dim destination = RNG.FromEnumerable(candidates)
-        deliveryItem.SetDestinationPlanet(destination)
-        deliveryItem.SetJoolsReward(10)
-        deliveryItem.SetReputationBonus(1)
-        deliveryItem.SetReputationPenalty(-5)
+        actor.GenerateDeliveryMission
     End Sub
 End Class

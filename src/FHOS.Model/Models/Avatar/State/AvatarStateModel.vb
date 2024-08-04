@@ -30,7 +30,11 @@ Friend Class AvatarStateModel
 
     Public ReadOnly Property Dialog As IAvatarStateDialogModel Implements IAvatarStateModel.Dialog
         Get
-            Return AvatarStateDialogModel.FromDialog(actor.Dialog)
+            Dim dlg = actor.Dialog
+            If dlg Is Nothing Then
+                Return Nothing
+            End If
+            Return AvatarStateDialogModel.FromDialog(dlg)
         End Get
     End Property
 

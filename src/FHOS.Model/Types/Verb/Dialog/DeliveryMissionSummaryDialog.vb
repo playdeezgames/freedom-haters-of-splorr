@@ -15,6 +15,7 @@ Friend Class DeliveryMissionSummaryDialog
                 (Hues.Orange, $"Delivery from {starDock.EntityName}:"),
                 (Hues.LightGray, $"Item: {item.EntityName}"),
                 (Hues.LightGray, $"Destination: {item.GetDestinationPlanet().EntityName}"),
+                (Hues.LightGray, $"Recipient: {item.GetRecipient()}"),
                 (Hues.LightGray, $"Jools Reward: {item.GetJoolsReward()}")
             }
             Return result
@@ -24,11 +25,19 @@ Friend Class DeliveryMissionSummaryDialog
     Public ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action)) Implements IDialog.Choices
         Get
             Dim result As New List(Of (Text As String, Value As Action)) From {
-                ("Cancel", AddressOf CancelDialog)
+                ("Cancel", AddressOf CancelDialog),
+                ("Accept", AddressOf AcceptMission)
             }
             Return result
         End Get
     End Property
+
+    Private Sub AcceptMission()
+        starDock.Inventory.Remove(item)
+        actor.Inventory.Add(item)
+        starDock.GenerateDeliveryMission()
+        actor.Dialog = Nothing
+    End Sub
 
     Private Sub CancelDialog()
         actor.Dialog = Nothing
