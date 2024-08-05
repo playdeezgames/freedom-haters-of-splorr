@@ -8,4 +8,5 @@
     ReadOnly Property Inventory As IAvatarInventoryModel
     ReadOnly Property Equipment As IAvatarEquipmentModel
     ReadOnly Property Yokes As IAvatarYokesModel
+    ReadOnly Property Dialogs(model As IItemModel) As IEnumerable(Of (String, IAvatarItemDialogModel))
 End Interface

@@ -17,21 +17,16 @@ Friend Class ItemInspectState
         ui.WriteLine(
             (Mood.Prompt, item.UniqueName),
             (Mood.Info, $"Description: {item.Description}"))
-        Dim menu As New List(Of String) From
+        Dim menu As New List(Of (String, IAvatarItemDialogModel)) From
             {
-                Choices.Cancel
+                (Choices.Cancel, Nothing)
             }
-        If item.CanUse Then
-            menu.Add(Choices.Use)
+        menu.AddRange(model.State.Avatar.Dialogs(item))
+        Dim choice = ui.Choose((Mood.Prompt, String.Empty), menu.ToArray)
+        If choice Is Nothing Then
+            Return endState
         End If
-        Select Case ui.Choose((Mood.Prompt, String.Empty), menu.ToArray)
-            Case Choices.Cancel
-                Return endState
-            Case Choices.Use
-                item.Use(model.State.Avatar.State.Actor)
-                Return New MessageState(model, ui, endState)
-            Case Else
-                Throw New NotImplementedException
-        End Select
+        choice.Start()
+        Return New DialogState(model, ui, endState)
     End Function
 End Class

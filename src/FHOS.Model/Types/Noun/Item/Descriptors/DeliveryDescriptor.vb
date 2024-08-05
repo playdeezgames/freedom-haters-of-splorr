@@ -1,4 +1,5 @@
-﻿Imports FHOS.Persistence
+﻿Imports FHOS.Data
+Imports FHOS.Persistence
 
 Friend Class DeliveryDescriptor
     Inherits ItemTypeDescriptor
@@ -23,4 +24,8 @@ Friend Class DeliveryDescriptor
 
     Protected Overrides Sub Initialize(item As IItem)
     End Sub
+
+    Public Overrides Function Dialogs(actor As IActor, item As IItem) As IReadOnlyDictionary(Of String, IDialog)
+        Return New Dictionary(Of String, IDialog)
+    End Function
 End Class

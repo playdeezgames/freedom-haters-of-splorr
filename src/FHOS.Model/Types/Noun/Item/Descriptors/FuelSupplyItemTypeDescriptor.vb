@@ -1,4 +1,5 @@
-﻿Imports FHOS.Persistence
+﻿Imports FHOS.Data
+Imports FHOS.Persistence
 
 Friend Class FuelSupplyItemTypeDescriptor
     Inherits ItemTypeDescriptor
@@ -50,4 +51,8 @@ Friend Class FuelSupplyItemTypeDescriptor
         item.Statistics(StatisticTypes.FuelCapacity) = fuelCapacity
         item.Statistics(StatisticTypes.CurrentFuelCapacity) = fuelCapacity
     End Sub
+
+    Public Overrides Function Dialogs(actor As IActor, item As IItem) As IReadOnlyDictionary(Of String, IDialog)
+        Return New Dictionary(Of String, IDialog)
+    End Function
 End Class

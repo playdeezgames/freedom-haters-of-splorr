@@ -1,4 +1,5 @@
-﻿Imports FHOS.Persistence
+﻿Imports FHOS.Data
+Imports FHOS.Persistence
 
 Friend Class FuelRodDescriptor
     Inherits ItemTypeDescriptor
@@ -32,4 +33,11 @@ Friend Class FuelRodDescriptor
     Protected Overrides Sub Initialize(item As IItem)
         item.Statistics(StatisticTypes.Fuel) = 100
     End Sub
+
+    Public Overrides Function Dialogs(actor As IActor, item As IItem) As IReadOnlyDictionary(Of String, IDialog)
+        Return New Dictionary(Of String, IDialog) From
+            {
+                {"Refill Fuel", New UseFuelRodDialog(actor, item)}
+            }
+    End Function
 End Class

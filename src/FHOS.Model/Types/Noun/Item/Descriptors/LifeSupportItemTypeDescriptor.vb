@@ -1,4 +1,5 @@
-﻿Imports FHOS.Persistence
+﻿Imports FHOS.Data
+Imports FHOS.Persistence
 
 Friend Class LifeSupportItemTypeDescriptor
     Inherits ItemTypeDescriptor
@@ -50,4 +51,8 @@ Friend Class LifeSupportItemTypeDescriptor
         item.Statistics(StatisticTypes.OxygenCapacity) = oxygenCapacity
         item.Statistics(StatisticTypes.CurrentOxygenCapacity) = oxygenCapacity
     End Sub
+
+    Public Overrides Function Dialogs(actor As IActor, item As IItem) As IReadOnlyDictionary(Of String, IDialog)
+        Return New Dictionary(Of String, IDialog)
+    End Function
 End Class

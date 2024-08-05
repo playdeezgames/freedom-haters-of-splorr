@@ -1,4 +1,5 @@
-﻿Imports FHOS.Persistence
+﻿Imports FHOS.Data
+Imports FHOS.Persistence
 
 Friend Class FuelScoopItemTypeDescriptor
     Inherits ItemTypeDescriptor
@@ -22,4 +23,8 @@ Friend Class FuelScoopItemTypeDescriptor
     Protected Overrides Sub Initialize(item As IItem)
         item.Flags(FlagTypes.CanRefuel) = True
     End Sub
+
+    Public Overrides Function Dialogs(actor As IActor, item As IItem) As IReadOnlyDictionary(Of String, IDialog)
+        Return New Dictionary(Of String, IDialog)
+    End Function
 End Class

@@ -1,4 +1,5 @@
-﻿Imports FHOS.Persistence
+﻿Imports FHOS.Data
+Imports FHOS.Persistence
 
 Friend Class OxygenTankDescriptor
     Inherits ItemTypeDescriptor
@@ -33,4 +34,11 @@ Friend Class OxygenTankDescriptor
     Protected Overrides Sub Initialize(item As IItem)
         item.Statistics(StatisticTypes.Oxygen) = 100
     End Sub
+
+    Public Overrides Function Dialogs(actor As IActor, item As IItem) As IReadOnlyDictionary(Of String, IDialog)
+        Return New Dictionary(Of String, IDialog) From
+            {
+                {"Refill Oxygen", New UseOxygenTankDialog(actor, item)}
+            }
+    End Function
 End Class

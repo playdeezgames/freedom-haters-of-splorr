@@ -68,4 +68,11 @@ Friend Class AvatarModel
             Return AvatarYokesModel.FromActor(actor)
         End Get
     End Property
+
+    Public ReadOnly Property Dialogs(model As IItemModel) As IEnumerable(Of (String, IAvatarItemDialogModel)) Implements IAvatarModel.Dialogs
+        Get
+            Dim item = ItemModel.GetItem(model)
+            Return item.Descriptor.Dialogs(actor, item).Select(Function(x) (x.Key, AvatarItemDialogModel.FromDialog(actor, x.Value)))
+        End Get
+    End Property
 End Class
