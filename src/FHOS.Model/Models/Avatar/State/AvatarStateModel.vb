@@ -32,6 +32,12 @@ Friend Class AvatarStateModel
         End Get
     End Property
 
+    Private ReadOnly Property IAvatarStateModel_Actor As IActorModel Implements IAvatarStateModel.Actor
+        Get
+            Return ActorModel.FromActor(actor)
+        End Get
+    End Property
+
     Friend Shared Function FromActor(actor As IActor) As IAvatarStateModel
         Return New AvatarStateModel(actor)
     End Function

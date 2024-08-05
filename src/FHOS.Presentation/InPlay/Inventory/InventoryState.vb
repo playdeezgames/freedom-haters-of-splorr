@@ -22,6 +22,12 @@ Friend Class InventoryState
         If choice Is Nothing Then
             Return New StatusState(model, ui, endState)
         End If
+        If choice.Items.Count = 1 Then
+            Return New ItemInspectState(model, ui, Me, choice.Items.Single)
+        End If
+        If choice.Substacks.Count = 1 Then
+            Return New ItemSubstackInspectState(model, ui, Me, choice.Substacks.First)
+        End If
         Return New InventoryActionSelectState(model, ui, endState, choice)
     End Function
 End Class

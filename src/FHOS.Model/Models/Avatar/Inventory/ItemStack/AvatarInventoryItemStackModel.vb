@@ -25,18 +25,6 @@ Friend Class AvatarInventoryItemStackModel
         End Get
     End Property
 
-    Public ReadOnly Property Description As String Implements IAvatarInventoryItemStackModel.Description
-        Get
-            Return Descriptor.Description(actor.Inventory.ItemsOfType(itemType).First)
-        End Get
-    End Property
-
-    Public ReadOnly Property CanUse As Boolean Implements IAvatarInventoryItemStackModel.CanUse
-        Get
-            Return Descriptor.CanUse
-        End Get
-    End Property
-
     Public ReadOnly Property Items As IEnumerable(Of IItemModel) Implements IAvatarInventoryItemStackModel.Items
         Get
             Return actor.Inventory.ItemsOfType(itemType).Select(AddressOf ItemModel.FromItem)
@@ -56,11 +44,7 @@ Friend Class AvatarInventoryItemStackModel
     Private ReadOnly actor As IActor
     Private ReadOnly itemType As String
 
-    Friend Shared Function FromActorAndItems(actor As IActor, itemType As String) As IAvatarInventoryItemStackModel
+    Friend Shared Function FromActorAndItemType(actor As IActor, itemType As String) As IAvatarInventoryItemStackModel
         Return New AvatarInventoryItemStackModel(actor, itemType)
     End Function
-
-    Public Sub Use() Implements IAvatarInventoryItemStackModel.Use
-        Descriptor.Use(actor, actor.Inventory.ItemsOfType(itemType).First)
-    End Sub
 End Class

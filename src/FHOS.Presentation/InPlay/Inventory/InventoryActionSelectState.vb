@@ -22,14 +22,8 @@ Friend Class InventoryActionSelectState
                 (Choices.Cancel, Choices.Cancel),
                 (Choices.Inspect, Choices.Inspect)
             }
-        If itemStack.CanUse Then
-            result.Add((Choices.Use, Choices.Use))
-        End If
         Dim choice = ui.Choose((Mood.Prompt, $"{itemStack.ItemTypeName}(x{itemStack.Count})"), result.ToArray)
         Select Case choice
-            Case Choices.Use
-                itemStack.Use()
-                Return New NeutralState(model, ui, endState)
             Case Choices.Inspect
                 Return New ItemStackInspectState(model, ui, endState, itemStack)
             Case Else

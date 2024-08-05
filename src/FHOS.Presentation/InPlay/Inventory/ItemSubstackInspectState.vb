@@ -14,9 +14,16 @@ Friend Class ItemSubstackInspectState
 
     Public Overrides Function Run() As IState
         ui.Clear()
-        ui.WriteLine((Mood.Info, substack.EntityName))
-        ui.Message((Mood.Prompt, String.Empty))
-        'TODO: stuff to do with the substack
-        Return endState
+        ui.WriteLine((Mood.Prompt, substack.EntityName))
+        Dim menu As New List(Of (Text As String, Value As IItemModel)) From
+            {
+                (Choices.Cancel, Nothing)
+            }
+        menu.AddRange(substack.Items.Select(Function(x) (x.UniqueName, x)))
+        Dim choice = ui.Choose((Mood.Prompt, String.Empty), menu.ToArray)
+        If choice Is Nothing Then
+            Return endState
+        End If
+        Return New ItemInspectState(model, ui, Me, choice)
     End Function
 End Class

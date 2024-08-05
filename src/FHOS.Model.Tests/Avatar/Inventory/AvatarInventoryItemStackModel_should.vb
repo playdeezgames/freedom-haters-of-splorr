@@ -5,11 +5,8 @@
         sut.ShouldNotBeNull
         sut.ItemTypeName.ShouldBe("Scrap")
         sut.Count.ShouldBe(1)
-        sut.Description.ShouldNotBeNull
-        sut.CanUse.ShouldBeFalse
         sut.Items.ShouldHaveSingleItem
         sut.Substacks.ShouldHaveSingleItem
-        Should.NotThrow(Sub() sut.Use())
     End Sub
 
     Private Function CreateSut() As IAvatarInventoryItemStackModel

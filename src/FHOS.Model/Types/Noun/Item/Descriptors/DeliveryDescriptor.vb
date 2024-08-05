@@ -17,7 +17,8 @@ Friend Class DeliveryDescriptor
     End Sub
 
     Private Shared Function DeliveryDescriptorEntityName(item As IItem) As String
-        Return item.Metadatas(MetadataTypes.EntityName)
+        Dim planet = item.GetDestinationPlanet
+        Return $"{item.Metadatas(MetadataTypes.EntityName)} for {item.Metadatas(MetadataTypes.Recipient)} on {planet.EntityName}"
     End Function
 
     Protected Overrides Sub Initialize(item As IItem)
