@@ -17,7 +17,7 @@ Friend Class ItemModel
 
     Public ReadOnly Property Description As String Implements IItemModel.Description
         Get
-            Return item.Descriptor.Description
+            Return item.Descriptor.Description(item)
         End Get
     End Property
 

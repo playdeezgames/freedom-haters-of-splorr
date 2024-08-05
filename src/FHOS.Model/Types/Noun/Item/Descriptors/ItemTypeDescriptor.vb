@@ -3,7 +3,7 @@
 Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property ItemType As String
     ReadOnly Property Name As String
-    ReadOnly Property Description As String
+    MustOverride ReadOnly Property Description(item As IItem) As String
     ReadOnly Property EquipSlot As String
 
     ReadOnly Property Offer As Integer
@@ -20,7 +20,6 @@ Friend MustInherit Class ItemTypeDescriptor
     Sub New(
            itemType As String,
            name As String,
-           description As String,
            Optional offer As Integer = 0,
            Optional price As Integer = 0,
            Optional onUse As Action(Of IActor, IItem) = Nothing,
@@ -34,7 +33,6 @@ Friend MustInherit Class ItemTypeDescriptor
         Me.Name = name
         Me.Offer = offer
         Me.Price = price
-        Me.Description = description
         Me.onUse = onUse
         Me.CanUse = onUse IsNot Nothing
         Me.EquipSlot = equipSlot

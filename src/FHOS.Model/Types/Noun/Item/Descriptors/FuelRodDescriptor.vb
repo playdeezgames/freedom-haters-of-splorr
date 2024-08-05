@@ -7,10 +7,15 @@ Friend Class FuelRodDescriptor
         MyBase.New(
             ItemTypes.FuelRod,
             "Fuel Rod",
-            "You ram this into yer engine in order to fill it with fuel. No, there is nothing sexual about this. Not at all.",
             price:=20,
             onUse:=AddressOf UseFuelRod)
     End Sub
+
+    Public Overrides ReadOnly Property Description(item As IItem) As String
+        Get
+            Return "You ram this into yer engine in order to fill it with fuel. No, there is nothing sexual about this. Not at all."
+        End Get
+    End Property
 
     Private Shared Sub UseFuelRod(actor As IActor, item As IItem)
         Dim lines As New List(Of (String, Integer))

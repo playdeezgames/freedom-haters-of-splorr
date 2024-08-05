@@ -27,7 +27,7 @@ Friend Class AvatarInventoryItemStackModel
 
     Public ReadOnly Property Description As String Implements IAvatarInventoryItemStackModel.Description
         Get
-            Return Descriptor.Description
+            Return Descriptor.Description(actor.Inventory.ItemsOfType(itemType).First)
         End Get
     End Property
 

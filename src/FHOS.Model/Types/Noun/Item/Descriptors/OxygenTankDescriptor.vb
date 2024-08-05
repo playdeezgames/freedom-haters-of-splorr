@@ -7,10 +7,15 @@ Friend Class OxygenTankDescriptor
         MyBase.New(
             ItemTypes.OxygenTank,
             "Oxygen Tank",
-            "This item can be used to replenish a vessel's oxygen.",
             price:=5,
             onUse:=AddressOf UseOxygenTank)
     End Sub
+
+    Public Overrides ReadOnly Property Description(item As IItem) As String
+        Get
+            Return "This item can be used to replenish a vessel's oxygen."
+        End Get
+    End Property
 
     Private Shared Sub UseOxygenTank(actor As IActor, item As IItem)
         Dim lines As New List(Of (String, Integer))
