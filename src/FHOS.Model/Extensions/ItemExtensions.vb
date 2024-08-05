@@ -39,6 +39,10 @@ Friend Module ItemExtensions
         item.Statistics(StatisticTypes.ReputationBonus) = bonus
     End Sub
     <Extension>
+    Friend Function GetReputationBonus(item As IItem) As Integer
+        Return If(item.Statistics(StatisticTypes.ReputationBonus), 0)
+    End Function
+    <Extension>
     Friend Sub SetReputationPenalty(item As IItem, penalty As Integer)
         item.Statistics(StatisticTypes.ReputationPenalty) = penalty
     End Sub

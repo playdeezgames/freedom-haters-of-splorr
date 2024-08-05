@@ -2,6 +2,7 @@
     Friend ReadOnly AcceptDeliveryMission As String = NameOf(AcceptDeliveryMission)
     Friend ReadOnly Approach As String = NameOf(Approach)
     Friend ReadOnly Cancel As String = NameOf(Cancel)
+    Friend ReadOnly CompleteDeliveryMission As String = NameOf(CompleteDeliveryMission)
     Friend ReadOnly EnterOrbit As String = NameOf(EnterOrbit)
     Friend ReadOnly EnterShipyard As String = NameOf(EnterShipyard)
     Friend ReadOnly EnterStarGate As String = NameOf(EnterStarGate)
@@ -36,6 +37,7 @@
             New ShipyardInteractionTypeDescriptor(),
             New UseFuelScoopInterationTypeDescriptor(),
             New UseAirScoopInteractionTypeDescriptor(),
-            New AcceptDeliveryMissionInteractionTypeDescriptor()
+            New AcceptDeliveryMissionInteractionTypeDescriptor(),
+            New CompleteDeliveryMissionInteractionTypeDescriptor()
         }.ToDictionary(Function(x) x.InteractionType, Function(x) x)
 End Module

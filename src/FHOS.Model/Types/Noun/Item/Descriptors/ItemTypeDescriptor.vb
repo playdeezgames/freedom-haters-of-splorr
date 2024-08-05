@@ -1,4 +1,5 @@
-﻿Imports FHOS.Persistence
+﻿Imports FHOS.Data
+Imports FHOS.Persistence
 
 Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property ItemType As String
@@ -10,7 +11,7 @@ Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property Price As Integer
     ReadOnly Property UninstallFee As Integer
     ReadOnly Property InstallFee As Integer
-
+    'MustOverride ReadOnly Property Dialogs(item As IItem) As IReadOnlyDictionary(Of String, IDialog)
     ReadOnly Property CanUse As Boolean
 
     Private ReadOnly onUse As Action(Of IActor, IItem)
