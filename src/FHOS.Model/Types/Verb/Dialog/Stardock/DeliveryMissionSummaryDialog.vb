@@ -74,6 +74,7 @@ Friend Class DeliveryMissionSummaryDialog
     End Property
 
     Private Sub AcceptMission()
+        'TODO: if deposit, remove from wallet and make reward bigger
         StarDock.Inventory.Remove(item)
         Actor.Inventory.Add(item)
         StarDock.GenerateDeliveryMission()
