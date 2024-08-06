@@ -238,4 +238,15 @@ Friend Module ActorExtensions
         actor.AddReputation(starSystem, reputation)
         actor.AddReputation(faction, reputation)
     End Sub
+    <Extension>
+    Friend Function GetWorstReputation(actor As IActor, planet As IGroup) As Integer
+        Dim planetVicinity = planet.SingleParent(GroupTypes.PlanetVicinity)
+        Dim starSystem = planetVicinity.SingleParent(GroupTypes.StarSystem)
+        Dim faction = planetVicinity.SingleParent(GroupTypes.Faction)
+        Return {
+            If(actor.GetReputation(planetVicinity), 0),
+            If(actor.GetReputation(starSystem), 0),
+            If(actor.GetReputation(faction), 0)
+        }.Min
+    End Function
 End Module
