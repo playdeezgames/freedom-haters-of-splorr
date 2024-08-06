@@ -4,7 +4,6 @@ Imports FHOS.Persistence
 Friend Class CompleteMissionDialog
     Inherits BaseDialog
 
-    Private ReadOnly actor As IActor
     Private ReadOnly starDock As IActor
     Private ReadOnly Property deliveredItems As IEnumerable(Of IItem)
         Get
@@ -14,7 +13,7 @@ Friend Class CompleteMissionDialog
     End Property
 
     Public Sub New(actor As IActor, starDock As IActor)
-        Me.actor = actor
+        MyBase.New(actor)
         Me.starDock = starDock
     End Sub
 

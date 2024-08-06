@@ -4,8 +4,8 @@ Friend Class DeliveryMissionSummaryDialog
     Inherits BaseDialog
 
     Public Sub New(actor As Persistence.IActor, starDock As Persistence.IActor, item As Persistence.IItem)
-        Me.Actor = actor
-        Me.StarDock = starDock
+        MyBase.New(actor)
+        Me.starDock = starDock
         Me.Item = item
     End Sub
 
@@ -43,8 +43,6 @@ Friend Class DeliveryMissionSummaryDialog
         actor.Dialog = Nothing
         actor.Yokes.Actor(YokeTypes.Interactor) = starDock
     End Sub
-
-    Private ReadOnly Property actor As Persistence.IActor
     Private ReadOnly Property starDock As Persistence.IActor
     Private ReadOnly Property item As Persistence.IItem
 End Class

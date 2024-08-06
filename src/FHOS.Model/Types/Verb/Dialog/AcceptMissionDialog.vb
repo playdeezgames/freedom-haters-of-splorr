@@ -3,11 +3,10 @@
 Friend Class AcceptMissionDialog
     Inherits BaseDialog
 
-    Private ReadOnly actor As IActor
     Private ReadOnly starDock As IActor
 
     Public Sub New(actor As IActor, starDock As IActor)
-        Me.actor = actor
+        MyBase.New(actor)
         Me.starDock = starDock
     End Sub
 
