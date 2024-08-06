@@ -16,6 +16,10 @@ Friend Class StarSystemState
         ui.Clear()
         With group
             ui.WriteLine((Mood.Title, .Name))
+            Dim reputation = model.State.Avatar.Bio.Reputation(group)
+            If reputation IsNot Nothing Then
+                ui.WriteLine((Mood.Info, $"Reputation: { reputation.Value}"))
+            End If
             ui.WriteLine((Mood.Info, $"Type: { .Properties.StarTypeName}"))
             Dim galaxyPosition = .Properties.Position
             ui.WriteLine((Mood.Info, $"Position: ({galaxyPosition.Column},{galaxyPosition.Row})"))

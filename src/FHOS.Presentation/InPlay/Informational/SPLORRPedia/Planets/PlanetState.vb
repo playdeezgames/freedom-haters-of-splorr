@@ -16,6 +16,10 @@ Friend Class PlanetState
         ui.Clear()
         With group
             ui.WriteLine((Mood.Title, .Name))
+            Dim reputation = model.State.Avatar.Bio.Reputation(group)
+            If reputation IsNot Nothing Then
+                ui.WriteLine((Mood.Info, $"Reputation: { reputation.Value}"))
+            End If
             ui.WriteLine((Mood.Info, $"Planet Type: { .Properties.PlanetTypeName}"))
             ui.WriteLine((Mood.Info, $"Star System: { .Parents.StarSystem.Name}"))
             ui.WriteLine((Mood.Info, $"Satellite Count: { .Properties.SatelliteCount}"))

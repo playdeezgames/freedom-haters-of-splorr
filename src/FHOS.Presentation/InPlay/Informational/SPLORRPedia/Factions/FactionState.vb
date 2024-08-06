@@ -23,6 +23,10 @@ Friend Class FactionState
         ui.Clear()
         With group
             ui.WriteLine((Mood.Title, .Name))
+            Dim reputation = model.State.Avatar.Bio.Reputation(group)
+            If reputation IsNot Nothing Then
+                ui.WriteLine((Mood.Info, $"Reputation: { reputation.Value}"))
+            End If
             ui.WriteLine((Mood.Info, $"Authority: { .Properties.Authority.LevelName}({ .Properties.Authority.Value})"))
             ui.WriteLine((Mood.Info, $"Standards: { .Properties.Standards.LevelName}({ .Properties.Standards.Value})"))
             ui.WriteLine((Mood.Info, $"Conviction: { .Properties.Conviction.LevelName}({ .Properties.Conviction.Value})"))
