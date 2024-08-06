@@ -19,8 +19,20 @@ Friend Module ItemExtensions
         item.Statistics(StatisticTypes.DestinationPlanetId) = destination.Id
     End Sub
     <Extension>
+    Friend Sub SetOriginPlanet(item As IItem, origin As IGroup)
+        item.Statistics(StatisticTypes.OriginPlanetId) = origin.Id
+    End Sub
+    <Extension>
     Friend Function GetDestinationPlanet(item As IItem) As IGroup
         Dim groupId = item.Statistics(StatisticTypes.DestinationPlanetId)
+        If Not groupId.HasValue Then
+            Return Nothing
+        End If
+        Return item.Universe.Groups.Single(Function(x) x.Id = groupId.Value)
+    End Function
+    <Extension>
+    Friend Function GetOriginPlanet(item As IItem) As IGroup
+        Dim groupId = item.Statistics(StatisticTypes.OriginPlanetId)
         If Not groupId.HasValue Then
             Return Nothing
         End If
@@ -46,6 +58,10 @@ Friend Module ItemExtensions
     Friend Sub SetReputationPenalty(item As IItem, penalty As Integer)
         item.Statistics(StatisticTypes.ReputationPenalty) = penalty
     End Sub
+    <Extension>
+    Friend Function GetReputationPenalty(item As IItem) As Integer
+        Return If(item.Statistics(StatisticTypes.ReputationPenalty), 0)
+    End Function
     <Extension>
     Friend Function EntityName(item As IItem) As String
         Return item.Descriptor.GetEntityName(item)

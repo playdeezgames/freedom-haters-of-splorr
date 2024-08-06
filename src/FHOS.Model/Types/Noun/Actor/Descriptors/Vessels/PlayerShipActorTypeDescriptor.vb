@@ -39,7 +39,7 @@ Friend Class PlayerShipActorTypeDescriptor
     End Sub
 
     Private Function InitializeStarSystem(actor As IActor, planet As IGroup) As IGroup
-        Dim starSystem = planet.Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem)
+        Dim starSystem = planet.SingleParent(GroupTypes.StarSystem)
         actor.SetReputation(starSystem, 100)
         Return starSystem
     End Function

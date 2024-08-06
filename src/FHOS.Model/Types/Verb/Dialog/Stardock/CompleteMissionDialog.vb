@@ -46,20 +46,16 @@ Friend Class CompleteMissionDialog
     End Property
 
     Private Sub CloseDialog()
-        Dim planetVicinity = StarDock.Yokes.Group(YokeTypes.Planet).Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity)
-        Dim starSystem = planetVicinity.Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem)
-        Dim faction = planetVicinity.Parents.Single(Function(x) x.EntityType = GroupTypes.Faction)
         For Each item In deliveredItems
             Dim jools = item.GetJoolsReward
             Dim reputation = item.GetReputationBonus
             Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue += jools
-            Actor.AddReputation(planetVicinity, reputation)
-            Actor.AddReputation(starSystem, reputation)
-            Actor.AddReputation(faction, reputation)
+            Actor.UpdateReputations(reputation, item.GetDestinationPlanet)
+            Actor.UpdateReputations(reputation, item.GetOriginPlanet)
             Actor.Inventory.Remove(item)
             item.Recycle()
         Next
-        actor.Dialog = Nothing
-        actor.Yokes.Actor(YokeTypes.Interactor) = starDock
+        Actor.Dialog = Nothing
+        Actor.Yokes.Actor(YokeTypes.Interactor) = StarDock
     End Sub
 End Class

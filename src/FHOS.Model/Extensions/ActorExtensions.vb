@@ -1,4 +1,5 @@
-﻿Imports System.Runtime.CompilerServices
+﻿Imports System.Numerics
+Imports System.Runtime.CompilerServices
 Imports FHOS.Persistence
 Imports SPLORR.Game
 
@@ -155,9 +156,9 @@ Friend Module ActorExtensions
         Dim deliveryItem = actor.Universe.Factory.CreateItem(ItemTypes.Delivery)
         actor.Inventory.Add(deliveryItem)
         Dim planet = actor.Yokes.Group(YokeTypes.Planet)
-        deliveryItem.Statistics(StatisticTypes.OriginPlanetId) = planet.Id
-        Dim planetVicinity = planet.Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity)
-        Dim faction = planetVicinity.Parents.Single(Function(x) x.EntityType = GroupTypes.Faction)
+        deliveryItem.SetOriginPlanet(planet)
+        Dim planetVicinity = planet.SingleParent(GroupTypes.PlanetVicinity)
+        Dim faction = planetVicinity.SingleParent(GroupTypes.Faction)
         Dim candidates = faction.
             ChildrenOfType(GroupTypes.PlanetVicinity).
             Where(Function(x) x.Id <> planetVicinity.Id).
@@ -228,4 +229,13 @@ Friend Module ActorExtensions
     Private Function GenerateAdverb() As Object
         Return RNG.FromList(adverbs.ToList)
     End Function
+    <Extension>
+    Friend Sub UpdateReputations(actor As IActor, reputation As Integer, planet As IGroup)
+        Dim planetVicinity = planet.SingleParent(GroupTypes.PlanetVicinity)
+        Dim starSystem = planetVicinity.SingleParent(GroupTypes.StarSystem)
+        Dim faction = planetVicinity.SingleParent(GroupTypes.Faction)
+        actor.AddReputation(planetVicinity, reputation)
+        actor.AddReputation(starSystem, reputation)
+        actor.AddReputation(faction, reputation)
+    End Sub
 End Module
