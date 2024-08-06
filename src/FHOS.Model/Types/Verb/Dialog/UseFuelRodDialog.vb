@@ -1,7 +1,5 @@
-﻿Imports FHOS.Data
-
-Friend Class UseFuelRodDialog
-    Implements IDialog
+﻿Friend Class UseFuelRodDialog
+    Inherits BaseDialog
     Private ReadOnly actor As Persistence.IActor
     Private ReadOnly item As Persistence.IItem
     Private result As List(Of (Hue As Integer, Text As String)) = Nothing
@@ -11,7 +9,7 @@ Friend Class UseFuelRodDialog
         Me.item = item
     End Sub
 
-    Public ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String)) Implements IDialog.Lines
+    Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
         Get
             If result Is Nothing Then
                 result = New List(Of (Hue As Integer, Text As String)) From
@@ -30,7 +28,7 @@ Friend Class UseFuelRodDialog
         End Get
     End Property
 
-    Public ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action)) Implements IDialog.Choices
+    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action))
         Get
             Return New List(Of (Text As String, Value As Action)) From
                 {

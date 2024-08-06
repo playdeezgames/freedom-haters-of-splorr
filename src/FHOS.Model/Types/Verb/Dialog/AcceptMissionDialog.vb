@@ -1,8 +1,7 @@
-﻿Imports FHOS.Data
-Imports FHOS.Persistence
+﻿Imports FHOS.Persistence
 
 Friend Class AcceptMissionDialog
-    Implements IDialog
+    Inherits BaseDialog
 
     Private ReadOnly actor As IActor
     Private ReadOnly starDock As IActor
@@ -12,7 +11,7 @@ Friend Class AcceptMissionDialog
         Me.starDock = starDock
     End Sub
 
-    Public ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String)) Implements IDialog.Lines
+    Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
         Get
             Dim result As New List(Of (Hue As Integer, Text As String)) From {
                 (Hues.Pink, $"Delivery Missions for {starDock.EntityName}:")
@@ -21,7 +20,7 @@ Friend Class AcceptMissionDialog
         End Get
     End Property
 
-    Public ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action)) Implements IDialog.Choices
+    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action))
         Get
             Dim result As New List(Of (Text As String, Value As Action)) From
                 {

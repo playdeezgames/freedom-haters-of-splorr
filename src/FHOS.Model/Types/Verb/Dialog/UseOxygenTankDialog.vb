@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Data
 
 Friend Class UseOxygenTankDialog
-    Implements IDialog
+    Inherits BaseDialog
     Private ReadOnly actor As Persistence.IActor
     Private ReadOnly item As Persistence.IItem
     Private result As List(Of (Hue As Integer, Text As String)) = Nothing
@@ -11,7 +11,7 @@ Friend Class UseOxygenTankDialog
         Me.item = item
     End Sub
 
-    Public ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String)) Implements IDialog.Lines
+    Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
         Get
             If result Is Nothing Then
                 result = New List(Of (Hue As Integer, Text As String)) From
@@ -31,7 +31,7 @@ Friend Class UseOxygenTankDialog
         End Get
     End Property
 
-    Public ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action)) Implements IDialog.Choices
+    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action))
         Get
             Return {
                 ("Ok", Sub() actor.Dialog = Nothing)

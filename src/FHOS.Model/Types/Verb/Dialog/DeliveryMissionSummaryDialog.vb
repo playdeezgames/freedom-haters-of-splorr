@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Data
 
 Friend Class DeliveryMissionSummaryDialog
-    Implements IDialog
+    Inherits BaseDialog
 
     Public Sub New(actor As Persistence.IActor, starDock As Persistence.IActor, item As Persistence.IItem)
         Me.Actor = actor
@@ -9,7 +9,7 @@ Friend Class DeliveryMissionSummaryDialog
         Me.Item = item
     End Sub
 
-    Public ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String)) Implements IDialog.Lines
+    Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
         Get
             Dim result As New List(Of (Hue As Integer, Text As String)) From {
                 (Hues.Orange, $"Delivery from {starDock.EntityName}:"),
@@ -22,7 +22,7 @@ Friend Class DeliveryMissionSummaryDialog
         End Get
     End Property
 
-    Public ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action)) Implements IDialog.Choices
+    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action))
         Get
             Dim result As New List(Of (Text As String, Value As Action)) From {
                 ("Cancel", AddressOf CancelDialog),
