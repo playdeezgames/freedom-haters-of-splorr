@@ -2,19 +2,17 @@
 Imports FHOS.Persistence
 
 Friend Class CompleteMissionDialog
-    Inherits BaseDialog
+    Inherits BaseStardockDialog
 
-    Private ReadOnly starDock As IActor
     Private ReadOnly Property deliveredItems As IEnumerable(Of IItem)
         Get
-            Dim planet = starDock.Yokes.Group(YokeTypes.Planet)
-            Return actor.Inventory.Items.Where(Function(x) x.EntityType = ItemTypes.Delivery AndAlso x.GetDestinationPlanet.Id = planet.Id)
+            Dim planet = StarDock.Yokes.Group(YokeTypes.Planet)
+            Return Actor.Inventory.Items.Where(Function(x) x.EntityType = ItemTypes.Delivery AndAlso x.GetDestinationPlanet.Id = planet.Id)
         End Get
     End Property
 
     Public Sub New(actor As IActor, starDock As IActor)
-        MyBase.New(actor)
-        Me.starDock = starDock
+        MyBase.New(actor, starDock)
     End Sub
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
@@ -48,14 +46,17 @@ Friend Class CompleteMissionDialog
     End Property
 
     Private Sub CloseDialog()
-        Dim planet = starDock.Yokes.Group(YokeTypes.Planet)
+        Dim planetVicinity = StarDock.Yokes.Group(YokeTypes.Planet).Parents.Single(Function(x) x.EntityType = GroupTypes.PlanetVicinity)
+        Dim starSystem = planetVicinity.Parents.Single(Function(x) x.EntityType = GroupTypes.StarSystem)
+        Dim faction = planetVicinity.Parents.Single(Function(x) x.EntityType = GroupTypes.Faction)
         For Each item In deliveredItems
             Dim jools = item.GetJoolsReward
             Dim reputation = item.GetReputationBonus
-            actor.Yokes.Store(YokeTypes.Wallet).CurrentValue += jools
-            actor.SetReputation(planet, If(actor.GetReputation(planet), 0) + reputation)
-            'TODO: star system and faction reputation bonus
-            actor.Inventory.Remove(item)
+            Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue += jools
+            Actor.AddReputation(planetVicinity, reputation)
+            Actor.AddReputation(starSystem, reputation)
+            Actor.AddReputation(faction, reputation)
+            Actor.Inventory.Remove(item)
             item.Recycle()
         Next
         actor.Dialog = Nothing

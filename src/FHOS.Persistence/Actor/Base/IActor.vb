@@ -13,4 +13,5 @@ Public Interface IActor
     ReadOnly Property Prices As IActorPrices
     Function GetReputation(group As IGroup) As Integer?
     Sub SetReputation(group As IGroup, reputation As Integer?)
+    Sub AddReputation(group As IGroup, delta As Integer?)
 End Interface

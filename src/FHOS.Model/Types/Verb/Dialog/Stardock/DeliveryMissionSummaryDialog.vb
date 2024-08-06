@@ -1,18 +1,15 @@
-﻿Imports FHOS.Data
-
-Friend Class DeliveryMissionSummaryDialog
-    Inherits BaseDialog
+﻿Friend Class DeliveryMissionSummaryDialog
+    Inherits BaseStardockDialog
 
     Public Sub New(actor As Persistence.IActor, starDock As Persistence.IActor, item As Persistence.IItem)
-        MyBase.New(actor)
-        Me.starDock = starDock
-        Me.Item = item
+        MyBase.New(actor, starDock)
+        Me.item = item
     End Sub
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
         Get
             Dim result As New List(Of (Hue As Integer, Text As String)) From {
-                (Hues.Orange, $"Delivery from {starDock.EntityName}:"),
+                (Hues.Orange, $"Delivery from {StarDock.EntityName}:"),
                 (Hues.LightGray, $"Item: {item.EntityName}"),
                 (Hues.LightGray, $"Destination: {item.GetDestinationPlanet().EntityName}"),
                 (Hues.LightGray, $"Recipient: {item.GetRecipient()}"),
@@ -33,16 +30,15 @@ Friend Class DeliveryMissionSummaryDialog
     End Property
 
     Private Sub AcceptMission()
-        starDock.Inventory.Remove(item)
-        actor.Inventory.Add(item)
-        starDock.GenerateDeliveryMission()
-        actor.Dialog = Nothing
+        StarDock.Inventory.Remove(item)
+        Actor.Inventory.Add(item)
+        StarDock.GenerateDeliveryMission()
+        Actor.Dialog = Nothing
     End Sub
 
     Private Sub CancelDialog()
-        actor.Dialog = Nothing
-        actor.Yokes.Actor(YokeTypes.Interactor) = starDock
+        Actor.Dialog = Nothing
+        Actor.Yokes.Actor(YokeTypes.Interactor) = StarDock
     End Sub
-    Private ReadOnly Property starDock As Persistence.IActor
     Private ReadOnly Property item As Persistence.IItem
 End Class

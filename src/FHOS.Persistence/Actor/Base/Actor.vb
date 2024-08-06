@@ -35,6 +35,12 @@ Friend Class Actor
         End If
     End Sub
 
+    Public Sub AddReputation(group As IGroup, delta As Integer?) Implements IActor.AddReputation
+        If delta.HasValue Then
+            SetReputation(group, If(GetReputation(group), 0) + delta.Value)
+        End If
+    End Sub
+
     Public ReadOnly Property Equipment As IActorEquipment Implements IActor.Equipment
         Get
             Return ActorEquipment.FromId(UniverseData, Id)

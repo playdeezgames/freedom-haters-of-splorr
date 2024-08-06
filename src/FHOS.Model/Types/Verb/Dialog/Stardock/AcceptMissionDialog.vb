@@ -1,13 +1,10 @@
 ﻿Imports FHOS.Persistence
 
 Friend Class AcceptMissionDialog
-    Inherits BaseDialog
-
-    Private ReadOnly starDock As IActor
+    Inherits BaseStardockDialog
 
     Public Sub New(actor As IActor, starDock As IActor)
-        MyBase.New(actor)
-        Me.starDock = starDock
+        MyBase.New(actor, starDock)
     End Sub
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))

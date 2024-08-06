@@ -20,7 +20,7 @@ Friend Class InventoryState
             (Mood.Prompt, Prompts.Inventory),
             result.ToArray)
         If choice Is Nothing Then
-            Return New StatusState(model, ui, endState)
+            Return New ActionMenuState(model, ui, endState)
         End If
         If choice.Items.Count = 1 Then
             Return New ItemInspectState(model, ui, Me, choice.Items.Single)

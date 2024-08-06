@@ -1,11 +1,9 @@
 ﻿Friend Class UseFuelRodDialog
-    Inherits BaseDialog
-    Private ReadOnly item As Persistence.IItem
+    Inherits BaseItemDialog
     Private result As List(Of (Hue As Integer, Text As String)) = Nothing
 
     Public Sub New(actor As Persistence.IActor, item As Persistence.IItem)
-        MyBase.New(actor)
-        Me.item = item
+        MyBase.New(actor, item)
     End Sub
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
