@@ -167,7 +167,7 @@ Friend Module ActorExtensions
         deliveryItem.Metadatas(MetadataTypes.EntityName) = $"{GenerateAdverb()} {GenerateAdjective()} {GenerateNoun()}"
         deliveryItem.Metadatas(MetadataTypes.Recipient) = $"{GenerateRecipientName()} the {GenerateRecipientJob()}"
         deliveryItem.SetDestinationPlanet(destination)
-        deliveryItem.SetJoolsReward(10)
+        deliveryItem.SetJoolsReward(RNG.RollDice("5d20"))
         deliveryItem.SetReputationBonus(1)
         deliveryItem.SetReputationPenalty(-5)
     End Sub
