@@ -108,7 +108,7 @@ Friend Module ActorExtensions
 
     <Extension>
     Sub GoToOtherActor(actor As IActor, otherActor As IActor, postAction As Action(Of Boolean, IActor))
-        Dim destinations = otherActor.Location.GetEmptyNeighbors()
+        Dim destinations = otherActor.Location.GetEmptyCardinalNeighbors()
         If Not destinations.Any Then
             postAction(False, otherActor)
             Return

@@ -35,7 +35,7 @@ Friend MustInherit Class StationActorTypeDescriptor
         actor.Yokes.Group(YokeTypes.Faction) = faction
 
         actor.Location.EntityType = LocationTypes.ActorAdjacent
-        For Each neighbor In actor.Location.GetEmptyNeighborsOfType(LocationTypes.Void)
+        For Each neighbor In actor.Location.GetEmptyOrdinalNeighborsOfType(LocationTypes.Void)
             neighbor.EntityType = LocationTypes.ActorAdjacent
         Next
         Dim planetGroup = actor.Location.Map.YokedGroup(YokeTypes.Planet)

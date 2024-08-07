@@ -18,7 +18,7 @@ Friend Class WormholeActorTypeDescriptor
     Protected Overrides Sub Initialize(actor As IActor)
         Dim location = actor.Location
         location.EntityType = LocationTypes.Wormhole
-        For Each neighbor In location.GetEmptyNeighborsOfType(LocationTypes.Void)
+        For Each neighbor In location.GetEmptyCardinalNeighborsOfType(LocationTypes.Void)
             neighbor.EntityType = LocationTypes.ActorAdjacent
         Next
     End Sub
@@ -26,7 +26,7 @@ Friend Class WormholeActorTypeDescriptor
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean
         Return location.EntityType = LocationTypes.Void AndAlso
             location.Actor Is Nothing AndAlso
-            location.GetEmptyNeighborsOfType(LocationTypes.Void).Any
+            location.GetEmptyCardinalNeighborsOfType(LocationTypes.Void).Any
     End Function
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
