@@ -11,14 +11,14 @@
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, OrdinalDirectionDescriptor) =
         New List(Of OrdinalDirectionDescriptor) From
         {
-            New OrdinalDirectionDescriptor(North, ChrW(16)),
-            New OrdinalDirectionDescriptor(NorthEast, ChrW(17)),
-            New OrdinalDirectionDescriptor(East, ChrW(18)),
-            New OrdinalDirectionDescriptor(SouthEast, ChrW(19)),
-            New OrdinalDirectionDescriptor(South, ChrW(20)),
-            New OrdinalDirectionDescriptor(SouthWest, ChrW(21)),
-            New OrdinalDirectionDescriptor(West, ChrW(22)),
-            New OrdinalDirectionDescriptor(NorthWest, ChrW(23))
+            New OrdinalDirectionDescriptor(North, ChrW(16), (0, -1)),
+            New OrdinalDirectionDescriptor(NorthEast, ChrW(17), (1, -1)),
+            New OrdinalDirectionDescriptor(East, ChrW(18), (1, 0)),
+            New OrdinalDirectionDescriptor(SouthEast, ChrW(19), (1, 1)),
+            New OrdinalDirectionDescriptor(South, ChrW(20), (0, 1)),
+            New OrdinalDirectionDescriptor(SouthWest, ChrW(21), (-1, 1)),
+            New OrdinalDirectionDescriptor(West, ChrW(22), (-1, 0)),
+            New OrdinalDirectionDescriptor(NorthWest, ChrW(23), (-1, -1))
         }.ToDictionary(Function(x) x.DirectionName, Function(x) x)
 
 End Module
