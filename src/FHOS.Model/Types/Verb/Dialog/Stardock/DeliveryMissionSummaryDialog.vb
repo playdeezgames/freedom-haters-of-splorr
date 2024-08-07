@@ -74,7 +74,9 @@ Friend Class DeliveryMissionSummaryDialog
     End Property
 
     Private Sub AcceptMission()
-        'TODO: if deposit, remove from wallet and make reward bigger
+        Dim depositAmount = Deposit
+        Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= depositAmount
+        item.SetJoolsReward(Deposit + item.GetJoolsReward)
         StarDock.Inventory.Remove(item)
         Actor.Inventory.Add(item)
         StarDock.GenerateDeliveryMission()
