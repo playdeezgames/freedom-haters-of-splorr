@@ -23,6 +23,7 @@
     Friend ReadOnly Standards As String = NameOf(Standards)
     Friend ReadOnly StarDockCount As String = NameOf(StarDockCount)
     Friend ReadOnly StarGateCount As String = NameOf(StarGateCount)
+    Friend ReadOnly TechLevel As String = NameOf(TechLevel)
     Friend ReadOnly TradingPostCount As String = NameOf(TradingPostCount)
     Friend ReadOnly VisitCount As String = NameOf(VisitCount)
     Friend ReadOnly WormholeCount As String = NameOf(WormholeCount)

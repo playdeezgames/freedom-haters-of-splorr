@@ -70,6 +70,7 @@ Friend Class StarSystemInitializationStep
         planetVicinityGroup.Statistics(StatisticTypes.TradingPostCount) = 0
         planetVicinityGroup.Statistics(StatisticTypes.StarDockCount) = 0
         planetVicinityGroup.Statistics(StatisticTypes.StarGateCount) = 0
+        planetVicinityGroup.Statistics(StatisticTypes.TechLevel) = RNG.RollDice("2d6+-2d1")
         actor.Yokes.Group(YokeTypes.StarSystem) = exteriorActor.Yokes.Group(YokeTypes.StarSystem)
         addStep(New PlanetVicinityInitializationStep(location, nameGenerator), False)
     End Sub

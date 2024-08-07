@@ -8,4 +8,5 @@
     ReadOnly Property Authority As (LevelName As String, Value As Integer)
     ReadOnly Property Standards As (LevelName As String, Value As Integer)
     ReadOnly Property Conviction As (LevelName As String, Value As Integer)
+    ReadOnly Property TechLevel As Integer
 End Interface

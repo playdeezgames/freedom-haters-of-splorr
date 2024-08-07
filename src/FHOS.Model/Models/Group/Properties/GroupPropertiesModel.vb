@@ -98,6 +98,12 @@ Friend Class GroupPropertiesModel
         End Get
     End Property
 
+    Public ReadOnly Property TechLevel As Integer Implements IGroupPropertiesModel.TechLevel
+        Get
+            Return group.Statistics(StatisticTypes.TechLevel).Value
+        End Get
+    End Property
+
     Friend Shared Function FromGroup(group As IGroup) As IGroupPropertiesModel
         Return New GroupPropertiesModel(group)
     End Function

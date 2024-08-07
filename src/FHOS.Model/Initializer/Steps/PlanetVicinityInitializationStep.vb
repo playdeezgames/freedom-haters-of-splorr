@@ -80,7 +80,9 @@ Friend Class PlanetVicinityInitializationStep
         Dim centerRow = externalActor.Interior.Size.Rows \ 2
         Dim planetGroup = externalActor.Universe.Factory.CreateGroup(GroupTypes.Planet, externalActor.Yokes.Group(YokeTypes.PlanetVicinity).EntityName)
         planetGroup.Statistics(StatisticTypes.ShipyardCount) = 0
-        planetGroup.AddParent(externalActor.Yokes.Group(YokeTypes.PlanetVicinity))
+        Dim planetVicinity = externalActor.Yokes.Group(YokeTypes.PlanetVicinity)
+        planetGroup.Statistics(StatisticTypes.TechLevel) = planetVicinity.Statistics(StatisticTypes.TechLevel)
+        planetGroup.AddParent(planetVicinity)
         For Each delta In Grid3x3.Descriptors
             PlacePlanetSectionActor(
                 planetGroup,
