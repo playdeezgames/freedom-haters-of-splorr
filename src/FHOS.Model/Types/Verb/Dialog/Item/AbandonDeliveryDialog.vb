@@ -27,8 +27,10 @@
 
     Private Sub ConfirmAbandon()
         Dim delta = Item.GetReputationPenalty
-        Actor.UpdateReputations(delta, Item.GetDestinationPlanet)
-        Actor.UpdateReputations(delta, Item.GetOriginPlanet)
+        Actor.UpdateReputations(
+            delta,
+            Item.GetOriginPlanet,
+            Actor.UpdateReputations(delta, Item.GetDestinationPlanet))
         Actor.Inventory.Remove(Item)
         Item.Recycle()
         Actor.Dialog = Nothing

@@ -230,14 +230,25 @@ Friend Module ActorExtensions
         Return RNG.FromList(adverbs.ToList)
     End Function
     <Extension>
-    Friend Sub UpdateReputations(actor As IActor, reputation As Integer, planet As IGroup)
+    Friend Function UpdateReputations(actor As IActor, reputation As Integer, planet As IGroup, Optional groups As IEnumerable(Of IGroup) = Nothing) As IEnumerable(Of IGroup)
         Dim planetVicinity = planet.SingleParent(GroupTypes.PlanetVicinity)
         Dim starSystem = planetVicinity.SingleParent(GroupTypes.StarSystem)
         Dim faction = planetVicinity.SingleParent(GroupTypes.Faction)
-        actor.AddReputation(planetVicinity, reputation)
-        actor.AddReputation(starSystem, reputation)
-        actor.AddReputation(faction, reputation)
-    End Sub
+        If groups Is Nothing OrElse Not groups.Any(Function(x) x.Id = planetVicinity.Id) Then
+            actor.AddReputation(planetVicinity, reputation)
+        End If
+        If groups Is Nothing OrElse Not groups.Any(Function(x) x.Id = starSystem.Id) Then
+            actor.AddReputation(starSystem, reputation)
+        End If
+        If groups Is Nothing OrElse Not groups.Any(Function(x) x.Id = faction.Id) Then
+            actor.AddReputation(faction, reputation)
+        End If
+        Dim result As New List(Of IGroup) From {planetVicinity, starSystem, faction}
+        If groups IsNot Nothing Then
+            result.AddRange(result)
+        End If
+        Return result
+    End Function
     <Extension>
     Friend Function GetWorstReputation(actor As IActor, planet As IGroup) As Integer
         Dim planetVicinity = planet.SingleParent(GroupTypes.PlanetVicinity)
