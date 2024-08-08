@@ -1,9 +1,14 @@
-﻿Friend Class UseOxygenTankDialog
+﻿Imports FHOS.Data
+
+Friend Class UseOxygenTankDialog
     Inherits BaseItemDialog
     Private result As List(Of (Hue As Integer, Text As String)) = Nothing
 
-    Public Sub New(actor As Persistence.IActor, item As Persistence.IItem)
-        MyBase.New(actor, item)
+    Public Sub New(
+                  actor As Persistence.IActor,
+                  item As Persistence.IItem,
+                  finalDialog As IDialog)
+        MyBase.New(actor, item, finalDialog)
     End Sub
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
@@ -14,13 +19,13 @@
                         (Hues.Orange, "Replenished Oxygen!")
                     }
                 Dim store = Actor.LifeSupport
-                Dim oxygenAmount = item.Statistics(StatisticTypes.Oxygen).Value
+                Dim oxygenAmount = Item.Statistics(StatisticTypes.Oxygen).Value
                 store.CurrentValue += oxygenAmount
                 result.Add((Hues.LightGray, $"Added {oxygenAmount} O2."))
                 result.Add((Hues.LightGray, $"O2 is now {store.Percent.Value}%."))
-                Actor.Inventory.Remove(item)
+                Actor.Inventory.Remove(Item)
                 Actor.Inventory.Add(Actor.Universe.Factory.CreateItem(ItemTypes.Scrap))
-                item.Recycle()
+                Item.Recycle()
             End If
             Return result
         End Get
@@ -29,7 +34,7 @@
     Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action))
         Get
             Return {
-                ("Ok", Sub() Actor.Dialog = Nothing)
+                ("Ok", AddressOf EndDialog)
                 }
         End Get
     End Property

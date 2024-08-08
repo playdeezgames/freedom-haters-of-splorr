@@ -35,10 +35,10 @@ Friend Class OxygenTankDescriptor
         item.Statistics(StatisticTypes.Oxygen) = 100
     End Sub
 
-    Public Overrides Function Dialogs(actor As IActor, item As IItem) As IReadOnlyDictionary(Of String, IDialog)
+    Public Overrides Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)
         Return New Dictionary(Of String, IDialog) From
             {
-                {"Refill Oxygen", New UseOxygenTankDialog(actor, item)}
+                {"Refill Oxygen", New UseOxygenTankDialog(actor, item, Nothing)}
             }
     End Function
 End Class

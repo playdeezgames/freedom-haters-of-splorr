@@ -27,7 +27,7 @@ Friend Class AcceptDeliveryMissionInteractionTypeDescriptor
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
         Return New InteractionModel(actor, Sub(a)
-                                               a.Dialog = New AcceptMissionDialog(a, a.Interactor)
+                                               a.Dialog = New AcceptMissionDialog(a, a.Interactor, Nothing)
                                                a.ClearInteractor
                                            End Sub)
     End Function

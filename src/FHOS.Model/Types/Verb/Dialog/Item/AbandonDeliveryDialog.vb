@@ -1,8 +1,10 @@
-﻿Friend Class AbandonDeliveryDialog
+﻿Imports FHOS.Data
+
+Friend Class AbandonDeliveryDialog
     Inherits BaseItemDialog
 
-    Public Sub New(actor As Persistence.IActor, item As Persistence.IItem)
-        MyBase.New(actor, item)
+    Public Sub New(actor As Persistence.IActor, item As Persistence.IItem, finalDialog As IDialog)
+        MyBase.New(actor, item, finalDialog)
     End Sub
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
@@ -19,7 +21,7 @@
         Get
             Return New List(Of (Text As String, Value As Action)) From
                 {
-                    ("Cancel", AddressOf CancelDialog),
+                    ("Cancel", AddressOf EndDialog),
                     ("Confirm", AddressOf ConfirmAbandon)
                 }
         End Get
@@ -33,10 +35,6 @@
             Actor.UpdateReputations(delta, Item.GetDestinationPlanet))
         Actor.Inventory.Remove(Item)
         Item.Recycle()
-        Actor.Dialog = Nothing
-    End Sub
-
-    Private Sub CancelDialog()
-        Actor.Dialog = Nothing
+        EndDialog()
     End Sub
 End Class

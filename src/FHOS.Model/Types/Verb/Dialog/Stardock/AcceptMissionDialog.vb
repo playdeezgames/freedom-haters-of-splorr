@@ -1,10 +1,14 @@
-﻿Imports FHOS.Persistence
+﻿Imports FHOS.Data
+Imports FHOS.Persistence
 
 Friend Class AcceptMissionDialog
-    Inherits BaseStardockDialog
+    Inherits BaseStarDockDialog
 
-    Public Sub New(actor As IActor, starDock As IActor)
-        MyBase.New(actor, starDock)
+    Public Sub New(
+                  actor As IActor,
+                  starDock As IActor,
+                  finalDialog As IDialog)
+        MyBase.New(actor, starDock, finalDialog)
     End Sub
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
@@ -33,10 +37,10 @@ Friend Class AcceptMissionDialog
     End Function
 
     Private Sub CancelDialog()
-        actor.Dialog = Nothing
-        actor.Yokes.Actor(YokeTypes.Interactor) = starDock
+        EndDialog()
+        Actor.Yokes.Actor(YokeTypes.Interactor) = starDock
     End Sub
     Private Sub AcceptDeliveryMission(item As IItem)
-        actor.Dialog = New DeliveryMissionSummaryDialog(actor, starDock, item)
+        Actor.Dialog = New DeliveryMissionSummaryDialog(Actor, StarDock, item, finalDialog)
     End Sub
 End Class

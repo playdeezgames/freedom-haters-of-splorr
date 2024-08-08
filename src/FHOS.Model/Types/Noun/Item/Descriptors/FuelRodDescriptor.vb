@@ -34,10 +34,10 @@ Friend Class FuelRodDescriptor
         item.Statistics(StatisticTypes.Fuel) = 100
     End Sub
 
-    Public Overrides Function Dialogs(actor As IActor, item As IItem) As IReadOnlyDictionary(Of String, IDialog)
+    Public Overrides Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)
         Return New Dictionary(Of String, IDialog) From
             {
-                {"Refill Fuel", New UseFuelRodDialog(actor, item)}
+                {"Refill Fuel", New UseFuelRodDialog(actor, item, finalDialog)}
             }
     End Function
 End Class

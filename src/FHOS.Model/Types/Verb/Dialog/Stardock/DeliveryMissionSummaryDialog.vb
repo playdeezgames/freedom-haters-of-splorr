@@ -1,10 +1,14 @@
-﻿Imports System.Runtime.Serialization
+﻿Imports FHOS.Data
 
 Friend Class DeliveryMissionSummaryDialog
     Inherits BaseStarDockDialog
 
-    Public Sub New(actor As Persistence.IActor, starDock As Persistence.IActor, item As Persistence.IItem)
-        MyBase.New(actor, starDock)
+    Public Sub New(
+                  actor As Persistence.IActor,
+                  starDock As Persistence.IActor,
+                  item As Persistence.IItem,
+                  finalDialog As IDialog)
+        MyBase.New(actor, starDock, finalDialog)
         Me.item = item
     End Sub
 
@@ -80,11 +84,11 @@ Friend Class DeliveryMissionSummaryDialog
         StarDock.Inventory.Remove(item)
         Actor.Inventory.Add(item)
         StarDock.GenerateDeliveryMission()
-        Actor.Dialog = Nothing
+        EndDialog()
     End Sub
 
     Private Sub CancelDialog()
-        Actor.Dialog = Nothing
+        EndDialog()
         Actor.Yokes.Actor(YokeTypes.Interactor) = StarDock
     End Sub
     Private ReadOnly Property item As Persistence.IItem

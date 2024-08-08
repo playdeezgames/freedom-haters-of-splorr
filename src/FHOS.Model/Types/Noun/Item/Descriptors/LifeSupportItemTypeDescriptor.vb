@@ -52,7 +52,7 @@ Friend Class LifeSupportItemTypeDescriptor
         item.Statistics(StatisticTypes.CurrentOxygenCapacity) = oxygenCapacity
     End Sub
 
-    Public Overrides Function Dialogs(actor As IActor, item As IItem) As IReadOnlyDictionary(Of String, IDialog)
+    Public Overrides Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)
         Return New Dictionary(Of String, IDialog)
     End Function
 End Class

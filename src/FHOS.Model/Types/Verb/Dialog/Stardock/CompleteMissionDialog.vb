@@ -11,8 +11,8 @@ Friend Class CompleteMissionDialog
         End Get
     End Property
 
-    Public Sub New(actor As IActor, starDock As IActor)
-        MyBase.New(actor, starDock)
+    Public Sub New(actor As IActor, starDock As IActor, finalDialog As IDialog)
+        MyBase.New(actor, starDock, finalDialog)
     End Sub
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
@@ -57,7 +57,7 @@ Friend Class CompleteMissionDialog
             Actor.Inventory.Remove(item)
             item.Recycle()
         Next
-        Actor.Dialog = Nothing
+        EndDialog()
         Actor.Yokes.Actor(YokeTypes.Interactor) = StarDock
     End Sub
 End Class
