@@ -13,12 +13,7 @@ Friend Class RefuelInteractionTypeDescriptor
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
         Return New InteractionModel(actor, Sub(a)
-                                               Dim fuelRequired = a.FuelTank.TopOffAmount.Value
-                                               Const fuelPerJools = 3
-                                               Dim fuelCost = (fuelRequired + fuelPerJools - 1) \ fuelPerJools
-                                               a.Yokes.Store(YokeTypes.Wallet).CurrentValue -= fuelCost
-                                               a.FuelTank.CurrentValue += fuelRequired
-                                               a.Universe.Messages.Add("Refueled!", ($"You bought {fuelRequired} fuel.", Black), ($"You paid {fuelCost} Jools.", Black))
+                                               a.Dialog = New RefueledDialog(a, a.Dialog)
                                            End Sub)
     End Function
 

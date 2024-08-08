@@ -14,22 +14,7 @@ Friend Class SalvageScrapInteractionTypeDescriptor
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
         Return New InteractionModel(actor, Sub(a)
-                                               Dim interactor = a.Interactor
-                                               Dim loot = interactor.Inventory.Items.ToList
-                                               For Each item In loot
-                                                   interactor.Inventory.Remove(item)
-                                                   a.Inventory.Add(item)
-                                               Next
-                                               'loot summary
-                                               Dim lines As New List(Of (Text As String, Hue As Integer)) From
-                                                   {
-                                                       ("You find:", Hues.LightGray)
-                                                   }
-                                               lines.AddRange(loot.GroupBy(Function(x) x.EntityName).Select(Function(x) ($"{x.Count} {x.Key}", Hues.LightGray)))
-                                               a.Universe.Messages.Add("Salvage!", lines.ToArray)
-                                               Dim starSystemGroup = a.Location.Map.YokedGroup(GroupTypes.StarSystem)
-                                               starSystemGroup.Statistics(StatisticTypes.Scrap) -= 1
-                                               interactor.Recycle()
+                                               a.Dialog = New SalvageDialog(a, a.Interactor, a.Dialog)
                                                a.ClearInteractor()
                                            End Sub)
     End Function
