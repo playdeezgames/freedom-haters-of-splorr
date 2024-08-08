@@ -28,7 +28,7 @@ Friend Class DeliveryDescriptor
     Public Overrides Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)
         Return New Dictionary(Of String, IDialog) From
             {
-                {"Abandon Mission", New AbandonDeliveryDialog(actor, item, finalDialog)}
+                {DialogChoices.AbandonMission, New AbandonDeliveryDialog(actor, item, finalDialog)}
             }
     End Function
 End Class

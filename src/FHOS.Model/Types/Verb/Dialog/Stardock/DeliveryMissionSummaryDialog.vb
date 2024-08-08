@@ -68,10 +68,10 @@ Friend Class DeliveryMissionSummaryDialog
     Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action))
         Get
             Dim result As New List(Of (Text As String, Value As Action)) From {
-                ("Cancel", AddressOf CancelDialog)
+                (DialogChoices.Cancel, AddressOf CancelDialog)
             }
             If CanAddDelivery AndAlso (Deposit = 0 OrElse Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue > Deposit) Then
-                result.Add(("Accept", AddressOf AcceptMission))
+                result.Add((DialogChoices.Accept, AddressOf AcceptMission))
             End If
             Return result
         End Get

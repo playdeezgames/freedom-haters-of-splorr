@@ -37,7 +37,7 @@ Friend Class FuelRodDescriptor
     Public Overrides Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)
         Return New Dictionary(Of String, IDialog) From
             {
-                {"Refill Fuel", New UseFuelRodDialog(actor, item, finalDialog)}
+                {DialogChoices.RefillFuel, New UseFuelRodDialog(actor, item, finalDialog)}
             }
     End Function
 End Class

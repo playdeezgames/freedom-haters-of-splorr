@@ -38,7 +38,7 @@ Friend Class OxygenTankDescriptor
     Public Overrides Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)
         Return New Dictionary(Of String, IDialog) From
             {
-                {"Refill Oxygen", New UseOxygenTankDialog(actor, item, Nothing)}
+                {DialogChoices.RefillOxygen, New UseOxygenTankDialog(actor, item, Nothing)}
             }
     End Function
 End Class

@@ -126,7 +126,7 @@ Friend Module ActorExtensions
         If store.CurrentValue = store.MinimumValue Then
             Dim tank = actor.Inventory.Items.FirstOrDefault(Function(x) x.EntityType = ItemTypes.OxygenTank)
             If tank IsNot Nothing Then
-                actor.Dialog = tank.Descriptor.Dialogs(actor, tank, Nothing)("Refill Oxygen")
+                actor.Dialog = tank.Descriptor.Dialogs(actor, tank, Nothing)(DialogChoices.RefillOxygen)
             End If
         End If
     End Sub

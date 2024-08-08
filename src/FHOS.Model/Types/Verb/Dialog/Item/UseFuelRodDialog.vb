@@ -34,7 +34,7 @@ Friend Class UseFuelRodDialog
         Get
             Return New List(Of (Text As String, Value As Action)) From
                 {
-                    ("Ok", AddressOf EndDialog)
+                    (DialogChoices.Ok, AddressOf EndDialog)
                 }
         End Get
     End Property

@@ -24,7 +24,7 @@ Friend Class AcceptMissionDialog
         Get
             Dim result As New List(Of (Text As String, Value As Action)) From
                 {
-                    ("Cancel", AddressOf CancelDialog)
+                    (DialogChoices.Cancel, AddressOf CancelDialog)
                 }
             Dim deliveryItems = starDock.Inventory.Items.Where(Function(x) x.EntityType = ItemTypes.Delivery)
             result.AddRange(deliveryItems.Select(AddressOf ToChoice))

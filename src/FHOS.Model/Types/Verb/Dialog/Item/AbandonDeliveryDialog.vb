@@ -21,8 +21,8 @@ Friend Class AbandonDeliveryDialog
         Get
             Return New List(Of (Text As String, Value As Action)) From
                 {
-                    ("Cancel", AddressOf EndDialog),
-                    ("Confirm", AddressOf ConfirmAbandon)
+                    (DialogChoices.Cancel, AddressOf EndDialog),
+                    (DialogChoices.Confirm, AddressOf ConfirmAbandon)
                 }
         End Get
     End Property

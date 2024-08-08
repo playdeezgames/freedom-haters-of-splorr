@@ -34,7 +34,7 @@ Friend Class UseOxygenTankDialog
     Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action))
         Get
             Return {
-                ("Ok", AddressOf EndDialog)
+                (DialogChoices.Ok, AddressOf EndDialog)
                 }
         End Get
     End Property

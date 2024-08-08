@@ -40,7 +40,7 @@ Friend Class CompleteMissionDialog
         Get
             Return New List(Of (Text As String, Value As Action)) From
                 {
-                    ("Done", AddressOf CloseDialog)
+                    (DialogChoices.Done, AddressOf CloseDialog)
                 }
         End Get
     End Property
