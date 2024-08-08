@@ -9,9 +9,9 @@ Friend MustInherit Class BaseDialog
         Me.Actor = actor
         Me.finalDialog = finalDialog
     End Sub
-    Protected Sub EndDialog()
-        Actor.Dialog = finalDialog
-    End Sub
+    Protected Function EndDialog() As IDialog
+        Return finalDialog
+    End Function
     Public MustOverride ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String)) Implements IDialog.Lines
-    Public MustOverride ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action)) Implements IDialog.Choices
+    Public MustOverride ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Func(Of IDialog))) Implements IDialog.Choices
 End Class

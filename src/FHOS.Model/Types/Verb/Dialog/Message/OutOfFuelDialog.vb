@@ -20,7 +20,7 @@ Friend Class OutOfFuelDialog
         End Get
     End Property
 
-    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action))
+    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
         Get
             Return {
                 (DialogChoices.Ok, AddressOf EndDialog)

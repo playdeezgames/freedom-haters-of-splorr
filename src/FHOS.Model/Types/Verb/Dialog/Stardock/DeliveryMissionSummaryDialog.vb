@@ -65,9 +65,9 @@ Friend Class DeliveryMissionSummaryDialog
     End Property
 
 
-    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action))
+    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
         Get
-            Dim result As New List(Of (Text As String, Value As Action)) From {
+            Dim result As New List(Of (Text As String, Value As Func(Of IDialog))) From {
                 (DialogChoices.Cancel, AddressOf CancelDialog)
             }
             If CanAddDelivery AndAlso (Deposit = 0 OrElse Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue > Deposit) Then
@@ -77,19 +77,19 @@ Friend Class DeliveryMissionSummaryDialog
         End Get
     End Property
 
-    Private Sub AcceptMission()
+    Private Function AcceptMission() As IDialog
         Dim depositAmount = Deposit
         Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= depositAmount
         item.SetJoolsReward(Deposit + item.GetJoolsReward)
         StarDock.Inventory.Remove(item)
         Actor.Inventory.Add(item)
         StarDock.GenerateDeliveryMission()
-        EndDialog()
-    End Sub
+        Return EndDialog()
+    End Function
 
-    Private Sub CancelDialog()
-        EndDialog()
+    Private Function CancelDialog() As IDialog
         Actor.Yokes.Actor(YokeTypes.Interactor) = StarDock
-    End Sub
+        Return EndDialog()
+    End Function
     Private ReadOnly Property item As Persistence.IItem
 End Class

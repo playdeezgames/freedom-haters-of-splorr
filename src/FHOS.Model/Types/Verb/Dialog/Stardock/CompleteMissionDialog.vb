@@ -36,16 +36,16 @@ Friend Class CompleteMissionDialog
         End Get
     End Property
 
-    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action))
+    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
         Get
-            Return New List(Of (Text As String, Value As Action)) From
+            Return New List(Of (Text As String, Value As Func(Of IDialog))) From
                 {
                     (DialogChoices.Done, AddressOf CloseDialog)
                 }
         End Get
     End Property
 
-    Private Sub CloseDialog()
+    Private Function CloseDialog() As IDialog
         For Each item In deliveredItems
             Dim jools = item.GetJoolsReward
             Dim reputation = item.GetReputationBonus
@@ -57,7 +57,7 @@ Friend Class CompleteMissionDialog
             Actor.Inventory.Remove(item)
             item.Recycle()
         Next
-        EndDialog()
         Actor.Yokes.Actor(YokeTypes.Interactor) = StarDock
-    End Sub
+        Return EndDialog()
+    End Function
 End Class

@@ -1,12 +1,15 @@
 ﻿Imports FHOS.Data
+Imports FHOS.Persistence
 
 Friend Class AvatarStateDialogModel
     Implements IAvatarStateDialogModel
 
     Private ReadOnly dialog As IDialog
+    Public ReadOnly Property actor As IActor
 
-    Public Sub New(dialog As IDialog)
+    Public Sub New(actor As IActor, dialog As IDialog)
         Me.dialog = dialog
+        Me.actor = actor
     End Sub
 
     Public ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String)) Implements IAvatarStateDialogModel.Lines
@@ -17,11 +20,17 @@ Friend Class AvatarStateDialogModel
 
     Public ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action)) Implements IAvatarStateDialogModel.Choices
         Get
-            Return dialog.Choices
+            Return dialog.Choices.Select(Function(x) (x.Text, MakeChoice(x.Value)))
         End Get
     End Property
 
-    Friend Shared Function FromDialog(dialog As IDialog) As IAvatarStateDialogModel
-        Return If(dialog IsNot Nothing, New AvatarStateDialogModel(dialog), Nothing)
+    Private Function MakeChoice(consequence As Func(Of IDialog)) As Action
+        Return Sub()
+                   actor.Dialog = consequence()
+               End Sub
+    End Function
+
+    Friend Shared Function FromDialog(actor As IActor, dialog As IDialog) As IAvatarStateDialogModel
+        Return If(dialog IsNot Nothing, New AvatarStateDialogModel(actor, dialog), Nothing)
     End Function
 End Class

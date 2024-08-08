@@ -17,9 +17,9 @@ Friend Class AbandonDeliveryDialog
         End Get
     End Property
 
-    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action))
+    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
         Get
-            Return New List(Of (Text As String, Value As Action)) From
+            Return New List(Of (Text As String, Value As Func(Of IDialog))) From
                 {
                     (DialogChoices.Cancel, AddressOf EndDialog),
                     (DialogChoices.Confirm, AddressOf ConfirmAbandon)
@@ -27,7 +27,7 @@ Friend Class AbandonDeliveryDialog
         End Get
     End Property
 
-    Private Sub ConfirmAbandon()
+    Private Function ConfirmAbandon() As IDialog
         Dim delta = Item.GetReputationPenalty
         Actor.UpdateReputations(
             delta,
@@ -35,6 +35,6 @@ Friend Class AbandonDeliveryDialog
             Actor.UpdateReputations(delta, Item.GetDestinationPlanet))
         Actor.Inventory.Remove(Item)
         Item.Recycle()
-        EndDialog()
-    End Sub
+        Return EndDialog()
+    End Function
 End Class
