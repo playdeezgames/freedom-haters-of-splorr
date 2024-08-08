@@ -17,18 +17,6 @@ Friend Class FuelRodDescriptor
         End Get
     End Property
 
-    Private Shared Sub UseFuelRod(actor As IActor, item As IItem)
-        Dim lines As New List(Of (String, Integer))
-        Dim store = actor.FuelTank
-        Dim fuelAmount = item.Statistics(StatisticTypes.Fuel).Value
-        store.CurrentValue += fuelAmount
-        lines.Add(($"Added {fuelAmount} fuel.", Hues.LightGray))
-        lines.Add(($"Fuel is now {store.Percent.Value}%.", Hues.LightGray))
-        actor.Inventory.Remove(item)
-        item.Recycle()
-        actor.Universe.Messages.Add("Replenished Fuel!", lines.ToArray)
-    End Sub
-
     Protected Overrides Sub Initialize(item As IItem)
         item.Statistics(StatisticTypes.Fuel) = 100
     End Sub

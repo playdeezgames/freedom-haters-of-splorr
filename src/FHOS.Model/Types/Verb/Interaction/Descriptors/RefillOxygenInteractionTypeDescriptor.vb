@@ -13,12 +13,7 @@ Friend Class RefillOxygenInteractionTypeDescriptor
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
         Return New InteractionModel(actor, Sub(a)
-                                               Dim oxygenRequired = a.LifeSupport.TopOffAmount.Value
-                                               Const oxygenPerJools = 10
-                                               Dim oxygenCost = (oxygenRequired + oxygenPerJools - 1) \ oxygenPerJools
-                                               a.Yokes.Store(YokeTypes.Wallet).CurrentValue -= oxygenCost
-                                               a.LifeSupport.CurrentValue += oxygenRequired
-                                               a.Universe.Messages.Add("Oxygen Refilled!", ($"You buy {oxygenRequired} oxygen!", Black), ($"Cost: {oxygenCost} Jools!", Black))
+                                               a.Dialog = New OxygenRefilledDialog(a, a.Dialog)
                                            End Sub)
     End Function
 
