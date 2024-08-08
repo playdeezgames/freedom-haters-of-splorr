@@ -83,14 +83,7 @@ Friend Module ActorExtensions
         If actor.FuelTank IsNot Nothing Then
             actor.FuelTank.CurrentValue -= 1
             If actor.FuelTank.CurrentValue = actor.FuelTank.MinimumValue.Value Then
-                actor.Universe.Messages.Add("Out of Fuel!",
-                    {
-                        ("You are out of fuel!", Hues.LightGray),
-                        ("", Hues.LightGray),
-                        ("To send a distress signal,", Hues.LightGray),
-                        ("press [Space/Enter] from the NAV SCREEN", Hues.LightGray),
-                        ("then choose 'Distress Signal'", Hues.LightGray)
-                    })
+                actor.Dialog = New OutOfFuelDialog(actor, actor.Dialog)
             End If
         End If
     End Sub

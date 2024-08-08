@@ -33,16 +33,6 @@ Friend Class ItemModel
         End Get
     End Property
 
-    Public ReadOnly Property CanUse As Boolean Implements IItemModel.CanUse
-        Get
-            Return item.Descriptor.CanUse
-        End Get
-    End Property
-
-    Public Sub Use(actor As IActorModel) Implements IItemModel.Use
-        item.Descriptor.Use(ActorModel.GetActor(actor), item)
-    End Sub
-
     Friend Shared Function FromItem(item As IItem) As IItemModel
         Return New ItemModel(item)
     End Function

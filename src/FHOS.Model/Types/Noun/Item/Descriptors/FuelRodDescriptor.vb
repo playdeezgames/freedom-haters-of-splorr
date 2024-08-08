@@ -8,8 +8,7 @@ Friend Class FuelRodDescriptor
         MyBase.New(
             ItemTypes.FuelRod,
             "Fuel Rod",
-            price:=20,
-            onUse:=AddressOf UseFuelRod)
+            price:=20)
     End Sub
 
     Public Overrides ReadOnly Property Description(item As IItem) As String

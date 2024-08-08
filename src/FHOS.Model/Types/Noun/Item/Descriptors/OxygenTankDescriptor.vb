@@ -8,8 +8,7 @@ Friend Class OxygenTankDescriptor
         MyBase.New(
             ItemTypes.OxygenTank,
             "Oxygen Tank",
-            price:=5,
-            onUse:=AddressOf UseOxygenTank)
+            price:=5)
     End Sub
 
     Public Overrides ReadOnly Property Description(item As IItem) As String

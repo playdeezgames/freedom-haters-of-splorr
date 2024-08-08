@@ -12,9 +12,6 @@ Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property UninstallFee As Integer
     ReadOnly Property InstallFee As Integer
     MustOverride Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)
-    ReadOnly Property CanUse As Boolean
-
-    Private ReadOnly onUse As Action(Of IActor, IItem)
     Private ReadOnly onEquip As Action(Of IActor, IItem)
     Private ReadOnly onUnequip As Action(Of IActor, IItem)
     Private ReadOnly toEntityName As Func(Of IItem, String)
@@ -23,7 +20,6 @@ Friend MustInherit Class ItemTypeDescriptor
            name As String,
            Optional offer As Integer = 0,
            Optional price As Integer = 0,
-           Optional onUse As Action(Of IActor, IItem) = Nothing,
            Optional equipSlot As String = Nothing,
            Optional onEquip As Action(Of IActor, IItem) = Nothing,
            Optional onUnequip As Action(Of IActor, IItem) = Nothing,
@@ -34,8 +30,6 @@ Friend MustInherit Class ItemTypeDescriptor
         Me.Name = name
         Me.Offer = offer
         Me.Price = price
-        Me.onUse = onUse
-        Me.CanUse = onUse IsNot Nothing
         Me.EquipSlot = equipSlot
         Me.onEquip = onEquip
         Me.onUnequip = onUnequip
@@ -49,12 +43,6 @@ Friend MustInherit Class ItemTypeDescriptor
         Return item
     End Function
     Protected MustOverride Sub Initialize(item As IItem)
-
-    Friend Sub Use(actor As IActor, item As IItem)
-        If CanUse Then
-            onUse(actor, item)
-        End If
-    End Sub
     Friend Sub Equip(actor As IActor, item As IItem)
         onEquip?(actor, item)
     End Sub
