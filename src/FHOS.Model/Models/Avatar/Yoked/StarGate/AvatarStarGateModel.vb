@@ -21,7 +21,7 @@ Friend Class AvatarStarGateModel
             ActorModel.GetActor(gate),
             Sub(success, otherActor)
                 If Not success Then
-                    actor.Universe.Messages.Add("Destination Blocked!", ("The other end is blocked!", Hues.Red))
+                    actor.Dialog = New DestinationBlockedDialog(actor, actor.Dialog)
                 Else
                     actor.SetStarSystem(otherActor.Yokes.Group(YokeTypes.StarSystem))
                 End If

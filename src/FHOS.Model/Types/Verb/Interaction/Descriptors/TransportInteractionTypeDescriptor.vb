@@ -22,7 +22,7 @@ Friend Class TransportInteractionTypeDescriptor
             Return New InteractionModel(actor, Sub(a)
                                                    Dim destinations = a.Interactor.Yokes.Actor(YokeTypes.Target).Interior.Locations.Where(Function(x) x.EntityType = LocationTypes.PlanetAdjacent)
                                                    If Not destinations.Any Then
-                                                       a.Universe.Messages.Add("Destination Blocked!", ("The other end is blocked!", Hues.Red))
+                                                       a.Dialog = New DestinationBlockedDialog(a, a.Dialog)
                                                        a.ClearInteractor()
                                                        Return
                                                    End If
@@ -36,7 +36,7 @@ Friend Class TransportInteractionTypeDescriptor
                                                     a.Interactor.Yokes.Actor(YokeTypes.Target),
                                                     Sub(success, otherActor)
                                                         If Not success Then
-                                                            a.Universe.Messages.Add("Destination Blocked!", ("The other end is blocked!", Hues.Red))
+                                                            a.Dialog = New DestinationBlockedDialog(a, a.Dialog)
                                                         Else
                                                             If otherActor.Descriptor.IsStarSystem Then
                                                                 a.SetStarSystem(Nothing)
