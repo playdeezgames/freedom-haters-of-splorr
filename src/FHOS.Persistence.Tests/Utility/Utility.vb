@@ -2,9 +2,6 @@
     Friend Function CreateAvatar(Optional universe As IUniverse = Nothing, Optional data As UniverseData = Nothing) As IAvatar
         Return CreateUniverse(universe, data).Avatar
     End Function
-    Friend Function CreateMessages(Optional universe As IUniverse = Nothing, Optional data As UniverseData = Nothing) As IMessages
-        Return CreateUniverse(universe, data).Messages
-    End Function
     Friend Function CreateUniverseFactory(Optional universe As IUniverse = Nothing, Optional data As UniverseData = Nothing) As IUniverseFactory
         Return CreateUniverse(universe, data).Factory
     End Function

@@ -4,7 +4,6 @@
         Dim sut = CreateSut()
         sut.Turn.ShouldBe(1)
         sut.Avatar.ShouldNotBeNull
-        sut.Messages.ShouldNotBeNull
         sut.GetLocation((0, 0)).ShouldNotBeNull
     End Sub
 

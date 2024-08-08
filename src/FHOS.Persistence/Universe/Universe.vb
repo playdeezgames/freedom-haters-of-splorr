@@ -7,12 +7,6 @@ Public Class Universe
         MyBase.New(universeData)
     End Sub
 
-    Public ReadOnly Property Messages As IMessages Implements IUniverse.Messages
-        Get
-            Return New Messages(UniverseData.Messages)
-        End Get
-    End Property
-
     Public ReadOnly Property Groups As IEnumerable(Of IGroup) Implements IUniverse.Groups
         Get
             Dim factionIds = New HashSet(Of Integer)(Enumerable.Range(0, UniverseData.Groups.Count))

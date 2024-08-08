@@ -9,7 +9,6 @@
         sut.Groups.ShouldBeEmpty
         sut.Stores.ShouldBeEmpty
         sut.Items.ShouldBeEmpty
-        sut.Messages.ShouldBeEmpty
         sut.Avatar.ShouldBeNull
         'note: NextActorId (etc) have a side effect. so don't test them.
     End Sub

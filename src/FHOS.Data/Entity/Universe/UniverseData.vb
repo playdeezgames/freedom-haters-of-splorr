@@ -10,7 +10,6 @@ Public Class UniverseData
     Property Items As New Dictionary(Of Integer, ItemData)
     Property Avatar As Integer?
     <JsonIgnore>
-    Property Messages As New Queue(Of MessageData)
     Private _nextActorId As Integer? = Nothing
     Private _nextLocationId As Integer? = Nothing
     Private _nextMapId As Integer? = Nothing

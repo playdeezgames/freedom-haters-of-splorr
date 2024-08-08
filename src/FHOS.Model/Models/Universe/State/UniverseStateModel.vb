@@ -19,12 +19,6 @@ Friend Class UniverseStateModel
         End Get
     End Property
 
-    Public ReadOnly Property Messages As IMessagesModel Implements IUniverseStateModel.Messages
-        Get
-            Return MessagesModel.FromUniverse(universe)
-        End Get
-    End Property
-
     Public ReadOnly Property Turn As Integer Implements IUniverseStateModel.Turn
         Get
             Return universe.Turn

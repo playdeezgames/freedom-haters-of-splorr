@@ -5,7 +5,6 @@ Public Class Universe_should
         sut.ShouldNotBeNull
         sut.Factory.ShouldNotBeNull
         sut.Avatar.ShouldNotBeNull
-        sut.Messages.ShouldNotBeNull
         sut.Groups.ShouldBeEmpty
         sut.Actors.ShouldBeEmpty
         Should.Throw(Of InvalidOperationException)(Function() sut.Turn)
