@@ -21,10 +21,10 @@ Friend Class PlanetState
                 ui.WriteLine((Mood.Info, $"Reputation: { reputation.Value}"))
             End If
             ui.WriteLine((Mood.Info, $"Planet Type: { .Properties.PlanetTypeName}"))
+            ui.WriteLine((Mood.Info, $"Tech Level: { .Properties.TechLevel}"))
             ui.WriteLine((Mood.Info, $"Star System: { .Parents.StarSystem.Name}"))
             ui.WriteLine((Mood.Info, $"Satellite Count: { .Properties.SatelliteCount}"))
             ui.WriteLine((Mood.Info, $"Faction: { .Parents.Faction.Name}"))
-            ui.WriteLine((Mood.Info, $"TechLevel: { .Properties.TechLevel}"))
         End With
         Select Case ui.Choose(
             (Mood.Prompt, String.Empty),

@@ -65,6 +65,7 @@ Friend Class PlanetVicinityInitializationStep
         Dim location = externalActor.Interior.GetLocation(column, row)
         Dim satelliteGroup = externalActor.Universe.Factory.CreateGroup(GroupTypes.Satellite, nameGenerator.GenerateUnusedName)
         satelliteGroup.Metadatas(MetadataTypes.Subtype) = satelliteType
+        satelliteGroup.Statistics(StatisticTypes.TechLevel) = externalActor.Yokes.Group(YokeTypes.PlanetVicinity).Statistics(StatisticTypes.TechLevel)
         satelliteGroup.AddParent(externalActor.Yokes.Group(YokeTypes.PlanetVicinity))
         satelliteGroup.AddParent(externalActor.Yokes.Group(YokeTypes.PlanetVicinity).SingleParent(GroupTypes.StarSystem))
         Dim satellite = ActorTypes.Descriptors(ActorTypes.MakeSatellite(satelliteType)).CreateActor(location, satelliteGroup.EntityName)

@@ -17,6 +17,7 @@ Friend Class SatelliteState
         With group
             ui.WriteLine((Mood.Title, .Name))
             ui.WriteLine((Mood.Info, $"Type: { .Properties.SatelliteTypeName}"))
+            ui.WriteLine((Mood.Info, $"Tech Level: { .Properties.TechLevel}"))
             ui.WriteLine((Mood.Info, $"Planet: { .Parents.Planet.Name}"))
             ui.WriteLine((Mood.Info, $"Star System: { .Parents.StarSystem.Name}"))
             ui.WriteLine((Mood.Info, $"Faction: { .Parents.Planet.Parents.Faction.Name}"))
