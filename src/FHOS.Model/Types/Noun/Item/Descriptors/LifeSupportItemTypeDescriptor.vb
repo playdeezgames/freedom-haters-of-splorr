@@ -2,7 +2,7 @@
 Imports FHOS.Persistence
 
 Friend Class LifeSupportItemTypeDescriptor
-    Inherits ItemTypeDescriptor
+    Inherits TechLevelItemTypeDescriptor
 
     Private Const OxygenCapacityPerMarkValue As Integer = 250
     Private Const PricePerMarkValue As Integer = 500

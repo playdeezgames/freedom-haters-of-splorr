@@ -2,7 +2,7 @@
 Imports FHOS.Persistence
 
 Friend Class FuelSupplyItemTypeDescriptor
-    Inherits ItemTypeDescriptor
+    Inherits TechLevelItemTypeDescriptor
 
     Private Const FuelCapacityPerMarkValue As Integer = 250
     Private Const PricePerMarkValue As Integer = 500
