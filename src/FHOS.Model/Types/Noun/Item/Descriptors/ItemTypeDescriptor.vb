@@ -46,4 +46,7 @@ Friend MustInherit Class ItemTypeDescriptor
     Friend Function LegacyGetEntityName(item As IItem) As String
         Return If(legacyToEntityName IsNot Nothing, legacyToEntityName(item), Name)
     End Function
+    Friend Overridable Function GetEntityName(item As IItem) As String
+        Return Name
+    End Function
 End Class
