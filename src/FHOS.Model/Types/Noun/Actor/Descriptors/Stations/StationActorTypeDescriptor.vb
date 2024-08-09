@@ -29,10 +29,12 @@ Friend MustInherit Class StationActorTypeDescriptor
     Protected MustOverride Function MakeName(planet As IActor) As String
 
     Protected Overrides Sub Initialize(actor As IActor)
-        Dim planet = actor.Location.Map.GetCenterLocation().Actor
-        actor.EntityName = MakeName(planet)
-        Dim faction = planet.Yokes.Group(YokeTypes.Planet).SingleParent(GroupTypes.PlanetVicinity).SingleParent(GroupTypes.Faction)
+        Dim planetActor = actor.Location.Map.GetCenterLocation().Actor
+        actor.EntityName = MakeName(planetActor)
+        Dim planetVicinity = planetActor.Yokes.Group(YokeTypes.Planet).SingleParent(GroupTypes.PlanetVicinity)
+        Dim faction = planetVicinity.SingleParent(GroupTypes.Faction)
         actor.Yokes.Group(YokeTypes.Faction) = faction
+        actor.Statistics(StatisticTypes.TechLevel) = planetVicinity.Statistics(StatisticTypes.TechLevel)
 
         actor.Location.EntityType = LocationTypes.ActorAdjacent
         For Each neighbor In actor.Location.GetEmptyOrdinalNeighborsOfType(LocationTypes.Void)

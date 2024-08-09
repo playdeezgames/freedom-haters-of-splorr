@@ -2,7 +2,7 @@
 Imports FHOS.Persistence
 
 Friend Class SalvageDialog
-    Inherits BaseDialog
+    Inherits BaseSideEffectDialog
     Private result As List(Of (Hue As Integer, Text As String)) = Nothing
 
     Public Sub New(actor As IActor, interactor As IActor, finalDialog As IDialog)

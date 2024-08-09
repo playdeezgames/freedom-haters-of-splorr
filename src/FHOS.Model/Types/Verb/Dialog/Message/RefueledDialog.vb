@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Data
 
 Friend Class RefueledDialog
-    Inherits BaseDialog
+    Inherits BaseSideEffectDialog
     Private result As List(Of (Hue As Integer, Text As String)) = Nothing
 
     Public Sub New(actor As Persistence.IActor, finalDialog As IDialog)

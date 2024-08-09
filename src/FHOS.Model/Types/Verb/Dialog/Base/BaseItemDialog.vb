@@ -2,7 +2,7 @@
 Imports FHOS.Persistence
 
 Friend MustInherit Class BaseItemDialog
-    Inherits BaseDialog
+    Inherits BaseSideEffectDialog
 
     Protected Sub New(
                      actor As IActor,
