@@ -24,10 +24,12 @@ Friend Class SatelliteActorTypeDescriptor
     End Function
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
-        Dim result As New List(Of (Text As String, Hue As Integer))
-        result.Add(($"Satellite Type: {SatelliteTypes.Descriptors(actor.Descriptor.Subtype).SatelliteType}", Hues.LightGray))
-        result.Add(($"Planet: {actor.Yokes.Group(YokeTypes.PlanetVicinity).EntityName}", Hues.LightGray))
-        result.Add(($"Star System: {actor.Yokes.Group(YokeTypes.StarSystem).EntityName}", Hues.LightGray))
+        Dim result As New List(Of (Text As String, Hue As Integer)) From {
+            ($"Satellite Type: {SatelliteTypes.Descriptors(actor.Descriptor.Subtype).SatelliteType}", Hues.LightGray),
+            ($"Tech Level: {actor.Yokes.Group(YokeTypes.Satellite).Statistics(StatisticTypes.TechLevel)}", Hues.LightGray),
+            ($"Planet: {actor.Yokes.Group(YokeTypes.PlanetVicinity).EntityName}", Hues.LightGray),
+            ($"Star System: {actor.Yokes.Group(YokeTypes.StarSystem).EntityName}", Hues.LightGray)
+        }
         Return result
     End Function
 End Class

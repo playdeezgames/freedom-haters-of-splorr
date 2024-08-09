@@ -37,6 +37,7 @@ Friend Class PlanetSectionActorTypeDescriptor
         Return New List(Of (Text As String, Hue As Integer)) From
             {
                 ($"Planet Type: {PlanetTypes.Descriptors(actor.Descriptor.Subtype).PlanetType}", Hues.LightGray),
+                ($"Tech Level: {planetVicinityGroup.Statistics(StatisticTypes.TechLevel)}", Hues.LightGray),
                 ($"Star System: {starSystemGroup.EntityName}", Hues.LightGray),
                 ($"Faction: {factionGroup.EntityName}", Hues.LightGray),
                 ($"Star Gates: {planetVicinityGroup.Statistics(StatisticTypes.StarGateCount)}", Hues.LightGray),
