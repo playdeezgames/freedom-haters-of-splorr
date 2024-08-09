@@ -64,7 +64,7 @@ Friend Module ItemExtensions
     End Function
     <Extension>
     Friend Function EntityName(item As IItem) As String
-        Return item.Descriptor.LegacyGetEntityName(item)
+        Return item.Descriptor.GetEntityName(item)
     End Function
     <Extension>
     Friend Function ItemTypeName(item As IItem) As String

@@ -12,7 +12,6 @@ Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property UninstallFee As Integer
     ReadOnly Property InstallFee As Integer
     MustOverride Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)
-    Private ReadOnly legacyToEntityName As Func(Of IItem, String)
     Sub New(
            itemType As String,
            name As String,
@@ -20,8 +19,7 @@ Friend MustInherit Class ItemTypeDescriptor
            Optional price As Integer = 0,
            Optional equipSlot As String = Nothing,
            Optional installFee As Integer = 0,
-           Optional uninstallFee As Integer = 0,
-           Optional toEntityName As Func(Of IItem, String) = Nothing)
+           Optional uninstallFee As Integer = 0)
         Me.ItemType = itemType
         Me.Name = name
         Me.Offer = offer
@@ -29,7 +27,6 @@ Friend MustInherit Class ItemTypeDescriptor
         Me.EquipSlot = equipSlot
         Me.InstallFee = installFee
         Me.UninstallFee = uninstallFee
-        Me.legacyToEntityName = toEntityName
     End Sub
     Function CreateItem(universe As IUniverse) As IItem
         Dim item = universe.Factory.CreateItem(ItemType)
@@ -42,9 +39,6 @@ Friend MustInherit Class ItemTypeDescriptor
     End Function
     Friend Overridable Function Unequip(actor As IActor, item As IItem) As Boolean
         Return False
-    End Function
-    Friend Function LegacyGetEntityName(item As IItem) As String
-        Return If(legacyToEntityName IsNot Nothing, legacyToEntityName(item), Name)
     End Function
     Friend Overridable Function GetEntityName(item As IItem) As String
         Return Name

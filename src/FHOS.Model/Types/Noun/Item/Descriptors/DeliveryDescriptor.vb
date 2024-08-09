@@ -13,11 +13,9 @@ Friend Class DeliveryDescriptor
     Public Sub New()
         MyBase.New(
             ItemTypes.Delivery,
-            "Delivery",
-            toEntityName:=AddressOf DeliveryDescriptorEntityName)
+            "Delivery")
     End Sub
-
-    Private Shared Function DeliveryDescriptorEntityName(item As IItem) As String
+    Friend Overrides Function GetEntityName(item As IItem) As String
         Dim planet = item.GetDestinationPlanet
         Return $"{item.Metadatas(MetadataTypes.EntityName)} for {item.Metadatas(MetadataTypes.Recipient)} on {planet.EntityName}"
     End Function
