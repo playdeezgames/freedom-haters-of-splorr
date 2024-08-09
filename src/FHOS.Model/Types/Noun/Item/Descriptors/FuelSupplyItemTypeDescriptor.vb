@@ -21,7 +21,6 @@ Friend Class FuelSupplyItemTypeDescriptor
         MyBase.New(
             ItemTypes.MarkedType(ItemTypes.FuelSupply, markType),
             $"StarLume Fuel {Marks.Descriptors(markType).Name}",
-            onEquip:=AddressOf EquipFuelSupplyItem,
             onUnequip:=AddressOf UnequipFuelSupplyItem,
             price:=CalculatePrice(markType),
             equipSlot:=EquipSlots.FuelSupply,
@@ -39,13 +38,13 @@ Friend Class FuelSupplyItemTypeDescriptor
     Private Shared Function CalculatePrice(markType As String) As Integer
         Return Marks.Descriptors(markType).Value * PricePerMarkValue
     End Function
-
-    Private Shared Sub EquipFuelSupplyItem(actor As IActor, item As IItem)
+    Friend Overrides Function Equip(actor As IActor, item As IItem) As Boolean
         Dim store = actor.FuelTank
         store.MaximumValue = item.Statistics(StatisticTypes.FuelCapacity)
         store.CurrentValue = If(item.Statistics(StatisticTypes.CurrentFuelCapacity), 0)
         item.Statistics(StatisticTypes.CurrentFuelCapacity) = Nothing
-    End Sub
+        Return True
+    End Function
 
     Protected Overrides Sub Initialize(item As IItem)
         item.Statistics(StatisticTypes.FuelCapacity) = fuelCapacity

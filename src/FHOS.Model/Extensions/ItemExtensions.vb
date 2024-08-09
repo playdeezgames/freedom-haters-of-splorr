@@ -8,7 +8,7 @@ Friend Module ItemExtensions
     End Function
     <Extension>
     Friend Function OnEquip(item As IItem, actor As IActor) As Boolean
-        Return item.Descriptor.LegacyEquip(actor, item)
+        Return item.Descriptor.Equip(actor, item)
     End Function
     <Extension>
     Friend Function OnUnequip(item As IItem, actor As IActor) As Boolean

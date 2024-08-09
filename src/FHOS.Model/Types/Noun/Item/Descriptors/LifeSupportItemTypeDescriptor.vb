@@ -21,7 +21,6 @@ Friend Class LifeSupportItemTypeDescriptor
         MyBase.New(
             ItemTypes.MarkedType(ItemTypes.LifeSupport, markType),
             $"EterniVita {Marks.Descriptors(markType).Name}",
-            onEquip:=AddressOf EquipLifeSupportItem,
             onUnequip:=AddressOf UnequipLifeSupportItem,
             price:=CalculatePrice(markType),
             equipSlot:=EquipSlots.LifeSupport,
@@ -40,12 +39,12 @@ Friend Class LifeSupportItemTypeDescriptor
     Private Shared Function CalculatePrice(markType As String) As Integer
         Return Marks.Descriptors(markType).Value * PricePerMarkValue
     End Function
-
-    Private Shared Sub EquipLifeSupportItem(actor As Persistence.IActor, item As Persistence.IItem)
+    Friend Overrides Function Equip(actor As IActor, item As IItem) As Boolean
         Dim store = actor.LifeSupport
         store.MaximumValue = item.Statistics(StatisticTypes.OxygenCapacity)
         store.CurrentValue = If(item.Statistics(StatisticTypes.CurrentOxygenCapacity), 0)
-    End Sub
+        Return True
+    End Function
 
     Protected Overrides Sub Initialize(item As Persistence.IItem)
         item.Statistics(StatisticTypes.OxygenCapacity) = oxygenCapacity
