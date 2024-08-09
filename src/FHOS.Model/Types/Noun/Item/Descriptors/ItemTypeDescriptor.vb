@@ -12,7 +12,6 @@ Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property UninstallFee As Integer
     ReadOnly Property InstallFee As Integer
     MustOverride Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)
-    Private ReadOnly legacyOnUnequip As Action(Of IActor, IItem)
     Private ReadOnly legacyToEntityName As Func(Of IItem, String)
     Sub New(
            itemType As String,
@@ -20,7 +19,6 @@ Friend MustInherit Class ItemTypeDescriptor
            Optional offer As Integer = 0,
            Optional price As Integer = 0,
            Optional equipSlot As String = Nothing,
-           Optional onUnequip As Action(Of IActor, IItem) = Nothing,
            Optional installFee As Integer = 0,
            Optional uninstallFee As Integer = 0,
            Optional toEntityName As Func(Of IItem, String) = Nothing)
@@ -29,7 +27,6 @@ Friend MustInherit Class ItemTypeDescriptor
         Me.Offer = offer
         Me.Price = price
         Me.EquipSlot = equipSlot
-        Me.legacyOnUnequip = onUnequip
         Me.InstallFee = installFee
         Me.UninstallFee = uninstallFee
         Me.legacyToEntityName = toEntityName
@@ -46,14 +43,7 @@ Friend MustInherit Class ItemTypeDescriptor
     Friend Overridable Function Unequip(actor As IActor, item As IItem) As Boolean
         Return False
     End Function
-    Friend Function LegacyUnequip(actor As IActor, item As IItem) As Boolean
-        If legacyOnUnequip IsNot Nothing Then
-            legacyOnUnequip(actor, item)
-            Return True
-        End If
-        Return False
-    End Function
-    Friend Function GetEntityName(item As IItem) As String
+    Friend Function LegacyGetEntityName(item As IItem) As String
         Return If(legacyToEntityName IsNot Nothing, legacyToEntityName(item), Name)
     End Function
 End Class

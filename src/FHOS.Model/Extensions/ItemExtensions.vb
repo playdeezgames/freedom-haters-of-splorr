@@ -12,7 +12,7 @@ Friend Module ItemExtensions
     End Function
     <Extension>
     Friend Function OnUnequip(item As IItem, actor As IActor) As Boolean
-        Return item.Descriptor.LegacyUnequip(actor, item)
+        Return item.Descriptor.Unequip(actor, item)
     End Function
     <Extension>
     Friend Sub SetDestinationPlanet(item As IItem, destination As IGroup)
@@ -64,7 +64,7 @@ Friend Module ItemExtensions
     End Function
     <Extension>
     Friend Function EntityName(item As IItem) As String
-        Return item.Descriptor.GetEntityName(item)
+        Return item.Descriptor.LegacyGetEntityName(item)
     End Function
     <Extension>
     Friend Function ItemTypeName(item As IItem) As String
