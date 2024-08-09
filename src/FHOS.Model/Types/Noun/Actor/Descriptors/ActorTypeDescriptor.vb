@@ -3,6 +3,11 @@ Imports SPLORR.Game
 
 Friend MustInherit Class ActorTypeDescriptor
     Friend ReadOnly Property ActorType As String
+    Friend ReadOnly Property Flag(flagType As String) As Boolean
+        Get
+            Return flags.Contains(flagType)
+        End Get
+    End Property
     Friend ReadOnly Property CanRefillOxygen As Boolean
     Friend ReadOnly Property IsStarGate As Boolean
     Friend ReadOnly Property CanSalvage As Boolean
@@ -20,6 +25,7 @@ Friend MustInherit Class ActorTypeDescriptor
     Friend ReadOnly Property CanTrade As Boolean
     Friend ReadOnly Property CanUpgradeShip As Boolean
     Friend ReadOnly Property EquipSlots As IReadOnlyList(Of String)
+    Private ReadOnly Property flags As ISet(Of String)
     Friend Function HasEquipSlot(equipSlot As String) As Boolean
         Return EquipSlots.Contains(equipSlot)
     End Function
@@ -32,6 +38,7 @@ Friend MustInherit Class ActorTypeDescriptor
            actorType As String,
            costumeGenerator As IReadOnlyDictionary(Of String, Integer),
            Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing,
+           Optional flags As IEnumerable(Of String) = Nothing,
            Optional canRefillOxygen As Boolean = False,
            Optional isStarGate As Boolean = False,
            Optional canSalvage As Boolean = False,
@@ -69,6 +76,10 @@ Friend MustInherit Class ActorTypeDescriptor
         Me.CanTrade = canTrade
         Me.CanUpgradeShip = canUpgradeShip
         Me.EquipSlots = If(availableEquipSlots, New List(Of String))
+        Me.flags = If(
+            flags IsNot Nothing,
+            New HashSet(Of String)(flags),
+            New HashSet(Of String))
     End Sub
     Friend Function CreateActor(location As ILocation, name As String) As IActor
         Dim actor = location.CreateActor(ActorType, name)
