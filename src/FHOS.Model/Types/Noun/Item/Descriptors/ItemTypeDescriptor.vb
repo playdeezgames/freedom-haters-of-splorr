@@ -6,7 +6,9 @@ Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property Name As String
     MustOverride ReadOnly Property Description(item As IItem) As String
     ReadOnly Property EquipSlot As String
-
+    Friend Overridable Function CanEquip(equipSlot As String) As Boolean
+        Return False
+    End Function
     ReadOnly Property Offer As Integer
     ReadOnly Property Price As Integer
     ReadOnly Property UninstallFee As Integer
