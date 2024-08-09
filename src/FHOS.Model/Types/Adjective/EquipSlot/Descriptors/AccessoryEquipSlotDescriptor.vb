@@ -1,10 +1,10 @@
 ﻿Friend Class AccessoryEquipSlotDescriptor
     Inherits EquipSlotDescriptor
 
-    Public Sub New()
+    Public Sub New(index As Integer)
         MyBase.New(
-            EquipSlots.Accessory,
-            "Accessory",
+            EquipSlots.Accessory(index),
+            $"Accessory({index})",
             AccessoryCategory)
     End Sub
 End Class

@@ -28,7 +28,7 @@ Friend Class FuelSupplyItemTypeDescriptor
         Me.fuelCapacity = Marks.Descriptors(markType).Value * FuelCapacityPerMarkValue
     End Sub
     Friend Overrides Function CanEquip(equipSlot As String) As Boolean
-        Return equipSlot = EquipSlots.PrimaryFuelSupply
+        Return EquipSlots.Descriptors(equipSlot).Category = EquipSlotCategories.FuelSupplyCategory
     End Function
     Friend Overrides Function Unequip(actor As IActor, item As IItem) As Boolean
         item.Statistics(StatisticTypes.CurrentFuelCapacity) = actor.FuelTank.CurrentValue

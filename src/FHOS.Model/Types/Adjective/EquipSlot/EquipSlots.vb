@@ -1,5 +1,9 @@
 ﻿Friend Module EquipSlots
-    Friend ReadOnly Accessory As String = NameOf(Accessory)
+    Friend ReadOnly Property Accessory(index As Integer) As String
+        Get
+            Return $"Accessory{index}"
+        End Get
+    End Property
     Friend ReadOnly PrimaryFuelSupply As String = NameOf(PrimaryFuelSupply)
     Friend ReadOnly PrimaryLifeSupport As String = NameOf(PrimaryLifeSupport)
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, EquipSlotDescriptor) =
@@ -7,6 +11,7 @@
         {
             New PrimaryLifeSupportEquipSlotDescriptor(),
             New PrimaryFuelSupplyEquipSlotDescriptor(),
-            New AccessoryEquipSlotDescriptor()
+            New AccessoryEquipSlotDescriptor(0),
+            New AccessoryEquipSlotDescriptor(1)
         }.ToDictionary(Function(x) x.EquipSlot, Function(x) x)
 End Module

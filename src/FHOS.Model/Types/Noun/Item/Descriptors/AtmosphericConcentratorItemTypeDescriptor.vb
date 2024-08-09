@@ -13,7 +13,7 @@ Friend Class AtmosphericConcentratorItemTypeDescriptor
             uninstallFee:=15)
     End Sub
     Friend Overrides Function CanEquip(equipSlot As String) As Boolean
-        Return equipSlot = EquipSlots.Accessory
+        Return EquipSlots.Descriptors(equipSlot).Category = EquipSlotCategories.AccessoryCategory
     End Function
 
     Public Overrides ReadOnly Property Description(item As IItem) As String

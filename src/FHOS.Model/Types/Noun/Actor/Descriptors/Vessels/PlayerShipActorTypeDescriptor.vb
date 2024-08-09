@@ -19,7 +19,8 @@ Friend Class PlayerShipActorTypeDescriptor
             {
                 {Model.EquipSlots.PrimaryFuelSupply, True},
                 {Model.EquipSlots.PrimaryLifeSupport, True},
-                {Model.EquipSlots.Accessory, False}
+                {Model.EquipSlots.Accessory(0), False},
+                {Model.EquipSlots.Accessory(1), False}
             })
     End Sub
 
