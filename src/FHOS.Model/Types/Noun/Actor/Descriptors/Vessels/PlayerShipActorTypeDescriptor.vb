@@ -15,12 +15,12 @@ Friend Class PlayerShipActorTypeDescriptor
             {
                 {MapTypes.Galaxy, "1d1"}
             },
-            legacyAvailableEquipSlots:=New Dictionary(Of String, Boolean) From
+            availableEquipSlots:=New List(Of String) From
             {
-                {Model.EquipSlots.PrimaryFuelSupply, True},
-                {Model.EquipSlots.PrimaryLifeSupport, True},
-                {Model.EquipSlots.Accessory(0), False},
-                {Model.EquipSlots.Accessory(1), False}
+                Model.EquipSlots.PrimaryFuelSupply,
+                Model.EquipSlots.PrimaryLifeSupport,
+                Model.EquipSlots.Accessory(0),
+                Model.EquipSlots.Accessory(1)
             })
     End Sub
 

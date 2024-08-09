@@ -53,7 +53,7 @@
         actor.Yokes.Store("Wallet") = universe.Factory.CreateStore(0, -1)
         actor.Yokes.Store("FuelTank") = universe.Factory.CreateStore(0, 0, 0)
         Dim item = universe.Factory.CreateItem("FuelSupplyMarkI")
-        actor.Equipment.Equip("FuelSupply", item)
+        actor.Equipment.Equip("PrimaryFuelSupply", item)
         actor.Inventory.Add(universe.Factory.CreateItem("FuelSupplyMarkII"))
         Dim Shipyard = map.GetLocation(1, 0).CreateActor("shipyard", "shipyard")
         actor.Yokes.Actor("Shipyard") = shipyard
