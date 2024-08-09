@@ -21,12 +21,24 @@ Friend Class FuelSupplyItemTypeDescriptor
         MyBase.New(
             ItemTypes.MarkedType(ItemTypes.FuelSupply, markType),
             $"StarLume Fuel {Marks.Descriptors(markType).Name}",
+            MarkTypeToTechLevel(markType),
             price:=CalculatePrice(markType),
             installFee:=Marks.Descriptors(markType).Value * InstallFeePerMarkValue,
             uninstallFee:=Marks.Descriptors(markType).Value * UninstallFeePerMarkValue)
         Me.markType = markType
         Me.fuelCapacity = Marks.Descriptors(markType).Value * FuelCapacityPerMarkValue
     End Sub
+
+    Private Shared ReadOnly MarkTypeToTechLevel As IReadOnlyDictionary(Of String, Integer) =
+        New Dictionary(Of String, Integer) From
+        {
+            {Marks.MarkI, 1},
+            {Marks.MarkII, 2},
+            {Marks.MarkIII, 3},
+            {Marks.MarkIV, 4},
+            {Marks.MarkV, 5}
+        }
+
     Friend Overrides Function CanEquip(equipSlot As String) As Boolean
         Return EquipSlots.Descriptors(equipSlot).Category = EquipSlotCategories.FuelSupplyCategory
     End Function

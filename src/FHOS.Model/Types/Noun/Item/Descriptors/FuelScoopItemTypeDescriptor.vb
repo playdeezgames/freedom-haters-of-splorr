@@ -8,6 +8,7 @@ Friend Class FuelScoopItemTypeDescriptor
         MyBase.New(
             ItemTypes.FuelScoop,
             "Fuel Scoop",
+            7,
             price:=10000,
             installFee:=100,
             uninstallFee:=50)

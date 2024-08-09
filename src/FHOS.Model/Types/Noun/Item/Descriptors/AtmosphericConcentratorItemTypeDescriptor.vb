@@ -8,6 +8,7 @@ Friend Class AtmosphericConcentratorItemTypeDescriptor
         MyBase.New(
             ItemTypes.AtmosphericConcentrator,
             "Atmospheric Concentrator",
+            3,
             price:=5000,
             installFee:=25,
             uninstallFee:=15)
