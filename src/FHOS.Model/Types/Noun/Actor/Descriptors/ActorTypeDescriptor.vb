@@ -8,7 +8,6 @@ Friend MustInherit Class ActorTypeDescriptor
             Return flags.Contains(flagType)
         End Get
     End Property
-    Friend ReadOnly Property CanRefillOxygen As Boolean
     Friend ReadOnly Property IsStarGate As Boolean
     Friend ReadOnly Property CanSalvage As Boolean
     Friend ReadOnly Property CanRefuel As Boolean
@@ -39,7 +38,6 @@ Friend MustInherit Class ActorTypeDescriptor
            costumeGenerator As IReadOnlyDictionary(Of String, Integer),
            Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing,
            Optional flags As IEnumerable(Of String) = Nothing,
-           Optional canRefillOxygen As Boolean = False,
            Optional isStarGate As Boolean = False,
            Optional canSalvage As Boolean = False,
            Optional canRefuel As Boolean = False,
@@ -59,7 +57,6 @@ Friend MustInherit Class ActorTypeDescriptor
         Me.ActorType = actorType
         Me.CostumeGenerator = costumeGenerator
         Me.SpawnRolls = If(spawnRolls, New Dictionary(Of String, String))
-        Me.CanRefillOxygen = canRefillOxygen
         Me.IsStarGate = isStarGate
         Me.CanSalvage = canSalvage
         Me.CanRefuel = canRefuel

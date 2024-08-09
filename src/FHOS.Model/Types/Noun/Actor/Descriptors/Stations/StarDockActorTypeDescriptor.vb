@@ -1,6 +1,4 @@
-﻿Imports SPLORR.Game
-
-Friend Class StarDockActorTypeDescriptor
+﻿Friend Class StarDockActorTypeDescriptor
     Inherits StationActorTypeDescriptor
 
     Public Sub New()
@@ -15,7 +13,7 @@ Friend Class StarDockActorTypeDescriptor
             {
                 {MapTypes.PlanetOrbit, "1d1"}
             },
-            canRefillOxygen:=True,
+            flags:={FlagTypes.CanRefillOxygen},
             canRefuel:=True)
     End Sub
 
