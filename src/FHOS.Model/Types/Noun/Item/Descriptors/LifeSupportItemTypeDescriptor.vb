@@ -28,7 +28,7 @@ Friend Class LifeSupportItemTypeDescriptor
         Me.oxygenCapacity = Marks.Descriptors(markType).Value * OxygenCapacityPerMarkValue
     End Sub
     Friend Overrides Function CanEquip(equipSlot As String) As Boolean
-        Return equipSlot = EquipSlots.LifeSupport
+        Return equipSlot = EquipSlots.PrimaryLifeSupport
     End Function
     Friend Overrides Function Unequip(actor As IActor, item As IItem) As Boolean
         Dim store = actor.LifeSupport

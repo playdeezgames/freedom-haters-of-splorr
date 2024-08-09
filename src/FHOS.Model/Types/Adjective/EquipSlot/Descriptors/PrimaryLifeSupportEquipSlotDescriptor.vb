@@ -1,8 +1,8 @@
-﻿Friend Class LifeSupportEquipSlotDescriptor
+﻿Friend Class PrimaryLifeSupportEquipSlotDescriptor
     Inherits EquipSlotDescriptor
     Public Sub New()
         MyBase.New(
-            EquipSlots.LifeSupport,
+            EquipSlots.PrimaryLifeSupport,
             "Life Support")
     End Sub
 End Class

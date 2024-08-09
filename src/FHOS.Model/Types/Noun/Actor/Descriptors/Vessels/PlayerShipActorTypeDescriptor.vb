@@ -17,8 +17,8 @@ Friend Class PlayerShipActorTypeDescriptor
             },
             availableEquipSlots:=New Dictionary(Of String, Boolean) From
             {
-                {Model.EquipSlots.FuelSupply, True},
-                {Model.EquipSlots.LifeSupport, True},
+                {Model.EquipSlots.PrimaryFuelSupply, True},
+                {Model.EquipSlots.PrimaryLifeSupport, True},
                 {Model.EquipSlots.Accessory, False}
             })
     End Sub
@@ -67,13 +67,13 @@ Friend Class PlayerShipActorTypeDescriptor
     Private Shared Sub InitializePlayerShipFuelSupply(actor As IActor)
         actor.Yokes.Store(YokeTypes.FuelTank) = actor.Universe.Factory.CreateStore(0, 0, 0)
         Dim item = ItemTypes.MarkedDescriptor(ItemTypes.FuelSupply, Marks.MarkI).CreateItem(actor.Universe)
-        actor.Equip(Model.EquipSlots.FuelSupply, item)
+        actor.Equip(Model.EquipSlots.PrimaryFuelSupply, item)
     End Sub
 
     Private Shared Sub InitializePlayerShipLifeSupport(actor As IActor)
         actor.Yokes.Store(YokeTypes.LifeSupport) = actor.Universe.Factory.CreateStore(0, 0, 0)
         Dim item = ItemTypes.MarkedDescriptor(ItemTypes.LifeSupport, Marks.MarkI).CreateItem(actor.Universe)
-        actor.Equip(Model.EquipSlots.LifeSupport, item)
+        actor.Equip(Model.EquipSlots.PrimaryLifeSupport, item)
     End Sub
 
     Friend Overrides Function Describe(actor As IActor) As IEnumerable(Of (Text As String, Hue As Integer))
