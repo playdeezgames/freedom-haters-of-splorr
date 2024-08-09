@@ -3,6 +3,7 @@
     Public Sub New()
         MyBase.New(
             EquipSlots.PrimaryLifeSupport,
+            True,
             "Life Support",
             LifeSupportCategory)
     End Sub
