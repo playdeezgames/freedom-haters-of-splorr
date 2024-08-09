@@ -7,13 +7,13 @@ Friend Module ItemExtensions
         Return ItemTypes.Descriptors(item.EntityType)
     End Function
     <Extension>
-    Friend Sub OnEquip(item As IItem, actor As IActor)
-        item.Descriptor.Equip(actor, item)
-    End Sub
+    Friend Function OnEquip(item As IItem, actor As IActor) As Boolean
+        Return item.Descriptor.LegacyEquip(actor, item)
+    End Function
     <Extension>
-    Friend Sub OnUnequip(item As IItem, actor As IActor)
-        item.Descriptor.Unequip(actor, item)
-    End Sub
+    Friend Function OnUnequip(item As IItem, actor As IActor) As Boolean
+        Return item.Descriptor.LegacyUnequip(actor, item)
+    End Function
     <Extension>
     Friend Sub SetDestinationPlanet(item As IItem, destination As IGroup)
         item.Statistics(StatisticTypes.DestinationPlanetId) = destination.Id

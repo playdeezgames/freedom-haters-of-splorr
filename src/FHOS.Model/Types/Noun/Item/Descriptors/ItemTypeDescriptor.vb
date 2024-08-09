@@ -12,9 +12,9 @@ Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property UninstallFee As Integer
     ReadOnly Property InstallFee As Integer
     MustOverride Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)
-    Private ReadOnly onEquip As Action(Of IActor, IItem)
-    Private ReadOnly onUnequip As Action(Of IActor, IItem)
-    Private ReadOnly toEntityName As Func(Of IItem, String)
+    Private ReadOnly legacyOnEquip As Action(Of IActor, IItem)
+    Private ReadOnly legacyOnUnequip As Action(Of IActor, IItem)
+    Private ReadOnly legacyToEntityName As Func(Of IItem, String)
     Sub New(
            itemType As String,
            name As String,
@@ -31,11 +31,11 @@ Friend MustInherit Class ItemTypeDescriptor
         Me.Offer = offer
         Me.Price = price
         Me.EquipSlot = equipSlot
-        Me.onEquip = onEquip
-        Me.onUnequip = onUnequip
+        Me.legacyOnEquip = onEquip
+        Me.legacyOnUnequip = onUnequip
         Me.InstallFee = installFee
         Me.UninstallFee = uninstallFee
-        Me.toEntityName = toEntityName
+        Me.legacyToEntityName = toEntityName
     End Sub
     Function CreateItem(universe As IUniverse) As IItem
         Dim item = universe.Factory.CreateItem(ItemType)
@@ -43,13 +43,27 @@ Friend MustInherit Class ItemTypeDescriptor
         Return item
     End Function
     Protected MustOverride Sub Initialize(item As IItem)
-    Friend Sub Equip(actor As IActor, item As IItem)
-        onEquip?(actor, item)
-    End Sub
-    Friend Sub Unequip(actor As IActor, item As IItem)
-        onUnequip?(actor, item)
-    End Sub
+    Friend Overridable Function Equip(actor As IActor, item As IItem) As Boolean
+        Return False
+    End Function
+    Friend Overridable Function Unequip(actor As IActor, item As IItem) As Boolean
+        Return False
+    End Function
+    Friend Function LegacyEquip(actor As IActor, item As IItem) As Boolean
+        If legacyOnEquip IsNot Nothing Then
+            legacyOnEquip(actor, item)
+            Return True
+        End If
+        Return False
+    End Function
+    Friend Function LegacyUnequip(actor As IActor, item As IItem) As Boolean
+        If legacyOnUnequip IsNot Nothing Then
+            legacyOnUnequip(actor, item)
+            Return True
+        End If
+        Return False
+    End Function
     Friend Function GetEntityName(item As IItem) As String
-        Return If(toEntityName IsNot Nothing, toEntityName(item), Name)
+        Return If(legacyToEntityName IsNot Nothing, legacyToEntityName(item), Name)
     End Function
 End Class
