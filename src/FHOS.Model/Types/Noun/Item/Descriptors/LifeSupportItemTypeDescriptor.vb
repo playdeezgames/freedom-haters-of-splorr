@@ -22,12 +22,14 @@ Friend Class LifeSupportItemTypeDescriptor
             ItemTypes.MarkedType(ItemTypes.LifeSupport, markType),
             $"EterniVita {Marks.Descriptors(markType).Name}",
             price:=CalculatePrice(markType),
-            equipSlot:=EquipSlots.LifeSupport,
             installFee:=Marks.Descriptors(markType).Value * InstallFeePerMarkValue,
             uninstallFee:=Marks.Descriptors(markType).Value * UninstallFeePerMarkValue)
         Me.markType = markType
         Me.oxygenCapacity = Marks.Descriptors(markType).Value * OxygenCapacityPerMarkValue
     End Sub
+    Friend Overrides Function CanEquip(equipSlot As String) As Boolean
+        Return equipSlot = EquipSlots.LifeSupport
+    End Function
     Friend Overrides Function Unequip(actor As IActor, item As IItem) As Boolean
         Dim store = actor.LifeSupport
         item.Statistics(StatisticTypes.CurrentOxygenCapacity) = store.CurrentValue

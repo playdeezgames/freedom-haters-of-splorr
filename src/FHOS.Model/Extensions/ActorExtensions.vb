@@ -136,7 +136,7 @@ Friend Module ActorExtensions
         If item Is Nothing Then
             Throw New NotImplementedException("TODO: when item is nothing... we are UNEQUIPPING")
         End If
-        If actor.Descriptor.HasEquipSlot(equipSlot) AndAlso item.Descriptor.EquipSlot = equipSlot AndAlso actor.Equipment.GetSlot(equipSlot) Is Nothing Then
+        If actor.Descriptor.HasEquipSlot(equipSlot) AndAlso item.Descriptor.CanEquip(equipSlot) AndAlso actor.Equipment.GetSlot(equipSlot) Is Nothing Then
             actor.Equipment.Equip(equipSlot, item)
             item.OnEquip(actor)
             Return True

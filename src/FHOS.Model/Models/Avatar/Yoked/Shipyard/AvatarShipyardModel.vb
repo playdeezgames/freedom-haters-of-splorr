@@ -31,7 +31,7 @@ Friend Class AvatarShipyardModel
             Return actor.
                 Equipment.
                 GetRequiredSlots.
-                Where(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.EquipSlot = x)).
+                Where(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.CanEquip(x))).
                 Select(Function(x) AvatarEquipmentSlotModel.FromActorAndSlot(actor, x))
         End Get
     End Property
@@ -41,7 +41,7 @@ Friend Class AvatarShipyardModel
             Return actor.
                 Equipment.
                 GetInstallableSlots.
-                Where(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.EquipSlot = x)).
+                Where(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.CanEquip(x))).
                 Select(Function(x) AvatarEquipmentSlotModel.FromActorAndSlot(actor, x))
         End Get
     End Property

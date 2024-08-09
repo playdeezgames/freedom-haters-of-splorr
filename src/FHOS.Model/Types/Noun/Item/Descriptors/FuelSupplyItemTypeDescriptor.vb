@@ -22,12 +22,14 @@ Friend Class FuelSupplyItemTypeDescriptor
             ItemTypes.MarkedType(ItemTypes.FuelSupply, markType),
             $"StarLume Fuel {Marks.Descriptors(markType).Name}",
             price:=CalculatePrice(markType),
-            equipSlot:=EquipSlots.FuelSupply,
             installFee:=Marks.Descriptors(markType).Value * InstallFeePerMarkValue,
             uninstallFee:=Marks.Descriptors(markType).Value * UninstallFeePerMarkValue)
         Me.markType = markType
         Me.fuelCapacity = Marks.Descriptors(markType).Value * FuelCapacityPerMarkValue
     End Sub
+    Friend Overrides Function CanEquip(equipSlot As String) As Boolean
+        Return equipSlot = EquipSlots.FuelSupply
+    End Function
     Friend Overrides Function Unequip(actor As IActor, item As IItem) As Boolean
         item.Statistics(StatisticTypes.CurrentFuelCapacity) = actor.FuelTank.CurrentValue
         Dim store = actor.FuelTank.MaximumValue = 0

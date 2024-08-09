@@ -28,7 +28,7 @@ Friend Class AvatarEquipmentSlotModel
             Return actor.
                 Inventory.
                 Items.
-                Where(Function(y) y.Descriptor.EquipSlot = equipSlot).
+                Where(Function(y) y.Descriptor.CanEquip(equipSlot)).
                 Select(AddressOf ItemModel.FromItem)
         End Get
     End Property

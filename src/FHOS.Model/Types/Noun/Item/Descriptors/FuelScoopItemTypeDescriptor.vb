@@ -8,11 +8,14 @@ Friend Class FuelScoopItemTypeDescriptor
         MyBase.New(
             ItemTypes.FuelScoop,
             "Fuel Scoop",
-            equipSlot:=EquipSlots.Accessory,
             price:=10000,
             installFee:=100,
             uninstallFee:=50)
     End Sub
+
+    Friend Overrides Function CanEquip(equipSlot As String) As Boolean
+        Return equipSlot = EquipSlots.Accessory
+    End Function
 
     Public Overrides ReadOnly Property Description(item As IItem) As String
         Get

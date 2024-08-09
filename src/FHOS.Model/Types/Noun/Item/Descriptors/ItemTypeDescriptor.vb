@@ -5,7 +5,6 @@ Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property ItemType As String
     ReadOnly Property Name As String
     MustOverride ReadOnly Property Description(item As IItem) As String
-    ReadOnly Property EquipSlot As String
     Friend Overridable Function CanEquip(equipSlot As String) As Boolean
         Return False
     End Function
@@ -19,14 +18,12 @@ Friend MustInherit Class ItemTypeDescriptor
            name As String,
            Optional offer As Integer = 0,
            Optional price As Integer = 0,
-           Optional equipSlot As String = Nothing,
            Optional installFee As Integer = 0,
            Optional uninstallFee As Integer = 0)
         Me.ItemType = itemType
         Me.Name = name
         Me.Offer = offer
         Me.Price = price
-        Me.EquipSlot = equipSlot
         Me.InstallFee = installFee
         Me.UninstallFee = uninstallFee
     End Sub
