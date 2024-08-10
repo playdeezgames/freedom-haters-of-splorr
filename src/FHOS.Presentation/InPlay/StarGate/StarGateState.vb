@@ -33,4 +33,9 @@ Friend Class StarGateState
     Protected Overrides Function ToName(model As IActorModel) As String
         Return model.Name
     End Function
+
+    Protected Overrides Function OnCancel() As IState
+        model.State.Avatar.Yokes.StarGate.Leave()
+        Return New NeutralState(model, ui, endState)
+    End Function
 End Class
