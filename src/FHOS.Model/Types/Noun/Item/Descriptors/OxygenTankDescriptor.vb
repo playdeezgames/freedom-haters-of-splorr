@@ -11,9 +11,9 @@ Friend Class OxygenTankDescriptor
             price:=5)
     End Sub
 
-    Public Overrides ReadOnly Property Description(item As IItem) As String
+    Public Overrides ReadOnly Property Description(item As IItem) As IEnumerable(Of String)
         Get
-            Return "This item can be used to replenish a vessel's oxygen."
+            Return {"This item can be used to replenish a vessel's oxygen."}
         End Get
     End Property
 

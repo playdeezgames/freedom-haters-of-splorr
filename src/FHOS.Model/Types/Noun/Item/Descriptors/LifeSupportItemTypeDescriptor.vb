@@ -11,9 +11,14 @@ Friend Class LifeSupportItemTypeDescriptor
     Private ReadOnly oxygenCapacity As Integer
     Private ReadOnly markType As String
 
-    Public Overrides ReadOnly Property Description(item As IItem) As String
+    Public Overrides ReadOnly Property Description(item As IItem) As IEnumerable(Of String)
         Get
-            Return $"This is the EterniVita {Marks.Descriptors(markType).Name} from NexGen Dynamics. Step into the future with EterniVita, the pinnacle of life support technology. Engineered to ensure uninterrupted vitality and resilience, EterniVita redefines safety and peace of mind in the most challenging environments. With its cutting-edge biostasis chambers and adaptive AI monitoring, EterniVita stands as the ultimate safeguard for explorers, colonists, and spacefarers alike. Embrace limitless possibilities with EterniVita—where every breath guarantees a secure tomorrow, today."
+            Return {
+                $"This is the EterniVita {Marks.Descriptors(markType).Name} from NexGen Dynamics.", "Step into the future with EterniVita, the pinnacle of life support technology.",
+                "Engineered to ensure uninterrupted vitality and resilience, EterniVita redefines safety and peace of mind in the most challenging environments.",
+                "With its cutting-edge biostasis chambers and adaptive AI monitoring, EterniVita stands as the ultimate safeguard for explorers, colonists, and spacefarers alike.",
+                "Embrace limitless possibilities with EterniVita—where every breath guarantees a secure tomorrow, today.",
+                $"Tech Level: {item.Statistics(StatisticTypes.TechLevel)}"}
         End Get
     End Property
 
@@ -62,6 +67,7 @@ Friend Class LifeSupportItemTypeDescriptor
     Protected Overrides Sub Initialize(item As Persistence.IItem)
         item.Statistics(StatisticTypes.OxygenCapacity) = oxygenCapacity
         item.Statistics(StatisticTypes.CurrentOxygenCapacity) = oxygenCapacity
+        item.Statistics(StatisticTypes.TechLevel) = TechLevel
     End Sub
 
     Public Overrides Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)

@@ -16,7 +16,8 @@ Friend Class ItemInspectState
         ui.Clear()
         ui.WriteLine(
             (Mood.Prompt, item.UniqueName),
-            (Mood.Info, $"Description: {item.Description}"))
+            (Mood.Info, $"Description:"))
+        ui.WriteLine(item.Description.Select(Function(x) (Mood.Info, x)).ToArray)
         Dim menu As New List(Of (String, IAvatarItemDialogModel)) From
             {
                 (Choices.Cancel, Nothing)

@@ -15,8 +15,9 @@ Friend Class EquipmentSlotState
     Public Overrides Function Run() As IState
         ui.Clear()
         ui.WriteLine(
-            (Mood.Title, slot.Item.DisplayName),
-            (Mood.Info, slot.Item.Description))
+            (Mood.Title, slot.Item.DisplayName))
+        ui.WriteLine(
+            slot.Item.Description.Select(Function(x) (Mood.Info, x)).ToArray)
         ui.Message((Mood.Prompt, String.Empty))
         Return New EquipmentState(model, ui, endState)
     End Function

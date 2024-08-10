@@ -4,7 +4,7 @@ Imports FHOS.Persistence
 Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property ItemType As String
     ReadOnly Property Name As String
-    MustOverride ReadOnly Property Description(item As IItem) As String
+    MustOverride ReadOnly Property Description(item As IItem) As IEnumerable(Of String)
     Friend Overridable Function CanEquip(equipSlot As String) As Boolean
         Return False
     End Function

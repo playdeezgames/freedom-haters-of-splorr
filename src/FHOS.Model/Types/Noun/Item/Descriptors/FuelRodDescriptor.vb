@@ -11,9 +11,9 @@ Friend Class FuelRodDescriptor
             price:=20)
     End Sub
 
-    Public Overrides ReadOnly Property Description(item As IItem) As String
+    Public Overrides ReadOnly Property Description(item As IItem) As IEnumerable(Of String)
         Get
-            Return "You ram this into yer engine in order to fill it with fuel. No, there is nothing sexual about this. Not at all."
+            Return {"You ram this into yer engine in order to fill it with fuel. No, there is nothing sexual about this. Not at all."}
         End Get
     End Property
 

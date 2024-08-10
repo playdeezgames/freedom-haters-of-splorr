@@ -4,9 +4,9 @@ Imports FHOS.Persistence
 Friend Class DeliveryDescriptor
     Inherits ItemTypeDescriptor
 
-    Public Overrides ReadOnly Property Description(item As IItem) As String
+    Public Overrides ReadOnly Property Description(item As IItem) As IEnumerable(Of String)
         Get
-            Return "A thing to be delivered."
+            Return {"A thing to be delivered."}
         End Get
     End Property
 

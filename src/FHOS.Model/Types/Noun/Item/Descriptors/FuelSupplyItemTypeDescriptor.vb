@@ -11,9 +11,15 @@ Friend Class FuelSupplyItemTypeDescriptor
     Private ReadOnly fuelCapacity As Integer
     Private ReadOnly markType As String
 
-    Public Overrides ReadOnly Property Description(item As IItem) As String
+    Public Overrides ReadOnly Property Description(item As IItem) As IEnumerable(Of String)
         Get
-            Return $"This is the StarLume Fuel {Marks.Descriptors(markType).Name} from Celestial Energy Solutions. Embark on interstellar journeys with StarLume Fuel by Celestial Energy Solutions, the foremost name in propulsion innovation. Crafted from rare celestial minerals and refined through cutting-edge fusion technology, StarLume Fuel guarantees unmatched efficiency and reliability for your spacecraft. Whether you're charting new frontiers or navigating through asteroid belts, trust Celestial Energy Solutions to propel you farther and faster than ever before. Reach for the stars with StarLume Fuel—where limitless possibilities await beyond every horizon."
+            Return {
+                $"This is the StarLume Fuel Storage Solution System {Marks.Descriptors(markType).Name} from Celestial Energy Solutions.",
+                "Embark on interstellar journeys with StarLume Fuel Storage Solution System by Celestial Energy Solutions, the foremost name in propulsion innovation.",
+                "Crafted from rare celestial metals and refined through cutting-edge fusion technology, StarLume Fuel Storage Solution System guarantees unmatched efficiency and reliability for your spacecraft.",
+                "Whether you're charting new frontiers or navigating through asteroid belts, trust Celestial Energy Solutions to propel you farther and faster than ever before.",
+                "Reach for the stars with StarLume Fuel Storage Solution System—where limitless possibilities await beyond every horizon.",
+                $"Tech Level: {item.Statistics(StatisticTypes.TechLevel)}"}
         End Get
     End Property
 
@@ -62,6 +68,7 @@ Friend Class FuelSupplyItemTypeDescriptor
     Protected Overrides Sub Initialize(item As IItem)
         item.Statistics(StatisticTypes.FuelCapacity) = fuelCapacity
         item.Statistics(StatisticTypes.CurrentFuelCapacity) = fuelCapacity
+        item.Statistics(StatisticTypes.TechLevel) = TechLevel
     End Sub
 
     Public Overrides Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)

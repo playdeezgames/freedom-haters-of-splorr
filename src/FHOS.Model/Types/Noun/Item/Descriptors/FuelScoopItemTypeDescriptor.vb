@@ -18,14 +18,16 @@ Friend Class FuelScoopItemTypeDescriptor
         Return EquipSlots.Descriptors(equipSlot).Category = EquipSlotCategories.AccessoryCategory
     End Function
 
-    Public Overrides ReadOnly Property Description(item As IItem) As String
+    Public Overrides ReadOnly Property Description(item As IItem) As IEnumerable(Of String)
         Get
-            Return "This device allows a vessel to replenish fuel directly from a star."
+            Return {"This device allows a vessel to replenish fuel directly from a star.",
+                $"Tech Level: {item.Statistics(StatisticTypes.TechLevel)}"}
         End Get
     End Property
 
     Protected Overrides Sub Initialize(item As IItem)
         item.Flags(FlagTypes.CanRefuel) = True
+        item.Statistics(StatisticTypes.TechLevel) = TechLevel
     End Sub
 
     Public Overrides Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)

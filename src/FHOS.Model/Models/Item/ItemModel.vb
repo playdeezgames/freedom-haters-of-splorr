@@ -15,7 +15,7 @@ Friend Class ItemModel
         End Get
     End Property
 
-    Public ReadOnly Property Description As String Implements IItemModel.Description
+    Public ReadOnly Property Description As IEnumerable(Of String) Implements IItemModel.Description
         Get
             Return item.Descriptor.Description(item)
         End Get

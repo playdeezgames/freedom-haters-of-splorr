@@ -11,9 +11,9 @@ Friend Class ScrapItemTypeDescriptor
             offer:=1)
     End Sub
 
-    Public Overrides ReadOnly Property Description(item As IItem) As String
+    Public Overrides ReadOnly Property Description(item As IItem) As IEnumerable(Of String)
         Get
-            Return "This item is a pile of junk that was floating around in space."
+            Return {"This item is a pile of junk that was floating around in space."}
         End Get
     End Property
 
