@@ -1,7 +1,7 @@
 ﻿Friend MustInherit Class TechLevelItemTypeDescriptor
     Inherits ItemTypeDescriptor
 
-    Protected techLevel As Integer
+    Protected _techLevel As Integer
 
     Protected Sub New(
                      itemType As String,
@@ -12,6 +12,12 @@
                      Optional installFee As Integer = 0,
                      Optional uninstallFee As Integer = 0)
         MyBase.New(itemType, name, offer, price, installFee, uninstallFee)
-        Me.techLevel = techLevel
+        Me._techLevel = techLevel
     End Sub
+
+    Public Overrides ReadOnly Property TechLevel As Integer?
+        Get
+            Return _techLevel
+        End Get
+    End Property
 End Class

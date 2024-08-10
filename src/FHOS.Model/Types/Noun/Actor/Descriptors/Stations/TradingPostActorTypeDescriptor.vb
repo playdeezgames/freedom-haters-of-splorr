@@ -1,4 +1,6 @@
-﻿Friend Class TradingPostActorTypeDescriptor
+﻿Imports FHOS.Persistence
+
+Friend Class TradingPostActorTypeDescriptor
     Inherits StationActorTypeDescriptor
 
     Public Sub New()
@@ -21,16 +23,27 @@
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
         MyBase.Initialize(actor)
+        actor.Statistics(StatisticTypes.TechLevel) = actor.Location.Map.YokedGroup(YokeTypes.Planet).Statistics(StatisticTypes.TechLevel)
         actor.Offers.Add(ItemTypes.Scrap)
-        actor.Prices.Add(ItemTypes.OxygenTank)
-        actor.Prices.Add(ItemTypes.FuelRod)
-        actor.Prices.Add(ItemTypes.AtmosphericConcentrator)
-        actor.Prices.Add(ItemTypes.FuelScoop)
+        TryAddPrice(actor, ItemTypes.OxygenTank)
+        TryAddPrice(actor, ItemTypes.OxygenTank)
+        TryAddPrice(actor, ItemTypes.FuelRod)
+        TryAddPrice(actor, ItemTypes.AtmosphericConcentrator)
+        TryAddPrice(actor, ItemTypes.FuelScoop)
         For Each markType In Marks.Descriptors.Keys
-            actor.Prices.Add(ItemTypes.MarkedType(ItemTypes.LifeSupport, markType))
-            actor.Prices.Add(ItemTypes.MarkedType(ItemTypes.FuelSupply, markType))
+            TryAddPrice(actor, ItemTypes.MarkedType(ItemTypes.LifeSupport, markType))
+            TryAddPrice(actor, ItemTypes.MarkedType(ItemTypes.FuelSupply, markType))
         Next
     End Sub
+
+    Private Function TryAddPrice(actor As IActor, itemType As String) As Boolean
+        Dim itemTechLevel = ItemTypes.Descriptors(itemType).TechLevel
+        If itemTechLevel Is Nothing OrElse itemTechLevel.Value <= actor.Statistics(StatisticTypes.TechLevel).Value Then
+            actor.Prices.Add(itemType)
+            Return True
+        End If
+        Return False
+    End Function
 
     Protected Overrides Function MakeName(planet As Persistence.IActor) As String
         Return $"{planet.EntityName} Trading Post"

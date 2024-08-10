@@ -12,6 +12,11 @@ Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property Price As Integer
     ReadOnly Property UninstallFee As Integer
     ReadOnly Property InstallFee As Integer
+    Overridable ReadOnly Property TechLevel As Integer?
+        Get
+            Return Nothing
+        End Get
+    End Property
     MustOverride Function Dialogs(actor As IActor, item As IItem, finalDialog As IDialog) As IReadOnlyDictionary(Of String, IDialog)
     Sub New(
            itemType As String,
