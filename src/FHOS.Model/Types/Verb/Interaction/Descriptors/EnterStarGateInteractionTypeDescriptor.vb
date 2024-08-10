@@ -12,7 +12,7 @@ Friend Class EnterStarGateInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.Yokes.Actor(YokeTypes.Interactor).Descriptor.IsStarGate
+        Return actor.Yokes.Actor(YokeTypes.Interactor).Descriptor.Flag(FlagTypes.IsStarGate)
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel

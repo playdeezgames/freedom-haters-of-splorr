@@ -15,7 +15,7 @@ Friend Class StarGateActorTypeDescriptor
             {
                 {MapTypes.PlanetOrbit, "1d4/4"}
             },
-            isStarGate:=True)
+            flags:={FlagTypes.IsStarGate})
     End Sub
 
     Protected Overrides Function MakeName(planet As IActor) As String

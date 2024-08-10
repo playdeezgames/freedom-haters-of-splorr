@@ -14,7 +14,7 @@ Friend Class DebrisActorTypeDescriptor
             {
                 {MapTypes.StarSystem, "12d6/6"}
             },
-            canSalvage:=True)
+            flags:={FlagTypes.CanSalvage})
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)

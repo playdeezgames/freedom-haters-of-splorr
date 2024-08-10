@@ -8,8 +8,6 @@ Friend MustInherit Class ActorTypeDescriptor
             Return flags.Contains(flagType)
         End Get
     End Property
-    Friend ReadOnly Property IsStarGate As Boolean
-    Friend ReadOnly Property CanSalvage As Boolean
     Friend ReadOnly Property CanRefuel As Boolean
     Friend ReadOnly Property IsStarSystem As Boolean
     Friend ReadOnly Property IsStarVicinity As Boolean
@@ -24,7 +22,7 @@ Friend MustInherit Class ActorTypeDescriptor
     Friend ReadOnly Property CanTrade As Boolean
     Friend ReadOnly Property CanUpgradeShip As Boolean
     Friend ReadOnly Property EquipSlots As IReadOnlyList(Of String)
-    Private ReadOnly Property flags As ISet(Of String)
+    Private ReadOnly flags As ISet(Of String)
     Friend Function HasEquipSlot(equipSlot As String) As Boolean
         Return EquipSlots.Contains(equipSlot)
     End Function
@@ -38,8 +36,6 @@ Friend MustInherit Class ActorTypeDescriptor
            costumeGenerator As IReadOnlyDictionary(Of String, Integer),
            Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing,
            Optional flags As IEnumerable(Of String) = Nothing,
-           Optional isStarGate As Boolean = False,
-           Optional canSalvage As Boolean = False,
            Optional canRefuel As Boolean = False,
            Optional isStarSystem As Boolean = False,
            Optional isStarVicinity As Boolean = False,
@@ -57,8 +53,6 @@ Friend MustInherit Class ActorTypeDescriptor
         Me.ActorType = actorType
         Me.CostumeGenerator = costumeGenerator
         Me.SpawnRolls = If(spawnRolls, New Dictionary(Of String, String))
-        Me.IsStarGate = isStarGate
-        Me.CanSalvage = canSalvage
         Me.CanRefuel = canRefuel
         Me.IsStarSystem = isStarSystem
         Me.IsStarVicinity = isStarVicinity

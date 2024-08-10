@@ -10,7 +10,6 @@ Friend MustInherit Class StationActorTypeDescriptor
                   statisticType As String,
                   Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing,
                   Optional flags As IEnumerable(Of String) = Nothing,
-                  Optional isStarGate As Boolean = False,
                   Optional canRefuel As Boolean = False,
                   Optional canTrade As Boolean = False,
                   Optional canUpgradeShip As Boolean = False)
@@ -19,7 +18,6 @@ Friend MustInherit Class StationActorTypeDescriptor
             costumeGenerator,
             spawnRolls,
             flags:=flags,
-            isStarGate:=isStarGate,
             canRefuel:=canRefuel,
             canTrade:=canTrade,
             canUpgradeShip:=canUpgradeShip)
