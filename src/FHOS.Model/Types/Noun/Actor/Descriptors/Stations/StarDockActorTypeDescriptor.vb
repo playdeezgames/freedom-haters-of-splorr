@@ -13,8 +13,11 @@
             {
                 {MapTypes.PlanetOrbit, "1d1"}
             },
-            flags:={FlagTypes.CanRefillOxygen},
-            canRefuel:=True)
+            flags:=
+            {
+                FlagTypes.CanRefillOxygen,
+                FlagTypes.CanRefuel
+            })
     End Sub
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean

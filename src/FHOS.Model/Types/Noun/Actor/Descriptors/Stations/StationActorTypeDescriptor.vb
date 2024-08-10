@@ -10,7 +10,6 @@ Friend MustInherit Class StationActorTypeDescriptor
                   statisticType As String,
                   Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing,
                   Optional flags As IEnumerable(Of String) = Nothing,
-                  Optional canRefuel As Boolean = False,
                   Optional canTrade As Boolean = False,
                   Optional canUpgradeShip As Boolean = False)
         MyBase.New(
@@ -18,7 +17,6 @@ Friend MustInherit Class StationActorTypeDescriptor
             costumeGenerator,
             spawnRolls,
             flags:=flags,
-            canRefuel:=canRefuel,
             canTrade:=canTrade,
             canUpgradeShip:=canUpgradeShip)
         Me.statisticType = statisticType
