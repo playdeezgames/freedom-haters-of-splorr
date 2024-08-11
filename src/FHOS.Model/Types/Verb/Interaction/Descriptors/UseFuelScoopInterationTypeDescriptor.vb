@@ -12,7 +12,7 @@ Friend Class UseFuelScoopInterationTypeDescriptor
     End Function
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.Interactor.Descriptor.IsStar AndAlso actor.Equipment.All.Any(Function(x) x.Flags(FlagTypes.CanRefuel))
+        Return actor.Interactor.Descriptor.Flag(FlagTypes.IsStar) AndAlso actor.Equipment.All.Any(Function(x) x.Flags(FlagTypes.CanRefuel))
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel

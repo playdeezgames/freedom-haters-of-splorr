@@ -12,7 +12,7 @@ Friend Class StarVicinityActorTypeDescriptor
                 {CostumeTypes.MakeStarVicinity(starType), 1}
             },
             New Dictionary(Of String, String),
-            isStarVicinity:=True,
+            flags:={FlagTypes.IsStarVicinity},
             subtype:=starType)
     End Sub
 

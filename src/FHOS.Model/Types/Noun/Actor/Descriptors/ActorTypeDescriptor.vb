@@ -8,8 +8,6 @@ Friend MustInherit Class ActorTypeDescriptor
             Return flags.Contains(flagType)
         End Get
     End Property
-    Friend ReadOnly Property IsStarVicinity As Boolean
-    Friend ReadOnly Property IsStar As Boolean
     Friend ReadOnly Property IsSatellite As Boolean
     Friend ReadOnly Property IsSatelliteSection As Boolean
     Friend ReadOnly Property IsPlanetVicinity As Boolean
@@ -34,8 +32,6 @@ Friend MustInherit Class ActorTypeDescriptor
            costumeGenerator As IReadOnlyDictionary(Of String, Integer),
            Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing,
            Optional flags As IEnumerable(Of String) = Nothing,
-           Optional isStarVicinity As Boolean = False,
-           Optional isStar As Boolean = False,
            Optional isPlanetVicinity As Boolean = False,
            Optional isPlanet As Boolean = False,
            Optional isPlanetSection As Boolean = False,
@@ -49,8 +45,6 @@ Friend MustInherit Class ActorTypeDescriptor
         Me.ActorType = actorType
         Me.CostumeGenerator = costumeGenerator
         Me.SpawnRolls = If(spawnRolls, New Dictionary(Of String, String))
-        Me.IsStarVicinity = isStarVicinity
-        Me.IsStar = isStar
         Me.IsPlanetVicinity = isPlanetVicinity
         Me.IsPlanet = isPlanet
         Me.IsPlanetSection = isPlanetSection
