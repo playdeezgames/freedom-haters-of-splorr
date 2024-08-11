@@ -13,12 +13,20 @@ Friend Class LifeSupportItemTypeDescriptor
 
     Public Overrides ReadOnly Property Description(item As IItem) As IEnumerable(Of String)
         Get
-            Return {
+            Dim result As New List(Of String) From {
                 $"This is the EterniVita {Marks.Descriptors(markType).Name} from NexGen Dynamics.", "Step into the future with EterniVita, the pinnacle of life support technology.",
                 "Engineered to ensure uninterrupted vitality and resilience, EterniVita redefines safety and peace of mind in the most challenging environments.",
                 "With its cutting-edge biostasis chambers and adaptive AI monitoring, EterniVita stands as the ultimate safeguard for explorers, colonists, and spacefarers alike.",
                 "Embrace limitless possibilities with EterniVita—where every breath guarantees a secure tomorrow, today.",
                 $"Tech Level: {item.Statistics(StatisticTypes.TechLevel)}"}
+            Dim currentCapacity = item.Statistics(StatisticTypes.CurrentOxygenCapacity)
+            Dim maximumCapacity = item.Statistics(StatisticTypes.OxygenCapacity).Value
+            If currentCapacity.HasValue Then
+                result.Add($"Current Oxygen: {currentCapacity.Value}/{maximumCapacity}")
+            Else
+                result.Add($"Maximum Oxygen: {maximumCapacity}")
+            End If
+            Return result
         End Get
     End Property
 
@@ -61,6 +69,7 @@ Friend Class LifeSupportItemTypeDescriptor
         Dim store = actor.LifeSupport
         store.MaximumValue = item.Statistics(StatisticTypes.OxygenCapacity)
         store.CurrentValue = If(item.Statistics(StatisticTypes.CurrentOxygenCapacity), 0)
+        item.Statistics(StatisticTypes.CurrentOxygenCapacity) = Nothing
         Return True
     End Function
 
