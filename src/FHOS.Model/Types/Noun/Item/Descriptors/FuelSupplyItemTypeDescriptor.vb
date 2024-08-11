@@ -13,13 +13,21 @@ Friend Class FuelSupplyItemTypeDescriptor
 
     Public Overrides ReadOnly Property Description(item As IItem) As IEnumerable(Of String)
         Get
-            Return {
+            Dim result = New List(Of String) From {
                 $"This is the StarLume Fuel Storage Solution System {Marks.Descriptors(markType).Name} from Celestial Energy Solutions.",
                 "Embark on interstellar journeys with StarLume Fuel Storage Solution System by Celestial Energy Solutions, the foremost name in propulsion innovation.",
                 "Crafted from rare celestial metals and refined through cutting-edge fusion technology, StarLume Fuel Storage Solution System guarantees unmatched efficiency and reliability for your spacecraft.",
                 "Whether you're charting new frontiers or navigating through asteroid belts, trust Celestial Energy Solutions to propel you farther and faster than ever before.",
                 "Reach for the stars with StarLume Fuel Storage Solution System—where limitless possibilities await beyond every horizon.",
                 $"Tech Level: {item.Statistics(StatisticTypes.TechLevel)}"}
+            Dim currentCapacity = item.Statistics(StatisticTypes.CurrentFuelCapacity)
+            Dim maximumCapacity = item.Statistics(StatisticTypes.FuelCapacity).Value
+            If currentCapacity.HasValue Then
+                result.Add($"Current Fuel: {currentCapacity.Value}/{maximumCapacity}")
+            Else
+                result.Add($"Maximum Fuel: {maximumCapacity}")
+            End If
+            Return result
         End Get
     End Property
 
