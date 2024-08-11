@@ -10,7 +10,7 @@ Friend Class StarSystemActorTypeDescriptor
                 {CostumeTypes.MakeStarSystem(starType), 1}
             },
             New Dictionary(Of String, String),
-            isStarSystem:=True,
+            flags:={FlagTypes.IsStarSystem},
             subtype:=starType)
     End Sub
 

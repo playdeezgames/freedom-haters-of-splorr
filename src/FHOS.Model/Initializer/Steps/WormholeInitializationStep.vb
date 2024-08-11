@@ -17,7 +17,7 @@ Friend Class WormholeInitializationStep
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim actorDescriptor = ActorTypes.Descriptors(ActorTypes.Wormhole)
-        Dim starSystemActor = RNG.FromEnumerable(startLocation.Universe.Actors.Where(Function(x) x.Descriptor.IsStarSystem))
+        Dim starSystemActor = RNG.FromEnumerable(startLocation.Universe.Actors.Where(Function(x) x.Descriptor.Flag(FlagTypes.IsStarSystem)))
         Dim destinationLocation = RNG.FromEnumerable(starSystemActor.Interior.Locations.Where(Function(x) actorDescriptor.CanSpawn(x)))
         Dim wormholeActor = actorDescriptor.CreateActor(destinationLocation, "Wormhole")
         destinationLocation.Actor = wormholeActor

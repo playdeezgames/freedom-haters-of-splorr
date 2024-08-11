@@ -38,7 +38,7 @@ Friend Class TransportInteractionTypeDescriptor
                                                         If Not success Then
                                                             a.Dialog = New DestinationBlockedDialog(a, a.Dialog)
                                                         Else
-                                                            If otherActor.Descriptor.IsStarSystem Then
+                                                            If otherActor.Descriptor.Flag(FlagTypes.IsStarSystem) Then
                                                                 a.SetStarSystem(Nothing)
                                                             ElseIf otherActor.Descriptor.IsWormhole Then
                                                                 a.SetStarSystem(otherActor.Yokes.Group(YokeTypes.StarSystem))
