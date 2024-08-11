@@ -1,4 +1,5 @@
 ﻿Imports FHOS.Persistence
+Imports SPLORR.Game
 
 Friend Class StarGateActorTypeDescriptor
     Inherits StationActorTypeDescriptor
@@ -11,12 +12,15 @@ Friend Class StarGateActorTypeDescriptor
                 {CostumeTypes.MakeCostume(CostumeTypes.StarGate, Hues.LightGreen), 1}
             },
             StatisticTypes.StarGateCount,
-            spawnRolls:=New Dictionary(Of String, String) From
-            {
-                {MapTypes.PlanetOrbit, "1d4/4"}
-            },
             flags:={FlagTypes.IsStarGate})
     End Sub
+
+    Friend Overrides Function GetSpawnCount(mapType As String) As Integer
+        If mapType = MapTypes.PlanetOrbit Then
+            Return RNG.RollDice("1d4/4")
+        End If
+        Return MyBase.GetSpawnCount(mapType)
+    End Function
 
     Protected Overrides Function MakeName(planet As IActor) As String
         Return $"{planet.EntityName} Star Gate"

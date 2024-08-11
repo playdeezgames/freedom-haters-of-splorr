@@ -11,7 +11,6 @@ Friend Class WormholeActorTypeDescriptor
             {
                 {MakeCostume(CostumeTypes.Wormhole, Hues.Purple), 1}
             },
-            New Dictionary(Of String, String),
             flags:={FlagTypes.IsWormhole})
     End Sub
 

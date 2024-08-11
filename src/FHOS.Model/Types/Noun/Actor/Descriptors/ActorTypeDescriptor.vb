@@ -14,7 +14,9 @@ Friend MustInherit Class ActorTypeDescriptor
     Friend Function HasEquipSlot(equipSlot As String) As Boolean
         Return EquipSlots.Contains(equipSlot)
     End Function
-    Friend ReadOnly Property SpawnRolls As IReadOnlyDictionary(Of String, String)
+    Friend Overridable Function GetSpawnCount(mapType As String) As Integer
+        Return 0
+    End Function
     Friend MustOverride Function CanSpawn(location As ILocation) As Boolean
     Friend ReadOnly Property CostumeGenerator As IReadOnlyDictionary(Of String, Integer)
     Protected MustOverride Sub Initialize(actor As IActor)
@@ -22,13 +24,11 @@ Friend MustInherit Class ActorTypeDescriptor
     Friend Sub New(
            actorType As String,
            costumeGenerator As IReadOnlyDictionary(Of String, Integer),
-           Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing,
            Optional flags As IEnumerable(Of String) = Nothing,
            Optional subtype As String = Nothing,
            Optional availableEquipSlots As IReadOnlyList(Of String) = Nothing)
         Me.ActorType = actorType
         Me.CostumeGenerator = costumeGenerator
-        Me.SpawnRolls = If(spawnRolls, New Dictionary(Of String, String))
         Me.Subtype = subtype
         Me.EquipSlots = If(availableEquipSlots, New List(Of String))
         Me.flags = If(

@@ -17,10 +17,10 @@ Friend Class EncounterInitializationStep
     End Property
 
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
-        For Each ActorDescriptor In ActorTypes.Descriptors.Where(Function(x) x.Value.SpawnRolls.ContainsKey(map.EntityType))
-            Dim spawnCount = RNG.RollDice(ActorDescriptor.Value.SpawnRolls(map.EntityType))
+        For Each ActorDescriptor In ActorTypes.Descriptors.Values
+            Dim spawnCount = ActorDescriptor.GetSpawnCount(map.EntityType)
             For Each dummy In Enumerable.Range(0, spawnCount)
-                SpawnActor(ActorDescriptor.Value)
+                SpawnActor(ActorDescriptor)
             Next
         Next
     End Sub

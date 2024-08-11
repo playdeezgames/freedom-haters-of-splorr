@@ -6,8 +6,7 @@ Friend Class ArrowActorDescriptor
     Public Sub New(directionName As String)
         MyBase.New(
             ActorTypes.MakeArrow(directionName),
-            New Dictionary(Of String, Integer) From {{CostumeTypes.MakeArrow(directionName), 1}},
-            New Dictionary(Of String, String))
+            New Dictionary(Of String, Integer) From {{CostumeTypes.MakeArrow(directionName), 1}})
     End Sub
 
     Protected Overrides Sub Initialize(actor As IActor)

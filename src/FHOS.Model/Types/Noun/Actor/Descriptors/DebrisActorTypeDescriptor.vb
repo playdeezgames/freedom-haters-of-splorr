@@ -10,12 +10,15 @@ Friend Class DebrisActorTypeDescriptor
             {
                 {CostumeTypes.MakeCostume(CostumeTypes.Debris, Hues.DarkGray), 1}
             },
-            spawnRolls:=New Dictionary(Of String, String) From
-            {
-                {MapTypes.StarSystem, "12d6/6"}
-            },
             flags:={FlagTypes.CanSalvage})
     End Sub
+
+    Friend Overrides Function GetSpawnCount(mapType As String) As Integer
+        If mapType = MapTypes.StarSystem Then
+            Return RNG.RollDice("12d6/6")
+        End If
+        Return MyBase.GetSpawnCount(mapType)
+    End Function
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
         Dim scrapCount = RNG.RollDice("4d6")

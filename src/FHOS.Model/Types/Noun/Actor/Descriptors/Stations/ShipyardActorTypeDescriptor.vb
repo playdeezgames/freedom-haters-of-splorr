@@ -1,4 +1,6 @@
-﻿Friend Class ShipyardActorTypeDescriptor
+﻿Imports SPLORR.Game
+
+Friend Class ShipyardActorTypeDescriptor
     Inherits StationActorTypeDescriptor
 
     Public Sub New()
@@ -9,12 +11,15 @@
                 {CostumeTypes.MakeCostume(CostumeTypes.Shipyard, Hues.Orange), 1}
             },
             StatisticTypes.ShipyardCount,
-            spawnRolls:=New Dictionary(Of String, String) From
-            {
-                {MapTypes.PlanetOrbit, "1d4/4"}
-            },
             flags:={FlagTypes.CanUpgradeShip})
     End Sub
+
+    Friend Overrides Function GetSpawnCount(mapType As String) As Integer
+        If mapType = MapTypes.PlanetOrbit Then
+            Return RNG.RollDice("1d4/4")
+        End If
+        Return MyBase.GetSpawnCount(mapType)
+    End Function
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
         MyBase.Initialize(actor)

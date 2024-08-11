@@ -9,16 +9,19 @@
                 {CostumeTypes.MakeCostume(CostumeTypes.StarDock, Hues.Brown), 1}
             },
             StatisticTypes.StarDockCount,
-            spawnRolls:=New Dictionary(Of String, String) From
-            {
-                {MapTypes.PlanetOrbit, "1d1"}
-            },
             flags:=
             {
                 FlagTypes.CanRefillOxygen,
                 FlagTypes.CanRefuel
             })
     End Sub
+
+    Friend Overrides Function GetSpawnCount(mapType As String) As Integer
+        If mapType = MapTypes.PlanetOrbit Then
+            Return 1
+        End If
+        Return MyBase.GetSpawnCount(mapType)
+    End Function
 
     Friend Overrides Function CanSpawn(location As Persistence.ILocation) As Boolean
         Return location.EntityType = LocationTypes.Void AndAlso location.Actor Is Nothing

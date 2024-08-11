@@ -11,10 +11,6 @@ Friend Class PlayerShipActorTypeDescriptor
             {
                 {CostumeTypes.MakeCostume(CostumeTypes.MerchantVessel, Hues.LightGray), 1}
             },
-            spawnRolls:=New Dictionary(Of String, String) From
-            {
-                {MapTypes.Galaxy, "1d1"}
-            },
             availableEquipSlots:=New List(Of String) From
             {
                 Model.EquipSlots.PrimaryFuelSupply,
@@ -23,6 +19,12 @@ Friend Class PlayerShipActorTypeDescriptor
                 Model.EquipSlots.Accessory(1)
             })
     End Sub
+    Friend Overrides Function GetSpawnCount(mapType As String) As Integer
+        If mapType = MapTypes.Galaxy Then
+            Return 1
+        End If
+        Return MyBase.GetSpawnCount(mapType)
+    End Function
 
     Friend Overrides Function CanSpawn(location As ILocation) As Boolean
         Return location.EntityType = LocationTypes.Void AndAlso location.Actor Is Nothing

@@ -1,4 +1,5 @@
 ﻿Imports FHOS.Persistence
+Imports SPLORR.Game
 
 Friend Class TradingPostActorTypeDescriptor
     Inherits StationActorTypeDescriptor
@@ -11,15 +12,15 @@ Friend Class TradingPostActorTypeDescriptor
                 {CostumeTypes.MakeCostume(CostumeTypes.TradingPost, Hues.Cyan), 1}
             },
             StatisticTypes.TradingPostCount,
-            spawnRolls:=New Dictionary(Of String, String) From
-            {
-                {
-                    MapTypes.PlanetOrbit,
-                    "3d6/10"
-                }
-            },
             flags:={FlagTypes.CanTrade})
     End Sub
+
+    Friend Overrides Function GetSpawnCount(mapType As String) As Integer
+        If mapType = MapTypes.PlanetOrbit Then
+            Return Math.Max(1, RNG.RollDice("3d6/8"))
+        End If
+        Return MyBase.GetSpawnCount(mapType)
+    End Function
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)
         MyBase.Initialize(actor)

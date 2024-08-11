@@ -14,12 +14,15 @@ Friend Class MilitaryVesselActorTypeDescriptor
                 {CostumeTypes.MakeCostume(CostumeTypes.MilitaryVessel, Hues.White), 1},
                 {CostumeTypes.MakeCostume(CostumeTypes.MilitaryVessel, Hues.Tan), 1},
                 {CostumeTypes.MakeCostume(CostumeTypes.MilitaryVessel, Hues.Brown), 1}
-            },
-            spawnRolls:=New Dictionary(Of String, String) From
-            {
-                {MapTypes.Galaxy, "25d1"}
             })
     End Sub
+
+    Friend Overrides Function GetSpawnCount(mapType As String) As Integer
+        If mapType = MapTypes.Galaxy Then
+            Return 25
+        End If
+        Return MyBase.GetSpawnCount(mapType)
+    End Function
 
     Protected Overrides Sub Initialize(actor As IActor)
         Dim faction = RNG.FromGenerator(actor.Universe.Groups.Where(Function(x) x.EntityType = GroupTypes.Faction).ToDictionary(Function(x) x, Function(x) x.Statistics(StatisticTypes.PlanetCount).Value))
