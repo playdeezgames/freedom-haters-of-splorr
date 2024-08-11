@@ -9,16 +9,12 @@ Friend MustInherit Class StationActorTypeDescriptor
                   costumeGenerator As IReadOnlyDictionary(Of String, Integer),
                   statisticType As String,
                   Optional spawnRolls As IReadOnlyDictionary(Of String, String) = Nothing,
-                  Optional flags As IEnumerable(Of String) = Nothing,
-                  Optional canTrade As Boolean = False,
-                  Optional canUpgradeShip As Boolean = False)
+                  Optional flags As IEnumerable(Of String) = Nothing)
         MyBase.New(
             actorType,
             costumeGenerator,
             spawnRolls,
-            flags:=flags,
-            canTrade:=canTrade,
-            canUpgradeShip:=canUpgradeShip)
+            flags:=flags)
         Me.statisticType = statisticType
     End Sub
 

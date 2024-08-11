@@ -13,7 +13,7 @@
             {
                 {MapTypes.PlanetOrbit, "1d4/4"}
             },
-            CanUpgradeShip:=True)
+            flags:={FlagTypes.CanUpgradeShip})
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)

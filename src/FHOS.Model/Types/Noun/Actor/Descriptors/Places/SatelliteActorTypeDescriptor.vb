@@ -12,7 +12,7 @@ Friend Class SatelliteActorTypeDescriptor
                 {CostumeTypes.MakeSatellite(satelliteType), 1}
             },
             New Dictionary(Of String, String),
-            isSatellite:=True,
+            flags:={FlagTypes.IsSatellite},
             subtype:=satelliteType)
     End Sub
 

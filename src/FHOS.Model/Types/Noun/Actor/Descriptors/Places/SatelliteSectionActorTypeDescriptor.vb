@@ -11,7 +11,7 @@ Friend Class SatelliteSectionActorTypeDescriptor
                 {CostumeTypes.MakeSatelliteSection(satelliteType, sectionName), 1}
             },
             New Dictionary(Of String, String),
-            isSatelliteSection:=True,
+            flags:={FlagTypes.IsSatelliteSection},
             subtype:=satelliteType)
     End Sub
 

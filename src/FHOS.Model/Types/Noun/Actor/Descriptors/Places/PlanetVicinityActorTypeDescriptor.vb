@@ -10,7 +10,7 @@ Friend Class PlanetVicinityActorTypeDescriptor
                 {CostumeTypes.MakePlanetVicinity(planetType), 1}
             },
             New Dictionary(Of String, String),
-            isPlanetVicinity:=True,
+            flags:={FlagTypes.IsPlanetVicinity},
             subtype:=planetType)
     End Sub
 

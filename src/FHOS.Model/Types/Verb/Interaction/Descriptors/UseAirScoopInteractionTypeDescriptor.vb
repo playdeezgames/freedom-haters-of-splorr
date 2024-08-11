@@ -12,7 +12,7 @@ Friend Class UseAirScoopInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.Interactor.Descriptor.IsPlanetSection AndAlso actor.Equipment.All.Any(Function(x) x.Flags(FlagTypes.CanRefillOxygen))
+        Return actor.Interactor.Descriptor.Flag(FlagTypes.IsPlanetSection) AndAlso actor.Equipment.All.Any(Function(x) x.Flags(FlagTypes.CanRefillOxygen))
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel

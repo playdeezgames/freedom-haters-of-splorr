@@ -18,7 +18,7 @@ Friend Class TradingPostActorTypeDescriptor
                     "3d6/10"
                 }
             },
-            canTrade:=True)
+            flags:={FlagTypes.CanTrade})
     End Sub
 
     Protected Overrides Sub Initialize(actor As Persistence.IActor)

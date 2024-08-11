@@ -12,7 +12,7 @@ Friend Class ShipyardInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.Interactor.Descriptor.CanUpgradeShip
+        Return actor.Interactor.Descriptor.Flag(FlagTypes.CanUpgradeShip)
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel

@@ -12,7 +12,7 @@ Friend Class TradeInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function IsAvailable(actor As IActor) As Boolean
-        Return actor.Interactor.Descriptor.CanTrade
+        Return actor.Interactor.Descriptor.Flag(FlagTypes.CanTrade)
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel

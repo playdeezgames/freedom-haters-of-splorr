@@ -18,7 +18,7 @@ Friend Class TransportInteractionTypeDescriptor
     End Function
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
-        If actor.Descriptor.IsPlanet Then
+        If actor.Descriptor.Flag(FlagTypes.IsPlanet) Then
             Return New InteractionModel(actor, Sub(a)
                                                    Dim destinations = a.Interactor.Yokes.Actor(YokeTypes.Target).Interior.Locations.Where(Function(x) x.EntityType = LocationTypes.PlanetAdjacent)
                                                    If Not destinations.Any Then
@@ -40,7 +40,7 @@ Friend Class TransportInteractionTypeDescriptor
                                                         Else
                                                             If otherActor.Descriptor.Flag(FlagTypes.IsStarSystem) Then
                                                                 a.SetStarSystem(Nothing)
-                                                            ElseIf otherActor.Descriptor.IsWormhole Then
+                                                            ElseIf otherActor.Descriptor.Flag(FlagTypes.IsWormhole) Then
                                                                 a.SetStarSystem(otherActor.Yokes.Group(YokeTypes.StarSystem))
                                                             End If
                                                         End If

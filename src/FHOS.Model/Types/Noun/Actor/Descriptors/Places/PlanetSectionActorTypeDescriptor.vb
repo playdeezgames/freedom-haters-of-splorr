@@ -12,8 +12,7 @@ Friend Class PlanetSectionActorTypeDescriptor
                 {CostumeTypes.MakePlanetSection(planetType, sectionName), 1}
             },
             New Dictionary(Of String, String),
-            isPlanet:=isPlanet,
-            isPlanetSection:=Not isPlanet,
+            flags:={If(isPlanet, FlagTypes.IsPlanet, FlagTypes.IsPlanetSection)},
             subtype:=planetType)
     End Sub
 

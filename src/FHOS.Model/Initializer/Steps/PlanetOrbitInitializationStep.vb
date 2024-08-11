@@ -17,7 +17,7 @@ Friend Class PlanetOrbitInitializationStep
     End Sub
     Public Overrides Sub DoStep(addStep As Action(Of InitializationStep, Boolean))
         Dim planet = location.Actor
-        Dim actors = location.Map.Locations.Where(Function(x) If(x.Actor?.Descriptor?.IsPlanet, False)).Select(Function(x) x.Actor)
+        Dim actors = location.Map.Locations.Where(Function(x) If(x.Actor?.Descriptor?.Flag(FlagTypes.IsPlanet), False)).Select(Function(x) x.Actor)
         Dim map = MapTypes.Descriptors(MapTypes.PlanetOrbit).CreateMap($"{planet.Yokes.Group(YokeTypes.Planet).EntityName} Orbit", planet.Universe)
         map.YokedGroup(YokeTypes.Planet) = planetGroup
         planet.Interior = map
