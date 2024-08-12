@@ -8,7 +8,7 @@ Friend Class DeliveryMissionSummaryDialog
                   starDock As Persistence.IActor,
                   item As Persistence.IItem,
                   finalDialog As IDialog)
-        MyBase.New(actor, starDock, finalDialog)
+        MyBase.New(DialogType.Menu, actor, starDock, finalDialog)
         Me.item = item
     End Sub
 
@@ -65,7 +65,7 @@ Friend Class DeliveryMissionSummaryDialog
     End Property
 
 
-    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
+    Public Overrides ReadOnly Property LegacyChoices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
         Get
             Dim result As New List(Of (Text As String, Value As Func(Of IDialog))) From {
                 (DialogChoices.Cancel, AddressOf CancelDialog)
@@ -91,5 +91,16 @@ Friend Class DeliveryMissionSummaryDialog
         Actor.Yokes.Actor(YokeTypes.Interactor) = StarDock
         Return EndDialog()
     End Function
+
+    Public Overrides Function Choose(choice As String) As IDialog
+        Return If(LegacyChoices().SingleOrDefault(Function(x) x.Text = choice).Value(), Me)
+    End Function
+
     Private ReadOnly Property item As Persistence.IItem
+
+    Public Overrides ReadOnly Property Menu As IEnumerable(Of String)
+        Get
+            Return LegacyChoices.Select(Function(x) x.Text)
+        End Get
+    End Property
 End Class

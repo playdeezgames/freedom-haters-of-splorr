@@ -20,7 +20,7 @@ Friend Class AvatarStateDialogModel
 
     Public ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action)) Implements IAvatarStateDialogModel.Choices
         Get
-            Return dialog.Choices.Select(Function(x) (x.Text, MakeChoice(x.Value)))
+            Return dialog.LegacyChoices.Select(Function(x) (x.Text, MakeChoice(x.Value)))
         End Get
     End Property
 

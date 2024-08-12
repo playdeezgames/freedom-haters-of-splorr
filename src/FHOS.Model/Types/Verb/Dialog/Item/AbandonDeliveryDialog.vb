@@ -4,7 +4,7 @@ Friend Class AbandonDeliveryDialog
     Inherits BaseItemDialog
 
     Public Sub New(actor As Persistence.IActor, item As Persistence.IItem, finalDialog As IDialog)
-        MyBase.New(actor, item, finalDialog)
+        MyBase.New(DialogType.Menu, actor, item, finalDialog)
     End Sub
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
@@ -17,7 +17,7 @@ Friend Class AbandonDeliveryDialog
         End Get
     End Property
 
-    Public Overrides ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
+    Public Overrides ReadOnly Property LegacyChoices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
         Get
             Return New List(Of (Text As String, Value As Func(Of IDialog))) From
                 {
@@ -26,6 +26,16 @@ Friend Class AbandonDeliveryDialog
                 }
         End Get
     End Property
+
+    Public Overrides ReadOnly Property Menu As IEnumerable(Of String)
+        Get
+            Return LegacyChoices.Select(Function(x) x.Text)
+        End Get
+    End Property
+
+    Public Overrides Function Choose(choice As String) As IDialog
+        Return If(LegacyChoices().SingleOrDefault(Function(x) x.Text = choice).Value(), Me)
+    End Function
 
     Private Function ConfirmAbandon() As IDialog
         Dim delta = Item.GetReputationPenalty
