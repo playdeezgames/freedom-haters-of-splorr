@@ -14,6 +14,7 @@
         group.Children.ShouldBeEmpty
         Should.Throw(Of NullReferenceException)(Sub() group.AddParent(Nothing))
         Should.NotThrow(Sub() group.RemoveParent(Nothing))
+        Should.NotThrow(Sub() group.AddValue(1))
     End Sub
     <Fact>
     Sub create_map()

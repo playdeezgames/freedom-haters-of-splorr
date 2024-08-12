@@ -27,6 +27,10 @@ Friend Class Group
         End If
     End Sub
 
+    Public Sub AddValue(valueId As Integer) Implements IGroup.AddValue
+        EntityData.AddValue(valueId)
+    End Sub
+
     Public ReadOnly Property Parents As IEnumerable(Of IGroup) Implements IGroup.Parents
         Get
             Return EntityData.AllParents.Select(Function(x) Group.FromId(UniverseData, x))
