@@ -8,6 +8,7 @@ Friend Class AtmosphericConcentratorItemTypeDescriptor
         MyBase.New(
             ItemTypes.AtmosphericConcentrator,
             "AeroSynth Recharger",
+            New Dictionary(Of String, Double),
             3,
             price:=5000,
             installFee:=25,

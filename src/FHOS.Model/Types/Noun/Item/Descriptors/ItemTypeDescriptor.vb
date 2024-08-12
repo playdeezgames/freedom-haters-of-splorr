@@ -4,6 +4,7 @@ Imports FHOS.Persistence
 Friend MustInherit Class ItemTypeDescriptor
     ReadOnly Property ItemType As String
     ReadOnly Property Name As String
+    ReadOnly Property Commodities As IReadOnlyDictionary(Of String, Double)
     MustOverride ReadOnly Property Description(item As IItem) As IEnumerable(Of String)
     Friend Overridable Function CanEquip(equipSlot As String) As Boolean
         Return False
@@ -21,6 +22,7 @@ Friend MustInherit Class ItemTypeDescriptor
     Sub New(
            itemType As String,
            name As String,
+           commodities As IReadOnlyDictionary(Of String, Double),
            Optional offer As Integer = 0,
            Optional price As Integer = 0,
            Optional installFee As Integer = 0,
@@ -31,6 +33,7 @@ Friend MustInherit Class ItemTypeDescriptor
         Me.Price = price
         Me.InstallFee = installFee
         Me.UninstallFee = uninstallFee
+        Me.Commodities = commodities
     End Sub
     Function CreateItem(universe As IUniverse) As IItem
         Dim item = universe.Factory.CreateItem(ItemType)

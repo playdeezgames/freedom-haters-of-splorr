@@ -8,6 +8,7 @@ Friend Class OxygenTankDescriptor
         MyBase.New(
             ItemTypes.OxygenTank,
             "Oxygen Tank",
+            New Dictionary(Of String, Double),
             price:=5)
     End Sub
 

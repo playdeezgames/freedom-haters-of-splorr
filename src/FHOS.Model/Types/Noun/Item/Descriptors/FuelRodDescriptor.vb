@@ -8,6 +8,7 @@ Friend Class FuelRodDescriptor
         MyBase.New(
             ItemTypes.FuelRod,
             "Fuel Rod",
+            New Dictionary(Of String, Double),
             price:=20)
     End Sub
 

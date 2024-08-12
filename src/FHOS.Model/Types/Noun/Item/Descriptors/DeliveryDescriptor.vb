@@ -13,7 +13,8 @@ Friend Class DeliveryDescriptor
     Public Sub New()
         MyBase.New(
             ItemTypes.Delivery,
-            "Delivery")
+            "Delivery",
+            New Dictionary(Of String, Double))
     End Sub
     Friend Overrides Function GetEntityName(item As IItem) As String
         Dim planet = item.GetDestinationPlanet

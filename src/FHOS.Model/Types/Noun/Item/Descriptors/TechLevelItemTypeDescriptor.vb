@@ -6,12 +6,20 @@
     Protected Sub New(
                      itemType As String,
                      name As String,
+                     commodities As IReadOnlyDictionary(Of String, Double),
                      techLevel As Integer,
                      Optional offer As Integer = 0,
                      Optional price As Integer = 0,
                      Optional installFee As Integer = 0,
                      Optional uninstallFee As Integer = 0)
-        MyBase.New(itemType, name, offer, price, installFee, uninstallFee)
+        MyBase.New(
+            itemType,
+            name,
+            commodities,
+            offer,
+            price,
+            installFee,
+            uninstallFee)
         Me._techLevel = techLevel
     End Sub
 

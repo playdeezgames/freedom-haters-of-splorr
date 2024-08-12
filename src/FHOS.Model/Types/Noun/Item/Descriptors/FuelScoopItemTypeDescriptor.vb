@@ -8,6 +8,7 @@ Friend Class FuelScoopItemTypeDescriptor
         MyBase.New(
             ItemTypes.FuelScoop,
             "Fuel Scoop",
+            New Dictionary(Of String, Double),
             7,
             price:=10000,
             installFee:=100,

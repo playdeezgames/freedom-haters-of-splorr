@@ -34,6 +34,7 @@ Friend Class LifeSupportItemTypeDescriptor
         MyBase.New(
             ItemTypes.MarkedType(ItemTypes.LifeSupport, markType),
             $"EterniVita {Marks.Descriptors(markType).Name}",
+            New Dictionary(Of String, Double),
             MarkTypeToTechLevel(markType),
             price:=CalculatePrice(markType),
             installFee:=Marks.Descriptors(markType).Value * InstallFeePerMarkValue,

@@ -8,6 +8,7 @@ Friend Class ScrapItemTypeDescriptor
         MyBase.New(
             ItemTypes.Scrap,
             "Scrap",
+            New Dictionary(Of String, Double),
             offer:=1)
     End Sub
 

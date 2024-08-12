@@ -35,6 +35,7 @@ Friend Class FuelSupplyItemTypeDescriptor
         MyBase.New(
             ItemTypes.MarkedType(ItemTypes.FuelSupply, markType),
             $"StarLume Fuel {Marks.Descriptors(markType).Name}",
+            New Dictionary(Of String, Double),
             MarkTypeToTechLevel(markType),
             price:=CalculatePrice(markType),
             installFee:=Marks.Descriptors(markType).Value * InstallFeePerMarkValue,
