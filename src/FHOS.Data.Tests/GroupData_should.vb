@@ -5,8 +5,10 @@
         Dim sut = CreateSut()
         sut.HasChildren.ShouldBeFalse
         sut.HasParents.ShouldBeFalse
+        sut.HasValues.ShouldBeFalse
         sut.AllChildren.ShouldBeEmpty
         sut.AllParents.ShouldBeEmpty
+        sut.AllValues.ShouldBeEmpty
     End Sub
     <Fact>
     Sub by_default_not_have_given_child()
@@ -17,6 +19,20 @@
     Sub by_default_not_have_given_parent()
         Dim sut = CreateSut()
         sut.HasParent(1).ShouldBeFalse
+    End Sub
+    <Fact>
+    Sub by_default_not_have_given_value()
+        Dim sut = CreateSut()
+        sut.HasValue(1).ShouldBeFalse
+    End Sub
+    <Fact>
+    Sub add_value()
+        Dim sut = CreateSut()
+        Const valueId = 1
+        sut.AddValue(valueId)
+        sut.HasValues.ShouldBeTrue
+        sut.AllValues.ShouldHaveSingleItem
+        sut.HasValue(valueId).ShouldBeTrue
     End Sub
     <Fact>
     Sub add_child()
@@ -36,6 +52,16 @@
         sut.HasChildren.ShouldBeFalse
         sut.AllChildren.ShouldBeEmpty
         sut.HasChild(childId).ShouldBeFalse
+    End Sub
+    <Fact>
+    Sub remove_value()
+        Dim sut = CreateSut()
+        Const valueId = 1
+        sut.AddValue(valueId)
+        sut.RemoveValue(valueId)
+        sut.HasValues.ShouldBeFalse
+        sut.AllValues.ShouldBeEmpty
+        sut.HasValue(valueId).ShouldBeFalse
     End Sub
     <Fact>
     Sub add_parent()
