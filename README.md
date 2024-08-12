@@ -2,7 +2,7 @@
 
   - [ ] 20240814 - SIGMO FHOS Episode 100 - 
   - [ ] 20240813 - SIGMO FHOS Episode 99 - 
-  - [ ] 20240812 - SIGMO FHOS Episode 98 - 
+  - [x] 20240812 - SIGMO FHOS Episode 98 - 
   - [x] 20240811 - SIGMO FHOS Episode 97 - 
   - [x] 20240810 - SIGMO FHOS Episode 96 - 
   - [x] 20240809 - SIGMO FHOS Episode 95 - 
