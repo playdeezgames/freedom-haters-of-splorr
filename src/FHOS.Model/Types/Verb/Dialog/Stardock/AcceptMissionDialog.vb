@@ -20,7 +20,7 @@ Friend Class AcceptMissionDialog
         End Get
     End Property
 
-    Public Overrides ReadOnly Property LegacyChoices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
+    Private ReadOnly Property LegacyChoices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
         Get
             Dim result As New List(Of (Text As String, Value As Func(Of IDialog))) From
                 {
@@ -39,7 +39,7 @@ Friend Class AcceptMissionDialog
     End Property
 
     Public Overrides Function Choose(choice As String) As IDialog
-        Return If(LegacyChoices().SingleOrDefault(Function(x) x.Text = choice).Value(), Me)
+        Return LegacyChoices().SingleOrDefault(Function(x) x.Text = choice).Value()
     End Function
 
     Private Function ToChoice(item As IItem) As (Text As String, Value As Func(Of IDialog))

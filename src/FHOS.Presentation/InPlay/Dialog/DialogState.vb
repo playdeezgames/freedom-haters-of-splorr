@@ -15,7 +15,7 @@ Friend Class DialogState
             For Each line In .Lines
                 ui.WriteLine((moodTable(line.Hue), line.Text))
             Next
-            ui.Choose((Mood.Prompt, String.Empty), .Choices.ToArray)()
+            .Choose(ui.Choose((Mood.Prompt, .Prompt), .Choices.ToArray))
             Return New NeutralState(model, ui, endState)
         End With
     End Function

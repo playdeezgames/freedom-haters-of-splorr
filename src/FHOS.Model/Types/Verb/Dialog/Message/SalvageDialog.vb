@@ -11,7 +11,7 @@ Friend Class SalvageDialog
     End Sub
 
     Public Overrides Function Choose(choice As String) As IDialog
-        Return If(LegacyChoices().SingleOrDefault(Function(x) x.Text = choice).Value(), Me)
+        Return LegacyChoices().SingleOrDefault(Function(x) x.Text = choice).Value()
     End Function
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
@@ -36,7 +36,7 @@ Friend Class SalvageDialog
         End Get
     End Property
 
-    Public Overrides ReadOnly Property LegacyChoices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
+    Private ReadOnly Property LegacyChoices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
         Get
             Return {(DialogChoices.Ok, AddressOf EndDialog)}
         End Get

@@ -18,19 +18,23 @@ Friend Class AvatarStateDialogModel
         End Get
     End Property
 
-    Public ReadOnly Property Choices As IEnumerable(Of (Text As String, Value As Action)) Implements IAvatarStateDialogModel.Choices
+    Public ReadOnly Property Choices As IEnumerable(Of String) Implements IAvatarStateDialogModel.Choices
         Get
-            Return dialog.LegacyChoices.Select(Function(x) (x.Text, MakeChoice(x.Value)))
+            Return dialog.Menu
         End Get
     End Property
 
-    Private Function MakeChoice(consequence As Func(Of IDialog)) As Action
-        Return Sub()
-                   actor.Dialog = consequence()
-               End Sub
-    End Function
+    Public ReadOnly Property Prompt As String Implements IAvatarStateDialogModel.Prompt
+        Get
+            Return dialog.Prompt
+        End Get
+    End Property
 
     Friend Shared Function FromDialog(actor As IActor, dialog As IDialog) As IAvatarStateDialogModel
         Return If(dialog IsNot Nothing, New AvatarStateDialogModel(actor, dialog), Nothing)
     End Function
+
+    Public Sub Choose(choice As String) Implements IAvatarStateDialogModel.Choose
+        actor.Dialog = dialog.Choose(choice)
+    End Sub
 End Class

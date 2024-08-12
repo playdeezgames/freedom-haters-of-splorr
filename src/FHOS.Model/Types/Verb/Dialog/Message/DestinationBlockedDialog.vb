@@ -16,7 +16,7 @@ Friend Class DestinationBlockedDialog
         End Get
     End Property
 
-    Public Overrides ReadOnly Property LegacyChoices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
+    Private ReadOnly Property LegacyChoices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
         Get
             Return {
                 (DialogChoices.Ok, AddressOf EndDialog)
@@ -31,6 +31,6 @@ Friend Class DestinationBlockedDialog
     End Property
 
     Public Overrides Function Choose(choice As String) As IDialog
-        Return If(LegacyChoices().SingleOrDefault(Function(x) x.Text = choice).Value(), Me)
+        Return LegacyChoices().SingleOrDefault(Function(x) x.Text = choice).Value()
     End Function
 End Class
