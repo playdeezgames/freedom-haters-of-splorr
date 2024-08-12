@@ -104,6 +104,12 @@ Friend Class GroupPropertiesModel
         End Get
     End Property
 
+    Public ReadOnly Property Values As IEnumerable(Of IGroupValueModel) Implements IGroupPropertiesModel.Values
+        Get
+            Return group.Values.Select(Function(x) GroupValueModel.FromValueId(x))
+        End Get
+    End Property
+
     Friend Shared Function FromGroup(group As IGroup) As IGroupPropertiesModel
         Return New GroupPropertiesModel(group)
     End Function

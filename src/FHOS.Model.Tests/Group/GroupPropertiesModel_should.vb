@@ -11,6 +11,8 @@
         sut.StarTypeName.ShouldBeNull
         sut.PlanetTypeName.ShouldBeNull
         sut.SatelliteTypeName.ShouldBeNull
+        Should.Throw(Of InvalidOperationException)(Function() sut.TechLevel)
+        sut.Values.ShouldBeEmpty
     End Sub
 
     Private Function CreateSut() As IGroupPropertiesModel

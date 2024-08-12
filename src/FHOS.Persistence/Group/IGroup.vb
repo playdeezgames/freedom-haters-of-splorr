@@ -5,4 +5,5 @@
     Sub RemoveParent(parent As IGroup)
     ReadOnly Property Children As IEnumerable(Of IGroup)
     Sub AddValue(valueId As Integer)
+    ReadOnly Property Values As IEnumerable(Of Integer)
 End Interface

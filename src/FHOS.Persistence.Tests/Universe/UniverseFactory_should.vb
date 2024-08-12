@@ -12,6 +12,7 @@
         universe.Groups.Count.ShouldBe(1)
         group.Parents.ShouldBeEmpty
         group.Children.ShouldBeEmpty
+        group.Values.ShouldBeEmpty
         Should.Throw(Of NullReferenceException)(Sub() group.AddParent(Nothing))
         Should.NotThrow(Sub() group.RemoveParent(Nothing))
         Should.NotThrow(Sub() group.AddValue(1))

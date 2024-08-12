@@ -42,4 +42,10 @@ Friend Class Group
             Return EntityData.AllChildren.Select(Function(x) Group.FromId(UniverseData, x))
         End Get
     End Property
+
+    Public ReadOnly Property Values As IEnumerable(Of Integer) Implements IGroup.Values
+        Get
+            Return EntityData.Values
+        End Get
+    End Property
 End Class

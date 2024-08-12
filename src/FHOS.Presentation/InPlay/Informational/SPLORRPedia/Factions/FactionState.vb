@@ -36,6 +36,10 @@ Friend Class FactionState
             For Each otherFaction In model.Pedia.Factions.Where(Function(x) x.Name <> .Name)
                 ui.WriteLine((Mood.Info, $" - {otherFaction.Name}: { .RelationNameTo(otherFaction)}"))
             Next
+            ui.WriteLine((Mood.Info, $"Values:"))
+            For Each groupValue In .Properties.Values
+
+            Next
         End With
         Select Case ui.Choose(
             (Mood.Prompt, String.Empty),
