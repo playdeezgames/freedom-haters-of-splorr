@@ -1,8 +1,9 @@
 # Freedom Haters of SPLORR!!
 
+  - [ ] 20240814 - SIGMO FHOS Episode 100 - 
   - [ ] 20240813 - SIGMO FHOS Episode 99 - 
   - [ ] 20240812 - SIGMO FHOS Episode 98 - 
-  - [ ] 20240811 - SIGMO FHOS Episode 97 - 
+  - [x] 20240811 - SIGMO FHOS Episode 97 - 
   - [x] 20240810 - SIGMO FHOS Episode 96 - 
   - [x] 20240809 - SIGMO FHOS Episode 95 - 
   - [x] 20240808 - SIGMO FHOS Episode 94 - 
@@ -10,19 +11,6 @@
   - [x] 20240806 - SIGMO FHOS Episode 92 - 
   - [x] 20240805 - SIGMO FHOS Episode 91 - 
   - [x] 20240804 - SIGMO FHOS Episode 90 - 
-  - [x] 20240803 - SIGMO FHOS Episode 89 - 
-  - [x] 20240802 - SIGMO FHOS Episode 88 - 
-  - [x] 20240801 - SIGMO FHOS Episode 87 - 
-  - [x] 20240731 - SIGMO FHOS Episode 86 - 
-  - [x] 20240728 - SIGMO FHOS Episode 85 - 
-  - [x] 20240727 - SIGMO FHOS Episode 84 - 
-  - [x] 20240726 - SIGMO FHOS Episode 83 - 
-  - [x] 20240724 - SIGMO FHOS Episode 82 - 
-  - [x] 20240723 - SIGMO FHOS Episode 81 - 
-  - [x] 20240722 - SIGMO FHOS Episode 80 - 
-  - [x] 20240720 - SIGMO FHOS Episode 79 - 
-  - [x] 20240719 - SIGMO FHOS Episode 78 - 
-  - [x] 20240718 - SIGMO FHOS Episode 77 - 
 
 Freedom Haters of SPLORR!!
 
