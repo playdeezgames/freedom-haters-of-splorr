@@ -25,6 +25,11 @@ Friend Class PlanetState
             ui.WriteLine((Mood.Info, $"Star System: { .Parents.StarSystem.Name}"))
             ui.WriteLine((Mood.Info, $"Satellite Count: { .Properties.SatelliteCount}"))
             ui.WriteLine((Mood.Info, $"Faction: { .Parents.Faction.Name}"))
+            ui.WriteLine((Mood.Info, String.Empty))
+            ui.WriteLine((Mood.Header, $"Values:"))
+            For Each groupValue In .Properties.Values
+                ui.WriteLine((Mood.Info, $" - {groupValue.Name}: {groupValue.Description}"))
+            Next
         End With
         Select Case ui.Choose(
             (Mood.Prompt, String.Empty),

@@ -16,7 +16,8 @@ Friend Class FactionInitializationStep
         Dim names As New HashSet(Of String)
         For Each dummy In Enumerable.Range(0, embarkSettings.FactionCount)
             Dim name As String = GenerateName(names)
-            universe.Factory.CreateFaction(name, 0, RNG.RollDice("10d11+-10d1"), RNG.RollDice("10d11+-10d1"), RNG.RollDice("10d11+-10d1"))
+            Dim faction = universe.Factory.CreateFaction(name, 0, RNG.RollDice("10d11+-10d1"), RNG.RollDice("10d11+-10d1"), RNG.RollDice("10d11+-10d1"))
+            faction.GenerateValues()
         Next
     End Sub
 

@@ -62,6 +62,7 @@ Friend Class StarSystemInitializationStep
         Dim location = exteriorActor.Interior.GetLocation(column, row)
         location.EntityType = LocationTypes.PlanetVicinity
         Dim planetVicinityGroup = location.Universe.Factory.CreateGroup(GroupTypes.PlanetVicinity, nameGenerator.GenerateUnusedName)
+        planetVicinityGroup.GenerateValues()
         planetVicinityGroup.Metadatas(MetadataTypes.Subtype) = planetType
         planetVicinityGroup.AddParent(exteriorActor.Yokes.Group(YokeTypes.StarSystem))
         Dim actor = ActorTypes.Descriptors(ActorTypes.MakePlanetVicinity(planetType)).CreateActor(location, $"{planetVicinityGroup.EntityName}")

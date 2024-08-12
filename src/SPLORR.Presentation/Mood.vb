@@ -4,6 +4,7 @@
     Info
     Success
     Title
+    Header
     Warning
     Black
     Blue

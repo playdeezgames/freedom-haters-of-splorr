@@ -15,7 +15,7 @@ Friend Module GroupExtensions
     Friend Sub GenerateValues(group As IGroup)
         Const ValueAttempts = 3
         For Each attempt In Enumerable.Range(1, ValueAttempts)
-            group.AddValue(RNG.FromRange(0, GroupValues.Descriptors.Count))
+            group.AddValue(RNG.FromRange(0, GroupValues.Descriptors.Count - 1))
         Next
     End Sub
 End Module

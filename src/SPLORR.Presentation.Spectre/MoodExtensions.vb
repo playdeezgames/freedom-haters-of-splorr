@@ -19,6 +19,8 @@ Friend Module MoodExtensions
                 Return "fuchsia"
             Case Mood.Warning
                 Return "yellow"
+            Case Mood.Header
+                Return "teal"
             Case Mood.Black
                 Return "black"
             Case Mood.Blue

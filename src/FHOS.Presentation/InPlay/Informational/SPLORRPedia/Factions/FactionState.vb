@@ -32,13 +32,14 @@ Friend Class FactionState
             ui.WriteLine((Mood.Info, $"Conviction: { .Properties.Conviction.LevelName}({ .Properties.Conviction.Value})"))
             ui.WriteLine((Mood.Info, $"Planets: { .Properties.PlanetCount}"))
             ui.WriteLine((Mood.Info, String.Empty))
-            ui.WriteLine((Mood.Info, $"Other Faction Relationships:"))
+            ui.WriteLine((Mood.Header, $"Other Faction Relationships:"))
             For Each otherFaction In model.Pedia.Factions.Where(Function(x) x.Name <> .Name)
                 ui.WriteLine((Mood.Info, $" - {otherFaction.Name}: { .RelationNameTo(otherFaction)}"))
             Next
-            ui.WriteLine((Mood.Info, $"Values:"))
+            ui.WriteLine((Mood.Info, String.Empty))
+            ui.WriteLine((Mood.Header, $"Values:"))
             For Each groupValue In .Properties.Values
-
+                ui.WriteLine((Mood.Info, $" - {groupValue.Name}: {groupValue.Description}"))
             Next
         End With
         Select Case ui.Choose(
