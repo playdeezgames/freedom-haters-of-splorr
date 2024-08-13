@@ -4,7 +4,7 @@ Friend Class DestinationBlockedDialog
     Inherits BaseDialog
 
     Public Sub New(actor As Persistence.IActor, finalDialog As IDialog)
-        MyBase.New(DialogType.Menu, actor, finalDialog)
+        MyBase.New(DialogType.Menu, actor, finalDialog, Nothing)
     End Sub
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))

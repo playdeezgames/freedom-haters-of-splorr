@@ -9,7 +9,7 @@ Friend Class UseFuelRodDialog
                   actor As Persistence.IActor,
                   item As Persistence.IItem,
                   finalDialog As IDialog)
-        MyBase.New(DialogType.Menu, actor, finalDialog)
+        MyBase.New(DialogType.Menu, actor, finalDialog, Nothing)
         Me.item = item
     End Sub
 
