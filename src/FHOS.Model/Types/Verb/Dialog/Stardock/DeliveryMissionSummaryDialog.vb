@@ -65,13 +65,13 @@ Friend Class DeliveryMissionSummaryDialog
     End Property
 
 
-    Private ReadOnly Property LegacyChoices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
+    Private ReadOnly Property LegacyChoices As IReadOnlyDictionary(Of String, Func(Of IDialog))
         Get
-            Dim result As New List(Of (Text As String, Value As Func(Of IDialog))) From {
-                (DialogChoices.Cancel, AddressOf CancelDialog)
+            Dim result As New Dictionary(Of String, Func(Of IDialog)) From {
+                {DialogChoices.Cancel, AddressOf CancelDialog}
             }
             If CanAddDelivery AndAlso (Deposit = 0 OrElse Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue > Deposit) Then
-                result.Add((DialogChoices.Accept, AddressOf AcceptMission))
+                result.Add(DialogChoices.Accept, AddressOf AcceptMission)
             End If
             Return result
         End Get
@@ -93,14 +93,18 @@ Friend Class DeliveryMissionSummaryDialog
     End Function
 
     Public Overrides Function Choose(choice As String) As IDialog
-        Return LegacyChoices().SingleOrDefault(Function(x) x.Text = choice).Value()
+        Dim value As Func(Of IDialog) = Nothing
+        If LegacyChoices().TryGetValue(choice, value) Then
+            Return value()
+        End If
+        Return Me
     End Function
 
-    Private ReadOnly Property item As Persistence.IItem
+    Private ReadOnly item As Persistence.IItem
 
     Public Overrides ReadOnly Property Menu As IEnumerable(Of String)
         Get
-            Return LegacyChoices.Select(Function(x) x.Text)
+            Return LegacyChoices.Keys
         End Get
     End Property
 End Class

@@ -27,19 +27,23 @@ Friend Class RefueledDialog
         End Get
     End Property
 
-    Private ReadOnly Property LegacyChoices As IEnumerable(Of (Text As String, Value As Func(Of IDialog)))
+    Private ReadOnly Property LegacyChoices As IReadOnlyDictionary(Of String, Func(Of IDialog))
         Get
-            Return {(DialogChoices.Ok, AddressOf EndDialog)}
+            Return New Dictionary(Of String, Func(Of IDialog)) From {{DialogChoices.Ok, AddressOf EndDialog}}
         End Get
     End Property
 
     Public Overrides ReadOnly Property Menu As IEnumerable(Of String)
         Get
-            Return LegacyChoices.Select(Function(x) x.Text)
+            Return LegacyChoices.Keys
         End Get
     End Property
 
     Public Overrides Function Choose(choice As String) As IDialog
-        Return LegacyChoices().SingleOrDefault(Function(x) x.Text = choice).Value()
+        Dim value As Func(Of IDialog) = Nothing
+        If LegacyChoices().TryGetValue(choice, value) Then
+            Return value()
+        End If
+        Return Me
     End Function
 End Class
