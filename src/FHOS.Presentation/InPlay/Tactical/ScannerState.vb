@@ -27,21 +27,20 @@ Friend Class ScannerState
         If actor IsNot Nothing Then
             ui.WriteLine((Mood.Info, $"{actor.Name}"))
         End If
-        Dim key = ui.ReadKey()
-        Select Case key
-            Case KeyNames.Tab
-                Return New NeutralState(model, ui, endState)
-            Case KeyNames.UpArrow
-                Return MoveTarget(0, -1)
-            Case KeyNames.DownArrow
-                Return MoveTarget(0, 1)
-            Case KeyNames.LeftArrow
-                Return MoveTarget(-1, 0)
-            Case KeyNames.RightArrow
-                Return MoveTarget(1, 0)
-            Case Else
-                Return Me
-        End Select
+        Do
+            Select Case ui.ReadKey()
+                Case KeyNames.Tab
+                    Return New NeutralState(model, ui, endState)
+                Case KeyNames.UpArrow
+                    Return MoveTarget(0, -1)
+                Case KeyNames.DownArrow
+                    Return MoveTarget(0, 1)
+                Case KeyNames.LeftArrow
+                    Return MoveTarget(-1, 0)
+                Case KeyNames.RightArrow
+                    Return MoveTarget(1, 0)
+            End Select
+        Loop
     End Function
 
     Private Function MoveTarget(deltaX As Integer, deltaY As Integer) As IState

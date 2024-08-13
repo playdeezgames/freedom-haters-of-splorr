@@ -31,24 +31,23 @@ Friend Class NavigationState
                 ui.WriteLine((moodTable(Hues.ForPercentage(fuel.Value)), $"Fuel: { fuel.Value}% ({ .Vessel.FuelQuantity}/{ .Vessel.FuelMaximum})"))
             End If
         End With
-        Dim key = ui.ReadKey()
-        Select Case key
-            Case KeyNames.Escape
-                Return New GameMenu(model, ui, Me, endState)
-            Case KeyNames.UpArrow
-                Return New MoveUpState(model, ui, endState)
-            Case KeyNames.RightArrow
-                Return New MoveRightState(model, ui, endState)
-            Case KeyNames.DownArrow
-                Return New MoveDownState(model, ui, endState)
-            Case KeyNames.LeftArrow
-                Return New MoveLeftState(model, ui, endState)
-            Case KeyNames.Spacebar, KeyNames.Enter
-                Return New ActionMenuState(model, ui, endState)
-            Case KeyNames.Tab
-                Return New ScannerState(model, ui, endState, (0, 0))
-            Case Else
-                Return New NeutralState(model, ui, endState)
-        End Select
+        Do
+            Select Case ui.ReadKey()
+                Case KeyNames.Escape
+                    Return New GameMenu(model, ui, Me, endState)
+                Case KeyNames.UpArrow
+                    Return New MoveUpState(model, ui, endState)
+                Case KeyNames.RightArrow
+                    Return New MoveRightState(model, ui, endState)
+                Case KeyNames.DownArrow
+                    Return New MoveDownState(model, ui, endState)
+                Case KeyNames.LeftArrow
+                    Return New MoveLeftState(model, ui, endState)
+                Case KeyNames.Spacebar, KeyNames.Enter
+                    Return New ActionMenuState(model, ui, endState)
+                Case KeyNames.Tab
+                    Return New ScannerState(model, ui, endState, (0, 0))
+            End Select
+        Loop
     End Function
 End Class
