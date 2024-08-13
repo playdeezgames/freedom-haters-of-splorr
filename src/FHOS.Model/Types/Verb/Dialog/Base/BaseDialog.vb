@@ -21,10 +21,11 @@ Friend MustInherit Class BaseDialog
         Return finalDialog
     End Function
 
-    Public MustOverride Function Choose(choice As String) As IDialog Implements IDialog.Choose
-    Public MustOverride ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String)) Implements IDialog.Lines
     Public ReadOnly Property DialogType As DialogType Implements IDialog.DialogType
-    Public MustOverride ReadOnly Property Menu As IEnumerable(Of String) Implements IDialog.Menu
     Public ReadOnly Property DefaultInput As String Implements IDialog.DefaultInput
     Public ReadOnly Property Prompt As String Implements IDialog.Prompt
+
+    Public MustOverride ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String)) Implements IDialog.Lines
+    Public MustOverride ReadOnly Property Menu As IEnumerable(Of String) Implements IDialog.Menu
+    Public MustOverride Function Choose(choice As String) As IDialog Implements IDialog.Choose
 End Class
