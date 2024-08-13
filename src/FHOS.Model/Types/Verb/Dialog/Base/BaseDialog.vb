@@ -10,7 +10,7 @@ Friend MustInherit Class BaseDialog
            actor As IActor,
            finalDialog As IDialog,
            prompt As String,
-           Optional defaultInput As String = Nothing)
+           defaultInput As String)
         Me.Actor = actor
         Me.finalDialog = finalDialog
         Me.DialogType = dialogType

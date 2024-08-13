@@ -6,7 +6,7 @@ Friend Class SalvageDialog
     Private result As List(Of (Hue As Integer, Text As String)) = Nothing
 
     Public Sub New(actor As IActor, interactor As IActor, finalDialog As IDialog)
-        MyBase.New(DialogType.Menu, actor, finalDialog, Nothing)
+        MyBase.New(DialogType.Menu, actor, finalDialog, Nothing, Nothing)
         Me.interactor = interactor
     End Sub
 

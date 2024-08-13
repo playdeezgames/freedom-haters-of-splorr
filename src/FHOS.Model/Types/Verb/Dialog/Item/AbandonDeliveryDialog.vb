@@ -6,7 +6,7 @@ Friend Class AbandonDeliveryDialog
     Private ReadOnly item As Persistence.IItem
 
     Public Sub New(actor As Persistence.IActor, item As Persistence.IItem, finalDialog As IDialog)
-        MyBase.New(DialogType.Menu, actor, finalDialog, Nothing)
+        MyBase.New(DialogType.Menu, actor, finalDialog, Nothing, Nothing)
         Me.item = item
     End Sub
 

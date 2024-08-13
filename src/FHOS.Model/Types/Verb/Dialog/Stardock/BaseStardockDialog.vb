@@ -9,7 +9,7 @@ Friend MustInherit Class BaseStarDockDialog
                      actor As IActor,
                      starDock As IActor,
                      finalDialog As IDialog)
-        MyBase.New(dialogType, actor, finalDialog, Nothing)
+        MyBase.New(dialogType, actor, finalDialog, Nothing, Nothing)
         Me.StarDock = starDock
     End Sub
 
