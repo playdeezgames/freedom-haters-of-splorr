@@ -1,15 +1,13 @@
 ﻿Imports FHOS.Data
 
 Friend Class UseOxygenTankDialog
-    Inherits BaseMenuDialog
-    Private ReadOnly item As Persistence.IItem
+    Inherits BaseItemMenuDialog
 
     Public Sub New(
                   actor As Persistence.IActor,
                   item As Persistence.IItem,
                   finalDialog As IDialog)
-        MyBase.New(actor, finalDialog)
-        Me.item = item
+        MyBase.New(actor, item, finalDialog)
     End Sub
 
     Protected Overrides Function InitializeMenu() As IReadOnlyDictionary(Of String, Func(Of IDialog))
