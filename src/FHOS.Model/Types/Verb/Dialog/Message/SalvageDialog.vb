@@ -2,16 +2,12 @@
 Imports FHOS.Persistence
 
 Friend Class SalvageDialog
-    Inherits BaseMenuDialog
+    Inherits BaseMessageMenuDialog
 
     Public Sub New(actor As IActor, interactor As IActor, finalDialog As IDialog)
         MyBase.New(actor, finalDialog)
         Me.interactor = interactor
     End Sub
-
-    Protected Overrides Function InitializeMenu() As IReadOnlyDictionary(Of String, Func(Of IDialog))
-        Return New Dictionary(Of String, Func(Of IDialog)) From {{DialogChoices.Ok, AddressOf EndDialog}}
-    End Function
 
     Protected Overrides Function InitializeLines() As IEnumerable(Of (Hue As Integer, Text As String))
         Dim result = New List(Of (Hue As Integer, Text As String)) From
