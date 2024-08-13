@@ -167,47 +167,174 @@ Friend Module ActorExtensions
     Private jobs As IReadOnlyList(Of String) =
         New List(Of String) From
         {
-            "Pirate",
-            "Merkinsmith",
-            "Harlot"
-        }
-    Private names As IReadOnlyList(Of String) =
+        "Starship Engineer",
+        "Quantum Physicist",
+        "Terraforming Specialist",
+        "Cybernetics Surgeon",
+        "Galactic Diplomat",
+        "Stellar Cartographer",
+        "Bioinformatics Analyst",
+        "Interstellar Trader",
+        "Artificial Intelligence Ethicist",
+        "Astrobiologist",
+        "Nanotechnology Architect",
+        "Exo-Law Enforcement Officer",
+        "Gravity Manipulator",
+        "Planetary Governor",
+        "Holographic Artist",
+        "Space Miner",
+        "Drone Operator",
+        "Energy Harvesting Technician",
+        "Virtual Reality Designer",
+        "Time Dilation Theorist",
+        "Cloning Technician",
+        "Subspace Communications Officer",
+        "Genetic Enhancement Specialist"
+    }
+    Private firstNames As IReadOnlyList(Of String) =
         New List(Of String) From
         {
             "Gorachan",
             "Samuli",
-            "David"
-        }
+            "David",
+            "Orin",
+            "Lyra",
+            "Jaxon",
+            "Zara",
+            "Talon",
+            "Mira",
+            "Kael",
+            "Nova",
+            "Vera",
+            "Dax",
+            "Seren",
+            "Ryn",
+            "Eris",
+            "Kara",
+            "Thorne",
+            "Xen",
+            "Isla",
+            "Cade",
+            "Nia",
+            "Rook"
+    }
+    Private lastNames As IReadOnlyList(Of String) =
+        New List(Of String) From
+        {
+            "Valken",
+            "Nex",
+            "Kyre",
+            "Korrin",
+            "Rho",
+            "Aethon",
+            "Draven",
+            "Elara",
+            "Synn",
+            "Voss",
+            "Vael",
+            "Kaelor",
+            "Nyx",
+            "Zhen",
+            "Varek",
+            "Raith",
+            "Thorne",
+            "Arvon",
+            "Solis",
+            "Vire",
+            "Vantros",
+            "Kevar",
+            "Draylen"
+    }
     Private Function GenerateRecipientJob() As Object
         Return RNG.FromEnumerable(jobs)
     End Function
 
     Private Function GenerateRecipientName() As Object
-        Return RNG.FromEnumerable(names)
+        Return $"{RNG.FromEnumerable(firstNames)} {RNG.FromEnumerable(lastNames)}"
     End Function
 
     Private nouns As IReadOnlyList(Of String) =
         New List(Of String) From
         {
-            "thingie",
-            "merkin",
-            "marital aid"
+            "Quantum Batteries",
+            "Bio-enhancement Serums",
+            "Nanobot Swarms",
+            "Cryogenic Stasis Pods",
+            "Plasma Rifles",
+            "Terraforming Modules",
+            "Holographic Projectors",
+            "Fusion Cores",
+            "Genetic Material Samples",
+            "Cybernetic Implants",
+            "Antimatter Containment Units",
+            "Starship Components",
+            "Exoskeleton Suits",
+            "Medical Nanogel",
+            "Encrypted Data Cores",
+            "Alien Artifacts",
+            "Subspace Communication Relays",
+            "Atmospheric Stabilizers",
+            "Portable Shield Generators",
+            "Interstellar Navigation Charts",
+            "Mind Interface Devices",
+            "Graviton Manipulators",
+            "Zero-Point Energy Cells"
         }
 
     Private adjectives As IReadOnlyList(Of String) =
         New List(Of String) From
         {
-            "salty",
-            "unwashed",
-            "used"
+            "Resilient",
+            "Mysterious",
+            "Luminescent",
+            "Vast",
+            "Agile",
+            "Intricate",
+            "Ancient",
+            "Formidable",
+            "Elegant",
+            "Futuristic",
+            "Stealthy",
+            "Versatile",
+            "Rugged",
+            "Peculiar",
+            "Vibrant",
+            "Nomadic",
+            "Sophisticated",
+            "Expansive",
+            "Grim",
+            "Innovative",
+            "Intrepid",
+            "Surreal",
+            "Stoic"
         }
 
     Private adverbs As IReadOnlyList(Of String) =
         New List(Of String) From
         {
-            "extremely",
-            "oddly",
-            "woefully"
+            "Swiftly",
+            "Cautiously",
+            "Effortlessly",
+            "Vigorously",
+            "Silently",
+            "Reluctantly",
+            "Rapidly",
+            "Gracefully",
+            "Mysteriously",
+            "Precisely",
+            "Fiercely",
+            "Steadily",
+            "Eagerly",
+            "Curiously",
+            "Quietly",
+            "Boldly",
+            "Patiently",
+            "Carefully",
+            "Relentlessly",
+            "Eerily",
+            "Unexpectedly",
+            "Diligently",
+            "Calmly"
         }
 
     Private Function GenerateNoun() As String

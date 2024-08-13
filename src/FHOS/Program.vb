@@ -15,7 +15,7 @@ Module Program
         Dim image = New CanvasImage("SIGMO.png")
         AnsiConsole.Write(image)
         Dim ui = New UIContext
-        ui.WriteFiglet((Mood.Title, "SIGMO"))
+        ui.WriteFigletImmediate((Mood.Title, "SIGMO"))
         ui.Message((Mood.Prompt, String.Empty))
         MainMenuState.Start(New UniverseModel, ui)
     End Sub

@@ -9,7 +9,7 @@ Public Class MainMenuState
     End Sub
     Public Overrides Function Run() As IState Implements IState.Run
         ui.Clear()
-        ui.WriteFiglet((Mood.Title, "Freedom Haters of SPLORR!!"))
+        ui.WriteFigletImmediate((Mood.Title, "Freedom Haters of SPLORR!!"))
         Dim menu As New List(Of String) From
             {
                 Choices.Embark
