@@ -12,25 +12,6 @@ Friend Class DeliveryMissionSummaryDialog
         Me.item = item
     End Sub
 
-    Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
-        Get
-            Dim result As New List(Of (Hue As Integer, Text As String)) From {
-                (Hues.Orange, $"Delivery from {StarDock.EntityName}:"),
-                (Hues.LightGray, $"Item: {item.EntityName}"),
-                (Hues.LightGray, $"Destination: {item.GetDestinationPlanet().EntityName}"),
-                (Hues.LightGray, $"Recipient: {item.GetRecipient()}"),
-                (Hues.LightGray, $"Jools Reward: {item.GetJoolsReward()}")
-            }
-            If Not CanAddDelivery Then
-                result.Add((Hues.Yellow, "Based on yer current reputation, you cannot take on more deliveries."))
-            End If
-            If NeedsDeposit Then
-                result.Add((Hues.Yellow, $"Based on yer current reputation, you must pay a deposit of {Deposit}."))
-            End If
-            Return result
-        End Get
-    End Property
-
     Private ReadOnly Property Deposit As Integer
         Get
             If NeedsDeposit Then
@@ -64,19 +45,6 @@ Friend Class DeliveryMissionSummaryDialog
         End Get
     End Property
 
-
-    Private ReadOnly Property LegacyChoices As IReadOnlyDictionary(Of String, Func(Of IDialog))
-        Get
-            Dim result As New Dictionary(Of String, Func(Of IDialog)) From {
-                {DialogChoices.Cancel, AddressOf CancelDialog}
-            }
-            If CanAddDelivery AndAlso (Deposit = 0 OrElse Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue > Deposit) Then
-                result.Add(DialogChoices.Accept, AddressOf AcceptMission)
-            End If
-            Return result
-        End Get
-    End Property
-
     Private Function AcceptMission() As IDialog
         Dim depositAmount = Deposit
         Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= depositAmount
@@ -92,19 +60,32 @@ Friend Class DeliveryMissionSummaryDialog
         Return EndDialog()
     End Function
 
-    Public Overrides Function Choose(choice As String) As IDialog
-        Dim value As Func(Of IDialog) = Nothing
-        If LegacyChoices().TryGetValue(choice, value) Then
-            Return value()
+    Protected Overrides Function InitializeMenu() As IReadOnlyDictionary(Of String, Func(Of IDialog))
+        Dim result As New Dictionary(Of String, Func(Of IDialog)) From {
+                {DialogChoices.Cancel, AddressOf CancelDialog}
+            }
+        If CanAddDelivery AndAlso (Deposit = 0 OrElse Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue > Deposit) Then
+            result.Add(DialogChoices.Accept, AddressOf AcceptMission)
         End If
-        Return Me
+        Return result
+    End Function
+
+    Protected Overrides Function InitializeLines() As IEnumerable(Of (Hue As Integer, Text As String))
+        Dim result As New List(Of (Hue As Integer, Text As String)) From {
+                (Hues.Orange, $"Delivery from {StarDock.EntityName}:"),
+                (Hues.LightGray, $"Item: {item.EntityName}"),
+                (Hues.LightGray, $"Destination: {item.GetDestinationPlanet().EntityName}"),
+                (Hues.LightGray, $"Recipient: {item.GetRecipient()}"),
+                (Hues.LightGray, $"Jools Reward: {item.GetJoolsReward()}")
+            }
+        If Not CanAddDelivery Then
+            result.Add((Hues.Yellow, "Based on yer current reputation, you cannot take on more deliveries."))
+        End If
+        If NeedsDeposit Then
+            result.Add((Hues.Yellow, $"Based on yer current reputation, you must pay a deposit of {Deposit}."))
+        End If
+        Return result
     End Function
 
     Private ReadOnly item As Persistence.IItem
-
-    Public Overrides ReadOnly Property Menu As IEnumerable(Of String)
-        Get
-            Return LegacyChoices.Keys
-        End Get
-    End Property
 End Class

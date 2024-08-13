@@ -7,9 +7,14 @@ Friend Class OutOfFuelDialog
         MyBase.New(actor, finalDialog)
     End Sub
 
-    Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
-        Get
-            Return {
+    Protected Overrides Function InitializeMenu() As IReadOnlyDictionary(Of String, Func(Of IDialog))
+        Return New Dictionary(Of String, Func(Of IDialog)) From {
+                {DialogChoices.Ok, AddressOf EndDialog}
+                }
+    End Function
+
+    Protected Overrides Function InitializeLines() As IEnumerable(Of (Hue As Integer, Text As String))
+        Return {
                 (Hues.Orange, "Out of Fuel!"),
                 (Hues.LightGray, "You are out of fuel!"),
                 (Hues.LightGray, ""),
@@ -17,28 +22,5 @@ Friend Class OutOfFuelDialog
                 (Hues.LightGray, "press [Space/Enter] from the NAV SCREEN"),
                 (Hues.LightGray, "then choose 'Distress Signal'")
                 }
-        End Get
-    End Property
-
-    Private ReadOnly Property LegacyChoices As IReadOnlyDictionary(Of String, Func(Of IDialog))
-        Get
-            Return New Dictionary(Of String, Func(Of IDialog)) From {
-                {DialogChoices.Ok, AddressOf EndDialog}
-                }
-        End Get
-    End Property
-
-    Public Overrides ReadOnly Property Menu As IEnumerable(Of String)
-        Get
-            Return LegacyChoices.Keys
-        End Get
-    End Property
-
-    Public Overrides Function Choose(choice As String) As IDialog
-        Dim value As Func(Of IDialog) = Nothing
-        If LegacyChoices().TryGetValue(choice, value) Then
-            Return value()
-        End If
-        Return Me
     End Function
 End Class
