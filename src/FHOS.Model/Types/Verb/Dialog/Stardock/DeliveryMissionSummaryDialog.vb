@@ -1,14 +1,14 @@
 ﻿Imports FHOS.Data
 
 Friend Class DeliveryMissionSummaryDialog
-    Inherits BaseStarDockDialog
+    Inherits BaseStarDockMenuDialog
 
     Public Sub New(
                   actor As Persistence.IActor,
                   starDock As Persistence.IActor,
                   item As Persistence.IItem,
                   finalDialog As IDialog)
-        MyBase.New(DialogType.Menu, actor, starDock, finalDialog)
+        MyBase.New(actor, starDock, finalDialog)
         Me.item = item
     End Sub
 

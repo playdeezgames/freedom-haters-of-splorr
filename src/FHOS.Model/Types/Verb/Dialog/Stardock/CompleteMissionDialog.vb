@@ -2,7 +2,7 @@
 Imports FHOS.Persistence
 
 Friend Class CompleteMissionDialog
-    Inherits BaseStardockDialog
+    Inherits BaseStarDockMenuDialog
 
     Private ReadOnly Property deliveredItems As IEnumerable(Of IItem)
         Get
@@ -12,7 +12,7 @@ Friend Class CompleteMissionDialog
     End Property
 
     Public Sub New(actor As IActor, starDock As IActor, finalDialog As IDialog)
-        MyBase.New(DialogType.Menu, actor, starDock, finalDialog)
+        MyBase.New(actor, starDock, finalDialog)
     End Sub
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))

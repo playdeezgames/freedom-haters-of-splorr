@@ -1,11 +1,11 @@
 ﻿Imports FHOS.Data
 
 Friend Class OxygenRefilledDialog
-    Inherits BaseDialog
+    Inherits BaseMenuDialog
     Private result As List(Of (Hue As Integer, Text As String)) = Nothing
 
     Public Sub New(actor As Persistence.IActor, finalDialog As IDialog)
-        MyBase.New(DialogType.Menu, actor, finalDialog, Nothing, Nothing)
+        MyBase.New(actor, finalDialog)
     End Sub
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))

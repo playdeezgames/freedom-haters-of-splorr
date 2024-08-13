@@ -1,12 +1,12 @@
 ﻿Imports FHOS.Data
 
 Friend Class AbandonDeliveryDialog
-    Inherits BaseDialog
+    Inherits BaseMenuDialog
 
     Private ReadOnly item As Persistence.IItem
 
     Public Sub New(actor As Persistence.IActor, item As Persistence.IItem, finalDialog As IDialog)
-        MyBase.New(DialogType.Menu, actor, finalDialog, Nothing, Nothing)
+        MyBase.New(actor, finalDialog)
         Me.item = item
     End Sub
 

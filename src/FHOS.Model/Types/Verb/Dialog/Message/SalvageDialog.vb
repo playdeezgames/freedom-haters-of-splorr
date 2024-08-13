@@ -2,11 +2,11 @@
 Imports FHOS.Persistence
 
 Friend Class SalvageDialog
-    Inherits BaseDialog
+    Inherits BaseMenuDialog
     Private result As List(Of (Hue As Integer, Text As String)) = Nothing
 
     Public Sub New(actor As IActor, interactor As IActor, finalDialog As IDialog)
-        MyBase.New(DialogType.Menu, actor, finalDialog, Nothing, Nothing)
+        MyBase.New(actor, finalDialog)
         Me.interactor = interactor
     End Sub
 
