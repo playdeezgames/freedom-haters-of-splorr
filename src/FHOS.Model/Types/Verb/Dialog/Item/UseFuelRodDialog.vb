@@ -1,14 +1,16 @@
 ﻿Imports FHOS.Data
 
 Friend Class UseFuelRodDialog
-    Inherits BaseItemDialog
+    Inherits BaseDialog
     Private result As List(Of (Hue As Integer, Text As String)) = Nothing
+    Private ReadOnly item As Persistence.IItem
 
     Public Sub New(
                   actor As Persistence.IActor,
                   item As Persistence.IItem,
                   finalDialog As IDialog)
-        MyBase.New(DialogType.Menu, actor, item, finalDialog)
+        MyBase.New(DialogType.Menu, actor, finalDialog)
+        Me.item = item
     End Sub
 
     Public Overrides ReadOnly Property Lines As IEnumerable(Of (Hue As Integer, Text As String))
