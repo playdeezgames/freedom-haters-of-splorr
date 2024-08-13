@@ -2,11 +2,11 @@
 Imports FHOS.Persistence
 
 Friend Class CompleteMissionDialog
-    Inherits BaseStarDockMenuDialog
+    Inherits BaseInteractorMenuDialog
 
     Private ReadOnly Property deliveredItems As IEnumerable(Of IItem)
         Get
-            Dim planet = StarDock.Yokes.Group(YokeTypes.Planet)
+            Dim planet = interactor.Yokes.Group(YokeTypes.Planet)
             Return Actor.Inventory.Items.Where(Function(x) x.EntityType = ItemTypes.Delivery AndAlso x.GetDestinationPlanet.Id = planet.Id)
         End Get
     End Property
@@ -27,7 +27,7 @@ Friend Class CompleteMissionDialog
             Actor.Inventory.Remove(item)
             item.Recycle()
         Next
-        Actor.Yokes.Actor(YokeTypes.Interactor) = StarDock
+        Actor.Yokes.Actor(YokeTypes.Interactor) = interactor
         Return EndDialog()
     End Function
 

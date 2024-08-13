@@ -1,7 +1,7 @@
 ﻿Imports FHOS.Data
 
 Friend Class DeliveryMissionSummaryDialog
-    Inherits BaseStarDockMenuDialog
+    Inherits BaseInteractorMenuDialog
 
     Public Sub New(
                   actor As Persistence.IActor,
@@ -23,7 +23,7 @@ Friend Class DeliveryMissionSummaryDialog
 
     Private ReadOnly Property WorstReputation As Integer
         Get
-            Return Actor.GetWorstReputation(StarDock.Yokes.Group(YokeTypes.Planet))
+            Return Actor.GetWorstReputation(interactor.Yokes.Group(YokeTypes.Planet))
         End Get
     End Property
 
@@ -49,14 +49,14 @@ Friend Class DeliveryMissionSummaryDialog
         Dim depositAmount = Deposit
         Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= depositAmount
         item.SetJoolsReward(Deposit + item.GetJoolsReward)
-        StarDock.Inventory.Remove(item)
+        interactor.Inventory.Remove(item)
         Actor.Inventory.Add(item)
-        StarDock.GenerateDeliveryMission()
+        interactor.GenerateDeliveryMission()
         Return EndDialog()
     End Function
 
     Private Function CancelDialog() As IDialog
-        Actor.Yokes.Actor(YokeTypes.Interactor) = StarDock
+        Actor.Yokes.Actor(YokeTypes.Interactor) = interactor
         Return EndDialog()
     End Function
 
@@ -72,7 +72,7 @@ Friend Class DeliveryMissionSummaryDialog
 
     Protected Overrides Function InitializeLines() As IEnumerable(Of (Hue As Integer, Text As String))
         Dim result As New List(Of (Hue As Integer, Text As String)) From {
-                (Hues.Orange, $"Delivery from {StarDock.EntityName}:"),
+                (Hues.Orange, $"Delivery from {interactor.EntityName}:"),
                 (Hues.LightGray, $"Item: {item.EntityName}"),
                 (Hues.LightGray, $"Destination: {item.GetDestinationPlanet().EntityName}"),
                 (Hues.LightGray, $"Recipient: {item.GetRecipient()}"),

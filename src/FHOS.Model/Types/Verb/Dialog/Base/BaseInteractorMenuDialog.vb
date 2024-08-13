@@ -1,16 +1,16 @@
 ﻿Imports FHOS.Data
 Imports FHOS.Persistence
 
-Friend MustInherit Class BaseStarDockMenuDialog
+Friend MustInherit Class BaseInteractorMenuDialog
     Inherits BaseMenuDialog
 
     Protected Sub New(
                      actor As IActor,
-                     starDock As IActor,
+                     interactor As IActor,
                      finalDialog As IDialog)
         MyBase.New(actor, finalDialog)
-        Me.StarDock = starDock
+        Me.interactor = interactor
     End Sub
 
-    Protected ReadOnly Property StarDock As IActor
+    Protected ReadOnly interactor As IActor
 End Class

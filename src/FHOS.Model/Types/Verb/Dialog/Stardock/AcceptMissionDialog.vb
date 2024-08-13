@@ -2,7 +2,7 @@
 Imports FHOS.Persistence
 
 Friend Class AcceptMissionDialog
-    Inherits BaseStarDockMenuDialog
+    Inherits BaseInteractorMenuDialog
 
     Public Sub New(
                   actor As IActor,
@@ -16,11 +16,11 @@ Friend Class AcceptMissionDialog
     End Function
 
     Private Function CancelDialog() As IDialog
-        Actor.Yokes.Actor(YokeTypes.Interactor) = StarDock
+        Actor.Yokes.Actor(YokeTypes.Interactor) = interactor
         Return EndDialog()
     End Function
     Private Function AcceptDeliveryMission(item As IItem) As Func(Of IDialog)
-        Return Function() New DeliveryMissionSummaryDialog(Actor, StarDock, item, finalDialog)
+        Return Function() New DeliveryMissionSummaryDialog(Actor, interactor, item, finalDialog)
     End Function
 
     Protected Overrides Function InitializeMenu() As IReadOnlyDictionary(Of String, Func(Of IDialog))
@@ -28,14 +28,14 @@ Friend Class AcceptMissionDialog
                 {
                     (DialogChoices.Cancel, AddressOf CancelDialog)
                 }
-        Dim deliveryItems = StarDock.Inventory.Items.Where(Function(x) x.EntityType = ItemTypes.Delivery)
+        Dim deliveryItems = interactor.Inventory.Items.Where(Function(x) x.EntityType = ItemTypes.Delivery)
         result.AddRange(deliveryItems.Select(AddressOf ToChoice))
         Return result.ToDictionary(Function(x) x.Text, Function(x) x.Value)
     End Function
 
     Protected Overrides Function InitializeLines() As IEnumerable(Of (Hue As Integer, Text As String))
         Dim result As New List(Of (Hue As Integer, Text As String)) From {
-                (Hues.Pink, $"Delivery Missions for {StarDock.EntityName}:")
+                (Hues.Pink, $"Delivery Missions for {interactor.EntityName}:")
             }
         Return result
     End Function
