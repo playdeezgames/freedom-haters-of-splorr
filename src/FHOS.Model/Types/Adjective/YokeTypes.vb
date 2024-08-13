@@ -3,7 +3,6 @@
     Friend ReadOnly Interactor As String = NameOf(Interactor)
     Friend ReadOnly LifeSupport As String = NameOf(LifeSupport)
     Friend ReadOnly Parent As String = NameOf(Parent)
-    Friend ReadOnly StarGate As String = NameOf(StarGate)
     Friend ReadOnly Target As String = NameOf(Target)
     Friend ReadOnly Wallet As String = NameOf(Wallet)
     Friend ReadOnly Faction As String = NameOf(Faction)

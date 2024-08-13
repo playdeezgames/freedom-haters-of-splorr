@@ -15,12 +15,6 @@ Friend Class AvatarYokesModel
         End Get
     End Property
 
-    Public ReadOnly Property StarGate As IAvatarStarGateModel Implements IAvatarYokesModel.StarGate
-        Get
-            Return AvatarStarGateModel.FromActor(actor)
-        End Get
-    End Property
-
     Public ReadOnly Property Trader As IAvatarTraderModel Implements IAvatarYokesModel.Trader
         Get
             Return AvatarTraderModel.FromActor(actor)

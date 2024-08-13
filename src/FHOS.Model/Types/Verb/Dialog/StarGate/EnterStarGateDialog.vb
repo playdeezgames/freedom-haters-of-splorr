@@ -31,7 +31,6 @@ Friend Class EnterStarGateDialog
                             Else
                                 Actor.SetStarSystem(otherActor.Yokes.Group(YokeTypes.StarSystem))
                             End If
-                            Actor.Yokes.Actor(YokeTypes.StarGate) = Nothing
                         End Sub)
                    Return nextDialog
                End Function
