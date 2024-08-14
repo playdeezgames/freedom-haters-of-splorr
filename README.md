@@ -1,5 +1,14 @@
 # Freedom Haters of SPLORR!!
 
+  - [ ] 20240823 - SIGMO FHOS Episode 109 - 
+  - [ ] 20240822 - SIGMO FHOS Episode 108 - 
+  - [ ] 20240821 - SIGMO FHOS Episode 107 - 
+  - [ ] 20240820 - SIGMO FHOS Episode 106 - 
+  - [ ] 20240819 - SIGMO FHOS Episode 105 - 
+  - [ ] 20240818 - SIGMO FHOS Episode 104 - 
+  - [ ] 20240817 - SIGMO FHOS Episode 103 - 
+  - [ ] 20240816 - SIGMO FHOS Episode 102 - 
+  - [ ] 20240815 - SIGMO FHOS Episode 101 - 
   - [ ] 20240814 - SIGMO FHOS Episode 100 - 
   - [x] 20240813 - SIGMO FHOS Episode 99 - 
   - [x] 20240812 - SIGMO FHOS Episode 98 - 
