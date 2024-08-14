@@ -7,7 +7,7 @@ Friend Class UseOxygenTankDialog
                   actor As Persistence.IActor,
                   item As Persistence.IItem,
                   finalDialog As IDialog)
-        MyBase.New(actor, item, finalDialog)
+        MyBase.New(actor, item, finalDialog, String.Empty)
     End Sub
 
     Protected Overrides Function InitializeMenu() As IReadOnlyDictionary(Of String, Func(Of IDialog))

@@ -7,8 +7,9 @@ Friend MustInherit Class BaseInteractorMenuDialog
     Protected Sub New(
                      actor As IActor,
                      interactor As IActor,
-                     finalDialog As IDialog)
-        MyBase.New(actor, finalDialog)
+                     finalDialog As IDialog,
+                     prompt As String)
+        MyBase.New(actor, finalDialog, prompt)
         Me.interactor = interactor
     End Sub
 

@@ -4,7 +4,7 @@ Friend MustInherit Class BaseMessageMenuDialog
     Inherits BaseMenuDialog
 
     Public Sub New(actor As Persistence.IActor, finalDialog As IDialog)
-        MyBase.New(actor, finalDialog)
+        MyBase.New(actor, finalDialog, String.Empty)
     End Sub
 
     Protected Overrides Function InitializeMenu() As IReadOnlyDictionary(Of String, Func(Of IDialog))

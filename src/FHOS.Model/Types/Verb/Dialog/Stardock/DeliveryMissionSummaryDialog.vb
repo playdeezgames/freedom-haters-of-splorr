@@ -8,7 +8,7 @@ Friend Class DeliveryMissionSummaryDialog
                   starDock As Persistence.IActor,
                   item As Persistence.IItem,
                   finalDialog As IDialog)
-        MyBase.New(actor, starDock, finalDialog)
+        MyBase.New(actor, starDock, finalDialog, item.EntityName)
         Me.item = item
     End Sub
 

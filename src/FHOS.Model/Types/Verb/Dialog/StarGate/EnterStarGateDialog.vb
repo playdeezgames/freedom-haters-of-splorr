@@ -3,8 +3,15 @@
 Friend Class EnterStarGateDialog
     Inherits BaseInteractorMenuDialog
 
-    Public Sub New(actor As Persistence.IActor, interactor As Persistence.IActor, finalDialog As IDialog)
-        MyBase.New(actor, interactor, finalDialog)
+    Public Sub New(
+                  actor As Persistence.IActor,
+                  interactor As Persistence.IActor,
+                  finalDialog As IDialog)
+        MyBase.New(
+            actor,
+            interactor,
+            finalDialog,
+            "Destination:")
     End Sub
 
     Protected Overrides Function InitializeMenu() As IReadOnlyDictionary(Of String, Func(Of IDialog))

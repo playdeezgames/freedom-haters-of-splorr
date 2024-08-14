@@ -10,7 +10,8 @@ Friend Class EnterShipyardDialog
         MyBase.New(
             actor,
             interactor,
-            finalDialog)
+            finalDialog,
+            interactor.EntityName)
     End Sub
 
     Protected Overrides Function InitializeMenu() As IReadOnlyDictionary(Of String, Func(Of IDialog))

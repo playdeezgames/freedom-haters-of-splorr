@@ -6,8 +6,8 @@ Friend MustInherit Class BaseMenuDialog
     Private _lines As IEnumerable(Of (Hue As Integer, Text As String)) = Nothing
     Private _menu As IReadOnlyDictionary(Of String, Func(Of IDialog)) = Nothing
 
-    Protected Sub New(actor As Persistence.IActor, finalDialog As IDialog)
-        MyBase.New(DialogType.Menu, actor, finalDialog, Nothing, Nothing)
+    Protected Sub New(actor As Persistence.IActor, finalDialog As IDialog, prompt As String)
+        MyBase.New(DialogType.Menu, actor, finalDialog, prompt, Nothing)
     End Sub
 
     Private Sub Initialize()

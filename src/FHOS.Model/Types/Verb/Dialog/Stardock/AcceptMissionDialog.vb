@@ -8,7 +8,7 @@ Friend Class AcceptMissionDialog
                   actor As IActor,
                   starDock As IActor,
                   finalDialog As IDialog)
-        MyBase.New(actor, starDock, finalDialog)
+        MyBase.New(actor, starDock, finalDialog, String.Empty)
     End Sub
 
     Private Function ToChoice(item As IItem) As (Text As String, Value As Func(Of IDialog))

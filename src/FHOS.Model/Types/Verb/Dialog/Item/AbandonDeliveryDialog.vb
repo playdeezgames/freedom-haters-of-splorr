@@ -3,8 +3,15 @@
 Friend Class AbandonDeliveryDialog
     Inherits BaseItemMenuDialog
 
-    Public Sub New(actor As Persistence.IActor, item As Persistence.IItem, finalDialog As IDialog)
-        MyBase.New(actor, item, finalDialog)
+    Public Sub New(
+                  actor As Persistence.IActor,
+                  item As Persistence.IItem,
+                  finalDialog As IDialog)
+        MyBase.New(
+            actor,
+            item,
+            finalDialog,
+            "Really abandon delivery?")
     End Sub
 
     Private Function ConfirmAbandon() As IDialog

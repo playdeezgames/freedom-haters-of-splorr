@@ -12,7 +12,7 @@ Friend Class CompleteMissionDialog
     End Property
 
     Public Sub New(actor As IActor, starDock As IActor, finalDialog As IDialog)
-        MyBase.New(actor, starDock, finalDialog)
+        MyBase.New(actor, starDock, finalDialog, String.Empty)
     End Sub
 
     Private Function CloseDialog() As IDialog
