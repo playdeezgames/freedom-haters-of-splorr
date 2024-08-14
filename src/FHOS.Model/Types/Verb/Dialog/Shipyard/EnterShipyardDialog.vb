@@ -19,7 +19,28 @@ Friend Class EnterShipyardDialog
             {
                 {DialogChoices.Cancel, AddressOf EndDialog}
             }
+        If interactor.CanChangeEquipment(Actor) Then
+            menu.Add(DialogChoices.ChangeEquipment, AddressOf ChangeEquipment)
+        End If
+        If interactor.CanInstallEquipment(Actor) Then
+            menu.Add(DialogChoices.InstallEquipment, AddressOf InstallEquipment)
+        End If
+        If interactor.CanUninstallEquipment(Actor) Then
+            menu.Add(DialogChoices.UninstallEquipment, AddressOf UninstallEquipment)
+        End If
         Return menu
+    End Function
+
+    Private Function ChangeEquipment() As IDialog
+        Return New ChangeEquipmentDialog(Actor, interactor, finalDialog)
+    End Function
+
+    Private Function InstallEquipment() As IDialog
+        Return New InstallEquipmentDialog(Actor, interactor, finalDialog)
+    End Function
+
+    Private Function UninstallEquipment() As IDialog
+        Return New UninstallEquipmentDialog(Actor, interactor, finalDialog)
     End Function
 
     Protected Overrides Function InitializeLines() As IEnumerable(Of (Hue As Integer, Text As String))

@@ -379,4 +379,36 @@ Friend Module ActorExtensions
             If(actor.GetReputation(faction), 0)
         }.Min
     End Function
+    <Extension>
+    Friend Function CanChangeEquipment(actor As IActor, target As IActor) As Boolean
+        Return target.ChangeableEquipmentSlots.Any
+    End Function
+    <Extension>
+    Friend Function ChangeableEquipmentSlots(actor As IActor) As IEnumerable(Of String)
+        Return actor.
+                Equipment.
+                GetRequiredSlots.
+                Where(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.CanEquip(x)))
+    End Function
+    <Extension>
+    Friend Function CanInstallEquipment(actor As IActor, target As IActor) As Boolean
+        Return target.InstallableEquipmentSlots.Any
+    End Function
+    <Extension>
+    Friend Function InstallableEquipmentSlots(actor As IActor) As IEnumerable(Of String)
+        Return actor.
+                Equipment.
+                GetInstallableSlots.
+                Where(Function(x) actor.Inventory.Items.Any(Function(y) y.Descriptor.CanEquip(x)))
+    End Function
+    <Extension>
+    Friend Function CanUninstallEquipment(actor As IActor, target As IActor) As Boolean
+        Return target.UninstallableEquipmentSlots.Any
+    End Function
+    <Extension>
+    Friend Function UninstallableEquipmentSlots(actor As IActor) As IEnumerable(Of String)
+        Return actor.
+                Equipment.
+                GetUninstallableSlots
+    End Function
 End Module
