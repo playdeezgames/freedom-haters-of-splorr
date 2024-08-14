@@ -32,15 +32,15 @@ Friend Class EnterShipyardDialog
     End Function
 
     Private Function ChangeEquipment() As IDialog
-        Return New ChangeEquipmentDialog(Actor, interactor, finalDialog)
+        Return New ChangeEquipmentDialog(Actor, interactor, Me)
     End Function
 
     Private Function InstallEquipment() As IDialog
-        Return New InstallEquipmentDialog(Actor, interactor, finalDialog)
+        Return New InstallEquipmentDialog(Actor, interactor, Me)
     End Function
 
     Private Function UninstallEquipment() As IDialog
-        Return New UninstallEquipmentDialog(Actor, interactor, finalDialog)
+        Return New UninstallEquipmentDialog(Actor, interactor, Me)
     End Function
 
     Protected Overrides Function InitializeLines() As IEnumerable(Of (Hue As Integer, Text As String))

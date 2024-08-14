@@ -139,6 +139,8 @@ Friend Module ActorExtensions
         If actor.Descriptor.HasEquipSlot(equipSlot) AndAlso item.Descriptor.CanEquip(equipSlot) AndAlso actor.Equipment.GetSlot(equipSlot) Is Nothing Then
             actor.Equipment.Equip(equipSlot, item)
             item.OnEquip(actor)
+            actor.Inventory.Remove(item)
+            actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= item.Descriptor.InstallFee
             Return True
         End If
         Return False
@@ -410,5 +412,25 @@ Friend Module ActorExtensions
         Return actor.
                 Equipment.
                 GetUninstallableSlots
+    End Function
+    <Extension>
+    Friend Function InstallableItems(actor As IActor, equipSlot As String) As IEnumerable(Of IItem)
+        Return actor.
+                Inventory.
+                Items.
+                Where(Function(y) y.Descriptor.CanEquip(equipSlot))
+    End Function
+    <Extension>
+    Friend Function CanAfford(actor As IActor, fee As Integer) As Boolean
+        Return fee <= 0 OrElse actor.Yokes.Store(YokeTypes.Wallet).CurrentValue >= fee
+    End Function
+    <Extension>
+    Friend Function Unequip(actor As IActor, equipSlot As String) As IItem
+        Dim item = actor.Equipment.GetSlot(equipSlot)
+        actor.Equipment.Equip(equipSlot, Nothing)
+        item.OnUnequip(actor)
+        actor.Inventory.Add(item)
+        actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= item.Descriptor.UninstallFee
+        Return item
     End Function
 End Module

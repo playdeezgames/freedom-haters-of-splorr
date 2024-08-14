@@ -74,4 +74,12 @@ Friend Module ItemExtensions
     Friend Function GetRecipient(item As IItem) As String
         Return item.Metadatas(MetadataTypes.Recipient)
     End Function
+    <Extension>
+    Friend Function InstallFee(item As IItem) As Integer
+        Return item.Descriptor.InstallFee
+    End Function
+    <Extension>
+    Friend Function UninstallFee(item As IItem) As Integer
+        Return item.Descriptor.UninstallFee
+    End Function
 End Module
