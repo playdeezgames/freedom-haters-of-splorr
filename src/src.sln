@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_STUFF", "_STUFF", "{CA752F
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
 		..\sources\inputs\coco.png = ..\sources\inputs\coco.png
+		..\schema\ecs.sql = ..\schema\ecs.sql
 		..\README.md = ..\README.md
 		..\shippit.sh = ..\shippit.sh
 	EndProjectSection
