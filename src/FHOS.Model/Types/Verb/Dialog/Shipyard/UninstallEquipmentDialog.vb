@@ -14,9 +14,15 @@ Friend Class UninstallEquipmentDialog
                 {DialogChoices.Cancel, AddressOf EndDialog}
             }
         For Each equipSlot In Actor.UninstallableEquipmentSlots
-            menu.Add(EquipSlots.Descriptors(equipSlot).DisplayName, UninstallEquipSlot(equipSlot))
+            menu.Add(ToName(equipSlot), UninstallEquipSlot(equipSlot))
         Next
         Return menu
+    End Function
+
+    Private Function ToName(equipSlot As String) As String
+        Dim item = Actor.Equipment.GetSlot(equipSlot)
+        Dim fee = item.Descriptor.UninstallFee
+        Return $"{EquipSlots.Descriptors(equipSlot).DisplayName}: {item.EntityName}(fee:{fee})"
     End Function
 
     Private Function UninstallEquipSlot(equipSlot As String) As Func(Of IDialog)

@@ -9,6 +9,19 @@ Friend Class ChangeEquipmentItemCompleteDialog
     Private ReadOnly item As IItem
     Private ReadOnly fee As Integer
     Private ReadOnly canAfford As Boolean
+    Private ReadOnly Property MeetsTechLevelRequirement As Boolean
+        Get
+            Dim interactorTechLevel = interactor.Statistics(StatisticTypes.TechLevel).Value
+            If item IsNot Nothing AndAlso item.Descriptor.TechLevel > interactorTechLevel Then
+                Return False
+            End If
+            Dim equippedItem = Actor.Equipment.GetSlot(equipSlot)
+            If equippedItem IsNot Nothing AndAlso equippedItem.Descriptor.TechLevel > interactorTechLevel Then
+                Return False
+            End If
+            Return True
+        End Get
+    End Property
 
     Public Sub New(
                   actor As IActor,
@@ -37,7 +50,11 @@ Friend Class ChangeEquipmentItemCompleteDialog
 
     Protected Overrides Function InitializeLines() As IEnumerable(Of (Hue As Integer, Text As String))
         Dim lines As New List(Of (Hue As Integer, Text As String))
-        If canAfford Then
+        If Not MeetsTechLevelRequirement Then
+            lines.Add((Hues.Red, "Insufficient Tech Level!"))
+        ElseIf Not canAfford Then
+            lines.Add((Hues.Red, "Insufficient funds!"))
+        Else
             If Actor.Equipment.GetSlot(equipSlot) IsNot Nothing Then
                 Dim oldItem = Actor.Unequip(equipSlot)
                 lines.Add((Hues.LightGray, $"Uninstalled {oldItem.EntityName} from {EquipSlots.Descriptors(equipSlot).DisplayName}."))
@@ -49,9 +66,9 @@ Friend Class ChangeEquipmentItemCompleteDialog
             If fee > 0 Then
                 lines.Add((Hues.LightGray, $"Paid Fees: {fee}"))
             End If
-        Else
-            lines.Add((Hues.Red, "Insufficient funds!"))
         End If
-        Return Lines
+        lines.Add((Hues.LightGray, String.Empty))
+        lines.Add((Hues.LightGray, $"Jools: {Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue}"))
+        Return lines
     End Function
 End Class

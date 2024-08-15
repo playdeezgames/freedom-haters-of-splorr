@@ -11,7 +11,7 @@ Friend Class EnterShipyardDialog
             actor,
             interactor,
             finalDialog,
-            interactor.EntityName)
+            $"Now What?")
     End Sub
 
     Protected Overrides Function InitializeMenu() As IReadOnlyDictionary(Of String, Func(Of IDialog))
@@ -47,6 +47,17 @@ Friend Class EnterShipyardDialog
     End Function
 
     Protected Overrides Function InitializeLines() As IEnumerable(Of (Hue As Integer, Text As String))
-        Return Array.Empty(Of (Hue As Integer, Text As String))
+        Dim lines As New List(Of (Hue As Integer, Text As String)) From {
+            (Hues.Green, interactor.EntityName),
+            (Hues.Green, String.Empty),
+            (Hues.Orange, $"{Actor.EntityName}'s Equipment:")
+        }
+        For Each equipSlot In Actor.Equipment.AllSlots
+            Dim item = Actor.Equipment.GetSlot(equipSlot)
+            lines.Add((Hues.LightGray, $" - {EquipSlots.Descriptors(equipSlot).DisplayName}: {If(item IsNot Nothing, item.EntityName, "(empty)")}"))
+        Next
+        lines.Add((Hues.LightGray, String.Empty))
+        lines.Add((Hues.LightGray, $"Jools: {Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue}"))
+        Return lines
     End Function
 End Class
