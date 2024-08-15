@@ -5,7 +5,7 @@ Friend Class UninstallEquipmentDialog
     Implements IDialog
 
     Public Sub New(actor As Persistence.IActor, interactor As Persistence.IActor, finalDialog As IDialog)
-        MyBase.New(actor, interactor, finalDialog, "Which Slot?")
+        MyBase.New(actor, interactor, finalDialog, "Uninstall Which Slot?")
     End Sub
 
     Protected Overrides Function InitializeMenu() As IReadOnlyDictionary(Of String, Func(Of IDialog))
@@ -20,7 +20,11 @@ Friend Class UninstallEquipmentDialog
     End Function
 
     Private Function UninstallEquipSlot(equipSlot As String) As Func(Of IDialog)
-        Throw New NotImplementedException()
+        Return Function()
+                   Dim fee = Actor.Equipment.GetSlot(equipSlot).Descriptor.UninstallFee
+                   Reset()
+                   Return New ChangeEquipmentItemCompleteDialog(Actor, interactor, equipSlot, Nothing, fee, Me)
+               End Function
     End Function
 
     Protected Overrides Function InitializeLines() As IEnumerable(Of (Hue As Integer, Text As String))
