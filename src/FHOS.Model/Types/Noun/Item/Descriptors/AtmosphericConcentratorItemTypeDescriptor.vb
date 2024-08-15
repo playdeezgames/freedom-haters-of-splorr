@@ -10,7 +10,7 @@ Friend Class AtmosphericConcentratorItemTypeDescriptor
             "AeroSynth Recharger",
             New Dictionary(Of String, Double),
             3,
-            price:=500,
+            price:=5000,
             installFee:=25,
             uninstallFee:=15)
     End Sub
