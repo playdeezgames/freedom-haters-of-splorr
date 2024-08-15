@@ -3,7 +3,6 @@
     Sub have_default_values_upon_initialization()
         Dim sut = CreateSut()
         sut.Interaction.ShouldNotBeNull
-        sut.Shipyard.ShouldNotBeNull
         sut.Trader.ShouldNotBeNull
     End Sub
 

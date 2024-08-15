@@ -21,12 +21,6 @@ Friend Class AvatarYokesModel
         End Get
     End Property
 
-    Public ReadOnly Property Shipyard As IAvatarShipyardModel Implements IAvatarYokesModel.Shipyard
-        Get
-            Return AvatarShipyardModel.FromActor(actor)
-        End Get
-    End Property
-
     Friend Shared Function FromActor(actor As IActor) As IAvatarYokesModel
         Return New AvatarYokesModel(actor)
     End Function
