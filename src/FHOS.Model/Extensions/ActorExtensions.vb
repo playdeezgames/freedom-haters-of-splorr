@@ -140,7 +140,10 @@ Friend Module ActorExtensions
             actor.Equipment.Equip(equipSlot, item)
             item.OnEquip(actor)
             actor.Inventory.Remove(item)
-            actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= item.Descriptor.InstallFee
+            Dim wallet = actor.Yokes.Store(YokeTypes.Wallet)
+            If wallet IsNot Nothing Then
+                wallet.CurrentValue -= item.Descriptor.InstallFee
+            End If
             Return True
         End If
         Return False

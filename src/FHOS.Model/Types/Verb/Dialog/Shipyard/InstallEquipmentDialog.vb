@@ -5,7 +5,7 @@ Friend Class InstallEquipmentDialog
     Implements IDialog
 
     Public Sub New(actor As Persistence.IActor, interactor As Persistence.IActor, finalDialog As IDialog)
-        MyBase.New(actor, interactor, finalDialog, "Which Slot?")
+        MyBase.New(actor, interactor, finalDialog, "Install into which Slot?")
     End Sub
 
     Protected Overrides Function InitializeMenu() As IReadOnlyDictionary(Of String, Func(Of IDialog))
@@ -20,7 +20,10 @@ Friend Class InstallEquipmentDialog
     End Function
 
     Private Function PickItemForEquipSlot(equipSlot As String) As Func(Of IDialog)
-        Throw New NotImplementedException()
+        Return Function()
+                   Reset()
+                   Return New ChangeEquipmentItemDialog(Actor, interactor, equipSlot, Me)
+               End Function
     End Function
 
     Protected Overrides Function InitializeLines() As IEnumerable(Of (Hue As Integer, Text As String))

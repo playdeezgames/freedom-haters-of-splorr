@@ -32,14 +32,17 @@ Friend Class EnterShipyardDialog
     End Function
 
     Private Function ChangeEquipment() As IDialog
+        Reset()
         Return New ChangeEquipmentDialog(Actor, interactor, Me)
     End Function
 
     Private Function InstallEquipment() As IDialog
+        Reset()
         Return New InstallEquipmentDialog(Actor, interactor, Me)
     End Function
 
     Private Function UninstallEquipment() As IDialog
+        Reset()
         Return New UninstallEquipmentDialog(Actor, interactor, Me)
     End Function
 
