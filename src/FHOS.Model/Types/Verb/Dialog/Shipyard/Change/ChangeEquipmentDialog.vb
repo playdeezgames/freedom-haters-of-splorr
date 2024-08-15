@@ -20,7 +20,9 @@ Friend Class ChangeEquipmentDialog
     End Function
 
     Private Function PickItemForEquipSlot(equipSlot As String) As Func(Of IDialog)
-        Return Function() New ChangeEquipmentItemDialog(Actor, interactor, equipSlot, Me)
+        Return Function()
+                   Return New ChangeEquipmentItemDialog(Actor, interactor, equipSlot, finalDialog)
+               End Function
     End Function
 
     Protected Overrides Function InitializeLines() As IEnumerable(Of (Hue As Integer, Text As String))

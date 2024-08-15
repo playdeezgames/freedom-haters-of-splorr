@@ -22,8 +22,7 @@ Friend Class UninstallEquipmentDialog
     Private Function UninstallEquipSlot(equipSlot As String) As Func(Of IDialog)
         Return Function()
                    Dim fee = Actor.Equipment.GetSlot(equipSlot).Descriptor.UninstallFee
-                   Reset()
-                   Return New ChangeEquipmentItemCompleteDialog(Actor, interactor, equipSlot, Nothing, fee, Me)
+                   Return New ChangeEquipmentItemCompleteDialog(Actor, interactor, equipSlot, Nothing, fee, finalDialog)
                End Function
     End Function
 

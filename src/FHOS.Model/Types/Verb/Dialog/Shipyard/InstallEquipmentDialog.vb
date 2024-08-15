@@ -21,8 +21,7 @@ Friend Class InstallEquipmentDialog
 
     Private Function PickItemForEquipSlot(equipSlot As String) As Func(Of IDialog)
         Return Function()
-                   Reset()
-                   Return New ChangeEquipmentItemDialog(Actor, interactor, equipSlot, Me)
+                   Return New ChangeEquipmentItemDialog(Actor, interactor, equipSlot, finalDialog)
                End Function
     End Function
 
