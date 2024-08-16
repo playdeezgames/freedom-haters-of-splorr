@@ -425,7 +425,7 @@ Friend Module ActorExtensions
     End Function
     <Extension>
     Friend Function CanAfford(actor As IActor, fee As Integer) As Boolean
-        Return fee <= 0 OrElse actor.Yokes.Store(YokeTypes.Wallet).CurrentValue >= fee
+        Return fee <= 0 OrElse actor.GetJools >= fee
     End Function
     <Extension>
     Friend Function Unequip(actor As IActor, equipSlot As String) As IItem
@@ -433,7 +433,27 @@ Friend Module ActorExtensions
         actor.Equipment.Equip(equipSlot, Nothing)
         item.OnUnequip(actor)
         actor.Inventory.Add(item)
-        actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= item.Descriptor.UninstallFee
+        actor.ChangeJools(-item.Descriptor.UninstallFee)
         Return item
     End Function
+    <Extension>
+    Friend Function HasPrices(actor As IActor) As Boolean
+        Return actor.Prices.HasAny
+    End Function
+    <Extension>
+    Friend Function HasOffers(actor As IActor, seller As IActor) As Boolean
+        Return actor.Offers.HasAny(seller)
+    End Function
+    <Extension>
+    Friend Function GetJools(actor As IActor) As Integer
+        Return actor.Yokes.Store(YokeTypes.Wallet).CurrentValue
+    End Function
+    <Extension>
+    Friend Sub SetJools(actor As IActor, jools As Integer)
+        actor.Yokes.Store(YokeTypes.Wallet).CurrentValue = jools
+    End Sub
+    <Extension>
+    Friend Sub ChangeJools(actor As IActor, delta As Integer)
+        actor.SetJools(actor.GetJools + delta)
+    End Sub
 End Module

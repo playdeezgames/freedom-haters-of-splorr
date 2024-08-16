@@ -20,7 +20,7 @@ Friend Class AvatarTraderPriceModel
     Public ReadOnly Property CanBuy As Boolean Implements IAvatarTraderPriceModel.CanBuy
         Get
             Dim price = ItemTypes.Descriptors(itemType).Price
-            Return price > 0 AndAlso actor.Yokes.Store(YokeTypes.Wallet).CurrentValue >= price
+            Return price > 0 AndAlso actor.GetJools >= price
         End Get
     End Property
 
@@ -30,7 +30,7 @@ Friend Class AvatarTraderPriceModel
                 Return 0
             End If
             Dim price = ItemTypes.Descriptors(itemType).Price
-            Return actor.Yokes.Store(YokeTypes.Wallet).CurrentValue \ price
+            Return actor.GetJools \ price
         End Get
     End Property
 
@@ -53,7 +53,7 @@ Friend Class AvatarTraderPriceModel
         For Each dummy In Enumerable.Range(0, quantity)
             Dim item = descriptor.CreateItem(actor.Universe)
             actor.Inventory.Add(item)
-            actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= price
+            actor.ChangeJools(-price)
         Next
     End Sub
 

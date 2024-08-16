@@ -11,8 +11,8 @@ Friend Class OxygenRefilledDialog
         Dim oxygenRequired = Actor.LifeSupport.TopOffAmount.Value
         Const oxygenPerJools = 10
         Dim oxygenCost = (oxygenRequired + oxygenPerJools - 1) \ oxygenPerJools
-        Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= oxygenCost
-        Actor.LifeSupport.CurrentValue += oxygenRequired
+        actor.ChangeJools(-oxygenCost)
+        actor.LifeSupport.CurrentValue += oxygenRequired
         Return New List(Of (Hue As Integer, Text As String)) From
                     {
                         (Hues.Orange, "Oxygen Refilled!"),

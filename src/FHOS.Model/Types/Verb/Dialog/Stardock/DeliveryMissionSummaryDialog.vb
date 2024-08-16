@@ -47,7 +47,7 @@ Friend Class DeliveryMissionSummaryDialog
 
     Private Function AcceptMission() As IDialog
         Dim depositAmount = Deposit
-        Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= depositAmount
+        actor.ChangeJools(-depositAmount)
         item.SetJoolsReward(Deposit + item.GetJoolsReward)
         interactor.Inventory.Remove(item)
         Actor.Inventory.Add(item)
@@ -64,7 +64,7 @@ Friend Class DeliveryMissionSummaryDialog
         Dim result As New Dictionary(Of String, Func(Of IDialog)) From {
                 {DialogChoices.Cancel, AddressOf CancelDialog}
             }
-        If CanAddDelivery AndAlso (Deposit = 0 OrElse Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue > Deposit) Then
+        If CanAddDelivery AndAlso (Deposit = 0 OrElse actor.GetJools >= Deposit) Then
             result.Add(DialogChoices.Accept, AddressOf AcceptMission)
         End If
         Return result

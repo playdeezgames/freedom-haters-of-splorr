@@ -34,7 +34,7 @@ Friend Class AvatarTraderOfferModel
         For Each item In items
             actor.Inventory.Remove(item)
             item.Recycle()
-            actor.Yokes.Store(YokeTypes.Wallet).CurrentValue += ItemTypes.Descriptors(itemType).Offer
+            actor.ChangeJools(ItemTypes.Descriptors(itemType).Offer)
         Next
     End Sub
 

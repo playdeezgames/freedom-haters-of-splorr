@@ -19,8 +19,8 @@ Friend Class CompleteMissionDialog
         For Each item In deliveredItems
             Dim jools = item.GetJoolsReward
             Dim reputation = item.GetReputationBonus
-            Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue += jools
-            Actor.UpdateReputations(
+            actor.ChangeJools(jools)
+            actor.UpdateReputations(
                 reputation,
                 item.GetOriginPlanet,
                 Actor.UpdateReputations(reputation, item.GetDestinationPlanet))

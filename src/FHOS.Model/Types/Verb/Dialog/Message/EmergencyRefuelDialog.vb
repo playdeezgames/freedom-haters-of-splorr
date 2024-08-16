@@ -12,7 +12,7 @@ Friend Class EmergencyRefuelDialog
         Dim fuelPrice = 1 'TODO: don't just pick a magic number!
         Dim price = fuelPrice * fuelAdded
         Actor.FuelTank.CurrentValue = Actor.FuelTank.MaximumValue.Value
-        Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= fuelAdded * fuelPrice
+        actor.ChangeJools(-fuelAdded * fuelPrice)
         Return New List(Of (Hue As Integer, Text As String)) From
                     {
                         (Hues.Orange, "Emergency Refuel!"),

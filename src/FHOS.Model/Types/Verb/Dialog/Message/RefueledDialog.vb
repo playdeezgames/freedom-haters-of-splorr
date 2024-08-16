@@ -11,8 +11,8 @@ Friend Class RefueledDialog
         Dim fuelRequired = Actor.FuelTank.TopOffAmount.Value
         Const fuelPerJools = 3
         Dim fuelCost = (fuelRequired + fuelPerJools - 1) \ fuelPerJools
-        Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue -= fuelCost
-        Actor.FuelTank.CurrentValue += fuelRequired
+        actor.ChangeJools(-fuelCost)
+        actor.FuelTank.CurrentValue += fuelRequired
         Return New List(Of (Hue As Integer, Text As String)) From
                     {
                         (Hues.Orange, "Refueled!"),

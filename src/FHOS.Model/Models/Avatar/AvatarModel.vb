@@ -47,7 +47,7 @@ Friend Class AvatarModel
 
     Public ReadOnly Property Jools As Integer Implements IAvatarModel.Jools
         Get
-            Return actor.Yokes.Store(YokeTypes.Wallet).CurrentValue
+            Return actor.GetJools
         End Get
     End Property
 

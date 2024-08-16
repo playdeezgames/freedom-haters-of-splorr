@@ -57,7 +57,7 @@ Friend Class EnterShipyardDialog
             lines.Add((Hues.LightGray, $" - {EquipSlots.Descriptors(equipSlot).DisplayName}: {If(item IsNot Nothing, item.EntityName, "(empty)")}"))
         Next
         lines.Add((Hues.LightGray, String.Empty))
-        lines.Add((Hues.LightGray, $"Jools: {Actor.Yokes.Store(YokeTypes.Wallet).CurrentValue}"))
+        lines.Add((Hues.LightGray, $"Jools: {actor.GetJools}"))
         Return lines
     End Function
 End Class

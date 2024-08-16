@@ -17,7 +17,7 @@ Friend Class TradeInteractionTypeDescriptor
 
     Friend Overrides Function ToInteraction(actor As IActor) As IInteractionModel
         Return New InteractionModel(actor, Sub(a)
-                                               a.Yokes.Actor(YokeTypes.Trader) = a.Interactor()
+                                               a.Dialog = New TraderDialog(a, a.Interactor, Nothing)
                                                a.ClearInteractor()
                                            End Sub)
     End Function

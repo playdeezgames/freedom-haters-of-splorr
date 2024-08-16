@@ -1,6 +1,7 @@
 ﻿Friend Module DialogChoices
     Friend Const AbandonMission = "Abandon Mission"
     Friend Const Accept = "Accept"
+    Friend Const Buy = "Buy"
     Friend Const Cancel = "Cancel"
     Friend Const ChangeEquipment = "Change Equipment"
     Friend Const Confirm = "Confirm"
@@ -9,5 +10,6 @@
     Friend Const Ok = "Ok"
     Friend Const RefillFuel = "Refill Fuel"
     Friend Const RefillOxygen = "Refill Oxygen"
+    Friend Const Sell = "Sell"
     Friend Const UninstallEquipment = "Uninstall Equipment"
 End Module

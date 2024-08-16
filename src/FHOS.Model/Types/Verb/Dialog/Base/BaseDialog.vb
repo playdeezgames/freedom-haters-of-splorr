@@ -3,7 +3,7 @@ Imports FHOS.Persistence
 
 Friend MustInherit Class BaseDialog
     Implements IDialog
-    Protected ReadOnly Property Actor As IActor
+    Protected ReadOnly actor As IActor
     Protected ReadOnly finalDialog As IDialog
     Sub New(
            dialogType As DialogType,
