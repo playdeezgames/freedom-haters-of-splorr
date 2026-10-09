@@ -91,6 +91,18 @@ Based on a read of the 12 VB generation steps (factions -> galaxy -> star system
 - **Timing:** stepwise generation, one step per frame, with a progress screen showing the step name and count (as the VB does). Never freezes the tab.
 - **Slice scope:** places only: factions (SIGMO plus N random, with ASC stats and 3 values each), the galaxy of star systems (rejection-sampled with the density spacing, star type from the age weights, unique pronounceable names), star systems with star and planets (distance by star type, 2d6 max count, 15 planet types, tech level 2d6-2), planet vicinities with satellites, faction assignment, and the player ship (random void cell in the galaxy, SIGMO home planet, Mark I fuel and life support, wallet from the wealth roll). Not in this slice: the nexus and wormholes, stations, debris, military ships.
 
+## Decisions (refilling, from reading the VB)
+
+- Live game sources: Star Dock (one per planet orbit; oxygen 1 jool per 10, fuel 1 jool per 3), Atmospheric Concentrator item (free oxygen at any planet, 5,000 jools, tech level 3), fuel scoop item (free fuel at stars), oxygen tank items (auto-refill). The "can refill oxygen" flag on 9 planet types is dead data in the VB.
+- **Port:** Star Docks with priced Refill Oxygen / Refuel (the VB hid prices behind a TODO). Free planet oxygen requires the equipped concentrator AND a breathable planet type (owner's choice; the VB allowed any planet). The concentrator can't be obtained until the shop is ported.
+- Not yet ported from this area: fuel scoop at stars, oxygen tanks, the shop/shipyard, delivery missions at the star dock.
+
+## Decisions (before the shop work)
+
+- **Emergency refuel price:** keep the VB's 1 jool per fuel (3x the dock price) as a deliberate emergency premium, now the named constant `EMERGENCY_FUEL_PRICE`.
+- **Order of the next stretch:** HTML touch pad, then the economy (debris and salvage, then the trading post: sell scrap and buy items, then the shipyard: install/uninstall), then save/load.
+- **Items:** individual item records (kind, mark, per-item numbers such as a remembered tank level, delivery destination and reward) in a pool, with inventory and equipment slots holding ids; the UI groups identical items into stacks as the VB does.
+
 ## Suggested port order
 
 Core survival/trade loop first (fuel, oxygen, jools, salvage, trading, delivery missions, shipyard), then commodities, then faction effects, then patrols and combat last, since it is the largest and least defined.

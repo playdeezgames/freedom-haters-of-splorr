@@ -108,36 +108,62 @@ Interaction_Screen :: struct {
 	cursor: int,
 }
 
-interaction_labels :: proc(u: ^Universe, labels: ^[2]string) -> (count: int) {
-	if kind, ok := interaction_for(u, u.avatar.bumped); ok {
-		labels[count] = interaction_label(u, kind, u.avatar.bumped)
-		count += 1
+interaction_labels :: proc(u: ^Universe, labels: ^[MAX_INTERACTIONS + 1]string, names: ^[MAX_INTERACTIONS]Name) -> (count: int) {
+	list, n := interactions_for(u, u.avatar.bumped)
+	for i in 0 ..< n {
+		labels[i] = interaction_label(u, list[i], u.avatar.bumped, &names[i])
 	}
-	labels[count] = "Cancel"
-	count += 1
-	return
+	labels[n] = "Cancel"
+	return n + 1
 }
 
 interaction_draw :: proc(s: ^Interaction_Screen, tb: ^Text_Buffer, session: ^Session) {
 	u := &session.universe
 	draw_bump_info(tb, u, u.avatar.bumped, 4)
-	labels: [2]string
-	count := interaction_labels(u, &labels)
-	menu_draw(tb, 18, labels[:count], s.cursor)
+	labels: [MAX_INTERACTIONS + 1]string
+	names: [MAX_INTERACTIONS]Name
+	count := interaction_labels(u, &labels, &names)
+	menu_draw(tb, 17, labels[:count], s.cursor)
 }
 
 interaction_key :: proc(s: ^Interaction_Screen, key: Key, session: ^Session) -> Transition {
 	u := &session.universe
-	labels: [2]string
-	count := interaction_labels(u, &labels)
+	labels: [MAX_INTERACTIONS + 1]string
+	names: [MAX_INTERACTIONS]Name
+	count := interaction_labels(u, &labels, &names)
 	switch menu_key(&s.cursor, count, key) {
 	case .Chosen:
-		if kind, ok := interaction_for(u, u.avatar.bumped); ok && s.cursor == 0 {
-			if avatar_interact(u, kind) == .Blocked {
+		list, actions := interactions_for(u, u.avatar.bumped)
+		defer u.avatar.bumped = nil
+		if s.cursor >= actions {
+			return Pop{}
+		}
+		digits: [20]u8
+		switch list[s.cursor] {
+		case .Approach, .Enter_Orbit, .Leave_Area:
+			if avatar_interact(u, list[s.cursor]) == .Blocked {
 				return Replace{message_make(.Light_Red, "Destination blocked!")}
 			}
+			return Pop{}
+		case .Refill_Oxygen:
+			added, cost := avatar_buy_oxygen(u)
+			m := message_make(.Orange, "Oxygen Refilled!")
+			message_add(&m, .Light_Gray, "You buy ", int_text(&digits, added), " oxygen!")
+			message_add(&m, .Light_Gray, "Cost: ", int_text(&digits, cost), " Jools!")
+			return Replace{m}
+		case .Refuel:
+			added, cost := avatar_buy_fuel(u)
+			m := message_make(.Orange, "Refueled!")
+			message_add(&m, .Light_Gray, "You bought ", int_text(&digits, added), " fuel.")
+			message_add(&m, .Light_Gray, "You paid ", int_text(&digits, cost), " Jools.")
+			return Replace{m}
+		case .Gather_Atmosphere:
+			added := avatar_gather_atmosphere(u)
+			m := message_make(.Orange, "Atmosphere Gathered!")
+			message_add(&m, .Light_Gray, "You collect ", int_text(&digits, added), " oxygen!")
+			message_add(&m, .Light_Gray, "No charge!")
+			return Replace{m}
 		}
-		u.avatar.bumped = nil
 		return Pop{}
 	case .Cancelled:
 		u.avatar.bumped = nil

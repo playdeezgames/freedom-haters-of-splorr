@@ -157,7 +157,8 @@ the_border_offers_to_leave_and_leaving_is_free :: proc(t: ^testing.T) {
 	kind, ok := interaction_for(&u, u.avatar.bumped)
 	testing.expect(t, ok)
 	testing.expect_value(t, kind, Interaction.Leave_Area)
-	testing.expect_value(t, interaction_label(&u, kind, u.avatar.bumped), "Leave Star System")
+	label: Name
+	testing.expect_value(t, interaction_label(&u, kind, u.avatar.bumped, &label), "Leave Star System")
 
 	turn, oxygen := u.turn, u.avatar.oxygen.current
 	testing.expect_value(t, avatar_interact(&u, kind), Interaction_Result.Done)
@@ -224,7 +225,8 @@ star_systems_nest_down_to_a_satellite_and_back_out :: proc(t: ^testing.T) {
 	dir = .North
 	testing.expect_value(t, avatar_move(&u, dir), Move_Outcome.Bumped) // (1,0) is the border
 	kind, _ = interaction_for(&u, u.avatar.bumped)
-	testing.expect_value(t, interaction_label(&u, kind, u.avatar.bumped), "Leave Orbit")
+	label: Name
+	testing.expect_value(t, interaction_label(&u, kind, u.avatar.bumped, &label), "Leave Orbit")
 	testing.expect_value(t, avatar_interact(&u, kind), Interaction_Result.Done)
 	testing.expect_value(t, ship_map(&u), vicinity)
 	planet_actor := actor_get(&u, body)
@@ -245,7 +247,8 @@ satellites_and_stars_behave :: proc(t: ^testing.T) {
 			testing.expect(t, offers && kind == .Approach)
 		case .Planet, .Satellite:
 			testing.expect(t, offers && kind == .Enter_Orbit)
-		case .Star, .Planet_Body, .Satellite_Body, .Player_Ship:
+		case .Star, .Planet_Body, .Satellite_Body, .Player_Ship, .Star_Dock:
+			// nothing on offer with full tanks and no equipment
 			testing.expect(t, !offers)
 		}
 	}
@@ -329,4 +332,165 @@ relocating_keeps_the_map_actor_lists_straight :: proc(t: ^testing.T) {
 	actor_relocate(&u, u.avatar.actor, system.interior, {2, 2}) // same map: just moves
 	testing.expect_value(t, len(map_get(&u, system.interior).actors), system_count + 1)
 	testing.expect_value(t, actor_at(&u, system.interior, {2, 2}), u.avatar.actor)
+}
+
+// A star dock to test against, with the ship parked on the cell beside it.
+first_dock :: proc(u: ^Universe) -> Actor_Id {
+	for a, i in u.actors {
+		if a.kind == .Star_Dock {
+			return Actor_Id(i + 1)
+		}
+	}
+	return 0
+}
+
+offered :: proc(u: ^Universe, target: Actor_Id) -> (list: [MAX_INTERACTIONS]Interaction, count: int) {
+	return interactions_for(u, target)
+}
+
+@(test)
+a_star_dock_offers_only_what_the_ship_needs :: proc(t: ^testing.T) {
+	u := generate(1)
+	defer universe_destroy(&u)
+	dock := first_dock(&u)
+	_, none := offered(&u, dock)
+	testing.expect_value(t, none, 0) // full tanks
+
+	u.avatar.oxygen.current = 100
+	list, n := offered(&u, dock)
+	testing.expect_value(t, n, 1)
+	testing.expect_value(t, list[0], Interaction.Refill_Oxygen)
+
+	u.avatar.oxygen.current = u.avatar.oxygen.maximum
+	u.avatar.fuel.current = 100
+	list, n = offered(&u, dock)
+	testing.expect_value(t, n, 1)
+	testing.expect_value(t, list[0], Interaction.Refuel)
+
+	u.avatar.oxygen.current = 100
+	list, n = offered(&u, dock)
+	testing.expect_value(t, n, 2)
+	testing.expect_value(t, list[0], Interaction.Refill_Oxygen)
+	testing.expect_value(t, list[1], Interaction.Refuel)
+}
+
+@(test)
+prices_round_up_to_whole_jools :: proc(t: ^testing.T) {
+	testing.expect_value(t, price_of(1, OXYGEN_PER_JOOL), 1)
+	testing.expect_value(t, price_of(10, OXYGEN_PER_JOOL), 1)
+	testing.expect_value(t, price_of(11, OXYGEN_PER_JOOL), 2)
+	testing.expect_value(t, price_of(250, OXYGEN_PER_JOOL), 25)
+	testing.expect_value(t, price_of(250, FUEL_PER_JOOL), 84)
+	testing.expect_value(t, price_of(0, FUEL_PER_JOOL), 0)
+}
+
+@(test)
+buying_oxygen_fills_the_tank_and_charges :: proc(t: ^testing.T) {
+	u := generate(1)
+	defer universe_destroy(&u)
+	u.avatar.oxygen.current = u.avatar.oxygen.maximum - 25
+	jools := u.avatar.jools
+	label: Name
+	testing.expect_value(t, interaction_label(&u, .Refill_Oxygen, nil, &label), "Refill Oxygen (3 jools)")
+	added, cost := avatar_buy_oxygen(&u)
+	testing.expect_value(t, added, 25)
+	testing.expect_value(t, cost, 3)
+	testing.expect_value(t, u.avatar.oxygen.current, u.avatar.oxygen.maximum)
+	testing.expect_value(t, u.avatar.jools, jools - 3)
+}
+
+@(test)
+buying_fuel_fills_the_tank_and_charges :: proc(t: ^testing.T) {
+	u := generate(1)
+	defer universe_destroy(&u)
+	u.avatar.fuel.current = 0
+	jools := u.avatar.jools
+	label: Name
+	testing.expect_value(t, interaction_label(&u, .Refuel, nil, &label), "Refuel (84 jools)")
+	added, cost := avatar_buy_fuel(&u)
+	testing.expect_value(t, added, 250)
+	testing.expect_value(t, cost, 84)
+	testing.expect_value(t, u.avatar.fuel.current, 250)
+	testing.expect_value(t, u.avatar.jools, jools - 84)
+}
+
+@(test)
+buying_what_you_cannot_afford_is_bankruptcy :: proc(t: ^testing.T) {
+	u := generate(1)
+	defer universe_destroy(&u)
+	u.avatar.fuel.current = 0
+	u.avatar.jools = u.avatar.jools_minimum + 10
+	avatar_buy_fuel(&u)
+	testing.expect(t, avatar_is_bankrupt(&u))
+}
+
+// The body of a planet of the given type, as the ship would bump it in orbit.
+orbit_body_of :: proc(u: ^Universe, type: Planet_Type) -> Actor_Id {
+	for &p in u.planets {
+		if p.type == type {
+			planet_actor := actor_get(u, p.actor)
+			vicinity_planet := actor_at(u, planet_actor.interior, map_center(.Planet_Vicinity))
+			orbit := actor_get(u, vicinity_planet).interior
+			return actor_at(u, orbit, map_center(.Planet_Orbit))
+		}
+	}
+	return 0
+}
+
+@(test)
+a_planet_only_gives_air_to_a_ship_with_a_concentrator :: proc(t: ^testing.T) {
+	u := generate(1)
+	defer universe_destroy(&u)
+	u.planets[0].type = .Terran // breathable
+	body := actor_get(&u, orbit_body_of(&u, .Terran))
+	testing.expect(t, body != nil)
+	id := orbit_body_of(&u, .Terran)
+	u.avatar.oxygen.current = 100
+
+	_, n := offered(&u, id)
+	testing.expect_value(t, n, 0) // no concentrator
+
+	u.avatar.accessories += {.Atmospheric_Concentrator}
+	list, n2 := offered(&u, id)
+	testing.expect_value(t, n2, 1)
+	testing.expect_value(t, list[0], Interaction.Gather_Atmosphere)
+
+	u.avatar.oxygen.current = u.avatar.oxygen.maximum // nothing to fill
+	_, n3 := offered(&u, id)
+	testing.expect_value(t, n3, 0)
+}
+
+@(test)
+only_breathable_planets_can_be_drawn_from :: proc(t: ^testing.T) {
+	u := generate(1)
+	defer universe_destroy(&u)
+	u.avatar.accessories += {.Atmospheric_Concentrator}
+	u.avatar.oxygen.current = 100
+	breathable, unbreathable := 0, 0
+	for ptype in Planet_Type {
+		u.planets[0].type = ptype
+		id := orbit_body_of(&u, ptype)
+		_, n := offered(&u, id)
+		if planet_info[ptype].can_refill_oxygen {
+			testing.expectf(t, n == 1, "%v should be breathable", ptype)
+			breathable += 1
+		} else {
+			testing.expectf(t, n == 0, "%v should not be breathable", ptype)
+			unbreathable += 1
+		}
+	}
+	testing.expect_value(t, breathable, 9)
+	testing.expect_value(t, unbreathable, 6)
+}
+
+@(test)
+gathering_atmosphere_is_free :: proc(t: ^testing.T) {
+	u := generate(1)
+	defer universe_destroy(&u)
+	u.avatar.oxygen.current = 40
+	jools := u.avatar.jools
+	added := avatar_gather_atmosphere(&u)
+	testing.expect_value(t, added, u.avatar.oxygen.maximum - 40)
+	testing.expect_value(t, u.avatar.oxygen.current, u.avatar.oxygen.maximum)
+	testing.expect_value(t, u.avatar.jools, jools)
 }

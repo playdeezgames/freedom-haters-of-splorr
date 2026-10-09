@@ -15,7 +15,7 @@ direction_delta := [Direction][2]int {
 	.West  = {-1, 0},
 }
 
-EMERGENCY_FUEL_PRICE :: 1 // jools per unit; the VB hardcoded this and flagged it as a TODO
+EMERGENCY_FUEL_PRICE :: 1 // jools per unit: 3x the dock price, on purpose (the VB hardcoded it with a TODO)
 
 Move_Outcome :: enum {
 	Moved,
@@ -63,34 +63,95 @@ Interaction :: enum {
 	Approach, // into a star system, a star's vicinity or a planet's vicinity
 	Enter_Orbit, // into a planet's or a satellite's orbit
 	Leave_Area, // out of the map you are on
+	Refill_Oxygen, // at a star dock, for jools
+	Refuel, // at a star dock, for jools
+	Gather_Atmosphere, // from a breathable planet, free
 }
 
-// What can be done about whatever was bumped, if anything. (Cancel is always possible and is not listed.)
-interaction_for :: proc(u: ^Universe, bump: Bump) -> (kind: Interaction, ok: bool) {
+MAX_INTERACTIONS :: 3
+
+OXYGEN_PER_JOOL :: 10 // star dock prices, from the VB's refill dialogs
+FUEL_PER_JOOL :: 3
+
+// How much a store is short of full.
+top_off_amount :: proc(s: Store) -> int {
+	return s.maximum - s.current
+}
+
+// Whole jools, rounded up.
+price_of :: proc(units, per_jool: int) -> int {
+	return (units + per_jool - 1) / per_jool
+}
+
+oxygen_price :: proc(u: ^Universe) -> int {
+	return price_of(top_off_amount(u.avatar.oxygen), OXYGEN_PER_JOOL)
+}
+
+fuel_price :: proc(u: ^Universe) -> int {
+	return price_of(top_off_amount(u.avatar.fuel), FUEL_PER_JOOL)
+}
+
+// What can be done about whatever was bumped. (Cancel is always possible and is not listed.)
+interactions_for :: proc(u: ^Universe, bump: Bump) -> (list: [MAX_INTERACTIONS]Interaction, count: int) {
+	add :: proc(list: ^[MAX_INTERACTIONS]Interaction, count: ^int, kind: Interaction) {
+		list[count^] = kind
+		count^ += 1
+	}
 	switch b in bump {
 	case Actor_Id:
 		a := actor_get(u, b)
-		if a.interior == 0 {
-			return
-		}
 		#partial switch a.kind {
 		case .Star_System, .Star_Vicinity, .Planet_Vicinity:
-			return .Approach, true
+			if a.interior != 0 {
+				add(&list, &count, .Approach)
+			}
 		case .Planet, .Satellite:
-			return .Enter_Orbit, true
+			if a.interior != 0 {
+				add(&list, &count, .Enter_Orbit)
+			}
+		case .Planet_Body:
+			if .Atmospheric_Concentrator in u.avatar.accessories && planet_info[planet_get(u, a.planet).type].can_refill_oxygen && top_off_amount(u.avatar.oxygen) > 0 {
+				add(&list, &count, .Gather_Atmosphere)
+			}
+		case .Star_Dock:
+			if top_off_amount(u.avatar.oxygen) > 0 {
+				add(&list, &count, .Refill_Oxygen)
+			}
+			if top_off_amount(u.avatar.fuel) > 0 {
+				add(&list, &count, .Refuel)
+			}
 		}
 	case Map_Edge:
-		return .Leave_Area, true
+		add(&list, &count, .Leave_Area)
 	}
 	return
 }
 
-interaction_label :: proc(u: ^Universe, kind: Interaction, bump: Bump) -> string {
+// The first thing on offer, if anything.
+interaction_for :: proc(u: ^Universe, bump: Bump) -> (kind: Interaction, ok: bool) {
+	list, count := interactions_for(u, bump)
+	if count > 0 {
+		return list[0], true
+	}
+	return
+}
+
+// Menu text for an interaction. Prices change, so the text is built into `buf`.
+interaction_label :: proc(u: ^Universe, kind: Interaction, bump: Bump, buf: ^Name) -> string {
+	digits: [20]u8
 	switch kind {
 	case .Approach:
 		return "Approach"
 	case .Enter_Orbit:
 		return "Enter Orbit"
+	case .Gather_Atmosphere:
+		return "Gather Atmosphere"
+	case .Refill_Oxygen:
+		buf^ = name_join("Refill Oxygen (", int_text(&digits, oxygen_price(u)), " jools)")
+		return name_str(buf)
+	case .Refuel:
+		buf^ = name_join("Refuel (", int_text(&digits, fuel_price(u)), " jools)")
+		return name_str(buf)
 	case .Leave_Area:
 		if edge, ok := bump.(Map_Edge); ok {
 			switch map_get(u, edge.map_id).kind {
@@ -223,8 +284,37 @@ avatar_interact :: proc(u: ^Universe, kind: Interaction) -> Interaction_Result {
 			avatar_set_star_system(u, 0)
 		}
 		return .Done
+	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere:
+		// these are transactions, not moves: see avatar_buy_oxygen and friends
+		return .Blocked
 	}
 	return .Blocked
+}
+
+// ---- Buying air and fuel ----
+
+// Each returns how much was added and what it cost (jools can go below zero: that is bankruptcy's job).
+avatar_buy_oxygen :: proc(u: ^Universe) -> (added, cost: int) {
+	added = top_off_amount(u.avatar.oxygen)
+	cost = oxygen_price(u)
+	u.avatar.oxygen.current = u.avatar.oxygen.maximum
+	u.avatar.jools -= cost
+	return
+}
+
+avatar_buy_fuel :: proc(u: ^Universe) -> (added, cost: int) {
+	added = top_off_amount(u.avatar.fuel)
+	cost = fuel_price(u)
+	u.avatar.fuel.current = u.avatar.fuel.maximum
+	u.avatar.jools -= cost
+	return
+}
+
+// Free, and only worth doing next to a breathable planet.
+avatar_gather_atmosphere :: proc(u: ^Universe) -> (added: int) {
+	added = top_off_amount(u.avatar.oxygen)
+	u.avatar.oxygen.current = u.avatar.oxygen.maximum
+	return
 }
 
 // ---- Emergency refuel ----

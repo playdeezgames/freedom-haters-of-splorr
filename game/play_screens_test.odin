@@ -223,3 +223,115 @@ the_panel_shows_what_the_ship_has_left :: proc(t: ^testing.T) {
 	testing.expect_value(t, app.text[11][col].char, u8('F')) // "Fuel: 10%"
 	testing.expect_value(t, app.text[11][col + 6].fg, Hue.Light_Red)
 }
+
+// Into the first planet's orbit, the ship parked beside its star dock; returns the key that bumps it.
+park_beside_the_dock :: proc(t: ^testing.T, u: ^Universe) -> Key {
+	dock := first_dock(u)
+	orbit := actor_get(u, dock).map_id
+	// leave the ship wherever it lands in this orbit, then park next to the dock
+	actor_relocate(u, u.avatar.actor, orbit, {1, 1})
+	dir := park_beside(t, u, dock)
+	keys := [Direction]Key {
+		.North = KEY_UP,
+		.East  = KEY_RIGHT,
+		.South = KEY_DOWN,
+		.West  = KEY_LEFT,
+	}
+	return keys[dir]
+}
+
+@(test)
+refilling_oxygen_at_a_star_dock_charges_jools_and_shows_a_receipt :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	key := park_beside_the_dock(t, u)
+	u.avatar.oxygen.current = u.avatar.oxygen.maximum - 25
+	jools := u.avatar.jools
+	app_key(&app, key)
+	testing.expect(t, on_screen(&app, Interaction_Screen))
+	app_key(&app, KEY_ENTER) // Refill Oxygen, the only action
+	testing.expect(t, on_screen(&app, Message))
+	testing.expect_value(t, u.avatar.oxygen.current, u.avatar.oxygen.maximum) // the bump cost 1, so 26 were bought
+	testing.expect_value(t, u.avatar.jools, jools - 3)
+	testing.expect_value(t, app.text[8][(TEXT_COLUMNS - len("Oxygen Refilled!")) / 2].char, u8('O'))
+	app_key(&app, KEY_ENTER)
+	testing.expect(t, on_screen(&app, Navigation))
+}
+
+@(test)
+declining_a_star_dock_costs_nothing_more :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	key := park_beside_the_dock(t, u)
+	u.avatar.fuel.current = u.avatar.fuel.maximum
+	u.avatar.oxygen.current = u.avatar.oxygen.maximum
+	jools := u.avatar.jools
+	app_key(&app, key)
+	// bumping spends 1 oxygen and 1 fuel, so the tanks are 1 short and a refill is on offer; decline it
+	testing.expect(t, on_screen(&app, Interaction_Screen))
+	app_key(&app, KEY_ESCAPE)
+	testing.expect(t, on_screen(&app, Navigation))
+	testing.expect_value(t, u.avatar.jools, jools)
+}
+
+@(test)
+the_dock_is_drawn_and_described :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	key := park_beside_the_dock(t, u)
+	app_draw(&app)
+	found := false
+	for y in VIEW_TOP ..< VIEW_TOP + VIEW_SIZE {
+		for x in VIEW_LEFT ..< VIEW_LEFT + VIEW_SIZE {
+			cell := app.text[y][x]
+			if cell.char == GLYPH_STAR_DOCK && cell.fg == .Brown {
+				found = true
+			}
+		}
+	}
+	testing.expect(t, found)
+	app_key(&app, key)
+	// "<planet> Star Dock" title on row 1, faction on row 4
+	title_end := 0
+	for cell, i in app.text[1] {
+		if cell.char != ' ' {
+			title_end = i
+		}
+	}
+	testing.expect_value(t, app.text[1][title_end].char, u8('k')) // ...Dock
+	testing.expect_value(t, app.text[4][2].char, u8('F')) // Faction:
+}
+
+@(test)
+planet_info_says_whether_the_air_is_breathable :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	u.planets[0].type = .Terran
+	planet_actor := actor_get(u, u.planets[0].actor)
+	body := actor_at(u, planet_actor.interior, map_center(.Planet_Vicinity))
+	u.avatar.bumped = body
+	app_draw(&app)
+	tb: Text_Buffer
+	text_clear(&tb)
+	draw_bump_info(&tb, u, u.avatar.bumped, 4)
+	air_row := -1
+	for row in 0 ..< TEXT_ROWS {
+		if tb[row][2].char == 'A' && tb[row][3].char == 'i' && tb[row][4].char == 'r' {
+			air_row = row
+		}
+	}
+	testing.expect(t, air_row >= 0)
+	testing.expect_value(t, tb[air_row][7].fg, Hue.Light_Green)
+	u.planets[0].type = .Toxic
+	text_clear(&tb)
+	draw_bump_info(&tb, u, u.avatar.bumped, 4)
+	testing.expect_value(t, tb[air_row][7].fg, Hue.Light_Red)
+}

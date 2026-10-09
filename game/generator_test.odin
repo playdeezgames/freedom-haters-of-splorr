@@ -388,3 +388,30 @@ generation_pins_seed_one :: proc(t: ^testing.T) {
 	testing.expectf(t, len(u.star_systems) > 0, "no stars")
 	log.infof("seed 1: %d stars, %d planets, %d satellites, %d maps, %d actors (%d bytes each), first star %q", len(u.star_systems), len(u.planets), len(u.satellites), len(u.maps), len(u.actors), size_of(Actor), name_str(&u.star_systems[0].name))
 }
+
+@(test)
+every_planet_orbit_has_one_star_dock :: proc(t: ^testing.T) {
+	for seed in 1 ..= 3 {
+		u := generate(u64(seed))
+		defer universe_destroy(&u)
+		docks := count_actors(&u, .Star_Dock)
+		testing.expect_value(t, docks, len(u.planets))
+		for p, i in u.planets {
+			planet_actor := actor_get(&u, p.actor)
+			body := actor_at(&u, planet_actor.interior, map_center(.Planet_Vicinity))
+			orbit := actor_get(&u, body).interior
+			in_orbit := 0
+			for id in map_get(&u, orbit).actors {
+				a := actor_get(&u, id)
+				if a.kind == .Star_Dock {
+					in_orbit += 1
+					testing.expect(t, a.planet == Planet_Id(i + 1))
+					testing.expect(t, a.star_system == p.star_system)
+					testing.expect(t, !map_is_edge(.Planet_Orbit, a.pos))
+					testing.expect(t, !actor_covers(actor_get(&u, actor_at(&u, orbit, map_center(.Planet_Orbit)))^, a.pos))
+				}
+			}
+			testing.expect_value(t, in_orbit, 1)
+		}
+	}
+}

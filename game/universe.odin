@@ -122,6 +122,7 @@ Actor_Kind :: enum {
 	Planet_Vicinity, // on a system map
 	Planet, // on a planet vicinity map, at the center, 3x3
 	Planet_Body, // on a planet orbit map, at the center, 5x5
+	Star_Dock, // on a planet orbit map, one per planet
 	Satellite, // on a planet vicinity map
 	Satellite_Body, // on a satellite orbit map, at the center, 3x3
 }
@@ -175,8 +176,15 @@ Direction :: enum {
 	West,
 }
 
+// Equipment that changes what the ship can do. (The VB has equip slots and inventory; only what the
+// slice needs so far is modeled.)
+Accessory :: enum {
+	Atmospheric_Concentrator, // refills oxygen from a planet's atmosphere
+}
+
 Avatar :: struct {
 	actor:         Actor_Id,
+	accessories:   bit_set[Accessory],
 	facing:        Direction,
 	bumped:        Bump,
 	star_system:   Star_System_Id, // the system the avatar is in; none in the galaxy

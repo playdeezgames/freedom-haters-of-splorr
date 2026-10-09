@@ -13,6 +13,7 @@ GLYPH_PLANET_MARKER :: u8('o')
 GLYPH_SATELLITE_MARKER :: u8(0x09) // ○
 GLYPH_PLANET_BODY :: u8(0xB2) // ▓
 GLYPH_SATELLITE_BODY :: u8(0xB1) // ▒
+GLYPH_STAR_DOCK :: u8(0x7F) // ⌂
 
 direction_glyph := [Direction]u8 {
 	.North = 0x1E, // ▲
@@ -35,6 +36,8 @@ actor_glyph :: proc(u: ^Universe, a: Actor) -> (glyph: u8, hue: Hue) {
 		return GLYPH_SATELLITE_MARKER, satellite_info[satellite_get(u, a.satellite).type].hue
 	case .Satellite_Body:
 		return GLYPH_SATELLITE_BODY, satellite_info[satellite_get(u, a.satellite).type].hue
+	case .Star_Dock:
+		return GLYPH_STAR_DOCK, .Brown
 	}
 	return '?', .Light_Red
 }
@@ -188,6 +191,21 @@ draw_bump_info :: proc(tb: ^Text_Buffer, u: ^Universe, bump: Bump, top_row: int)
 			put_field(tb, 2, next(&row), "Faction", name_str(&faction_get(u, p.faction).name))
 			put_field_int(tb, 2, next(&row), "Satellites", p.satellite_count)
 			put_field(tb, 2, next(&row), "Star System", name_str(&star_system_get(u, p.star_system).name))
+			if planet_info[p.type].can_refill_oxygen {
+				put_field(tb, 2, next(&row), "Air", "Breathable", .Light_Green)
+			} else {
+				put_field(tb, 2, next(&row), "Air", "Unbreathable", .Light_Red)
+			}
+		case .Star_Dock:
+			p := planet_get(u, a.planet)
+			c := text_put(tb, (TEXT_COLUMNS - len(name_str(&p.name)) - len(" Star Dock")) / 2, 1, name_str(&p.name), .Brown)
+			text_put(tb, c, 1, " Star Dock", .Brown)
+			put_field(tb, 2, next(&row), "Faction", name_str(&faction_get(u, p.faction).name))
+			put_field_int(tb, 2, next(&row), "Tech Level", p.tech_level)
+			c = put_field_int(tb, 2, next(&row), "Oxygen", 1)
+			text_put(tb, c, row - 2, " jool per 10", .Light_Gray)
+			c = put_field_int(tb, 2, next(&row), "Fuel", 1)
+			text_put(tb, c, row - 2, " jool per 3", .Light_Gray)
 		case .Satellite, .Satellite_Body:
 			s := satellite_get(u, a.satellite)
 			text_put_centered(tb, 1, name_str(&s.name), satellite_info[s.type].hue)
