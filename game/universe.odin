@@ -159,8 +159,27 @@ Store :: struct {
 	current, minimum, maximum: int,
 }
 
+// What the avatar ran into on its last move: an actor, or the border of a map (the way out of it).
+Map_Edge :: struct {
+	map_id: Map_Id,
+}
+Bump :: union {
+	Actor_Id,
+	Map_Edge,
+}
+
+Direction :: enum {
+	North,
+	East,
+	South,
+	West,
+}
+
 Avatar :: struct {
 	actor:         Actor_Id,
+	facing:        Direction,
+	bumped:        Bump,
+	star_system:   Star_System_Id, // the system the avatar is in; none in the galaxy
 	faction:       Faction_Id, // the SIGMO Federation
 	home_planet:   Planet_Id,
 	jools:         int,

@@ -10,7 +10,13 @@ Screen :: union {
 	About,
 	Embark,
 	Generate,
-	Universe_Summary,
+	Navigation,
+	Interaction_Screen,
+	Action_Menu,
+	Message,
+	Game_Menu,
+	Confirm_Abandon,
+	Game_Over,
 }
 
 screen_draw :: proc(screen: ^Screen, tb: ^Text_Buffer, session: ^Session) {
@@ -24,8 +30,20 @@ screen_draw :: proc(screen: ^Screen, tb: ^Text_Buffer, session: ^Session) {
 		embark_draw(&s, tb)
 	case Generate:
 		generate_draw(&s, tb, session)
-	case Universe_Summary:
-		summary_draw(&s, tb, session)
+	case Navigation:
+		navigation_draw(&s, tb, session)
+	case Interaction_Screen:
+		interaction_draw(&s, tb, session)
+	case Action_Menu:
+		action_menu_draw(&s, tb, session)
+	case Message:
+		message_draw(&s, tb, session)
+	case Game_Menu:
+		game_menu_draw(&s, tb, session)
+	case Confirm_Abandon:
+		confirm_abandon_draw(&s, tb, session)
+	case Game_Over:
+		game_over_draw(&s, tb, session)
 	}
 }
 
@@ -39,8 +57,20 @@ screen_key :: proc(screen: ^Screen, key: Key, session: ^Session) -> Transition {
 		return embark_key(&s, key)
 	case Generate:
 		return generate_key(&s, key, session)
-	case Universe_Summary:
-		return summary_key(&s, key, session)
+	case Navigation:
+		return navigation_key(&s, key, session)
+	case Interaction_Screen:
+		return interaction_key(&s, key, session)
+	case Action_Menu:
+		return action_menu_key(&s, key, session)
+	case Message:
+		return message_key(&s, key, session)
+	case Game_Menu:
+		return game_menu_key(&s, key, session)
+	case Confirm_Abandon:
+		return confirm_abandon_key(&s, key, session)
+	case Game_Over:
+		return game_over_key(&s, key, session)
 	}
 	return nil
 }
@@ -50,7 +80,9 @@ screen_tick :: proc(screen: ^Screen, session: ^Session) -> Transition {
 	switch &s in screen {
 	case Generate:
 		return generate_tick(&s, session)
-	case Main_Menu, About, Embark, Universe_Summary:
+	case Navigation:
+		return navigation_tick(&s, session)
+	case Main_Menu, About, Embark, Interaction_Screen, Action_Menu, Message, Game_Menu, Confirm_Abandon, Game_Over:
 	}
 	return nil
 }
@@ -225,7 +257,7 @@ generate_tick :: proc(s: ^Generate, session: ^Session) -> Transition {
 	}
 	if generator_done(&session.generator) {
 		session_finish_generation(session)
-		return Replace{Universe_Summary{}}
+		return Replace{Navigation{}}
 	}
 	return nil
 }
@@ -256,43 +288,6 @@ generate_key :: proc(s: ^Generate, key: Key, session: ^Session) -> Transition {
 	if key == KEY_ESCAPE {
 		session_cancel_generation(session)
 		return Pop{}
-	}
-	return nil
-}
-
-// ---- Universe summary (stands in for the map until it is ported) ----
-
-Universe_Summary :: struct {}
-
-summary_draw :: proc(s: ^Universe_Summary, tb: ^Text_Buffer, session: ^Session) {
-	text_put_centered(tb, 1, "YER UNIVERSE", .Yellow)
-	if !session.in_play {
-		return
-	}
-	u := &session.universe
-	row := 4
-	stat :: proc(tb: ^Text_Buffer, row: ^int, label: string, value: int) {
-		text_put(tb, 6, row^, label, .Light_Gray)
-		text_put_int(tb, 24, row^, value, .White)
-		row^ += 2
-	}
-	stat(tb, &row, "Star systems", len(u.star_systems))
-	stat(tb, &row, "Planets", len(u.planets))
-	stat(tb, &row, "Satellites", len(u.satellites))
-	stat(tb, &row, "Factions", len(u.factions))
-	stat(tb, &row, "Jools", u.avatar.jools)
-	stat(tb, &row, "Fuel", u.avatar.fuel.current)
-	stat(tb, &row, "Oxygen", u.avatar.oxygen.current)
-	home := planet_get(u, u.avatar.home_planet)
-	text_put(tb, 6, row, "Home", .Light_Gray)
-	text_put(tb, 24, row, name_str(&home.name), planet_info[home.type].hue)
-	text_put_centered(tb, 23, "Press Escape", .Dark_Gray)
-}
-
-summary_key :: proc(s: ^Universe_Summary, key: Key, session: ^Session) -> Transition {
-	if key == KEY_ESCAPE {
-		session_end(session)
-		return Reset{Main_Menu{}}
 	}
 	return nil
 }

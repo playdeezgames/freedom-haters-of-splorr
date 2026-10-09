@@ -1,6 +1,6 @@
 # Port plan: VB.NET terminal game -> Odin / js_wasm32
 
-Goal: shippable browser build on itch.io (HTML5 zip channel). The VB code is the design reference, not the target.
+Goal: shippable browser build on itch.io (HTML5 zip channel). The VB code is the design reference, not the target. The itch page is live today with native v56 builds (Windows/Linux/Mac) and no html5 channel; an html5 push adds a channel, and whether to retire the native builds is the owner's call.
 Baseline: 297 .NET tests pass (Data 192, Persistence 62, Model 43). Presentation has no tests. "Works" below means *playable*, which only the owner can judge.
 
 ## Principles
@@ -41,7 +41,7 @@ Play the .NET build and mark each system **keep / fix / cut** below. Claude can 
 - [ ] HTML button pad (d-pad + Enter/Esc) shown on touch devices, sending the same key codes as the keyboard.
 - [x] Font: keep the 8x8 ROM font (swap is a one-file change to `game/font.odin`).
 - [ ] Save/load via a localStorage bridge in `web/game.js`. Also persist the Embark settings across sessions (the VB did; the port resets them each visit for now).
-- [ ] itch.io: confirm an `html5` channel set to "playable in browser" on the page.
+- [ ] itch.io: the page exists (native v56 builds, no html5 channel). Pushing `html5` and marking it "playable in browser" is an owner action; decide whether to keep or retire the native downloads.
 
 ## Phase 2 - Vertical slice
 

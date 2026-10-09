@@ -14,6 +14,15 @@ start_generating :: proc(app: ^App) {
 	app_key(app, KEY_ENTER) // Go
 }
 
+// Game menu -> Abandon Game -> Yes.
+abandon_game :: proc(app: ^App) {
+	app_key(app, KEY_ESCAPE)
+	app_key(app, KEY_DOWN)
+	app_key(app, KEY_ENTER)
+	app_key(app, KEY_DOWN)
+	app_key(app, KEY_ENTER)
+}
+
 // Ticks until the Generate screen hands over, or fails the test if it never does.
 tick_until_generated :: proc(t: ^testing.T, app: ^App) -> int {
 	for ticks in 1 ..= 100_000 {
@@ -38,19 +47,19 @@ go_starts_generation_on_the_first_tick :: proc(t: ^testing.T) {
 }
 
 @(test)
-generation_finishes_on_the_summary_with_a_universe :: proc(t: ^testing.T) {
+generation_finishes_on_the_map_with_a_universe :: proc(t: ^testing.T) {
 	app: App
 	start_generating(&app)
 	defer app_destroy(&app)
 	tick_until_generated(t, &app)
-	_, on_summary := stack_top(&app.stack)^.(Universe_Summary)
-	testing.expect(t, on_summary)
+	_, on_map := stack_top(&app.stack)^.(Navigation)
+	testing.expect(t, on_map)
 	testing.expect(t, app.session.in_play)
 	testing.expect(t, !app.session.generating)
 	u := &app.session.universe
 	testing.expect(t, len(u.star_systems) > 0)
 	testing.expect(t, u.avatar.actor != 0)
-	// Embark, then the summary on top of the main menu: Replace swapped Generate out
+	// Embark, then the map on top of the main menu: Replace swapped Generate out
 	testing.expect_value(t, app.stack.count, 3)
 }
 
@@ -97,12 +106,20 @@ escape_cancels_generation_and_returns_to_embark :: proc(t: ^testing.T) {
 }
 
 @(test)
-escape_on_the_summary_discards_the_universe_and_resets_to_the_main_menu :: proc(t: ^testing.T) {
+abandoning_the_game_discards_the_universe_and_resets_to_the_main_menu :: proc(t: ^testing.T) {
 	app: App
 	start_generating(&app)
 	defer app_destroy(&app)
 	tick_until_generated(t, &app)
-	app_key(&app, KEY_ESCAPE)
+	app_key(&app, KEY_ESCAPE) // game menu
+	_, on_game_menu := stack_top(&app.stack)^.(Game_Menu)
+	testing.expect(t, on_game_menu)
+	app_key(&app, KEY_DOWN)
+	app_key(&app, KEY_ENTER) // Abandon Game
+	_, on_confirm := stack_top(&app.stack)^.(Confirm_Abandon)
+	testing.expect(t, on_confirm)
+	app_key(&app, KEY_DOWN)
+	app_key(&app, KEY_ENTER) // Yes
 	_, on_menu := stack_top(&app.stack)^.(Main_Menu)
 	testing.expect(t, on_menu)
 	testing.expect_value(t, app.stack.count, 1)
@@ -115,7 +132,7 @@ a_second_run_replaces_the_first :: proc(t: ^testing.T) {
 	start_generating(&app)
 	defer app_destroy(&app)
 	tick_until_generated(t, &app)
-	app_key(&app, KEY_ESCAPE)
+	abandon_game(&app)
 	app_key(&app, KEY_ENTER) // Embark again
 	app_key(&app, KEY_ENTER) // Go
 	tick_until_generated(t, &app)
@@ -123,12 +140,12 @@ a_second_run_replaces_the_first :: proc(t: ^testing.T) {
 }
 
 @(test)
-generate_screen_shows_progress_and_the_summary_shows_the_universe :: proc(t: ^testing.T) {
+generate_screen_shows_progress_and_the_map_shows_the_ship :: proc(t: ^testing.T) {
 	app: App
 	start_generating(&app)
 	defer app_destroy(&app)
 	app_tick(&app)
-	// the title row and a lit progress bar cell exist while generating
+	// the title row and a progress bar exist while generating
 	testing.expect_value(t, app.text[3][15].char, u8('G'))
 	filled, empty := 0, 0
 	for cell in app.text[15] {
@@ -137,9 +154,11 @@ generate_screen_shows_progress_and_the_summary_shows_the_universe :: proc(t: ^te
 	}
 	testing.expect_value(t, filled + empty, PROGRESS_BAR_WIDTH)
 	tick_until_generated(t, &app)
-	// summary: "Star systems" label at column 6 of row 4
-	testing.expect_value(t, app.text[4][6].char, u8('S'))
-	testing.expect(t, app.text[4][24].char >= '0' && app.text[4][24].char <= '9')
+	// the galaxy map's title, and the ship at the middle of the 21x21 view
+	testing.expect_value(t, app.text[0][0].char, u8('G'))
+	ship := app.text[VIEW_TOP + VIEW_SIZE / 2][VIEW_LEFT + VIEW_SIZE / 2]
+	testing.expect_value(t, ship.char, direction_glyph[.North])
+	testing.expect_value(t, ship.fg, Hue.White)
 }
 
 @(test)
