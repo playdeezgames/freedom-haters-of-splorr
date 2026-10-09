@@ -400,3 +400,7 @@ FodyWeavers.xsd
 /pub-windows
 /pub-linux
 /pub-mac
+
+# Odin / web build output
+/dist/
+/fhos-html5.zip

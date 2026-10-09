@@ -34,13 +34,18 @@ Play the .NET build and mark each system **keep / fix / cut** below. Claude can 
 
 ## Phase 1 - Toolchain and skeleton
 
-- Odin project layout (`odin/` or repo root; decide), `build.sh` producing `js_wasm32` output, `index.html` + `odin.js` runtime shim, local static server for testing.
-- Platform layer: key input, text-grid or tile rendering (1-bit tileset `urizen_onebit_tileset__v1d0.png`, CoCo font are already in `sources/`), timing.
-- Replace `shippit.sh` with: build -> zip -> `butler push ...:html5`.
+- [x] Layout: `game/` (Odin package), `web/` (html/css/js glue), `build.sh`, `serve.sh`, `ship.sh`; output in gitignored `dist/`.
+- [x] Platform layer: key queue in, 40x25 text grid -> RGBA frame -> canvas out; verified in the browser.
+- [x] `ship.sh`: build -> zip -> `butler push ...:html5` (written, not yet run; `shippit.sh` stays until the port is playable).
+- [ ] Window focus handling, turn/time clock if needed.
+- [ ] HTML button pad (d-pad + Enter/Esc) shown on touch devices, sending the same key codes as the keyboard.
+- [x] Font: keep the 8x8 ROM font (swap is a one-file change to `game/font.odin`).
+- [ ] Save/load via a localStorage bridge in `web/game.js`.
+- [ ] itch.io: confirm an `html5` channel set to "playable in browser" on the page.
 
 ## Phase 2 - Vertical slice
 
-Main menu -> embark -> generate a small universe -> place avatar -> move on a map -> game over -> save/load. Proves the platform layer, RNG, state-machine/UI pattern and persistence.
+Main menu -> embark -> generate a universe -> place avatar -> move on a map spending fuel and oxygen -> game over -> save/load (scope fixed above). Proves the platform layer, RNG, state-machine/UI pattern and persistence.
 
 ## Phase 3 - Systems, in triage order
 
@@ -68,6 +73,14 @@ Findings: commodities are dead code (supply/demand throw, never called); faction
   - Military vessels move and pursue the player when their faction is hostile.
   - Caught: fine/shakedown by default. Combat when provoked: standing past a threshold, resisting a shakedown, or the player attacking first.
   - The .NET game has no combat, so this is new work. Open: combat model, ship stats, patrol AI, standing changes.
+
+## Decisions (Phase 1/2 architecture)
+
+- **Input:** arrows + Enter/Esc on keyboard, plus an HTML button pad for touch/mouse. Menu rows are not tappable; the pad sends ordinary key codes so game code is unaware of it.
+- **Screens:** a screen stack. Each screen has `draw` and `on_key` and can push, pop or replace; Escape pops. Replaces the VB `endState` chaining and blocking `ui.Choose`.
+- **Data model:** typed structs in arrays with index handles and enums instead of strings (Actor, Group, Item, Location, Map). A rewrite of the data layer rather than a transliteration of the entity/yoke model, so VB tests are a reference for behavior, not code to port.
+- **RNG:** seeded, with the seed hidden from the player. Generation and events draw from it; saves store it; tests use fixed seeds.
+- **Phase 2 slice scope:** main menu, embark options, universe generation, flying the ship on the map spending fuel and oxygen, death/bankruptcy game over, save/load. No stations, salvage or trading yet.
 
 ## Suggested port order
 

@@ -1,0 +1,80 @@
+package game
+
+// The whole UI is a 40x25 grid of colored characters, drawn with the 8x8 font.
+
+TEXT_COLUMNS :: 40
+TEXT_ROWS :: 25
+
+Hue :: enum u8 {
+	Black,
+	Blue,
+	Green,
+	Cyan,
+	Red,
+	Magenta,
+	Brown,
+	Light_Gray,
+	Dark_Gray,
+	Light_Blue,
+	Light_Green,
+	Light_Cyan,
+	Light_Red,
+	Light_Magenta,
+	Yellow,
+	White,
+}
+
+// CGA palette
+palette := [Hue][3]u8 {
+	.Black         = {0x00, 0x00, 0x00},
+	.Blue          = {0x00, 0x00, 0xAA},
+	.Green         = {0x00, 0xAA, 0x00},
+	.Cyan          = {0x00, 0xAA, 0xAA},
+	.Red           = {0xAA, 0x00, 0x00},
+	.Magenta       = {0xAA, 0x00, 0xAA},
+	.Brown         = {0xAA, 0x55, 0x00},
+	.Light_Gray    = {0xAA, 0xAA, 0xAA},
+	.Dark_Gray     = {0x55, 0x55, 0x55},
+	.Light_Blue    = {0x55, 0x55, 0xFF},
+	.Light_Green   = {0x55, 0xFF, 0x55},
+	.Light_Cyan    = {0x55, 0xFF, 0xFF},
+	.Light_Red     = {0xFF, 0x55, 0x55},
+	.Light_Magenta = {0xFF, 0x55, 0xFF},
+	.Yellow        = {0xFF, 0xFF, 0x55},
+	.White         = {0xFF, 0xFF, 0xFF},
+}
+
+Cell :: struct {
+	char: u8,
+	fg:   Hue,
+	bg:   Hue,
+}
+
+Text_Buffer :: [TEXT_ROWS][TEXT_COLUMNS]Cell
+
+text_clear :: proc(tb: ^Text_Buffer, bg: Hue = .Black) {
+	for &row in tb {
+		for &cell in row {
+			cell = {' ', .Light_Gray, bg}
+		}
+	}
+}
+
+// Writes `s` starting at (col,row); clips at the right edge. Returns the column after the last character.
+text_put :: proc(tb: ^Text_Buffer, col, row: int, s: string, fg: Hue = .Light_Gray, bg: Hue = .Black) -> int {
+	if row < 0 || row >= TEXT_ROWS {
+		return col
+	}
+	c := col
+	for i in 0 ..< len(s) {
+		if c >= 0 && c < TEXT_COLUMNS {
+			tb[row][c] = {s[i], fg, bg}
+		}
+		c += 1
+	}
+	return c
+}
+
+text_put_centered :: proc(tb: ^Text_Buffer, row: int, s: string, fg: Hue = .Light_Gray, bg: Hue = .Black) {
+	text_put(tb, (TEXT_COLUMNS - len(s)) / 2, row, s, fg, bg)
+}
