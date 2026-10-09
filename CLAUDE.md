@@ -14,7 +14,7 @@ Odin is at `/home/yermom/ODIN/odin` (not on PATH; `build.sh` finds it).
 
 ```bash
 ./build.sh     # runs `odin test game`, builds dist/ (game.wasm, odin.js copied from the same Odin install, html/css/js)
-./serve.sh     # http://localhost:8000 serving dist/ (wasm needs http, not file://)
+./serve.sh     # http://localhost:8000 serving dist/ (wasm needs http, not file://); restart it after build.sh, which recreates dist/
 odin test game                                  # native tests; whole suite
 odin test game -define:ODIN_TEST_NAMES=game.render_draws_foreground_and_background   # one test
 ./ship.sh      # zips dist/ and `butler push`es the html5 channel. Publishes: run only when asked.
@@ -22,6 +22,7 @@ odin test game -define:ODIN_TEST_NAMES=game.render_draws_foreground_and_backgrou
 
 - `game/` is one Odin package. Everything is platform-independent except `platform_js.odin` (`#+build js`), which exports `step(dt: f64)` (odin.js calls it every animation frame) and imports `js_next_key` / `js_present` from `web/game.js`. Test files carry `#+build !js` because `core:testing` doesn't compile for wasm.
 - UI is a 40x25 `Text_Buffer` of colored characters rasterized by `render` into a 320x200 RGBA `Frame` using the 8x8 bitmap `font` (one u64 per glyph, generated from the ROM font in `~/git/odin-wasm-framebuffer`); JS blits it once per frame. New game logic should stay platform-independent and testable natively.
+- Screens: `Screen` (in `screens.odin`) is a union of per-screen structs holding their own state. `screen_draw` / `screen_key` dispatch on it; `screen_key` returns a `Transition` (`Push`, `Replace`, `Pop`, or nil to stay) which `stack_apply` applies to the fixed-size `Screen_Stack` in `App`. To add a screen: add its struct to the union, a draw proc and a key proc, and a case in both dispatchers. `menu.odin` has the shared cursor-menu helpers. The 8x8 font has no line gap, so menus and text use every other row.
 - Keys cross the boundary as an i32: printable ASCII as its char code, others per `game/keys.odin`; `web/game.js` must use the same numbers.
 - `~/git/odin-wasm-framebuffer`, `~/git/odin-metaphor` and `~/git/odin-webasm-sandbox` are the author's earlier Odin/wasm experiments. `PORT_PLAN.md` holds the port phases and design decisions.
 
