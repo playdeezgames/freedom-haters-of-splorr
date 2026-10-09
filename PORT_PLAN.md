@@ -50,8 +50,30 @@ Port each "keep" system with its own small tests (`odin test`), most-fundamental
 
 Audio, itch.io page copy (honest, deadpan; screenshots in `ss/`), final butler push, restore the page.
 
+## Decisions (Phase 0, from the code review)
+
+Findings: commodities are dead code (supply/demand throw, never called); factions/ASC only surface in the pedia; military vessels spawn but never act; MIDI files unused; `Equip(slot, Nothing)` throws; refuel/oxygen prices are hardcoded or unlabeled.
+
+- **Visuals:** text grid, closest to the original and the CoCo font.
+- **Saves:** new format in browser localStorage; old .NET JSON saves are not imported.
+- **Music:** deferred to post-launch; ship silent first.
+- **Unequip:** shipyard service only (with fee); the equipment screen stays read-only.
+- **Prices:** replace magic numbers (emergency refuel) and show prices on Refuel / Refill Oxygen. No decision needed.
+- **Commodities (new design):** keep, as tradeable cargo.
+  - Cargo is not hard-capped; weight costs extra fuel/oxygen per move.
+  - Supply/demand per trading post comes from planet traits (tech level, faction), plus drift over turns and from the player's own buying/selling.
+  - Open: unit/weight values, drift rates, which of Production/Metal/Oxygen/Fuel/Hype are goods vs. modifiers.
+- **Factions and patrols (new design):** keep, full scope.
+  - Station faction relationship (ASC distance model from README) affects prices and access.
+  - Military vessels move and pursue the player when their faction is hostile.
+  - Caught: fine/shakedown by default. Combat when provoked: standing past a threshold, resisting a shakedown, or the player attacking first.
+  - The .NET game has no combat, so this is new work. Open: combat model, ship stats, patrol AI, standing changes.
+
+## Suggested port order
+
+Core survival/trade loop first (fuel, oxygen, jools, salvage, trading, delivery missions, shipyard), then commodities, then faction effects, then patrols and combat last, since it is the largest and least defined.
+
 ## Open questions
 
-- Visual direction: text grid (closest to the original) or 1-bit tile view?
-- Is the existing save format worth preserving? (Probably not; new game, new format.)
-- Which systems are intentionally unfinished vs. broken?
+- Remaining design detail for commodities, patrols and combat (see Decisions).
+- Triage of the systems the code review rated "looks complete" still needs the owner's playtest.
