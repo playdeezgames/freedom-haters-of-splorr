@@ -12,12 +12,17 @@ Replace :: struct {
 	screen: Screen,
 }
 Pop :: struct {}
+// Throws away the whole stack and starts over from `screen`.
+Reset :: struct {
+	screen: Screen,
+}
 
 // nil means "stay on this screen".
 Transition :: union {
 	Push,
 	Replace,
 	Pop,
+	Reset,
 }
 
 Screen_Stack :: struct {
@@ -57,5 +62,10 @@ stack_apply :: proc(stack: ^Screen_Stack, transition: Transition) {
 		stack_push(stack, t.screen)
 	case Pop:
 		stack_pop(stack)
+	case Reset:
+		for stack.count > 0 {
+			stack_pop(stack)
+		}
+		stack_push(stack, t.screen)
 	}
 }

@@ -24,6 +24,7 @@ document.addEventListener("keydown", (e) => {
 odin.runWasm("game.wasm", null, {
 	shim: {
 		js_next_key: () => keyQueue.shift() ?? 0,
+		js_random_u32: () => crypto.getRandomValues(new Uint32Array(1))[0],
 		js_present: (ptr, width, height) => {
 			const pixels = new Uint8ClampedArray(mem.memory.buffer, ptr, width * height * 4);
 			ctx.putImageData(new ImageData(pixels, width, height), 0, 0);

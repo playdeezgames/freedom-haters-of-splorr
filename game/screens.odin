@@ -1,6 +1,7 @@
 package game
 
 import "core:slice"
+import "core:time"
 
 // Every screen the player can be on. Per-screen state lives in the screen's struct.
 
@@ -9,9 +10,10 @@ Screen :: union {
 	About,
 	Embark,
 	Generate,
+	Universe_Summary,
 }
 
-screen_draw :: proc(screen: ^Screen, tb: ^Text_Buffer) {
+screen_draw :: proc(screen: ^Screen, tb: ^Text_Buffer, session: ^Session) {
 	text_clear(tb)
 	switch &s in screen {
 	case Main_Menu:
@@ -21,11 +23,13 @@ screen_draw :: proc(screen: ^Screen, tb: ^Text_Buffer) {
 	case Embark:
 		embark_draw(&s, tb)
 	case Generate:
-		generate_draw(&s, tb)
+		generate_draw(&s, tb, session)
+	case Universe_Summary:
+		summary_draw(&s, tb, session)
 	}
 }
 
-screen_key :: proc(screen: ^Screen, key: Key) -> Transition {
+screen_key :: proc(screen: ^Screen, key: Key, session: ^Session) -> Transition {
 	switch &s in screen {
 	case Main_Menu:
 		return main_menu_key(&s, key)
@@ -34,7 +38,19 @@ screen_key :: proc(screen: ^Screen, key: Key) -> Transition {
 	case Embark:
 		return embark_key(&s, key)
 	case Generate:
-		return generate_key(&s, key)
+		return generate_key(&s, key, session)
+	case Universe_Summary:
+		return summary_key(&s, key, session)
+	}
+	return nil
+}
+
+// Timed work a screen does every frame, whether or not a key was pressed.
+screen_tick :: proc(screen: ^Screen, session: ^Session) -> Transition {
+	switch &s in screen {
+	case Generate:
+		return generate_tick(&s, session)
+	case Main_Menu, About, Embark, Universe_Summary:
 	}
 	return nil
 }
@@ -184,29 +200,99 @@ embark_key :: proc(s: ^Embark, key: Key) -> Transition {
 	return nil
 }
 
-// ---- Generate (placeholder until universe generation is ported) ----
+// ---- Generate ----
 
 Generate :: struct {
 	settings: Embark_Settings,
+	started:  bool,
 }
 
-generate_draw :: proc(s: ^Generate, tb: ^Text_Buffer) {
+PROGRESS_BAR_WIDTH :: 30
+
+generate_tick :: proc(s: ^Generate, session: ^Session) -> Transition {
+	if !s.started {
+		session_begin_generation(session, s.settings)
+		s.started = true
+	}
+	if !session.generating {
+		return nil
+	}
+	start := time.tick_now()
+	for generator_step(&session.generator) {
+		if time.tick_since(start) >= GENERATION_BUDGET {
+			break
+		}
+	}
+	if generator_done(&session.generator) {
+		session_finish_generation(session)
+		return Replace{Universe_Summary{}}
+	}
+	return nil
+}
+
+generate_draw :: proc(s: ^Generate, tb: ^Text_Buffer, session: ^Session) {
 	text_put_centered(tb, 3, "GENERATING", .Yellow)
-	text_put_centered(tb, 6, "(universe generation coming soon)", .Dark_Gray)
-	text_put(tb, 4, 10, "Age:", .Light_Gray)
-	text_put(tb, 16, 10, galactic_age_names[s.settings.age], .Cyan)
-	text_put(tb, 4, 12, "Density:", .Light_Gray)
-	text_put(tb, 16, 12, galactic_density_names[s.settings.density], .Cyan)
-	text_put(tb, 4, 14, "Wealth:", .Light_Gray)
-	text_put(tb, 16, 14, starting_wealth_names[s.settings.wealth], .Cyan)
-	text_put(tb, 4, 16, "Factions:", .Light_Gray)
-	text_put(tb, 16, 16, faction_count_names[s.settings.faction_count], .Cyan)
-	text_put_centered(tb, 22, "Press Escape", .Dark_Gray)
+	if !session.generating {
+		return
+	}
+	g := &session.generator
+	label, subject := generator_current(g)
+	text_put_centered(tb, 9, label, .Light_Gray)
+	text_put_centered(tb, 11, name_str(&subject), .Light_Cyan)
+
+	remaining := generator_steps_remaining(g)
+	total := g.steps_done + remaining
+	filled := PROGRESS_BAR_WIDTH * g.steps_done / max(total, 1)
+	left := (TEXT_COLUMNS - PROGRESS_BAR_WIDTH) / 2
+	for i in 0 ..< PROGRESS_BAR_WIDTH {
+		tb[15][left + i] = {' ', .Black, .Green if i < filled else .Dark_Gray}
+	}
+	text_put_int(tb, left, 17, g.steps_done, .White)
+	text_put(tb, left + 6, 17, "steps done", .Dark_Gray)
+	text_put_centered(tb, 22, "Escape cancels", .Dark_Gray)
 }
 
-generate_key :: proc(s: ^Generate, key: Key) -> Transition {
-	if key == KEY_ESCAPE || key == KEY_ENTER {
+generate_key :: proc(s: ^Generate, key: Key, session: ^Session) -> Transition {
+	if key == KEY_ESCAPE {
+		session_cancel_generation(session)
 		return Pop{}
+	}
+	return nil
+}
+
+// ---- Universe summary (stands in for the map until it is ported) ----
+
+Universe_Summary :: struct {}
+
+summary_draw :: proc(s: ^Universe_Summary, tb: ^Text_Buffer, session: ^Session) {
+	text_put_centered(tb, 1, "YER UNIVERSE", .Yellow)
+	if !session.in_play {
+		return
+	}
+	u := &session.universe
+	row := 4
+	stat :: proc(tb: ^Text_Buffer, row: ^int, label: string, value: int) {
+		text_put(tb, 6, row^, label, .Light_Gray)
+		text_put_int(tb, 24, row^, value, .White)
+		row^ += 2
+	}
+	stat(tb, &row, "Star systems", len(u.star_systems))
+	stat(tb, &row, "Planets", len(u.planets))
+	stat(tb, &row, "Satellites", len(u.satellites))
+	stat(tb, &row, "Factions", len(u.factions))
+	stat(tb, &row, "Jools", u.avatar.jools)
+	stat(tb, &row, "Fuel", u.avatar.fuel.current)
+	stat(tb, &row, "Oxygen", u.avatar.oxygen.current)
+	home := planet_get(u, u.avatar.home_planet)
+	text_put(tb, 6, row, "Home", .Light_Gray)
+	text_put(tb, 24, row, name_str(&home.name), planet_info[home.type].hue)
+	text_put_centered(tb, 23, "Press Escape", .Dark_Gray)
+}
+
+summary_key :: proc(s: ^Universe_Summary, key: Key, session: ^Session) -> Transition {
+	if key == KEY_ESCAPE {
+		session_end(session)
+		return Reset{Main_Menu{}}
 	}
 	return nil
 }

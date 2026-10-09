@@ -12,13 +12,19 @@ foreign shim {
 	js_next_key :: proc() -> i32 ---
 	// Blits an RGBA frame of the given size onto the canvas.
 	js_present :: proc(pixels: [^]u8, width, height: i32) ---
+	// 32 random bits from the browser's crypto source.
+	js_random_u32 :: proc() -> u32 ---
+}
+
+random_seed :: proc() -> u64 {
+	return u64(js_random_u32()) << 32 | u64(js_random_u32())
 }
 
 app: App
 frame: Frame
 
 main :: proc() {
-	app_init(&app)
+	app_init(&app, random_seed)
 }
 
 @(export)
@@ -30,6 +36,7 @@ step :: proc(dt: f64) -> (keep_going: bool) {
 		}
 		app_key(&app, key)
 	}
+	app_tick(&app)
 	render(&app.text, &frame)
 	js_present(raw_data(frame[:]), SCREEN_WIDTH, SCREEN_HEIGHT)
 	return true

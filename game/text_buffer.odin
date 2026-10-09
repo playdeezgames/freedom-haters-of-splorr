@@ -85,3 +85,23 @@ text_put :: proc(tb: ^Text_Buffer, col, row: int, s: string, fg: Hue = .Light_Gr
 text_put_centered :: proc(tb: ^Text_Buffer, row: int, s: string, fg: Hue = .Light_Gray, bg: Hue = .Black) {
 	text_put(tb, (TEXT_COLUMNS - len(s)) / 2, row, s, fg, bg)
 }
+
+// Writes a whole number (negatives get a leading '-') and returns the column after it.
+text_put_int :: proc(tb: ^Text_Buffer, col, row: int, n: int, fg: Hue = .Light_Gray, bg: Hue = .Black) -> int {
+	buf: [20]u8
+	i := len(buf)
+	v := abs(n)
+	for {
+		i -= 1
+		buf[i] = u8('0' + v % 10)
+		v /= 10
+		if v == 0 {
+			break
+		}
+	}
+	if n < 0 {
+		i -= 1
+		buf[i] = '-'
+	}
+	return text_put(tb, col, row, string(buf[i:]), fg, bg)
+}
