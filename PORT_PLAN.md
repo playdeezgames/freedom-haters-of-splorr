@@ -40,7 +40,7 @@ Play the .NET build and mark each system **keep / fix / cut** below. Claude can 
 - [ ] Window focus handling, turn/time clock if needed.
 - [ ] HTML button pad (d-pad + Enter/Esc) shown on touch devices, sending the same key codes as the keyboard.
 - [x] Font: keep the 8x8 ROM font (swap is a one-file change to `game/font.odin`).
-- [ ] Save/load via a localStorage bridge in `web/game.js`.
+- [ ] Save/load via a localStorage bridge in `web/game.js`. Also persist the Embark settings across sessions (the VB did; the port resets them each visit for now).
 - [ ] itch.io: confirm an `html5` channel set to "playable in browser" on the page.
 
 ## Phase 2 - Vertical slice

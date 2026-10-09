@@ -6,6 +6,8 @@ Menu_Result :: enum {
 	None,
 	Chosen,
 	Cancelled,
+	Previous, // Left: for rows whose value can be changed
+	Next, // Right
 }
 
 // Up/Down move the cursor (wrapping), Enter chooses it, Escape cancels.
@@ -25,6 +27,10 @@ menu_key :: proc(cursor: ^int, count: int, key: Key) -> Menu_Result {
 		}
 	case KEY_ESCAPE:
 		return .Cancelled
+	case KEY_LEFT:
+		return .Previous
+	case KEY_RIGHT:
+		return .Next
 	}
 	return .None
 }

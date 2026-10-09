@@ -34,7 +34,7 @@ replace_swaps_the_top :: proc(t: ^testing.T) {
 	stack: Screen_Stack
 	stack_push(&stack, Main_Menu{})
 	stack_push(&stack, About{})
-	stack_apply(&stack, Replace{Embark{}})
+	stack_apply(&stack, Replace{embark_new()})
 	testing.expect_value(t, stack.count, 2)
 	_, ok := stack_top(&stack)^.(Embark)
 	testing.expect(t, ok)
@@ -83,7 +83,7 @@ embark_cancel_pops :: proc(t: ^testing.T) {
 	app: App
 	app_init(&app)
 	app_key(&app, KEY_ENTER)
-	app_key(&app, KEY_DOWN) // Cancel
+	app_key(&app, KEY_UP) // wraps from Go to Cancel
 	app_key(&app, KEY_ENTER)
 	testing.expect_value(t, app.stack.count, 1)
 }
