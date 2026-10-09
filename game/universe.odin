@@ -29,6 +29,17 @@ name_make :: proc(s: string) -> (n: Name) {
 	return
 }
 
+// Concatenates the parts, truncating to NAME_CAPACITY bytes.
+name_join :: proc(parts: ..string) -> (n: Name) {
+	for part in parts {
+		room := NAME_CAPACITY - int(n.len)
+		take := min(len(part), room)
+		copy(n.buf[n.len:], part[:take])
+		n.len += u8(take)
+	}
+	return
+}
+
 // The result points into `n`; don't keep it past a copy or move of the Name.
 name_str :: proc(n: ^Name) -> string {
 	return string(n.buf[:n.len])
@@ -64,6 +75,7 @@ Planet :: struct {
 	values:          Group_Values,
 	star_system:     Star_System_Id,
 	faction:         Faction_Id,
+	actor:           Actor_Id, // its marker on the system map
 	satellite_count: int,
 }
 
@@ -149,6 +161,8 @@ Store :: struct {
 
 Avatar :: struct {
 	actor:         Actor_Id,
+	faction:       Faction_Id, // the SIGMO Federation
+	home_planet:   Planet_Id,
 	jools:         int,
 	jools_minimum: int, // bankrupt at or below this
 	fuel:          Store,
