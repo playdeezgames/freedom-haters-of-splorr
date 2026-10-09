@@ -112,7 +112,7 @@ Based on a read of the 12 VB generation steps (factions -> galaxy -> star system
 - [x] Shipyard: slots, install/uninstall/swap with fees, tech-level gate, per-unit levels, equipment view
 - [x] Fuel scoop at stars (free fuel, installed accessory)
 - [x] Delivery missions at the star dock (Errand Boy): offers, reputation, deposits, completion, abandon, Status screen. Destinations show the star system and galaxy position until the pedia is ported.
-- [ ] SPLORRPedia (factions, star systems, planets, satellites): the live game's way to find a planet by name
+- [x] SPLORRPedia: factions, star systems, planets, satellites with filtered lists, linked pages, true faction relations
 
 ## Decisions (shipyard)
 
@@ -125,6 +125,16 @@ Based on a read of the 12 VB generation steps (factions -> galaxy -> star system
 
 - Mission text shows the destination's star system and galaxy position (a stand-in for the pedia lookup); the full pedia is a later step.
 - A faction with a single planet gets no mission offers at its dock (the VB crashed there).
+
+## Decisions (pedia)
+
+- Faction relations use the true Euclidean distance with the README's thresholds (0-25 Friendly, 26-50 Neutral, 51+ Hostile). The live game's misplaced square root made nearly everyone Hostile. Intent (owner): the player's faction, SIGMO, is fascist and most factions should be hostile to it; this is satire. A test keeps every generated faction Hostile to SIGMO.
+- Pedia lists: sorted by name; type to filter (keyboard); Left/Right jumps to the previous/next first letter (touch pad). The pedia knows the whole galaxy from the start, like the live game.
+
+## Future ideas (owner)
+
+- **A fallible pedia:** the player starts with an out-of-date, erroneous pedia and can buy updates. The player's own faction (SIGMO) propagandizes its updates; other factions offer varying degrees of objectivity. The pedia pages are therefore built in one place (`pedia_pages.odin`) reading facts through that builder, so a "what the pedia believes" layer can later sit between the truth and the page.
+- Faction hostility driving patrols and combat (decided earlier; see the faction decisions above).
 
 ## Suggested port order
 

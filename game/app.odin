@@ -26,6 +26,7 @@ app_key :: proc(app: ^App, key: Key) {
 		stack_apply(&app.stack, screen_key(top, key, &app.session))
 	}
 	app_draw(app)
+	free_all(context.temp_allocator) // screens build their lists in it
 }
 
 // Called once per frame, after keys: lets the current screen do timed work such as generating a universe.
@@ -34,6 +35,7 @@ app_tick :: proc(app: ^App) {
 		stack_apply(&app.stack, screen_tick(top, &app.session))
 	}
 	app_draw(app)
+	free_all(context.temp_allocator)
 }
 
 app_draw :: proc(app: ^App) {

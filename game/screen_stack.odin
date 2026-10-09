@@ -3,7 +3,7 @@ package game
 // Screens replace the VB `IState.Run` chain: the stack holds the screens the player has navigated through,
 // only the top one is drawn and receives keys, and its on_key answers with a Transition.
 
-MAX_SCREENS :: 16
+MAX_SCREENS :: 32 // the pedia's links can chain several pages deep
 
 Push :: struct {
 	screen: Screen,

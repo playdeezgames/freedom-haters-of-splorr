@@ -132,6 +132,20 @@ group_value_names := [Group_Value]string {
 	.Martial_Honor           = "Martial Honor",
 }
 
+// What each value means, ported from the VB (ASCII only for the CP437 font).
+group_value_descriptions := [Group_Value]string {
+	.Unity_In_Diversity      = "Embracing the strength that comes from the unique contributions of all citizens, fostering a society where differences are celebrated as the foundation of collective progress.",
+	.Relentless_Innovation   = "Constantly pushing the boundaries of technology and thought, ensuring that society remains at the forefront of galactic advancement.",
+	.Sovereign_Freedom       = "Prioritizing the independence and autonomy of the planet and its citizens, free from external control or influence.",
+	.Sustainable_Harmony     = "Balancing technological growth with environmental stewardship, ensuring that the planet's resources are preserved for future generations.",
+	.Absolute_Order          = "Maintaining strict adherence to law and order as the cornerstone of a stable and prosperous society, where discipline is key to success.",
+	.Collective_Prosperity   = "Ensuring that the wealth and resources of the planet are shared equitably among all citizens, fostering a strong sense of community and mutual support.",
+	.Exploratory_Spirit      = "Encouraging exploration and discovery, both within the planet's own borders and beyond, as a means of growth and enlightenment.",
+	.Cultural_Preservation   = "Valuing the rich history, traditions, and identity of the planet, ensuring they are protected and passed down through generations.",
+	.Technocratic_Efficiency = "Prioritizing logical, data-driven decision-making, where experts and technology guide the path to progress and optimal governance.",
+	.Martial_Honor           = "Emphasizing the importance of strength, courage, and military readiness, with a focus on protecting the planet and its values from external threats.",
+}
+
 VALUE_ATTEMPTS :: 3
 
 // 1 to 3 distinct values.

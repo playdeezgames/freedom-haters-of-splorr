@@ -18,6 +18,10 @@ open_equipment :: proc(app: ^App) {
 	press(app, KEY_ENTER, KEY_DOWN, KEY_DOWN, KEY_ENTER)
 }
 
+open_pedia :: proc(app: ^App) {
+	press(app, KEY_ENTER, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER)
+}
+
 on_screen :: proc(app: ^App, $S: typeid) -> bool {
 	_, ok := stack_top(&app.stack)^.(S)
 	return ok
@@ -141,7 +145,7 @@ with_no_fuel_the_action_menu_offers_distress_and_it_costs_jools :: proc(t: ^test
 	testing.expect_value(t, u.turn, turn) // no fuel: no move, no turn
 	app_key(&app, KEY_ENTER) // action menu
 	testing.expect(t, on_screen(&app, Action_Menu))
-	press(&app, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Signal Distress, after Status, Inventory and Equipment
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Signal Distress, after Status, Inventory, Equipment and the pedia
 	testing.expect(t, on_screen(&app, Message))
 	testing.expect_value(t, u.avatar.fuel.current, MARK_I_CAPACITY)
 	testing.expect_value(t, u.avatar.jools, jools - MARK_I_CAPACITY * EMERGENCY_FUEL_PRICE)
@@ -157,7 +161,7 @@ with_fuel_the_action_menu_has_no_distress :: proc(t: ^testing.T) {
 	app_key(&app, KEY_ENTER)
 	testing.expect(t, on_screen(&app, Action_Menu))
 	jools := app.session.universe.avatar.jools
-	press(&app, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Status, Inventory, Equipment, then Cancel: no distress while there is fuel
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Status, Inventory, Equipment, SPLORRPedia, then Cancel: no distress while there is fuel
 	testing.expect(t, on_screen(&app, Navigation))
 	testing.expect_value(t, app.session.universe.avatar.jools, jools)
 }
@@ -190,7 +194,7 @@ an_unaffordable_refuel_is_bankruptcy :: proc(t: ^testing.T) {
 	u.avatar.fuel.current = 0
 	u.avatar.jools = u.avatar.jools_minimum + 5
 	app_key(&app, KEY_ENTER)
-	press(&app, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Signal Distress
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Signal Distress
 	app_key(&app, KEY_ENTER) // dismiss the message
 	app_tick(&app)
 	testing.expect(t, on_screen(&app, Game_Over))
@@ -1198,4 +1202,249 @@ status_shows_reserves_jools_and_standing :: proc(t: ^testing.T) {
 	testing.expect(t, contains(text, "Home Planet: "))
 	press(&app, KEY_ENTER)
 	testing.expect(t, on_screen(&app, Action_Menu))
+}
+
+// ---- the pedia ----
+
+// The text on screen as one string (rows run together), for finding words.
+screen_text :: proc(app: ^App) -> string {
+	@(static) all: [TEXT_ROWS * TEXT_COLUMNS]u8
+	for row, r in app.text {
+		for cell, c in row {
+			all[r * TEXT_COLUMNS + c] = cell.char
+		}
+	}
+	return string(all[:])
+}
+
+@(test)
+the_pedia_opens_from_the_action_menu_with_four_lists :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	open_pedia(&app)
+	testing.expect(t, on_screen(&app, Pedia_Menu))
+	for kind, i in Pedia_Kind {
+		app_key(&app, KEY_ENTER) // the list for the cursor's kind
+		list, ok := stack_top(&app.stack)^.(Pedia_List)
+		testing.expect(t, ok && list.kind == kind && list.scope == .All)
+		app_key(&app, KEY_ESCAPE)
+		app_key(&app, KEY_DOWN)
+		_ = i
+	}
+	app_key(&app, KEY_ENTER) // Back
+	testing.expect(t, on_screen(&app, Action_Menu))
+}
+
+@(test)
+typing_narrows_a_list_and_backspace_widens_it :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	open_pedia(&app)
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Planets
+	all := pedia_entries(u, .Planet, .All, 0, "")
+	defer delete(all)
+	name := pedia_name(u, .Planet, all[len(all) / 2])
+	for c in transmute([]u8)name[:3] {
+		app_key(&app, Key(c))
+	}
+	list, _ := stack_top(&app.stack)^.(Pedia_List)
+	testing.expect_value(t, pedia_list_filter(&list), name[:3])
+	narrowed := pedia_entries(u, .Planet, .All, 0, name[:3])
+	defer delete(narrowed)
+	testing.expect(t, len(narrowed) >= 1 && len(narrowed) < len(all))
+	app_draw(&app)
+	testing.expect(t, contains(screen_text(&app), name))
+	app_key(&app, KEY_BACKSPACE)
+	list, _ = stack_top(&app.stack)^.(Pedia_List)
+	testing.expect_value(t, list.filter_len, 2)
+	for _ in 0 ..< 5 {
+		app_key(&app, KEY_BACKSPACE) // more than there is: harmless
+	}
+	list, _ = stack_top(&app.stack)^.(Pedia_List)
+	testing.expect_value(t, list.filter_len, 0)
+}
+
+@(test)
+a_filter_with_no_match_says_so :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	open_pedia(&app)
+	press(&app, KEY_ENTER, Key('#'), Key('#')) // Factions, a filter nothing contains
+	app_draw(&app)
+	testing.expect(t, contains(screen_text(&app), "No matches."))
+	press(&app, KEY_ENTER) // nothing to open
+	testing.expect(t, on_screen(&app, Pedia_List))
+}
+
+@(test)
+left_and_right_jump_between_first_letters :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	open_pedia(&app)
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Planets
+	press(&app, KEY_RIGHT)
+	list, _ := stack_top(&app.stack)^.(Pedia_List)
+	all := pedia_entries(u, .Planet, .All, 0, "")
+	defer delete(all)
+	testing.expect(t, list.cursor > 0)
+	testing.expect(t, pedia_name(u, .Planet, all[list.cursor])[0] != pedia_name(u, .Planet, all[0])[0])
+	press(&app, KEY_LEFT)
+	list, _ = stack_top(&app.stack)^.(Pedia_List)
+	testing.expect_value(t, list.cursor, 0) // back to the top of the first letter
+}
+
+@(test)
+a_planet_page_shows_its_facts_and_links_go_where_they_say :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	open_pedia(&app)
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER, KEY_ENTER) // Planets, the first one
+	page, ok := stack_top(&app.stack)^.(Pedia_Page)
+	testing.expect(t, ok && page.kind == .Planet)
+	planet := &u.planets[page.id - 1]
+	text := screen_text(&app)
+	testing.expect(t, contains(text, name_str(&planet.name)))
+	testing.expect(t, contains(text, "Planet Type: "))
+	testing.expect(t, contains(text, "Tech Level: "))
+	testing.expect(t, contains(text, name_str(&u.star_systems[int(planet.star_system) - 1].name)))
+	testing.expect(t, contains(text, name_str(&u.factions[int(planet.faction) - 1].name)))
+
+	// menu: Satellites, Faction, Star System, Back
+	press(&app, KEY_DOWN, KEY_ENTER) // Faction
+	faction_page, is_faction := stack_top(&app.stack)^.(Pedia_Page)
+	testing.expect(t, is_faction && faction_page.kind == .Faction && faction_page.id == int(planet.faction))
+	press(&app, KEY_ESCAPE)
+	press(&app, KEY_DOWN, KEY_ENTER) // Star System (the cursor is still on Faction after coming back)
+	system_page, is_system := stack_top(&app.stack)^.(Pedia_Page)
+	testing.expect(t, is_system && system_page.kind == .Star_System && system_page.id == int(planet.star_system))
+}
+
+@(test)
+a_system_page_leads_to_its_planets_satellites_and_factions :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	open_pedia(&app)
+	press(&app, KEY_DOWN, KEY_ENTER, KEY_ENTER) // Star Systems, the first one
+	page, _ := stack_top(&app.stack)^.(Pedia_Page)
+	testing.expect_value(t, page.kind, Pedia_Kind.Star_System)
+	text := screen_text(&app)
+	testing.expect(t, contains(text, "Position: ("))
+	testing.expect(t, contains(text, "Factions Present:"))
+	for want, i in ([]Pedia_Kind{.Satellite, .Faction, .Planet}) {
+		press(&app, KEY_ENTER) // the link under the cursor
+		list, ok := stack_top(&app.stack)^.(Pedia_List)
+		testing.expect(t, ok && list.kind == want && list.scope == .Star_System && list.scope_id == page.id)
+		press(&app, KEY_ESCAPE, KEY_DOWN)
+		_ = i
+	}
+}
+
+@(test)
+a_faction_page_lists_relations_and_values :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	// open SIGMO's page through the list
+	open_pedia(&app)
+	press(&app, KEY_ENTER) // Factions
+	for c in transmute([]u8)string("SIGMO") {
+		app_key(&app, Key(c))
+	}
+	app_key(&app, KEY_ENTER)
+	page, ok := stack_top(&app.stack)^.(Pedia_Page)
+	testing.expect(t, ok && page.kind == .Faction && Faction_Id(page.id) == SIGMO_FACTION)
+	text := screen_text(&app)
+	testing.expect(t, contains(text, "SIGMO Federation"))
+	testing.expect(t, contains(text, "Authority: Acceptable(100)"))
+	testing.expect(t, contains(text, "Reputation: 100")) // you start liked by your own faction
+	// every other faction is listed, and each is Hostile to SIGMO; read the relations further down
+	d: Doc
+	pedia_page_doc(u, .Faction, page.id, &d)
+	hostile := 0
+	for i in 0 ..< d.count {
+		if contains(d.lines[i].text, ": Hostile") {
+			hostile += 1
+		}
+	}
+	testing.expect_value(t, hostile, len(u.factions) - 1)
+}
+
+@(test)
+long_pages_scroll_with_left_and_right :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	// a generated faction has values with long descriptions
+	long: int
+	for f, i in u.factions {
+		if card(f.values) >= 2 {
+			long = i + 1
+			break
+		}
+	}
+	testing.expect(t, long != 0)
+	d: Doc
+	pedia_page_doc(u, .Faction, long, &d)
+	testing.expect(t, d.count > PEDIA_TEXT_ROWS)
+	press(&app, KEY_ENTER, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER) // actions, pedia
+	app_key(&app, KEY_ENTER) // Factions
+	name := pedia_name(u, .Faction, long)
+	for c in transmute([]u8)name {
+		app_key(&app, Key(c))
+	}
+	app_key(&app, KEY_ENTER)
+	page, _ := stack_top(&app.stack)^.(Pedia_Page)
+	testing.expect_value(t, page.id, long)
+	press(&app, KEY_RIGHT)
+	page, _ = stack_top(&app.stack)^.(Pedia_Page)
+	testing.expect_value(t, page.scroll, PEDIA_TEXT_ROWS)
+	app_draw(&app)
+	for _ in 0 ..< 10 {
+		app_key(&app, KEY_RIGHT)
+	}
+	app_draw(&app)
+	page, _ = stack_top(&app.stack)^.(Pedia_Page)
+	testing.expect_value(t, page.scroll, d.count - PEDIA_TEXT_ROWS) // stops at the end
+	press(&app, KEY_LEFT, KEY_LEFT, KEY_LEFT, KEY_LEFT, KEY_LEFT, KEY_LEFT, KEY_LEFT)
+	app_draw(&app)
+	page, _ = stack_top(&app.stack)^.(Pedia_Page)
+	testing.expect_value(t, page.scroll, 0)
+}
+
+@(test)
+a_satellite_page_names_its_planet_system_and_faction :: proc(t: ^testing.T) {
+	u := generate(1)
+	defer universe_destroy(&u)
+	s := &u.satellites[0]
+	d: Doc
+	title, _ := pedia_page_doc(&u, .Satellite, 1, &d)
+	testing.expect_value(t, name_str(&title), name_str(&s.name))
+	text := ""
+	all: [4096]u8
+	n := 0
+	for i in 0 ..< d.count {
+		for c in transmute([]u8)d.lines[i].text {
+			all[n] = c
+			n += 1
+		}
+		all[n] = ' '
+		n += 1
+	}
+	text = string(all[:n])
+	planet := &u.planets[int(s.planet) - 1]
+	testing.expect(t, contains(text, name_str(&planet.name)))
+	testing.expect(t, contains(text, name_str(&u.star_systems[int(s.star_system) - 1].name)))
+	testing.expect(t, contains(text, name_str(&u.factions[int(planet.faction) - 1].name)))
 }

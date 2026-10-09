@@ -52,6 +52,7 @@ generator_start :: proc(seed: u64, settings: Embark_Settings) -> (g: Generator) 
 
 // Hands over the finished universe and frees everything else.
 generator_finish :: proc(g: ^Generator) -> Universe {
+	pedia_build(&g.universe)
 	u := g.universe
 	g.universe = {}
 	generator_destroy(g)

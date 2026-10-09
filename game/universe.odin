@@ -216,6 +216,7 @@ Universe :: struct {
 	maps:         [dynamic]Map,
 	actors:       [dynamic]Actor,
 	items:        [dynamic]Item,
+	pedia:        Pedia_Index,
 	galaxy:       Map_Id,
 	avatar:       Avatar,
 }
@@ -236,6 +237,7 @@ universe_destroy :: proc(u: ^Universe) {
 	delete(u.actors)
 	delete(u.items)
 	delete(u.avatar.inventory)
+	pedia_destroy(&u.pedia)
 	u^ = {}
 }
 

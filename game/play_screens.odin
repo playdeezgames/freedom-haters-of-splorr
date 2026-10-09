@@ -205,6 +205,7 @@ Action :: enum {
 	Status,
 	Inventory,
 	Equipment,
+	SPLORRPedia,
 	Signal_Distress,
 }
 
@@ -219,6 +220,8 @@ action_list :: proc(u: ^Universe) -> (list: [len(Action)]Action, count: int) {
 	list[count] = .Inventory
 	count += 1
 	list[count] = .Equipment
+	count += 1
+	list[count] = .SPLORRPedia
 	count += 1
 	if distress_available(u) {
 		list[count] = .Signal_Distress
@@ -235,6 +238,8 @@ action_label :: proc(a: Action) -> string {
 		return "Inventory"
 	case .Equipment:
 		return "Equipment"
+	case .SPLORRPedia:
+		return "SPLORRPedia"
 	case .Signal_Distress:
 		return "Signal Distress"
 	}
@@ -267,6 +272,8 @@ action_menu_key :: proc(s: ^Action_Menu, key: Key, session: ^Session) -> Transit
 			return Push{Inventory_Screen{}}
 		case .Equipment:
 			return Push{Equipment_Screen{}}
+		case .SPLORRPedia:
+			return Push{Pedia_Menu{}}
 		case .Signal_Distress:
 			added, price := avatar_signal_distress(u)
 			digits: [20]u8

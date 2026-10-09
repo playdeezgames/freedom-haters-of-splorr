@@ -76,6 +76,18 @@ screens_fit_the_forty_columns_with_the_longest_names :: proc(t: ^testing.T) {
 	u.avatar.jools = 123456
 
 	fits(t, "status", Status_Screen{}, &app)
+	fits(t, "pedia menu", Pedia_Menu{}, &app)
+	for kind in Pedia_Kind {
+		fits(t, "pedia list", Pedia_List{kind = kind}, &app)
+		fits(t, "pedia filtered list", Pedia_List{kind = kind, filter = {0 = 'P'}, filter_len = 1}, &app)
+		count := len(u.factions) if kind == .Faction else len(u.star_systems) if kind == .Star_System else len(u.planets) if kind == .Planet else len(u.satellites)
+		for id in 1 ..= min(count, 40) {
+			fits(t, "pedia page", Pedia_Page{kind = kind, id = id}, &app)
+		}
+	}
+	fits(t, "faction's planets", Pedia_List{kind = .Planet, scope = .Faction, scope_id = 2}, &app)
+	fits(t, "system's factions", Pedia_List{kind = .Faction, scope = .Star_System, scope_id = 1}, &app)
+	fits(t, "planet's satellites", Pedia_List{kind = .Satellite, scope = .Planet, scope_id = 1}, &app)
 	fits(t, "inventory", Inventory_Screen{}, &app)
 	fits(t, "equipment", Equipment_Screen{}, &app)
 	fits(t, "action menu", Action_Menu{}, &app)
