@@ -22,9 +22,13 @@ Hue :: enum u8 {
 	Light_Magenta,
 	Yellow,
 	White,
+	// Not CGA: the original planet types are told apart by these three.
+	Orange,
+	Pink,
+	Tan,
 }
 
-// CGA palette
+// CGA palette plus Orange, Pink and Tan
 palette := [Hue][3]u8 {
 	.Black         = {0x00, 0x00, 0x00},
 	.Blue          = {0x00, 0x00, 0xAA},
@@ -42,6 +46,9 @@ palette := [Hue][3]u8 {
 	.Light_Magenta = {0xFF, 0x55, 0xFF},
 	.Yellow        = {0xFF, 0xFF, 0x55},
 	.White         = {0xFF, 0xFF, 0xFF},
+	.Orange        = {0xFF, 0xAA, 0x00},
+	.Pink          = {0xFF, 0x88, 0xD0},
+	.Tan           = {0xD7, 0xAF, 0x87},
 }
 
 Cell :: struct {

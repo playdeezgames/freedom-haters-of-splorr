@@ -44,6 +44,11 @@ rng_pick :: proc(r: ^Rng, items: []$T) -> T {
 	return items[rng_below(r, len(items))]
 }
 
+// A uniformly chosen value of an enum.
+rng_enum :: proc(r: ^Rng, $E: typeid) -> E {
+	return E(rng_below(r, len(E)))
+}
+
 // Picks a key of an enum-indexed weight table, e.g. star_type_weights[.Young]. Zero weights are never
 // picked; at least one weight must be positive.
 rng_weighted :: proc(r: ^Rng, weights: [$E]int) -> E {
