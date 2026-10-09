@@ -2,14 +2,83 @@ html, body {
 	margin: 0;
 	height: 100%;
 	background: #000;
+	overscroll-behavior: none;
+}
+
+body {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	gap: 12px;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 canvas {
-	width: min(100vw, 160vh);
+	/* the biggest 8:5 picture that fits; leave room for the pad when it is showing */
+	--pad-room: 0px;
+	width: min(100vw, calc((100dvh - var(--pad-room)) * 1.6));
 	aspect-ratio: 8 / 5;
 	image-rendering: pixelated;
 	outline: none;
 }
+
+/* ---- on-screen pad: shown on touch screens, or once a touch is seen, or with ?pad ---- */
+
+#pad {
+	display: none;
+	width: min(100vw, 480px);
+	box-sizing: border-box;
+	padding: 0 16px 16px;
+	justify-content: space-between;
+	align-items: center;
+}
+
+@media (pointer: coarse) {
+	#pad { display: flex; }
+	canvas { --pad-room: 200px; }
+}
+
+body.pad #pad { display: flex; }
+body.pad canvas { --pad-room: 200px; }
+
+#pad button {
+	font: bold 20px monospace;
+	color: #fff;
+	background: #222;
+	border: 2px solid #888;
+	border-radius: 12px;
+	touch-action: manipulation;
+	-webkit-tap-highlight-color: transparent;
+}
+
+#pad button:active, #pad button.held {
+	background: #555;
+	border-color: #fff;
+}
+
+.dpad {
+	display: grid;
+	grid-template-columns: repeat(3, 64px);
+	grid-template-rows: repeat(3, 56px);
+	gap: 6px;
+}
+
+.dpad .up { grid-area: 1 / 2; }
+.dpad .left { grid-area: 2 / 1; }
+.dpad .right { grid-area: 2 / 3; }
+.dpad .down { grid-area: 3 / 2; }
+
+.actions {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.actions button {
+	width: 96px;
+	height: 64px;
+}
+
+.actions .ok { border-color: #5f5; }

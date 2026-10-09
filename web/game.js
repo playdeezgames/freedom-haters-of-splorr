@@ -21,6 +21,49 @@ document.addEventListener("keydown", (e) => {
 	keyQueue.push(code);
 });
 
+// ---- on-screen pad: the same keys, pressed with a finger or a mouse ----
+
+const REPEAT_DELAY_MS = 350; // holding a direction keeps moving
+const REPEAT_EVERY_MS = 110;
+
+function wirePad() {
+	if (new URLSearchParams(location.search).has("pad")) document.body.classList.add("pad");
+
+	for (const button of document.querySelectorAll("#pad button")) {
+		const code = NAMED_KEYS[button.dataset.key];
+		const repeats = button.parentElement.classList.contains("dpad");
+		let delay = null;
+		let timer = null;
+
+		const stop = () => {
+			clearTimeout(delay);
+			clearInterval(timer);
+			delay = timer = null;
+			button.classList.remove("held");
+		};
+		button.addEventListener("pointerdown", (e) => {
+			e.preventDefault();
+			if (e.pointerType === "touch") document.body.classList.add("pad");
+			keyQueue.push(code);
+			button.classList.add("held");
+			if (repeats) {
+				delay = setTimeout(() => {
+					timer = setInterval(() => keyQueue.push(code), REPEAT_EVERY_MS);
+				}, REPEAT_DELAY_MS);
+			}
+		});
+		for (const type of ["pointerup", "pointercancel", "pointerleave"]) {
+			button.addEventListener(type, stop);
+		}
+		button.addEventListener("contextmenu", (e) => e.preventDefault());
+	}
+	// the first touch anywhere reveals the pad, even on devices that report a fine pointer
+	document.addEventListener("pointerdown", (e) => {
+		if (e.pointerType === "touch") document.body.classList.add("pad");
+	}, { once: false });
+}
+wirePad();
+
 odin.runWasm("game.wasm", null, {
 	shim: {
 		js_next_key: () => keyQueue.shift() ?? 0,

@@ -38,7 +38,7 @@ Play the .NET build and mark each system **keep / fix / cut** below. Claude can 
 - [x] Platform layer: key queue in, 40x25 text grid -> RGBA frame -> canvas out; verified in the browser.
 - [x] `ship.sh`: build -> zip -> `butler push ...:html5` (written, not yet run; `shippit.sh` stays until the port is playable).
 - [ ] Window focus handling, turn/time clock if needed.
-- [ ] HTML button pad (d-pad + Enter/Esc) shown on touch devices, sending the same key codes as the keyboard.
+- [x] HTML button pad (d-pad + Enter/Esc) in `web/`: shown on touch screens (`pointer: coarse`), after any touch, or with `?pad`; holding a direction repeats after 350 ms every 110 ms. It pushes the same key codes as the keyboard, so game code is unaware of it. Verified with mouse clicks and the phone preset; hold-to-repeat and real touch are not yet verified on a device.
 - [x] Font: keep the 8x8 ROM font (swap is a one-file change to `game/font.odin`).
 - [ ] Save/load via a localStorage bridge in `web/game.js`. Also persist the Embark settings across sessions (the VB did; the port resets them each visit for now).
 - [ ] itch.io: the page exists (native v56 builds, no html5 channel). Pushing `html5` and marking it "playable in browser" is an owner action; decide whether to keep or retire the native downloads.

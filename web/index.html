@@ -2,13 +2,25 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<title>Freedom Haters of SPLORR!!</title>
 	<link rel="icon" href="data:,">
 	<link rel="stylesheet" href="app.css">
 </head>
 <body>
 	<canvas id="screen" width="320" height="200" tabindex="0"></canvas>
+	<div id="pad" aria-label="On-screen controls">
+		<div class="dpad">
+			<button data-key="ArrowUp" class="up" aria-label="Up">&#9650;</button>
+			<button data-key="ArrowLeft" class="left" aria-label="Left">&#9664;</button>
+			<button data-key="ArrowRight" class="right" aria-label="Right">&#9654;</button>
+			<button data-key="ArrowDown" class="down" aria-label="Down">&#9660;</button>
+		</div>
+		<div class="actions">
+			<button data-key="Escape" class="back">Esc</button>
+			<button data-key="Enter" class="ok">Enter</button>
+		</div>
+	</div>
 	<script src="odin.js"></script>
 	<script src="game.js"></script>
 </body>
