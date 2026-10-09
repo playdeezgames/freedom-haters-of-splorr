@@ -82,6 +82,15 @@ Findings: commodities are dead code (supply/demand throw, never called); faction
 - **RNG:** seeded, with the seed hidden from the player. Generation and events draw from it; saves store it; tests use fixed seeds.
 - **Phase 2 slice scope:** main menu, embark options, universe generation, flying the ship on the map spending fuel and oxygen, death/bankruptcy game over, save/load. No stations, salvage or trading yet.
 
+## Decisions (universe data model and generation)
+
+Based on a read of the 12 VB generation steps (factions -> galaxy -> star systems -> planet vicinity/orbit -> satellite orbit -> encounters -> nexus/wormholes -> factionize -> avatar). The VB nests maps: every station/planet/star system is an actor whose "interior" is another map, entered at a random edge cell. Sizes: Galaxy 63x63, Nexus 63x63, Star System 31x31, Star Vicinity 15x15, Planet Vicinity 15x15, Planet Orbit 11x11, Satellite Orbit 9x9.
+
+- **Map storage:** sparse. A map is dimensions plus the actors on it; empty cells are implicit void and edge cells are computed. (The VB allocated a location per cell, ~600,000 for a default galaxy.)
+- **Big bodies:** one actor with a square footprint (planet 3x3 in a vicinity and 5x5 in its orbit, satellite 3x3) instead of 9-25 section actors; bumping any footprint cell interacts with the body.
+- **Timing:** stepwise generation, one step per frame, with a progress screen showing the step name and count (as the VB does). Never freezes the tab.
+- **Slice scope:** places only: factions (SIGMO plus N random, with ASC stats and 3 values each), the galaxy of star systems (rejection-sampled with the density spacing, star type from the age weights, unique pronounceable names), star systems with star and planets (distance by star type, 2d6 max count, 15 planet types, tech level 2d6-2), planet vicinities with satellites, faction assignment, and the player ship (random void cell in the galaxy, SIGMO home planet, Mark I fuel and life support, wallet from the wealth roll). Not in this slice: the nexus and wormholes, stations, debris, military ships.
+
 ## Suggested port order
 
 Core survival/trade loop first (fuel, oxygen, jools, salvage, trading, delivery missions, shipyard), then commodities, then faction effects, then patrols and combat last, since it is the largest and least defined.
