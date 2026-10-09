@@ -15,6 +15,7 @@ GLYPH_PLANET_BODY :: u8(0xB2) // ▓
 GLYPH_SATELLITE_BODY :: u8(0xB1) // ▒
 GLYPH_STAR_DOCK :: u8(0x7F) // ⌂
 GLYPH_DEBRIS :: u8('*')
+GLYPH_TRADING_POST :: u8('$')
 
 direction_glyph := [Direction]u8 {
 	.North = 0x1E, // ▲
@@ -41,6 +42,8 @@ actor_glyph :: proc(u: ^Universe, a: Actor) -> (glyph: u8, hue: Hue) {
 		return GLYPH_STAR_DOCK, .Brown
 	case .Debris:
 		return GLYPH_DEBRIS, .Light_Gray
+	case .Trading_Post:
+		return GLYPH_TRADING_POST, .Cyan
 	}
 	return '?', .Light_Red
 }
@@ -217,6 +220,12 @@ draw_bump_info :: proc(tb: ^Text_Buffer, u: ^Universe, bump: Bump, top_row: int)
 			put_field_int(tb, 2, next(&row), "Tech Level", s.tech_level)
 			put_field(tb, 2, next(&row), "Planet", name_str(&planet_get(u, s.planet).name))
 			put_field(tb, 2, next(&row), "Star System", name_str(&star_system_get(u, s.star_system).name))
+		case .Trading_Post:
+			p := planet_get(u, a.planet)
+			c := text_put(tb, (TEXT_COLUMNS - len(name_str(&p.name)) - len(" Trading Post")) / 2, 1, name_str(&p.name), .Cyan)
+			text_put(tb, c, 1, " Trading Post", .Cyan)
+			put_field(tb, 2, next(&row), "Faction", name_str(&faction_get(u, p.faction).name))
+			put_field_int(tb, 2, next(&row), "Tech Level", p.tech_level)
 		case .Debris:
 			text_put_centered(tb, 1, "Debris", .Light_Gray)
 			text_put(tb, 2, next(&row), "A pile of junk floating", .Light_Gray)

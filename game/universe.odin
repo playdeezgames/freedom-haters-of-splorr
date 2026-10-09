@@ -124,6 +124,7 @@ Actor_Kind :: enum {
 	Planet, // on a planet vicinity map, at the center, 3x3
 	Planet_Body, // on a planet orbit map, at the center, 5x5
 	Star_Dock, // on a planet orbit map, one per planet
+	Trading_Post, // on a planet orbit map, one or two per planet
 	Satellite, // on a planet vicinity map
 	Satellite_Body, // on a satellite orbit map, at the center, 3x3
 	Debris, // on a star system map: a pile of scrap
@@ -189,6 +190,7 @@ Avatar :: struct {
 	inventory:     [dynamic]Item_Id,
 	actor:         Actor_Id,
 	accessories:   bit_set[Accessory],
+	auto_used:     Use_Result, // set when an oxygen tank was used automatically; the map screen reports it and clears it
 	facing:        Direction,
 	bumped:        Bump,
 	star_system:   Star_System_Id, // the system the avatar is in; none in the galaxy

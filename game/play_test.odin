@@ -569,7 +569,7 @@ stacks_group_by_kind_and_mark_in_first_seen_order :: proc(t: ^testing.T) {
 	testing.expect_value(t, stacks.stacks[1], Item_Stack{.Fuel_Supply, 2, 2})
 	testing.expect_value(t, stacks.stacks[2], Item_Stack{.Fuel_Supply, 3, 1})
 	n := item_stack_name(stacks.stacks[1])
-	testing.expect_value(t, name_str(&n), "StarLume Fuel Mark 2")
+	testing.expect_value(t, name_str(&n), "StarLume Fuel Mark II")
 }
 
 @(test)
@@ -593,6 +593,122 @@ item_data_matches_the_original :: proc(t: ^testing.T) {
 		testing.expect_value(t, item_price(life), 500 * mark)
 	}
 	n := item_name(item_new(.Life_Support, 1))
-	testing.expect_value(t, name_str(&n), "EterniVita Mark 1")
+	testing.expect_value(t, name_str(&n), "EterniVita Mark I")
 	testing.expect_value(t, item_tech_level(scrap), -1)
+}
+
+// ---- descriptions ----
+
+@(test)
+marks_are_named_with_roman_numerals_like_the_original :: proc(t: ^testing.T) {
+	want := [?]string{"I", "II", "III", "IV", "V"}
+	for numeral, i in want {
+		n := item_name(item_new(.Fuel_Supply, i + 1))
+		suffix := name_join("StarLume Fuel Mark ", numeral)
+		testing.expect_value(t, name_str(&n), name_str(&suffix))
+	}
+}
+
+@(test)
+every_item_has_a_description_the_font_can_draw :: proc(t: ^testing.T) {
+	for kind in Item_Kind {
+		marks := []int{0}
+		if item_info[kind].marked {
+			marks = []int{1, 2, 3, 4, 5}
+		}
+		for mark in marks {
+			item := item_new(kind, mark)
+			intro: Long_Text
+			d := item_description(item, &intro)
+			testing.expectf(t, d.count >= 1, "%v has no description", kind)
+			for i in 0 ..< d.count {
+				p := d.paragraphs[i]
+				testing.expectf(t, len(p) > 0, "%v paragraph %d is empty", kind, i)
+				for c in transmute([]u8)p {
+					testing.expectf(t, c >= 32 && c < 127, "%v paragraph %d has the unprintable byte %d", kind, i, c)
+				}
+			}
+		}
+	}
+}
+
+@(test)
+marked_descriptions_name_their_mark :: proc(t: ^testing.T) {
+	for mark in 1 ..= MAX_MARK {
+		intro: Long_Text
+		d := item_description(item_new(.Fuel_Supply, mark), &intro)
+		want := long_join("This is the StarLume Fuel Storage Solution System ", mark_numerals[mark], " from Celestial Energy Solutions.")
+		testing.expect_value(t, d.paragraphs[0], long_str(&want))
+		d = item_description(item_new(.Life_Support, mark), &intro)
+		want = long_join("This is the EterniVita ", mark_numerals[mark], " from NexGen Dynamics.")
+		testing.expect_value(t, d.paragraphs[0], long_str(&want))
+	}
+}
+
+@(test)
+the_longer_descriptions_match_the_original_paragraph_counts :: proc(t: ^testing.T) {
+	intro: Long_Text
+	counts := [Item_Kind]int {
+		.Scrap                    = 1,
+		.Oxygen_Tank              = 1,
+		.Fuel_Rod                 = 1,
+		.Fuel_Scoop               = 5,
+		.Atmospheric_Concentrator = 5,
+		.Fuel_Supply              = 5,
+		.Life_Support             = 5,
+	}
+	for kind in Item_Kind {
+		mark := 1 if item_info[kind].marked else 0
+		testing.expect_value(t, item_description(item_new(kind, mark), &intro).count, counts[kind])
+	}
+}
+
+@(test)
+item_stats_list_tech_level_and_capacity :: proc(t: ^testing.T) {
+	text :: proc(s: ^Item_Stats, i: int) -> string {
+		return long_str(&s.lines[i])
+	}
+	scoop := item_stats(item_new(.Fuel_Scoop))
+	testing.expect_value(t, scoop.count, 1)
+	testing.expect_value(t, text(&scoop, 0), "Tech Level: 7")
+	conc := item_stats(item_new(.Atmospheric_Concentrator))
+	testing.expect_value(t, text(&conc, 0), "Tech Level: 3")
+	fuel := item_stats(item_new(.Fuel_Supply, 3))
+	testing.expect_value(t, fuel.count, 2)
+	testing.expect_value(t, text(&fuel, 0), "Tech Level: 3")
+	testing.expect_value(t, text(&fuel, 1), "Maximum Fuel: 750")
+	life := item_stats(item_new(.Life_Support, 2))
+	testing.expect_value(t, text(&life, 1), "Maximum Oxygen: 500")
+	scrap := item_stats(item_new(.Scrap))
+	testing.expect_value(t, scrap.count, 1)
+	testing.expect_value(t, text(&scrap, 0), "Sells for: 1")
+	testing.expect_value(t, item_stats(item_new(.Oxygen_Tank)).count, 0)
+	testing.expect_value(t, item_stats(item_new(.Fuel_Rod)).count, 0)
+}
+
+@(test)
+long_descriptions_wrap_to_the_page_and_need_scrolling :: proc(t: ^testing.T) {
+	pl: Page_Lines
+	page_lines(item_new(.Fuel_Scoop), &pl)
+	testing.expect(t, pl.count > page_window(.Fuel_Scoop)) // does not fit: it scrolls
+	for i in 0 ..< pl.count {
+		testing.expectf(t, len(pl.lines[i]) <= PAGE_TEXT_WIDTH, "line %d is %d wide", i, len(pl.lines[i]))
+	}
+	page_lines(item_new(.Scrap), &pl)
+	testing.expect(t, pl.count <= page_window(.Scrap)) // short ones do not
+	// the numbers come last
+	testing.expect_value(t, pl.lines[pl.count - 1], "Sells for: 1")
+}
+
+@(test)
+text_wrap_next_splits_at_spaces :: proc(t: ^testing.T) {
+	line, rest := text_wrap_next("one two three", 7)
+	testing.expect_value(t, line, "one two")
+	testing.expect_value(t, rest, "three")
+	line, rest = text_wrap_next("short", 20)
+	testing.expect_value(t, line, "short")
+	testing.expect_value(t, rest, "")
+	line, rest = text_wrap_next("abcdefghij", 4)
+	testing.expect_value(t, line, "abcd")
+	testing.expect_value(t, rest, "efghij")
 }

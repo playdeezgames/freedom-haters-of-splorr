@@ -96,8 +96,14 @@ navigation_key :: proc(s: ^Navigation, key: Key, session: ^Session) -> Transitio
 // Anything that ends the game (running out of oxygen on a move, an emergency refuel you can't afford) is
 // noticed here, once the screens above have closed.
 navigation_tick :: proc(s: ^Navigation, session: ^Session) -> Transition {
-	if session.in_play && avatar_is_game_over(&session.universe) {
+	u := &session.universe
+	if session.in_play && avatar_is_game_over(u) {
 		return Replace{Game_Over{}}
+	}
+	if session.in_play && u.avatar.auto_used.used {
+		report := oxygen_report(u.avatar.auto_used)
+		u.avatar.auto_used = {}
+		return Push{report}
 	}
 	return nil
 }
@@ -163,6 +169,8 @@ interaction_key :: proc(s: ^Interaction_Screen, key: Key, session: ^Session) -> 
 			message_add(&m, .Light_Gray, "You find:")
 			message_add(&m, .Light_Gray, int_text(&digits, found), " Scrap")
 			return Replace{m}
+		case .Trade:
+			return Replace{Trader{post = u.avatar.bumped.(Actor_Id)}}
 		case .Gather_Atmosphere:
 			added := avatar_gather_atmosphere(u)
 			m := message_make(.Orange, "Atmosphere Gathered!")
@@ -271,6 +279,7 @@ inventory_draw :: proc(s: ^Inventory_Screen, tb: ^Text_Buffer, session: ^Session
 	labels: [MAX_STACKS + 1]string
 	names: [MAX_STACKS]Name
 	_, count := inventory_labels(&session.universe, &labels, &names)
+	s.cursor = min(s.cursor, count - 1)
 	text_put_centered(tb, 1, "INVENTORY", .Yellow)
 	if count == 1 {
 		text_put_centered(tb, 6, "Yer hold is empty.", .Dark_Gray)
@@ -297,31 +306,133 @@ inventory_key :: proc(s: ^Inventory_Screen, key: Key, session: ^Session) -> Tran
 }
 
 Item_Page :: struct {
-	kind:  Item_Kind,
-	mark:  int,
+	kind:   Item_Kind,
+	mark:   int,
+	count:  int,
+	cursor: int,
+	scroll: int,
+}
+
+item_usable :: proc(kind: Item_Kind) -> bool {
+	return kind == .Oxygen_Tank || kind == .Fuel_Rod
+}
+
+PAGE_TEXT_TOP :: 4
+PAGE_TEXT_WIDTH :: TEXT_COLUMNS - 5
+MAX_PAGE_LINES :: 96
+
+Page_Lines :: struct {
+	lines: [MAX_PAGE_LINES]string,
 	count: int,
+	// the composed pieces the lines point into
+	intro: Long_Text,
+	stats: Item_Stats,
+}
+
+// Wraps the description, a gap between paragraphs, then the numbers. `pl` must stay put while `lines` is used.
+page_lines :: proc(item: Item, pl: ^Page_Lines) {
+	add :: proc(pl: ^Page_Lines, line: string) {
+		if pl.count < MAX_PAGE_LINES {
+			pl.lines[pl.count] = line
+			pl.count += 1
+		}
+	}
+	pl.count = 0
+	d := item_description(item, &pl.intro)
+	for i in 0 ..< d.count {
+		rest := d.paragraphs[i]
+		for len(rest) > 0 {
+			line: string
+			line, rest = text_wrap_next(rest, PAGE_TEXT_WIDTH)
+			add(pl, line)
+		}
+		add(pl, "")
+	}
+	pl.stats = item_stats(item)
+	for i in 0 ..< pl.stats.count {
+		add(pl, long_str(&pl.stats.lines[i]))
+	}
+}
+
+// Rows of text that fit: fewer when there is a Use menu underneath.
+page_window :: proc(kind: Item_Kind) -> int {
+	return 11 if item_usable(kind) else 18
 }
 
 item_page_draw :: proc(s: ^Item_Page, tb: ^Text_Buffer, session: ^Session) {
 	item := Item{kind = s.kind, mark = s.mark}
 	name := item_name(item)
 	text_put_centered(tb, 1, name_str(&name), .Yellow)
-	put_field_int(tb, 2, 4, "You have", s.count)
-	row := 7
-	row += text_put_wrapped(tb, 2, row, TEXT_COLUMNS - 4, item_description(s.kind)) + 1
-	info := item_info[s.kind]
-	if info.offer > 0 {
-		put_field_int(tb, 2, row, "Sells for", info.offer)
-		row += 2
+	put_field_int(tb, 2, 2, "You have", s.count)
+
+	pl: Page_Lines
+	page_lines(item, &pl)
+	window := page_window(s.kind)
+	s.scroll = clamp(s.scroll, 0, max(0, pl.count - window))
+	for i in 0 ..< min(window, pl.count - s.scroll) {
+		text_put(tb, 2, PAGE_TEXT_TOP + i, pl.lines[s.scroll + i], .Light_Gray)
 	}
-	text_put_centered(tb, 22, "Press Enter", .Dark_Gray)
+	if s.scroll > 0 {
+		text_put(tb, TEXT_COLUMNS - 2, PAGE_TEXT_TOP, "\x1e", .Dark_Gray)
+	}
+	if s.scroll + window < pl.count {
+		text_put(tb, TEXT_COLUMNS - 2, PAGE_TEXT_TOP + window - 1, "\x1f", .Dark_Gray)
+	}
+	if item_usable(s.kind) {
+		labels := [?]string{"Use", "Back"}
+		menu_draw(tb, 17, labels[:], s.cursor)
+	} else if pl.count > window {
+		text_put_centered(tb, 23, "Up/Down: read   Enter: back", .Dark_Gray)
+	} else {
+		text_put_centered(tb, 23, "Press Enter", .Dark_Gray)
+	}
 }
 
 item_page_key :: proc(s: ^Item_Page, key: Key, session: ^Session) -> Transition {
-	if key == KEY_ENTER || key == KEY_ESCAPE || key == ' ' {
+	if !item_usable(s.kind) {
+		switch key {
+		case KEY_ENTER, KEY_ESCAPE, ' ':
+			return Pop{}
+		case KEY_UP:
+			s.scroll -= 1
+		case KEY_DOWN:
+			s.scroll += 1
+		case KEY_LEFT:
+			s.scroll -= page_window(s.kind)
+		case KEY_RIGHT:
+			s.scroll += page_window(s.kind)
+		}
+		return nil // draw clamps the scroll
+	}
+	switch menu_key(&s.cursor, 2, key) {
+	case .Chosen:
+		if s.cursor == 1 {
+			return Pop{}
+		}
+		u := &session.universe
+		digits: [20]u8
+		if s.kind == .Oxygen_Tank {
+			r := avatar_use_oxygen_tank(u)
+			return Replace{oxygen_report(r)}
+		}
+		r := avatar_use_fuel_rod(u)
+		m := message_make(.Orange, "Replenished Fuel!")
+		message_add(&m, .Light_Gray, "Added ", int_text(&digits, r.added), " fuel.")
+		message_add(&m, .Light_Gray, "Fuel is now ", int_text(&digits, r.percent), "%.")
+		return Replace{m}
+	case .Cancelled:
 		return Pop{}
+	case .None, .Previous, .Next:
 	}
 	return nil
+}
+
+oxygen_report :: proc(r: Use_Result) -> Message {
+	d1, d2: [20]u8
+	m := message_make(.Orange, "Replenished Oxygen!")
+	message_add(&m, .Light_Gray, "Added ", int_text(&d1, r.added), " O2.")
+	message_add(&m, .Light_Gray, "O2 is now ", int_text(&d2, r.percent), "%.")
+	return m
 }
 
 // ---- A message to dismiss ----

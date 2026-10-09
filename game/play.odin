@@ -27,6 +27,7 @@ Move_Outcome :: enum {
 avatar_do_turn :: proc(u: ^Universe) {
 	u.turn += 1
 	u.avatar.oxygen.current = max(u.avatar.oxygen.current - 1, u.avatar.oxygen.minimum)
+	avatar_auto_use_tank(u)
 }
 
 avatar_move :: proc(u: ^Universe, dir: Direction) -> Move_Outcome {
@@ -67,6 +68,7 @@ Interaction :: enum {
 	Refuel, // at a star dock, for jools
 	Gather_Atmosphere, // from a breathable planet, free
 	Salvage_Scrap, // from a pile of debris, free
+	Trade, // at a trading post
 }
 
 MAX_INTERACTIONS :: 3
@@ -112,6 +114,8 @@ interactions_for :: proc(u: ^Universe, bump: Bump) -> (list: [MAX_INTERACTIONS]I
 			}
 		case .Debris:
 			add(&list, &count, .Salvage_Scrap)
+		case .Trading_Post:
+			add(&list, &count, .Trade)
 		case .Planet_Body:
 			if .Atmospheric_Concentrator in u.avatar.accessories && planet_info[planet_get(u, a.planet).type].can_refill_oxygen && top_off_amount(u.avatar.oxygen) > 0 {
 				add(&list, &count, .Gather_Atmosphere)
@@ -151,6 +155,8 @@ interaction_label :: proc(u: ^Universe, kind: Interaction, bump: Bump, buf: ^Nam
 		return "Gather Atmosphere"
 	case .Salvage_Scrap:
 		return "Salvage Scrap"
+	case .Trade:
+		return "Trade"
 	case .Refill_Oxygen:
 		buf^ = name_join("Refill Oxygen (", int_text(&digits, oxygen_price(u)), " jools)")
 		return name_str(buf)
@@ -289,7 +295,7 @@ avatar_interact :: proc(u: ^Universe, kind: Interaction) -> Interaction_Result {
 			avatar_set_star_system(u, 0)
 		}
 		return .Done
-	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere, .Salvage_Scrap:
+	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere, .Salvage_Scrap, .Trade:
 		// these are transactions, not moves: see avatar_buy_oxygen and friends
 		return .Blocked
 	}

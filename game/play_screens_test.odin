@@ -434,3 +434,311 @@ debris_is_drawn_on_the_system_map :: proc(t: ^testing.T) {
 	cell := app.text[VIEW_TOP + VIEW_SIZE / 2 + d.y][VIEW_LEFT + VIEW_SIZE / 2 + d.x]
 	testing.expect_value(t, cell.char, GLYPH_DEBRIS)
 }
+
+// ---- the trading post ----
+
+// Into the first planet's orbit with the ship beside its first trading post; returns the key that bumps it.
+park_beside_the_post :: proc(t: ^testing.T, u: ^Universe) -> Key {
+	post := first_post(u)
+	actor_relocate(u, u.avatar.actor, actor_get(u, post).map_id, {1, 1})
+	dir := park_beside(t, u, post)
+	keys := [Direction]Key {
+		.North = KEY_UP,
+		.East  = KEY_RIGHT,
+		.South = KEY_DOWN,
+		.West  = KEY_LEFT,
+	}
+	return keys[dir]
+}
+
+press :: proc(app: ^App, keys: ..Key) {
+	for k in keys {
+		app_key(app, k)
+	}
+}
+
+// At the trader screen of the first post.
+at_the_trader :: proc(t: ^testing.T, app: ^App) {
+	app_on_the_map(t, app)
+	u := &app.session.universe
+	key := park_beside_the_post(t, u)
+	app_key(app, key)
+	testing.expect(t, on_screen(app, Interaction_Screen))
+	app_key(app, KEY_ENTER) // Trade
+	testing.expect(t, on_screen(app, Trader))
+}
+
+@(test)
+bumping_a_trading_post_opens_the_trader_and_leaving_goes_back :: proc(t: ^testing.T) {
+	app: App
+	at_the_trader(t, &app)
+	defer app_destroy(&app)
+	press(&app, KEY_DOWN, KEY_ENTER) // entries: Buy, Leave (no scrap to sell)
+	testing.expect(t, on_screen(&app, Navigation))
+}
+
+@(test)
+the_trader_offers_sell_only_when_you_have_scrap :: proc(t: ^testing.T) {
+	app: App
+	at_the_trader(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	press(&app, KEY_DOWN)
+	testing.expect_value(t, app.stack.count, 4)
+	press(&app, KEY_ESCAPE)
+	testing.expect(t, on_screen(&app, Navigation))
+
+	append(&u.avatar.inventory, item_add(u, item_new(.Scrap)))
+	key := park_beside_the_post(t, u)
+	press(&app, key, KEY_ENTER)
+	testing.expect(t, on_screen(&app, Trader))
+	press(&app, KEY_DOWN, KEY_ENTER) // Buy, Sell, Leave: this is Sell
+	testing.expect(t, on_screen(&app, Sell_List))
+}
+
+@(test)
+buying_one_thing_through_the_screens :: proc(t: ^testing.T) {
+	app: App
+	at_the_trader(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	jools := u.avatar.jools
+	press(&app, KEY_ENTER) // Buy
+	testing.expect(t, on_screen(&app, Buy_List))
+	press(&app, KEY_DOWN, KEY_ENTER) // first item: Oxygen Tank
+	testing.expect(t, on_screen(&app, Quantity))
+	press(&app, KEY_DOWN, KEY_ENTER) // One
+	testing.expect(t, on_screen(&app, Confirm_Trade))
+	press(&app, KEY_ENTER) // Yes
+	testing.expect(t, on_screen(&app, Buy_List)) // straight back to the list
+	testing.expect_value(t, inventory_count(u, .Oxygen_Tank), 1)
+	testing.expect_value(t, u.avatar.jools, jools - 5)
+}
+
+@(test)
+saying_no_buys_nothing :: proc(t: ^testing.T) {
+	app: App
+	at_the_trader(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	jools := u.avatar.jools
+	press(&app, KEY_ENTER, KEY_DOWN, KEY_ENTER, KEY_DOWN, KEY_ENTER) // Buy, Oxygen Tank, One
+	testing.expect(t, on_screen(&app, Confirm_Trade))
+	press(&app, KEY_DOWN, KEY_ENTER) // No
+	testing.expect(t, on_screen(&app, Quantity))
+	testing.expect_value(t, u.avatar.jools, jools)
+	testing.expect_value(t, len(u.avatar.inventory), 0)
+}
+
+@(test)
+a_specific_number_is_set_with_the_arrows :: proc(t: ^testing.T) {
+	app: App
+	at_the_trader(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	press(&app, KEY_ENTER, KEY_DOWN, KEY_ENTER) // Buy, Oxygen Tank
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER) // One, Maximum, Specific number...
+	n, ok := stack_top(&app.stack)^.(Number_Entry)
+	testing.expect(t, ok)
+	testing.expect_value(t, n.value, 1)
+	press(&app, KEY_UP, KEY_UP, KEY_UP, KEY_UP) // 5
+	press(&app, KEY_RIGHT) // 15
+	press(&app, KEY_LEFT, KEY_LEFT) // clamps at 1
+	n, _ = stack_top(&app.stack)^.(Number_Entry)
+	testing.expect_value(t, n.value, 1)
+	press(&app, KEY_UP, KEY_UP, KEY_UP, KEY_UP, KEY_ENTER) // 5
+	testing.expect(t, on_screen(&app, Confirm_Trade))
+	press(&app, KEY_ENTER) // Yes
+	testing.expect(t, on_screen(&app, Buy_List)) // three screens popped
+	testing.expect_value(t, inventory_count(u, .Oxygen_Tank), 5)
+}
+
+@(test)
+typed_digits_work_and_are_capped_at_what_you_can_afford :: proc(t: ^testing.T) {
+	app: App
+	at_the_trader(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	u.avatar.jools = 100 // 20 tanks
+	press(&app, KEY_ENTER, KEY_DOWN, KEY_ENTER)
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER)
+	press(&app, Key('1'), Key('2'))
+	n, _ := stack_top(&app.stack)^.(Number_Entry)
+	testing.expect_value(t, n.value, 12) // the first digit replaces the starting 1
+	press(&app, KEY_BACKSPACE)
+	n, _ = stack_top(&app.stack)^.(Number_Entry)
+	testing.expect_value(t, n.value, 1) // backspace drops the last digit
+	press(&app, Key('9'), Key('9'))
+	n, _ = stack_top(&app.stack)^.(Number_Entry)
+	testing.expect_value(t, n.value, 20) // 199 is more than 100 jools buys
+}
+
+@(test)
+you_cannot_pick_what_you_cannot_afford :: proc(t: ^testing.T) {
+	app: App
+	at_the_trader(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	u.avatar.jools = 3
+	press(&app, KEY_ENTER, KEY_DOWN, KEY_ENTER) // Buy, Oxygen Tank (5)
+	testing.expect(t, on_screen(&app, Quantity))
+	press(&app, KEY_DOWN, KEY_ENTER) // only Cancel exists, so this wraps to it
+	testing.expect(t, on_screen(&app, Buy_List))
+	testing.expect_value(t, len(u.avatar.inventory), 0)
+}
+
+@(test)
+selling_scrap_through_the_screens :: proc(t: ^testing.T) {
+	app: App
+	at_the_trader(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	press(&app, KEY_ESCAPE)
+	for _ in 0 ..< 10 {
+		append(&u.avatar.inventory, item_add(u, item_new(.Scrap)))
+	}
+	jools := u.avatar.jools
+	key := park_beside_the_post(t, u)
+	press(&app, key, KEY_ENTER)
+	press(&app, KEY_DOWN, KEY_ENTER) // Sell
+	testing.expect(t, on_screen(&app, Sell_List))
+	press(&app, KEY_DOWN, KEY_ENTER) // Scrap (x10) @1
+	testing.expect(t, on_screen(&app, Quantity))
+	// Cancel, One, All (10), Half (5), Specific
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // All
+	testing.expect(t, on_screen(&app, Confirm_Trade))
+	press(&app, KEY_ENTER) // Yes
+	testing.expect_value(t, inventory_count(u, .Scrap), 0)
+	testing.expect_value(t, u.avatar.jools, jools - 0 + 10 - 1 * 0 - 1 * 0) // the walk back cost no jools
+	app_tick(&app) // nothing left to list: back to the trader
+	testing.expect(t, on_screen(&app, Trader))
+}
+
+@(test)
+selling_half_keeps_the_rest :: proc(t: ^testing.T) {
+	app: App
+	at_the_trader(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	press(&app, KEY_ESCAPE)
+	for _ in 0 ..< 10 {
+		append(&u.avatar.inventory, item_add(u, item_new(.Scrap)))
+	}
+	key := park_beside_the_post(t, u)
+	press(&app, key, KEY_ENTER, KEY_DOWN, KEY_ENTER, KEY_DOWN, KEY_ENTER) // Sell, Scrap
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Half
+	press(&app, KEY_ENTER) // Yes
+	testing.expect_value(t, inventory_count(u, .Scrap), 5)
+	testing.expect(t, on_screen(&app, Sell_List))
+}
+
+@(test)
+using_a_tank_from_the_inventory :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	trade_buy(u, .Oxygen_Tank, 0, 1)
+	u.avatar.oxygen.current = 100
+	press(&app, KEY_ENTER, KEY_ENTER) // actions, Inventory
+	press(&app, KEY_DOWN, KEY_ENTER) // Oxygen Tank stack
+	page, ok := stack_top(&app.stack)^.(Item_Page)
+	testing.expect(t, ok && page.kind == .Oxygen_Tank)
+	press(&app, KEY_ENTER) // Use
+	testing.expect(t, on_screen(&app, Message))
+	testing.expect_value(t, u.avatar.oxygen.current, 200)
+	press(&app, KEY_ENTER)
+	testing.expect(t, on_screen(&app, Inventory_Screen))
+	// the tank became scrap, so the stack list changed and the cursor must still be valid
+	app_draw(&app)
+	testing.expect_value(t, inventory_count(u, .Scrap), 1)
+}
+
+@(test)
+using_a_fuel_rod_from_the_inventory :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	trade_buy(u, .Fuel_Rod, 0, 1)
+	u.avatar.fuel.current = 20
+	press(&app, KEY_ENTER, KEY_ENTER, KEY_DOWN, KEY_ENTER, KEY_ENTER) // actions, Inventory, Fuel Rod, Use
+	testing.expect_value(t, u.avatar.fuel.current, 120)
+	testing.expect_value(t, len(u.avatar.inventory), 0)
+	press(&app, KEY_ENTER)
+	app_draw(&app) // an empty hold after the rod is gone must still draw
+	testing.expect(t, on_screen(&app, Inventory_Screen))
+}
+
+@(test)
+a_tank_saves_you_from_suffocating_and_says_so :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	trade_buy(u, .Oxygen_Tank, 0, 1)
+	u.avatar.oxygen.current = 1
+	app_key(&app, KEY_RIGHT)
+	if on_screen(&app, Interaction_Screen) {
+		app_key(&app, KEY_ESCAPE)
+	}
+	app_tick(&app)
+	testing.expect(t, !on_screen(&app, Game_Over))
+	testing.expect(t, on_screen(&app, Message)) // "Replenished Oxygen!"
+	testing.expect(t, !u.avatar.auto_used.used) // reported once
+	testing.expect_value(t, u.avatar.oxygen.current, 100)
+	app_key(&app, KEY_ENTER)
+	testing.expect(t, on_screen(&app, Navigation))
+}
+
+@(test)
+a_long_item_page_scrolls_and_every_item_page_draws :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	append(&u.avatar.inventory, item_add(u, item_new(.Fuel_Scoop)))
+	press(&app, KEY_ENTER, KEY_ENTER, KEY_DOWN, KEY_ENTER) // actions, Inventory, first stack
+	page, ok := stack_top(&app.stack)^.(Item_Page)
+	testing.expect(t, ok && page.kind == .Fuel_Scoop)
+	app_draw(&app)
+	testing.expect_value(t, app.text[PAGE_TEXT_TOP][2].char, u8('T')) // "Tap into the Power..."
+	testing.expect_value(t, app.text[PAGE_TEXT_TOP + page_window(.Fuel_Scoop) - 1][TEXT_COLUMNS - 2].char, u8(0x1F)) // more below
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_DOWN)
+	page, _ = stack_top(&app.stack)^.(Item_Page)
+	testing.expect_value(t, page.scroll, 3)
+	testing.expect_value(t, app.text[PAGE_TEXT_TOP][TEXT_COLUMNS - 2].char, u8(0x1E)) // more above
+	for _ in 0 ..< 200 {
+		press(&app, KEY_DOWN)
+	}
+	page, _ = stack_top(&app.stack)^.(Item_Page)
+	pl: Page_Lines
+	page_lines(item_new(.Fuel_Scoop), &pl)
+	testing.expect_value(t, page.scroll, pl.count - page_window(.Fuel_Scoop)) // clamped at the end
+	press(&app, KEY_UP, KEY_UP, KEY_ENTER)
+	testing.expect(t, on_screen(&app, Inventory_Screen))
+}
+
+@(test)
+every_kind_of_item_page_can_be_drawn :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	for kind in Item_Kind {
+		marks := []int{0}
+		if item_info[kind].marked {
+			marks = []int{1, 2, 3, 4, 5}
+		}
+		for mark in marks {
+			tb: Text_Buffer
+			text_clear(&tb)
+			page := Item_Page{kind = kind, mark = mark, count = 1}
+			item_page_draw(&page, &tb, &app.session)
+			title := 0
+			for cell in tb[1] {
+				if cell.char != ' ' {title += 1}
+			}
+			testing.expect(t, title >= len("Scrap")) // a title
+		}
+	}
+}

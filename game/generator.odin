@@ -323,6 +323,9 @@ step_planet :: proc(g: ^Generator, id: Planet_Id) {
 	actor_get(u, body).interior = orbit
 	actor_add(u, orbit, {kind = .Planet_Body, pos = map_center(.Planet_Orbit), size = 5, star_system = system, planet = id})
 	add_star_dock(g, id, orbit)
+	for _ in 0 ..< max(1, dice_roll(&u.rng, TRADING_POST_COUNT_DICE)) {
+		add_trading_post(g, id, orbit)
+	}
 
 	// satellites, kept away from the planet's 3x3 block and each other
 	size := map_sizes[.Planet_Vicinity]
@@ -346,6 +349,21 @@ step_planet :: proc(g: ^Generator, id: Planet_Id) {
 	}
 	planet_get(u, id).satellite_count = satellite_count
 	star_system_get(u, system).satellite_count += satellite_count
+}
+
+// A trading post: at least one in every planet's orbit, sometimes two.
+@(private = "file")
+add_trading_post :: proc(g: ^Generator, planet: Planet_Id, orbit: Map_Id) {
+	u := &g.universe
+	size := map_sizes[.Planet_Orbit]
+	for _ in 0 ..< MAX_PLACEMENT_TRIES {
+		pos := [2]int{rng_range(&u.rng, 1, size.x - 2), rng_range(&u.rng, 1, size.y - 2)}
+		if cell_is_free(u, orbit, pos) {
+			actor_add(u, orbit, {kind = .Trading_Post, pos = pos, star_system = planet_get(u, planet).star_system, planet = planet})
+			return
+		}
+	}
+	panic("no room for a trading post")
 }
 
 // One Star Dock in every planet's orbit, on any open cell inside the border.

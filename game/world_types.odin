@@ -68,6 +68,7 @@ planet_info := [Planet_Type]Planet_Info {
 }
 
 MINIMUM_SATELLITE_DISTANCE :: 5
+TRADING_POST_COUNT_DICE :: "3d6/8" // per planet orbit; the original then takes at least 1
 DEBRIS_COUNT_DICE :: "12d6/6" // piles per star system, 2..12
 DEBRIS_LOOT_DICE :: "4d6" // scrap per pile, 4..24
 SATELLITE_COUNT_DICE :: "2d3+-2d1" // 0..4 weighted 1,2,3,2,1, as in the VB table

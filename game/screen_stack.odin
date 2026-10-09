@@ -12,6 +12,10 @@ Replace :: struct {
 	screen: Screen,
 }
 Pop :: struct {}
+// Pops several screens at once, e.g. back to a list after a purchase.
+Pop_Count :: struct {
+	count: int,
+}
 // Throws away the whole stack and starts over from `screen`.
 Reset :: struct {
 	screen: Screen,
@@ -22,6 +26,7 @@ Transition :: union {
 	Push,
 	Replace,
 	Pop,
+	Pop_Count,
 	Reset,
 }
 
@@ -62,6 +67,10 @@ stack_apply :: proc(stack: ^Screen_Stack, transition: Transition) {
 		stack_push(stack, t.screen)
 	case Pop:
 		stack_pop(stack)
+	case Pop_Count:
+		for _ in 0 ..< t.count {
+			stack_pop(stack)
+		}
 	case Reset:
 		for stack.count > 0 {
 			stack_pop(stack)

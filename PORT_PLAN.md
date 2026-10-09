@@ -107,8 +107,8 @@ Based on a read of the 12 VB generation steps (factions -> galaxy -> star system
 
 - [x] Items (individual records), inventory screen with stacks and item pages
 - [x] Debris (12d6/6 per system, 4d6 scrap each) and salvage
-- [ ] Trading post: Buy list (items by planet tech level at fixed prices: oxygen tank 5, fuel rod 20, concentrator 5000, ...), Sell offers (scrap at 1), quantity and confirm screens; 3d6/8 per orbit, at least 1
-- [ ] Using oxygen tanks (+100 oxygen, auto-used when oxygen runs out, leaves scrap) and fuel rods (+100 fuel)
+- [x] Trading post: buy list by planet tech level, sell scrap at 1, quantity / number / confirm screens; 1-2 per orbit
+- [x] Using oxygen tanks (+100 oxygen, auto-used when oxygen would run out, leaves scrap) and fuel rods (+100 fuel)
 - [ ] Shipyard: install/uninstall equipment with fees, equipment slots, marks
 - [ ] Fuel scoop at stars; delivery missions at the star dock
 

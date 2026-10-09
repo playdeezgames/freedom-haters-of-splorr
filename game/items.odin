@@ -54,9 +54,11 @@ item_name :: proc(item: Item) -> Name {
 	if !info.marked {
 		return name_make(info.name)
 	}
-	digits: [20]u8
-	return name_join(info.name, " Mark ", int_text(&digits, item.mark))
+	return name_join(info.name, " Mark ", mark_numerals[item.mark])
 }
+
+// The VB names marks with roman numerals.
+mark_numerals := [MAX_MARK + 1]string{"", "I", "II", "III", "IV", "V"}
 
 item_price :: proc(item: Item) -> int {
 	info := item_info[item.kind]
@@ -123,16 +125,96 @@ item_stack_name :: proc(s: Item_Stack) -> Name {
 	return item_name(Item{kind = s.kind, mark = s.mark})
 }
 
-item_description :: proc(kind: Item_Kind) -> string {
-	switch kind {
-	case .Scrap:
-		return "This item is a pile of junk that was floating around in space."
-	case .Oxygen_Tank:
-		return "This item can be used to replenish a vessel's oxygen."
-	case .Fuel_Rod:
-		return "You ram this into yer engine in order to fill it with fuel. No, there is nothing sexual about this. Not at all."
-	case .Fuel_Scoop, .Atmospheric_Concentrator, .Fuel_Supply, .Life_Support:
-		return ""
+// ---- Descriptions, ported from the VB. The font is CP437, so dashes and apostrophes are plain ASCII. ----
+
+MAX_PARAGRAPHS :: 8
+
+Description :: struct {
+	paragraphs: [MAX_PARAGRAPHS]string,
+	count:      int,
+}
+
+@(private = "file")
+description_of :: proc(texts: ..string) -> (d: Description) {
+	for t in texts {
+		d.paragraphs[d.count] = t
+		d.count += 1
 	}
-	return ""
+	return
+}
+
+// The paragraphs for an item. Marked kinds start with a line naming the mark, composed into `intro`.
+item_description :: proc(item: Item, intro: ^Long_Text) -> Description {
+	switch item.kind {
+	case .Scrap:
+		return description_of("This item is a pile of junk that was floating around in space.")
+	case .Oxygen_Tank:
+		return description_of("This item can be used to replenish a vessel's oxygen.")
+	case .Fuel_Rod:
+		return description_of("You ram this into yer engine in order to fill it with fuel. No, there is nothing sexual about this. Not at all.")
+	case .Fuel_Scoop:
+		return description_of(
+			"Tap into the Power of the Stars with the SolarForge Extractor by HeliosDrive Industries",
+			"Why settle for conventional fuel sources when you can harness the raw, untamed power of a star? The SolarForge Extractor is your gateway to limitless energy, revolutionizing the way you refuel in the vast expanse of space.",
+			"Brought to you by HeliosDrive Industries, the pioneers of stellar energy technology, the SolarForge Extractor is designed for the boldest explorers and the most advanced fleets. This state-of-the-art device captures and condenses stellar energy directly from a star's core, transforming it into a stable, high-density fuel ready for storage in your fuel systems.",
+			"Compact, efficient, and incredibly powerful, the SolarForge Extractor allows you to refuel your vessels with ease, no matter where your adventures take you. Whether you're on the fringes of the galaxy or orbiting a distant sun, the SolarForge Extractor ensures you never run out of the energy you need to keep moving forward.",
+			"With HeliosDrive Industries, you're not just exploring the stars - you're harnessing them. Equip your fleet with the SolarForge Extractor and experience the true power of the cosmos.",
+		)
+	case .Atmospheric_Concentrator:
+		return description_of(
+			"Discover the Future of Planetary Exploration with the AeroSynth Recharger by StarBreathe Technologies",
+			"Imagine landing on a new world, breathing in the untouched air, and knowing that your life support system will never run out of fresh, breathable atmosphere. With the AeroSynth Recharger, this is no longer a dream - it's your new reality.",
+			"The AeroSynth Recharger is a cutting-edge device engineered by the brilliant minds at StarBreathe Technologies. Designed for explorers, colonists, and spacefarers, the AeroSynth Recharger effortlessly extracts and refines atmospheric elements from any planet, converting them into life-sustaining air for your entire crew.",
+			"Compact yet powerful, the AeroSynth Recharger seamlessly integrates with your existing life support systems, recharging them with the perfect blend of gases tailored to human needs. Whether you're on a long-term mission or a short reconnaissance, the AeroSynth Recharger ensures that every breath you take is fresh, clean, and revitalizing.",
+			"With StarBreathe Technologies, exploration knows no bounds. Trust the AeroSynth Recharger to keep you breathing easy, wherever your journey takes you.",
+		)
+	case .Fuel_Supply:
+		intro^ = long_join("This is the StarLume Fuel Storage Solution System ", mark_numerals[item.mark], " from Celestial Energy Solutions.")
+		return description_of(
+			long_str(intro),
+			"Embark on interstellar journeys with StarLume Fuel Storage Solution System by Celestial Energy Solutions, the foremost name in propulsion innovation.",
+			"Crafted from rare celestial metals and refined through cutting-edge fusion technology, StarLume Fuel Storage Solution System guarantees unmatched efficiency and reliability for your spacecraft.",
+			"Whether you're charting new frontiers or navigating through asteroid belts, trust Celestial Energy Solutions to propel you farther and faster than ever before.",
+			"Reach for the stars with StarLume Fuel Storage Solution System - where limitless possibilities await beyond every horizon.",
+		)
+	case .Life_Support:
+		intro^ = long_join("This is the EterniVita ", mark_numerals[item.mark], " from NexGen Dynamics.")
+		return description_of(
+			long_str(intro),
+			"Step into the future with EterniVita, the pinnacle of life support technology.",
+			"Engineered to ensure uninterrupted vitality and resilience, EterniVita redefines safety and peace of mind in the most challenging environments.",
+			"With its cutting-edge biostasis chambers and adaptive AI monitoring, EterniVita stands as the ultimate safeguard for explorers, colonists, and spacefarers alike.",
+			"Embrace limitless possibilities with EterniVita - where every breath guarantees a secure tomorrow, today.",
+		)
+	}
+	return {}
+}
+
+// The lines of numbers that follow the description, as the VB listed them: tech level, then capacity.
+MAX_STATS :: 3
+
+Item_Stats :: struct {
+	lines: [MAX_STATS]Long_Text,
+	count: int,
+}
+
+item_stats :: proc(item: Item) -> (stats: Item_Stats) {
+	add :: proc(stats: ^Item_Stats, parts: ..string) {
+		stats.lines[stats.count] = long_join(..parts)
+		stats.count += 1
+	}
+	d1: [20]u8
+	if tech := item_tech_level(item); tech >= 0 && item.kind != .Scrap && item.kind != .Oxygen_Tank && item.kind != .Fuel_Rod {
+		add(&stats, "Tech Level: ", int_text(&d1, tech))
+	}
+	d2: [20]u8
+	#partial switch item.kind {
+	case .Fuel_Supply:
+		add(&stats, "Maximum Fuel: ", int_text(&d2, CAPACITY_PER_MARK * item.mark))
+	case .Life_Support:
+		add(&stats, "Maximum Oxygen: ", int_text(&d2, CAPACITY_PER_MARK * item.mark))
+	case .Scrap:
+		add(&stats, "Sells for: ", int_text(&d2, item_info[.Scrap].offer))
+	}
+	return
 }
