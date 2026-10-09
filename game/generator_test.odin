@@ -342,7 +342,7 @@ progress_runs_down_to_done :: proc(t: ^testing.T) {
 	defer generator_destroy(&g)
 	label, _ := generator_current(&g)
 	testing.expect_value(t, label, "Factions")
-	testing.expect_value(t, generator_steps_remaining(&g), 3)
+	testing.expect_value(t, generator_steps_remaining(&g), 4)
 	generator_step(&g)
 	label, _ = generator_current(&g)
 	testing.expect_value(t, label, "Galaxy")
@@ -373,7 +373,7 @@ steps_run_in_the_original_order :: proc(t: ^testing.T) {
 		}
 		generator_step(&g)
 	}
-	want := []string{"Factions", "Galaxy", "Star system", "Planet", "Dividing up the galaxy", "Yer ship"}
+	want := []string{"Factions", "Galaxy", "Star system", "Planet", "Dividing up the galaxy", "Errands", "Yer ship"}
 	testing.expect_value(t, len(order), len(want))
 	for w, i in want {
 		testing.expect_value(t, order[i], w)

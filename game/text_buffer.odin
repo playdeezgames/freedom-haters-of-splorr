@@ -67,15 +67,24 @@ text_clear :: proc(tb: ^Text_Buffer, bg: Hue = .Black) {
 	}
 }
 
-// Writes `s` starting at (col,row); clips at the right edge. Returns the column after the last character.
+// How many characters have been dropped for falling off the screen. Nothing reads it in play; the tests
+// draw every screen with the longest names and check that it stays put. Per thread, so tests running side
+// by side don't count each other's drawing.
+@(thread_local)
+text_clipped: int
+
+// Writes `s` starting at (col,row); clips at the edges. Returns the column after the last character.
 text_put :: proc(tb: ^Text_Buffer, col, row: int, s: string, fg: Hue = .Light_Gray, bg: Hue = .Black) -> int {
 	if row < 0 || row >= TEXT_ROWS {
+		text_clipped += len(s)
 		return col
 	}
 	c := col
 	for i in 0 ..< len(s) {
 		if c >= 0 && c < TEXT_COLUMNS {
 			tb[row][c] = {s[i], fg, bg}
+		} else {
+			text_clipped += 1
 		}
 		c += 1
 	}

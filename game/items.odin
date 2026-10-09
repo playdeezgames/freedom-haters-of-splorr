@@ -14,14 +14,16 @@ Item_Kind :: enum {
 	Atmospheric_Concentrator,
 	Fuel_Supply, // marked: Mark I..V
 	Life_Support, // marked: Mark I..V
+	Delivery, // something to take to another planet; carries a Mission
 }
 
 MAX_MARK :: 5
 
 Item :: struct {
-	kind:  Item_Kind,
-	mark:  int, // 1..MAX_MARK for marked kinds, else 0
-	level: int, // what it holds: oxygen in a tank, fuel in a rod, or what a removed supply still has in it
+	kind:    Item_Kind,
+	mark:    int, // 1..MAX_MARK for marked kinds, else 0
+	level:   int, // what it holds: oxygen in a tank, fuel in a rod, or what a removed supply still has in it
+	mission: Mission, // deliveries only
 }
 
 Item_Info :: struct {
@@ -42,6 +44,7 @@ item_info := [Item_Kind]Item_Info {
 	.Atmospheric_Concentrator = {name = "AeroSynth Recharger", price = 5000, tech_level = 3, install_fee = 25, uninstall_fee = 15},
 	.Fuel_Supply              = {name = "StarLume Fuel", price = 500, tech_level = 0, install_fee = 10, uninstall_fee = 5, marked = true},
 	.Life_Support             = {name = "EterniVita", price = 500, tech_level = 0, install_fee = 10, uninstall_fee = 5, marked = true},
+	.Delivery                 = {name = "Delivery", tech_level = -1},
 }
 
 // What a full tank of a new tank/rod holds, and a supply's capacity per mark.
@@ -109,6 +112,7 @@ Item_Stack :: struct {
 	kind:  Item_Kind,
 	mark:  int,
 	count: int,
+	item:  Item_Id, // deliveries are each their own stack; this is which one
 }
 
 MAX_STACKS :: 64
@@ -124,6 +128,9 @@ inventory_stacks :: proc(u: ^Universe) -> (result: Stacks) {
 		item := item_get(u, id)^
 		found := false
 		for i in 0 ..< result.count {
+			if item.kind == .Delivery {
+				break // every delivery is different
+			}
 			s := &result.stacks[i]
 			if s.kind == item.kind && s.mark == item.mark {
 				s.count += 1
@@ -132,14 +139,17 @@ inventory_stacks :: proc(u: ^Universe) -> (result: Stacks) {
 			}
 		}
 		if !found && result.count < MAX_STACKS {
-			result.stacks[result.count] = {item.kind, item.mark, 1}
+			result.stacks[result.count] = {item.kind, item.mark, 1, id if item.kind == .Delivery else 0}
 			result.count += 1
 		}
 	}
 	return
 }
 
-item_stack_name :: proc(s: Item_Stack) -> Name {
+item_stack_name :: proc(u: ^Universe, s: Item_Stack) -> Name {
+	if s.kind == .Delivery {
+		return name_make(mission_nouns[item_get(u, s.item).mission.noun])
+	}
 	return item_name(Item{kind = s.kind, mark = s.mark})
 }
 
@@ -195,6 +205,8 @@ item_description :: proc(item: Item, intro: ^Long_Text) -> Description {
 			"Whether you're charting new frontiers or navigating through asteroid belts, trust Celestial Energy Solutions to propel you farther and faster than ever before.",
 			"Reach for the stars with StarLume Fuel Storage Solution System - where limitless possibilities await beyond every horizon.",
 		)
+	case .Delivery:
+		return description_of("A thing to be delivered.")
 	case .Life_Support:
 		intro^ = long_join("This is the EterniVita Mark ", mark_numerals[item.mark], " from NexGen Dynamics.")
 		return description_of(

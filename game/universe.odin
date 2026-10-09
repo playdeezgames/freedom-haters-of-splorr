@@ -55,6 +55,7 @@ Faction :: struct {
 	minimum_planets: int, // planets guaranteed when the galaxy is divided up
 	planet_count:    int,
 	values:          Group_Values,
+	reputation:      int, // the avatar's standing with this faction
 }
 
 Star_System :: struct {
@@ -67,6 +68,7 @@ Star_System :: struct {
 	satellite_count: int,
 	visit_count:     int,
 	scrap:           int, // debris piles still to be salvaged
+	reputation:      int, // the avatar's standing in this system
 }
 
 Planet :: struct {
@@ -78,6 +80,7 @@ Planet :: struct {
 	faction:         Faction_Id,
 	actor:           Actor_Id, // its marker on the system map
 	satellite_count: int,
+	reputation:      int, // the avatar's standing on this planet
 }
 
 Satellite :: struct {
@@ -141,6 +144,7 @@ Actor :: struct {
 	planet:      Planet_Id,
 	satellite:   Satellite_Id,
 	loot:        int, // debris: how much scrap is in the pile
+	offer:       Item_Id, // star dock: the delivery mission it is offering, if any
 }
 
 actor_covers :: proc(a: Actor, p: [2]int) -> bool {

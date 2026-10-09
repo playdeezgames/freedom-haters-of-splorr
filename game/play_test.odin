@@ -247,9 +247,11 @@ satellites_and_stars_behave :: proc(t: ^testing.T) {
 			testing.expect(t, offers && kind == .Approach)
 		case .Planet, .Satellite:
 			testing.expect(t, offers && kind == .Enter_Orbit)
-		case .Star, .Planet_Body, .Satellite_Body, .Player_Ship, .Star_Dock:
+		case .Star, .Planet_Body, .Satellite_Body, .Player_Ship:
 			// nothing on offer with full tanks and no equipment
 			testing.expect(t, !offers)
+		case .Star_Dock:
+			testing.expect_value(t, offers, a.offer != 0) // a delivery to take, nothing else
 		}
 	}
 }
@@ -358,6 +360,7 @@ a_star_dock_offers_only_what_the_ship_needs :: proc(t: ^testing.T) {
 	u := generate(1)
 	defer universe_destroy(&u)
 	dock := first_dock(&u)
+	actor_get(&u, dock).offer = 0 // this test is about air and fuel
 	_, none := offered(&u, dock)
 	testing.expect_value(t, none, 0) // full tanks
 
@@ -570,10 +573,10 @@ stacks_group_by_kind_and_mark_in_first_seen_order :: proc(t: ^testing.T) {
 	add(&u, .Scrap)
 	stacks := inventory_stacks(&u)
 	testing.expect_value(t, stacks.count, 3)
-	testing.expect_value(t, stacks.stacks[0], Item_Stack{.Scrap, 0, 3})
-	testing.expect_value(t, stacks.stacks[1], Item_Stack{.Fuel_Supply, 2, 2})
-	testing.expect_value(t, stacks.stacks[2], Item_Stack{.Fuel_Supply, 3, 1})
-	n := item_stack_name(stacks.stacks[1])
+	testing.expect_value(t, stacks.stacks[0], Item_Stack{kind = .Scrap, count = 3})
+	testing.expect_value(t, stacks.stacks[1], Item_Stack{kind = .Fuel_Supply, mark = 2, count = 2})
+	testing.expect_value(t, stacks.stacks[2], Item_Stack{kind = .Fuel_Supply, mark = 3, count = 1})
+	n := item_stack_name(&u, stacks.stacks[1])
 	testing.expect_value(t, name_str(&n), "StarLume Fuel Mark II")
 }
 
@@ -662,6 +665,7 @@ the_longer_descriptions_match_the_original_paragraph_counts :: proc(t: ^testing.
 		.Atmospheric_Concentrator = 5,
 		.Fuel_Supply              = 5,
 		.Life_Support             = 5,
+		.Delivery                 = 1,
 	}
 	for kind in Item_Kind {
 		mark := 1 if item_info[kind].marked else 0
@@ -695,12 +699,12 @@ item_stats_list_tech_level_and_capacity :: proc(t: ^testing.T) {
 @(test)
 long_descriptions_wrap_to_the_page_and_need_scrolling :: proc(t: ^testing.T) {
 	pl: Page_Lines
-	page_lines(item_new(.Fuel_Scoop), &pl)
+	page_lines(nil, item_new(.Fuel_Scoop), &pl)
 	testing.expect(t, pl.count > page_window(.Fuel_Scoop)) // does not fit: it scrolls
 	for i in 0 ..< pl.count {
 		testing.expectf(t, len(pl.lines[i]) <= PAGE_TEXT_WIDTH, "line %d is %d wide", i, len(pl.lines[i]))
 	}
-	page_lines(item_new(.Scrap), &pl)
+	page_lines(nil, item_new(.Scrap), &pl)
 	testing.expect(t, pl.count <= page_window(.Scrap)) // short ones do not
 	// the numbers come last
 	testing.expect_value(t, pl.lines[pl.count - 1], "Sells for: 1")

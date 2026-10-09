@@ -71,9 +71,11 @@ Interaction :: enum {
 	Trade, // at a trading post
 	Enter_Shipyard, // at a shipyard
 	Use_Fuel_Scoop, // at a star, with a fuel scoop installed
+	Delivery_Mission, // at a star dock that has a delivery on offer
+	Complete_Delivery, // at the star dock of a planet you are carrying a delivery to
 }
 
-MAX_INTERACTIONS :: 3
+MAX_INTERACTIONS :: 4
 
 OXYGEN_PER_JOOL :: 10 // star dock prices, from the VB's refill dialogs
 FUEL_PER_JOOL :: 3
@@ -135,6 +137,12 @@ interactions_for :: proc(u: ^Universe, bump: Bump) -> (list: [MAX_INTERACTIONS]I
 			if top_off_amount(u.avatar.fuel) > 0 {
 				add(&list, &count, .Refuel)
 			}
+			if a.offer != 0 {
+				add(&list, &count, .Delivery_Mission)
+			}
+			if _, deliverable := deliverable_here(u, b); deliverable > 0 {
+				add(&list, &count, .Complete_Delivery)
+			}
 		}
 	case Map_Edge:
 		add(&list, &count, .Leave_Area)
@@ -169,6 +177,10 @@ interaction_label :: proc(u: ^Universe, kind: Interaction, bump: Bump, buf: ^Nam
 		return "Enter Shipyard"
 	case .Use_Fuel_Scoop:
 		return "Use Fuel Scoop"
+	case .Delivery_Mission:
+		return "Delivery Mission..."
+	case .Complete_Delivery:
+		return "Complete Delivery..."
 	case .Refill_Oxygen:
 		buf^ = name_join("Refill Oxygen (", int_text(&digits, oxygen_price(u)), " jools)")
 		return name_str(buf)
@@ -307,7 +319,7 @@ avatar_interact :: proc(u: ^Universe, kind: Interaction) -> Interaction_Result {
 			avatar_set_star_system(u, 0)
 		}
 		return .Done
-	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere, .Salvage_Scrap, .Trade, .Enter_Shipyard, .Use_Fuel_Scoop:
+	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere, .Salvage_Scrap, .Trade, .Enter_Shipyard, .Use_Fuel_Scoop, .Delivery_Mission, .Complete_Delivery:
 		// these are transactions, not moves: see avatar_buy_oxygen and friends
 		return .Blocked
 	}

@@ -19,6 +19,7 @@ Step_Planet :: struct {
 	id: Planet_Id,
 }
 Step_Factionize :: struct {}
+Step_Missions :: struct {}
 Step_Avatar :: struct {}
 
 Gen_Step :: union {
@@ -27,6 +28,7 @@ Gen_Step :: union {
 	Step_Star_System,
 	Step_Planet,
 	Step_Factionize,
+	Step_Missions,
 	Step_Avatar,
 }
 
@@ -44,7 +46,7 @@ Generator :: struct {
 generator_start :: proc(seed: u64, settings: Embark_Settings) -> (g: Generator) {
 	g.universe = universe_make(seed)
 	g.settings = settings
-	append(&g.final, Step_Factions{}, Step_Galaxy{}, Step_Factionize{})
+	append(&g.final, Step_Factions{}, Step_Galaxy{}, Step_Factionize{}, Step_Missions{})
 	return
 }
 
@@ -100,6 +102,8 @@ generator_current :: proc(g: ^Generator) -> (label: string, subject: Name) {
 		return "Planet", planet_get(&g.universe, s.id).name
 	case Step_Factionize:
 		return "Dividing up the galaxy", {}
+	case Step_Missions:
+		return "Errands", {}
 	case Step_Avatar:
 		return "Yer ship", {}
 	}
@@ -129,6 +133,8 @@ generator_step :: proc(g: ^Generator) -> bool {
 		step_planet(g, s.id)
 	case Step_Factionize:
 		step_factionize(g)
+	case Step_Missions:
+		step_missions(g)
 	case Step_Avatar:
 		step_avatar(g)
 	}
@@ -446,6 +452,19 @@ claim_planet :: proc(u: ^Universe, planet: Planet_Id, faction: Faction_Id) {
 	faction_get(u, faction).planet_count += 1
 }
 
+// ---- Errands ----
+
+// Every star dock offers a delivery. This waits until the planets belong to factions.
+@(private = "file")
+step_missions :: proc(g: ^Generator) {
+	u := &g.universe
+	for a, i in u.actors {
+		if a.kind == .Star_Dock {
+			mission_generate(u, Actor_Id(i + 1))
+		}
+	}
+}
+
 // ---- The player ----
 
 @(private = "file")
@@ -481,6 +500,12 @@ step_avatar :: proc(g: ^Generator) {
 		jools         = profile.first + profile.step * rng_below(&u.rng, profile.count),
 		jools_minimum = profile.wallet_minimum,
 	}
+	// standing with SIGMO, the home planet and the home system starts at the top
+	faction_get(u, SIGMO_FACTION).reputation = STARTING_REPUTATION
+	home_planet := planet_get(u, u.avatar.home_planet)
+	home_planet.reputation = STARTING_REPUTATION
+	star_system_get(u, home_planet.star_system).reputation = STARTING_REPUTATION
+
 	// the ship leaves with Mark I life support and fuel supply installed, and full
 	life := item_add(u, item_new(.Life_Support, 1))
 	fuel := item_add(u, item_new(.Fuel_Supply, 1))

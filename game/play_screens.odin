@@ -173,6 +173,10 @@ interaction_key :: proc(s: ^Interaction_Screen, key: Key, session: ^Session) -> 
 			return Replace{Trader{post = u.avatar.bumped.(Actor_Id)}}
 		case .Enter_Shipyard:
 			return Replace{Shipyard_Screen{yard = u.avatar.bumped.(Actor_Id)}}
+		case .Delivery_Mission:
+			return Replace{Mission_Offer{dock = u.avatar.bumped.(Actor_Id)}}
+		case .Complete_Delivery:
+			return Replace{completion_message(u, mission_complete(u, u.avatar.bumped.(Actor_Id)))}
 		case .Use_Fuel_Scoop:
 			added := avatar_use_fuel_scoop(u)
 			m := message_make(.Orange, "Fuel Scooped!")
@@ -198,6 +202,7 @@ interaction_key :: proc(s: ^Interaction_Screen, key: Key, session: ^Session) -> 
 // ---- Action menu ----
 
 Action :: enum {
+	Status,
 	Inventory,
 	Equipment,
 	Signal_Distress,
@@ -209,6 +214,8 @@ Action_Menu :: struct {
 
 // The actions on offer, in menu order; Cancel is always last and is not listed.
 action_list :: proc(u: ^Universe) -> (list: [len(Action)]Action, count: int) {
+	list[count] = .Status
+	count += 1
 	list[count] = .Inventory
 	count += 1
 	list[count] = .Equipment
@@ -222,6 +229,8 @@ action_list :: proc(u: ^Universe) -> (list: [len(Action)]Action, count: int) {
 
 action_label :: proc(a: Action) -> string {
 	switch a {
+	case .Status:
+		return "Status"
 	case .Inventory:
 		return "Inventory"
 	case .Equipment:
@@ -252,6 +261,8 @@ action_menu_key :: proc(s: ^Action_Menu, key: Key, session: ^Session) -> Transit
 			return Pop{}
 		}
 		switch list[s.cursor] {
+		case .Status:
+			return Push{Status_Screen{}}
 		case .Inventory:
 			return Push{Inventory_Screen{}}
 		case .Equipment:
@@ -283,7 +294,7 @@ inventory_labels :: proc(u: ^Universe, labels: ^[MAX_STACKS + 1]string, names: ^
 	labels[0] = "Cancel"
 	for i in 0 ..< stacks.count {
 		st := stacks.stacks[i]
-		base := item_stack_name(st)
+		base := item_stack_name(u, st)
 		names[i] = name_join(name_str(&base), " (x", int_text(&digits, st.count), ")")
 		labels[i + 1] = name_str(&names[i])
 	}
@@ -299,7 +310,7 @@ inventory_draw :: proc(s: ^Inventory_Screen, tb: ^Text_Buffer, session: ^Session
 	if count == 1 {
 		text_put_centered(tb, 6, "Yer hold is empty.", .Dark_Gray)
 	}
-	menu_draw(tb, 4 if count > 1 else 9, labels[:count], s.cursor)
+	menu_draw(tb, 4 if count > 1 else 9, labels[:count], s.cursor, 2)
 }
 
 inventory_key :: proc(s: ^Inventory_Screen, key: Key, session: ^Session) -> Transition {
@@ -312,7 +323,7 @@ inventory_key :: proc(s: ^Inventory_Screen, key: Key, session: ^Session) -> Tran
 			return Pop{}
 		}
 		st := stacks.stacks[s.cursor - 1]
-		return Push{Item_Page{kind = st.kind, mark = st.mark, count = st.count}}
+		return Push{Item_Page{kind = st.kind, mark = st.mark, count = st.count, item = st.item}}
 	case .Cancelled:
 		return Pop{}
 	case .None, .Previous, .Next:
@@ -326,10 +337,23 @@ Item_Page :: struct {
 	count:  int,
 	cursor: int,
 	scroll: int,
+	item:   Item_Id, // deliveries are looked at one by one
 }
 
-item_usable :: proc(kind: Item_Kind) -> bool {
-	return kind == .Oxygen_Tank || kind == .Fuel_Rod
+Page_Menu :: enum {
+	None,
+	Use, // oxygen tanks and fuel rods
+	Abandon, // deliveries
+}
+
+page_menu :: proc(kind: Item_Kind) -> Page_Menu {
+	#partial switch kind {
+	case .Oxygen_Tank, .Fuel_Rod:
+		return .Use
+	case .Delivery:
+		return .Abandon
+	}
+	return .None
 }
 
 PAGE_TEXT_TOP :: 4
@@ -340,50 +364,74 @@ Page_Lines :: struct {
 	lines: [MAX_PAGE_LINES]string,
 	count: int,
 	// the composed pieces the lines point into
-	intro: Long_Text,
-	stats: Item_Stats,
+	intro:   Long_Text,
+	stats:   Item_Stats,
+	mission: [MAX_MISSION_LINES]Long_Text,
 }
 
 // Wraps the description, a gap between paragraphs, then the numbers. `pl` must stay put while `lines` is used.
-page_lines :: proc(item: Item, pl: ^Page_Lines) {
+page_lines :: proc(u: ^Universe, item: Item, pl: ^Page_Lines) {
 	add :: proc(pl: ^Page_Lines, line: string) {
 		if pl.count < MAX_PAGE_LINES {
 			pl.lines[pl.count] = line
 			pl.count += 1
 		}
 	}
-	pl.count = 0
-	d := item_description(item, &pl.intro)
-	for i in 0 ..< d.count {
-		rest := d.paragraphs[i]
+	add_wrapped :: proc(pl: ^Page_Lines, text: string) {
+		rest := text
 		for len(rest) > 0 {
 			line: string
 			line, rest = text_wrap_next(rest, PAGE_TEXT_WIDTH)
 			add(pl, line)
 		}
+	}
+	pl.count = 0
+	d := item_description(item, &pl.intro)
+	for i in 0 ..< d.count {
+		add_wrapped(pl, d.paragraphs[i])
 		add(pl, "")
 	}
 	pl.stats = item_stats(item)
 	for i in 0 ..< pl.stats.count {
 		add(pl, long_str(&pl.stats.lines[i]))
 	}
+	if item.kind == .Delivery && item.mission.destination != 0 {
+		n := mission_lines(u, item.mission, &pl.mission)
+		for i in 0 ..< n {
+			add_wrapped(pl, long_str(&pl.mission[i]))
+		}
+	}
 }
 
-// Rows of text that fit: fewer when there is a Use menu underneath.
+// Rows of text that fit: fewer when there is a menu underneath.
 page_window :: proc(kind: Item_Kind) -> int {
-	return 11 if item_usable(kind) else 18
+	return 11 if page_menu(kind) != .None else 18
+}
+
+item_page_title :: proc(u: ^Universe, s: ^Item_Page) -> Name {
+	if s.kind == .Delivery && s.item != 0 {
+		return name_make(mission_nouns[item_get(u, s.item).mission.noun])
+	}
+	return item_name(Item{kind = s.kind, mark = s.mark})
+}
+
+item_page_item :: proc(u: ^Universe, s: ^Item_Page) -> Item {
+	if s.item != 0 {
+		return item_get(u, s.item)^
+	}
+	return Item{kind = s.kind, mark = s.mark}
 }
 
 item_page_draw :: proc(s: ^Item_Page, tb: ^Text_Buffer, session: ^Session) {
-	item := Item{kind = s.kind, mark = s.mark}
-	name := item_name(item)
+	u := &session.universe
+	name := item_page_title(u, s)
 	text_put_centered(tb, 1, name_str(&name), .Yellow)
-	if s.count > 0 {
+	if s.count > 0 && s.kind != .Delivery {
 		put_field_int(tb, 2, 2, "You have", s.count)
 	}
 
 	pl: Page_Lines
-	page_lines(item, &pl)
+	page_lines(u, item_page_item(u, s), &pl)
 	window := page_window(s.kind)
 	s.scroll = clamp(s.scroll, 0, max(0, pl.count - window))
 	for i in 0 ..< min(window, pl.count - s.scroll) {
@@ -395,18 +443,25 @@ item_page_draw :: proc(s: ^Item_Page, tb: ^Text_Buffer, session: ^Session) {
 	if s.scroll + window < pl.count {
 		text_put(tb, TEXT_COLUMNS - 2, PAGE_TEXT_TOP + window - 1, "\x1f", .Dark_Gray)
 	}
-	if item_usable(s.kind) {
+	switch page_menu(s.kind) {
+	case .Use:
 		labels := [?]string{"Use", "Back"}
 		menu_draw(tb, 17, labels[:], s.cursor)
-	} else if pl.count > window {
-		text_put_centered(tb, 23, "Up/Down: read   Enter: back", .Dark_Gray)
-	} else {
-		text_put_centered(tb, 23, "Press Enter", .Dark_Gray)
+	case .Abandon:
+		labels := [?]string{"Abandon Mission", "Back"}
+		menu_draw(tb, 17, labels[:], s.cursor)
+	case .None:
+		if pl.count > window {
+			text_put_centered(tb, 23, "Up/Down: read   Enter: back", .Dark_Gray)
+		} else {
+			text_put_centered(tb, 23, "Press Enter", .Dark_Gray)
+		}
 	}
 }
 
 item_page_key :: proc(s: ^Item_Page, key: Key, session: ^Session) -> Transition {
-	if !item_usable(s.kind) {
+	menu := page_menu(s.kind)
+	if menu == .None {
 		switch key {
 		case KEY_ENTER, KEY_ESCAPE, ' ':
 			return Pop{}
@@ -425,6 +480,9 @@ item_page_key :: proc(s: ^Item_Page, key: Key, session: ^Session) -> Transition 
 	case .Chosen:
 		if s.cursor == 1 {
 			return Pop{}
+		}
+		if menu == .Abandon {
+			return Push{Confirm_Abandon_Delivery{item = s.item}}
 		}
 		u := &session.universe
 		digits: [20]u8

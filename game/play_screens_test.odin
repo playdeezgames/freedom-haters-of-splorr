@@ -9,6 +9,15 @@ app_on_the_map :: proc(t: ^testing.T, app: ^App) {
 	tick_until_generated(t, app)
 }
 
+// The action menu is Status, Inventory, Equipment, (Signal Distress), Cancel.
+open_inventory :: proc(app: ^App) {
+	press(app, KEY_ENTER, KEY_DOWN, KEY_ENTER)
+}
+
+open_equipment :: proc(app: ^App) {
+	press(app, KEY_ENTER, KEY_DOWN, KEY_DOWN, KEY_ENTER)
+}
+
 on_screen :: proc(app: ^App, $S: typeid) -> bool {
 	_, ok := stack_top(&app.stack)^.(S)
 	return ok
@@ -132,7 +141,7 @@ with_no_fuel_the_action_menu_offers_distress_and_it_costs_jools :: proc(t: ^test
 	testing.expect_value(t, u.turn, turn) // no fuel: no move, no turn
 	app_key(&app, KEY_ENTER) // action menu
 	testing.expect(t, on_screen(&app, Action_Menu))
-	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Signal Distress, after Inventory and Equipment
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Signal Distress, after Status, Inventory and Equipment
 	testing.expect(t, on_screen(&app, Message))
 	testing.expect_value(t, u.avatar.fuel.current, MARK_I_CAPACITY)
 	testing.expect_value(t, u.avatar.jools, jools - MARK_I_CAPACITY * EMERGENCY_FUEL_PRICE)
@@ -148,7 +157,7 @@ with_fuel_the_action_menu_has_no_distress :: proc(t: ^testing.T) {
 	app_key(&app, KEY_ENTER)
 	testing.expect(t, on_screen(&app, Action_Menu))
 	jools := app.session.universe.avatar.jools
-	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Inventory, Equipment, then Cancel: no distress while there is fuel
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Status, Inventory, Equipment, then Cancel: no distress while there is fuel
 	testing.expect(t, on_screen(&app, Navigation))
 	testing.expect_value(t, app.session.universe.avatar.jools, jools)
 }
@@ -181,7 +190,7 @@ an_unaffordable_refuel_is_bankruptcy :: proc(t: ^testing.T) {
 	u.avatar.fuel.current = 0
 	u.avatar.jools = u.avatar.jools_minimum + 5
 	app_key(&app, KEY_ENTER)
-	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Signal Distress
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Signal Distress
 	app_key(&app, KEY_ENTER) // dismiss the message
 	app_tick(&app)
 	testing.expect(t, on_screen(&app, Game_Over))
@@ -389,8 +398,7 @@ the_inventory_lists_stacks_and_describes_them :: proc(t: ^testing.T) {
 		append(&u.avatar.inventory, item_add(u, item_new(.Scrap)))
 	}
 	append(&u.avatar.inventory, item_add(u, item_new(.Oxygen_Tank)))
-	app_key(&app, KEY_ENTER) // actions
-	app_key(&app, KEY_ENTER) // Inventory
+	open_inventory(&app)
 	testing.expect(t, on_screen(&app, Inventory_Screen))
 	// "Cancel" first, then the stacks in the order they first appear: Scrap (x3), Oxygen Tank (x1)
 	app_key(&app, KEY_DOWN)
@@ -410,8 +418,7 @@ an_empty_hold_says_so :: proc(t: ^testing.T) {
 	app: App
 	app_on_the_map(t, &app)
 	defer app_destroy(&app)
-	app_key(&app, KEY_ENTER)
-	app_key(&app, KEY_ENTER) // Inventory
+	open_inventory(&app)
 	testing.expect(t, on_screen(&app, Inventory_Screen))
 	testing.expect_value(t, app.text[6][(TEXT_COLUMNS - len("Yer hold is empty.")) / 2].char, u8('Y'))
 	app_key(&app, KEY_ENTER) // the only entry is Cancel
@@ -637,7 +644,7 @@ using_a_tank_from_the_inventory :: proc(t: ^testing.T) {
 	u := &app.session.universe
 	trade_buy(u, .Oxygen_Tank, 0, 1)
 	u.avatar.oxygen.current = 100
-	press(&app, KEY_ENTER, KEY_ENTER) // actions, Inventory
+	open_inventory(&app)
 	press(&app, KEY_DOWN, KEY_ENTER) // Oxygen Tank stack
 	page, ok := stack_top(&app.stack)^.(Item_Page)
 	testing.expect(t, ok && page.kind == .Oxygen_Tank)
@@ -659,7 +666,8 @@ using_a_fuel_rod_from_the_inventory :: proc(t: ^testing.T) {
 	u := &app.session.universe
 	trade_buy(u, .Fuel_Rod, 0, 1)
 	u.avatar.fuel.current = 20
-	press(&app, KEY_ENTER, KEY_ENTER, KEY_DOWN, KEY_ENTER, KEY_ENTER) // actions, Inventory, Fuel Rod, Use
+	open_inventory(&app)
+	press(&app, KEY_DOWN, KEY_ENTER, KEY_ENTER) // Fuel Rod, Use
 	testing.expect_value(t, u.avatar.fuel.current, 120)
 	testing.expect_value(t, len(u.avatar.inventory), 0)
 	press(&app, KEY_ENTER)
@@ -695,7 +703,8 @@ a_long_item_page_scrolls_and_every_item_page_draws :: proc(t: ^testing.T) {
 	defer app_destroy(&app)
 	u := &app.session.universe
 	append(&u.avatar.inventory, item_add(u, item_new(.Fuel_Scoop)))
-	press(&app, KEY_ENTER, KEY_ENTER, KEY_DOWN, KEY_ENTER) // actions, Inventory, first stack
+	open_inventory(&app)
+	press(&app, KEY_DOWN, KEY_ENTER) // first stack
 	page, ok := stack_top(&app.stack)^.(Item_Page)
 	testing.expect(t, ok && page.kind == .Fuel_Scoop)
 	app_draw(&app)
@@ -710,7 +719,7 @@ a_long_item_page_scrolls_and_every_item_page_draws :: proc(t: ^testing.T) {
 	}
 	page, _ = stack_top(&app.stack)^.(Item_Page)
 	pl: Page_Lines
-	page_lines(item_new(.Fuel_Scoop), &pl)
+	page_lines(nil, item_new(.Fuel_Scoop), &pl)
 	testing.expect_value(t, page.scroll, pl.count - page_window(.Fuel_Scoop)) // clamped at the end
 	press(&app, KEY_UP, KEY_UP, KEY_ENTER)
 	testing.expect(t, on_screen(&app, Inventory_Screen))
@@ -889,7 +898,7 @@ the_equipment_view_lists_slots_and_opens_item_pages :: proc(t: ^testing.T) {
 	app: App
 	app_on_the_map(t, &app)
 	defer app_destroy(&app)
-	press(&app, KEY_ENTER, KEY_DOWN, KEY_ENTER) // actions, Equipment
+	open_equipment(&app)
 	testing.expect(t, on_screen(&app, Equipment_Screen))
 	press(&app, KEY_DOWN, KEY_ENTER) // Life Support
 	page, ok := stack_top(&app.stack)^.(Item_Page)
@@ -931,4 +940,262 @@ bumping_a_star_with_a_scoop_offers_free_fuel :: proc(t: ^testing.T) {
 	app_key(&app, KEY_ENTER) // Use Fuel Scoop
 	testing.expect(t, on_screen(&app, Message))
 	testing.expect_value(t, u.avatar.fuel.current, 250)
+}
+
+// ---- delivery missions ----
+
+direction_key :: proc(dir: Direction) -> Key {
+	keys := [Direction]Key {
+		.North = KEY_UP,
+		.East  = KEY_RIGHT,
+		.South = KEY_DOWN,
+		.West  = KEY_LEFT,
+	}
+	return keys[dir]
+}
+
+// Flies the ship beside `dock` and bumps it, leaving the app on the interaction screen.
+bump_dock :: proc(t: ^testing.T, app: ^App, dock: Actor_Id) {
+	u := &app.session.universe
+	actor_relocate(u, u.avatar.actor, actor_get(u, dock).map_id, {1, 1})
+	dir := park_beside(t, u, dock)
+	app_key(app, direction_key(dir))
+	testing.expect(t, on_screen(app, Interaction_Screen))
+}
+
+// On the interaction screen: moves down to `kind` and chooses it.
+pick :: proc(t: ^testing.T, app: ^App, kind: Interaction) {
+	u := &app.session.universe
+	list, n := interactions_for(u, u.avatar.bumped)
+	for i in 0 ..< n {
+		if list[i] == kind {
+			for _ in 0 ..< i {
+				app_key(app, KEY_DOWN)
+			}
+			app_key(app, KEY_ENTER)
+			return
+		}
+	}
+	testing.fail_now(t, "that interaction is not on offer")
+}
+
+@(test)
+a_dock_with_a_delivery_offers_it_and_one_bound_there_offers_completion :: proc(t: ^testing.T) {
+	u := generate(1)
+	defer universe_destroy(&u)
+	dock := home_dock(&u)
+	list, n := offered(&u, dock)
+	found := false
+	for i in 0 ..< n {
+		found ||= list[i] == .Delivery_Mission
+	}
+	testing.expect(t, found)
+	label: Name
+	testing.expect_value(t, interaction_label(&u, .Delivery_Mission, nil, &label), "Delivery Mission...")
+	testing.expect_value(t, interaction_label(&u, .Complete_Delivery, nil, &label), "Complete Delivery...")
+
+	planet := actor_get(&u, dock).planet
+	carry(&u, planet, planet, 10) // a delivery bound for this very planet
+	list, n = offered(&u, dock)
+	found = false
+	for i in 0 ..< n {
+		found ||= list[i] == .Complete_Delivery
+	}
+	testing.expect(t, found)
+}
+
+@(test)
+accepting_a_delivery_through_the_screens :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	dock := home_dock(u)
+	offer := actor_get(u, dock).offer
+	bump_dock(t, &app, dock)
+	pick(t, &app, .Delivery_Mission)
+	testing.expect(t, on_screen(&app, Mission_Offer))
+	press(&app, KEY_ENTER) // Accept
+	testing.expect(t, on_screen(&app, Message))
+	testing.expect_value(t, deliveries_carried(u), 1)
+	testing.expect_value(t, u.avatar.inventory[0], offer)
+	testing.expect(t, actor_get(u, dock).offer != offer)
+	app_key(&app, KEY_ENTER)
+	testing.expect(t, on_screen(&app, Navigation))
+}
+
+@(test)
+the_offer_screen_describes_the_delivery_and_where_to_find_it :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	dock := home_dock(u)
+	m := item_get(u, actor_get(u, dock).offer).mission
+	bump_dock(t, &app, dock)
+	pick(t, &app, .Delivery_Mission)
+	// the rows hold: Item, Destination, System at x,y, Recipient, Reward (some wrap)
+	text := ""
+	all: [TEXT_ROWS * TEXT_COLUMNS]u8
+	for row, r in app.text {
+		for cell, c in row {
+			all[r * TEXT_COLUMNS + c] = cell.char
+		}
+	}
+	text = string(all[:])
+	planet := planet_get(u, m.destination)
+	system := star_system_get(u, planet.star_system)
+	testing.expect(t, contains(text, "Item: "))
+	testing.expect(t, contains(text, "Destination: "))
+	testing.expect(t, contains(text, name_str(&system.name)))
+	testing.expect(t, contains(text, "Recipient: "))
+	testing.expect(t, contains(text, "Jools Reward: "))
+}
+
+contains :: proc(haystack, needle: string) -> bool {
+	for i in 0 ..= len(haystack) - len(needle) {
+		if haystack[i:][:len(needle)] == needle {
+			return true
+		}
+	}
+	return false
+}
+
+@(test)
+with_a_poor_standing_the_offer_cannot_be_accepted :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	dock := away_dock(u)
+	mission_accept(u, dock) // one in the hold already: reputation 0 allows only one
+	bump_dock(t, &app, dock)
+	pick(t, &app, .Delivery_Mission)
+	testing.expect(t, on_screen(&app, Mission_Offer))
+	all: [TEXT_ROWS * TEXT_COLUMNS]u8
+	for row, r in app.text {
+		for cell, c in row {
+			all[r * TEXT_COLUMNS + c] = cell.char
+		}
+	}
+	testing.expect(t, contains(string(all[:]), "cannot take on more deliveries"))
+	press(&app, KEY_ENTER) // the only entry is Cancel
+	testing.expect(t, on_screen(&app, Navigation))
+	testing.expect_value(t, deliveries_carried(u), 1)
+}
+
+@(test)
+a_negative_standing_asks_for_a_deposit_on_screen :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	dock := away_dock(u)
+	planet_get(u, actor_get(u, dock).planet).reputation = -5
+	offer := actor_get(u, dock).offer
+	deposit := deposit_for(u, dock, offer)
+	jools := u.avatar.jools
+	bump_dock(t, &app, dock)
+	pick(t, &app, .Delivery_Mission)
+	all: [TEXT_ROWS * TEXT_COLUMNS]u8
+	for row, r in app.text {
+		for cell, c in row {
+			all[r * TEXT_COLUMNS + c] = cell.char
+		}
+	}
+	testing.expect(t, contains(string(all[:]), "deposit")) // the sentence wraps, so look for one word
+	press(&app, KEY_ENTER) // Accept
+	testing.expect_value(t, u.avatar.jools, jools - deposit)
+}
+
+@(test)
+completing_a_delivery_shows_a_receipt_and_pays :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	a, b, dock := far_apart(u)
+	carry(u, a, b, 40)
+	jools := u.avatar.jools
+	rep := planet_get(u, b).reputation
+	bump_dock(t, &app, dock)
+	pick(t, &app, .Complete_Delivery)
+	testing.expect(t, on_screen(&app, Message))
+	testing.expect_value(t, u.avatar.jools, jools + 40)
+	testing.expect_value(t, planet_get(u, b).reputation, rep + 1)
+	testing.expect_value(t, deliveries_carried(u), 0)
+	testing.expect_value(t, app.text[6][(TEXT_COLUMNS - len("Delivery Complete!")) / 2].char, u8('D'))
+	press(&app, KEY_ENTER)
+	testing.expect(t, on_screen(&app, Navigation))
+}
+
+@(test)
+a_delivery_in_the_hold_has_its_own_page_and_can_be_abandoned :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	a, b, _ := far_apart(u)
+	id := carry(u, a, b, 40)
+	rep_a, rep_b := planet_get(u, a).reputation, planet_get(u, b).reputation
+	open_inventory(&app)
+	press(&app, KEY_DOWN, KEY_ENTER) // the delivery
+	page, ok := stack_top(&app.stack)^.(Item_Page)
+	testing.expect(t, ok && page.kind == .Delivery && page.item == id)
+	app_draw(&app)
+	title := item_page_title(u, &page)
+	testing.expect_value(t, name_str(&title), mission_nouns[item_get(u, id).mission.noun])
+	testing.expect_value(t, app.text[2][2].char, u8(' ')) // no "You have" for a one-off
+	press(&app, KEY_ENTER) // Abandon Mission
+	testing.expect(t, on_screen(&app, Confirm_Abandon_Delivery))
+	press(&app, KEY_ENTER) // Cancel is the default: nothing happens
+	testing.expect(t, on_screen(&app, Item_Page))
+	testing.expect_value(t, deliveries_carried(u), 1)
+	press(&app, KEY_ENTER, KEY_DOWN, KEY_ENTER) // Abandon Mission, Confirm
+	testing.expect(t, on_screen(&app, Inventory_Screen)) // this screen and the page were popped
+	testing.expect_value(t, deliveries_carried(u), 0)
+	testing.expect_value(t, planet_get(u, a).reputation, rep_a - 5)
+	testing.expect_value(t, planet_get(u, b).reputation, rep_b - 5)
+	app_draw(&app) // the emptied hold still draws
+}
+
+@(test)
+two_deliveries_are_two_inventory_rows :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	a, b, _ := far_apart(u)
+	carry(u, a, b, 10)
+	carry(u, a, b, 20)
+	open_inventory(&app)
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // the second delivery, not a stack of two
+	page, ok := stack_top(&app.stack)^.(Item_Page)
+	testing.expect(t, ok && page.kind == .Delivery)
+	testing.expect_value(t, item_get(u, page.item).mission.reward, 20)
+}
+
+@(test)
+status_shows_reserves_jools_and_standing :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	u.avatar.oxygen.current = 100
+	press(&app, KEY_ENTER, KEY_ENTER) // actions, Status (the first entry)
+	testing.expect(t, on_screen(&app, Status_Screen))
+	all: [TEXT_ROWS * TEXT_COLUMNS]u8
+	for row, r in app.text {
+		for cell, c in row {
+			all[r * TEXT_COLUMNS + c] = cell.char
+		}
+	}
+	text := string(all[:])
+	testing.expect(t, contains(text, "O2: (100/250) 40%"))
+	testing.expect(t, contains(text, "Fuel: (250/250) 100%"))
+	testing.expect(t, contains(text, "Faction: SIGMO Federation"))
+	testing.expect(t, contains(text, "Reputation: 100")) // on its own line so it fits
+	testing.expect(t, contains(text, "Home Planet: "))
+	press(&app, KEY_ENTER)
+	testing.expect(t, on_screen(&app, Action_Menu))
 }
