@@ -132,7 +132,8 @@ with_no_fuel_the_action_menu_offers_distress_and_it_costs_jools :: proc(t: ^test
 	testing.expect_value(t, u.turn, turn) // no fuel: no move, no turn
 	app_key(&app, KEY_ENTER) // action menu
 	testing.expect(t, on_screen(&app, Action_Menu))
-	app_key(&app, KEY_ENTER) // Signal Distress, the first entry
+	app_key(&app, KEY_DOWN)
+	app_key(&app, KEY_ENTER) // Signal Distress, after Inventory
 	testing.expect(t, on_screen(&app, Message))
 	testing.expect_value(t, u.avatar.fuel.current, MARK_I_CAPACITY)
 	testing.expect_value(t, u.avatar.jools, jools - MARK_I_CAPACITY * EMERGENCY_FUEL_PRICE)
@@ -141,14 +142,15 @@ with_no_fuel_the_action_menu_offers_distress_and_it_costs_jools :: proc(t: ^test
 }
 
 @(test)
-with_fuel_the_action_menu_is_just_cancel :: proc(t: ^testing.T) {
+with_fuel_the_action_menu_has_no_distress :: proc(t: ^testing.T) {
 	app: App
 	app_on_the_map(t, &app)
 	defer app_destroy(&app)
 	app_key(&app, KEY_ENTER)
 	testing.expect(t, on_screen(&app, Action_Menu))
 	jools := app.session.universe.avatar.jools
-	app_key(&app, KEY_ENTER) // the only entry is Cancel
+	app_key(&app, KEY_DOWN)
+	app_key(&app, KEY_ENTER) // Inventory, then Cancel: no distress while there is fuel
 	testing.expect(t, on_screen(&app, Navigation))
 	testing.expect_value(t, app.session.universe.avatar.jools, jools)
 }
@@ -181,6 +183,7 @@ an_unaffordable_refuel_is_bankruptcy :: proc(t: ^testing.T) {
 	u.avatar.fuel.current = 0
 	u.avatar.jools = u.avatar.jools_minimum + 5
 	app_key(&app, KEY_ENTER)
+	app_key(&app, KEY_DOWN)
 	app_key(&app, KEY_ENTER) // Signal Distress
 	app_key(&app, KEY_ENTER) // dismiss the message
 	app_tick(&app)
@@ -334,4 +337,100 @@ planet_info_says_whether_the_air_is_breathable :: proc(t: ^testing.T) {
 	text_clear(&tb)
 	draw_bump_info(&tb, u, u.avatar.bumped, 4)
 	testing.expect_value(t, tb[air_row][7].fg, Hue.Light_Red)
+}
+
+// ---- debris, salvage and the inventory ----
+
+// The first debris pile in the first system that has one, with the ship on that map beside it.
+park_beside_debris :: proc(t: ^testing.T, u: ^Universe) -> (Actor_Id, Key) {
+	for a, i in u.actors {
+		if a.kind == .Debris && a.map_id != 0 {
+			id := Actor_Id(i + 1)
+			actor_relocate(u, u.avatar.actor, a.map_id, {1, 1})
+			dir := park_beside(t, u, id)
+			keys := [Direction]Key {
+				.North = KEY_UP,
+				.East  = KEY_RIGHT,
+				.South = KEY_DOWN,
+				.West  = KEY_LEFT,
+			}
+			return id, keys[dir]
+		}
+	}
+	testing.fail_now(t, "no debris")
+}
+
+@(test)
+salvaging_debris_fills_the_hold_and_clears_the_pile :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	debris, key := park_beside_debris(t, u)
+	loot := actor_get(u, debris).loot
+	system := star_system_get(u, actor_get(u, debris).star_system)
+	piles := system.scrap
+	app_key(&app, key)
+	testing.expect(t, on_screen(&app, Interaction_Screen))
+	app_key(&app, KEY_ENTER) // Salvage Scrap
+	testing.expect(t, on_screen(&app, Message))
+	testing.expect_value(t, len(u.avatar.inventory), loot)
+	testing.expect_value(t, system.scrap, piles - 1)
+	testing.expect_value(t, actor_get(u, debris).map_id, Map_Id(0))
+	testing.expect_value(t, actor_at(u, ship_map(u), actor_get(u, debris).pos), Actor_Id(0))
+	app_key(&app, KEY_ENTER)
+	testing.expect(t, on_screen(&app, Navigation))
+}
+
+@(test)
+the_inventory_lists_stacks_and_describes_them :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	for _ in 0 ..< 3 {
+		append(&u.avatar.inventory, item_add(u, item_new(.Scrap)))
+	}
+	append(&u.avatar.inventory, item_add(u, item_new(.Oxygen_Tank)))
+	app_key(&app, KEY_ENTER) // actions
+	app_key(&app, KEY_ENTER) // Inventory
+	testing.expect(t, on_screen(&app, Inventory_Screen))
+	// "Cancel" first, then the stacks in the order they first appear: Scrap (x3), Oxygen Tank (x1)
+	app_key(&app, KEY_DOWN)
+	app_key(&app, KEY_ENTER) // Scrap
+	page, ok := stack_top(&app.stack)^.(Item_Page)
+	testing.expect(t, ok)
+	testing.expect_value(t, page.kind, Item_Kind.Scrap)
+	testing.expect_value(t, page.count, 3)
+	app_key(&app, KEY_ENTER)
+	testing.expect(t, on_screen(&app, Inventory_Screen))
+	app_key(&app, KEY_ESCAPE)
+	testing.expect(t, on_screen(&app, Action_Menu))
+}
+
+@(test)
+an_empty_hold_says_so :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	app_key(&app, KEY_ENTER)
+	app_key(&app, KEY_ENTER) // Inventory
+	testing.expect(t, on_screen(&app, Inventory_Screen))
+	testing.expect_value(t, app.text[6][(TEXT_COLUMNS - len("Yer hold is empty.")) / 2].char, u8('Y'))
+	app_key(&app, KEY_ENTER) // the only entry is Cancel
+	testing.expect(t, on_screen(&app, Action_Menu))
+}
+
+@(test)
+debris_is_drawn_on_the_system_map :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	debris, _ := park_beside_debris(t, u)
+	app_draw(&app)
+	// the pile is next to the ship, whose view cell is the center
+	d := actor_get(u, debris).pos - ship_pos(u)
+	cell := app.text[VIEW_TOP + VIEW_SIZE / 2 + d.y][VIEW_LEFT + VIEW_SIZE / 2 + d.x]
+	testing.expect_value(t, cell.char, GLYPH_DEBRIS)
 }

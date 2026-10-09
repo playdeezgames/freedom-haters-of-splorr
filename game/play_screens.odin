@@ -157,6 +157,12 @@ interaction_key :: proc(s: ^Interaction_Screen, key: Key, session: ^Session) -> 
 			message_add(&m, .Light_Gray, "You bought ", int_text(&digits, added), " fuel.")
 			message_add(&m, .Light_Gray, "You paid ", int_text(&digits, cost), " Jools.")
 			return Replace{m}
+		case .Salvage_Scrap:
+			found := avatar_salvage(u, u.avatar.bumped.(Actor_Id))
+			m := message_make(.Orange, "Salvage!")
+			message_add(&m, .Light_Gray, "You find:")
+			message_add(&m, .Light_Gray, int_text(&digits, found), " Scrap")
+			return Replace{m}
 		case .Gather_Atmosphere:
 			added := avatar_gather_atmosphere(u)
 			m := message_make(.Orange, "Atmosphere Gathered!")
@@ -175,34 +181,59 @@ interaction_key :: proc(s: ^Interaction_Screen, key: Key, session: ^Session) -> 
 
 // ---- Action menu ----
 
+Action :: enum {
+	Inventory,
+	Signal_Distress,
+}
+
 Action_Menu :: struct {
 	cursor: int,
 }
 
-action_labels :: proc(u: ^Universe, labels: ^[2]string) -> (count: int) {
+// The actions on offer, in menu order; Cancel is always last and is not listed.
+action_list :: proc(u: ^Universe) -> (list: [len(Action)]Action, count: int) {
+	list[count] = .Inventory
+	count += 1
 	if distress_available(u) {
-		labels[count] = "Signal Distress"
+		list[count] = .Signal_Distress
 		count += 1
 	}
-	labels[count] = "Cancel"
-	count += 1
 	return
 }
 
+action_label :: proc(a: Action) -> string {
+	switch a {
+	case .Inventory:
+		return "Inventory"
+	case .Signal_Distress:
+		return "Signal Distress"
+	}
+	return ""
+}
+
 action_menu_draw :: proc(s: ^Action_Menu, tb: ^Text_Buffer, session: ^Session) {
-	labels: [2]string
-	count := action_labels(&session.universe, &labels)
+	list, n := action_list(&session.universe)
+	labels: [len(Action) + 1]string
+	for i in 0 ..< n {
+		labels[i] = action_label(list[i])
+	}
+	labels[n] = "Cancel"
 	text_put_centered(tb, 3, "ACTIONS", .Yellow)
-	menu_draw(tb, 8, labels[:count], s.cursor)
+	menu_draw(tb, 8, labels[:n + 1], s.cursor)
 }
 
 action_menu_key :: proc(s: ^Action_Menu, key: Key, session: ^Session) -> Transition {
 	u := &session.universe
-	labels: [2]string
-	count := action_labels(u, &labels)
-	switch menu_key(&s.cursor, count, key) {
+	list, n := action_list(u)
+	switch menu_key(&s.cursor, n + 1, key) {
 	case .Chosen:
-		if labels[s.cursor] == "Signal Distress" {
+		if s.cursor >= n {
+			return Pop{}
+		}
+		switch list[s.cursor] {
+		case .Inventory:
+			return Push{Inventory_Screen{}}
+		case .Signal_Distress:
 			added, price := avatar_signal_distress(u)
 			digits: [20]u8
 			m := message_make(.Orange, "Emergency Refuel!")
@@ -210,10 +241,85 @@ action_menu_key :: proc(s: ^Action_Menu, key: Key, session: ^Session) -> Transit
 			message_add(&m, .Light_Gray, "Price ", int_text(&digits, price), " jools!")
 			return Replace{m}
 		}
-		return Pop{}
 	case .Cancelled:
 		return Pop{}
 	case .None, .Previous, .Next:
+	}
+	return nil
+}
+
+// ---- Inventory ----
+
+Inventory_Screen :: struct {
+	cursor: int,
+}
+
+inventory_labels :: proc(u: ^Universe, labels: ^[MAX_STACKS + 1]string, names: ^[MAX_STACKS]Name) -> (stacks: Stacks, count: int) {
+	stacks = inventory_stacks(u)
+	digits: [20]u8
+	labels[0] = "Cancel"
+	for i in 0 ..< stacks.count {
+		st := stacks.stacks[i]
+		base := item_stack_name(st)
+		names[i] = name_join(name_str(&base), " (x", int_text(&digits, st.count), ")")
+		labels[i + 1] = name_str(&names[i])
+	}
+	return stacks, stacks.count + 1
+}
+
+inventory_draw :: proc(s: ^Inventory_Screen, tb: ^Text_Buffer, session: ^Session) {
+	labels: [MAX_STACKS + 1]string
+	names: [MAX_STACKS]Name
+	_, count := inventory_labels(&session.universe, &labels, &names)
+	text_put_centered(tb, 1, "INVENTORY", .Yellow)
+	if count == 1 {
+		text_put_centered(tb, 6, "Yer hold is empty.", .Dark_Gray)
+	}
+	menu_draw(tb, 4 if count > 1 else 9, labels[:count], s.cursor)
+}
+
+inventory_key :: proc(s: ^Inventory_Screen, key: Key, session: ^Session) -> Transition {
+	labels: [MAX_STACKS + 1]string
+	names: [MAX_STACKS]Name
+	stacks, count := inventory_labels(&session.universe, &labels, &names)
+	switch menu_key(&s.cursor, count, key) {
+	case .Chosen:
+		if s.cursor == 0 {
+			return Pop{}
+		}
+		st := stacks.stacks[s.cursor - 1]
+		return Push{Item_Page{kind = st.kind, mark = st.mark, count = st.count}}
+	case .Cancelled:
+		return Pop{}
+	case .None, .Previous, .Next:
+	}
+	return nil
+}
+
+Item_Page :: struct {
+	kind:  Item_Kind,
+	mark:  int,
+	count: int,
+}
+
+item_page_draw :: proc(s: ^Item_Page, tb: ^Text_Buffer, session: ^Session) {
+	item := Item{kind = s.kind, mark = s.mark}
+	name := item_name(item)
+	text_put_centered(tb, 1, name_str(&name), .Yellow)
+	put_field_int(tb, 2, 4, "You have", s.count)
+	row := 7
+	row += text_put_wrapped(tb, 2, row, TEXT_COLUMNS - 4, item_description(s.kind)) + 1
+	info := item_info[s.kind]
+	if info.offer > 0 {
+		put_field_int(tb, 2, row, "Sells for", info.offer)
+		row += 2
+	}
+	text_put_centered(tb, 22, "Press Enter", .Dark_Gray)
+}
+
+item_page_key :: proc(s: ^Item_Page, key: Key, session: ^Session) -> Transition {
+	if key == KEY_ENTER || key == KEY_ESCAPE || key == ' ' {
+		return Pop{}
 	}
 	return nil
 }

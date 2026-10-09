@@ -494,3 +494,105 @@ gathering_atmosphere_is_free :: proc(t: ^testing.T) {
 	testing.expect_value(t, u.avatar.oxygen.current, u.avatar.oxygen.maximum)
 	testing.expect_value(t, u.avatar.jools, jools)
 }
+
+first_debris :: proc(u: ^Universe) -> Actor_Id {
+	for a, i in u.actors {
+		if a.kind == .Debris {
+			return Actor_Id(i + 1)
+		}
+	}
+	return 0
+}
+
+@(test)
+debris_offers_salvage :: proc(t: ^testing.T) {
+	u := generate(1)
+	defer universe_destroy(&u)
+	list, n := offered(&u, first_debris(&u))
+	testing.expect_value(t, n, 1)
+	testing.expect_value(t, list[0], Interaction.Salvage_Scrap)
+	label: Name
+	testing.expect_value(t, interaction_label(&u, .Salvage_Scrap, nil, &label), "Salvage Scrap")
+}
+
+@(test)
+salvage_moves_the_scrap_into_the_hold_and_removes_the_pile :: proc(t: ^testing.T) {
+	u := generate(1)
+	defer universe_destroy(&u)
+	debris := first_debris(&u)
+	d := actor_get(&u, debris)^
+	system := star_system_get(&u, d.star_system)
+	piles, turn, jools := system.scrap, u.turn, u.avatar.jools
+	map_actors := len(map_get(&u, d.map_id).actors)
+
+	found := avatar_salvage(&u, debris)
+	testing.expect_value(t, found, d.loot)
+	testing.expect_value(t, len(u.avatar.inventory), d.loot)
+	for id in u.avatar.inventory {
+		testing.expect_value(t, item_get(&u, id).kind, Item_Kind.Scrap)
+	}
+	testing.expect_value(t, system.scrap, piles - 1)
+	testing.expect_value(t, u.turn, turn) // free
+	testing.expect_value(t, u.avatar.jools, jools)
+	testing.expect_value(t, len(map_get(&u, d.map_id).actors), map_actors - 1)
+	testing.expect_value(t, actor_get(&u, debris).map_id, Map_Id(0))
+	testing.expect_value(t, actor_at(&u, d.map_id, d.pos), Actor_Id(0))
+	testing.expect(t, cell_is_free(&u, d.map_id, d.pos))
+}
+
+@(test)
+removing_an_actor_twice_is_harmless :: proc(t: ^testing.T) {
+	u := generate(1)
+	defer universe_destroy(&u)
+	debris := first_debris(&u)
+	actor_remove(&u, debris)
+	actor_remove(&u, debris)
+	testing.expect_value(t, actor_get(&u, debris).map_id, Map_Id(0))
+}
+
+@(test)
+stacks_group_by_kind_and_mark_in_first_seen_order :: proc(t: ^testing.T) {
+	u := generate(1)
+	defer universe_destroy(&u)
+	add :: proc(u: ^Universe, kind: Item_Kind, mark: int = 0) {
+		append(&u.avatar.inventory, item_add(u, item_new(kind, mark)))
+	}
+	add(&u, .Scrap)
+	add(&u, .Fuel_Supply, 2)
+	add(&u, .Scrap)
+	add(&u, .Fuel_Supply, 3)
+	add(&u, .Fuel_Supply, 2)
+	add(&u, .Scrap)
+	stacks := inventory_stacks(&u)
+	testing.expect_value(t, stacks.count, 3)
+	testing.expect_value(t, stacks.stacks[0], Item_Stack{.Scrap, 0, 3})
+	testing.expect_value(t, stacks.stacks[1], Item_Stack{.Fuel_Supply, 2, 2})
+	testing.expect_value(t, stacks.stacks[2], Item_Stack{.Fuel_Supply, 3, 1})
+	n := item_stack_name(stacks.stacks[1])
+	testing.expect_value(t, name_str(&n), "StarLume Fuel Mark 2")
+}
+
+@(test)
+item_data_matches_the_original :: proc(t: ^testing.T) {
+	scrap := item_new(.Scrap)
+	testing.expect_value(t, item_info[.Scrap].offer, 1)
+	testing.expect_value(t, item_new(.Oxygen_Tank).level, 100)
+	testing.expect_value(t, item_price(item_new(.Oxygen_Tank)), 5)
+	testing.expect_value(t, item_new(.Fuel_Rod).level, 100)
+	testing.expect_value(t, item_price(item_new(.Fuel_Rod)), 20)
+	testing.expect_value(t, item_price(item_new(.Fuel_Scoop)), 10000)
+	testing.expect_value(t, item_tech_level(item_new(.Fuel_Scoop)), 7)
+	testing.expect_value(t, item_price(item_new(.Atmospheric_Concentrator)), 5000)
+	testing.expect_value(t, item_tech_level(item_new(.Atmospheric_Concentrator)), 3)
+	for mark in 1 ..= MAX_MARK {
+		fuel := item_new(.Fuel_Supply, mark)
+		testing.expect_value(t, fuel.level, 250 * mark)
+		testing.expect_value(t, item_price(fuel), 500 * mark)
+		testing.expect_value(t, item_tech_level(fuel), mark)
+		life := item_new(.Life_Support, mark)
+		testing.expect_value(t, item_price(life), 500 * mark)
+	}
+	n := item_name(item_new(.Life_Support, 1))
+	testing.expect_value(t, name_str(&n), "EterniVita Mark 1")
+	testing.expect_value(t, item_tech_level(scrap), -1)
+}

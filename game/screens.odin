@@ -13,6 +13,8 @@ Screen :: union {
 	Navigation,
 	Interaction_Screen,
 	Action_Menu,
+	Inventory_Screen,
+	Item_Page,
 	Message,
 	Game_Menu,
 	Confirm_Abandon,
@@ -36,6 +38,10 @@ screen_draw :: proc(screen: ^Screen, tb: ^Text_Buffer, session: ^Session) {
 		interaction_draw(&s, tb, session)
 	case Action_Menu:
 		action_menu_draw(&s, tb, session)
+	case Inventory_Screen:
+		inventory_draw(&s, tb, session)
+	case Item_Page:
+		item_page_draw(&s, tb, session)
 	case Message:
 		message_draw(&s, tb, session)
 	case Game_Menu:
@@ -63,6 +69,10 @@ screen_key :: proc(screen: ^Screen, key: Key, session: ^Session) -> Transition {
 		return interaction_key(&s, key, session)
 	case Action_Menu:
 		return action_menu_key(&s, key, session)
+	case Inventory_Screen:
+		return inventory_key(&s, key, session)
+	case Item_Page:
+		return item_page_key(&s, key, session)
 	case Message:
 		return message_key(&s, key, session)
 	case Game_Menu:
@@ -82,7 +92,7 @@ screen_tick :: proc(screen: ^Screen, session: ^Session) -> Transition {
 		return generate_tick(&s, session)
 	case Navigation:
 		return navigation_tick(&s, session)
-	case Main_Menu, About, Embark, Interaction_Screen, Action_Menu, Message, Game_Menu, Confirm_Abandon, Game_Over:
+	case Main_Menu, About, Embark, Interaction_Screen, Action_Menu, Inventory_Screen, Item_Page, Message, Game_Menu, Confirm_Abandon, Game_Over:
 	}
 	return nil
 }

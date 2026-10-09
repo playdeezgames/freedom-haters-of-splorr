@@ -66,6 +66,7 @@ Interaction :: enum {
 	Refill_Oxygen, // at a star dock, for jools
 	Refuel, // at a star dock, for jools
 	Gather_Atmosphere, // from a breathable planet, free
+	Salvage_Scrap, // from a pile of debris, free
 }
 
 MAX_INTERACTIONS :: 3
@@ -109,6 +110,8 @@ interactions_for :: proc(u: ^Universe, bump: Bump) -> (list: [MAX_INTERACTIONS]I
 			if a.interior != 0 {
 				add(&list, &count, .Enter_Orbit)
 			}
+		case .Debris:
+			add(&list, &count, .Salvage_Scrap)
 		case .Planet_Body:
 			if .Atmospheric_Concentrator in u.avatar.accessories && planet_info[planet_get(u, a.planet).type].can_refill_oxygen && top_off_amount(u.avatar.oxygen) > 0 {
 				add(&list, &count, .Gather_Atmosphere)
@@ -146,6 +149,8 @@ interaction_label :: proc(u: ^Universe, kind: Interaction, bump: Bump, buf: ^Nam
 		return "Enter Orbit"
 	case .Gather_Atmosphere:
 		return "Gather Atmosphere"
+	case .Salvage_Scrap:
+		return "Salvage Scrap"
 	case .Refill_Oxygen:
 		buf^ = name_join("Refill Oxygen (", int_text(&digits, oxygen_price(u)), " jools)")
 		return name_str(buf)
@@ -284,7 +289,7 @@ avatar_interact :: proc(u: ^Universe, kind: Interaction) -> Interaction_Result {
 			avatar_set_star_system(u, 0)
 		}
 		return .Done
-	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere:
+	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere, .Salvage_Scrap:
 		// these are transactions, not moves: see avatar_buy_oxygen and friends
 		return .Blocked
 	}
@@ -314,6 +319,21 @@ avatar_buy_fuel :: proc(u: ^Universe) -> (added, cost: int) {
 avatar_gather_atmosphere :: proc(u: ^Universe) -> (added: int) {
 	added = top_off_amount(u.avatar.oxygen)
 	u.avatar.oxygen.current = u.avatar.oxygen.maximum
+	return
+}
+
+// Takes everything in a pile of debris (free, no turn) and removes the pile. Returns how many scrap items came.
+avatar_salvage :: proc(u: ^Universe, debris: Actor_Id) -> (found: int) {
+	d := actor_get(u, debris)
+	assert(d.kind == .Debris && d.map_id != 0)
+	found = d.loot
+	for _ in 0 ..< found {
+		append(&u.avatar.inventory, item_add(u, item_new(.Scrap)))
+	}
+	if d.star_system != 0 {
+		star_system_get(u, d.star_system).scrap -= 1
+	}
+	actor_remove(u, debris)
 	return
 }
 

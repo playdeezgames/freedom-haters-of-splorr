@@ -66,6 +66,7 @@ Star_System :: struct {
 	planet_count:    int,
 	satellite_count: int,
 	visit_count:     int,
+	scrap:           int, // debris piles still to be salvaged
 }
 
 Planet :: struct {
@@ -125,6 +126,7 @@ Actor_Kind :: enum {
 	Star_Dock, // on a planet orbit map, one per planet
 	Satellite, // on a planet vicinity map
 	Satellite_Body, // on a satellite orbit map, at the center, 3x3
+	Debris, // on a star system map: a pile of scrap
 }
 
 Actor :: struct {
@@ -136,6 +138,7 @@ Actor :: struct {
 	star_system: Star_System_Id,
 	planet:      Planet_Id,
 	satellite:   Satellite_Id,
+	loot:        int, // debris: how much scrap is in the pile
 }
 
 actor_covers :: proc(a: Actor, p: [2]int) -> bool {
@@ -183,6 +186,7 @@ Accessory :: enum {
 }
 
 Avatar :: struct {
+	inventory:     [dynamic]Item_Id,
 	actor:         Actor_Id,
 	accessories:   bit_set[Accessory],
 	facing:        Direction,
@@ -210,6 +214,7 @@ Universe :: struct {
 	satellites:   [dynamic]Satellite,
 	maps:         [dynamic]Map,
 	actors:       [dynamic]Actor,
+	items:        [dynamic]Item,
 	galaxy:       Map_Id,
 	avatar:       Avatar,
 }
@@ -228,6 +233,8 @@ universe_destroy :: proc(u: ^Universe) {
 	delete(u.satellites)
 	delete(u.maps)
 	delete(u.actors)
+	delete(u.items)
+	delete(u.avatar.inventory)
 	u^ = {}
 }
 
@@ -250,7 +257,9 @@ planet_get :: proc(u: ^Universe, id: Planet_Id) -> ^Planet {return pool_get(u.pl
 satellite_get :: proc(u: ^Universe, id: Satellite_Id) -> ^Satellite {return pool_get(u.satellites, id)}
 map_get :: proc(u: ^Universe, id: Map_Id) -> ^Map {return pool_get(u.maps, id)}
 actor_get :: proc(u: ^Universe, id: Actor_Id) -> ^Actor {return pool_get(u.actors, id)}
+item_get :: proc(u: ^Universe, id: Item_Id) -> ^Item {return pool_get(u.items, id)}
 
+item_add :: proc(u: ^Universe, item: Item) -> Item_Id {return pool_add(&u.items, item, Item_Id)}
 faction_add :: proc(u: ^Universe, f: Faction) -> Faction_Id {return pool_add(&u.factions, f, Faction_Id)}
 star_system_add :: proc(u: ^Universe, s: Star_System) -> Star_System_Id {return pool_add(&u.star_systems, s, Star_System_Id)}
 planet_add :: proc(u: ^Universe, p: Planet) -> Planet_Id {return pool_add(&u.planets, p, Planet_Id)}
@@ -270,6 +279,22 @@ actor_add :: proc(u: ^Universe, on: Map_Id, a: Actor) -> Actor_Id {
 	id := pool_add(&u.actors, a, Actor_Id)
 	append(&map_get(u, on).actors, id)
 	return id
+}
+
+// Takes an actor off its map (debris being salvaged). The id stays valid but the actor is on no map.
+actor_remove :: proc(u: ^Universe, id: Actor_Id) {
+	a := actor_get(u, id)
+	if a.map_id == 0 {
+		return
+	}
+	on := map_get(u, a.map_id)
+	for other, i in on.actors {
+		if other == id {
+			ordered_remove(&on.actors, i)
+			break
+		}
+	}
+	a.map_id = 0
 }
 
 // The actor covering cell `p` of map `on`, or none (0).

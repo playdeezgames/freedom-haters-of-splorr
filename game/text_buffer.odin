@@ -105,3 +105,27 @@ text_put_int :: proc(tb: ^Text_Buffer, col, row: int, n: int, fg: Hue = .Light_G
 	}
 	return text_put(tb, col, row, string(buf[i:]), fg, bg)
 }
+
+// Writes `s` wrapped to `width` columns starting at (col,row), breaking at spaces. Returns the rows used.
+text_put_wrapped :: proc(tb: ^Text_Buffer, col, row, width: int, s: string, fg: Hue = .Light_Gray) -> int {
+	rows := 0
+	rest := s
+	for len(rest) > 0 {
+		take := min(len(rest), width)
+		if take < len(rest) {
+			for take > 0 && rest[take] != ' ' {
+				take -= 1
+			}
+			if take == 0 { // one word longer than the line
+				take = width
+			}
+		}
+		text_put(tb, col, row + rows, rest[:take], fg)
+		rows += 1
+		rest = rest[take:]
+		for len(rest) > 0 && rest[0] == ' ' {
+			rest = rest[1:]
+		}
+	}
+	return rows
+}

@@ -415,3 +415,41 @@ every_planet_orbit_has_one_star_dock :: proc(t: ^testing.T) {
 		}
 	}
 }
+
+@(test)
+every_system_has_debris_with_scrap_to_find :: proc(t: ^testing.T) {
+	for seed in 1 ..= 3 {
+		u := generate(u64(seed))
+		defer universe_destroy(&u)
+		for sys, i in u.star_systems {
+			piles := 0
+			for id in map_get(&u, sys.interior).actors {
+				a := actor_get(&u, id)
+				if a.kind == .Debris {
+					piles += 1
+					testing.expect(t, a.loot >= 4 && a.loot <= 24)
+					testing.expect(t, !map_is_edge(.Star_System, a.pos))
+					testing.expect(t, a.star_system == Star_System_Id(i + 1))
+					testing.expect(t, a.pos != map_center(.Star_System))
+				}
+			}
+			testing.expect(t, piles >= 2 && piles <= 12)
+			testing.expect_value(t, sys.scrap, piles)
+		}
+	}
+}
+
+@(test)
+debris_never_shares_a_cell_with_anything :: proc(t: ^testing.T) {
+	u := generate(5)
+	defer universe_destroy(&u)
+	for sys in u.star_systems {
+		seen: map[[2]int]struct{}
+		defer delete(seen)
+		for id in map_get(&u, sys.interior).actors {
+			a := actor_get(&u, id)
+			testing.expect(t, a.pos not_in seen)
+			seen[a.pos] = {}
+		}
+	}
+}

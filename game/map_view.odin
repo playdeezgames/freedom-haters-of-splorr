@@ -14,6 +14,7 @@ GLYPH_SATELLITE_MARKER :: u8(0x09) // ○
 GLYPH_PLANET_BODY :: u8(0xB2) // ▓
 GLYPH_SATELLITE_BODY :: u8(0xB1) // ▒
 GLYPH_STAR_DOCK :: u8(0x7F) // ⌂
+GLYPH_DEBRIS :: u8('*')
 
 direction_glyph := [Direction]u8 {
 	.North = 0x1E, // ▲
@@ -38,6 +39,8 @@ actor_glyph :: proc(u: ^Universe, a: Actor) -> (glyph: u8, hue: Hue) {
 		return GLYPH_SATELLITE_BODY, satellite_info[satellite_get(u, a.satellite).type].hue
 	case .Star_Dock:
 		return GLYPH_STAR_DOCK, .Brown
+	case .Debris:
+		return GLYPH_DEBRIS, .Light_Gray
 	}
 	return '?', .Light_Red
 }
@@ -182,6 +185,7 @@ draw_bump_info :: proc(tb: ^Text_Buffer, u: ^Universe, bump: Bump, top_row: int)
 				text_put_int(tb, c, row - 2, sys.position.y, .White)
 				put_field_int(tb, 2, next(&row), "Planets", sys.planet_count)
 				put_field_int(tb, 2, next(&row), "Satellites", sys.satellite_count)
+				put_field_int(tb, 2, next(&row), "Scrap", sys.scrap)
 			}
 		case .Planet_Vicinity, .Planet, .Planet_Body:
 			p := planet_get(u, a.planet)
@@ -213,6 +217,10 @@ draw_bump_info :: proc(tb: ^Text_Buffer, u: ^Universe, bump: Bump, top_row: int)
 			put_field_int(tb, 2, next(&row), "Tech Level", s.tech_level)
 			put_field(tb, 2, next(&row), "Planet", name_str(&planet_get(u, s.planet).name))
 			put_field(tb, 2, next(&row), "Star System", name_str(&star_system_get(u, s.star_system).name))
+		case .Debris:
+			text_put_centered(tb, 1, "Debris", .Light_Gray)
+			text_put(tb, 2, next(&row), "A pile of junk floating", .Light_Gray)
+			text_put(tb, 2, next(&row), "around in space.", .Light_Gray)
 		case .Player_Ship:
 			text_put_centered(tb, 1, "(yer ship)", .White)
 		}

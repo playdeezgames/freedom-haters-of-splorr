@@ -272,6 +272,24 @@ step_star_system :: proc(g: ^Generator, id: Star_System_Id) {
 		planet_count += 1
 	}
 	star_system_get(u, id).planet_count = planet_count
+	add_debris(g, id, system_map)
+}
+
+// Piles of scrap drifting about the system, on any open cell inside the border.
+@(private = "file")
+add_debris :: proc(g: ^Generator, system: Star_System_Id, system_map: Map_Id) {
+	u := &g.universe
+	size := map_sizes[.Star_System]
+	for _ in 0 ..< dice_roll(&u.rng, DEBRIS_COUNT_DICE) {
+		for _ in 0 ..< MAX_PLACEMENT_TRIES {
+			pos := [2]int{rng_range(&u.rng, 1, size.x - 2), rng_range(&u.rng, 1, size.y - 2)}
+			if cell_is_free(u, system_map, pos) {
+				actor_add(u, system_map, {kind = .Debris, pos = pos, star_system = system, loot = dice_roll(&u.rng, DEBRIS_LOOT_DICE)})
+				star_system_get(u, system).scrap += 1
+				break
+			}
+		}
+	}
 }
 
 @(private = "file")
