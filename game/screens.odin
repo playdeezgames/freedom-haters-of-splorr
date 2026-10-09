@@ -15,6 +15,9 @@ Screen :: union {
 	Action_Menu,
 	Inventory_Screen,
 	Item_Page,
+	Equipment_Screen,
+	Shipyard_Screen,
+	Slot_Items,
 	Trader,
 	Buy_List,
 	Sell_List,
@@ -48,6 +51,12 @@ screen_draw :: proc(screen: ^Screen, tb: ^Text_Buffer, session: ^Session) {
 		inventory_draw(&s, tb, session)
 	case Item_Page:
 		item_page_draw(&s, tb, session)
+	case Equipment_Screen:
+		equipment_draw(&s, tb, session)
+	case Shipyard_Screen:
+		shipyard_draw(&s, tb, session)
+	case Slot_Items:
+		slot_items_draw(&s, tb, session)
 	case Trader:
 		trader_draw(&s, tb, session)
 	case Buy_List:
@@ -91,6 +100,12 @@ screen_key :: proc(screen: ^Screen, key: Key, session: ^Session) -> Transition {
 		return inventory_key(&s, key, session)
 	case Item_Page:
 		return item_page_key(&s, key, session)
+	case Equipment_Screen:
+		return equipment_key(&s, key, session)
+	case Shipyard_Screen:
+		return shipyard_key(&s, key, session)
+	case Slot_Items:
+		return slot_items_key(&s, key, session)
 	case Trader:
 		return trader_key(&s, key, session)
 	case Buy_List:
@@ -124,7 +139,7 @@ screen_tick :: proc(screen: ^Screen, session: ^Session) -> Transition {
 		return navigation_tick(&s, session)
 	case Sell_List:
 		return sell_list_tick(&s, session)
-	case Main_Menu, About, Embark, Interaction_Screen, Action_Menu, Inventory_Screen, Item_Page, Trader, Buy_List, Quantity, Number_Entry, Confirm_Trade, Message, Game_Menu, Confirm_Abandon, Game_Over:
+	case Main_Menu, About, Embark, Interaction_Screen, Action_Menu, Inventory_Screen, Item_Page, Equipment_Screen, Shipyard_Screen, Slot_Items, Trader, Buy_List, Quantity, Number_Entry, Confirm_Trade, Message, Game_Menu, Confirm_Abandon, Game_Over:
 	}
 	return nil
 }

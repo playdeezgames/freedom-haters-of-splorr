@@ -65,9 +65,27 @@ item_price :: proc(item: Item) -> int {
 	return info.price * max(item.mark, 1) if info.marked else info.price
 }
 
+// The VB's life support units need 1, 3, 5, 7 and 9; fuel supplies need their mark; the rest are fixed.
+life_support_tech_levels := [MAX_MARK + 1]int{0, 1, 3, 5, 7, 9}
+
 item_tech_level :: proc(item: Item) -> int {
+	#partial switch item.kind {
+	case .Life_Support:
+		return life_support_tech_levels[item.mark]
+	case .Fuel_Supply:
+		return item.mark
+	}
+	return item_info[item.kind].tech_level
+}
+
+item_install_fee :: proc(item: Item) -> int {
 	info := item_info[item.kind]
-	return item.mark if info.marked else info.tech_level
+	return info.install_fee * max(item.mark, 1) if info.marked else info.install_fee
+}
+
+item_uninstall_fee :: proc(item: Item) -> int {
+	info := item_info[item.kind]
+	return info.uninstall_fee * max(item.mark, 1) if info.marked else info.uninstall_fee
 }
 
 // A brand new item of `kind`, full where that means something.
@@ -169,7 +187,7 @@ item_description :: proc(item: Item, intro: ^Long_Text) -> Description {
 			"With StarBreathe Technologies, exploration knows no bounds. Trust the AeroSynth Recharger to keep you breathing easy, wherever your journey takes you.",
 		)
 	case .Fuel_Supply:
-		intro^ = long_join("This is the StarLume Fuel Storage Solution System ", mark_numerals[item.mark], " from Celestial Energy Solutions.")
+		intro^ = long_join("This is the StarLume Fuel Storage Solution System Mark ", mark_numerals[item.mark], " from Celestial Energy Solutions.")
 		return description_of(
 			long_str(intro),
 			"Embark on interstellar journeys with StarLume Fuel Storage Solution System by Celestial Energy Solutions, the foremost name in propulsion innovation.",
@@ -178,7 +196,7 @@ item_description :: proc(item: Item, intro: ^Long_Text) -> Description {
 			"Reach for the stars with StarLume Fuel Storage Solution System - where limitless possibilities await beyond every horizon.",
 		)
 	case .Life_Support:
-		intro^ = long_join("This is the EterniVita ", mark_numerals[item.mark], " from NexGen Dynamics.")
+		intro^ = long_join("This is the EterniVita Mark ", mark_numerals[item.mark], " from NexGen Dynamics.")
 		return description_of(
 			long_str(intro),
 			"Step into the future with EterniVita, the pinnacle of life support technology.",

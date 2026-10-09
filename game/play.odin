@@ -69,6 +69,8 @@ Interaction :: enum {
 	Gather_Atmosphere, // from a breathable planet, free
 	Salvage_Scrap, // from a pile of debris, free
 	Trade, // at a trading post
+	Enter_Shipyard, // at a shipyard
+	Use_Fuel_Scoop, // at a star, with a fuel scoop installed
 }
 
 MAX_INTERACTIONS :: 3
@@ -116,8 +118,14 @@ interactions_for :: proc(u: ^Universe, bump: Bump) -> (list: [MAX_INTERACTIONS]I
 			add(&list, &count, .Salvage_Scrap)
 		case .Trading_Post:
 			add(&list, &count, .Trade)
+		case .Shipyard:
+			add(&list, &count, .Enter_Shipyard)
+		case .Star:
+			if avatar_has_equipped(u, .Fuel_Scoop) && top_off_amount(u.avatar.fuel) > 0 {
+				add(&list, &count, .Use_Fuel_Scoop)
+			}
 		case .Planet_Body:
-			if .Atmospheric_Concentrator in u.avatar.accessories && planet_info[planet_get(u, a.planet).type].can_refill_oxygen && top_off_amount(u.avatar.oxygen) > 0 {
+			if avatar_has_equipped(u, .Atmospheric_Concentrator) && planet_info[planet_get(u, a.planet).type].can_refill_oxygen && top_off_amount(u.avatar.oxygen) > 0 {
 				add(&list, &count, .Gather_Atmosphere)
 			}
 		case .Star_Dock:
@@ -157,6 +165,10 @@ interaction_label :: proc(u: ^Universe, kind: Interaction, bump: Bump, buf: ^Nam
 		return "Salvage Scrap"
 	case .Trade:
 		return "Trade"
+	case .Enter_Shipyard:
+		return "Enter Shipyard"
+	case .Use_Fuel_Scoop:
+		return "Use Fuel Scoop"
 	case .Refill_Oxygen:
 		buf^ = name_join("Refill Oxygen (", int_text(&digits, oxygen_price(u)), " jools)")
 		return name_str(buf)
@@ -295,7 +307,7 @@ avatar_interact :: proc(u: ^Universe, kind: Interaction) -> Interaction_Result {
 			avatar_set_star_system(u, 0)
 		}
 		return .Done
-	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere, .Salvage_Scrap, .Trade:
+	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere, .Salvage_Scrap, .Trade, .Enter_Shipyard, .Use_Fuel_Scoop:
 		// these are transactions, not moves: see avatar_buy_oxygen and friends
 		return .Blocked
 	}

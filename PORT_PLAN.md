@@ -109,8 +109,16 @@ Based on a read of the 12 VB generation steps (factions -> galaxy -> star system
 - [x] Debris (12d6/6 per system, 4d6 scrap each) and salvage
 - [x] Trading post: buy list by planet tech level, sell scrap at 1, quantity / number / confirm screens; 1-2 per orbit
 - [x] Using oxygen tanks (+100 oxygen, auto-used when oxygen would run out, leaves scrap) and fuel rods (+100 fuel)
-- [ ] Shipyard: install/uninstall equipment with fees, equipment slots, marks
-- [ ] Fuel scoop at stars; delivery missions at the star dock
+- [x] Shipyard: slots, install/uninstall/swap with fees, tech-level gate, per-unit levels, equipment view
+- [x] Fuel scoop at stars (free fuel, installed accessory)
+- [ ] Delivery missions at the star dock (Errand Boy), selling/buying them
+
+## Decisions (shipyard)
+
+- Fuel and life-support units keep their own level, so a fresh unit is a refill and swapping back restores the old level (the VB's behavior, kept).
+- The shipyard's planet tech level must reach both the unit being installed and the unit being removed (the VB's gate, kept).
+- One slot list instead of the VB's Change / Install / Uninstall menus.
+- Correction made along the way: life support Marks I-V need tech levels 1/3/5/7/9 (fuel supplies 1-5); trading posts stock accordingly.
 
 ## Suggested port order
 

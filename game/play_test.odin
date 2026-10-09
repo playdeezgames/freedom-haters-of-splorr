@@ -334,6 +334,11 @@ relocating_keeps_the_map_actor_lists_straight :: proc(t: ^testing.T) {
 	testing.expect_value(t, actor_at(&u, system.interior, {2, 2}), u.avatar.actor)
 }
 
+// The concentrator, installed for free in the first accessory slot.
+install_concentrator :: proc(u: ^Universe) {
+	equip_item(u, .Accessory_0, item_add(u, item_new(.Atmospheric_Concentrator)), charge = false)
+}
+
 // A star dock to test against, with the ship parked on the cell beside it.
 first_dock :: proc(u: ^Universe) -> Actor_Id {
 	for a, i in u.actors {
@@ -450,7 +455,7 @@ a_planet_only_gives_air_to_a_ship_with_a_concentrator :: proc(t: ^testing.T) {
 	_, n := offered(&u, id)
 	testing.expect_value(t, n, 0) // no concentrator
 
-	u.avatar.accessories += {.Atmospheric_Concentrator}
+	install_concentrator(&u)
 	list, n2 := offered(&u, id)
 	testing.expect_value(t, n2, 1)
 	testing.expect_value(t, list[0], Interaction.Gather_Atmosphere)
@@ -464,7 +469,7 @@ a_planet_only_gives_air_to_a_ship_with_a_concentrator :: proc(t: ^testing.T) {
 only_breathable_planets_can_be_drawn_from :: proc(t: ^testing.T) {
 	u := generate(1)
 	defer universe_destroy(&u)
-	u.avatar.accessories += {.Atmospheric_Concentrator}
+	install_concentrator(&u)
 	u.avatar.oxygen.current = 100
 	breathable, unbreathable := 0, 0
 	for ptype in Planet_Type {
@@ -591,6 +596,7 @@ item_data_matches_the_original :: proc(t: ^testing.T) {
 		testing.expect_value(t, item_tech_level(fuel), mark)
 		life := item_new(.Life_Support, mark)
 		testing.expect_value(t, item_price(life), 500 * mark)
+		testing.expect_value(t, item_tech_level(life), 2 * mark - 1) // 1, 3, 5, 7, 9
 	}
 	n := item_name(item_new(.Life_Support, 1))
 	testing.expect_value(t, name_str(&n), "EterniVita Mark I")
@@ -637,10 +643,10 @@ marked_descriptions_name_their_mark :: proc(t: ^testing.T) {
 	for mark in 1 ..= MAX_MARK {
 		intro: Long_Text
 		d := item_description(item_new(.Fuel_Supply, mark), &intro)
-		want := long_join("This is the StarLume Fuel Storage Solution System ", mark_numerals[mark], " from Celestial Energy Solutions.")
+		want := long_join("This is the StarLume Fuel Storage Solution System Mark ", mark_numerals[mark], " from Celestial Energy Solutions.")
 		testing.expect_value(t, d.paragraphs[0], long_str(&want))
 		d = item_description(item_new(.Life_Support, mark), &intro)
-		want = long_join("This is the EterniVita ", mark_numerals[mark], " from NexGen Dynamics.")
+		want = long_join("This is the EterniVita Mark ", mark_numerals[mark], " from NexGen Dynamics.")
 		testing.expect_value(t, d.paragraphs[0], long_str(&want))
 	}
 }

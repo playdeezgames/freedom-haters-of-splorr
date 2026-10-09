@@ -124,6 +124,7 @@ Actor_Kind :: enum {
 	Planet, // on a planet vicinity map, at the center, 3x3
 	Planet_Body, // on a planet orbit map, at the center, 5x5
 	Star_Dock, // on a planet orbit map, one per planet
+	Shipyard, // on a planet orbit map, on about one planet in four
 	Trading_Post, // on a planet orbit map, one or two per planet
 	Satellite, // on a planet vicinity map
 	Satellite_Body, // on a satellite orbit map, at the center, 3x3
@@ -180,16 +181,10 @@ Direction :: enum {
 	West,
 }
 
-// Equipment that changes what the ship can do. (The VB has equip slots and inventory; only what the
-// slice needs so far is modeled.)
-Accessory :: enum {
-	Atmospheric_Concentrator, // refills oxygen from a planet's atmosphere
-}
-
 Avatar :: struct {
 	inventory:     [dynamic]Item_Id,
 	actor:         Actor_Id,
-	accessories:   bit_set[Accessory],
+	equipment:     [Equip_Slot]Item_Id, // what is installed; 0 means empty
 	auto_used:     Use_Result, // set when an oxygen tank was used automatically; the map screen reports it and clears it
 	facing:        Direction,
 	bumped:        Bump,

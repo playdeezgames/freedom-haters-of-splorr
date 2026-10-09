@@ -326,6 +326,9 @@ step_planet :: proc(g: ^Generator, id: Planet_Id) {
 	for _ in 0 ..< max(1, dice_roll(&u.rng, TRADING_POST_COUNT_DICE)) {
 		add_trading_post(g, id, orbit)
 	}
+	for _ in 0 ..< dice_roll(&u.rng, SHIPYARD_COUNT_DICE) {
+		add_shipyard(g, id, orbit)
+	}
 
 	// satellites, kept away from the planet's 3x3 block and each other
 	size := map_sizes[.Planet_Vicinity]
@@ -349,6 +352,21 @@ step_planet :: proc(g: ^Generator, id: Planet_Id) {
 	}
 	planet_get(u, id).satellite_count = satellite_count
 	star_system_get(u, system).satellite_count += satellite_count
+}
+
+// A shipyard: on about one planet in four.
+@(private = "file")
+add_shipyard :: proc(g: ^Generator, planet: Planet_Id, orbit: Map_Id) {
+	u := &g.universe
+	size := map_sizes[.Planet_Orbit]
+	for _ in 0 ..< MAX_PLACEMENT_TRIES {
+		pos := [2]int{rng_range(&u.rng, 1, size.x - 2), rng_range(&u.rng, 1, size.y - 2)}
+		if cell_is_free(u, orbit, pos) {
+			actor_add(u, orbit, {kind = .Shipyard, pos = pos, star_system = planet_get(u, planet).star_system, planet = planet})
+			return
+		}
+	}
+	panic("no room for a shipyard")
 }
 
 // A trading post: at least one in every planet's orbit, sometimes two.
@@ -462,7 +480,10 @@ step_avatar :: proc(g: ^Generator) {
 		home_planet   = rng_pick(&u.rng, home[:]),
 		jools         = profile.first + profile.step * rng_below(&u.rng, profile.count),
 		jools_minimum = profile.wallet_minimum,
-		fuel          = {current = MARK_I_CAPACITY, maximum = MARK_I_CAPACITY},
-		oxygen        = {current = MARK_I_CAPACITY, maximum = MARK_I_CAPACITY},
 	}
+	// the ship leaves with Mark I life support and fuel supply installed, and full
+	life := item_add(u, item_new(.Life_Support, 1))
+	fuel := item_add(u, item_new(.Fuel_Supply, 1))
+	equip_item(u, .Life_Support, life, charge = false)
+	equip_item(u, .Fuel_Supply, fuel, charge = false)
 }

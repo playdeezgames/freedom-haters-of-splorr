@@ -171,6 +171,14 @@ interaction_key :: proc(s: ^Interaction_Screen, key: Key, session: ^Session) -> 
 			return Replace{m}
 		case .Trade:
 			return Replace{Trader{post = u.avatar.bumped.(Actor_Id)}}
+		case .Enter_Shipyard:
+			return Replace{Shipyard_Screen{yard = u.avatar.bumped.(Actor_Id)}}
+		case .Use_Fuel_Scoop:
+			added := avatar_use_fuel_scoop(u)
+			m := message_make(.Orange, "Fuel Scooped!")
+			message_add(&m, .Light_Gray, "You collect ", int_text(&digits, added), " fuel!")
+			message_add(&m, .Light_Gray, "No charge!")
+			return Replace{m}
 		case .Gather_Atmosphere:
 			added := avatar_gather_atmosphere(u)
 			m := message_make(.Orange, "Atmosphere Gathered!")
@@ -191,6 +199,7 @@ interaction_key :: proc(s: ^Interaction_Screen, key: Key, session: ^Session) -> 
 
 Action :: enum {
 	Inventory,
+	Equipment,
 	Signal_Distress,
 }
 
@@ -201,6 +210,8 @@ Action_Menu :: struct {
 // The actions on offer, in menu order; Cancel is always last and is not listed.
 action_list :: proc(u: ^Universe) -> (list: [len(Action)]Action, count: int) {
 	list[count] = .Inventory
+	count += 1
+	list[count] = .Equipment
 	count += 1
 	if distress_available(u) {
 		list[count] = .Signal_Distress
@@ -213,6 +224,8 @@ action_label :: proc(a: Action) -> string {
 	switch a {
 	case .Inventory:
 		return "Inventory"
+	case .Equipment:
+		return "Equipment"
 	case .Signal_Distress:
 		return "Signal Distress"
 	}
@@ -241,6 +254,8 @@ action_menu_key :: proc(s: ^Action_Menu, key: Key, session: ^Session) -> Transit
 		switch list[s.cursor] {
 		case .Inventory:
 			return Push{Inventory_Screen{}}
+		case .Equipment:
+			return Push{Equipment_Screen{}}
 		case .Signal_Distress:
 			added, price := avatar_signal_distress(u)
 			digits: [20]u8
@@ -363,7 +378,9 @@ item_page_draw :: proc(s: ^Item_Page, tb: ^Text_Buffer, session: ^Session) {
 	item := Item{kind = s.kind, mark = s.mark}
 	name := item_name(item)
 	text_put_centered(tb, 1, name_str(&name), .Yellow)
-	put_field_int(tb, 2, 2, "You have", s.count)
+	if s.count > 0 {
+		put_field_int(tb, 2, 2, "You have", s.count)
+	}
 
 	pl: Page_Lines
 	page_lines(item, &pl)
@@ -438,7 +455,7 @@ oxygen_report :: proc(r: Use_Result) -> Message {
 // ---- A message to dismiss ----
 
 Message_Line :: struct {
-	text: [40]u8,
+	text: [96]u8,
 	len:  u8,
 	hue:  Hue,
 }
@@ -486,9 +503,16 @@ message_add :: proc(m: ^Message, hue: Hue, parts: ..string) {
 }
 
 message_draw :: proc(s: ^Message, tb: ^Text_Buffer, session: ^Session) {
+	row := 6
 	for i in 0 ..< s.count {
 		line := &s.lines[i]
-		text_put_centered(tb, 8 + i * 2, string(line.text[:line.len]), line.hue)
+		text := string(line.text[:line.len])
+		if len(text) <= TEXT_COLUMNS - 4 {
+			text_put_centered(tb, row, text, line.hue)
+			row += 2
+		} else {
+			row += text_put_wrapped(tb, 2, row, TEXT_COLUMNS - 4, text, line.hue) + 1
+		}
 	}
 	text_put_centered(tb, 22, "Press Enter", .Dark_Gray)
 }

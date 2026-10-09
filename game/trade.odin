@@ -40,8 +40,10 @@ trade_prices :: proc(u: ^Universe, post: Actor_Id) -> (list: Trade_List) {
 		trade_list_add(&list, .Fuel_Scoop)
 	}
 	for mark in 1 ..= MAX_MARK {
-		if mark <= tech {
+		if item_tech_level(item_new(.Life_Support, mark)) <= tech {
 			trade_list_add(&list, .Life_Support, mark)
+		}
+		if item_tech_level(item_new(.Fuel_Supply, mark)) <= tech {
 			trade_list_add(&list, .Fuel_Supply, mark)
 		}
 	}

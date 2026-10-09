@@ -37,17 +37,22 @@ menu_key :: proc(cursor: ^int, count: int, key: Key) -> Menu_Result {
 
 // Items are drawn every other row: the 8x8 font has no line gap, so adjacent rows touch. A list too long for
 // the screen scrolls to keep the cursor in view.
-menu_draw :: proc(tb: ^Text_Buffer, top_row: int, labels: []string, cursor: int, col: int = 12) {
+menu_draw :: proc(tb: ^Text_Buffer, top_row: int, labels: []string, cursor: int, col: int = 12, details: []string = nil) {
 	visible := min(len(labels), (TEXT_ROWS - 2 - top_row) / 2 + 1)
 	first := clamp(cursor - visible / 2, 0, len(labels) - visible)
 	for i in 0 ..< visible {
 		label := labels[first + i]
 		row := top_row + i * 2
-		if first + i == cursor {
+		selected := first + i == cursor
+		if selected {
 			text_put(tb, col, row, "> ", .Yellow)
 			text_put(tb, col + 2, row, label, .White)
 		} else {
 			text_put(tb, col + 2, row, label, .Light_Gray)
+		}
+		// a second line under the entry, in the gap the spacing leaves
+		if first + i < len(details) && len(details[first + i]) > 0 {
+			text_put(tb, col + 2, row + 1, details[first + i], .Light_Gray if selected else .Dark_Gray)
 		}
 	}
 	if first > 0 {

@@ -132,8 +132,7 @@ with_no_fuel_the_action_menu_offers_distress_and_it_costs_jools :: proc(t: ^test
 	testing.expect_value(t, u.turn, turn) // no fuel: no move, no turn
 	app_key(&app, KEY_ENTER) // action menu
 	testing.expect(t, on_screen(&app, Action_Menu))
-	app_key(&app, KEY_DOWN)
-	app_key(&app, KEY_ENTER) // Signal Distress, after Inventory
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Signal Distress, after Inventory and Equipment
 	testing.expect(t, on_screen(&app, Message))
 	testing.expect_value(t, u.avatar.fuel.current, MARK_I_CAPACITY)
 	testing.expect_value(t, u.avatar.jools, jools - MARK_I_CAPACITY * EMERGENCY_FUEL_PRICE)
@@ -149,8 +148,7 @@ with_fuel_the_action_menu_has_no_distress :: proc(t: ^testing.T) {
 	app_key(&app, KEY_ENTER)
 	testing.expect(t, on_screen(&app, Action_Menu))
 	jools := app.session.universe.avatar.jools
-	app_key(&app, KEY_DOWN)
-	app_key(&app, KEY_ENTER) // Inventory, then Cancel: no distress while there is fuel
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Inventory, Equipment, then Cancel: no distress while there is fuel
 	testing.expect(t, on_screen(&app, Navigation))
 	testing.expect_value(t, app.session.universe.avatar.jools, jools)
 }
@@ -183,8 +181,7 @@ an_unaffordable_refuel_is_bankruptcy :: proc(t: ^testing.T) {
 	u.avatar.fuel.current = 0
 	u.avatar.jools = u.avatar.jools_minimum + 5
 	app_key(&app, KEY_ENTER)
-	app_key(&app, KEY_DOWN)
-	app_key(&app, KEY_ENTER) // Signal Distress
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Signal Distress
 	app_key(&app, KEY_ENTER) // dismiss the message
 	app_tick(&app)
 	testing.expect(t, on_screen(&app, Game_Over))
@@ -258,7 +255,7 @@ refilling_oxygen_at_a_star_dock_charges_jools_and_shows_a_receipt :: proc(t: ^te
 	testing.expect(t, on_screen(&app, Message))
 	testing.expect_value(t, u.avatar.oxygen.current, u.avatar.oxygen.maximum) // the bump cost 1, so 26 were bought
 	testing.expect_value(t, u.avatar.jools, jools - 3)
-	testing.expect_value(t, app.text[8][(TEXT_COLUMNS - len("Oxygen Refilled!")) / 2].char, u8('O'))
+	testing.expect_value(t, app.text[6][(TEXT_COLUMNS - len("Oxygen Refilled!")) / 2].char, u8('O'))
 	app_key(&app, KEY_ENTER)
 	testing.expect(t, on_screen(&app, Navigation))
 }
@@ -741,4 +738,197 @@ every_kind_of_item_page_can_be_drawn :: proc(t: ^testing.T) {
 			testing.expect(t, title >= len("Scrap")) // a title
 		}
 	}
+}
+
+// ---- the shipyard and the equipment view ----
+
+// At the shipyard screen of a yard on a planet of the given tech level, with `jools` in the wallet.
+at_the_shipyard :: proc(t: ^testing.T, app: ^App, tech, jools: int) {
+	app_on_the_map(t, app)
+	u := &app.session.universe
+	yard := yard_with_tech(u, tech)
+	u.avatar.jools = jools
+	actor_relocate(u, u.avatar.actor, actor_get(u, yard).map_id, {1, 1})
+	dir := park_beside(t, u, yard)
+	keys := [Direction]Key {
+		.North = KEY_UP,
+		.East  = KEY_RIGHT,
+		.South = KEY_DOWN,
+		.West  = KEY_LEFT,
+	}
+	app_key(app, keys[dir])
+	testing.expect(t, on_screen(app, Interaction_Screen))
+	app_key(app, KEY_ENTER) // Enter Shipyard
+	testing.expect(t, on_screen(app, Shipyard_Screen))
+}
+
+@(test)
+the_shipyard_lists_every_slot_and_what_is_in_it :: proc(t: ^testing.T) {
+	app: App
+	at_the_shipyard(t, &app, 5, 1000)
+	defer app_destroy(&app)
+	app_draw(&app)
+	// "Life Support: EterniVita Mark I" is the first entry, at row 7, label column 4
+	testing.expect_value(t, app.text[7][4].char, u8('L'))
+	testing.expect_value(t, app.text[9][4].char, u8('F')) // Fuel Supply
+	testing.expect_value(t, app.text[11][4].char, u8('A')) // Accessory(0): (empty)
+	press(&app, KEY_ESCAPE)
+	testing.expect(t, on_screen(&app, Navigation))
+}
+
+@(test)
+installing_an_accessory_through_the_screens :: proc(t: ^testing.T) {
+	app: App
+	at_the_shipyard(t, &app, 5, 1000)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	conc := in_hold(u, .Atmospheric_Concentrator)
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Accessory(0)
+	testing.expect(t, on_screen(&app, Slot_Items))
+	press(&app, KEY_DOWN, KEY_ENTER) // Cancel, then the concentrator
+	testing.expect(t, on_screen(&app, Message))
+	testing.expect_value(t, u.avatar.equipment[.Accessory_0], conc)
+	testing.expect_value(t, u.avatar.jools, 1000 - 25)
+	press(&app, KEY_ENTER)
+	testing.expect(t, on_screen(&app, Shipyard_Screen)) // straight back to the slot list
+}
+
+@(test)
+the_slot_screen_shows_each_items_fee_and_level :: proc(t: ^testing.T) {
+	app: App
+	at_the_shipyard(t, &app, 5, 1000)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	spare := in_hold(u, .Fuel_Supply, 2)
+	item_get(u, spare).level = 120 // a partly used spare
+	press(&app, KEY_DOWN, KEY_ENTER) // Fuel Supply
+	app_draw(&app)
+	// entries: Cancel at row 7, the spare at row 9 with its detail line on row 10
+	testing.expect_value(t, app.text[9][4].char, u8('S')) // StarLume Fuel Mark II
+	detail := ""
+	line: [TEXT_COLUMNS]u8
+	for cell, i in app.text[10] {
+		line[i] = cell.char
+	}
+	detail = string(line[:])
+	testing.expect(t, len(detail) > 0 && detail[4] == 'H') // "Holds 120/500. Fee 25."
+}
+
+@(test)
+a_low_tech_yard_refuses_and_says_so :: proc(t: ^testing.T) {
+	app: App
+	at_the_shipyard(t, &app, 1, 1000)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	in_hold(u, .Fuel_Supply, 3)
+	press(&app, KEY_DOWN, KEY_ENTER, KEY_DOWN, KEY_ENTER) // Fuel Supply, the Mark III
+	testing.expect(t, on_screen(&app, Message))
+	testing.expect_value(t, u.avatar.jools, 1000)
+	testing.expect_value(t, app.text[6][(TEXT_COLUMNS - len("Insufficient Tech Level!")) / 2].char, u8('I'))
+	testing.expect_value(t, item_get(u, u.avatar.equipment[.Fuel_Supply]).mark, 1)
+}
+
+@(test)
+a_poor_ship_refuses_and_says_so :: proc(t: ^testing.T) {
+	app: App
+	at_the_shipyard(t, &app, 5, 5)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	in_hold(u, .Fuel_Supply, 2)
+	press(&app, KEY_DOWN, KEY_ENTER, KEY_DOWN, KEY_ENTER)
+	testing.expect(t, on_screen(&app, Message))
+	testing.expect_value(t, u.avatar.jools, 5)
+	testing.expect_value(t, app.text[6][(TEXT_COLUMNS - len("Insufficient funds!")) / 2].char, u8('I'))
+}
+
+@(test)
+a_long_receipt_wraps_instead_of_running_off_the_screen :: proc(t: ^testing.T) {
+	app: App
+	at_the_shipyard(t, &app, 9, 1000)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	in_hold(u, .Life_Support, 3)
+	press(&app, KEY_ENTER, KEY_DOWN, KEY_ENTER) // Life Support slot, the Mark III
+	testing.expect(t, on_screen(&app, Message))
+	// "Uninstalled EterniVita Mark I from Life Support." is 48 characters: wrapped at column 2
+	testing.expect_value(t, app.text[6][2].char, u8('U'))
+	testing.expect(t, app.text[7][2].char != ' ') // its second row
+}
+
+@(test)
+uninstalling_an_accessory_has_its_own_entry :: proc(t: ^testing.T) {
+	app: App
+	at_the_shipyard(t, &app, 5, 1000)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	equip_item(u, .Accessory_0, item_add(u, item_new(.Atmospheric_Concentrator)), charge = false)
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Accessory(0)
+	press(&app, KEY_DOWN, KEY_ENTER) // Cancel, then Uninstall
+	testing.expect(t, on_screen(&app, Message))
+	testing.expect_value(t, u.avatar.equipment[.Accessory_0], Item_Id(0))
+	testing.expect_value(t, u.avatar.jools, 1000 - 15)
+	testing.expect_value(t, inventory_count(u, .Atmospheric_Concentrator), 1)
+}
+
+@(test)
+mandatory_slots_have_no_uninstall_entry :: proc(t: ^testing.T) {
+	app: App
+	at_the_shipyard(t, &app, 5, 1000)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	press(&app, KEY_ENTER) // Life Support: nothing in the hold fits, so only Cancel
+	testing.expect(t, on_screen(&app, Slot_Items))
+	entries: [MAX_SLOT_ENTRIES]Slot_Entry
+	testing.expect_value(t, slot_entries(u, .Life_Support, &entries), 1)
+	press(&app, KEY_ENTER) // Cancel
+	testing.expect(t, on_screen(&app, Shipyard_Screen))
+}
+
+@(test)
+the_equipment_view_lists_slots_and_opens_item_pages :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	press(&app, KEY_ENTER, KEY_DOWN, KEY_ENTER) // actions, Equipment
+	testing.expect(t, on_screen(&app, Equipment_Screen))
+	press(&app, KEY_DOWN, KEY_ENTER) // Life Support
+	page, ok := stack_top(&app.stack)^.(Item_Page)
+	testing.expect(t, ok && page.kind == .Life_Support && page.mark == 1)
+	app_draw(&app)
+	testing.expect_value(t, app.text[2][2].char, u8(' ')) // no "You have" for something installed
+	press(&app, KEY_ENTER)
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // Accessory(0): empty, nothing opens
+	testing.expect(t, on_screen(&app, Equipment_Screen))
+	press(&app, KEY_ESCAPE)
+	testing.expect(t, on_screen(&app, Action_Menu))
+}
+
+@(test)
+bumping_a_star_with_a_scoop_offers_free_fuel :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	equip_item(u, .Accessory_0, item_add(u, item_new(.Fuel_Scoop)), charge = false)
+	u.avatar.fuel.current = 100
+	// into the first system's star vicinity: approach its marker, then bump the star
+	system := star_system_get(u, 1)
+	actor_relocate(u, u.avatar.actor, system.interior, {1, 1})
+	vicinity_marker := actor_at(u, system.interior, map_center(.Star_System))
+	dir := park_beside(t, u, vicinity_marker)
+	keys := [Direction]Key {
+		.North = KEY_UP,
+		.East  = KEY_RIGHT,
+		.South = KEY_DOWN,
+		.West  = KEY_LEFT,
+	}
+	app_key(&app, keys[dir])
+	app_key(&app, KEY_ENTER) // Approach
+	star := actor_at(u, ship_map(u), map_center(.Star_Vicinity))
+	dir = park_beside(t, u, star)
+	app_key(&app, keys[dir])
+	testing.expect(t, on_screen(&app, Interaction_Screen))
+	app_key(&app, KEY_ENTER) // Use Fuel Scoop
+	testing.expect(t, on_screen(&app, Message))
+	testing.expect_value(t, u.avatar.fuel.current, 250)
 }
