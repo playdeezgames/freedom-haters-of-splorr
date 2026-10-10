@@ -126,6 +126,7 @@ combat_round :: proc(u: ^Universe, c: ^Combat, action: Combat_Action) -> (r: Rou
 		if rng_below(&u.rng, FLEE_ODDS_IN) == 0 {
 			r.outcome = .Escaped
 			avatar_gain_infamy(u, INFAMY_FLEE)
+			quest_note_fight(u)
 			ship_calm(u, c.ship, CALM_AFTER_FLEEING)
 			return
 		}
@@ -151,6 +152,7 @@ combat_victory :: proc(u: ^Universe, c: Combat) -> (v: Victory) {
 	v.loot = dice_roll(&u.rng, LOOT_DICE)
 	v.reputation = KILL_REPUTATION_LOSS
 	avatar_gain_infamy(u, INFAMY_KILL)
+	quest_note_fight(u)
 	actor_remove(u, c.ship)
 	actor_add(u, u.galaxy, {kind = .Debris, pos = ship.pos, loot = v.loot})
 	theirs := faction_get(u, ship.faction)
@@ -180,7 +182,7 @@ combat_defeat :: proc(u: ^Universe, c: Combat) -> (d: Defeat) {
 	for _ in 0 ..< d.items_lost {
 		for {
 			i := rng_below(&u.rng, len(a.inventory))
-			if item_get(u, a.inventory[i]).kind != .Delivery {
+			if !item_is_kept(item_get(u, a.inventory[i]).kind) {
 				ordered_remove(&a.inventory, i)
 				break
 			}

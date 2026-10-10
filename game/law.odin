@@ -53,6 +53,12 @@ contraband_units :: proc(u: ^Universe, faction: Faction_Id) -> (units, value: in
 		units += u.avatar.cargo[good]
 		value += u.avatar.cargo[good] * good_info[good].base_price
 	}
+	for id in u.avatar.inventory { // shady deliveries are contraband to every patrol
+		if item := item_get(u, id); item.kind == .Delivery && item.mission.criminal {
+			units += 1
+			value += item.mission.reward
+		}
+	}
 	return
 }
 
@@ -79,6 +85,12 @@ avatar_surrender_contraband :: proc(u: ^Universe, ship: Actor_Id) -> (units: int
 	for good in bans {
 		units += u.avatar.cargo[good]
 		u.avatar.cargo[good] = 0
+	}
+	for i := len(u.avatar.inventory) - 1; i >= 0; i -= 1 {
+		if item := item_get(u, u.avatar.inventory[i]); item.kind == .Delivery && item.mission.criminal {
+			ordered_remove(&u.avatar.inventory, i)
+			units += 1
+		}
 	}
 	avatar_gain_infamy(u, INFAMY_CAUGHT)
 	ship_calm(u, ship, CALM_AFTER_FINE)

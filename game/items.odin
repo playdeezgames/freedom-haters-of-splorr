@@ -17,6 +17,7 @@ Item_Kind :: enum {
 	Pulse_Laser, // marked: the weapon slot
 	Deflector_Shield, // marked: the shield slot
 	Armour_Plating, // marked: the armour slot
+	Package, // a sealed package for the underworld quest
 	Delivery, // something to take to another planet; carries a Mission
 }
 
@@ -50,6 +51,7 @@ item_info := [Item_Kind]Item_Info {
 	.Pulse_Laser              = {name = "Pulse Laser", price = 300, install_fee = 20, uninstall_fee = 10, marked = true},
 	.Deflector_Shield         = {name = "Deflector Shield", price = 250, install_fee = 15, uninstall_fee = 8, marked = true},
 	.Armour_Plating           = {name = "Armour Plating", price = 200, install_fee = 25, uninstall_fee = 12, marked = true},
+	.Package                  = {name = "Sealed Package", tech_level = -1},
 	.Delivery                 = {name = "Delivery", tech_level = -1},
 }
 
@@ -247,6 +249,8 @@ item_description :: proc(item: Item, intro: ^Long_Text) -> Description {
 			"Each mark bolts more metal on and raises the damage your ship can take before it comes apart. It does not repair anything: see a shipyard.",
 			"IronHull Fabrication accepts no liability for weight.",
 		)
+	case .Package:
+		return description_of("A sealed package. It is warm. You were told not to ask what is in it, and you are not going to.")
 	case .Delivery:
 		return description_of("A thing to be delivered.")
 	case .Life_Support:

@@ -20,6 +20,7 @@ Mission :: struct {
 	first_name:  u8,
 	last_name:   u8,
 	job:         u8,
+	criminal:    bool, // from a fixer: pays three times as much, counts as contraband, earns infamy
 }
 
 mission_adverbs := [?]string{"Swiftly", "Cautiously", "Effortlessly", "Vigorously", "Silently", "Reluctantly", "Rapidly", "Gracefully", "Mysteriously", "Precisely", "Fiercely", "Steadily", "Eagerly", "Curiously", "Quietly", "Boldly", "Patiently", "Carefully", "Relentlessly", "Eerily", "Unexpectedly", "Diligently", "Calmly"}
@@ -31,7 +32,7 @@ mission_jobs := [?]string{"Starship Engineer", "Quantum Physicist", "Terraformin
 
 // "Swiftly Resilient Quantum Batteries"
 mission_item_name :: proc(m: Mission) -> Long_Text {
-	return long_join(mission_adverbs[m.adverb], " ", mission_adjectives[m.adjective], " ", mission_nouns[m.noun])
+	return long_join("Shady " if m.criminal else "", mission_adverbs[m.adverb], " ", mission_adjectives[m.adjective], " ", mission_nouns[m.noun])
 }
 
 // "Gorachan Valken the Starship Engineer"
@@ -84,11 +85,25 @@ worst_reputation :: proc(u: ^Universe, planet: Planet_Id) -> int {
 mission_generate :: proc(u: ^Universe, dock: Actor_Id) {
 	origin := actor_get(u, dock).planet
 	faction := planet_get(u, origin).faction
+	// once you are connected, rough docks offer shady jobs to other rough planets
+	criminal := u.avatar.quest.stage == .Connected && planet_is_rough(u, origin)
 	candidates: [dynamic]Planet_Id
 	defer delete(candidates)
 	for p, i in u.planets {
-		if p.faction == faction && Planet_Id(i + 1) != origin {
-			append(&candidates, Planet_Id(i + 1))
+		id := Planet_Id(i + 1)
+		if id == origin {
+			continue
+		}
+		if (criminal && planet_is_rough(u, id)) || (!criminal && p.faction == faction) {
+			append(&candidates, id)
+		}
+	}
+	if criminal && len(candidates) == 0 {
+		criminal = false // nowhere shady to send it: an ordinary errand
+		for p, i in u.planets {
+			if p.faction == faction && Planet_Id(i + 1) != origin {
+				append(&candidates, Planet_Id(i + 1))
+			}
 		}
 	}
 	if len(candidates) == 0 {
@@ -104,7 +119,8 @@ mission_generate :: proc(u: ^Universe, dock: Actor_Id) {
 		first_name  = u8(rng_below(&u.rng, len(mission_first_names))),
 		last_name   = u8(rng_below(&u.rng, len(mission_last_names))),
 		job         = u8(rng_below(&u.rng, len(mission_jobs))),
-		reward      = dice_roll(&u.rng, MISSION_REWARD_DICE),
+		reward      = dice_roll(&u.rng, MISSION_REWARD_DICE) * (SHADY_REWARD_FACTOR if criminal else 1),
+		criminal    = criminal,
 	}
 	item := item_new(.Delivery)
 	item.mission = m
@@ -193,9 +209,13 @@ mission_complete :: proc(u: ^Universe, dock: Actor_Id) -> (done: Completion) {
 	for i in 0 ..< count {
 		item := item_get(u, ids[i])^
 		u.avatar.jools += item.mission.reward
-		reputation_change(u, item.mission.origin, item.mission.destination, MISSION_REPUTATION_BONUS)
 		done.jools += item.mission.reward
-		done.reputation += MISSION_REPUTATION_BONUS
+		if item.mission.criminal {
+			avatar_gain_infamy(u, INFAMY_SHADY_DELIVERY) // a shady job earns a name, not standing
+		} else {
+			reputation_change(u, item.mission.origin, item.mission.destination, MISSION_REPUTATION_BONUS)
+			done.reputation += MISSION_REPUTATION_BONUS
+		}
 		for have, k in u.avatar.inventory {
 			if have == ids[i] {
 				ordered_remove(&u.avatar.inventory, k)
@@ -212,7 +232,9 @@ mission_complete :: proc(u: ^Universe, dock: Actor_Id) -> (done: Completion) {
 mission_abandon :: proc(u: ^Universe, id: Item_Id) {
 	item := item_get(u, id)^
 	assert(item.kind == .Delivery)
-	reputation_change(u, item.mission.origin, item.mission.destination, MISSION_REPUTATION_PENALTY)
+	if !item.mission.criminal {
+		reputation_change(u, item.mission.origin, item.mission.destination, MISSION_REPUTATION_PENALTY)
+	}
 	for have, k in u.avatar.inventory {
 		if have == id {
 			ordered_remove(&u.avatar.inventory, k)

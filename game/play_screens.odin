@@ -217,6 +217,10 @@ interaction_key :: proc(s: ^Interaction_Screen, key: Key, session: ^Session) -> 
 			return Pop{}
 		case .Enter_Star_Gate:
 			return Replace{Star_Gate_Screen{gate = u.avatar.bumped.(Actor_Id)}}
+		case .Trade_Black:
+			return Replace{Market_Screen{post = u.avatar.bumped.(Actor_Id), black = true}}
+		case .Underworld_Contact:
+			return Replace{underworld_message(u, quest_advance(u, u.avatar.bumped.(Actor_Id)))}
 		case .Gather_Atmosphere:
 			added := avatar_gather_atmosphere(u)
 			m := message_make(.Orange, "Atmosphere Gathered!")

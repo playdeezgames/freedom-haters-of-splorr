@@ -179,22 +179,22 @@ cargo_fuel_surcharge :: proc(u: ^Universe) -> int {
 }
 
 // How many of a good you can buy right now: what your jools cover, since there is no hold limit.
-goods_max_buy :: proc(u: ^Universe, planet: Planet_Id, good: Good) -> int {
-	if good_banned_at(u, planet, good) {
+goods_max_buy :: proc(u: ^Universe, planet: Planet_Id, good: Good, black := false) -> int {
+	if !black && good_banned_at(u, planet, good) {
 		return 0
 	}
-	price := buy_price(u, planet, good)
+	price := black_buy_price(u, planet, good) if black else buy_price(u, planet, good)
 	return max(u.avatar.jools, 0) / price // like the trading post's items: all you have, never more
 }
 
 // Buys up to `quantity` (never more than the jools allow). Each unit bought nudges the price up.
 // Returns how many were bought and what they cost.
-goods_buy :: proc(u: ^Universe, planet: Planet_Id, good: Good, quantity: int) -> (bought, cost: int) {
-	if good_banned_at(u, planet, good) {
+goods_buy :: proc(u: ^Universe, planet: Planet_Id, good: Good, quantity: int, black := false) -> (bought, cost: int) {
+	if !black && good_banned_at(u, planet, good) {
 		return
 	}
-	bought = min(quantity, goods_max_buy(u, planet, good))
-	cost = bought * buy_price(u, planet, good)
+	bought = min(quantity, goods_max_buy(u, planet, good, black))
+	cost = bought * (black_buy_price(u, planet, good) if black else buy_price(u, planet, good))
 	u.avatar.jools -= cost
 	u.avatar.cargo[good] += bought
 	planet_get(u, planet).market[good].pressure += bought
@@ -202,12 +202,12 @@ goods_buy :: proc(u: ^Universe, planet: Planet_Id, good: Good, quantity: int) ->
 }
 
 // Sells up to `quantity` of what you hold. Each unit sold nudges the price down.
-goods_sell :: proc(u: ^Universe, planet: Planet_Id, good: Good, quantity: int) -> (sold, earned: int) {
-	if good_banned_at(u, planet, good) {
+goods_sell :: proc(u: ^Universe, planet: Planet_Id, good: Good, quantity: int, black := false) -> (sold, earned: int) {
+	if !black && good_banned_at(u, planet, good) {
 		return
 	}
 	sold = min(quantity, u.avatar.cargo[good])
-	earned = sold * sell_price(u, planet, good)
+	earned = sold * (black_sell_price(u, planet, good) if black else sell_price(u, planet, good))
 	u.avatar.jools += earned
 	u.avatar.cargo[good] -= sold
 	planet_get(u, planet).market[good].pressure -= sold

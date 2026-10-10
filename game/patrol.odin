@@ -218,7 +218,7 @@ fine_amount :: proc(u: ^Universe) -> int {
 // Everything in the hold that is not a delivery (those are not theirs to take).
 takeable_count :: proc(u: ^Universe) -> (n: int) {
 	for id in u.avatar.inventory {
-		if item_get(u, id).kind != .Delivery {
+		if !item_is_kept(item_get(u, id).kind) {
 			n += 1
 		}
 	}
@@ -247,7 +247,7 @@ avatar_hand_over_cargo :: proc(u: ^Universe, ship: Actor_Id) -> (taken: int) {
 	for _ in 0 ..< taken {
 		for {
 			i := rng_below(&u.rng, len(u.avatar.inventory))
-			if item_get(u, u.avatar.inventory[i]).kind != .Delivery {
+			if !item_is_kept(item_get(u, u.avatar.inventory[i]).kind) {
 				ordered_remove(&u.avatar.inventory, i)
 				break
 			}

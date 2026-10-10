@@ -139,6 +139,7 @@ Actor_Kind :: enum {
 	Wormhole, // on the nexus and on star system maps; each end's `target` is the other
 	Star_Gate, // on a planet orbit map: a way to the avatar's faction's other gates
 	Military_Ship, // on the galaxy map: belongs to `faction`, home is `planet`
+	Black_Market, // on a rough planet's orbit map, once you are connected to the underworld
 }
 
 Actor :: struct {
@@ -212,6 +213,7 @@ Avatar :: struct {
 	hull:          Store, // what combat wears down; mended at a shipyard
 	cargo:         [Good]int, // units of trade goods in the hold
 	infamy:        int, // standing with the underworld; see law.odin
+	quest:         Quest, // the underworld contact quest; see underworld.odin
 }
 
 // A Mark I life support and fuel supply, which is what the ship starts with (250 per Mark).
