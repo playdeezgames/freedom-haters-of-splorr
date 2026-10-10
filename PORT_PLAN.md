@@ -145,6 +145,17 @@ Based on a read of the 12 VB generation steps (factions -> galaxy -> star system
 - Wormhole and star gate travel costs only the bump that reached it (VB rules). Star gates (about one orbit in four) go to your faction's other gates, as in the VB.
 - Military ships (done, inert): one per two star systems on the galaxy map only, faction and home from a random planet. Patrols and combat, then commodities, are still unported.
 
+## Decisions (patrols and combat)
+
+- **Movement:** every turn the player takes, each military ship takes one step. Ships wander near their home; ones that are hostile chase when you are within sight range (about 6 cells).
+- **Who is hostile:** the faction relation (ASC distance), adjusted by reputation: good standing with a ship's faction calms it, bad standing turns a Neutral ship hostile. Every faction is Hostile to SIGMO, so nearly every ship hunts you (the satire).
+- **Contact (a ship reaches an adjacent cell):** a menu: Pay Fine (jools scaled to your wealth), Hand Over Cargo (shakedown, lose some items) or Resist (starts combat). Friendly and Neutral ships only hail you.
+- **Combat:** a round menu, Fire / Evade / Flee. Evade halves incoming damage; Flee costs fuel and can fail. An unarmed ship can still evade, flee or surrender.
+- **Gear:** three new equipment slots, Weapon (Pulse Laser Mark I-III), Shield (absorbs damage, recharges between fights) and Armour (raises maximum hull), all bought at shipyards by tech level. The ship has a base hull, repaired at shipyards for jools. The two Accessory slots stay as they are.
+- **Defeat:** robbed and stranded: you lose most jools and cargo, tanks drop to a sliver, and you are towed to your home planet's dock. Game over only from the existing oxygen/bankrupt rules.
+- **Victory:** the ship drops a debris pile and is removed. Killing a faction's ship costs 5 reputation with that faction and its home planet; factions hostile to it give +1.
+- Still open (decide while building): exact hull, damage and price numbers, ship respawn rate, and how much of the fleet moves each turn if that gets slow on dense galaxies.
+
 ## Future ideas (owner)
 
 - **A fallible pedia:** the player starts with an out-of-date, erroneous pedia and can buy updates. The player's own faction (SIGMO) propagandizes its updates; other factions offer varying degrees of objectivity. The pedia pages are therefore built in one place (`pedia_pages.odin`) reading facts through that builder, so a "what the pedia believes" layer can later sit between the truth and the page.
