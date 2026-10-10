@@ -174,6 +174,17 @@ The VB's five commodities have no numbers at all (every method throws), so this 
 - Built (C): the underworld contact quest, black markets, shady deliveries. That finishes the commodities, law and underworld plan.
 - Still open (decide while building): base prices and weights per good, drift size, how much your own trades move prices, the fixer's rumor text, and the exact quest steps.
 
+## Decisions (balance fixes from the playtest; see PLAYTEST_NOTES.md)
+
+- **Trade:** slippage inside a bulk trade (each unit priced as the price moves) plus narrower planet-to-planet price swings, so same-system hops earn roughly 10-20%, not 100-200%. No stock limits.
+- **Patrols:** fewer ships (one per five star systems), a fine of 10% of jools (minimum 10), and a safe start (the avatar begins at least 10 cells from any ship). Chase range stays 6.
+- **Errands:** reward = 5d20 + 2 jools per cell between the two systems.
+- **Combat:** hide Resist while unarmed, add Attack on a bumped military ship (needs a weapon, first shot yours), and kills drop real loot (2-4 sellable salvage items worth roughly 20-60 jools each by enemy tech, plus the scrap). No extra variance.
+- **Gear:** prices scale steeply with mark (Mark I cheap, about 100; Mark V very dear, about 2,500), so there is always a next goal.
+- **Rough planets:** left as is (it follows the faction roll).
+- **Rounding:** price goods in tenths of a jool and round once per transaction, so cheap goods get the real 10% spread.
+- Not decided: the stepwise cargo weight cliff, the Very Poor start (0 jools, -999 line, a VB rule).
+
 ## Future ideas (owner)
 
 - **A fallible pedia:** the player starts with an out-of-date, erroneous pedia and can buy updates. The player's own faction (SIGMO) propagandizes its updates; other factions offer varying degrees of objectivity. The pedia pages are therefore built in one place (`pedia_pages.odin`) reading facts through that builder, so a "what the pedia believes" layer can later sit between the truth and the page.
