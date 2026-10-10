@@ -23,9 +23,10 @@ Contact_Screen :: struct {
 Contact_Choice :: enum {
 	Pay_Fine,
 	Hand_Over_Cargo,
+	Resist,
 }
 
-// The choices on offer (Resist joins them when there is a way to fight).
+// The choices on offer. Resist is always there, armed or not.
 contact_choices :: proc(u: ^Universe) -> (list: [len(Contact_Choice)]Contact_Choice, count: int) {
 	if fine_amount(u) > 0 {
 		list[count] = .Pay_Fine
@@ -35,6 +36,8 @@ contact_choices :: proc(u: ^Universe) -> (list: [len(Contact_Choice)]Contact_Cho
 		list[count] = .Hand_Over_Cargo
 		count += 1
 	}
+	list[count] = .Resist
+	count += 1
 	return
 }
 
@@ -56,6 +59,8 @@ contact_draw :: proc(s: ^Contact_Screen, tb: ^Text_Buffer, session: ^Session) {
 			texts[i] = long_join("Pay Fine (", int_text(&digits, fine_amount(u)), " jools)")
 		case .Hand_Over_Cargo:
 			texts[i] = long_join("Hand Over Cargo (", int_text(&digits, cargo_demanded(u)), " items)")
+		case .Resist:
+			texts[i] = long_join("Resist")
 		}
 		labels[i] = long_str(&texts[i])
 	}
@@ -74,12 +79,159 @@ contact_key :: proc(s: ^Contact_Screen, key: Key, session: ^Session) -> Transiti
 			m := message_make(.Light_Red, "Fine paid.")
 			message_add(&m, .Light_Gray, int_text(&digits, paid), " jools.")
 			return Replace{m}
+		case .Resist:
+			return Replace{Combat_Screen{combat = combat_start(u, s.ship)}}
 		case .Hand_Over_Cargo:
 			taken := avatar_hand_over_cargo(u, s.ship)
 			m := message_make(.Light_Red, "Cargo seized.")
 			message_add(&m, .Light_Gray, int_text(&digits, taken), " items.")
 			return Replace{m}
 		}
+	}
+	return nil
+}
+
+// ---- Combat ----
+
+Combat_Screen :: struct {
+	combat: Combat,
+	cursor: int,
+	log:    [3]Long_Text, // what the last round did
+	logged: int,
+}
+
+Combat_Choice :: enum {
+	Fire,
+	Evade,
+	Flee,
+	Surrender,
+}
+
+combat_choices :: proc(u: ^Universe) -> (list: [len(Combat_Choice)]Combat_Choice, count: int) {
+	if avatar_fire_damage(u) > 0 {
+		list[count] = .Fire
+		count += 1
+	}
+	list[count] = .Evade
+	count += 1
+	if can_flee(u) {
+		list[count] = .Flee
+		count += 1
+	}
+	list[count] = .Surrender
+	count += 1
+	return
+}
+
+combat_draw :: proc(s: ^Combat_Screen, tb: ^Text_Buffer, session: ^Session) {
+	u := &session.universe
+	c := &s.combat
+	ship := actor_get(u, c.ship)^
+	text_put_centered(tb, 1, "COMBAT", .Light_Red)
+	text_put(tb, 2, 3, name_str(&faction_get(u, ship.faction).name), .White)
+	col := put_field_int(tb, 2, 5, "Enemy Hull", c.enemy_hull, hue_for_percent(c.enemy_hull * 100 / max(c.enemy_max, 1)))
+	text_put_int(tb, text_put(tb, col, 5, "/", .Dark_Gray), 5, c.enemy_max, .Dark_Gray)
+	col = put_field_int(tb, 2, 7, "Yer Hull", u.avatar.hull.current, hue_for_percent(percent_of(u.avatar.hull)))
+	text_put_int(tb, text_put(tb, col, 7, "/", .Dark_Gray), 7, u.avatar.hull.maximum, .Dark_Gray)
+	if shield_mark(u) > 0 {
+		put_field_int(tb, 2, 8, "Shield", c.shield, .Light_Cyan)
+	} else {
+		put_field(tb, 2, 8, "Shield", "none", .Dark_Gray)
+	}
+	if weapon_mark(u) > 0 {
+		weapon := item_name(item_get(u, u.avatar.equipment[.Weapon])^)
+		put_field(tb, 2, 9, "Weapon", name_str(&weapon), .Light_Green)
+	} else {
+		put_field(tb, 2, 9, "Weapon", "none", .Dark_Gray)
+	}
+	for i in 0 ..< s.logged {
+		text_put(tb, 2, 11 + i, long_str(&s.log[i]), .Light_Gray)
+	}
+	list, n := combat_choices(u)
+	texts: [len(Combat_Choice)]Long_Text
+	labels: [len(Combat_Choice)]string
+	digits: [20]u8
+	for i in 0 ..< n {
+		switch list[i] {
+		case .Fire:
+			texts[i] = long_join("Fire (", int_text(&digits, avatar_fire_damage(u)), " damage)")
+		case .Evade:
+			texts[i] = long_join("Evade")
+		case .Flee:
+			texts[i] = long_join("Flee (", int_text(&digits, FLEE_FUEL), " fuel)")
+		case .Surrender:
+			texts[i] = long_join("Surrender")
+		}
+		labels[i] = long_str(&texts[i])
+	}
+	menu_draw(tb, 15, labels[:n], s.cursor)
+}
+
+@(private = "file")
+log_round :: proc(s: ^Combat_Screen, r: Round) {
+	d1, d2: [20]u8
+	s.logged = 0
+	add :: proc(s: ^Combat_Screen, t: Long_Text) {
+		s.log[s.logged] = t
+		s.logged += 1
+	}
+	switch {
+	case r.fled && r.outcome != .Escaped:
+		add(s, long_join("You try to flee. No luck."))
+	case r.evaded:
+		add(s, long_join("You evade."))
+	case r.dealt > 0:
+		add(s, long_join("You hit for ", int_text(&d1, r.dealt), "."))
+	}
+	if r.outcome == .Continues || r.outcome == .Lost {
+		add(s, long_join("It hits for ", int_text(&d1, r.taken + r.absorbed), "."))
+		if r.absorbed > 0 {
+			add(s, long_join("The shield soaks ", int_text(&d2, r.absorbed), "."))
+		}
+	}
+}
+
+combat_key :: proc(s: ^Combat_Screen, key: Key, session: ^Session) -> Transition {
+	u := &session.universe
+	list, n := combat_choices(u)
+	s.cursor = min(s.cursor, n - 1)
+	// there is no walking out of a fight: Escape does nothing
+	if menu_key(&s.cursor, n, key) != .Chosen || s.cursor >= n {
+		return nil
+	}
+	action: Combat_Action
+	switch list[s.cursor] {
+	case .Fire:
+		action = .Fire
+	case .Evade:
+		action = .Evade
+	case .Flee:
+		action = .Flee
+	case .Surrender:
+		return Replace{Contact_Screen{ship = s.combat.ship}}
+	}
+	round := combat_round(u, &s.combat, action)
+	digits: [20]u8
+	switch round.outcome {
+	case .Continues:
+		log_round(s, round)
+	case .Won:
+		v := combat_victory(u, s.combat)
+		m := message_make(.Light_Green, "Victory!")
+		message_add(&m, .Light_Gray, "The ship comes apart.")
+		message_add(&m, .Light_Gray, "Wreckage: ", int_text(&digits, v.loot), " scrap.")
+		message_add(&m, .Light_Red, "Its faction will remember.")
+		return Replace{m}
+	case .Lost:
+		d := combat_defeat(u, s.combat)
+		d2: [20]u8
+		m := message_make(.Light_Red, "Defeated!")
+		message_add(&m, .Light_Gray, "You are robbed and towed home.")
+		message_add(&m, .Light_Gray, "Jools lost: ", int_text(&digits, d.jools_lost))
+		message_add(&m, .Light_Gray, "Items lost: ", int_text(&d2, d.items_lost))
+		return Replace{m}
+	case .Escaped:
+		return Replace{message_make(.Light_Green, "You get away!", "For now.")}
 	}
 	return nil
 }

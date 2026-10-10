@@ -9,6 +9,8 @@ SIGHT_RANGE :: 6 // cells
 LEASH :: 12 // how far a ship wanders from its home system before turning back
 CALM_AFTER_FINE :: 100 // turns a ship leaves you alone once it has had its way
 CALM_AFTER_HAIL :: 30
+RESPAWN_EVERY :: 100 // turns between replacements for ships that have been destroyed
+RESPAWN_DISTANCE :: 10 // new ships appear at least this far from the avatar
 
 Disposition :: enum {
 	Friendly,
@@ -98,8 +100,37 @@ ship_is_chasing :: proc(u: ^Universe, ship: Actor) -> bool {
 	return avatar.map_id == u.galaxy && u.turn >= ship.calm_until && ship_disposition(u, ship) == .Hostile && squared(ship.pos, avatar.pos) <= SIGHT_RANGE * SIGHT_RANGE
 }
 
-// Moves every military ship one step.
+// A new ship for a random planet's faction, somewhere open and out of the avatar's sight.
+@(private = "file")
+respawn_ship :: proc(u: ^Universe) {
+	size := map_sizes[.Galaxy]
+	avatar := actor_get(u, u.avatar.actor)^
+	home := Planet_Id(rng_range(&u.rng, 1, len(u.planets)))
+	for _ in 0 ..< MAX_PLACEMENT_TRIES {
+		pos := [2]int{rng_range(&u.rng, 0, size.x - 1), rng_range(&u.rng, 0, size.y - 1)}
+		if avatar.map_id == u.galaxy && squared(pos, avatar.pos) < RESPAWN_DISTANCE * RESPAWN_DISTANCE {
+			continue
+		}
+		if cell_is_free(u, u.galaxy, pos) {
+			actor_add(u, u.galaxy, {kind = .Military_Ship, pos = pos, planet = home, faction = planet_get(u, home).faction})
+			return
+		}
+	}
+}
+
+// Moves every military ship one step, and now and then replaces a lost one.
 patrol_step :: proc(u: ^Universe) {
+	if u.turn % RESPAWN_EVERY == 0 {
+		ships := 0
+		for a in map_get(u, u.galaxy).actors {
+			if actor_get(u, a).kind == .Military_Ship {
+				ships += 1
+			}
+		}
+		if ships < fleet_size(len(u.star_systems)) {
+			respawn_ship(u)
+		}
+	}
 	avatar := actor_get(u, u.avatar.actor)^
 	for id in map_get(u, u.galaxy).actors {
 		ship := actor_get(u, id)

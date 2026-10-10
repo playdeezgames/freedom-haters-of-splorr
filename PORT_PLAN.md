@@ -155,6 +155,7 @@ Based on a read of the 12 VB generation steps (factions -> galaxy -> star system
 - **Defeat:** robbed and stranded: you lose most jools and cargo, tanks drop to a sliver, and you are towed to your home planet's dock. Game over only from the existing oxygen/bankrupt rules.
 - **Victory:** the ship drops a debris pile and is removed. Killing a faction's ship costs 5 reputation with that faction and its home planet; factions hostile to it give +1.
 - Built so far (step 2): the Weapon / Shield / Armour slots and items (laser damage 8 + 6/mark, shield soaks 20/mark per fight, plating +50 hull/mark, base hull 100, repair 1 jool per 2 hull at a shipyard). Prices: laser 300, shield 250, plating 200 per mark.
+- Built (step 3): combat rounds, defeat (robbed and towed home), victory (wreckage and reputation) and slow respawn. Numbers are constants at the top of `combat.odin`.
 - Still open (decide while building): exact combat numbers, ship respawn rate, and how much of the fleet moves each turn if that gets slow on dense galaxies.
 
 ## Future ideas (owner)

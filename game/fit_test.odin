@@ -99,6 +99,15 @@ screens_fit_the_forty_columns_with_the_longest_names :: proc(t: ^testing.T) {
 	fits(t, "shipyard", Shipyard_Screen{yard = yard}, &app)
 	fits(t, "contact", Contact_Screen{ship = first_of_kind_on(u, .Military_Ship)}, &app)
 	fits(t, "hail", hail_message(u, first_of_kind_on(u, .Military_Ship)), &app)
+	{
+		equip_item(u, .Weapon, in_hold(u, .Pulse_Laser, 5), charge = false)
+		equip_item(u, .Shield, in_hold(u, .Deflector_Shield, 5), charge = false)
+		fight := Combat_Screen{combat = combat_start(u, first_of_kind_on(u, .Military_Ship)), logged = 3}
+		for i in 0 ..< 3 {
+			fight.log[i] = long_join("It hits for 99999.")
+		}
+		fits(t, "combat", fight, &app)
+	}
 	fits(t, "star gate", Star_Gate_Screen{gate = first_of_kind_on(u, .Star_Gate)}, &app)
 	for slot in Equip_Slot {
 		fits(t, "slot items", Slot_Items{yard = yard, slot = slot}, &app)
