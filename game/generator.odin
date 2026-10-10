@@ -615,4 +615,6 @@ step_avatar :: proc(g: ^Generator) {
 	fuel := item_add(u, item_new(.Fuel_Supply, 1))
 	equip_item(u, .Life_Support, life, charge = false)
 	equip_item(u, .Fuel_Supply, fuel, charge = false)
+	avatar_refresh_hull(u)
+	u.avatar.hull.current = u.avatar.hull.maximum
 }

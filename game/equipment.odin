@@ -12,6 +12,9 @@ Equip_Slot :: enum {
 	Fuel_Supply,
 	Accessory_0,
 	Accessory_1,
+	Weapon,
+	Shield,
+	Armour,
 }
 
 Slot_Info :: struct {
@@ -24,6 +27,9 @@ slot_info := [Equip_Slot]Slot_Info {
 	.Fuel_Supply  = {"Fuel Supply", true},
 	.Accessory_0  = {"Accessory(0)", false},
 	.Accessory_1  = {"Accessory(1)", false},
+	.Weapon       = {"Weapon", false},
+	.Shield       = {"Shield", false},
+	.Armour       = {"Armour", false},
 }
 
 slot_accepts :: proc(slot: Equip_Slot, kind: Item_Kind) -> bool {
@@ -34,6 +40,12 @@ slot_accepts :: proc(slot: Equip_Slot, kind: Item_Kind) -> bool {
 		return kind == .Fuel_Supply
 	case .Accessory_0, .Accessory_1:
 		return kind == .Fuel_Scoop || kind == .Atmospheric_Concentrator
+	case .Weapon:
+		return kind == .Pulse_Laser
+	case .Shield:
+		return kind == .Deflector_Shield
+	case .Armour:
+		return kind == .Armour_Plating
 	}
 	return false
 }
@@ -75,6 +87,7 @@ equip_item :: proc(u: ^Universe, slot: Equip_Slot, id: Item_Id, charge := true) 
 		u.avatar.oxygen.maximum = CAPACITY_PER_MARK * item.mark
 		u.avatar.oxygen.current = min(item.level, u.avatar.oxygen.maximum)
 	}
+	avatar_refresh_hull(u)
 	if charge {
 		u.avatar.jools -= item_install_fee(item^)
 	}
@@ -97,9 +110,48 @@ unequip_item :: proc(u: ^Universe, slot: Equip_Slot) -> Item_Id {
 		u.avatar.oxygen.maximum, u.avatar.oxygen.current = 0, 0
 	}
 	u.avatar.equipment[slot] = 0
+	avatar_refresh_hull(u)
 	append(&u.avatar.inventory, id)
 	u.avatar.jools -= item_uninstall_fee(item^)
 	return id
+}
+
+// ---- Hull ----
+
+// The ship's own hull plus whatever plating is installed. Installing plating raises the maximum without
+// mending anything; removing it can cut the current hull down to the new maximum.
+avatar_refresh_hull :: proc(u: ^Universe) {
+	maximum := BASE_HULL
+	if id := u.avatar.equipment[.Armour]; id != 0 {
+		maximum += armour_hull(item_get(u, id).mark)
+	}
+	u.avatar.hull.maximum = maximum
+	u.avatar.hull.current = min(u.avatar.hull.current, maximum)
+}
+
+hull_repair_price :: proc(u: ^Universe) -> int {
+	return price_of(top_off_amount(u.avatar.hull), HULL_PER_JOOL)
+}
+
+Repair_Result :: enum {
+	Repaired,
+	Nothing_To_Repair,
+	Insufficient_Funds,
+}
+
+// A shipyard mends the whole hull for jools.
+shipyard_repair :: proc(u: ^Universe) -> (result: Repair_Result, mended, cost: int) {
+	mended = top_off_amount(u.avatar.hull)
+	if mended == 0 {
+		return .Nothing_To_Repair, 0, 0
+	}
+	cost = hull_repair_price(u)
+	if u.avatar.jools < cost {
+		return .Insufficient_Funds, 0, cost
+	}
+	u.avatar.hull.current = u.avatar.hull.maximum
+	u.avatar.jools -= cost
+	return .Repaired, mended, cost
 }
 
 // ---- The shipyard ----

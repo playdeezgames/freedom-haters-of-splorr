@@ -14,6 +14,9 @@ Item_Kind :: enum {
 	Atmospheric_Concentrator,
 	Fuel_Supply, // marked: Mark I..V
 	Life_Support, // marked: Mark I..V
+	Pulse_Laser, // marked: the weapon slot
+	Deflector_Shield, // marked: the shield slot
+	Armour_Plating, // marked: the armour slot
 	Delivery, // something to take to another planet; carries a Mission
 }
 
@@ -44,8 +47,19 @@ item_info := [Item_Kind]Item_Info {
 	.Atmospheric_Concentrator = {name = "AeroSynth Recharger", price = 5000, tech_level = 3, install_fee = 25, uninstall_fee = 15},
 	.Fuel_Supply              = {name = "StarLume Fuel", price = 500, tech_level = 0, install_fee = 10, uninstall_fee = 5, marked = true},
 	.Life_Support             = {name = "EterniVita", price = 500, tech_level = 0, install_fee = 10, uninstall_fee = 5, marked = true},
+	.Pulse_Laser              = {name = "Pulse Laser", price = 300, install_fee = 20, uninstall_fee = 10, marked = true},
+	.Deflector_Shield         = {name = "Deflector Shield", price = 250, install_fee = 15, uninstall_fee = 8, marked = true},
+	.Armour_Plating           = {name = "Armour Plating", price = 200, install_fee = 25, uninstall_fee = 12, marked = true},
 	.Delivery                 = {name = "Delivery", tech_level = -1},
 }
+
+// What the combat gear does (new in the port; the VB had no combat). Each is per mark.
+BASE_HULL :: 100
+HULL_PER_ARMOUR_MARK :: 50
+weapon_damage :: proc(mark: int) -> int {return 8 + 6 * mark} // per Fire
+shield_capacity :: proc(mark: int) -> int {return 20 * mark} // damage it soaks up each fight
+armour_hull :: proc(mark: int) -> int {return HULL_PER_ARMOUR_MARK * mark}
+HULL_PER_JOOL :: 2 // shipyard repairs
 
 // What a full tank of a new tank/rod holds, and a supply's capacity per mark.
 OXYGEN_TANK_LEVEL :: 100
@@ -75,8 +89,12 @@ item_tech_level :: proc(item: Item) -> int {
 	#partial switch item.kind {
 	case .Life_Support:
 		return life_support_tech_levels[item.mark]
-	case .Fuel_Supply:
+	case .Fuel_Supply, .Armour_Plating:
 		return item.mark
+	case .Pulse_Laser:
+		return 2 * item.mark
+	case .Deflector_Shield:
+		return 2 * item.mark - 1
 	}
 	return item_info[item.kind].tech_level
 }
@@ -205,6 +223,30 @@ item_description :: proc(item: Item, intro: ^Long_Text) -> Description {
 			"Whether you're charting new frontiers or navigating through asteroid belts, trust Celestial Energy Solutions to propel you farther and faster than ever before.",
 			"Reach for the stars with StarLume Fuel Storage Solution System - where limitless possibilities await beyond every horizon.",
 		)
+	case .Pulse_Laser:
+		intro^ = long_join("This is the Pulse Laser Mark ", mark_numerals[item.mark], " from Liberty Arms.")
+		return description_of(
+			long_str(intro),
+			"Freedom is a right, and rights must be defended. Liberty Arms makes sure yours can be.",
+			"Fires a concentrated pulse of light at anything that disagrees with you. Higher marks disagree harder.",
+			"Liberty Arms is not responsible for who you disagree with.",
+		)
+	case .Deflector_Shield:
+		intro^ = long_join("This is the Deflector Shield Mark ", mark_numerals[item.mark], " from SafeSpace Ltd.")
+		return description_of(
+			long_str(intro),
+			"Nobody ever got hurt by something that bounced off.",
+			"Soaks up a quantity of incoming damage in every encounter, then recharges once things calm down. Higher marks soak up more.",
+			"SafeSpace Ltd. recommends not testing it.",
+		)
+	case .Armour_Plating:
+		intro^ = long_join("This is the Armour Plating Mark ", mark_numerals[item.mark], " from IronHull Fabrication.")
+		return description_of(
+			long_str(intro),
+			"More hull is more ship. It is that simple.",
+			"Each mark bolts more metal on and raises the damage your ship can take before it comes apart. It does not repair anything: see a shipyard.",
+			"IronHull Fabrication accepts no liability for weight.",
+		)
 	case .Delivery:
 		return description_of("A thing to be delivered.")
 	case .Life_Support:
@@ -243,6 +285,12 @@ item_stats :: proc(item: Item) -> (stats: Item_Stats) {
 		add(&stats, "Maximum Fuel: ", int_text(&d2, CAPACITY_PER_MARK * item.mark))
 	case .Life_Support:
 		add(&stats, "Maximum Oxygen: ", int_text(&d2, CAPACITY_PER_MARK * item.mark))
+	case .Pulse_Laser:
+		add(&stats, "Damage: ", int_text(&d2, weapon_damage(item.mark)))
+	case .Deflector_Shield:
+		add(&stats, "Absorbs: ", int_text(&d2, shield_capacity(item.mark)))
+	case .Armour_Plating:
+		add(&stats, "Extra Hull: ", int_text(&d2, armour_hull(item.mark)))
 	case .Scrap:
 		add(&stats, "Sells for: ", int_text(&d2, item_info[.Scrap].offer))
 	}

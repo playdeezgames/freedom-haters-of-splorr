@@ -160,7 +160,7 @@ status_draw :: proc(s: ^Status_Screen, tb: ^Text_Buffer, session: ^Session) {
 	for entry in ([]struct {
 		label: string,
 		store: Store,
-	}{{"O2", u.avatar.oxygen}, {"Fuel", u.avatar.fuel}}) {
+	}{{"O2", u.avatar.oxygen}, {"Fuel", u.avatar.fuel}, {"Hull", u.avatar.hull}}) {
 		pct := percent_of(entry.store)
 		hue := hue_for_percent(pct)
 		c := text_put(tb, 2, row, entry.label, hue)

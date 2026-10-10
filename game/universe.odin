@@ -208,6 +208,7 @@ Avatar :: struct {
 	jools_minimum: int, // bankrupt at or below this
 	fuel:          Store,
 	oxygen:        Store, // dead when it runs out
+	hull:          Store, // what combat wears down; mended at a shipyard
 }
 
 // A Mark I life support and fuel supply, which is what the ship starts with (250 per Mark).

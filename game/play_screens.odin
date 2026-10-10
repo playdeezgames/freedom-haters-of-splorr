@@ -47,16 +47,20 @@ navigation_draw :: proc(s: ^Navigation, tb: ^Text_Buffer, session: ^Session) {
 	c = text_put(tb, c, 12, "/", .Dark_Gray)
 	text_put_int(tb, c, 12, u.avatar.fuel.maximum, .Dark_Gray)
 
+	hull_percent := percent_of(u.avatar.hull)
+	c = put_field_int(tb, col, 14, "Hull", hull_percent, hue_for_percent(hull_percent))
+	text_put(tb, c, 14, "%", hue_for_percent(hull_percent))
+
 	switch s.message {
 	case .None:
 	case .No_Fuel:
-		text_put(tb, col, 15, "NO FUEL!", .Light_Red)
-		text_put(tb, col, 17, "Enter: signal", .Light_Gray)
-		text_put(tb, col, 18, "distress", .Light_Gray)
+		text_put(tb, col, 16, "NO FUEL!", .Light_Red)
+		text_put(tb, col, 18, "Enter: signal", .Light_Gray)
+		text_put(tb, col, 19, "distress", .Light_Gray)
 	case .Out_Of_Fuel:
-		text_put(tb, col, 15, "OUT OF FUEL!", .Light_Red)
-		text_put(tb, col, 17, "Enter: signal", .Light_Gray)
-		text_put(tb, col, 18, "distress", .Light_Gray)
+		text_put(tb, col, 16, "OUT OF FUEL!", .Light_Red)
+		text_put(tb, col, 18, "Enter: signal", .Light_Gray)
+		text_put(tb, col, 19, "distress", .Light_Gray)
 	}
 	text_put(tb, 0, 24, "Arrows:Move Enter:Act Esc:Menu", .Dark_Gray)
 }

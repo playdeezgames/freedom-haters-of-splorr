@@ -47,22 +47,24 @@ tech_level_unlocks_equipment :: proc(t: ^testing.T) {
 	testing.expect(t, has(list, .Life_Support, 1) && has(list, .Fuel_Supply, 2))
 	testing.expect(t, !has(list, .Life_Support, 2)) // life support Mark II needs tech level 3
 	testing.expect(t, !has(list, .Fuel_Supply, 3))
-	testing.expect_value(t, list.count, 2 + 1 + 2)
+	testing.expect_value(t, list.count, 2 + 1 + 2 + 4) // plus laser I, shield I, plating I-II
 
 	list = trade_prices(&u, post_with_tech(&u, 3))
 	testing.expect(t, has(list, .Atmospheric_Concentrator))
 	testing.expect(t, !has(list, .Fuel_Scoop))
 	testing.expect(t, has(list, .Life_Support, 2) && !has(list, .Life_Support, 3))
-	testing.expect_value(t, list.count, 2 + 1 + 2 + 3)
+	testing.expect_value(t, list.count, 2 + 1 + 2 + 3 + 6)
 
 	list = trade_prices(&u, post_with_tech(&u, 7))
 	testing.expect(t, has(list, .Fuel_Scoop))
 	testing.expect(t, has(list, .Life_Support, 4) && !has(list, .Life_Support, 5)) // Mark V life support needs 9
 	testing.expect(t, has(list, .Fuel_Supply, 5))
-	testing.expect_value(t, list.count, 2 + 1 + 1 + 4 + 5)
+	testing.expect_value(t, list.count, 2 + 1 + 1 + 4 + 5 + 12)
 	list = trade_prices(&u, post_with_tech(&u, 9))
 	testing.expect(t, has(list, .Life_Support, 5))
-	testing.expect_value(t, list.count, 14) // everything
+	testing.expect_value(t, list.count, 14 + 14) // everything but laser V, which needs tech level 10
+	testing.expect(t, !has(trade_prices(&u, post_with_tech(&u, 9)), .Pulse_Laser, 5))
+	testing.expect(t, has(trade_prices(&u, post_with_tech(&u, 10)), .Pulse_Laser, 5))
 }
 
 @(test)

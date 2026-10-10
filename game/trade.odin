@@ -6,7 +6,7 @@ package game
 // prices, and buys only scrap. Buying more than you can afford is not possible; spending exactly
 // everything you have is.
 
-MAX_TRADE_ITEMS :: 16
+MAX_TRADE_ITEMS :: 40
 
 Trade_Item :: struct {
 	kind: Item_Kind,
@@ -45,6 +45,11 @@ trade_prices :: proc(u: ^Universe, post: Actor_Id) -> (list: Trade_List) {
 		}
 		if item_tech_level(item_new(.Fuel_Supply, mark)) <= tech {
 			trade_list_add(&list, .Fuel_Supply, mark)
+		}
+		for kind in ([]Item_Kind{.Pulse_Laser, .Deflector_Shield, .Armour_Plating}) {
+			if item_tech_level(item_new(kind, mark)) <= tech {
+				trade_list_add(&list, kind, mark)
+			}
 		}
 	}
 	return

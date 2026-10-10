@@ -63,21 +63,44 @@ shipyard_draw :: proc(s: ^Shipyard_Screen, tb: ^Text_Buffer, session: ^Session) 
 	u := &session.universe
 	draw_yard_header(tb, u, s.yard)
 	text_put(tb, 2, 5, "Pick a slot to change:", .Dark_Gray)
-	texts: [len(Equip_Slot)]Long_Text
-	labels: [len(Equip_Slot) + 1]string
+	texts: [len(Equip_Slot) + 1]Long_Text
+	labels: [len(Equip_Slot) + 2]string
+	digits: [20]u8
 	for slot in Equip_Slot {
 		texts[slot] = slot_label(u, slot)
 		labels[slot] = long_str(&texts[slot])
 	}
-	labels[len(Equip_Slot)] = "Leave"
+	if top_off_amount(u.avatar.hull) > 0 {
+		texts[len(Equip_Slot)] = long_join("Repair Hull (", int_text(&digits, hull_repair_price(u)), " jools)")
+	} else {
+		texts[len(Equip_Slot)] = long_join("Repair Hull (sound)")
+	}
+	labels[len(Equip_Slot)] = long_str(&texts[len(Equip_Slot)])
+	labels[len(Equip_Slot) + 1] = "Leave"
 	menu_draw(tb, 7, labels[:], s.cursor, 2)
 }
 
 shipyard_key :: proc(s: ^Shipyard_Screen, key: Key, session: ^Session) -> Transition {
-	switch menu_key(&s.cursor, len(Equip_Slot) + 1, key) {
+	switch menu_key(&s.cursor, len(Equip_Slot) + 2, key) {
 	case .Chosen:
-		if s.cursor == len(Equip_Slot) {
+		if s.cursor == len(Equip_Slot) + 1 {
 			return Pop{}
+		}
+		if s.cursor == len(Equip_Slot) {
+			digits: [20]u8
+			result, mended, cost := shipyard_repair(&session.universe)
+			switch result {
+			case .Nothing_To_Repair:
+				return Push{message_make(.Light_Gray, "The hull is sound.")}
+			case .Insufficient_Funds:
+				return Push{message_make(.Light_Red, "Insufficient funds!")}
+			case .Repaired:
+				m := message_make(.Orange, "Hull Repaired!")
+				message_add(&m, .Light_Gray, "You mend ", int_text(&digits, mended), " hull.")
+				d2: [20]u8
+				message_add(&m, .Light_Gray, "You paid ", int_text(&d2, cost), " Jools.")
+				return Push{m}
+			}
 		}
 		return Push{Slot_Items{yard = s.yard, slot = Equip_Slot(s.cursor)}}
 	case .Cancelled:

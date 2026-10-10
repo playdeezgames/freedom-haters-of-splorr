@@ -665,6 +665,9 @@ the_longer_descriptions_match_the_original_paragraph_counts :: proc(t: ^testing.
 		.Atmospheric_Concentrator = 5,
 		.Fuel_Supply              = 5,
 		.Life_Support             = 5,
+		.Pulse_Laser              = 4, // new in the port
+		.Deflector_Shield         = 4,
+		.Armour_Plating           = 4,
 		.Delivery                 = 1,
 	}
 	for kind in Item_Kind {
