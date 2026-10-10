@@ -97,6 +97,8 @@ screens_fit_the_forty_columns_with_the_longest_names :: proc(t: ^testing.T) {
 	fits(t, "buy list", Buy_List{post = post}, &app)
 	fits(t, "sell list", Sell_List{post = post}, &app)
 	fits(t, "shipyard", Shipyard_Screen{yard = yard}, &app)
+	fits(t, "contact", Contact_Screen{ship = first_of_kind_on(u, .Military_Ship)}, &app)
+	fits(t, "hail", hail_message(u, first_of_kind_on(u, .Military_Ship)), &app)
 	fits(t, "star gate", Star_Gate_Screen{gate = first_of_kind_on(u, .Star_Gate)}, &app)
 	for slot in Equip_Slot {
 		fits(t, "slot items", Slot_Items{yard = yard, slot = slot}, &app)

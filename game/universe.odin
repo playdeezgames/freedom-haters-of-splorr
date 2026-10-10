@@ -153,6 +153,7 @@ Actor :: struct {
 	offer:       Item_Id, // star dock: the delivery mission it is offering, if any
 	target:      Actor_Id, // wormhole: the other end
 	faction:     Faction_Id, // military ship: whose it is
+	calm_until:  int, // military ship: leaves you alone until this turn
 }
 
 actor_covers :: proc(a: Actor, p: [2]int) -> bool {
@@ -217,6 +218,7 @@ MARK_I_CAPACITY :: 250
 Universe :: struct {
 	rng:          Rng,
 	turn:         int,
+	patrol_turn:  int, // the last turn the military ships moved for
 	factions:     [dynamic]Faction,
 	star_systems: [dynamic]Star_System,
 	planets:      [dynamic]Planet,

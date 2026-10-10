@@ -107,6 +107,19 @@ navigation_tick :: proc(s: ^Navigation, session: ^Session) -> Transition {
 		u.avatar.auto_used = {}
 		return Push{report}
 	}
+	if session.in_play && u.turn > u.patrol_turn {
+		patrol_catch_up(u)
+		switch ship, contact := patrol_contact(u); contact {
+		case .None:
+		case .Hail:
+			return Push{hail_message(u, ship)}
+		case .Shakedown:
+			return Push{Contact_Screen{ship = ship}}
+		case .Nothing_To_Take:
+			ship_calm(u, ship, CALM_AFTER_FINE)
+			return Push{message_make(.Light_Red, "Military Vessel", "\"Nothing worth taking.\"")}
+		}
+	}
 	return nil
 }
 
