@@ -59,7 +59,9 @@ every_dock_offers_a_delivery_to_another_planet_of_its_faction :: proc(t: ^testin
 		testing.expect_value(t, m.origin, a.planet)
 		testing.expect(t, m.destination != m.origin)
 		testing.expect_value(t, planet_get(&u, m.destination).faction, faction)
-		testing.expect(t, m.reward >= 5 && m.reward <= 100)
+		// 5d20 plus 2 a cell between the two systems
+		cells := trip_cells(&u, m.origin, m.destination)
+		testing.expect(t, m.reward >= 5 + 2 * cells && m.reward <= 100 + 2 * cells)
 	}
 	testing.expect(t, offers > 0)
 }

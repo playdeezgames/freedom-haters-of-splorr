@@ -1,10 +1,13 @@
 package game
 
+import "core:math"
+
 // Delivery missions ("Errand Boy"), ported from the VB: every star dock holds one delivery to offer, bound for
 // another planet of the same faction. Taking them is limited by reputation, and finishing or abandoning one
 // changes reputation on the planets, star systems and factions at both ends.
 
 MISSION_REWARD_DICE :: "5d20"
+MISSION_REWARD_PER_CELL :: 2 // jools for every cell between the two star systems (new in the port)
 MISSION_REPUTATION_BONUS :: 1
 MISSION_REPUTATION_PENALTY :: -5
 REPUTATION_PER_EXTRA_DELIVERY :: 25 // you may carry 1 + (worst reputation / 25) deliveries
@@ -119,12 +122,21 @@ mission_generate :: proc(u: ^Universe, dock: Actor_Id) {
 		first_name  = u8(rng_below(&u.rng, len(mission_first_names))),
 		last_name   = u8(rng_below(&u.rng, len(mission_last_names))),
 		job         = u8(rng_below(&u.rng, len(mission_jobs))),
-		reward      = dice_roll(&u.rng, MISSION_REWARD_DICE) * (SHADY_REWARD_FACTOR if criminal else 1),
+		reward      = 0,
 		criminal    = criminal,
 	}
+	m.reward = (dice_roll(&u.rng, MISSION_REWARD_DICE) + MISSION_REWARD_PER_CELL * trip_cells(u, origin, m.destination)) * (SHADY_REWARD_FACTOR if criminal else 1)
 	item := item_new(.Delivery)
 	item.mission = m
 	actor_get(u, dock).offer = item_add(u, item)
+}
+
+// How far apart two planets' star systems are on the galaxy map, in cells.
+trip_cells :: proc(u: ^Universe, a, b: Planet_Id) -> int {
+	pa := star_system_get(u, planet_get(u, a).star_system).position
+	pb := star_system_get(u, planet_get(u, b).star_system).position
+	d := pa - pb
+	return int(math.sqrt(f64(d.x * d.x + d.y * d.y)))
 }
 
 deliveries_carried :: proc(u: ^Universe) -> int {

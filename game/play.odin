@@ -38,7 +38,7 @@ avatar_move :: proc(u: ^Universe, dir: Direction) -> Move_Outcome {
 		return .No_Fuel
 	}
 	avatar_do_turn(u)
-	a.fuel.current = max(a.fuel.current - 1 - cargo_fuel_surcharge(u), a.fuel.minimum)
+	a.fuel.current = max(a.fuel.current - 1 - cargo_fuel_for_move(u), a.fuel.minimum)
 
 	ship := actor_get(u, a.actor)
 	m := map_get(u, ship.map_id)
@@ -77,6 +77,7 @@ Interaction :: enum {
 	Enter_Star_Gate, // at a star gate
 	Underworld_Contact, // at a star dock where the quest has something to do
 	Trade_Black, // at a black market
+	Attack, // at a military ship, with a weapon installed
 }
 
 MAX_INTERACTIONS :: 6
@@ -158,6 +159,10 @@ interactions_for :: proc(u: ^Universe, bump: Bump) -> (list: [MAX_INTERACTIONS]I
 			}
 		case .Black_Market:
 			add(&list, &count, .Trade_Black)
+		case .Military_Ship:
+			if avatar_fire_damage(u) > 0 {
+				add(&list, &count, .Attack)
+			}
 		}
 	case Map_Edge:
 		add(&list, &count, .Leave_Area)
@@ -200,6 +205,8 @@ interaction_label :: proc(u: ^Universe, kind: Interaction, bump: Bump, buf: ^Nam
 		return "Enter Wormhole"
 	case .Trade_Black:
 		return "Trade In The Shadows"
+	case .Attack:
+		return "Attack"
 	case .Underworld_Contact:
 		if dock, ok := bump.(Actor_Id); ok {
 			label, _ := underworld_offer(u, dock)
@@ -353,7 +360,7 @@ avatar_interact :: proc(u: ^Universe, kind: Interaction) -> Interaction_Result {
 			return .Blocked
 		}
 		return avatar_travel_to(u, actor_get(u, wormhole).target)
-	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere, .Salvage_Scrap, .Trade, .Enter_Shipyard, .Use_Fuel_Scoop, .Delivery_Mission, .Complete_Delivery, .Enter_Star_Gate, .Underworld_Contact, .Trade_Black:
+	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere, .Salvage_Scrap, .Trade, .Enter_Shipyard, .Use_Fuel_Scoop, .Delivery_Mission, .Complete_Delivery, .Enter_Star_Gate, .Underworld_Contact, .Trade_Black, .Attack:
 		// these are transactions, not moves: see avatar_buy_oxygen and friends
 		return .Blocked
 	}

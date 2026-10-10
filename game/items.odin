@@ -18,6 +18,7 @@ Item_Kind :: enum {
 	Deflector_Shield, // marked: the shield slot
 	Armour_Plating, // marked: the armour slot
 	Package, // a sealed package for the underworld quest
+	Ship_Parts, // salvage from a destroyed military ship; a trading post buys it
 	Delivery, // something to take to another planet; carries a Mission
 }
 
@@ -48,10 +49,11 @@ item_info := [Item_Kind]Item_Info {
 	.Atmospheric_Concentrator = {name = "AeroSynth Recharger", price = 5000, tech_level = 3, install_fee = 25, uninstall_fee = 15},
 	.Fuel_Supply              = {name = "StarLume Fuel", price = 500, tech_level = 0, install_fee = 10, uninstall_fee = 5, marked = true},
 	.Life_Support             = {name = "EterniVita", price = 500, tech_level = 0, install_fee = 10, uninstall_fee = 5, marked = true},
-	.Pulse_Laser              = {name = "Pulse Laser", price = 300, install_fee = 20, uninstall_fee = 10, marked = true},
-	.Deflector_Shield         = {name = "Deflector Shield", price = 250, install_fee = 15, uninstall_fee = 8, marked = true},
-	.Armour_Plating           = {name = "Armour Plating", price = 200, install_fee = 25, uninstall_fee = 12, marked = true},
+	.Pulse_Laser              = {name = "Pulse Laser", price = 100, install_fee = 20, uninstall_fee = 10, marked = true},
+	.Deflector_Shield         = {name = "Deflector Shield", price = 90, install_fee = 15, uninstall_fee = 8, marked = true},
+	.Armour_Plating           = {name = "Armour Plating", price = 80, install_fee = 25, uninstall_fee = 12, marked = true},
 	.Package                  = {name = "Sealed Package", tech_level = -1},
+	.Ship_Parts               = {name = "Ship Parts", offer = 30, tech_level = -1},
 	.Delivery                 = {name = "Delivery", tech_level = -1},
 }
 
@@ -81,6 +83,10 @@ mark_numerals := [MAX_MARK + 1]string{"", "I", "II", "III", "IV", "V"}
 
 item_price :: proc(item: Item) -> int {
 	info := item_info[item.kind]
+	#partial switch item.kind {
+	case .Pulse_Laser, .Deflector_Shield, .Armour_Plating:
+		return info.price * item.mark * item.mark // always a next goal: Mark I is cheap, Mark V very dear
+	}
 	return info.price * max(item.mark, 1) if info.marked else info.price
 }
 
@@ -249,6 +255,8 @@ item_description :: proc(item: Item, intro: ^Long_Text) -> Description {
 			"Each mark bolts more metal on and raises the damage your ship can take before it comes apart. It does not repair anything: see a shipyard.",
 			"IronHull Fabrication accepts no liability for weight.",
 		)
+	case .Ship_Parts:
+		return description_of("Pieces of a military vessel that no longer needs them. Somebody will pay for them, and will not ask where they came from.")
 	case .Package:
 		return description_of("A sealed package. It is warm. You were told not to ask what is in it, and you are not going to.")
 	case .Delivery:

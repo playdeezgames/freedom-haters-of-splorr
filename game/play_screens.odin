@@ -217,6 +217,8 @@ interaction_key :: proc(s: ^Interaction_Screen, key: Key, session: ^Session) -> 
 			return Pop{}
 		case .Enter_Star_Gate:
 			return Replace{Star_Gate_Screen{gate = u.avatar.bumped.(Actor_Id)}}
+		case .Attack:
+			return Replace{Combat_Screen{combat = combat_start(u, u.avatar.bumped.(Actor_Id))}}
 		case .Trade_Black:
 			return Replace{Market_Screen{post = u.avatar.bumped.(Actor_Id), black = true}}
 		case .Underworld_Contact:

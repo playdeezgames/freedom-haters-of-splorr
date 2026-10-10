@@ -669,6 +669,7 @@ the_longer_descriptions_match_the_original_paragraph_counts :: proc(t: ^testing.
 		.Deflector_Shield         = 4,
 		.Armour_Plating           = 4,
 		.Package                  = 1,
+		.Ship_Parts               = 1,
 		.Delivery                 = 1,
 	}
 	for kind in Item_Kind {

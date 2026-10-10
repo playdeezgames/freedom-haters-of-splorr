@@ -228,6 +228,7 @@ resisting_opens_combat_and_surrender_goes_back_to_the_shakedown :: proc(t: ^test
 	defer app_destroy(&app)
 	u := &app.session.universe
 	u.avatar.jools = 1000
+	equip_item(u, .Weapon, in_hold(u, .Pulse_Laser, 1), charge = false) // Resist needs a weapon
 	ship := enemy_with_tech(t, u, 0)
 	u.turn += 1
 	app_tick(&app)
@@ -243,15 +244,12 @@ resisting_opens_combat_and_surrender_goes_back_to_the_shakedown :: proc(t: ^test
 	app_key(&app, KEY_ESCAPE) // no walking out
 	testing.expect(t, on_screen(&app, Combat_Screen))
 	// Evade, then Surrender
-	app_key(&app, KEY_ENTER) // the first choice is Evade without a weapon
+	app_key(&app, KEY_DOWN)
+	app_key(&app, KEY_ENTER) // Fire, Evade: the second choice
 	testing.expect(t, on_screen(&app, Combat_Screen))
 	testing.expect(t, u.avatar.hull.current < BASE_HULL)
-	cs := stack_top(&app.stack)^.(Combat_Screen)
-	_, count := combat_choices(u)
-	for _ in 0 ..< count - 1 {
-		app_key(&app, KEY_DOWN)
-	}
-	_ = cs
+	app_key(&app, KEY_DOWN)
+	app_key(&app, KEY_DOWN) // Evade -> Flee -> Surrender
 	app_key(&app, KEY_ENTER) // Surrender
 	testing.expect(t, on_screen(&app, Contact_Screen))
 	_ = ship
@@ -303,4 +301,119 @@ destroyed_ships_are_replaced_over_time :: proc(t: ^testing.T) {
 	u.turn = 2 * RESPAWN_EVERY
 	patrol_step(&u)
 	testing.expect_value(t, count_actors_on_maps(&u, .Military_Ship), want) // never over the fleet size
+}
+
+@(test)
+resist_needs_a_weapon :: proc(t: ^testing.T) {
+	u := generate(8)
+	defer universe_destroy(&u)
+	u.avatar.jools = 1000
+	list, n := contact_choices(&u)
+	for i in 0 ..< n {
+		testing.expect(t, list[i] != .Resist)
+	}
+	slist, sn := search_choices(&u, SIGMO_FACTION)
+	for i in 0 ..< sn {
+		testing.expect(t, slist[i] != .Resist)
+	}
+	equip_item(&u, .Weapon, in_hold(&u, .Pulse_Laser, 1), charge = false)
+	list, n = contact_choices(&u)
+	testing.expect_value(t, list[n - 1], Contact_Choice.Resist)
+	slist, sn = search_choices(&u, SIGMO_FACTION)
+	testing.expect_value(t, slist[sn - 1], Search_Choice.Resist)
+}
+
+@(test)
+you_can_attack_a_ship_you_bump_when_armed :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	ship := ship_of(u, true) // a friendly one: this is your choice
+	bring_alongside(t, u, ship)
+	for id in map_get(u, u.galaxy).actors { // keep the other ships out of it
+		if id != u.avatar.actor {
+			actor_get(u, id).calm_until = u.turn + 1000
+		}
+	}
+	// unarmed: only Cancel
+	u.avatar.bumped = ship
+	_, n := interactions_for(u, u.avatar.bumped)
+	testing.expect_value(t, n, 0)
+	equip_item(u, .Weapon, in_hold(u, .Pulse_Laser, 1), charge = false)
+	list, n2 := interactions_for(u, u.avatar.bumped)
+	testing.expect_value(t, n2, 1)
+	testing.expect_value(t, list[0], Interaction.Attack)
+	// through the screens
+	app.stack.items[app.stack.count] = Interaction_Screen{}
+	app.stack.count += 1
+	app_key(&app, KEY_ENTER)
+	testing.expect(t, on_screen(&app, Combat_Screen))
+}
+
+@(test)
+a_kill_drops_ship_parts_that_a_trader_buys :: proc(t: ^testing.T) {
+	u := generate(8)
+	defer universe_destroy(&u)
+	clear(&u.avatar.inventory)
+	ship := enemy_with_tech(t, &u, 8)
+	c := combat_start(&u, ship)
+	v := combat_victory(&u, c)
+	testing.expect(t, v.parts >= PARTS_BASE + 2 && v.parts <= PARTS_BASE + 2 + 2) // tech 8: +2
+	testing.expect_value(t, inventory_count(&u, .Ship_Parts), v.parts)
+	testing.expect_value(t, item_info[.Ship_Parts].offer, 30)
+	// and they are on a trader's buy list
+	post := first_post(&u)
+	list := trade_offers(&u, post)
+	found := false
+	for i in 0 ..< list.count {
+		found ||= list.items[i].kind == .Ship_Parts
+	}
+	testing.expect(t, found)
+	// sometimes there is cargo too, across a few kills
+	hold := 0
+	for _ in 0 ..< 40 {
+		v2 := combat_victory(&u, combat_start(&u, ship_of(&u, false)))
+		if v2.hold_units > 0 {
+			hold += 1
+			testing.expect(t, v2.hold_good == .Weapons || v2.hold_good == .Machinery)
+			testing.expect(t, v2.hold_units >= HOLD_GOODS_MIN && v2.hold_units <= HOLD_GOODS_MIN + 5)
+		}
+		testing.expect_value(t, v2.parts >= PARTS_BASE, true)
+	}
+	testing.expect(t, hold > 5 && hold < 35)
+}
+
+@(test)
+gear_prices_climb_steeply_with_the_mark :: proc(t: ^testing.T) {
+	testing.expect_value(t, item_price(item_new(.Pulse_Laser, 1)), 100)
+	testing.expect_value(t, item_price(item_new(.Pulse_Laser, 5)), 2500)
+	for kind in ([]Item_Kind{.Pulse_Laser, .Deflector_Shield, .Armour_Plating}) {
+		for mark in 1 ..= MAX_MARK {
+			testing.expect_value(t, item_price(item_new(kind, mark)), item_info[kind].price * mark * mark)
+		}
+	}
+	// a starter set is within reach of a middle-class start
+	set := item_price(item_new(.Pulse_Laser, 1)) + item_price(item_new(.Deflector_Shield, 1)) + item_price(item_new(.Armour_Plating, 1))
+	testing.expect(t, set <= 300)
+}
+
+@(test)
+the_fleet_is_one_per_five_systems_and_you_start_clear_of_it :: proc(t: ^testing.T) {
+	testing.expect_value(t, fleet_size(50), 10)
+	testing.expect_value(t, fleet_size(51), 11)
+	for seed in 1 ..= 60 {
+		u := generate(u64(seed))
+		defer universe_destroy(&u)
+		testing.expect_value(t, count_actors(&u, .Military_Ship), fleet_size(len(u.star_systems)))
+		me := actor_get(&u, u.avatar.actor)^
+		for a in u.actors {
+			if a.kind == .Military_Ship {
+				d := a.pos - me.pos
+				testing.expect(t, d.x * d.x + d.y * d.y >= SAFE_START_DISTANCE * SAFE_START_DISTANCE)
+			}
+		}
+		_, kind := patrol_contact(&u)
+		testing.expect_value(t, kind, Contact.None)
+	}
 }

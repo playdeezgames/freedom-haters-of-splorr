@@ -17,6 +17,9 @@ FLEE_ODDS_IN :: 2 // escapes one time in this many
 UNARMED_DAMAGE :: 0
 
 LOOT_DICE :: "6d6" // scrap in the wreck
+PARTS_BASE :: 2 // Ship Parts dropped: 2 + 0..2 + the enemy's tech / 4
+HOLD_GOODS_ODDS_IN :: 2 // the ship's hold has cargo one time in this many
+HOLD_GOODS_MIN :: 3 // 3..8 units of Weapons or Machinery
 KILL_REPUTATION_LOSS :: 5
 ENEMY_OF_ENEMY_GAIN :: 1
 CALM_AFTER_FLEEING :: 15
@@ -143,6 +146,9 @@ combat_round :: proc(u: ^Universe, c: ^Combat, action: Combat_Action) -> (r: Rou
 Victory :: struct {
 	loot:       int,
 	reputation: int, // lost with the ship's faction and its home planet
+	parts:      int, // Ship Parts taken into the hold
+	hold_good:  Good, // what was in the ship's hold, if anything
+	hold_units: int,
 }
 
 // The ship is gone, leaving a pile of scrap where it was. Its faction and home planet think less of you;
@@ -153,6 +159,15 @@ combat_victory :: proc(u: ^Universe, c: Combat) -> (v: Victory) {
 	v.reputation = KILL_REPUTATION_LOSS
 	avatar_gain_infamy(u, INFAMY_KILL)
 	quest_note_fight(u)
+	v.parts = PARTS_BASE + rng_below(&u.rng, 3) + enemy_tech(u, ship) / 4
+	for _ in 0 ..< v.parts {
+		append(&u.avatar.inventory, item_add(u, item_new(.Ship_Parts)))
+	}
+	if rng_below(&u.rng, HOLD_GOODS_ODDS_IN) == 0 {
+		v.hold_good = .Weapons if rng_below(&u.rng, 2) == 0 else .Machinery
+		v.hold_units = HOLD_GOODS_MIN + rng_below(&u.rng, 6)
+		u.avatar.cargo[v.hold_good] += v.hold_units
+	}
 	actor_remove(u, c.ship)
 	actor_add(u, u.galaxy, {kind = .Debris, pos = ship.pos, loot = v.loot})
 	theirs := faction_get(u, ship.faction)

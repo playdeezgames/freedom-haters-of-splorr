@@ -37,14 +37,15 @@ market_draw :: proc(s: ^Market_Screen, tb: ^Text_Buffer, session: ^Session) {
 	texts[0] = long_join("Cancel")
 	labels[0] = long_str(&texts[0])
 	for good in Good {
-		d1, d2, d3: [20]u8
+		d3: [20]u8
+		b1, b2: [24]u8
 		i := int(good) + 1
 		if s.black {
-			texts[i] = long_join(good_info[good].name, " ", int_text(&d1, black_buy_price(u, planet, good)), "/", int_text(&d2, black_sell_price(u, planet, good)), " (x", int_text(&d3, u.avatar.cargo[good]), ")")
+			texts[i] = long_join(good_info[good].name, " ", tenths_text(&b1, black_buy_tenths(u, planet, good)), "/", tenths_text(&b2, black_sell_tenths(u, planet, good)), " (x", int_text(&d3, u.avatar.cargo[good]), ")")
 		} else if good_banned_at(u, planet, good) {
 			texts[i] = long_join(good_info[good].name, " (banned) (x", int_text(&d3, u.avatar.cargo[good]), ")")
 		} else {
-			texts[i] = long_join(good_info[good].name, " ", int_text(&d1, buy_price(u, planet, good)), "/", int_text(&d2, sell_price(u, planet, good)), " (x", int_text(&d3, u.avatar.cargo[good]), ")")
+			texts[i] = long_join(good_info[good].name, " ", tenths_text(&b1, buy_tenths(u, planet, good)), "/", tenths_text(&b2, sell_tenths(u, planet, good)), " (x", int_text(&d3, u.avatar.cargo[good]), ")")
 		}
 		labels[i] = long_str(&texts[i])
 	}
@@ -110,15 +111,17 @@ good_trade_draw :: proc(s: ^Good_Trade, tb: ^Text_Buffer, session: ^Session) {
 		menu_draw(tb, 12, []string{"Done"}, 0, 2)
 		return
 	}
-	buy := black_buy_price(u, planet, s.good) if s.black else buy_price(u, planet, s.good)
-	sell := black_sell_price(u, planet, s.good) if s.black else sell_price(u, planet, s.good)
-	c := put_field_int(tb, 2, 6, "Buy", buy)
-	put_field_int(tb, c + 2, 6, "Sell", sell)
+	buy := black_buy_tenths(u, planet, s.good) if s.black else buy_tenths(u, planet, s.good)
+	sell := black_sell_tenths(u, planet, s.good) if s.black else sell_tenths(u, planet, s.good)
+	b1, b2: [24]u8
+	c := put_field(tb, 2, 6, "Buy", tenths_text(&b1, buy))
+	put_field(tb, c + 2, 6, "Sell", tenths_text(&b2, sell))
 	c = put_field_int(tb, 2, 7, "Held", u.avatar.cargo[s.good])
 	put_field_int(tb, c + 2, 7, "Weighs", good_info[s.good].weight)
 	c = put_field_int(tb, 2, 8, "Cargo Weight", cargo_weight(u))
 	text_put(tb, c, 8, " (+", .Light_Gray)
-	c = text_put_int(tb, c + 3, 8, cargo_fuel_surcharge(u), .White)
+	b3: [24]u8
+	c = text_put(tb, c + 3, 8, tenths_text(&b3, cargo_fuel_tenths(u)), .White)
 	text_put(tb, c, 8, " fuel)", .Light_Gray)
 	if s.note.len > 0 {
 		text_put(tb, 2, 9, long_str(&s.note), .Orange)

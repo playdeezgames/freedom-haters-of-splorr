@@ -180,7 +180,8 @@ status_draw :: proc(s: ^Status_Screen, tb: ^Text_Buffer, session: ^Session) {
 	row += 2
 	cargo := put_field_int(tb, 2, row, "Cargo", cargo_weight(u))
 	text_put(tb, cargo, row, " (+", .Light_Gray)
-	cargo = text_put_int(tb, cargo + 3, row, cargo_fuel_surcharge(u), .White)
+	fuel_text: [24]u8
+	cargo = text_put(tb, cargo + 3, row, tenths_text(&fuel_text, cargo_fuel_tenths(u)), .White)
 	text_put(tb, cargo, row, " fuel/move)", .Light_Gray)
 	row += 3
 	faction := faction_get(u, u.avatar.faction)

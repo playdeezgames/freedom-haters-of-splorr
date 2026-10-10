@@ -72,3 +72,14 @@ are what they printed), plus a short play of a fresh game in the browser pane. N
    scale with the trip (once per ship and only hostile ones within 3 cells), and let a bribe be cheaper than 25%.
 3. Scale errand rewards with distance, and let kills drop real loot (sellable parts) so fighting can pay.
 4. Hide Resist when unarmed (or make it a real gamble), and add Attack on a bumped ship.
+
+## After the fixes (same bots, same seeds)
+
+- Flying 60 trips of about 55 moves: 0.82-0.92 shakedowns a trip (was 2.0-2.8) and 72-86 jools of fines a trip (was
+  340-460).
+- Hauling inside one system for 30 hops: 1,000 jools became 1,000-1,430 (was hundreds of millions). The best haul
+  across the whole galaxy is +23% to +47% before slippage (spread already included), so trade is a modest living.
+- Errands: average reward 120 for a 38-cell trip, 3.1 jools a move (was 0.9).
+- New games: 0 of 200 start with a hostile ship in chase range (was 83).
+- Resist is hidden unarmed; Attack exists; kills drop 2-4 (+tech/4) Ship Parts at 30 jools plus sometimes cargo; gear is
+  100 x mark squared (Mark V 2,500); weight is smooth (weight/50 fuel a move).

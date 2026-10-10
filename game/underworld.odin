@@ -202,17 +202,6 @@ underworld_connect :: proc(u: ^Universe) {
 	}
 }
 
-// ---- Black market prices ----
-
-black_buy_price :: proc(u: ^Universe, planet: Planet_Id, good: Good) -> int {
-	return max(1, market_price(u, planet, good) * BLACK_BUY_PERCENT / 100)
-}
-
-black_sell_price :: proc(u: ^Universe, planet: Planet_Id, good: Good) -> int {
-	premium := BLACK_SELL_BASE_PERCENT + min(u.avatar.infamy / BLACK_SELL_INFAMY_STEP, BLACK_SELL_INFAMY_LIMIT)
-	return max(1, market_price(u, planet, good) * premium / 100)
-}
-
 // What the contact says, for the message screen.
 underworld_message :: proc(u: ^Universe, result: Quest_Result) -> Message {
 	digits: [20]u8

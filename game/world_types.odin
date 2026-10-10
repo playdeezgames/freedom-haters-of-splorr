@@ -68,10 +68,12 @@ planet_info := [Planet_Type]Planet_Info {
 }
 
 MINIMUM_SATELLITE_DISTANCE :: 5
-// Military ships on the galaxy map: one for every two star systems (the VB had a flat 25).
+// Military ships on the galaxy map: one for every five star systems (the VB had a flat 25).
 fleet_size :: proc(star_system_count: int) -> int {
-	return (star_system_count + 1) / 2
+	return (star_system_count + 4) / 5
 }
+
+SAFE_START_DISTANCE :: 10 // a new game starts this far from every military ship
 
 // The five hulls the VB drew them in, picked by actor number.
 military_hues := [5]Hue{.Dark_Gray, .Light_Gray, .White, .Tan, .Brown}

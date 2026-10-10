@@ -212,6 +212,7 @@ Avatar :: struct {
 	oxygen:        Store, // dead when it runs out
 	hull:          Store, // what combat wears down; mended at a shipyard
 	cargo:         [Good]int, // units of trade goods in the hold
+	fuel_carry:    int, // the part of a load's fuel cost not yet burned (see cargo_fuel_for_move)
 	infamy:        int, // standing with the underworld; see law.odin
 	quest:         Quest, // the underworld contact quest; see underworld.odin
 }

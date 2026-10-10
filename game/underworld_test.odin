@@ -194,8 +194,8 @@ black_markets_pay_better_and_ignore_the_law :: proc(t: ^testing.T) {
 	faction_get(&u, 2).authority = 80 // bans narcotics
 	testing.expect(t, good_banned_at(&u, planet, .Narcotics))
 	for good in Good {
-		testing.expect(t, black_sell_price(&u, planet, good) > sell_price(&u, planet, good))
-		testing.expect(t, black_buy_price(&u, planet, good) <= buy_price(&u, planet, good))
+		testing.expect(t, black_sell_tenths(&u, planet, good) > sell_tenths(&u, planet, good))
+		testing.expect(t, black_buy_tenths(&u, planet, good) <= buy_tenths(&u, planet, good))
 	}
 	u.avatar.jools = 10000
 	bought, _ := goods_buy(&u, planet, .Narcotics, 5)
@@ -206,9 +206,9 @@ black_markets_pay_better_and_ignore_the_law :: proc(t: ^testing.T) {
 	testing.expect_value(t, sold, 5)
 	testing.expect(t, u.avatar.infamy > 0)
 	// a bad name pays more
-	base := black_sell_price(&u, planet, .Gems)
+	base := black_sell_tenths(&u, planet, .Gems)
 	u.avatar.infamy = 1000
-	testing.expect(t, black_sell_price(&u, planet, .Gems) > base)
+	testing.expect(t, black_sell_tenths(&u, planet, .Gems) > base)
 }
 
 @(test)

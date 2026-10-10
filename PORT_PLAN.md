@@ -183,7 +183,12 @@ The VB's five commodities have no numbers at all (every method throws), so this 
 - **Gear:** prices scale steeply with mark (Mark I cheap, about 100; Mark V very dear, about 2,500), so there is always a next goal.
 - **Rough planets:** left as is (it follows the faction roll).
 - **Rounding:** price goods in tenths of a jool and round once per transaction, so cheap goods get the real 10% spread.
-- Not decided: the stepwise cargo weight cliff, the Very Poor start (0 jools, -999 line, a VB rule).
+- **Weight:** smooth. Fuel per move = 1 + weight/50, accumulated as a fraction (25 weight costs 1 extra fuel every other move); no cliff.
+- **Very Poor:** keep the VB (0 jools, -999 line).
+- **Loot:** a kill drops 2-4 Ship Parts (a new item whose quality follows the enemy's tech; traders pay about 10 x tech + 15) and sometimes a few units of Weapons or Machinery from its hold, plus the scrap.
+- **Trade numbers:** moderate. Each unit moves the price 0.4% (100 units end 40% away from where they started); trait swings narrowed to about 0.8x-1.25x and the drift limit cut to 15%.
+- Built (balance fixes): all of the above. Ship Parts are one fixed-price item (30 jools) with the count scaling by enemy tech, rather than a quality scale. Gear is base x mark squared. After the fixes a bot trip met 0.85 shakedowns (was 2.0-2.8) and paid 72-86 jools in fines (was 340-460); same-system hauling grew 1,000 jools to 1,000-1,430 in 30 hops (was hundreds of millions); errands pay about 120 (3 jools a move, was 0.9); no new game starts with a hostile ship in chase range (was 41%).
+- Still to settle while building: exact gear prices per mark, the fine formula edge cases, and how fast ships respawn now that there are fewer.
 
 ## Future ideas (owner)
 

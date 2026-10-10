@@ -576,12 +576,26 @@ step_missions :: proc(g: ^Generator) {
 step_avatar :: proc(g: ^Generator) {
 	u := &g.universe
 
-	// the ship starts on a random empty cell of the galaxy
+	// the ship starts on a random empty cell of the galaxy, well away from every military ship
 	size := map_sizes[.Galaxy]
 	pos: [2]int
-	for _ in 0 ..< MAX_PLACEMENT_TRIES {
+	for try in 0 ..< MAX_PLACEMENT_TRIES {
 		pos = {rng_range(&u.rng, 0, size.x - 1), rng_range(&u.rng, 0, size.y - 1)}
-		if cell_is_free(u, u.galaxy, pos) {
+		if !cell_is_free(u, u.galaxy, pos) {
+			continue
+		}
+		clear_of_ships := true
+		for id in map_get(u, u.galaxy).actors {
+			other := actor_get(u, id)
+			if other.kind == .Military_Ship {
+				d := other.pos - pos
+				if d.x * d.x + d.y * d.y < SAFE_START_DISTANCE * SAFE_START_DISTANCE {
+					clear_of_ships = false
+					break
+				}
+			}
+		}
+		if clear_of_ships || try > MAX_PLACEMENT_TRIES / 2 { // a crowded galaxy settles for any open cell
 			break
 		}
 	}

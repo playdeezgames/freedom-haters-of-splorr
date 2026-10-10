@@ -206,9 +206,9 @@ patrol_contact :: proc(u: ^Universe) -> (ship: Actor_Id, kind: Contact) {
 
 // ---- What a shakedown takes ----
 
-// A quarter of the jools, at least 10, and nothing if paying would leave the avatar bankrupt.
+// A tenth of the jools, at least 10, and nothing if paying would leave the avatar bankrupt.
 fine_amount :: proc(u: ^Universe) -> int {
-	fine := max(10, u.avatar.jools / 4)
+	fine := max(10, u.avatar.jools / 10)
 	if u.avatar.jools - fine <= u.avatar.jools_minimum {
 		return 0
 	}

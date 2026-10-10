@@ -26,7 +26,7 @@ Contact_Choice :: enum {
 	Resist,
 }
 
-// The choices on offer. Resist is always there, armed or not.
+// The choices on offer. Resist needs a weapon.
 contact_choices :: proc(u: ^Universe) -> (list: [len(Contact_Choice)]Contact_Choice, count: int) {
 	if fine_amount(u) > 0 {
 		list[count] = .Pay_Fine
@@ -36,8 +36,10 @@ contact_choices :: proc(u: ^Universe) -> (list: [len(Contact_Choice)]Contact_Cho
 		list[count] = .Hand_Over_Cargo
 		count += 1
 	}
-	list[count] = .Resist
-	count += 1
+	if avatar_fire_damage(u) > 0 {
+		list[count] = .Resist // with nothing to shoot, resisting is only a way to lose
+		count += 1
+	}
 	return
 }
 
@@ -220,6 +222,12 @@ combat_key :: proc(s: ^Combat_Screen, key: Key, session: ^Session) -> Transition
 		m := message_make(.Light_Green, "Victory!")
 		message_add(&m, .Light_Gray, "The ship comes apart.")
 		message_add(&m, .Light_Gray, "Wreckage: ", int_text(&digits, v.loot), " scrap.")
+		d3: [20]u8
+		message_add(&m, .Light_Gray, "Salvaged: ", int_text(&d3, v.parts), " ship parts.")
+		if v.hold_units > 0 {
+			d4: [20]u8
+			message_add(&m, .Light_Gray, "From its hold: ", int_text(&d4, v.hold_units), " ", good_info[v.hold_good].name)
+		}
 		message_add(&m, .Light_Red, "Its faction will remember.")
 		return Replace{m}
 	case .Lost:
@@ -264,8 +272,10 @@ search_choices :: proc(u: ^Universe, faction: Faction_Id) -> (list: [len(Search_
 		list[count] = .Pay_Fine
 		count += 1
 	}
-	list[count] = .Resist
-	count += 1
+	if avatar_fire_damage(u) > 0 {
+		list[count] = .Resist
+		count += 1
+	}
 	return
 }
 
