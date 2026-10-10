@@ -18,6 +18,7 @@ Step_Star_System :: struct {
 Step_Planet :: struct {
 	id: Planet_Id,
 }
+Step_Nexus :: struct {}
 Step_Factionize :: struct {}
 Step_Missions :: struct {}
 Step_Avatar :: struct {}
@@ -27,6 +28,7 @@ Gen_Step :: union {
 	Step_Galaxy,
 	Step_Star_System,
 	Step_Planet,
+	Step_Nexus,
 	Step_Factionize,
 	Step_Missions,
 	Step_Avatar,
@@ -101,6 +103,8 @@ generator_current :: proc(g: ^Generator) -> (label: string, subject: Name) {
 		return "Star system", star_system_get(&g.universe, s.id).name
 	case Step_Planet:
 		return "Planet", planet_get(&g.universe, s.id).name
+	case Step_Nexus:
+		return "Nexus", {}
 	case Step_Factionize:
 		return "Dividing up the galaxy", {}
 	case Step_Missions:
@@ -132,6 +136,8 @@ generator_step :: proc(g: ^Generator) -> bool {
 		step_star_system(g, s.id)
 	case Step_Planet:
 		step_planet(g, s.id)
+	case Step_Nexus:
+		step_nexus(g)
 	case Step_Factionize:
 		step_factionize(g)
 	case Step_Missions:
@@ -229,7 +235,7 @@ step_galaxy :: proc(g: ^Generator) {
 		append(&stars, pos)
 		add_star_system(g, pos)
 	}
-	append(&g.final, Step_Avatar{})
+	append(&g.final, Step_Nexus{}, Step_Avatar{})
 }
 
 @(private = "file")
@@ -336,6 +342,9 @@ step_planet :: proc(g: ^Generator, id: Planet_Id) {
 	for _ in 0 ..< dice_roll(&u.rng, SHIPYARD_COUNT_DICE) {
 		add_shipyard(g, id, orbit)
 	}
+	for _ in 0 ..< dice_roll(&u.rng, STAR_GATE_COUNT_DICE) {
+		add_star_gate(g, id, orbit)
+	}
 
 	// satellites, kept away from the planet's 3x3 block and each other
 	size := map_sizes[.Planet_Vicinity]
@@ -391,6 +400,21 @@ add_trading_post :: proc(g: ^Generator, planet: Planet_Id, orbit: Map_Id) {
 	panic("no room for a trading post")
 }
 
+// A star gate: on about one planet in four.
+@(private = "file")
+add_star_gate :: proc(g: ^Generator, planet: Planet_Id, orbit: Map_Id) {
+	u := &g.universe
+	size := map_sizes[.Planet_Orbit]
+	for _ in 0 ..< MAX_PLACEMENT_TRIES {
+		pos := [2]int{rng_range(&u.rng, 1, size.x - 2), rng_range(&u.rng, 1, size.y - 2)}
+		if cell_is_free(u, orbit, pos) {
+			actor_add(u, orbit, {kind = .Star_Gate, pos = pos, star_system = planet_get(u, planet).star_system, planet = planet})
+			return
+		}
+	}
+	panic("no room for a star gate")
+}
+
 // One Star Dock in every planet's orbit, on any open cell inside the border.
 @(private = "file")
 add_star_dock :: proc(g: ^Generator, planet: Planet_Id, orbit: Map_Id) {
@@ -417,6 +441,59 @@ add_satellite :: proc(g: ^Generator, planet: Planet_Id, vicinity: Map_Id, pos: [
 	orbit := map_add(u, .Satellite_Orbit, marker)
 	actor_get(u, marker).interior = orbit
 	actor_add(u, orbit, {kind = .Satellite_Body, pos = map_center(.Satellite_Orbit), size = 3, star_system = system, planet = planet, satellite = id})
+}
+
+// ---- The nexus ----
+
+// The nexus is a map with nothing in it but wormholes, spaced by the galaxy's density. Each one is joined to
+// a new wormhole in a random star system, which is the only way in or out.
+@(private = "file")
+step_nexus :: proc(g: ^Generator) {
+	u := &g.universe
+	u.nexus = map_add(u, .Nexus)
+	size := map_sizes[.Nexus]
+	spacing := density_spacing[g.settings.density].minimum_wormhole_distance
+	ends: [dynamic][2]int
+	defer delete(ends)
+	for {
+		pos, ok := find_spot(&u.rng, ends[:], {0, 0}, size - 1, spacing)
+		if !ok {
+			break
+		}
+		append(&ends, pos)
+		near := actor_add(u, u.nexus, {kind = .Wormhole, pos = pos})
+		if far, placed := add_system_wormhole(g); placed {
+			actor_get(u, near).target = far
+			actor_get(u, far).target = near
+		} else {
+			actor_remove(u, near) // no system had room: a wormhole must lead somewhere
+		}
+	}
+}
+
+// A wormhole on a random star system's map, on an open cell with room beside it to arrive on.
+@(private = "file")
+add_system_wormhole :: proc(g: ^Generator) -> (id: Actor_Id, ok: bool) {
+	u := &g.universe
+	size := map_sizes[.Star_System]
+	for _ in 0 ..< MAX_PLACEMENT_TRIES {
+		system := Star_System_Id(rng_range(&u.rng, 1, len(u.star_systems)))
+		interior := star_system_get(u, system).interior
+		pos := [2]int{rng_range(&u.rng, 1, size.x - 2), rng_range(&u.rng, 1, size.y - 2)}
+		if !cell_is_free(u, interior, pos) {
+			continue
+		}
+		id = actor_add(u, interior, {kind = .Wormhole, pos = pos, star_system = system})
+		room := open_cells_beside(u, id)
+		defer delete(room)
+		if len(room) == 0 {
+			actor_remove(u, id)
+			continue
+		}
+		star_system_get(u, system).wormhole_count += 1
+		return id, true
+	}
+	return 0, false
 }
 
 // ---- Dividing up the galaxy ----

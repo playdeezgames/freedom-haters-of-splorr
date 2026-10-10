@@ -68,6 +68,7 @@ planet_info := [Planet_Type]Planet_Info {
 }
 
 MINIMUM_SATELLITE_DISTANCE :: 5
+STAR_GATE_COUNT_DICE :: "1d4/4" // per planet orbit: 0 or 1
 SHIPYARD_COUNT_DICE :: "1d4/4" // per planet orbit: 0 or 1, so about one planet in four
 TRADING_POST_COUNT_DICE :: "3d6/8" // per planet orbit; the original then takes at least 1
 DEBRIS_COUNT_DICE :: "12d6/6" // piles per star system, 2..12

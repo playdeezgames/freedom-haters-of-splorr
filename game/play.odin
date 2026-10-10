@@ -73,6 +73,8 @@ Interaction :: enum {
 	Use_Fuel_Scoop, // at a star, with a fuel scoop installed
 	Delivery_Mission, // at a star dock that has a delivery on offer
 	Complete_Delivery, // at the star dock of a planet you are carrying a delivery to
+	Enter_Wormhole, // at either end of a wormhole
+	Enter_Star_Gate, // at a star gate
 }
 
 MAX_INTERACTIONS :: 4
@@ -118,6 +120,12 @@ interactions_for :: proc(u: ^Universe, bump: Bump) -> (list: [MAX_INTERACTIONS]I
 			}
 		case .Debris:
 			add(&list, &count, .Salvage_Scrap)
+		case .Wormhole:
+			if a.target != 0 {
+				add(&list, &count, .Enter_Wormhole)
+			}
+		case .Star_Gate:
+			add(&list, &count, .Enter_Star_Gate)
 		case .Trading_Post:
 			add(&list, &count, .Trade)
 		case .Shipyard:
@@ -181,6 +189,10 @@ interaction_label :: proc(u: ^Universe, kind: Interaction, bump: Bump, buf: ^Nam
 		return "Delivery Mission..."
 	case .Complete_Delivery:
 		return "Complete Delivery..."
+	case .Enter_Wormhole:
+		return "Enter Wormhole"
+	case .Enter_Star_Gate:
+		return "Enter Star Gate..."
 	case .Refill_Oxygen:
 		buf^ = name_join("Refill Oxygen (", int_text(&digits, oxygen_price(u)), " jools)")
 		return name_str(buf)
@@ -192,6 +204,8 @@ interaction_label :: proc(u: ^Universe, kind: Interaction, bump: Bump, buf: ^Nam
 			switch map_get(u, edge.map_id).kind {
 			case .Galaxy:
 				return "Leave Galaxy"
+			case .Nexus:
+				return "Leave Nexus"
 			case .Star_System:
 				return "Leave Star System"
 			case .Star_Vicinity:
@@ -253,7 +267,6 @@ open_cells_inside_the_border :: proc(u: ^Universe, on: Map_Id) -> (cells: [dynam
 }
 
 // Just outside an actor's footprint, sharing an edge with it: where you appear when you leave a map.
-@(private = "file")
 open_cells_beside :: proc(u: ^Universe, owner: Actor_Id) -> (cells: [dynamic][2]int) {
 	o := actor_get(u, owner)^
 	half := o.size / 2
@@ -319,7 +332,13 @@ avatar_interact :: proc(u: ^Universe, kind: Interaction) -> Interaction_Result {
 			avatar_set_star_system(u, 0)
 		}
 		return .Done
-	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere, .Salvage_Scrap, .Trade, .Enter_Shipyard, .Use_Fuel_Scoop, .Delivery_Mission, .Complete_Delivery:
+	case .Enter_Wormhole:
+		wormhole, ok := u.avatar.bumped.(Actor_Id)
+		if !ok {
+			return .Blocked
+		}
+		return avatar_travel_to(u, actor_get(u, wormhole).target)
+	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere, .Salvage_Scrap, .Trade, .Enter_Shipyard, .Use_Fuel_Scoop, .Delivery_Mission, .Complete_Delivery, .Enter_Star_Gate:
 		// these are transactions, not moves: see avatar_buy_oxygen and friends
 		return .Blocked
 	}
@@ -380,5 +399,38 @@ avatar_signal_distress :: proc(u: ^Universe) -> (added, price: int) {
 	price = added * EMERGENCY_FUEL_PRICE
 	f.current = f.maximum
 	u.avatar.jools -= price
+	return
+}
+
+// ---- Wormholes and star gates ----
+
+// Arrives on a random open cell beside `destination` (a wormhole's far end or a star gate), in whatever system
+// that is in. Free: the move that bumped into the way in already cost a turn. Blocked if there is no room.
+avatar_travel_to :: proc(u: ^Universe, destination: Actor_Id) -> Interaction_Result {
+	if destination == 0 {
+		return .Blocked
+	}
+	spots := open_cells_beside(u, destination)
+	defer delete(spots)
+	if len(spots) == 0 {
+		return .Blocked
+	}
+	there := actor_get(u, destination)
+	actor_relocate(u, u.avatar.actor, there.map_id, rng_pick(&u.rng, spots[:]))
+	avatar_set_star_system(u, there.star_system)
+	return .Done
+}
+
+// The star gates the avatar can go to: its own faction's, other than the one it is standing at. (The live game
+// lets you use any gate to reach your own faction's gates, and so does this.)
+star_gates_for_avatar :: proc(u: ^Universe, here: Actor_Id) -> (gates: [dynamic]Actor_Id) {
+	for a, i in u.actors {
+		if a.kind != .Star_Gate || a.map_id == 0 || Actor_Id(i + 1) == here {
+			continue
+		}
+		if planet_get(u, a.planet).faction == u.avatar.faction {
+			append(&gates, Actor_Id(i + 1))
+		}
+	}
 	return
 }

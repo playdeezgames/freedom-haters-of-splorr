@@ -373,7 +373,7 @@ steps_run_in_the_original_order :: proc(t: ^testing.T) {
 		}
 		generator_step(&g)
 	}
-	want := []string{"Factions", "Galaxy", "Star system", "Planet", "Dividing up the galaxy", "Errands", "Yer ship"}
+	want := []string{"Factions", "Galaxy", "Star system", "Planet", "Dividing up the galaxy", "Errands", "Nexus", "Yer ship"}
 	testing.expect_value(t, len(order), len(want))
 	for w, i in want {
 		testing.expect_value(t, order[i], w)

@@ -111,6 +111,7 @@ pedia_page_doc :: proc(u: ^Universe, kind: Pedia_Kind, id: int, d: ^Doc) -> (tit
 		doc_add(d, .Light_Gray, "Position: (", int_text(&d1, s.position.x), ",", int_text(&d2, s.position.y), ")")
 		doc_add(d, .Light_Gray, "Planet Count: ", int_text(&d1, s.planet_count))
 		doc_add(d, .Light_Gray, "Satellite Count: ", int_text(&d2, s.satellite_count))
+		doc_add(d, .Light_Gray, "Wormholes: ", int_text(&d1, s.wormhole_count))
 		doc_blank(d)
 		doc_add(d, .White, "Factions Present:")
 		present := pedia_entries(u, .Faction, .Star_System, id, "")

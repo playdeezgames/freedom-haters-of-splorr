@@ -185,6 +185,13 @@ interaction_key :: proc(s: ^Interaction_Screen, key: Key, session: ^Session) -> 
 			message_add(&m, .Light_Gray, "You collect ", int_text(&digits, added), " fuel!")
 			message_add(&m, .Light_Gray, "No charge!")
 			return Replace{m}
+		case .Enter_Wormhole:
+			if avatar_interact(u, .Enter_Wormhole) == .Blocked {
+				return Replace{message_make(.Light_Red, "Destination blocked!")}
+			}
+			return Pop{}
+		case .Enter_Star_Gate:
+			return Replace{Star_Gate_Screen{gate = u.avatar.bumped.(Actor_Id)}}
 		case .Gather_Atmosphere:
 			added := avatar_gather_atmosphere(u)
 			m := message_make(.Orange, "Atmosphere Gathered!")

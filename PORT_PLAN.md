@@ -139,6 +139,12 @@ Based on a read of the 12 VB generation steps (factions -> galaxy -> star system
 - Format is new (reflection serializer with a layout hash); a save from another build is refused with a message, never loaded.
 - Next after save/load: nexus and wormholes, then stations/military ships.
 
+## Decisions (nexus, wormholes, star gates)
+
+- The VB generated the Nexus but gave it no entrance. Now each Nexus wormhole is paired with a wormhole in a random star system: enter one in a system and you arrive in the Nexus beside its twin; any Nexus wormhole drops you in a system. Count comes from the Nexus's rejection sampling (density-spaced), so some systems get several and some none.
+- Wormhole and star gate travel costs only the bump that reached it (VB rules). Star gates (about one orbit in four) go to your faction's other gates, as in the VB.
+- Still unported: military ships, patrols and combat, commodities.
+
 ## Future ideas (owner)
 
 - **A fallible pedia:** the player starts with an out-of-date, erroneous pedia and can buy updates. The player's own faction (SIGMO) propagandizes its updates; other factions offer varying degrees of objectivity. The pedia pages are therefore built in one place (`pedia_pages.odin`) reading facts through that builder, so a "what the pedia believes" layer can later sit between the truth and the page.

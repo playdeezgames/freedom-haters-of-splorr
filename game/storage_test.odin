@@ -1,6 +1,7 @@
 #+build !js
 package game
 
+import "base:runtime"
 import "core:testing"
 
 // A Storage that keeps its values in memory. Thread-local so parallel tests don't see each other's saves; call
@@ -13,9 +14,10 @@ memory_values: map[string][]u8
 memory_write_fails: bool
 
 memory_storage_reset :: proc() {
+	context.allocator = runtime.heap_allocator()
 	for key, value in memory_values {
-		delete(value)
-		delete(key)
+		delete(value, runtime.heap_allocator())
+		delete(key, runtime.heap_allocator())
 	}
 	delete(memory_values)
 	memory_values = nil
@@ -40,17 +42,18 @@ memory_storage :: proc() -> Storage {
 			if memory_write_fails {
 				return false
 			}
+			context.allocator = runtime.heap_allocator()
 			if old_key, old_value := delete_key(&memory_values, key); len(old_key) > 0 {
-				delete(old_value)
-				delete(old_key)
+				delete(old_value, runtime.heap_allocator())
+				delete(old_key, runtime.heap_allocator())
 			}
 			memory_values[clone_key(key)] = clone_bytes(data)
 			return true
 		},
 		remove = proc(key: string) {
 			if old_key, old_value := delete_key(&memory_values, key); len(old_key) > 0 {
-				delete(old_value)
-				delete(old_key)
+				delete(old_value, runtime.heap_allocator())
+				delete(old_key, runtime.heap_allocator())
 			}
 		},
 	}
@@ -58,14 +61,14 @@ memory_storage :: proc() -> Storage {
 
 @(private = "file")
 clone_key :: proc(key: string) -> string {
-	out := make([]u8, len(key))
+	out, _ := make([]u8, len(key), runtime.heap_allocator())
 	copy(out, key)
 	return string(out)
 }
 
 @(private = "file")
 clone_bytes :: proc(data: []u8) -> []u8 {
-	out := make([]u8, len(data))
+	out, _ := make([]u8, len(data), runtime.heap_allocator())
 	copy(out, data)
 	return out
 }

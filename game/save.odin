@@ -418,7 +418,7 @@ universe_valid :: proc(u: ^Universe) -> bool {
 		return int(n.len) <= NAME_CAPACITY
 	}
 	nf, ns, np, nm, na, ni, nsat := len(u.factions), len(u.star_systems), len(u.planets), len(u.maps), len(u.actors), len(u.items), len(u.satellites)
-	if nm == 0 || na == 0 || !in_range(int(u.galaxy), nm) || u.galaxy == 0 {
+	if nm == 0 || na == 0 || !in_range(int(u.galaxy), nm) || u.galaxy == 0 || !in_range(int(u.nexus), nm) {
 		return false
 	}
 	for f in u.factions {
@@ -452,7 +452,7 @@ universe_valid :: proc(u: ^Universe) -> bool {
 		}
 	}
 	for a in u.actors {
-		if !in_range(int(a.map_id), nm) || !in_range(int(a.interior), nm) || !in_range(int(a.star_system), ns) || !in_range(int(a.planet), np) || !in_range(int(a.satellite), nsat) || !in_range(int(a.offer), ni) || (a.size != 1 && a.size != 3 && a.size != 5) {
+		if !in_range(int(a.map_id), nm) || !in_range(int(a.interior), nm) || !in_range(int(a.star_system), ns) || !in_range(int(a.planet), np) || !in_range(int(a.satellite), nsat) || !in_range(int(a.offer), ni) || !in_range(int(a.target), na) || (a.size != 1 && a.size != 3 && a.size != 5) {
 			return false
 		}
 		if int(a.kind) < 0 || int(a.kind) >= len(Actor_Kind) {

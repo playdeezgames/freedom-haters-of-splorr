@@ -67,6 +67,7 @@ Star_System :: struct {
 	planet_count:    int,
 	satellite_count: int,
 	visit_count:     int,
+	wormhole_count:  int,
 	scrap:           int, // debris piles still to be salvaged
 	reputation:      int, // the avatar's standing in this system
 }
@@ -95,6 +96,7 @@ Satellite :: struct {
 
 Map_Kind :: enum {
 	Galaxy,
+	Nexus, // the space between: reached through wormholes, with no way out but them
 	Star_System,
 	Star_Vicinity,
 	Planet_Vicinity,
@@ -105,6 +107,7 @@ Map_Kind :: enum {
 // width, height
 map_sizes := [Map_Kind][2]int {
 	.Galaxy          = {63, 63},
+	.Nexus           = {63, 63},
 	.Star_System     = {31, 31},
 	.Star_Vicinity   = {15, 15},
 	.Planet_Vicinity = {15, 15},
@@ -132,6 +135,8 @@ Actor_Kind :: enum {
 	Satellite, // on a planet vicinity map
 	Satellite_Body, // on a satellite orbit map, at the center, 3x3
 	Debris, // on a star system map: a pile of scrap
+	Wormhole, // on the nexus and on star system maps; each end's `target` is the other
+	Star_Gate, // on a planet orbit map: a way to the avatar's faction's other gates
 }
 
 Actor :: struct {
@@ -145,6 +150,7 @@ Actor :: struct {
 	satellite:   Satellite_Id,
 	loot:        int, // debris: how much scrap is in the pile
 	offer:       Item_Id, // star dock: the delivery mission it is offering, if any
+	target:      Actor_Id, // wormhole: the other end
 }
 
 actor_covers :: proc(a: Actor, p: [2]int) -> bool {
@@ -218,6 +224,7 @@ Universe :: struct {
 	items:        [dynamic]Item,
 	pedia:        Pedia_Index `save:"-"`, // derived: rebuilt after loading
 	galaxy:       Map_Id,
+	nexus:        Map_Id,
 	avatar:       Avatar,
 }
 
