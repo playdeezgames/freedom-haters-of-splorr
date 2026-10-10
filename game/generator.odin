@@ -374,6 +374,7 @@ step_planet :: proc(g: ^Generator, id: Planet_Id) {
 	}
 	planet_get(u, id).satellite_count = satellite_count
 	star_system_get(u, system).satellite_count += satellite_count
+	market_start(u, id)
 }
 
 // A shipyard: on about one planet in four.

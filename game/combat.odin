@@ -184,6 +184,9 @@ combat_defeat :: proc(u: ^Universe, c: Combat) -> (d: Defeat) {
 			}
 		}
 	}
+	for good in Good {
+		a.cargo[good] -= a.cargo[good] * 3 / 4
+	}
 	a.oxygen.current = min(a.oxygen.current, max(SLIVER, a.oxygen.minimum + 1))
 	a.fuel.current = min(a.fuel.current, max(SLIVER, a.fuel.minimum + 1))
 	a.hull.current = max(1, a.hull.maximum / 10)

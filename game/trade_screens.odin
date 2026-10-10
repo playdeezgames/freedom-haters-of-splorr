@@ -51,9 +51,10 @@ Trader :: struct {
 Trader_Action :: enum {
 	Buy,
 	Sell,
+	Goods,
 }
 
-trader_actions :: proc(u: ^Universe, post: Actor_Id) -> (list: [2]Trader_Action, count: int) {
+trader_actions :: proc(u: ^Universe, post: Actor_Id) -> (list: [3]Trader_Action, count: int) {
 	if trade_prices(u, post).count > 0 {
 		list[count] = .Buy
 		count += 1
@@ -62,6 +63,8 @@ trader_actions :: proc(u: ^Universe, post: Actor_Id) -> (list: [2]Trader_Action,
 		list[count] = .Sell
 		count += 1
 	}
+	list[count] = .Goods
+	count += 1
 	return
 }
 
@@ -69,9 +72,9 @@ trader_draw :: proc(s: ^Trader, tb: ^Text_Buffer, session: ^Session) {
 	u := &session.universe
 	draw_post_header(tb, u, s.post)
 	list, n := trader_actions(u, s.post)
-	labels: [3]string
+	labels: [4]string
 	for i in 0 ..< n {
-		labels[i] = "Buy" if list[i] == .Buy else "Sell"
+		labels[i] = "Buy" if list[i] == .Buy else "Sell" if list[i] == .Sell else "Trade Goods"
 	}
 	labels[n] = "Leave"
 	menu_draw(tb, 8, labels[:n + 1], s.cursor)
@@ -90,6 +93,8 @@ trader_key :: proc(s: ^Trader, key: Key, session: ^Session) -> Transition {
 			return Push{Buy_List{post = s.post}}
 		case .Sell:
 			return Push{Sell_List{post = s.post}}
+		case .Goods:
+			return Push{Market_Screen{post = s.post}}
 		}
 	case .Cancelled:
 		return Pop{}

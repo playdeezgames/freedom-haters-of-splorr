@@ -50,6 +50,9 @@ navigation_draw :: proc(s: ^Navigation, tb: ^Text_Buffer, session: ^Session) {
 	hull_percent := percent_of(u.avatar.hull)
 	c = put_field_int(tb, col, 14, "Hull", hull_percent, hue_for_percent(hull_percent))
 	text_put(tb, c, 14, "%", hue_for_percent(hull_percent))
+	if cargo_weight(u) > 0 {
+		put_field_int(tb, col, 15, "Load", cargo_weight(u), .Orange)
+	}
 
 	switch s.message {
 	case .None:
@@ -110,6 +113,9 @@ navigation_tick :: proc(s: ^Navigation, session: ^Session) -> Transition {
 		report := oxygen_report(u.avatar.auto_used)
 		u.avatar.auto_used = {}
 		return Push{report}
+	}
+	if session.in_play && u.turn >= u.market_turn + DRIFT_EVERY {
+		markets_catch_up(u)
 	}
 	if session.in_play && u.turn > u.patrol_turn {
 		patrol_catch_up(u)

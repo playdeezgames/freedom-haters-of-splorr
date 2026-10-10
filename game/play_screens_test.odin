@@ -483,7 +483,7 @@ bumping_a_trading_post_opens_the_trader_and_leaving_goes_back :: proc(t: ^testin
 	app: App
 	at_the_trader(t, &app)
 	defer app_destroy(&app)
-	press(&app, KEY_DOWN, KEY_ENTER) // entries: Buy, Leave (no scrap to sell)
+	press(&app, KEY_DOWN, KEY_DOWN, KEY_ENTER) // entries: Buy, Trade Goods, Leave (no scrap to sell)
 	testing.expect(t, on_screen(&app, Navigation))
 }
 

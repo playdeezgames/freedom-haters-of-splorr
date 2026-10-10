@@ -176,6 +176,11 @@ status_draw :: proc(s: ^Status_Screen, tb: ^Text_Buffer, session: ^Session) {
 	put_field_int(tb, 2, row, "Jools", u.avatar.jools)
 	row += 2
 	put_field_int(tb, 2, row, "Turn", u.turn)
+	row += 2
+	cargo := put_field_int(tb, 2, row, "Cargo", cargo_weight(u))
+	text_put(tb, cargo, row, " (+", .Light_Gray)
+	cargo = text_put_int(tb, cargo + 3, row, cargo_fuel_surcharge(u), .White)
+	text_put(tb, cargo, row, " fuel/move)", .Light_Gray)
 	row += 3
 	faction := faction_get(u, u.avatar.faction)
 	put_field(tb, 2, row, "Faction", name_str(&faction.name))

@@ -82,6 +82,7 @@ Planet :: struct {
 	actor:           Actor_Id, // its marker on the system map
 	satellite_count: int,
 	reputation:      int, // the avatar's standing on this planet
+	market:          [Good]Price_State,
 }
 
 Satellite :: struct {
@@ -209,6 +210,7 @@ Avatar :: struct {
 	fuel:          Store,
 	oxygen:        Store, // dead when it runs out
 	hull:          Store, // what combat wears down; mended at a shipyard
+	cargo:         [Good]int, // units of trade goods in the hold
 }
 
 // A Mark I life support and fuel supply, which is what the ship starts with (250 per Mark).
@@ -220,6 +222,7 @@ Universe :: struct {
 	rng:          Rng,
 	turn:         int,
 	patrol_turn:  int, // the last turn the military ships moved for
+	market_turn:  int, // the last turn the markets drifted for
 	factions:     [dynamic]Faction,
 	star_systems: [dynamic]Star_System,
 	planets:      [dynamic]Planet,

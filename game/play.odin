@@ -38,7 +38,7 @@ avatar_move :: proc(u: ^Universe, dir: Direction) -> Move_Outcome {
 		return .No_Fuel
 	}
 	avatar_do_turn(u)
-	a.fuel.current -= 1
+	a.fuel.current = max(a.fuel.current - 1 - cargo_fuel_surcharge(u), a.fuel.minimum)
 
 	ship := actor_get(u, a.actor)
 	m := map_get(u, ship.map_id)
