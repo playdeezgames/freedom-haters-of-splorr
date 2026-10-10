@@ -134,3 +134,26 @@ cycle_faction_count :: proc(count: int, delta: int) -> int {
 	span := MAX_FACTION_COUNT - MIN_FACTION_COUNT + 1
 	return MIN_FACTION_COUNT + (count - MIN_FACTION_COUNT + span + delta) % span
 }
+
+// ---- Remembering the settings between visits ----
+// Four bytes: age, density, wealth, faction count. Anything that doesn't fit the game's choices is ignored.
+
+settings_save :: proc(s: Storage, settings: Embark_Settings) {
+	if s.write == nil {
+		return
+	}
+	data := [4]u8{u8(settings.age), u8(settings.density), u8(settings.wealth), u8(settings.faction_count)}
+	s.write(SETTINGS_KEY, data[:])
+}
+
+settings_load :: proc(s: Storage) -> Embark_Settings {
+	data, ok := storage_get(s, SETTINGS_KEY)
+	if !ok {
+		return DEFAULT_EMBARK_SETTINGS
+	}
+	defer delete(data)
+	if len(data) != 4 || int(data[0]) >= len(Galactic_Age) || int(data[1]) >= len(Galactic_Density) || int(data[2]) >= len(Starting_Wealth) || int(data[3]) < MIN_FACTION_COUNT || int(data[3]) > MAX_FACTION_COUNT {
+		return DEFAULT_EMBARK_SETTINGS
+	}
+	return {age = Galactic_Age(data[0]), density = Galactic_Density(data[1]), wealth = Starting_Wealth(data[2]), faction_count = int(data[3])}
+}

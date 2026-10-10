@@ -64,10 +64,56 @@ function wirePad() {
 }
 wirePad();
 
+// Saves are bytes in the wasm heap; localStorage holds them as base64 text. Every call is guarded because
+// storage can be missing or refuse writes (private windows, blocked site data, a full quota).
+const textDecoder = new TextDecoder();
+const keyAt = (ptr, len) => textDecoder.decode(new Uint8Array(mem.memory.buffer, ptr, len));
+const toBase64 = (bytes) => {
+	let text = "";
+	for (let i = 0; i < bytes.length; i += 0x8000) {
+		text += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+	}
+	return btoa(text);
+};
+const fromBase64 = (text) => Uint8Array.from(atob(text), (c) => c.charCodeAt(0));
+const storedBytes = (key) => {
+	try {
+		const text = localStorage.getItem(key);
+		return text === null ? null : fromBase64(text);
+	} catch (e) {
+		return null;
+	}
+};
+
 odin.runWasm("game.wasm", null, {
 	shim: {
 		js_next_key: () => keyQueue.shift() ?? 0,
 		js_random_u32: () => crypto.getRandomValues(new Uint32Array(1))[0],
+		js_storage_size: (keyPtr, keyLen) => {
+			const bytes = storedBytes(keyAt(keyPtr, keyLen));
+			return bytes === null ? -1 : bytes.length;
+		},
+		js_storage_read: (keyPtr, keyLen, into, intoLen) => {
+			const bytes = storedBytes(keyAt(keyPtr, keyLen));
+			if (bytes === null || bytes.length !== intoLen) {
+				return 0;
+			}
+			new Uint8Array(mem.memory.buffer, into, intoLen).set(bytes);
+			return 1;
+		},
+		js_storage_write: (keyPtr, keyLen, data, dataLen) => {
+			try {
+				localStorage.setItem(keyAt(keyPtr, keyLen), toBase64(new Uint8Array(mem.memory.buffer, data, dataLen)));
+				return 1;
+			} catch (e) {
+				return 0;
+			}
+		},
+		js_storage_remove: (keyPtr, keyLen) => {
+			try {
+				localStorage.removeItem(keyAt(keyPtr, keyLen));
+			} catch (e) {}
+		},
 		js_present: (ptr, width, height) => {
 			const pixels = new Uint8ClampedArray(mem.memory.buffer, ptr, width * height * 4);
 			ctx.putImageData(new ImageData(pixels, width, height), 0, 0);

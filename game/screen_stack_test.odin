@@ -68,7 +68,8 @@ main_menu_navigates_to_embark_and_back :: proc(t: ^testing.T) {
 about_pops_and_root_escape_stays :: proc(t: ^testing.T) {
 	app: App
 	app_init(&app)
-	app_key(&app, KEY_DOWN)
+	app_key(&app, KEY_DOWN) // Load
+	app_key(&app, KEY_DOWN) // About
 	app_key(&app, KEY_ENTER)
 	_, on_about := stack_top(&app.stack)^.(About)
 	testing.expect(t, on_about)

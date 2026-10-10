@@ -189,9 +189,9 @@ Avatar :: struct {
 	inventory:     [dynamic]Item_Id,
 	actor:         Actor_Id,
 	equipment:     [Equip_Slot]Item_Id, // what is installed; 0 means empty
-	auto_used:     Use_Result, // set when an oxygen tank was used automatically; the map screen reports it and clears it
+	auto_used:     Use_Result `save:"-"`, // set when an oxygen tank was used automatically; the map screen reports it and clears it
 	facing:        Direction,
-	bumped:        Bump,
+	bumped:        Bump `save:"-"`,
 	star_system:   Star_System_Id, // the system the avatar is in; none in the galaxy
 	faction:       Faction_Id, // the SIGMO Federation
 	home_planet:   Planet_Id,
@@ -216,7 +216,7 @@ Universe :: struct {
 	maps:         [dynamic]Map,
 	actors:       [dynamic]Actor,
 	items:        [dynamic]Item,
-	pedia:        Pedia_Index,
+	pedia:        Pedia_Index `save:"-"`, // derived: rebuilt after loading
 	galaxy:       Map_Id,
 	avatar:       Avatar,
 }

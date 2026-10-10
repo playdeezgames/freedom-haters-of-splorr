@@ -9,7 +9,8 @@ fixed_seed :: proc() -> u64 {
 
 // Opens Embark and presses Go, leaving the app on the Generate screen.
 start_generating :: proc(app: ^App) {
-	app_init(app, fixed_seed)
+	memory_storage_reset()
+	app_init(app, fixed_seed, memory_storage())
 	app_key(app, KEY_ENTER) // Embark
 	app_key(app, KEY_ENTER) // Go
 }
@@ -17,7 +18,9 @@ start_generating :: proc(app: ^App) {
 // Game menu -> Abandon Game -> Yes.
 abandon_game :: proc(app: ^App) {
 	app_key(app, KEY_ESCAPE)
-	app_key(app, KEY_DOWN)
+	for _ in 0 ..< 4 {
+		app_key(app, KEY_DOWN)
+	}
 	app_key(app, KEY_ENTER)
 	app_key(app, KEY_DOWN)
 	app_key(app, KEY_ENTER)
@@ -114,7 +117,9 @@ abandoning_the_game_discards_the_universe_and_resets_to_the_main_menu :: proc(t:
 	app_key(&app, KEY_ESCAPE) // game menu
 	_, on_game_menu := stack_top(&app.stack)^.(Game_Menu)
 	testing.expect(t, on_game_menu)
-	app_key(&app, KEY_DOWN)
+	for _ in 0 ..< 4 {
+		app_key(&app, KEY_DOWN)
+	}
 	app_key(&app, KEY_ENTER) // Abandon Game
 	_, on_confirm := stack_top(&app.stack)^.(Confirm_Abandon)
 	testing.expect(t, on_confirm)

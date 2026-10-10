@@ -5,6 +5,7 @@ package game
 Session :: struct {
 	// Where a new universe's seed comes from; the platform provides real entropy. nil means a fixed seed.
 	seed_source: proc() -> u64,
+	storage:     Storage, // where saves and the embark settings live
 	generator:   Generator,
 	generating:  bool,
 	universe:    Universe,

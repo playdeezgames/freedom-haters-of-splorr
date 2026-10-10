@@ -10,9 +10,10 @@ App :: struct {
 	session: Session,
 }
 
-app_init :: proc(app: ^App, seed_source: proc() -> u64 = nil) {
+app_init :: proc(app: ^App, seed_source: proc() -> u64 = nil, storage: Storage = {}) {
 	app^ = {}
 	app.session.seed_source = seed_source
+	app.session.storage = storage
 	stack_push(&app.stack, Main_Menu{})
 	app_draw(app)
 }

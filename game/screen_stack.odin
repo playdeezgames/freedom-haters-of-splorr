@@ -16,9 +16,15 @@ Pop :: struct {}
 Pop_Count :: struct {
 	count: int,
 }
-// Throws away the whole stack and starts over from `screen`.
+// Pops `count` screens, then pushes `screen`.
+Pop_Then :: struct {
+	count:  int,
+	screen: Screen,
+}
+// Throws away the whole stack and starts over from `screen`, with `on_top` pushed above it if there is one.
 Reset :: struct {
 	screen: Screen,
+	on_top: Screen,
 }
 
 // nil means "stay on this screen".
@@ -27,6 +33,7 @@ Transition :: union {
 	Replace,
 	Pop,
 	Pop_Count,
+	Pop_Then,
 	Reset,
 }
 
@@ -71,10 +78,18 @@ stack_apply :: proc(stack: ^Screen_Stack, transition: Transition) {
 		for _ in 0 ..< t.count {
 			stack_pop(stack)
 		}
+	case Pop_Then:
+		for _ in 0 ..< t.count {
+			stack_pop(stack)
+		}
+		stack_push(stack, t.screen)
 	case Reset:
 		for stack.count > 0 {
 			stack_pop(stack)
 		}
 		stack_push(stack, t.screen)
+		if t.on_top != nil {
+			stack_push(stack, t.on_top)
+		}
 	}
 }

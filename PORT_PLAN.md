@@ -40,7 +40,7 @@ Play the .NET build and mark each system **keep / fix / cut** below. Claude can 
 - [ ] Window focus handling, turn/time clock if needed.
 - [x] HTML button pad (d-pad + Enter/Esc) in `web/`: shown on touch screens (`pointer: coarse`), after any touch, or with `?pad`; holding a direction repeats after 350 ms every 110 ms. It pushes the same key codes as the keyboard, so game code is unaware of it. Verified with mouse clicks and the phone preset; hold-to-repeat and real touch are not yet verified on a device.
 - [x] Font: keep the 8x8 ROM font (swap is a one-file change to `game/font.odin`).
-- [ ] Save/load via a localStorage bridge in `web/game.js`. Also persist the Embark settings across sessions (the VB did; the port resets them each visit for now).
+- [x] Save/load via a localStorage bridge in `web/game.js` (base64 values), plus the Embark settings persisted across visits. Verified in the browser: Scum Save, reload, Scum Load restores the game.
 - [ ] itch.io: the page exists (native v56 builds, no html5 channel). Pushing `html5` and marking it "playable in browser" is an owner action; decide whether to keep or retire the native downloads.
 
 ## Phase 2 - Vertical slice
@@ -130,6 +130,14 @@ Based on a read of the 12 VB generation steps (factions -> galaxy -> star system
 
 - Faction relations use the true Euclidean distance with the README's thresholds (0-25 Friendly, 26-50 Neutral, 51+ Hostile). The live game's misplaced square root made nearly everyone Hostile. Intent (owner): the player's faction, SIGMO, is fascist and most factions should be hostile to it; this is satire. A test keeps every generated faction Hostile to SIGMO.
 - Pedia lists: sorted by name; type to filter (keyboard); Left/Right jumps to the previous/next first letter (touch pad). The pedia knows the whole galaxy from the start, like the live game.
+
+## Decisions (save/load)
+
+- Keep the VB layout: one Scum slot plus Slots 1-5, manual saves only (no autosave). Scum Load shows on the main menu only when a quick save exists.
+- Game over (dead or bankrupt) leaves every save alone.
+- Saves live in localStorage only; export/import is deferred until players ask.
+- Format is new (reflection serializer with a layout hash); a save from another build is refused with a message, never loaded.
+- Next after save/load: nexus and wormholes, then stations/military ships.
 
 ## Future ideas (owner)
 

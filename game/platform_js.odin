@@ -14,6 +14,31 @@ foreign shim {
 	js_present :: proc(pixels: [^]u8, width, height: i32) ---
 	// 32 random bits from the browser's crypto source.
 	js_random_u32 :: proc() -> u32 ---
+	// localStorage, holding bytes as base64. Keys are UTF-8 (pointer, length).
+	// Size of the stored value in bytes, or -1 when there is none.
+	js_storage_size :: proc(key: [^]u8, key_len: i32) -> i32 ---
+	// Copies the stored value into `into`; 1 on success, 0 if it is missing or the wrong size.
+	js_storage_read :: proc(key: [^]u8, key_len: i32, into: [^]u8, into_len: i32) -> i32 ---
+	// 1 if stored, 0 if the browser refused (private mode, quota).
+	js_storage_write :: proc(key: [^]u8, key_len: i32, data: [^]u8, data_len: i32) -> i32 ---
+	js_storage_remove :: proc(key: [^]u8, key_len: i32) ---
+}
+
+browser_storage :: proc() -> Storage {
+	return {
+		size = proc(key: string) -> int {
+			return int(js_storage_size(raw_data(key), i32(len(key))))
+		},
+		read = proc(key: string, into: []u8) -> bool {
+			return js_storage_read(raw_data(key), i32(len(key)), raw_data(into), i32(len(into))) != 0
+		},
+		write = proc(key: string, data: []u8) -> bool {
+			return js_storage_write(raw_data(key), i32(len(key)), raw_data(data), i32(len(data))) != 0
+		},
+		remove = proc(key: string) {
+			js_storage_remove(raw_data(key), i32(len(key)))
+		},
+	}
 }
 
 random_seed :: proc() -> u64 {
@@ -24,7 +49,7 @@ app: App
 frame: Frame
 
 main :: proc() {
-	app_init(&app, random_seed)
+	app_init(&app, random_seed, browser_storage())
 }
 
 @(export)

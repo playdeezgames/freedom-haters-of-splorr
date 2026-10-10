@@ -1,5 +1,7 @@
 package game
 
+import "core:slice"
+
 // The screens you see while a universe is in play: navigating, interacting with what you bump into,
 // the action and game menus, a plain message box, and game over.
 
@@ -548,8 +550,11 @@ int_text :: proc(buf: ^[20]u8, n: int) -> string {
 	return string(buf[i:])
 }
 
-message_make :: proc(hue: Hue, parts: ..string) -> (m: Message) {
-	message_add(&m, hue, ..parts)
+// A message whose first line is `lines[0]`, and further lines the rest. (One line of several parts: use message_add.)
+message_make :: proc(hue: Hue, lines: ..string) -> (m: Message) {
+	for line in lines {
+		message_add(&m, hue, line)
+	}
 	return
 }
 
@@ -595,20 +600,43 @@ Game_Menu :: struct {
 	cursor: int,
 }
 
-game_menu_labels := [?]string{"Continue Game", "Abandon Game"}
+Game_Menu_Choice :: enum {
+	Continue_Game,
+	Scum_Save,
+	Save,
+	Scum_Load,
+	Abandon_Game,
+}
+
+game_menu_labels := [Game_Menu_Choice]string {
+	.Continue_Game = "Continue Game",
+	.Scum_Save     = "Scum Save",
+	.Save          = "Save",
+	.Scum_Load     = "Scum Load",
+	.Abandon_Game  = "Abandon Game",
+}
 
 game_menu_draw :: proc(s: ^Game_Menu, tb: ^Text_Buffer, session: ^Session) {
 	text_put_centered(tb, 3, "GAME MENU", .Yellow)
-	menu_draw(tb, 8, game_menu_labels[:], s.cursor)
+	labels := game_menu_labels
+	menu_draw(tb, 8, slice.enumerated_array(&labels), s.cursor)
 }
 
 game_menu_key :: proc(s: ^Game_Menu, key: Key, session: ^Session) -> Transition {
-	switch menu_key(&s.cursor, len(game_menu_labels), key) {
+	switch menu_key(&s.cursor, len(Game_Menu_Choice), key) {
 	case .Chosen:
-		if s.cursor == 1 {
+		switch Game_Menu_Choice(s.cursor) {
+		case .Continue_Game:
+			return Pop{}
+		case .Scum_Save:
+			return save_to_slot(session, SCUM_SLOT, pops = 1)
+		case .Save:
+			return Push{Save_Screen{}}
+		case .Scum_Load:
+			return load_slot(session, SCUM_SLOT, replacing = 0)
+		case .Abandon_Game:
 			return Push{Confirm_Abandon{}}
 		}
-		return Pop{}
 	case .Cancelled:
 		return Pop{}
 	case .None, .Previous, .Next:
@@ -633,7 +661,7 @@ confirm_abandon_key :: proc(s: ^Confirm_Abandon, key: Key, session: ^Session) ->
 	case .Chosen:
 		if s.cursor == 1 {
 			session_end(session)
-			return Reset{Main_Menu{}}
+			return Reset{screen = Main_Menu{}}
 		}
 		return Pop{}
 	case .Cancelled:
@@ -662,7 +690,7 @@ game_over_draw :: proc(s: ^Game_Over, tb: ^Text_Buffer, session: ^Session) {
 game_over_key :: proc(s: ^Game_Over, key: Key, session: ^Session) -> Transition {
 	if key == KEY_ENTER || key == KEY_ESCAPE {
 		session_end(session)
-		return Reset{Main_Menu{}}
+		return Reset{screen = Main_Menu{}}
 	}
 	return nil
 }

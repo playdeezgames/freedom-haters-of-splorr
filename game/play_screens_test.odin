@@ -214,7 +214,9 @@ the_game_menu_continues_and_declining_to_abandon_keeps_playing :: proc(t: ^testi
 	app_key(&app, KEY_ENTER) // Continue Game
 	testing.expect(t, on_screen(&app, Navigation))
 	app_key(&app, KEY_ESCAPE)
-	app_key(&app, KEY_DOWN)
+	for _ in 0 ..< 4 {
+		app_key(&app, KEY_DOWN)
+	}
 	app_key(&app, KEY_ENTER) // Abandon Game...
 	app_key(&app, KEY_ENTER) // ...No
 	testing.expect(t, on_screen(&app, Game_Menu))

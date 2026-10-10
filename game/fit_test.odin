@@ -130,6 +130,15 @@ screens_fit_the_forty_columns_with_the_longest_names :: proc(t: ^testing.T) {
 	fits(t, "leave", Interaction_Screen{}, &app)
 	_ = star
 	fits(t, "game over", Game_Over{}, &app)
+	u.avatar.jools = 123456789
+	u.turn = 123456789
+	for slot in 0 ..< SLOT_COUNT {
+		testing.expect_value(t, slot_save(app.session.storage, slot, u), Save_Result.Saved)
+	}
+	fits(t, "game menu", Game_Menu{}, &app)
+	fits(t, "save", Save_Screen{}, &app)
+	fits(t, "load", Load_Screen{}, &app)
+	fits(t, "main menu with saves", Main_Menu{}, &app)
 	fits(t, "navigation", Navigation{message = .Out_Of_Fuel}, &app)
 }
 

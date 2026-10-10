@@ -32,6 +32,8 @@ Screen :: union {
 	Confirm_Trade,
 	Message,
 	Game_Menu,
+	Save_Screen,
+	Load_Screen,
 	Confirm_Abandon,
 	Game_Over,
 }
@@ -40,7 +42,7 @@ screen_draw :: proc(screen: ^Screen, tb: ^Text_Buffer, session: ^Session) {
 	text_clear(tb)
 	switch &s in screen {
 	case Main_Menu:
-		main_menu_draw(&s, tb)
+		main_menu_draw(&s, tb, session)
 	case About:
 		about_draw(&s, tb)
 	case Embark:
@@ -91,6 +93,10 @@ screen_draw :: proc(screen: ^Screen, tb: ^Text_Buffer, session: ^Session) {
 		message_draw(&s, tb, session)
 	case Game_Menu:
 		game_menu_draw(&s, tb, session)
+	case Save_Screen:
+		save_screen_draw(&s, tb, session)
+	case Load_Screen:
+		load_screen_draw(&s, tb, session)
 	case Confirm_Abandon:
 		confirm_abandon_draw(&s, tb, session)
 	case Game_Over:
@@ -101,11 +107,11 @@ screen_draw :: proc(screen: ^Screen, tb: ^Text_Buffer, session: ^Session) {
 screen_key :: proc(screen: ^Screen, key: Key, session: ^Session) -> Transition {
 	switch &s in screen {
 	case Main_Menu:
-		return main_menu_key(&s, key)
+		return main_menu_key(&s, key, session)
 	case About:
 		return about_key(&s, key)
 	case Embark:
-		return embark_key(&s, key)
+		return embark_key(&s, key, session)
 	case Generate:
 		return generate_key(&s, key, session)
 	case Navigation:
@@ -152,6 +158,10 @@ screen_key :: proc(screen: ^Screen, key: Key, session: ^Session) -> Transition {
 		return message_key(&s, key, session)
 	case Game_Menu:
 		return game_menu_key(&s, key, session)
+	case Save_Screen:
+		return save_screen_key(&s, key, session)
+	case Load_Screen:
+		return load_screen_key(&s, key, session)
 	case Confirm_Abandon:
 		return confirm_abandon_key(&s, key, session)
 	case Game_Over:
@@ -169,7 +179,7 @@ screen_tick :: proc(screen: ^Screen, session: ^Session) -> Transition {
 		return navigation_tick(&s, session)
 	case Sell_List:
 		return sell_list_tick(&s, session)
-	case Main_Menu, About, Embark, Interaction_Screen, Action_Menu, Inventory_Screen, Item_Page, Mission_Offer, Confirm_Abandon_Delivery, Status_Screen, Pedia_Menu, Pedia_List, Pedia_Page, Equipment_Screen, Shipyard_Screen, Slot_Items, Trader, Buy_List, Quantity, Number_Entry, Confirm_Trade, Message, Game_Menu, Confirm_Abandon, Game_Over:
+	case Main_Menu, About, Embark, Interaction_Screen, Action_Menu, Inventory_Screen, Item_Page, Mission_Offer, Confirm_Abandon_Delivery, Status_Screen, Pedia_Menu, Pedia_List, Pedia_Page, Equipment_Screen, Shipyard_Screen, Slot_Items, Trader, Buy_List, Quantity, Number_Entry, Confirm_Trade, Message, Game_Menu, Save_Screen, Load_Screen, Confirm_Abandon, Game_Over:
 	}
 	return nil
 }
@@ -178,30 +188,57 @@ screen_tick :: proc(screen: ^Screen, session: ^Session) -> Transition {
 
 Main_Menu_Choice :: enum {
 	Embark,
+	Scum_Load, // only when there is a quick save
+	Load,
 	About,
 }
 
-main_menu_labels := [Main_Menu_Choice]string {
-	.Embark = "Embark",
-	.About  = "About",
+main_menu_choice_labels := [Main_Menu_Choice]string {
+	.Embark    = "Embark",
+	.Scum_Load = "Scum Load",
+	.Load      = "Load",
+	.About     = "About",
 }
 
 Main_Menu :: struct {
 	cursor: int,
 }
 
-main_menu_draw :: proc(s: ^Main_Menu, tb: ^Text_Buffer) {
+main_menu_items :: proc(session: ^Session) -> (items: [len(Main_Menu_Choice)]Main_Menu_Choice, count: int) {
+	for choice in Main_Menu_Choice {
+		if choice == .Scum_Load && !slot_exists(session.storage, SCUM_SLOT) {
+			continue
+		}
+		items[count] = choice
+		count += 1
+	}
+	return
+}
+
+main_menu_draw :: proc(s: ^Main_Menu, tb: ^Text_Buffer, session: ^Session) {
 	text_put_centered(tb, 3, "FREEDOM HATERS", .Yellow)
 	text_put_centered(tb, 5, "OF SPLORR!!", .Yellow)
 	text_put_centered(tb, 8, "Love FREEDOM or DIE!", .Light_Red)
-	menu_draw(tb, 11, slice.enumerated_array(&main_menu_labels), s.cursor)
+	items, count := main_menu_items(session)
+	labels: [len(Main_Menu_Choice)]string
+	for i in 0 ..< count {
+		labels[i] = main_menu_choice_labels[items[i]]
+	}
+	s.cursor = min(s.cursor, count - 1)
+	menu_draw(tb, 11, labels[:count], s.cursor)
 }
 
-main_menu_key :: proc(s: ^Main_Menu, key: Key) -> Transition {
-	if menu_key(&s.cursor, len(main_menu_labels), key) == .Chosen {
-		switch Main_Menu_Choice(s.cursor) {
+main_menu_key :: proc(s: ^Main_Menu, key: Key, session: ^Session) -> Transition {
+	items, count := main_menu_items(session)
+	s.cursor = min(s.cursor, count - 1)
+	if menu_key(&s.cursor, count, key) == .Chosen {
+		switch items[s.cursor] {
 		case .Embark:
-			return Push{embark_new()}
+			return Push{embark_from_storage(session)}
+		case .Scum_Load:
+			return load_slot(session, SCUM_SLOT, replacing = 0)
+		case .Load:
+			return open_load_screen(session)
 		case .About:
 			return Push{About{}}
 		}
@@ -249,6 +286,11 @@ embark_new :: proc() -> Embark {
 	return {settings = DEFAULT_EMBARK_SETTINGS}
 }
 
+// Starts from the settings used last time, if they were remembered.
+embark_from_storage :: proc(session: ^Session) -> Embark {
+	return {settings = settings_load(session.storage)}
+}
+
 embark_draw :: proc(s: ^Embark, tb: ^Text_Buffer) {
 	text_put_centered(tb, 3, "EMBARK", .Yellow)
 	text_put_centered(tb, 5, "Left/Right changes a setting", .Dark_Gray)
@@ -279,7 +321,7 @@ embark_draw_setting :: proc(tb: ^Text_Buffer, y: int, label, value: string, sele
 	text_put(tb, 24, y, value, .Light_Cyan if selected else .Cyan)
 }
 
-embark_key :: proc(s: ^Embark, key: Key) -> Transition {
+embark_key :: proc(s: ^Embark, key: Key, session: ^Session) -> Transition {
 	result := menu_key(&s.cursor, len(Embark_Row), key)
 	row := Embark_Row(s.cursor)
 	if result == .Cancelled {
@@ -296,6 +338,7 @@ embark_key :: proc(s: ^Embark, key: Key) -> Transition {
 		delta = 1
 		switch row {
 		case .Go:
+			settings_save(session.storage, s.settings)
 			return Push{Generate{settings = s.settings}}
 		case .Cancel:
 			return Pop{}
@@ -315,6 +358,7 @@ embark_key :: proc(s: ^Embark, key: Key) -> Transition {
 			s.settings.faction_count = cycle_faction_count(s.settings.faction_count, delta)
 		case .Go, .Cancel:
 		}
+		settings_save(session.storage, s.settings)
 	}
 	return nil
 }
