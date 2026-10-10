@@ -158,6 +158,19 @@ Based on a read of the 12 VB generation steps (factions -> galaxy -> star system
 - Built (step 3): combat rounds, defeat (robbed and towed home), victory (wreckage and reputation) and slow respawn. Numbers are constants at the top of `combat.odin`.
 - Still open (decide while building): exact combat numbers, ship respawn rate, and how much of the fleet moves each turn if that gets slow on dense galaxies.
 
+## Decisions (commodities, law and the underworld)
+
+The VB's five commodities have no numbers at all (every method throws), so this is new design.
+
+- **Goods (11):** legal staples Metal, Oxygen, Fuel, Food, Textiles, Machinery, Medicine, Hype (satire: slogans and ads); valuables: Gems; contraband in some places: Narcotics, Weapons. Each good has its own base price and weight (Gems light and dear, Metal heavy and cheap). These are cargo, separate from the existing Oxygen Tank and Fuel Rod items.
+- **Weight:** every 25 units of cargo adds 1 fuel to each move. No hard hold limit, oxygen unaffected; scrap and items weigh nothing.
+- **Prices:** each trading post's market has a base price per good from its planet's tech level, type and values, drifts a little every 50 turns, and moves when you buy (up) or sell (down) a lot. 20% spread between buy and sell.
+- **Law:** which goods are illegal comes from each faction's values and ASC (high Authority bans Narcotics and Weapons, Sovereign Freedom allows Weapons, and so on; SIGMO bans a lot). Shown on the pedia faction page. Patrol shakedowns can search for and seize contraband.
+- **Infamy:** a separate score from reputation: underworld standing, raised by smuggling and criminal jobs. It unlocks Black Markets, better black-market prices and fixers; it also makes patrols likelier to search you (their hostility steps up). Shown on Status.
+- **Underworld quest:** a multi-step contact quest (a rumor on a low-reputation planet points to a fixer; carry a package, deliver contraband, survive a shakedown) establishes the connection. Afterwards Black Markets (hidden stations, visible once connected) appear on rougher planets and fixers offer criminal deliveries.
+- **Build order:** A) goods, markets, weight and the trade screens; B) law, contraband, searches and infamy; C) black markets and the underworld quest.
+- Still open (decide while building): base prices and weights per good, drift size, how much your own trades move prices, the fixer's rumor text, and the exact quest steps.
+
 ## Future ideas (owner)
 
 - **A fallible pedia:** the player starts with an out-of-date, erroneous pedia and can buy updates. The player's own faction (SIGMO) propagandizes its updates; other factions offer varying degrees of objectivity. The pedia pages are therefore built in one place (`pedia_pages.odin`) reading facts through that builder, so a "what the pedia believes" layer can later sit between the truth and the page.
