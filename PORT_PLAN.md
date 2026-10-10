@@ -190,6 +190,12 @@ The VB's five commodities have no numbers at all (every method throws), so this 
 - Built (balance fixes): all of the above. Ship Parts are one fixed-price item (30 jools) with the count scaling by enemy tech, rather than a quality scale. Gear is base x mark squared. After the fixes a bot trip met 0.85 shakedowns (was 2.0-2.8) and paid 72-86 jools in fines (was 340-460); same-system hauling grew 1,000 jools to 1,000-1,430 in 30 hops (was hundreds of millions); errands pay about 120 (3 jools a move, was 0.9); no new game starts with a hostile ship in chase range (was 41%).
 - Still to settle while building: exact gear prices per mark, the fine formula edge cases, and how fast ships respawn now that there are fewer.
 
+## Decisions (goal and faction effects)
+
+- **Goal:** a score and a run summary. Game Over (and Abandon) shows turns survived, peak jools, deliveries, kills, infamy and planets visited. Otherwise a sandbox; no ending.
+- **Faction effects:** prices by standing. Reputation with a planet's faction changes what its trading posts and docks charge: good standing -10% on goods, refuel and shipyard fees; bad standing +15%; hostile factions' posts refuse you below -50.
+- **Before release:** the owner playtests after Claude's second pass (PLAYTEST_NOTES.md); the stalled economy (errands break even, trade does not pay, combat pays best) needs retuning first. Music stays post-launch.
+
 ## Future ideas (owner)
 
 - **A fallible pedia:** the player starts with an out-of-date, erroneous pedia and can buy updates. The player's own faction (SIGMO) propagandizes its updates; other factions offer varying degrees of objectivity. The pedia pages are therefore built in one place (`pedia_pages.odin`) reading facts through that builder, so a "what the pedia believes" layer can later sit between the truth and the page.

@@ -83,3 +83,53 @@ are what they printed), plus a short play of a fresh game in the browser pane. N
 - New games: 0 of 200 start with a hostile ship in chase range (was 83).
 - Resist is hidden unarmed; Attack exists; kills drop 2-4 (+tech/4) Ship Parts at 30 jools plus sometimes cargo; gear is
   100 x mark squared (Mark V 2,500); weight is smooth (weight/50 fuel a move).
+
+# Second pass (after the balance fixes)
+
+Method: a rule-level bot that flies like a player (galaxy -> system -> vicinity -> orbit -> dock, breadth-first
+pathing, pays fines, refuels when low), run 3,000-4,000 turns on seeds 1-4, plus a random-key fuzz (40 games x 6,000
+keys through the whole app, with universe validation) and one arithmetic check of combat income. Nothing was changed
+in the game; the bot files were deleted.
+
+## Crashes and soundness
+
+- **No crash, hang or invalid universe** in 240,000 random key presses. The pedia is a sink for random keys (Enter on a
+  link pushes a page, which pushes a list...). The screen stack caps at 32 and a push beyond that is silently ignored,
+  so a very deep pedia walk makes "Enter" on a link do nothing and Escape needs one press per level to get out.
+  Odd, harmless; a "close pedia" key or Replace-after-depth would fix it.
+
+## Economy: now stalled (the fixes overcorrected)
+
+1. **The errand runner earns nothing.** 40 errands in about 4,000 moves on every seed. Jools: 938 -> 1,037, 1,026 -> 805,
+   930 -> 855, 1,020 -> 1,118. Income was about 4,800 (120 an errand); 28-48 shakedowns cost 3,100-3,650 (the fine is 10%
+   of your jools, so it is about 100 at a thousand, i.e. a wealth tax with an equilibrium near your starting 1,000) and fuel
+   about 1,500 (0.4 jool a move). It breaks even whatever you do, so the starter gear (about 270) is reachable once and
+   everything above it is not. One contact per roughly 100 moves is the culprit, not the errand pay.
+2. **Trading no longer pays at all.** From the home planet, the best haul within 90 cells grossed +33, -80, -51 and +17
+   jools on a thousand-jool cargo (before fuel and fines) on the four seeds. A 10% spread each way plus 0.4% slippage per
+   unit eats every margin; the bot refused to haul anything. The best pair anywhere in the galaxy is still +23% to +47%
+   gross, but you cannot reach it profitably with a Mark I tank and fines.
+3. **Combat is now by far the best income, and it is cheap to get.** A starter set (Laser I, Shield I, Plating I) costs
+   270 and wins 100% against tech 0-3 ships and 96% against tech 6. A kill drops 2-4 (+tech/4) parts at 30, about 21
+   scrap and half the time 3-8 Weapons or Machinery: roughly 180-230 a kill, repairs about 30-50. That is more than a
+   whole errand-running career, though supply is limited to about 10 ships and one respawn per 100 turns (so
+   about 2 jools a turn at best). Friendly SIGMO ships can be attacked for the same loot; only reputation changes.
+4. **The shady path works best for a non-fighter**, and it is balanced: with the underworld quest done, a bot taking only
+   shady jobs lost about half its deliveries to searches (15 of 30, 12 of 31, 17 of 33, 12 of 30) and still went from
+   about 1,050 to 1,800-3,470 in 3,000 turns, with infamy near 80 (so patrols are all stepped up and fines continue).
+   It is the only non-combat route that grows, which is a fine satirical joke but means crime is the optimal career.
+
+## Constants that would restore a working middle (measured)
+
+- Trading with SPREAD 8%, slippage 0.3% a unit and trait compression 50%: the trader bot made 1,000 -> 2,800, 5,400
+  and 4,500 in 600-1,200 turns on three seeds and found nothing worth hauling on the fourth (path dependent).
+- Trading with SPREAD 5%, slippage 0.2% and compression 60%: 1,000 -> 6,500-21,000 in 600-1,800 turns. Too strong.
+- For errands, either cap the fine (about 40-50 jools, or 5%), or give a shaken-down player 300 turns of peace, or raise
+  the reward (for example 4 a cell). Any of these puts the errand runner at a few hundred jools a thousand moves.
+
+## Smaller things seen
+
+- An errand's reward counts the same whether you go straight there or are delayed by fines; there is no time pressure.
+- With infamy at 60 or more every ship is stepped up a notch; a player at 80 infamy is searched on nearly every
+  contact. The infamy curve climbs fast through shady jobs (+2 a delivery, +5 from the first quest step).
+- The game still has no reason to spend money once the gear is bought (see the goal question in PORT_PLAN).
