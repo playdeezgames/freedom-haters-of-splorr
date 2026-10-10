@@ -119,6 +119,12 @@ pedia_page_doc :: proc(u: ^Universe, kind: Pedia_Kind, id: int, d: ^Doc) -> (tit
 		for fid in present {
 			doc_add(d, .Light_Gray, " - ", name_str(&u.factions[fid - 1].name))
 		}
+		doc_blank(d)
+		doc_add(d, .Light_Gray, "Scrap: ", int_text(&d2, s.scrap))
+		doc_add(d, .Light_Gray, "Shipyards: ", int_text(&d1, system_count(u, Star_System_Id(id), .Shipyard)))
+		doc_add(d, .Light_Gray, "Trading Posts: ", int_text(&d2, system_count(u, Star_System_Id(id), .Trading_Post)))
+		doc_add(d, .Light_Gray, "Star Gates: ", int_text(&d1, system_count(u, Star_System_Id(id), .Star_Gate)))
+		doc_add(d, .Light_Gray, "Visit Count: ", int_text(&d2, s.visit_count))
 	case .Planet:
 		p := &u.planets[id - 1]
 		title, hue = p.name, planet_info[p.type].hue
@@ -177,6 +183,16 @@ pedia_links :: proc(kind: Pedia_Kind) -> (links: [MAX_LINKS]Pedia_Link, count: i
 	case .Satellite:
 		links[0], links[1], links[2] = .Faction, .Star_System, .Planet
 		count = 3
+	}
+	return
+}
+
+// How many of a kind of station a star system has.
+system_count :: proc(u: ^Universe, system: Star_System_Id, kind: Actor_Kind) -> (n: int) {
+	for a in u.actors {
+		if a.kind == kind && a.map_id != 0 && a.star_system == system {
+			n += 1
+		}
 	}
 	return
 }

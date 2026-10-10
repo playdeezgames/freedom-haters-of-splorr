@@ -19,6 +19,7 @@ GLYPH_TRADING_POST :: u8('$')
 GLYPH_SHIPYARD :: u8(0xF0) // ≡
 GLYPH_WORMHOLE :: u8(0x09) // ○ drawn purple
 GLYPH_STAR_GATE :: u8(0xE9) // Θ
+GLYPH_MILITARY_SHIP :: u8(0xE8) // Φ (the VB used custom tiles; CP437 0x84 is a letter)
 
 direction_glyph := [Direction]u8 {
 	.North = 0x1E, // ▲
@@ -53,6 +54,8 @@ actor_glyph :: proc(u: ^Universe, a: Actor) -> (glyph: u8, hue: Hue) {
 		return GLYPH_WORMHOLE, .Magenta
 	case .Star_Gate:
 		return GLYPH_STAR_GATE, .Light_Green
+	case .Military_Ship:
+		return GLYPH_MILITARY_SHIP, military_hues[int(a.planet) % len(military_hues)]
 	}
 	return '?', .Light_Red
 }
@@ -253,6 +256,13 @@ draw_bump_info :: proc(tb: ^Text_Buffer, u: ^Universe, bump: Bump, top_row: int)
 			c := text_put(tb, (TEXT_COLUMNS - len(name_str(&p.name)) - len(" Star Gate")) / 2, 1, name_str(&p.name), .Light_Green)
 			text_put(tb, c, 1, " Star Gate", .Light_Green)
 			put_field(tb, 2, next(&row), "Faction", name_str(&faction_get(u, p.faction).name))
+		case .Military_Ship:
+			ship_faction := faction_get(u, a.faction)
+			text_put_centered(tb, 1, "Military Vessel", .Light_Gray)
+			put_field(tb, 2, next(&row), "Faction", name_str(&ship_faction.name))
+			put_field(tb, 2, next(&row), "Home Planet", name_str(&planet_get(u, a.planet).name))
+			relation := relation_between(ship_faction^, faction_get(u, u.avatar.faction)^)
+			put_field(tb, 2, next(&row), "Toward you", relation_names[relation], relation_hues[relation])
 		case .Debris:
 			text_put_centered(tb, 1, "Debris", .Light_Gray)
 			text_put(tb, 2, next(&row), "A pile of junk floating", .Light_Gray)

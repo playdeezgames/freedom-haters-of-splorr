@@ -143,7 +143,7 @@ Based on a read of the 12 VB generation steps (factions -> galaxy -> star system
 
 - The VB generated the Nexus but gave it no entrance. Now each Nexus wormhole is paired with a wormhole in a random star system: enter one in a system and you arrive in the Nexus beside its twin; any Nexus wormhole drops you in a system. Count comes from the Nexus's rejection sampling (density-spaced), so some systems get several and some none.
 - Wormhole and star gate travel costs only the bump that reached it (VB rules). Star gates (about one orbit in four) go to your faction's other gates, as in the VB.
-- Still unported: military ships, patrols and combat, commodities.
+- Military ships (done, inert): one per two star systems on the galaxy map only, faction and home from a random planet. Patrols and combat, then commodities, are still unported.
 
 ## Future ideas (owner)
 

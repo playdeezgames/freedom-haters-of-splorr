@@ -68,6 +68,14 @@ planet_info := [Planet_Type]Planet_Info {
 }
 
 MINIMUM_SATELLITE_DISTANCE :: 5
+// Military ships on the galaxy map: one for every two star systems (the VB had a flat 25).
+fleet_size :: proc(star_system_count: int) -> int {
+	return (star_system_count + 1) / 2
+}
+
+// The five hulls the VB drew them in, picked by actor number.
+military_hues := [5]Hue{.Dark_Gray, .Light_Gray, .White, .Tan, .Brown}
+
 STAR_GATE_COUNT_DICE :: "1d4/4" // per planet orbit: 0 or 1
 SHIPYARD_COUNT_DICE :: "1d4/4" // per planet orbit: 0 or 1, so about one planet in four
 TRADING_POST_COUNT_DICE :: "3d6/8" // per planet orbit; the original then takes at least 1

@@ -452,7 +452,7 @@ universe_valid :: proc(u: ^Universe) -> bool {
 		}
 	}
 	for a in u.actors {
-		if !in_range(int(a.map_id), nm) || !in_range(int(a.interior), nm) || !in_range(int(a.star_system), ns) || !in_range(int(a.planet), np) || !in_range(int(a.satellite), nsat) || !in_range(int(a.offer), ni) || !in_range(int(a.target), na) || (a.size != 1 && a.size != 3 && a.size != 5) {
+		if !in_range(int(a.map_id), nm) || !in_range(int(a.interior), nm) || !in_range(int(a.star_system), ns) || !in_range(int(a.planet), np) || !in_range(int(a.satellite), nsat) || !in_range(int(a.offer), ni) || !in_range(int(a.target), na) || !in_range(int(a.faction), nf) || (a.size != 1 && a.size != 3 && a.size != 5) {
 			return false
 		}
 		if int(a.kind) < 0 || int(a.kind) >= len(Actor_Kind) {

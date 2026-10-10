@@ -158,3 +158,39 @@ a_star_gate_lists_only_your_factions_other_gates :: proc(t: ^testing.T) {
 	testing.expect_value(t, ship_map(u), actor_get(u, list[0]).map_id)
 	testing.expect_value(t, u.avatar.star_system, actor_get(u, list[0]).star_system)
 }
+
+@(test)
+the_fleet_scales_with_the_galaxy_and_belongs_to_planet_factions :: proc(t: ^testing.T) {
+	u := generate(9)
+	defer universe_destroy(&u)
+	ships := count_actors(&u, .Military_Ship)
+	testing.expect_value(t, ships, fleet_size(len(u.star_systems)))
+	for a in u.actors {
+		if a.kind == .Military_Ship {
+			testing.expect_value(t, a.map_id, u.galaxy)
+			testing.expect_value(t, planet_get(&u, a.planet).faction, a.faction)
+		}
+	}
+	// nothing shares a cell with the player's ship
+	ship := actor_get(&u, u.avatar.actor)
+	testing.expect_value(t, actor_at(&u, u.galaxy, ship.pos), u.avatar.actor)
+}
+
+@(test)
+a_military_ship_shows_its_faction_and_how_it_feels_about_you :: proc(t: ^testing.T) {
+	app: App
+	app_on_the_map(t, &app)
+	defer app_destroy(&app)
+	u := &app.session.universe
+	ship := first_of_kind_on(u, .Military_Ship)
+	u.avatar.bumped = ship
+	app_key(&app, KEY_ESCAPE) // any screen will do to draw; push the interaction directly
+	app_key(&app, KEY_ESCAPE)
+	app.stack.items[app.stack.count] = Interaction_Screen{}
+	app.stack.count += 1
+	app_tick(&app)
+	list, n := interactions_for(u, u.avatar.bumped)
+	_ = list
+	testing.expect_value(t, n, 0) // inert: only Cancel
+	testing.expect_value(t, app.text[1][(TEXT_COLUMNS - len("Military Vessel")) / 2].char, u8('M'))
+}

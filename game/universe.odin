@@ -137,6 +137,7 @@ Actor_Kind :: enum {
 	Debris, // on a star system map: a pile of scrap
 	Wormhole, // on the nexus and on star system maps; each end's `target` is the other
 	Star_Gate, // on a planet orbit map: a way to the avatar's faction's other gates
+	Military_Ship, // on the galaxy map: belongs to `faction`, home is `planet`
 }
 
 Actor :: struct {
@@ -151,6 +152,7 @@ Actor :: struct {
 	loot:        int, // debris: how much scrap is in the pile
 	offer:       Item_Id, // star dock: the delivery mission it is offering, if any
 	target:      Actor_Id, // wormhole: the other end
+	faction:     Faction_Id, // military ship: whose it is
 }
 
 actor_covers :: proc(a: Actor, p: [2]int) -> bool {

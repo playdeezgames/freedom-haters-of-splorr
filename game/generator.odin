@@ -19,6 +19,7 @@ Step_Planet :: struct {
 	id: Planet_Id,
 }
 Step_Nexus :: struct {}
+Step_Fleet :: struct {}
 Step_Factionize :: struct {}
 Step_Missions :: struct {}
 Step_Avatar :: struct {}
@@ -29,6 +30,7 @@ Gen_Step :: union {
 	Step_Star_System,
 	Step_Planet,
 	Step_Nexus,
+	Step_Fleet,
 	Step_Factionize,
 	Step_Missions,
 	Step_Avatar,
@@ -105,6 +107,8 @@ generator_current :: proc(g: ^Generator) -> (label: string, subject: Name) {
 		return "Planet", planet_get(&g.universe, s.id).name
 	case Step_Nexus:
 		return "Nexus", {}
+	case Step_Fleet:
+		return "Military", {}
 	case Step_Factionize:
 		return "Dividing up the galaxy", {}
 	case Step_Missions:
@@ -138,6 +142,8 @@ generator_step :: proc(g: ^Generator) -> bool {
 		step_planet(g, s.id)
 	case Step_Nexus:
 		step_nexus(g)
+	case Step_Fleet:
+		step_fleet(g)
 	case Step_Factionize:
 		step_factionize(g)
 	case Step_Missions:
@@ -235,7 +241,7 @@ step_galaxy :: proc(g: ^Generator) {
 		append(&stars, pos)
 		add_star_system(g, pos)
 	}
-	append(&g.final, Step_Nexus{}, Step_Avatar{})
+	append(&g.final, Step_Nexus{}, Step_Fleet{}, Step_Avatar{})
 }
 
 @(private = "file")
@@ -494,6 +500,26 @@ add_system_wormhole :: proc(g: ^Generator) -> (id: Actor_Id, ok: bool) {
 		return id, true
 	}
 	return 0, false
+}
+
+// ---- The fleet ----
+
+// Military ships sit on open cells of the galaxy map. Each belongs to the faction of a random planet, which
+// is also its home, so factions get ships in proportion to their planets. They are inert for now.
+@(private = "file")
+step_fleet :: proc(g: ^Generator) {
+	u := &g.universe
+	size := map_sizes[.Galaxy]
+	for _ in 0 ..< fleet_size(len(u.star_systems)) {
+		home := Planet_Id(rng_range(&u.rng, 1, len(u.planets)))
+		for _ in 0 ..< MAX_PLACEMENT_TRIES {
+			pos := [2]int{rng_range(&u.rng, 0, size.x - 1), rng_range(&u.rng, 0, size.y - 1)}
+			if cell_is_free(u, u.galaxy, pos) {
+				actor_add(u, u.galaxy, {kind = .Military_Ship, pos = pos, planet = home, faction = planet_get(u, home).faction})
+				break
+			}
+		}
+	}
 }
 
 // ---- Dividing up the galaxy ----
