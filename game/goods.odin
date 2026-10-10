@@ -41,7 +41,7 @@ good_info := [Good]Good_Info {
 }
 
 WEIGHT_PER_FUEL :: 50 // weight per fuel of extra burn on every move
-SPREAD_PERCENT :: 10 // you buy this much above the market price and sell this much below it
+SPREAD_PERCENT :: 8 // you buy this much above the market price and sell this much below it
 DRIFT_EVERY :: 50 // turns
 DRIFT_STEP :: 5 // percent either way each time
 DRIFT_LIMIT :: 15
@@ -148,10 +148,10 @@ Price_Mode :: enum {
 	Black_Sell, // to a black market
 }
 
-TRAIT_COMPRESS :: 40 // percent of a planet's price opinions that survives (they were too wide)
+TRAIT_COMPRESS :: 50 // percent of a planet's price opinions that survives (they were too wide)
 TRAIT_FLOOR :: 70
 TRAIT_CEILING :: 150
-PERMILLE_PER_UNIT :: 4 // each unit bought or sold moves the price 0.4%
+PERMILLE_PER_UNIT :: 3 // each unit bought or sold moves the price 0.3%
 PRESSURE_PERMILLE_LIMIT :: 500
 MAX_TRADE_UNITS :: 10000
 
@@ -188,7 +188,11 @@ unit_tenths :: proc(u: ^Universe, planet: Planet_Id, good: Good, extra: int, mod
 	moved := clamp((state.pressure + extra) * PERMILLE_PER_UNIT, -PRESSURE_PERMILLE_LIMIT, PRESSURE_PERMILLE_LIMIT)
 	scale := max(1000 + state.drift * 10 + moved, 100)
 	market := base_tenths(p, good) * scale / 1000
-	return max(1, market * mode_percent(u, mode) / 100)
+	price := market * mode_percent(u, mode) / 100
+	if mode == .Buy {
+		price = price * standing_percent(u, planet) / 100 // what a faction you stand well (or badly) with charges
+	}
+	return max(1, price)
 }
 
 // The market price of a good now, before the spread (tenths of a jool).

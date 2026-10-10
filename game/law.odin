@@ -113,3 +113,46 @@ infamy_for_sale :: proc(good: Good, sold: int) -> int {
 	}
 	return 0
 }
+
+// ---- Standing: what a faction's posts charge you ----
+
+STANDING_GOOD :: 25 // reputation at which prices drop
+STANDING_BAD :: -10 // reputation at which prices rise
+STANDING_REFUSED :: -50 // reputation at which posts, yards and docks will not deal with you
+PRICE_GOOD_PERCENT :: 90
+PRICE_BAD_PERCENT :: 115
+
+// What the planet's faction charges you, as a percentage of the list price.
+standing_percent :: proc(u: ^Universe, planet: Planet_Id) -> int {
+	rep := faction_get(u, planet_get(u, planet).faction).reputation
+	switch {
+	case rep >= STANDING_GOOD:
+		return PRICE_GOOD_PERCENT
+	case rep <= STANDING_BAD:
+		return PRICE_BAD_PERCENT
+	}
+	return 100
+}
+
+standing_refused :: proc(u: ^Universe, planet: Planet_Id) -> bool {
+	return faction_get(u, planet_get(u, planet).faction).reputation <= STANDING_REFUSED
+}
+
+// The percentage the actor most recently bumped charges (set by `avatar_move`; 100 if nothing sets it).
+service_percent :: proc(u: ^Universe) -> int {
+	return u.avatar.service_percent if u.avatar.service_percent > 0 else 100
+}
+
+// A price scaled by that percentage, rounded up.
+service_price :: proc(u: ^Universe, price: int) -> int {
+	return (price * service_percent(u) + 99) / 100
+}
+
+// Whether bumping this actor should be met with a refusal.
+actor_refuses_you :: proc(u: ^Universe, a: Actor) -> bool {
+	#partial switch a.kind {
+	case .Trading_Post, .Shipyard, .Star_Dock:
+		return standing_refused(u, a.planet)
+	}
+	return false
+}

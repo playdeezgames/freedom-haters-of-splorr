@@ -151,7 +151,10 @@ screens_fit_the_forty_columns_with_the_longest_names :: proc(t: ^testing.T) {
 	u.avatar.bumped = Map_Edge{u.galaxy}
 	fits(t, "leave", Interaction_Screen{}, &app)
 	_ = star
+	u.avatar.stats = {peak_jools = 99999999, deliveries = 99999, kills = 99999, planets_visited = 99999}
+	u.avatar.infamy = 99999
 	fits(t, "game over", Game_Over{}, &app)
+	fits(t, "abandoned", Game_Over{abandoned = true}, &app)
 	u.avatar.jools = 123456789
 	u.turn = 123456789
 	for slot in 0 ..< SLOT_COUNT {

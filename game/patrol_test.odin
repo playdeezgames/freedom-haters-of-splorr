@@ -112,11 +112,13 @@ friendly_ships_hail_instead :: proc(t: ^testing.T) {
 }
 
 @(test)
-the_fine_is_a_tenth_and_never_bankrupts :: proc(t: ^testing.T) {
+the_fine_is_a_tenth_capped_and_never_bankrupts :: proc(t: ^testing.T) {
 	u := generate(6)
 	defer universe_destroy(&u)
 	u.avatar.jools = 1000
-	testing.expect_value(t, fine_amount(&u), 100)
+	testing.expect_value(t, fine_amount(&u), 50) // a tenth would be 100: capped
+	u.avatar.jools = 300
+	testing.expect_value(t, fine_amount(&u), 30)
 	u.avatar.jools = 20
 	testing.expect_value(t, fine_amount(&u), 10)
 	u.avatar.jools = u.avatar.jools_minimum + 5
@@ -162,7 +164,7 @@ a_ship_that_catches_you_opens_the_shakedown_and_paying_ends_it :: proc(t: ^testi
 	testing.expect(t, on_screen(&app, Contact_Screen))
 	app_key(&app, KEY_ENTER) // Pay Fine, the first choice
 	testing.expect(t, on_screen(&app, Message))
-	testing.expect_value(t, u.avatar.jools, 900)
+	testing.expect_value(t, u.avatar.jools, 950) // a tenth, capped at 50
 	app_key(&app, KEY_ENTER)
 	testing.expect(t, on_screen(&app, Navigation))
 	u.turn += 1

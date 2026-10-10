@@ -65,13 +65,13 @@ inventory_count :: proc(u: ^Universe, kind: Item_Kind, mark: int = 0) -> (n: int
 	return
 }
 
-trade_unit_price :: proc(kind: Item_Kind, mark: int = 0) -> int {
-	return item_price(item_new(kind, mark))
+trade_unit_price :: proc(u: ^Universe, kind: Item_Kind, mark: int = 0) -> int {
+	return service_price(u, item_price(item_new(kind, mark)))
 }
 
 // The most of an item you can afford.
 trade_max_buy :: proc(u: ^Universe, kind: Item_Kind, mark: int = 0) -> int {
-	price := trade_unit_price(kind, mark)
+	price := trade_unit_price(u, kind, mark)
 	if price <= 0 || u.avatar.jools < price {
 		return 0
 	}
@@ -81,7 +81,7 @@ trade_max_buy :: proc(u: ^Universe, kind: Item_Kind, mark: int = 0) -> int {
 // Buys up to `quantity`, never more than you can afford. Returns how many were bought.
 trade_buy :: proc(u: ^Universe, kind: Item_Kind, mark, quantity: int) -> int {
 	quantity := min(quantity, trade_max_buy(u, kind, mark))
-	price := trade_unit_price(kind, mark)
+	price := trade_unit_price(u, kind, mark)
 	for _ in 0 ..< quantity {
 		append(&u.avatar.inventory, item_add(u, item_new(kind, mark)))
 		u.avatar.jools -= price

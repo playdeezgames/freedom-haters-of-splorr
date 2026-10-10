@@ -155,21 +155,27 @@ Victory :: struct {
 // factions that are hostile to it think slightly more.
 combat_victory :: proc(u: ^Universe, c: Combat) -> (v: Victory) {
 	ship := actor_get(u, c.ship)^
-	v.loot = dice_roll(&u.rng, LOOT_DICE)
+	friendly := ship_disposition(u, ship) == .Friendly // a ship that meant no harm carries nothing worth taking
+	v.loot = 0 if friendly else dice_roll(&u.rng, LOOT_DICE)
 	v.reputation = KILL_REPUTATION_LOSS
 	avatar_gain_infamy(u, INFAMY_KILL)
 	quest_note_fight(u)
-	v.parts = PARTS_BASE + rng_below(&u.rng, 3) + enemy_tech(u, ship) / 4
-	for _ in 0 ..< v.parts {
-		append(&u.avatar.inventory, item_add(u, item_new(.Ship_Parts)))
+	if !friendly {
+		v.parts = PARTS_BASE + rng_below(&u.rng, 3) + enemy_tech(u, ship) / 4
+		for _ in 0 ..< v.parts {
+			append(&u.avatar.inventory, item_add(u, item_new(.Ship_Parts)))
+		}
+		if rng_below(&u.rng, HOLD_GOODS_ODDS_IN) == 0 {
+			v.hold_good = .Weapons if rng_below(&u.rng, 2) == 0 else .Machinery
+			v.hold_units = HOLD_GOODS_MIN + rng_below(&u.rng, 6)
+			u.avatar.cargo[v.hold_good] += v.hold_units
+		}
 	}
-	if rng_below(&u.rng, HOLD_GOODS_ODDS_IN) == 0 {
-		v.hold_good = .Weapons if rng_below(&u.rng, 2) == 0 else .Machinery
-		v.hold_units = HOLD_GOODS_MIN + rng_below(&u.rng, 6)
-		u.avatar.cargo[v.hold_good] += v.hold_units
-	}
+	u.avatar.stats.kills += 1
 	actor_remove(u, c.ship)
-	actor_add(u, u.galaxy, {kind = .Debris, pos = ship.pos, loot = v.loot})
+	if v.loot > 0 {
+		actor_add(u, u.galaxy, {kind = .Debris, pos = ship.pos, loot = v.loot})
+	}
 	theirs := faction_get(u, ship.faction)
 	theirs.reputation -= KILL_REPUTATION_LOSS
 	planet_get(u, ship.planet).reputation -= KILL_REPUTATION_LOSS

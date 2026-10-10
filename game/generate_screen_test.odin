@@ -24,6 +24,7 @@ abandon_game :: proc(app: ^App) {
 	app_key(app, KEY_ENTER)
 	app_key(app, KEY_DOWN)
 	app_key(app, KEY_ENTER)
+	app_key(app, KEY_ENTER) // the summary
 }
 
 // Ticks until the Generate screen hands over, or fails the test if it never does.
@@ -125,6 +126,10 @@ abandoning_the_game_discards_the_universe_and_resets_to_the_main_menu :: proc(t:
 	testing.expect(t, on_confirm)
 	app_key(&app, KEY_DOWN)
 	app_key(&app, KEY_ENTER) // Yes
+	summary, on_summary := stack_top(&app.stack)^.(Game_Over)
+	testing.expect(t, on_summary && summary.abandoned)
+	testing.expect(t, app.session.in_play) // the numbers are still there to read
+	app_key(&app, KEY_ENTER)
 	_, on_menu := stack_top(&app.stack)^.(Main_Menu)
 	testing.expect(t, on_menu)
 	testing.expect_value(t, app.stack.count, 1)

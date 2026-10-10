@@ -106,6 +106,9 @@ navigation_key :: proc(s: ^Navigation, key: Key, session: ^Session) -> Transitio
 // noticed here, once the screens above have closed.
 navigation_tick :: proc(s: ^Navigation, session: ^Session) -> Transition {
 	u := &session.universe
+	if session.in_play {
+		u.avatar.stats.peak_jools = max(u.avatar.stats.peak_jools, u.avatar.jools)
+	}
 	if session.in_play && avatar_is_game_over(u) {
 		return Replace{Game_Over{}}
 	}
@@ -217,6 +220,8 @@ interaction_key :: proc(s: ^Interaction_Screen, key: Key, session: ^Session) -> 
 			return Pop{}
 		case .Enter_Star_Gate:
 			return Replace{Star_Gate_Screen{gate = u.avatar.bumped.(Actor_Id)}}
+		case .Refused:
+			return Replace{message_make(.Light_Red, "No service.", "", "Your reputation precedes you.")}
 		case .Attack:
 			return Replace{Combat_Screen{combat = combat_start(u, u.avatar.bumped.(Actor_Id))}}
 		case .Trade_Black:
@@ -698,8 +703,7 @@ confirm_abandon_key :: proc(s: ^Confirm_Abandon, key: Key, session: ^Session) ->
 	switch menu_key(&s.cursor, len(confirm_labels), key) {
 	case .Chosen:
 		if s.cursor == 1 {
-			session_end(session)
-			return Reset{screen = Main_Menu{}}
+			return Reset{screen = Main_Menu{}, on_top = Game_Over{abandoned = true}} // the summary, then the menu
 		}
 		return Pop{}
 	case .Cancelled:
@@ -711,17 +715,36 @@ confirm_abandon_key :: proc(s: ^Confirm_Abandon, key: Key, session: ^Session) ->
 
 // ---- Game over ----
 
-Game_Over :: struct {}
+Game_Over :: struct {
+	abandoned: bool, // the player gave up rather than died or went broke
+}
+
+// The score: a satire of a metric. Weights are guesses, kept in one place.
+run_score :: proc(u: ^Universe) -> int {
+	s := u.avatar.stats
+	peak := max(s.peak_jools, u.avatar.jools)
+	return peak / 10 + s.deliveries * 20 + s.kills * 40 + s.planets_visited * 10 + u.avatar.infamy * 3 + u.turn / 20
+}
 
 game_over_draw :: proc(s: ^Game_Over, tb: ^Text_Buffer, session: ^Session) {
 	u := &session.universe
-	if avatar_is_dead(u) {
-		text_put_centered(tb, 9, "Yer Dead!", .Light_Red)
-	} else {
-		text_put_centered(tb, 9, "Yer Bankrupt!", .Light_Red)
+	switch {
+	case s.abandoned:
+		text_put_centered(tb, 2, "Yer Done!", .Yellow)
+	case avatar_is_dead(u):
+		text_put_centered(tb, 2, "Yer Dead!", .Light_Red)
+	case:
+		text_put_centered(tb, 2, "Yer Bankrupt!", .Light_Red)
 	}
-	put_field_int(tb, 12, 13, "Turns", u.turn)
-	put_field_int(tb, 12, 15, "Jools", u.avatar.jools)
+	st := u.avatar.stats
+	put_field_int(tb, 8, 5, "Turns", u.turn)
+	put_field_int(tb, 8, 7, "Jools", u.avatar.jools)
+	put_field_int(tb, 8, 9, "Peak Jools", max(st.peak_jools, u.avatar.jools))
+	put_field_int(tb, 8, 11, "Deliveries", st.deliveries)
+	put_field_int(tb, 8, 13, "Ships Destroyed", st.kills)
+	put_field_int(tb, 8, 15, "Planets Visited", st.planets_visited)
+	put_field_int(tb, 8, 17, "Infamy", u.avatar.infamy)
+	put_field_int(tb, 8, 19, "Score", run_score(u), .Yellow)
 	text_put_centered(tb, 22, "Press Enter", .Dark_Gray)
 }
 

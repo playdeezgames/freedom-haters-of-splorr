@@ -83,6 +83,7 @@ Planet :: struct {
 	satellite_count: int,
 	reputation:      int, // the avatar's standing on this planet
 	market:          [Good]Price_State,
+	visited:         bool, // the avatar has been in its orbit
 }
 
 Satellite :: struct {
@@ -215,6 +216,16 @@ Avatar :: struct {
 	fuel_carry:    int, // the part of a load's fuel cost not yet burned (see cargo_fuel_for_move)
 	infamy:        int, // standing with the underworld; see law.odin
 	quest:         Quest, // the underworld contact quest; see underworld.odin
+	stats:         Run_Stats, // for the run summary
+	service_percent: int `save:"-"`, // what the actor just bumped charges, as a percentage (0 means 100)
+}
+
+// What the run summary reports.
+Run_Stats :: struct {
+	peak_jools:     int,
+	deliveries:     int,
+	kills:          int,
+	planets_visited: int,
 }
 
 // A Mark I life support and fuel supply, which is what the ship starts with (250 per Mark).

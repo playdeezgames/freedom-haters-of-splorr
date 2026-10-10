@@ -111,7 +111,7 @@ marked_items_cost_by_mark :: proc(t: ^testing.T) {
 	u := generate(1)
 	defer universe_destroy(&u)
 	u.avatar.jools = 5000
-	testing.expect_value(t, trade_unit_price(.Fuel_Supply, 3), 1500)
+	testing.expect_value(t, trade_unit_price(&u, .Fuel_Supply, 3), 1500)
 	testing.expect_value(t, trade_buy(&u, .Fuel_Supply, 3, 1), 1)
 	testing.expect_value(t, u.avatar.jools, 3500)
 	testing.expect_value(t, inventory_count(&u, .Fuel_Supply, 3), 1)

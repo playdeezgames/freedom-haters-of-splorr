@@ -7,7 +7,7 @@ package game
 
 SIGHT_RANGE :: 6 // cells
 LEASH :: 12 // how far a ship wanders from its home system before turning back
-CALM_AFTER_FINE :: 100 // turns a ship leaves you alone once it has had its way
+CALM_AFTER_FINE :: 300 // turns a ship leaves you alone once it has had its way
 CALM_AFTER_HAIL :: 30
 RESPAWN_EVERY :: 100 // turns between replacements for ships that have been destroyed
 RESPAWN_DISTANCE :: 10 // new ships appear at least this far from the avatar
@@ -206,9 +206,10 @@ patrol_contact :: proc(u: ^Universe) -> (ship: Actor_Id, kind: Contact) {
 
 // ---- What a shakedown takes ----
 
-// A tenth of the jools, at least 10, and nothing if paying would leave the avatar bankrupt.
+// A tenth of the jools, between 10 and FINE_CAP, and nothing if paying would leave the avatar bankrupt.
+FINE_CAP :: 50
 fine_amount :: proc(u: ^Universe) -> int {
-	fine := max(10, u.avatar.jools / 10)
+	fine := clamp(u.avatar.jools / 10, 10, FINE_CAP)
 	if u.avatar.jools - fine <= u.avatar.jools_minimum {
 		return 0
 	}

@@ -52,6 +52,10 @@ avatar_move :: proc(u: ^Universe, dir: Direction) -> Move_Outcome {
 	}
 	if hit := actor_at(u, ship.map_id, next); hit != 0 {
 		a.bumped = hit
+		a.service_percent = 100
+		if planet := actor_get(u, hit).planet; planet != 0 {
+			a.service_percent = standing_percent(u, planet)
+		}
 		return .Bumped
 	}
 	ship.pos = next
@@ -78,6 +82,7 @@ Interaction :: enum {
 	Underworld_Contact, // at a star dock where the quest has something to do
 	Trade_Black, // at a black market
 	Attack, // at a military ship, with a weapon installed
+	Refused, // a post, yard or dock whose faction will not deal with you
 }
 
 MAX_INTERACTIONS :: 6
@@ -96,11 +101,11 @@ price_of :: proc(units, per_jool: int) -> int {
 }
 
 oxygen_price :: proc(u: ^Universe) -> int {
-	return price_of(top_off_amount(u.avatar.oxygen), OXYGEN_PER_JOOL)
+	return service_price(u, price_of(top_off_amount(u.avatar.oxygen), OXYGEN_PER_JOOL))
 }
 
 fuel_price :: proc(u: ^Universe) -> int {
-	return price_of(top_off_amount(u.avatar.fuel), FUEL_PER_JOOL)
+	return service_price(u, price_of(top_off_amount(u.avatar.fuel), FUEL_PER_JOOL))
 }
 
 // What can be done about whatever was bumped. (Cancel is always possible and is not listed.)
@@ -112,6 +117,10 @@ interactions_for :: proc(u: ^Universe, bump: Bump) -> (list: [MAX_INTERACTIONS]I
 	switch b in bump {
 	case Actor_Id:
 		a := actor_get(u, b)
+		if actor_refuses_you(u, a^) {
+			add(&list, &count, .Refused)
+			return
+		}
 		#partial switch a.kind {
 		case .Star_System, .Star_Vicinity, .Planet_Vicinity:
 			if a.interior != 0 {
@@ -207,6 +216,8 @@ interaction_label :: proc(u: ^Universe, kind: Interaction, bump: Bump, buf: ^Nam
 		return "Trade In The Shadows"
 	case .Attack:
 		return "Attack"
+	case .Refused:
+		return "Ask For Service"
 	case .Underworld_Contact:
 		if dock, ok := bump.(Actor_Id); ok {
 			label, _ := underworld_offer(u, dock)
@@ -329,6 +340,10 @@ avatar_interact :: proc(u: ^Universe, kind: Interaction) -> Interaction_Result {
 			return .Blocked
 		}
 		avatar_do_turn(u)
+		if t.kind == .Planet && t.planet != 0 && !planet_get(u, t.planet).visited {
+			planet_get(u, t.planet).visited = true
+			u.avatar.stats.planets_visited += 1
+		}
 		actor_relocate(u, u.avatar.actor, t.interior, rng_pick(&u.rng, spots[:]))
 		if map_get(u, t.interior).kind == .Star_System {
 			avatar_set_star_system(u, t.star_system)
@@ -360,7 +375,7 @@ avatar_interact :: proc(u: ^Universe, kind: Interaction) -> Interaction_Result {
 			return .Blocked
 		}
 		return avatar_travel_to(u, actor_get(u, wormhole).target)
-	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere, .Salvage_Scrap, .Trade, .Enter_Shipyard, .Use_Fuel_Scoop, .Delivery_Mission, .Complete_Delivery, .Enter_Star_Gate, .Underworld_Contact, .Trade_Black, .Attack:
+	case .Refill_Oxygen, .Refuel, .Gather_Atmosphere, .Salvage_Scrap, .Trade, .Enter_Shipyard, .Use_Fuel_Scoop, .Delivery_Mission, .Complete_Delivery, .Enter_Star_Gate, .Underworld_Contact, .Trade_Black, .Attack, .Refused:
 		// these are transactions, not moves: see avatar_buy_oxygen and friends
 		return .Blocked
 	}

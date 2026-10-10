@@ -89,7 +89,7 @@ equip_item :: proc(u: ^Universe, slot: Equip_Slot, id: Item_Id, charge := true) 
 	}
 	avatar_refresh_hull(u)
 	if charge {
-		u.avatar.jools -= item_install_fee(item^)
+		u.avatar.jools -= service_price(u, item_install_fee(item^))
 	}
 	return true
 }
@@ -112,7 +112,7 @@ unequip_item :: proc(u: ^Universe, slot: Equip_Slot) -> Item_Id {
 	u.avatar.equipment[slot] = 0
 	avatar_refresh_hull(u)
 	append(&u.avatar.inventory, id)
-	u.avatar.jools -= item_uninstall_fee(item^)
+	u.avatar.jools -= service_price(u, item_uninstall_fee(item^))
 	return id
 }
 
@@ -130,7 +130,7 @@ avatar_refresh_hull :: proc(u: ^Universe) {
 }
 
 hull_repair_price :: proc(u: ^Universe) -> int {
-	return price_of(top_off_amount(u.avatar.hull), HULL_PER_JOOL)
+	return service_price(u, price_of(top_off_amount(u.avatar.hull), HULL_PER_JOOL))
 }
 
 Repair_Result :: enum {
@@ -193,7 +193,7 @@ change_fee :: proc(u: ^Universe, slot: Equip_Slot, new_item: Item_Id) -> (fee: i
 	if new_item != 0 {
 		fee += item_install_fee(item_get(u, new_item)^)
 	}
-	return
+	return service_price(u, fee)
 }
 
 Change_Result :: enum {

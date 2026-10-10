@@ -253,9 +253,9 @@ slippage_prices_each_unit_after_the_ones_before_it :: proc(t: ^testing.T) {
 	one := quote_tenths(&u, planet, .Gems, 1, .Buy)
 	hundred := quote_tenths(&u, planet, .Gems, 100, .Buy)
 	testing.expect(t, hundred > 100 * one) // later units are dearer
-	// the 100th unit costs about 40% more than the first (0.4% a unit)
+	// the 100th unit costs about 30% more than the first (0.3% a unit)
 	last := unit_tenths(&u, planet, .Gems, 99, .Buy)
-	testing.expect(t, last * 100 / one >= 135 && last * 100 / one <= 145)
+	testing.expect(t, last * 100 / one >= 125 && last * 100 / one <= 135)
 	// selling mirrors it: later units pay less
 	sell_hundred := quote_tenths(&u, planet, .Gems, 100, .Sell)
 	testing.expect(t, sell_hundred < 100 * quote_tenths(&u, planet, .Gems, 1, .Sell))
@@ -273,8 +273,8 @@ cheap_goods_keep_their_ten_percent_spread :: proc(t: ^testing.T) {
 		buy, sell := buy_tenths(&u, planet, good), sell_tenths(&u, planet, good)
 		testing.expect(t, buy >= market && sell <= market)
 		// within a tenth of a jool of the stated 10% either way, even for the cheapest goods
-		testing.expect(t, abs(buy - market * 110 / 100) <= 1, good_info[good].name)
-		testing.expect(t, abs(sell - market * 90 / 100) <= 1, good_info[good].name)
+		testing.expect(t, abs(buy - market * (100 + SPREAD_PERCENT) / 100) <= 1, good_info[good].name)
+		testing.expect(t, abs(sell - market * (100 - SPREAD_PERCENT) / 100) <= 1, good_info[good].name)
 	}
 	testing.expect_value(t, tenths_text_for(53), "5.3")
 	testing.expect_value(t, tenths_text_for(100), "10.0")

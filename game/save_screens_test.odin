@@ -132,6 +132,7 @@ the_load_list_offers_only_slots_that_exist :: proc(t: ^testing.T) {
 	app_key(&app, KEY_ENTER) // Abandon Game
 	app_key(&app, KEY_DOWN)
 	app_key(&app, KEY_ENTER) // Yes
+	app_key(&app, KEY_ENTER) // the summary
 	testing.expect(t, on_screen(&app, Main_Menu))
 	items, n := main_menu_items(&app.session)
 	testing.expect_value(t, n, 4)

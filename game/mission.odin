@@ -236,6 +236,7 @@ mission_complete :: proc(u: ^Universe, dock: Actor_Id) -> (done: Completion) {
 		}
 		done.ids[done.count] = ids[i]
 		done.count += 1
+		u.avatar.stats.deliveries += 1
 	}
 	return
 }

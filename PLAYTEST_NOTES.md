@@ -133,3 +133,14 @@ in the game; the bot files were deleted.
 - With infamy at 60 or more every ship is stepped up a notch; a player at 80 infamy is searched on nearly every
   contact. The infamy curve climbs fast through shady jobs (+2 a delivery, +5 from the first quest step).
 - The game still has no reason to spend money once the gear is bought (see the goal question in PORT_PLAN).
+
+## After the retune (third pass, same bots, 3,000 turns, seeds 1-4)
+
+Applied: spread 8%, slippage 0.3% a unit, trait compression 50%, fine capped at 50 jools, 300 turns of peace after a
+fine, friendly ships drop no loot, prices by standing, run summary.
+
+- **Errand runner:** 29-33 deliveries, 1,000 -> 2,200-3,000 (was break-even). Fines 14-24 shakedowns, 700-1,200 jools.
+- **Shady runner** (after the quest): 15-19 delivered, 13-17 lost to searches, 1,000 -> 3,800-5,400; infamy about 80.
+- **Trader** (best haul by estimated profit per move, contraband allowed): each haul +10-30%, 1,026 -> 4,000 in ten
+  hauls (800 turns) on seed 2. The two bad outcomes were hauls of Narcotics/Weapons taken whole by a search, which is
+  the law doing its job: contraband is the high-variance route.

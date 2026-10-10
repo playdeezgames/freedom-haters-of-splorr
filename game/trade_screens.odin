@@ -117,7 +117,7 @@ buy_labels :: proc(u: ^Universe, post: Actor_Id, labels: ^[MAX_TRADE_ITEMS + 1]s
 		it := list.items[i]
 		base := item_name(item_new(it.kind, it.mark))
 		d1, d2: [20]u8
-		names[i] = name_join(name_str(&base), " @", int_text(&d1, trade_unit_price(it.kind, it.mark)), " (x", int_text(&d2, inventory_count(u, it.kind, it.mark)), ")")
+		names[i] = name_join(name_str(&base), " @", int_text(&d1, trade_unit_price(u, it.kind, it.mark)), " (x", int_text(&d2, inventory_count(u, it.kind, it.mark)), ")")
 		labels[i + 1] = name_str(&names[i])
 	}
 	return list, list.count + 1
@@ -289,7 +289,7 @@ quantity_draw :: proc(s: ^Quantity, tb: ^Text_Buffer, session: ^Session) {
 	if s.choice.mode == .Buy {
 		c := text_put(tb, 2, 7, name_str(&name), .White)
 		c = text_put(tb, c, 7, " @", .Light_Gray)
-		text_put_int(tb, c, 7, trade_unit_price(s.choice.kind, s.choice.mark), .White)
+		text_put_int(tb, c, 7, trade_unit_price(u, s.choice.kind, s.choice.mark), .White)
 	} else {
 		put_field_int(tb, 2, 7, name_str(&name), inventory_count(u, s.choice.kind, s.choice.mark), .White)
 	}
@@ -391,11 +391,11 @@ Confirm_Trade :: struct {
 	cursor:   int,
 }
 
-confirm_trade_text :: proc(s: ^Confirm_Trade) -> Long_Text {
+confirm_trade_text :: proc(u: ^Universe, s: ^Confirm_Trade) -> Long_Text {
 	name := item_name(item_new(s.choice.kind, s.choice.mark))
 	d1, d2: [20]u8
 	if s.choice.mode == .Buy {
-		total := trade_unit_price(s.choice.kind, s.choice.mark) * s.quantity
+		total := trade_unit_price(u, s.choice.kind, s.choice.mark) * s.quantity
 		return long_join("Buy ", int_text(&d1, s.quantity), " ", name_str(&name), " for ", int_text(&d2, total), " Jools?")
 	}
 	return long_join("Sell ", int_text(&d1, s.quantity), " ", name_str(&name), " for ", int_text(&d2, trade_offer_total(s.choice.kind, s.quantity)), " Jools?")
@@ -405,7 +405,7 @@ confirm_trade_labels := [?]string{"Yes", "No"}
 
 confirm_trade_draw :: proc(s: ^Confirm_Trade, tb: ^Text_Buffer, session: ^Session) {
 	draw_post_header(tb, &session.universe, s.choice.post)
-	text := confirm_trade_text(s)
+	text := confirm_trade_text(&session.universe, s)
 	text_put_wrapped(tb, 2, 6, TEXT_COLUMNS - 4, long_str(&text), .White)
 	menu_draw(tb, 12, confirm_trade_labels[:], s.cursor)
 }
