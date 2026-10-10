@@ -125,6 +125,7 @@ combat_round :: proc(u: ^Universe, c: ^Combat, action: Combat_Action) -> (r: Rou
 		u.avatar.fuel.current -= FLEE_FUEL
 		if rng_below(&u.rng, FLEE_ODDS_IN) == 0 {
 			r.outcome = .Escaped
+			avatar_gain_infamy(u, INFAMY_FLEE)
 			ship_calm(u, c.ship, CALM_AFTER_FLEEING)
 			return
 		}
@@ -149,6 +150,7 @@ combat_victory :: proc(u: ^Universe, c: Combat) -> (v: Victory) {
 	ship := actor_get(u, c.ship)^
 	v.loot = dice_roll(&u.rng, LOOT_DICE)
 	v.reputation = KILL_REPUTATION_LOSS
+	avatar_gain_infamy(u, INFAMY_KILL)
 	actor_remove(u, c.ship)
 	actor_add(u, u.galaxy, {kind = .Debris, pos = ship.pos, loot = v.loot})
 	theirs := faction_get(u, ship.faction)

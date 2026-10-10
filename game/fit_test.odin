@@ -115,6 +115,9 @@ screens_fit_the_forty_columns_with_the_longest_names :: proc(t: ^testing.T) {
 	for good in Good {
 		fits(t, "good", Good_Trade{post = post, good = good, note = long_join("Bought 99999 for 99999999.")}, &app)
 	}
+	u.avatar.cargo[.Narcotics] = 999999
+	fits(t, "search", Search_Screen{ship = first_of_kind_on(u, .Military_Ship)}, &app)
+	fits(t, "banned good", Good_Trade{post = post, good = .Narcotics}, &app)
 	fits(t, "star gate", Star_Gate_Screen{gate = first_of_kind_on(u, .Star_Gate)}, &app)
 	for slot in Equip_Slot {
 		fits(t, "slot items", Slot_Items{yard = yard, slot = slot}, &app)

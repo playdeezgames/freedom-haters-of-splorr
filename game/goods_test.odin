@@ -20,6 +20,10 @@ plain_planet :: proc(u: ^Universe) -> Planet_Id {
 	p.tech_level = 5
 	p.values = {}
 	p.market = {}
+	// under a law that bans nothing
+	p.faction = 2
+	f := faction_get(u, 2)
+	f.values, f.authority, f.standards = {}, 0, 100
 	return id
 }
 

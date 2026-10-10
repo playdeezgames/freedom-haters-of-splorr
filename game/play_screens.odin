@@ -123,6 +123,8 @@ navigation_tick :: proc(s: ^Navigation, session: ^Session) -> Transition {
 		case .None:
 		case .Hail:
 			return Push{hail_message(u, ship)}
+		case .Search:
+			return Push{Search_Screen{ship = ship}}
 		case .Shakedown:
 			return Push{Contact_Screen{ship = ship}}
 		case .Nothing_To_Take:

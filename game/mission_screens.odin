@@ -173,7 +173,8 @@ status_draw :: proc(s: ^Status_Screen, tb: ^Text_Buffer, session: ^Session) {
 		text_put(tb, c, row, "%", hue)
 		row += 2
 	}
-	put_field_int(tb, 2, row, "Jools", u.avatar.jools)
+	jools_end := put_field_int(tb, 2, row, "Jools", u.avatar.jools)
+	put_field_int(tb, max(jools_end + 2, 22), row, "Infamy", u.avatar.infamy)
 	row += 2
 	put_field_int(tb, 2, row, "Turn", u.turn)
 	row += 2

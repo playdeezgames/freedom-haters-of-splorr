@@ -170,6 +170,7 @@ The VB's five commodities have no numbers at all (every method throws), so this 
 - **Underworld quest:** a multi-step contact quest (a rumor on a low-reputation planet points to a fixer; carry a package, deliver contraband, survive a shakedown) establishes the connection. Afterwards Black Markets (hidden stations, visible once connected) appear on rougher planets and fixers offer criminal deliveries.
 - **Build order:** A) goods, markets, weight and the trade screens; B) law, contraband, searches and infamy; C) black markets and the underworld quest.
 - Built (A): goods, markets, weight and the trade screens. Base prices (8..120), weights (1..4), a 10% spread, drift +-5 every 50 turns (limit 25%) and 5 units per percent of pressure are constants at the top of `goods.odin`.
+- Built (B): law, contraband searches, infamy. Constants at the top of `law.odin`.
 - Still open (decide while building): base prices and weights per good, drift size, how much your own trades move prices, the fixer's rumor text, and the exact quest steps.
 
 ## Future ideas (owner)

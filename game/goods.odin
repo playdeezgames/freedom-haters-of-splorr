@@ -180,6 +180,9 @@ cargo_fuel_surcharge :: proc(u: ^Universe) -> int {
 
 // How many of a good you can buy right now: what your jools cover, since there is no hold limit.
 goods_max_buy :: proc(u: ^Universe, planet: Planet_Id, good: Good) -> int {
+	if good_banned_at(u, planet, good) {
+		return 0
+	}
 	price := buy_price(u, planet, good)
 	return max(u.avatar.jools, 0) / price // like the trading post's items: all you have, never more
 }
@@ -187,6 +190,9 @@ goods_max_buy :: proc(u: ^Universe, planet: Planet_Id, good: Good) -> int {
 // Buys up to `quantity` (never more than the jools allow). Each unit bought nudges the price up.
 // Returns how many were bought and what they cost.
 goods_buy :: proc(u: ^Universe, planet: Planet_Id, good: Good, quantity: int) -> (bought, cost: int) {
+	if good_banned_at(u, planet, good) {
+		return
+	}
 	bought = min(quantity, goods_max_buy(u, planet, good))
 	cost = bought * buy_price(u, planet, good)
 	u.avatar.jools -= cost
@@ -197,11 +203,15 @@ goods_buy :: proc(u: ^Universe, planet: Planet_Id, good: Good, quantity: int) ->
 
 // Sells up to `quantity` of what you hold. Each unit sold nudges the price down.
 goods_sell :: proc(u: ^Universe, planet: Planet_Id, good: Good, quantity: int) -> (sold, earned: int) {
+	if good_banned_at(u, planet, good) {
+		return
+	}
 	sold = min(quantity, u.avatar.cargo[good])
 	earned = sold * sell_price(u, planet, good)
 	u.avatar.jools += earned
 	u.avatar.cargo[good] -= sold
 	planet_get(u, planet).market[good].pressure -= sold
+	avatar_gain_infamy(u, infamy_for_sale(good, sold))
 	return
 }
 

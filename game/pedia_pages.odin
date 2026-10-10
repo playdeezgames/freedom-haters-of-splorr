@@ -93,6 +93,15 @@ pedia_page_doc :: proc(u: ^Universe, kind: Pedia_Kind, id: int, d: ^Doc) -> (tit
 		doc_trait(d, "Conviction", f.conviction)
 		doc_add(d, .Light_Gray, "Planets: ", int_text(&d1, f.planet_count))
 		doc_blank(d)
+		doc_add(d, .White, "Banned Goods:")
+		bans := faction_bans(f^, Faction_Id(id))
+		if card(bans) == 0 {
+			doc_add(d, .Light_Gray, " - none")
+		}
+		for good in bans {
+			doc_add(d, .Light_Red, " - ", good_info[good].name)
+		}
+		doc_blank(d)
 		doc_add(d, .White, "Other Faction Relationships:")
 		for other_id in u.pedia.factions {
 			if other_id == id {

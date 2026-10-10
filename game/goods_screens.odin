@@ -26,7 +26,11 @@ market_draw :: proc(s: ^Market_Screen, tb: ^Text_Buffer, session: ^Session) {
 	for good in Good {
 		d1, d2, d3: [20]u8
 		i := int(good) + 1
-		texts[i] = long_join(good_info[good].name, " ", int_text(&d1, buy_price(u, planet, good)), "/", int_text(&d2, sell_price(u, planet, good)), " (x", int_text(&d3, u.avatar.cargo[good]), ")")
+		if good_banned_at(u, planet, good) {
+			texts[i] = long_join(good_info[good].name, " (banned) (x", int_text(&d3, u.avatar.cargo[good]), ")")
+		} else {
+			texts[i] = long_join(good_info[good].name, " ", int_text(&d1, buy_price(u, planet, good)), "/", int_text(&d2, sell_price(u, planet, good)), " (x", int_text(&d3, u.avatar.cargo[good]), ")")
+		}
 		labels[i] = long_str(&texts[i])
 	}
 	s.cursor = min(s.cursor, len(Good))
@@ -82,6 +86,13 @@ good_trade_draw :: proc(s: ^Good_Trade, tb: ^Text_Buffer, session: ^Session) {
 	planet := post_planet(u, s.post)
 	draw_post_header(tb, u, s.post)
 	text_put(tb, 2, 5, good_info[s.good].name, .White)
+	if good_banned_at(u, planet, s.good) {
+		law := faction_get(u, planet_get(u, planet).faction)
+		text_put(tb, 2, 9, "Banned by the law of", .Light_Red)
+		text_put(tb, 2, 10, name_str(&law.name), .Light_Red)
+		menu_draw(tb, 12, []string{"Done"}, 0, 2)
+		return
+	}
 	c := put_field_int(tb, 2, 6, "Buy", buy_price(u, planet, s.good))
 	put_field_int(tb, c + 2, 6, "Sell", sell_price(u, planet, s.good))
 	c = put_field_int(tb, 2, 7, "Held", u.avatar.cargo[s.good])
@@ -105,6 +116,12 @@ good_trade_draw :: proc(s: ^Good_Trade, tb: ^Text_Buffer, session: ^Session) {
 good_trade_key :: proc(s: ^Good_Trade, key: Key, session: ^Session) -> Transition {
 	u := &session.universe
 	planet := post_planet(u, s.post)
+	if good_banned_at(u, planet, s.good) {
+		if menu_key(&s.cursor, 1, key) != .None {
+			return Pop{}
+		}
+		return nil
+	}
 	switch menu_key(&s.cursor, len(Good_Button), key) {
 	case .Chosen:
 		d1, d2: [20]u8

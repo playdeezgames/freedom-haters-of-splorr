@@ -46,6 +46,12 @@ ship_disposition :: proc(u: ^Universe, ship: Actor) -> Disposition {
 	if standing <= -25 {
 		score += 1
 	}
+	if u.avatar.infamy >= INFAMY_WARY {
+		score += 1
+	}
+	if u.avatar.infamy >= INFAMY_WANTED {
+		score += 1
+	}
 	return Disposition(clamp(score, 0, 2))
 }
 
@@ -160,6 +166,7 @@ patrol_catch_up :: proc(u: ^Universe) {
 Contact :: enum {
 	None,
 	Hail, // a ship that means no harm says something
+	Search, // a ship that is not friendly found contraband aboard
 	Shakedown, // a hostile ship has caught you
 	Nothing_To_Take, // a hostile ship has caught you and you have nothing it wants
 }
@@ -179,7 +186,14 @@ patrol_contact :: proc(u: ^Universe) -> (ship: Actor_Id, kind: Contact) {
 		if max(abs(d.x), abs(d.y)) > 1 {
 			continue
 		}
-		if ship_disposition(u, other) != .Hostile {
+		disposition := ship_disposition(u, other)
+		if disposition == .Friendly {
+			return id, .Hail
+		}
+		if units, _ := contraband_units(u, other.faction); units > 0 {
+			return id, .Search
+		}
+		if disposition != .Hostile {
 			return id, .Hail
 		}
 		if fine_amount(u) == 0 && takeable_count(u) == 0 {

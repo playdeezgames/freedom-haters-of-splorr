@@ -208,7 +208,7 @@ combat_key :: proc(s: ^Combat_Screen, key: Key, session: ^Session) -> Transition
 	case .Flee:
 		action = .Flee
 	case .Surrender:
-		return Replace{Contact_Screen{ship = s.combat.ship}}
+		return Replace{contact_screen_for(u, s.combat.ship)}
 	}
 	round := combat_round(u, &s.combat, action)
 	digits: [20]u8
@@ -234,4 +234,100 @@ combat_key :: proc(s: ^Combat_Screen, key: Key, session: ^Session) -> Transition
 		return Replace{message_make(.Light_Green, "You get away!", "For now.")}
 	}
 	return nil
+}
+
+// ---- Searches ----
+
+// Back to what the ship wants of you: a search if you carry what it forbids, else the shakedown.
+contact_screen_for :: proc(u: ^Universe, ship: Actor_Id) -> Screen {
+	if units, _ := contraband_units(u, actor_get(u, ship).faction); units > 0 {
+		return Search_Screen{ship = ship}
+	}
+	return Contact_Screen{ship = ship}
+}
+
+Search_Screen :: struct {
+	ship:   Actor_Id,
+	cursor: int,
+}
+
+Search_Choice :: enum {
+	Surrender_Contraband,
+	Pay_Fine,
+	Resist,
+}
+
+search_choices :: proc(u: ^Universe, faction: Faction_Id) -> (list: [len(Search_Choice)]Search_Choice, count: int) {
+	list[count] = .Surrender_Contraband
+	count += 1
+	if search_fine_affordable(u, faction) {
+		list[count] = .Pay_Fine
+		count += 1
+	}
+	list[count] = .Resist
+	count += 1
+	return
+}
+
+search_draw :: proc(s: ^Search_Screen, tb: ^Text_Buffer, session: ^Session) {
+	u := &session.universe
+	faction := actor_get(u, s.ship).faction
+	text_put_centered(tb, 1, "SEARCH!", .Light_Red)
+	text_put(tb, 2, 4, name_str(&faction_get(u, faction).name), .White)
+	text_put(tb, 2, 6, "\"Your hold will be inspected.\"", .Light_Gray)
+	units, _ := contraband_units(u, faction)
+	digits: [20]u8
+	text_put(tb, 2, 8, long_str_of_parts(&digits, "Banned goods aboard: ", units), .Light_Red)
+	list, n := search_choices(u, faction)
+	texts: [len(Search_Choice)]Long_Text
+	labels: [len(Search_Choice)]string
+	d2: [20]u8
+	for i in 0 ..< n {
+		switch list[i] {
+		case .Surrender_Contraband:
+			texts[i] = long_join("Hand Over The Goods")
+		case .Pay_Fine:
+			texts[i] = long_join("Pay The Fine (", int_text(&d2, search_fine(u, faction)), " jools)")
+		case .Resist:
+			texts[i] = long_join("Resist")
+		}
+		labels[i] = long_str(&texts[i])
+	}
+	menu_draw(tb, 12, labels[:n], s.cursor)
+}
+
+search_key :: proc(s: ^Search_Screen, key: Key, session: ^Session) -> Transition {
+	u := &session.universe
+	faction := actor_get(u, s.ship).faction
+	list, n := search_choices(u, faction)
+	if menu_key(&s.cursor, n, key) != .Chosen || s.cursor >= n {
+		return nil // no escaping a search
+	}
+	digits: [20]u8
+	switch list[s.cursor] {
+	case .Surrender_Contraband:
+		units := avatar_surrender_contraband(u, s.ship)
+		m := message_make(.Light_Red, "Contraband seized.")
+		message_add(&m, .Light_Gray, int_text(&digits, units), " units.")
+		message_add(&m, .Light_Gray, "They have your name now.")
+		return Replace{m}
+	case .Pay_Fine:
+		fine := avatar_bribe(u, s.ship)
+		m := message_make(.Light_Red, "Fine paid.")
+		message_add(&m, .Light_Gray, int_text(&digits, fine), " jools.")
+		message_add(&m, .Light_Gray, "They look the other way.")
+		return Replace{m}
+	case .Resist:
+		return Replace{Combat_Screen{combat = combat_start(u, s.ship)}}
+	}
+	return nil
+}
+
+@(private = "file")
+long_str_of_parts :: proc(digits: ^[20]u8, label: string, n: int) -> string {
+	@(static) buf: [48]u8
+	text := int_text(digits, n)
+	copy(buf[:], label)
+	copy(buf[len(label):], text)
+	return string(buf[:len(label) + len(text)])
 }

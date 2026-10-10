@@ -211,6 +211,7 @@ Avatar :: struct {
 	oxygen:        Store, // dead when it runs out
 	hull:          Store, // what combat wears down; mended at a shipyard
 	cargo:         [Good]int, // units of trade goods in the hold
+	infamy:        int, // standing with the underworld; see law.odin
 }
 
 // A Mark I life support and fuel supply, which is what the ship starts with (250 per Mark).
